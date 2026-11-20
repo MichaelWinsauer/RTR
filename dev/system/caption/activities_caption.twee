@@ -1,0 +1,18 @@
+:: Activities Caption [system nobr] {"position":"2000,425","size":"100,100"}
+<<if setup.sameLocation($player.location, $mom.location)>>
+	<div class="activity-image-wrapper">
+    	<<DisplayActivity $mom>>
+	</div>
+<</if>>
+<<if setup.sameLocation($player.location, $sister.location)>>
+    <div class="activity-image-wrapper">
+        <<DisplayActivity $sister>>
+	</div>
+<</if>>
+<<if !setup.sameLocation($player.location, $sister.location) && !setup.sameLocation($player.location, $mom.location)>>
+	<div style="align-self: center;">
+    	Nobody is here...
+    </div>
+<</if>>
+
+

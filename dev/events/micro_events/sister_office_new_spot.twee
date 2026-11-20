@@ -1,0 +1,57 @@
+:: Sister Office New Spot [micro_event event nobr] {"position":"2300,2900","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 26, "Her excuses to be near me" in Define Events):
+   she moved her desk over to mine. Happens once ($sister.flags.movedDesk). Counts toward $sister.flags.officeExcuses. */
+<<set $sister.flags.officeExcuses += 1>>
+<<set $sister.flags.movedDesk to true>>
+<div class="activity-image-wrapper" style="max-height: 400px">
+	<<DisplayActivity $sister>>
+</div>
+<p>Something about the room is off when I walk through it, and it takes me a second to work out what. $sister.callName's desk used to stand over by the window, about as far from mine as the office allows. It doesn't anymore. Somebody has dragged it across the room and pushed it in about six feet from my desk, angled just enough that she could see my screen if she leaned back in her chair.</p>
+<p>She's typing very hard, the way people type when they know they're being looked at.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $player, text: "Did your desk get lonely over by the window?" },
+	{ who: $sister, text: "There was a glare. On my screen. A really bad glare." },
+	{ text: "The blinds over there have been down since the day we moved in." },
+	{ who: $sister, text: "And there's a draft. And over here I'm closer to the printer, so really, it's an efficiency thing. You love efficiency." },
+	{ text: "The printer is on the far side of the room, right next to where her desk used to be. She knows I know that. She keeps typing anyway." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<if $company.vent.level > 0>>
+	<p>Her new spot is also very nearly under the vent. I think about that for a moment and decide it's a fine place for a desk.</p>
+<</if>>
+<br>
+<div id="new-spot-choice">
+	<div>
+		<<link "Leave it where it is">>
+			<<replace "#new-spot-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Efficiency. Sure." },
+					{ who: $sister, text: "Thank you. Finally, somebody around here who respects logistics." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She doesn't look up, but she smiles at her keyboard for a good ten minutes, and twice I hear her chair creak as she leans back to see what I'm working on.</p>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Have her put it back">>
+			<<replace "#new-spot-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Put it back where it was. That's a walkway now." },
+					{ who: $sister, text: "The walkway. Right. Of course. The very important walkway." },
+					{ text: "She drags it back across the carpet herself, one loud scrape at a time, and waves off anyone who tries to help." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>Two days later I notice it has moved again. Only a foot this time, back toward my side of the room, as if it wandered over there on its own. I don't say anything. The week after, it's moved another foot.</p>
+				<<UpdateStat "+" "SisterLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

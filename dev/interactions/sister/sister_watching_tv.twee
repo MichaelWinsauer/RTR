@@ -1,0 +1,213 @@
+:: Sister watching_tv [interaction] {"position":"150,2225","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister watching TV in the living room.
+   _momHere: $mom is in the living room too (setup.npcIsAt).
+   1 (the cooking show) and 2 (the true crime documentary) always.
+   3 (the three of us on the couch): only with _momHere. +1 SisterLust after sister_conflictingFeelings (her foot under the blanket).
+   4 (the remote): before sister_conflictingFeelings, without $mom.
+   5 (the fishing show): after sister_partyAnimal, before sister_conflictingFeelings, without $mom. She remembers nothing of that night.
+   6 (the blanket, +1 SisterLust): after sister_conflictingFeelings, without $mom.
+   7 (the pitch show): after sister_internshipSeason. */
+<<silently>>
+<<set _momHere to setup.npcIsAt("mom", "livingroom")>>
+<<set _variants to [1, 2]>>
+<<if _momHere>><<run _variants.push(3)>><</if>>
+<<if !_momHere && !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(4)>><</if>>
+<<if !_momHere && setup.questDone("sister_partyAnimal") && !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(5)>><</if>>
+<<if !_momHere && setup.questDone("sister_conflictingFeelings")>><<run _variants.push(6)>><</if>>
+<<if setup.questDone("sister_internshipSeason")>><<run _variants.push(7)>><</if>>
+<<set _pick to setup.pickTalkScene("Sister watching_tv", _variants)>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* 1: The cooking show */
+<<case 1>>
+$sister.callName is on the couch with her knees pulled up and a bag of pretzels balanced on top of them, watching a cooking competition. On screen, a man with forty seconds left on the clock is close to tears over a risotto.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "He's going home. Look at him. That man is going home and he knows it." },
+{ who: $player, text: "What did he do?" },
+{ who: $sister, text: "Mango. In the risotto. Who does that? You don't do that to a risotto." },
+{ who: $player, text: "Have you ever made a risotto?" },
+{ who: $sister, text: "I've made toast. I've seen a risotto. I know enough." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the other end of the couch. She pushes the pretzels at me and her socked feet against my leg, which is the rent for that end of the couch, and we watch the judges walk down the line.
+
+<<silently>>
+<<set _msgs = [
+{ text: "The tall judge tastes the mango risotto, closes his eyes for a while and calls it 'a bold choice'." },
+{ who: $sister, text: "Bold means bad. Bold always means bad. Watch this." },
+{ text: "Bold does not mean bad. The mango man wins the round, and the woman with the perfect rack of lamb is sent home." },
+{ who: $sister, text: "No. No! This show is rigged. I'm writing a letter." },
+{ who: $player, text: "To who?" },
+{ who: $sister, text: "To the lamb lady. To tell her she was robbed, and that I'd eat her lamb any day." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She never writes the letter. She does spend the whole next episode calling every dish 'bold' in the tall judge's voice, until I can't hear the word without laughing.
+
+/* 2: The true crime documentary */
+<<case 2>>
+The living room is dark except for the TV, and the TV is showing a lake at night with a police boat drifting across it. $sister.callName has a blanket pulled up to just under her eyes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Sit down. Don't come up behind me like that. Sit where I can see you." },
+{ who: $player, text: "What are you watching?" },
+{ who: $sister, text: "A documentary. A man in Ohio. Or Iowa. One of the ones with all the vowels. Nobody suspected a thing for eleven years." },
+{ text: "On the screen, a neighbor in a fleece vest stands in his driveway and shakes his head. 'He was always so polite,' he says. 'Waved every morning. Helped us move our piano once.'" },
+{ who: $sister, text: "See, that's how you know. It's always the polite ones. If I ever disappear, tell the police to check the guy in my stats class who holds the door for everyone." },
+{ who: $player, text: "He holds the door?" },
+{ who: $sister, text: "Every time! For everybody! What's he hiding?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take a handful of her popcorn and watch the neighbor talk about the piano. Eleven years later he still looks more confused than scared, like he's waiting for somebody to explain how he missed it.
+
+Halfway through the second episode she slides down the couch until her feet are tucked under my leg for warmth. Before she goes up to bed she makes me check that the back door is locked. Then she makes me check again.
+
+/* 3: The three of us on the couch (with $mom) */
+<<case 3>>
+$sister.callName and $mom.callName are sharing the couch and one blanket that's too small for both of them. Some hospital drama is on, the kind where all the doctors are too good-looking to have been to medical school. $mom.callName made it about ten minutes. She's asleep sitting up, chin on her chest, with the remote still in her hand.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Shh. She's out. Don't wake her, she'll say she wasn't sleeping and then she'll rewind it." },
+{ who: $player, text: "How far?" },
+{ who: $sister, text: "All the way back. Every time. I've seen this first scene four times this week. I know the main doctor's whole life. His wife left him for a pilot." },
+{ text: "I squeeze in on $sister.callName's other side. The blanket doesn't reach me, so she peels a corner off $mom.callName's knees and passes it over, as slowly as somebody defusing a bomb." },
+{ who: $sister, text: "If she wakes up, it was you." },
+{ who: $mom, text: "I'm watching, sweetie. I'm just resting my eyes." },
+{ text: "She doesn't open them. $sister.callName holds up four fingers at me and mouths 'four times'." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if setup.questDone("sister_conflictingFeelings")>>
+Under the blanket, $sister.callName's foot finds my ankle and stays there. She keeps her eyes on the good-looking doctor the whole time. Every time $mom.callName shifts in her sleep, the foot goes perfectly still, and every time she settles again, it moves a little further up my shin.
+
+<<UpdateStat "+" "SisterLust" 1>>
+<<else>>
+We watch the rest of the episode in whispers. $sister.callName explains every character to me as they come on screen, including which ones are secretly in love with each other, which turns out to be nearly all of them. When the credits roll, $mom.callName wakes up, says that was a good one, and asks us to rewind it.
+<</if>>
+
+/* 4: The remote (before sister_conflictingFeelings, without $mom) */
+<<case 4>>
+$sister.callName is watching a dating show where everybody lives in a villa and nobody seems to have a job. I came down to watch the game.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The game's on." },
+{ who: $sister, text: "So is this. And this was on first. That's the law." },
+{ who: $player, text: "Where's the remote?" },
+{ who: $sister, text: "No idea. It's lost. Very sad for everyone." },
+{ text: "She's sitting on it. I can see the outline through the cushion, and she can see me seeing it, and she just settles in harder." },
+{ who: $player, text: "Halftime. I get the game at halftime." },
+{ who: $sister, text: "You get the commercials. And you have to watch this part with me, because Jake is about to choose between Kayla and the other Kayla, and I need a witness." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Watch the other Kayla">>
+I sit down, mostly to make a point. Twenty minutes later I know more about both Kaylas than I know about most of my clients. The other Kayla is clearly the better choice. She's funny, and she once drove Jake to the airport at four in the morning without being asked.
+
+<<silently>>
+<<set _msgs = [
+{ text: "Jake picks the first Kayla." },
+{ who: $player, text: "Are you kidding me? After the airport?" },
+{ who: $sister, text: "I KNOW. I know! Welcome. Now you see what I've been dealing with." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+When the commercials come on, she shifts her weight, pulls the remote out from under her and hands it to me. It's still warm. By then I can't even remember which channel the game is on, and I leave it where it is.
+<</linkreplace>>
+
+/* 5: The fishing show (after sister_partyAnimal, before sister_conflictingFeelings, without $mom) */
+<<case 5>>
+She's watching a romantic comedy, the one where the woman owns a flower shop and the man is a lawyer from the big city who has to learn to slow down. I sit down at the other end of the couch. Right then the lawyer and the florist get caught in the rain together, and he takes her face in his hands, and $sister.callName changes the channel so fast she nearly drops the remote.
+
+The new channel is a fishing show. Two men in a small boat on a gray lake, one of them whispering about water temperature.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh, I love this show." },
+{ who: $player, text: "Since when?" },
+{ who: $sister, text: "Since forever. Huge fan. Of... bass." },
+{ text: "Nothing happens on screen for a long time. A lure goes into the water. One of the men says 'there she is' about a fish that doesn't bite." },
+{ who: $player, text: "Do you want to go back to the movie?" },
+{ who: $sister, text: "No! No. I've seen it. They end up together. It's very predictable. This is way more... suspenseful." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We watch twenty minutes of the fishing show. She sits very straight at her end of the couch with a cushion hugged against her stomach, and when one of the men finally lands a fish, she claps for it, quietly, without looking over at me.
+
+I ask if she's okay. She says she's great, she's just tired, she's been sleeping weird lately. Then she goes upstairs before the episode is over and leaves me the remote, and the bass.
+
+/* 6: The blanket (after sister_conflictingFeelings, without $mom) */
+<<case 6>>
+She's set up a movie night and didn't tell me about it: the big blanket from the hall closet, two mugs of hot chocolate on the coffee table, one of them obviously meant for me, and a horror movie paused on its title screen.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You're late. I made you a hot chocolate an hour ago, and now it's lukewarm. That's on you." },
+{ who: $player, text: "You never told me." },
+{ who: $sister, text: "I was going to tell you, and then I didn't, and then I made two anyway. Just sit." },
+{ text: "She lifts the edge of the blanket and I get in under it. There's a moment where we both work out where to put our arms, and neither of us is any good at it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Press play">>
+Twenty minutes in, something bursts out of a closet on screen and she grabs my hand under the blanket. The thing goes back in the closet. She keeps hold of my hand.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "That doesn't count. That was a reflex." },
+{ who: $player, text: "Okay." },
+{ who: $sister, text: "It's still a reflex. Some reflexes take a while, okay? Science doesn't know everything." },
+{ text: "Upstairs, a door opens. $mom.callName's footsteps cross the landing and start down the stairs, and $sister.callName's hand is back in her own lap before the second step. By the time $mom.callName leans in the doorway, she's sitting a whole cushion away with her mug in both hands." },
+{ who: $mom, text: "Is this the scary one? Don't keep each other up all night, you two." },
+{ who: $sister, text: "We won't! It's not even that scary. It's mostly closets." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName goes back up to bed. A minute after her door closes, $sister.callName's hand comes back under the blanket and finds mine, and this time she doesn't call it anything.
+
+<<UpdateStat "+" "SisterLust" 1>>
+<</linkreplace>>
+
+/* 7: The pitch show (after sister_internshipSeason) */
+<<case 7>>
+$sister.callName is watching one of those shows where nervous people pitch their companies to a row of rich people in leather chairs. She has a legal pad on her knee and is giving every pitch a score out of ten.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "This guy wants two hundred thousand dollars for a water bottle that reminds you to drink water." },
+{ who: $player, text: "Doesn't your mouth do that?" },
+{ who: $sister, text: "That's what the bald one said! Okay, he gets a four. He has nice shoes, though. Five." },
+{ who: $sister, text: "Would you ever go on one of these? You'd be so good. You'd do the thing where you don't blink." },
+{ who: $player, text: "What thing?" },
+{ who: $sister, text: "The thing! Where you just look at somebody until they agree with you. You do it in meetings. You do it to $mom.callName all the time." },
+{ text: "She shows me. She props her chin on her hand and stares at me without blinking until her eyes water, and it's a better impression than I'd like." },
+{ who: $player, text: "I don't need their money." },
+{ who: $sister, text: "You'd go on for the fame, then. People would know who you are." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her that's the worst part. On those shows, they make you explain exactly what your product does, in front of millions of people. She laughs and calls me paranoid, then bumps the water bottle up to a six for the shoes.
+
+<</switch>>
+
+<<UpdateStat "+" "SisterRelation" 1>>
+
+<div class="navigation-link"><<link "Get up from the couch" $player.location.passage>><</link>></div>

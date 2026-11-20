@@ -1,0 +1,94 @@
+:: Sister Kitchen Snack [micro_event event nobr] {"position":"1675,2900","size":"100,100"}
+/* Sharing food, with a running prank: steal her snack and she gets her revenge the next time this event shows up
+   ($sister.flags.snackRevenge). */
+<<set _vx to setup.homeDevice()>>
+<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
+<<set _vxCost to 10 + 10 * _vxLevel>>
+<<Video "images/characters/sister/events/kitchen/snack.mp4" "" "" 500>>
+<<if $sister.flags.snackRevenge>>
+	<<set $sister.flags.snackRevenge to false>>
+	<p>I walk into the kitchen and find $sister.callName leaning against the counter, arms crossed, grinning like a cat.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $sister, text: "Remember when you took my cereal?" },
+		{ who: $player, text: "Vaguely." },
+		{ who: $sister, text: "I put salt in your coffee jar. Enjoy your morning." },
+		{ who: $player, text: "That's war, you know." },
+		{ who: $sister, text: "Good. I was getting bored." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+	<br>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<<else>>
+	<p>I walk into the kitchen. $sister.callName is pouring cereal at the counter, humming, with a few strands of hair falling across her face.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $sister, text: "Oh my god, this cereal is actually amazing today. Want some, little $sister.callPlayerShort?" }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+	<div id="choice1">
+		<div>
+			<<link "Make toast for both of you">>
+				<<replace "#choice1">>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "I'll make toast. We can split everything." },
+						{ who: $sister, text: "Look at you being useful for once." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<p>We eat standing at the counter, trading bites and complaints about the week.</p>
+					<<UpdateStat "+" "SisterRelation" 2>>
+				<</replace>>
+			<</link>>
+		</div>
+		<div>
+			<<link "Steal a handful of her cereal">>
+				<<replace "#choice1">>
+					<<silently>>
+					<<set _msgs to [
+						{ text: "I reach over and grab a handful straight from the box." },
+						{ who: $sister, text: "Oh, you did not just do that." },
+						{ who: $player, text: "Too late." },
+						{ who: $sister, text: "You're on, little $sister.callPlayerShort. This is not over." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<<set $sister.flags.snackRevenge to true>>
+				<</replace>>
+			<</link>>
+		</div>
+		<<if _vxLevel > 0>>
+			<div>
+				<<if _vx.lastUsedAtDay == $date.dayCount>>
+					<span style="opacity: .5;">Use the prototype (already used today)</span>
+				<<elseif _vx.charge < _vxCost>>
+					<span style="opacity: .5;">Use the prototype (not enough charge)</span>
+				<<else>>
+					<<link "Use the prototype while she eats">>
+						<<replace "#choice1">>
+							<<set _vx.charge -= _vxCost>>
+							<<set _vx.lastUsedAtDay to $date.dayCount>>
+							<<set _vx.lastUsedOnWho to "sister">>
+							<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
+								<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
+								<p>She squints at me. "Why are you being so weird?" she says, and takes her bowl to her room.</p>
+								<<UpdateStat "-" "SisterRelation" 3>>
+								<<UpdateStat "+" "SisterResistance" 4>>
+							<<else>>
+								<<set _gain to 1 + _vxLevel>>
+								<<set _lustGain to 4 + 4 * _vxLevel>>
+								<p>I turn the prototype on in my pocket. <<DevicePulse `_vxLevel + 1`>> She keeps talking longer than usual, laughing at my jokes and not noticing how close she is standing to me.</p>
+								<<UpdateStat "-" "SisterRelation" 1>>
+								<<UpdateStat "+" "SisterCorruption" _gain>>
+								<<UpdateStat "+" "SisterLust" _lustGain>>
+							<</if>>
+						<</replace>>
+					<</link>>
+				<</if>>
+			</div>
+		<</if>>
+	</div>
+<</if>>

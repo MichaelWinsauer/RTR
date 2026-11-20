@@ -1,0 +1,59 @@
+:: Sister tutor_home [interaction] {"position":"525,2475","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister tutoring a paying student at home (Tutoring task).
+   The student is paying for her time, not me, so these are short and change nothing. The students are one-off
+   college freshmen with no story variable. */
+<<silently>>
+<<set _pick to setup.pickTalkScene("Sister tutor_home", [1, 2, 3])>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* ——— 1: The meter is running ——— */
+<<case 1>>
+$sister.callName is sitting across from a lanky freshman named Kevin, with a sheet of graph paper between them and a bag of M&Ms spread out on it in little piles. She's explaining something about limits by eating the M&Ms one at a time. Kevin looks like he's understanding it better than he ever has, and also like he would like an M&M.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hi. No. We're in session." },
+{ who: $player, text: "I just wanted to ask..." },
+{ who: $sister, text: "It's twenty-five dollars an hour, $sister.callPlayer. If you want to sit in, you're paying, too. Kevin's paying. Right, Kevin?" },
+{ text: "Kevin nods. Kevin seems scared of her, and I can't say I blame him." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I leave. Behind me she eats another M&M and tells Kevin that this, right here, is what it means for something to approach zero.
+
+/* ——— 2: The introduction ——— */
+<<case 2>>
+She's tutoring a girl with a ponytail and a highlighter-yellow sweater, and they both look up when I come in. The girl smiles at me. $sister.callName does not.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "This is $player.name. He lives here. Sometimes. Like a cat." },
+{ text: "The girl laughs. She asks me what I do, and I've barely started answering before $sister.callName taps her pen on the worksheet, twice, very loudly." },
+{ who: $sister, text: "Problem six, Megan. It's not going to solve itself. Unless he's going to solve it for you? No? Then he's going." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at me over Megan's head with her eyebrows all the way up, as if to ask what exactly I think I'm doing. I hold up my hands and back out of the room. I can hear her explaining problem six at a volume meant for the hallway.
+
+/* ——— 3: Almost done ——— */
+<<case 3>>
+She's wrapping up a session with a guy in a varsity jacket who keeps checking his phone. She has her teacher face on, the one she must have copied from somebody, because she certainly never had it at home.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Ten more minutes. I can tell from your face you want something. It's going to have to wait ten minutes." },
+{ who: $player, text: "I don't want anything." },
+{ who: $sister, text: "You always want something. Ten minutes. Go make yourself a sandwich. Make me one too, while you're at it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The guy in the jacket looks from her to me and back, clearly trying to work out how the household works. She snaps her fingers in front of his worksheet, and his attention goes straight back to it. I didn't know she could do that. Somebody should put it to use.
+
+<</switch>>
+
+<div class="navigation-link"><<link "Leave them to it" $player.location.passage>><</link>></div>

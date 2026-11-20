@@ -1,0 +1,80 @@
+:: Meal Struggling Student [activity meal] {"position":"1850,2225"}
+/*
+{
+        id: "struggling_student",
+        passage: "Meal Struggling Student",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("struggling_student").isActive = false,
+        ]
+}
+   Activated by: "Struggling Student" (sister_strugglingStudent). I overheard her phone call
+   about failing calculus and losing the scholarship. $mom.callName doesn't know.
+*/
+$sister.callName has a calculus textbook open next to her plate, propped against the fruit bowl, and she isn't reading it. She's just looking at it, the way you look at a dog that might bite.
+
+/* IMAGE: images/meals/important/struggling_student.jpg | Sister at the table, chin on her fist, staring at a thick math textbook propped against the fruit bowl. Her food untouched. Mom glancing over from the counter. */
+
+Her food is untouched. She's cut it into very small pieces and moved them around so it looks like progress.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Studying at the table now? Look at you." },
+{ who: $sister, text: "Mm-hm." },
+{ who: $mom, text: "How are your classes going? You haven't said much lately." },
+{ who: $sister, text: "Fine. Good. Busy." },
+{ who: $mom, text: "And the math one? You said the professor was a little strict." },
+{ who: $sister, text: "He's fine. It's fine. Everything's fine, $mom.callName. Can I have the ketchup?" },
+{ text: "There isn't anything on her plate that needs ketchup. $mom.callName passes it anyway." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I know exactly what's going on behind that face. I heard all of it through her door: the professor who looks at her like she asked what a number is, the GPA hanging on by a fingernail, the scholarship. And the part she said almost too quietly to hear, that $mom.callName is already counting every dollar and she can't do that to her.
+
+$sister.callName looks up and finds me watching her. For a second her eyes go wide. She's working out whether I heard. Then she looks back at the textbook.
+
+I could fix this for her right now. I could also make it worse.
+
+<div id="ss-choice">
+<<link "Cover for her">><<replace "#ss-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "She's been studying like crazy, $mom.callName. I hear her through the wall at night. Calculus is just brutal, everybody struggles with it at first." },
+{ who: $mom, text: "Oh, I know, I know. I just worry. You'd tell me if something was wrong, right, sweetie?" },
+{ who: $sister, text: "Course." },
+{ text: "Under the table, her foot finds mine and presses against it once. A thank-you. Or a warning. With her it's often both." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+Later, when $mom.callName is at the sink, $sister.callName leans over and whispers that I'm the worst and that she owes me one. I tell her I'll remember that.
+<<UpdateStat "+" "SisterRelation" 3>>
+<</replace>><</link>>
+<<link "Let $mom.callName notice">><<replace "#ss-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You've been looking at that page for ten minutes, $sister.callName." },
+{ who: $sister, text: "It's a hard page." },
+{ who: $mom, text: "Honey... is something wrong with that class?" },
+{ who: $sister, text: "No! God. It's just a test coming up. Can everybody stop staring at me?" },
+{ text: "She closes the book, grabs her plate and leaves it on the counter, still full. Upstairs, her door closes, not quite a slam, just loud enough for both of us to hear it." },
+{ who: $mom, text: "Did I say something?" },
+{ who: $player, text: "I think she's just stressed. I'll talk to her." },
+{ who: $mom, text: "Would you? She listens to you more than to me lately." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She doesn't, yet. But the more scared $sister.callName gets, the more she'll want someone to talk to who isn't $mom.callName.
+<<UpdateStat "+" "MomRelation" 2>>
+<<UpdateStat "-" "SisterRelation" 2>>
+<</replace>><</link>>
+</div>

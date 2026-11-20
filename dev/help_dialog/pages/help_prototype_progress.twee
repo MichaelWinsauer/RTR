@@ -1,0 +1,7 @@
+:: Help Prototype Progress [nobr] {"position":"300,4500"}
+<p>The first bar in the sidebar, <b>Prototype Progress</b>, shows how finished the prototype is. Right now it is at <b><<= $company.prototype.progress>> / <<= $company.prototype.maxProgress>></b>.</p>
+<p>You raise it by working on it: at the laptop in your Bedroom, by researching at the Company office, or at the <a href="#" data-help="Help Prototype Workbench">workbench</a> there, which takes longer but moves it much further if the work goes well. Progress cannot go past the current limit. The limit rises as the story moves on, with checkpoints at <b>40</b>, <b>70</b> and <b>100</b>.</p>
+<p>Progress is also the prototype's <b>stability</b>. The less finished it is, the more it glitches while you <a href="#" data-help="Help Prototype Minigame">calibrate</a> it. At 100 it is completely stable.</p>
+<div class="help-values">
+	<span>Below 40: very unstable</span><span>40 to 69: glitchy</span><span>70 to 99: mostly stable</span><span>100: stable</span>
+</div>

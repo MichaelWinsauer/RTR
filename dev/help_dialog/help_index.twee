@@ -1,0 +1,44 @@
+:: Help Index {"position":"175,4250"}
+/* The sidebar of the help dialog (see "Help Dialog Script"). Nothing links here, the dialog reads this text.
+   A line starting with "# " is a theme (a group of links); a line starting with "- " is a link below it:
+       - Label shown in the sidebar | Name of the passage with the page
+   To add a page: write a passage (tag it nobr), then add one line here. */
+
+# Gameplay
+- Time and actions | Help Time And Actions
+- Quests | Help Quests
+- Menu buttons | Help Menu Buttons
+- Meals | Help Meals
+
+# Prototype
+- Overview | Help Prototype Overview
+- Progress and stability | Help Prototype Progress
+- Charging | Help Prototype Charge
+- Calibration | Help Prototype Calibration
+- Calibration minigame | Help Prototype Minigame
+- The workbench | Help Prototype Workbench
+
+# NPCs
+- Profiles | Help Npc Profiles
+- Stats | Help Npc Stats
+- Interacting | Help Npc Interaction
+
+# Locations
+- Home | Help Places Home
+- Desks | Help Places Desks
+
+# Company
+- Overview | Help Company Overview
+- Header and work hours | Help Company Header
+- Action buttons | Help Company Actions
+- Weekly schedule | Help Company Schedule
+- Tasks | Help Company Tasks
+- Employees | Help Company Employees
+- Skills and morale | Help Company Skills
+- Projects | Help Company Projects
+- Finances | Help Company Finances
+- Company stats | Help Company Stats
+- Devices | Help Company Devices
+- Mails | Help Company Mails
+- Cameras | Help Company Cameras
+- Every night | Help Company Daily Cycle

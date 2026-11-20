@@ -1,0 +1,104 @@
+:: Profile Progression [nobr] {"position":"2525,1050","size":"100,100"}
+/* The history mixes finished quests with the entries added by <<ProfileLog>>. */
+<<set _upcoming to []>>
+<<set _now to null>>
+<<set _history to []>>
+
+/*
+	Optionally add the quests to the log.
+
+<<for _i = 0; _i < _npc.quests.length; _i++>>
+	<<set _q to _npc.quests[_i]>>
+	<<if !_q.title || !_q.next || _q.task == "...">>
+		<<continue>>
+	<</if>>
+	<<if _q.done>>
+		<<run _history.push({
+			phase: "past", state: "done", kind: "Quest",
+			when: (_q.doneDay != null ? _q.doneDay : -1),
+			title: _q.title, text: _q.task
+		})>>
+	<</if>>
+<</for>>
+(end of the optional block; it had no closing mark, so it also switched off the current and upcoming quests below) */
+
+<<set _q to setup.getCurrentQuest(_npc)>>
+/* titles go through setup.questDisplay (Define Quests), like the sidebar: a quest whose requirements aren't met
+   shows its stand-in title, so the profile never spoils what comes next. Hidden quests don't show at all. */
+<<if _q and _q.next and _q.task != "..." and !_q.hidden>>
+	<<set _qd to setup.questDisplay(_q)>>
+	<<set _open to _q.active and !_qd.locked>>
+	<<set _now to {
+		phase: "now", state: (_open ? "active" : "locked"), kind: "Quest",
+		title: _qd.title,
+		text: (_open ? _qd.task : ((_q.requirementsText || []).map((t, i) => setup.questRequirementText(_q, i)).join(" · ") || "Not available yet."))
+	}>>
+<</if>>
+
+/* the next two quests, following the "next" ids: never their real titles, they haven't started yet */
+<<set _q to (_q and _q.next) ? setup.getQuestById(_q.next) : null>>
+<<for _q and _q.next and _upcoming.length < 2>>
+	<<if _q.task != "..." and !_q.hidden>>
+		<<run _upcoming.push({
+			phase: "upcoming", state: "locked", kind: "Quest",
+			title: (_q.lockedTitle || setup.questLockedText.title),
+			text: ((_q.requirementsText || []).map((t, i) => setup.questRequirementText(_q, i)).join(" · ") || "Requires the previous step.")
+		})>>
+	<</if>>
+	<<set _q to setup.getQuestById(_q.next)>>
+<</for>>
+
+<<for _log range _p.log>>
+	<<run _history.push({
+		phase: "past",
+		state: "log",
+		kind: _log.kind,
+		when: _log.when, 
+		title: _log.title, 
+		text: _log.text, 
+		effects: _log.effects
+	})>>
+<</for>>
+
+/* newest first: reverse keeps the later entry on top when two share a day */
+<<set _items to _upcoming.reverse().concat((_now ? [_now] : []), _history.reverse().sort((a, b) => b.when - a.when))>>
+
+<<if _items.length == 0>>
+	<p class="pf-empty">Nothing recorded yet.</p>
+<<else>>
+<ol class="pf-tl">
+	<<for _item range _items>>
+		<li @class="'pf-tl-item is-' + _item.phase + ' st-' + _item.state">
+			<span class="pf-tl-when">
+				<<if _item.phase == "upcoming">>Upcoming
+				<<elseif _item.phase == "now">>Now
+				<<elseif _item.when < 0>>Earlier
+				<<else>>Day <<= _item.when>>
+				<</if>>
+			</span>
+			<span class="pf-tl-dot"></span>
+			<div class="pf-tl-body">
+				<div class="pf-tl-title">
+					<b><<= wikifyText(_item.title)>></b>
+					<span class="pf-kind"><<= _item.kind>></span>
+					<<if _item.state == "done">>
+						<span class="pf-status ok">Done</span>
+					<<elseif _item.state == "active">>
+						<span class="pf-status active">Active</span>
+					<<elseif _item.state == "locked">>
+						<span class="pf-status locked">Locked</span>
+					<</if>>
+					<<for _effect range (_item.effects || [])>>
+						<span @class="'pf-effect ' + (_effect.delta < 0 ? 'down' : 'up')">
+							<<= _effect.stat>> <<if _effect.delta > 0>>+<</if>><<= _effect.delta>>
+						</span>
+					<</for>>
+				</div>
+				<<if _item.text>>
+					<p><<= wikifyText(_item.text)>></p>
+				<</if>>
+			</div>
+		</li>
+	<</for>>
+</ol>
+<</if>>

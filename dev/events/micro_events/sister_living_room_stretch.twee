@@ -1,0 +1,90 @@
+:: Sister Living Room Stretch [micro_event event nobr] {"position":"1425,3025","size":"100,100"}
+/* Never forced: you can simply watch, challenge her to a rep contest, use the prototype, or walk away. */
+<<set _vx to setup.homeDevice()>>
+<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
+<<set _vxCost to 10 + 10 * _vxLevel>>
+<p>$sister.callName is on the living room floor in workout clothes with a fitness video playing on the TV, in the middle of a set.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Ugh... almost done. Don't just stand there, little $sister.callPlayerShort." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Sit and watch quietly">>
+			<<replace "#choice1">>
+				<<if random(1, 100) <= 30 + Math.round($sister.stats.resistance / 2)>>
+					<<silently>>
+					<<set _msgs to [
+						{ text: "I sit on the arm of the couch and watch her go through the routine. A few reps later she looks over her shoulder." },
+						{ who: $sister, text: "Take a picture, it lasts longer." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<br>
+					<<UpdateStat "-" "SisterRelation" 1>>
+				<<else>>
+					<p>I sit on the arm of the couch and watch her go through the routine. She's so focused on the video that she never notices me.</p>
+				<</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Challenge her to a rep contest">>
+			<<replace "#choice1">>
+				<<if random(1, 100) <= 45>>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "Bet I can do more than you." },
+						{ who: $sister, text: "You're on. Loser makes dinner." },
+						{ text: "We go at it until my arms shake. I somehow come out ahead by two." },
+						{ who: $sister, text: "Cheater! Rematch. Tomorrow." }
+					]>>
+					<</silently>>
+				<<else>>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "Bet I can do more than you." },
+						{ who: $sister, text: "You're on. Loser makes dinner." },
+						{ text: "We go at it until my arms shake. She beats me by a mile." },
+						{ who: $sister, text: "Dinner's at seven, little $sister.callPlayerShort. Something with vegetables." }
+					]>>
+					<</silently>>
+				<</if>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<if _vxLevel > 0>>
+		<div>
+			<<if _vx.lastUsedAtDay == $date.dayCount>>
+				<span style="opacity: .5;">Use the prototype (already used today)</span>
+			<<elseif _vx.charge < _vxCost>>
+				<span style="opacity: .5;">Use the prototype (not enough charge)</span>
+			<<else>>
+				<<link "Use the prototype while she works out">>
+					<<replace "#choice1">>
+						<<set _vx.charge -= _vxCost>>
+						<<set _vx.lastUsedAtDay to $date.dayCount>>
+						<<set _vx.lastUsedOnWho to "sister">>
+						<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
+							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
+							<p>She stops mid-rep and frowns at me. "Okay, that's weird. I feel weird." She switches off the video and heads upstairs.</p>
+							<<UpdateStat "-" "SisterRelation" 3>>
+							<<UpdateStat "+" "SisterResistance" 4>>
+						<<else>>
+							<<set _gain to 1 + _vxLevel>>
+							<<set _lustGain to 4 + 4 * _vxLevel>>
+							<p>I turn the prototype on low and sit down. <<DevicePulse _vxLevel>> She slows her pace, a little flushed, and glances at me between sets without saying why.</p>
+							<<UpdateStat "-" "SisterRelation" 1>>
+							<<UpdateStat "+" "SisterCorruption" _gain>>
+							<<UpdateStat "+" "SisterLust" _lustGain>>
+						<</if>>
+					<</replace>>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
+</div>

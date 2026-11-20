@@ -1,0 +1,287 @@
+:: Mom cooking [interaction] {"position":"725,2225","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $mom cooking in the kitchen (breakfast, lunch on free days, dinner).
+   Variants 1 (the onion) and 2 (taste this, with a small choice) always; 3 only at breakfast (time slot 0 or 1).
+   4 while she still works for $boss (Stage 0, before False Sympathy), weekday evenings only.
+   5 after she lost that job (Stage 0, after False Sympathy). 6 from Stage 1 on (she works at my office).
+   7 after No stimulus (mom_controlSession), 8 after her first corruption stage (The Briefing), with a line that
+   changes after A Knock at Night (mom_nightVisit). 7 and 8 only when $sister is not in the kitchen. 8 gives +1 MomLust. */
+<<silently>>
+<<set _mcSisHere to setup.npcIsAt("sister", $player.location.sysName)>>
+<<set _variants to [1, 2]>>
+<<if $time.current.value <= 1>><<run _variants.push(3)>><</if>>
+<<if $company.stage == 0 && !setup.questDone("mom_falseSympathy") && $time.current.value >= 4 && $date.today.value < 5>><<run _variants.push(4)>><</if>>
+<<if $company.stage == 0 && setup.questDone("mom_falseSympathy")>><<run _variants.push(5)>><</if>>
+<<if $company.stage >= 1>><<run _variants.push(6)>><</if>>
+<<if setup.questDone("mom_controlSession") && !_mcSisHere>><<run _variants.push(7)>><</if>>
+<<if $mom.corruptionStage >= 1 && !_mcSisHere>><<run _variants.push(8)>><</if>>
+<<set _pick to setup.pickTalkScene("Mom cooking", _variants)>>
+<</silently>>
+<<DisplayActivity $mom 500>>
+<<switch _pick>>
+
+/* ——— 1: The onion ——— */
+<<case 1>>
+$mom.callName is crying over a cutting board. It takes me a second to see the onion, and another second to stop feeling like I walked in on something. She has her chin tipped up and her eyes screwed half shut, and she's chopping blind, which is either a skill or a cry for help.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't look at me, I'm hideous. It's a strong one. They sell the strong ones on purpose, I swear, so you buy tissues." },
+{ who: $player, text: "Give me the knife." },
+{ who: $mom, text: "You? Honey, the last time you cut an onion we had to throw out the board." },
+{ who: $player, text: "That was one time." },
+{ who: $mom, text: "That was the only time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She hands it over anyway and stands behind my shoulder, sniffing, giving instructions. Fingers curled. No, curled, like a little claw. Let the knife do the work. Don't saw at it, it's an onion, not a log. By the third slice my eyes are running too, and she laughs at me so hard she has to hold on to the counter.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Look at us. If anybody walks in now, they'll think somebody died." },
+{ who: $player, text: "Somebody did. The onion." },
+{ who: $mom, text: "Oh, that's terrible. Give that back, you're making them all different sizes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes the knife and finishes the rest in about nine seconds, all of them exactly the same size, and sweeps them into the pan with the flat of the blade. The kitchen fills with that sharp, sweet hiss. She wipes her eyes on her shoulder and tells me I did very well, in the voice she used to use for finger paintings.
+
+/* ——— 2: Taste this (a small choice) ——— */
+<<case 2>>
+Something red is going in the big pot, and the whole kitchen smells of garlic. $mom.callName sees me in the doorway and doesn't even say hello. She just fills a wooden spoon, cups her other hand under it and comes at me with it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Taste. Careful, it's hot. Blow on it first. Blow, honey." },
+{ text: "I blow. I taste. It's good. It's also missing something, and she's watching my face so closely that she can probably see me noticing." },
+{ who: $mom, text: "Well?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<div id="mom-cook-taste">
+<<link "Tell her it's perfect">><<replace "#mom-cook-taste">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "It's perfect." },
+{ who: $mom, text: "Hm." },
+{ text: "She narrows her eyes at me and takes the spoon back." },
+{ who: $mom, text: "You said that about the casserole. The one where I forgot the eggs. You had seconds, sweetheart, I watched you." },
+{ who: $player, text: "It was a very good casserole." },
+{ who: $mom, text: "It was soup in a casserole dish." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She tastes it herself, frowns, and reaches for the salt without a word. Two pinches, then a third one that she does with her back to me, as if I'm going to tell on her.
+<</replace>><</link>>
+<<link "Tell her it needs salt">><<replace "#mom-cook-taste">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Needs salt." },
+{ who: $mom, text: "It does not need salt. I salted it." },
+{ text: "She tastes it to prove me wrong, and I watch her face go through the whole thing: confidence, doubt, a second taste, betrayal." },
+{ who: $mom, text: "Oh, it really does. How does it need salt? I salted it, I remember salting it." },
+{ who: $player, text: "Maybe you thought about salting it." },
+{ who: $mom, text: "Don't be smart." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She salts it, properly this time, and points the spoon at me while she stirs.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Your $dad.relation used to say everything was perfect. Everything, every single time. That's how I knew he wasn't really tasting it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it lightly and goes straight back to the pot. But for the rest of the time I'm there, she keeps holding out the spoon for me to taste, and she waits for my answer every time.
+<</replace>><</link>>
+</div>
+
+/* ——— 3: Breakfast (time slot 0 or 1) ——— */
+<<case 3>>
+The kitchen smells of butter and coffee, and $mom.callName is standing at the stove in her bathrobe with a squeeze bottle of pancake batter, frowning down into the pan like a surgeon. When we were little she used to make pancakes in the shape of letters. Apparently she still thinks she can.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Morning, sweetie. Sit. I'm making you a dollar sign. For the businessman." },
+{ who: $player, text: "That's a snake." },
+{ who: $mom, text: "It's a dollar sign that hasn't been flipped yet. Have some faith." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She flips it. It's still a snake, a fat one, with a lump in the middle like it swallowed something. She looks at it for a long moment, then puts it on my plate anyway and slides the syrup over.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "It's a metaphor. Money is a snake. Eat your breakfast." },
+{ who: $player, text: "That's very dark for seven in the morning." },
+{ who: $mom, text: "I've had one coffee, honey. Ask me again after the second." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $company.stage >= 1>>She makes three more while I eat, normal round ones, and wraps two of them in foil without explaining who they're for. I already know. $brian.name is going to find them on his keyboard at nine and not know what to do about it.<<else>>She makes three more while I eat, normal round ones, and leaves a stack under a plate for $sister.callName, with a sticky note on top that says EAT ME in capital letters. The note is not for the pancakes. It's for her.<</if>>
+
+/* ——— 4: Home from his office (Stage 0, before False Sympathy, weekday evening) ——— */
+<<case 4>>
+She hasn't changed. She's at the stove in her work blouse with the sleeves rolled up and her lanyard still around her neck, the badge tucked into her pocket so it doesn't dangle in the soup. She's cutting carrots. She is cutting them very, very hard.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "What did the carrots do?" },
+{ who: $mom, text: "Hm? Nothing. Nothing, honey, it's fine." },
+{ text: "Thunk. Thunk. A slice flies off the board and skids under the toaster. She doesn't go after it." },
+{ who: $mom, text: "He made me redo the whole report. Forty pages. Because of the font." },
+{ who: $player, text: "The font." },
+{ who: $mom, text: "Garamond. He said Garamond looks 'emotional'. In front of everybody, sweetie. He held it up in the meeting like it was a drawing a child made." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I lean on the counter and ask small questions, the kind that keep her talking. Who was in the meeting. Whether he does that to everyone or just to her. What time he usually leaves the building. She answers all of them without wondering why I'd want to know, because to her I'm just being a good listener, and she hasn't had one of those all day.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Anyway. It's done now. I changed it to Arial and he said it was much better." },
+{ who: $player, text: "Was it?" },
+{ who: $mom, text: "It was exactly the same report, honey." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She scrapes the carrots into the pot, all of them, including two that were clearly meant for the salad. I fish the runaway slice out from under the toaster and eat it.
+
+/* ——— 5: From scratch (Stage 0, after False Sympathy) ——— */
+<<case 5>>
+There are sheets of pasta drying over the backs of all four kitchen chairs. Homemade pasta. In this house. A pasta machine I didn't know we owned is clamped to the edge of the table, and $mom.callName is feeding dough into it with flour up to her elbows and a streak of it on her nose.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Where do I sit?" },
+{ who: $mom, text: "You don't, sweetie, the chairs are busy. It's lasagna. From scratch. Everything from scratch." },
+{ who: $player, text: "Since when do we make pasta?" },
+{ who: $mom, text: "Since this morning. I watched a video. Then I watched four more videos, and then it was eleven, and I thought, well. I have time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says 'I have time' brightly, the way people say it on cooking shows. Then she turns the crank, and the sheet comes out torn down the middle, and she looks at it for a while without saying anything.
+
+<<linkreplace "Help her with the next one">>
+I take the end of the next sheet as it comes out of the machine and walk it backward across the kitchen so it doesn't fold over on itself. It just keeps coming. By the time it's done I'm standing in the hallway holding a strip of dough the length of a scarf, and she's laughing so hard she has to stop cranking.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "That one's yours. You can wear it to your next client meeting." },
+{ who: $player, text: "Our next client meeting. You work for me now, remember?" },
+{ who: $mom, text: "I know, honey. I keep telling people. Mrs. Kowalski next door asked me what I do all day now, and I said 'management'. She looked at the pasta on my shirt." },
+{ text: "She takes the dough from me and drapes it over the last free chair back, very gently, the way she'd hang up a good coat." },
+{ who: $mom, text: "It's nice to make something that turns out, honey. Even if it's just a lasagna. You understand that, don't you? You and your little machine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her I understand, and that it's going to be a very good lasagna. She beams at me over the pasta machine with flour on her nose. Neither of us mentions the cardboard box from her old desk, which has been sitting in the hallway since the day she carried it home, still taped shut. I step around it every morning. I don't mind it there.
+<</linkreplace>>
+
+/* ——— 6: Work at the stove (Stage 1) ——— */
+<<case 6>>
+$mom.callName's phone is propped up against the flour canister, and she's scrolling through her work mail with one knuckle while she stirs with the other hand. Every few seconds the spoon stops, and the sauce takes the opportunity to stick to the bottom of the pot.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, good, you're here. Did $darius.name send you the numbers for the diner? He said Thursday. It's Thursday somewhere, isn't it?" },
+{ who: $player, text: "Put the phone away." },
+{ who: $mom, text: "In one second. There's just one mail from the printer people, they want to know if we..." },
+{ who: $player, text: "$mom.callName. Away." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stops scrolling. For a moment her thumb hovers over the screen, and I can see her weigh up the printer people against me. It isn't close. She locks the phone, opens the drawer with the dish towels, puts it in face down and closes the drawer with her hip.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There. Gone. You're very bossy for somebody who still can't fold a fitted sheet." },
+{ who: $player, text: "Nobody can fold a fitted sheet." },
+{ who: $mom, text: "I can fold a fitted sheet, sweetheart. I can fold it into a perfect square. I'll teach you one day, when you've got an hour and some patience." },
+{ text: "The sauce is stuck. She scrapes at the bottom of the pot and makes a face, and then she gives up and stirs the burned bits in, which she would never let anybody else do." },
+{ who: $mom, text: "That's flavor now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I stay until dinner is on the table. Twice I catch her glancing at the towel drawer. She doesn't open it, either time.
+
+/* ——— 7: The mugs (after No stimulus) ——— */
+<<case 7>>
+She's at the stove with her back to the door, and she doesn't turn around when I come in. She knows it's me. I can tell by the way her spoon slows down.
+
+The paprika lives on the top shelf, right above her head, so I reach past her for it. I'm not in a hurry about it. She goes very still between me and the stove, holding the spoon up out of the pot so it won't drip, and waits for me to be done.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I took the mugs down, by the way." },
+{ who: $player, text: "What mugs?" },
+{ who: $mom, text: "From your windowsill. All three. One of them had something growing in it, honey, I had to use the brush." },
+{ text: "She stirs. The sauce doesn't need stirring." },
+{ who: $mom, text: "I only went in for the mugs. I wasn't... I just went in and got the mugs and came straight out again." },
+{ who: $player, text: "Okay." },
+{ who: $mom, text: "Okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I put the paprika on the counter next to her. She looks at it, and then at the recipe, and I watch her realize there's no paprika in the recipe. She sprinkles some in anyway, because I went to the trouble, and then a little more. Her ears are pink all the way to the top.
+
+She starts talking about $sister.callName's phone bill after that, fast and in a lot of detail, and she doesn't stop until I've left the kitchen.
+
+/* ——— 8: The apron (after The Briefing, line changes after A Knock at Night) ——— */
+<<case 8>>
+She's in an old charity-run T-shirt and soft gray pants, and she's trying to tie her apron behind her back with flour on her fingers. The strings keep slipping away from her.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Can you? My hands are a mess." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns around and holds the strings out of the way of her hair. I take them. I tie the bow slowly, at the small of her back, and I don't take my hands away when it's done. They're resting on her hips. She doesn't step forward, and she doesn't step back either. She looks at the oven clock.
+
+<<if setup.questDone("mom_nightVisit")>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Are you going to be up late tonight?" },
+{ who: $player, text: "I might be." },
+{ who: $mom, text: "Then I'll... I'll leave my door open a little. So you don't have to knock. That's all, sweetie. Just so you don't wake your $sister.relation." },
+{ text: "She says the last part to the oven clock too. Then she picks up her wooden spoon and taps it twice on the edge of the pot, which is something she does when she's finished a sentence and wants to be sure it stays finished." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Just the apron, honey." },
+{ text: "She says it very softly, and very kindly, like she's turning down a second slice of cake. It takes her a moment before she moves. When she does, she goes to the stove, and she doesn't look back at me." },
+{ who: $mom, text: "Can you get the plates down? The blue ones." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+I get the plates down. When I set them next to her, she's stirring with her free hand pressed flat against her stomach, right where the apron strings cross.
+
+<<UpdateStat "+" "MomLust" 1>>
+
+<</switch>>
+
+<<UpdateStat "+" "MomRelation" 1>>
+
+<div class="navigation-link"><<link "Leave her to the stove" $player.location.passage>><</link>></div>

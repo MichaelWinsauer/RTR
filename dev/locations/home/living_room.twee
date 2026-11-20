@@ -1,0 +1,15 @@
+:: Living Room [location] {"position":"275,1550","size":"100,100"}
+<<CheckLocation>>
+
+The living room is the calmest spot in the house. Soft light falls through the long white curtains, and everything is done in pale tones that make the room feel bigger than it is. The sectional wraps around the corner and ends in a deep chaise that's basically a standing invitation to lie down. A round wooden coffee table sits on a patterned rug, with a shallow bowl of moss and pebbles on top, somebody's idea of indoor nature. If I need a breather, I can sink into the couch and [[watch TV|Activity TV]]. The [[kitchen|Kitchen]] is right next door.
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Hallway]]
+</div>
+<</nobr>>
+
+

@@ -1,0 +1,32 @@
+:: Task Widgets [nobr system widget] {"position":"2800,0","size":"100,100"}
+/* Usage: =====================================================================
+	<<CheckTaskScene>>
+	PassageReady only, right after SetLocation/CheckForEvent. When a task with the player (the massage
+	in the meeting room, ...) runs and I'm where it needs me, a dialog asks whether I let it happen.
+	Its first action is my time to get there; after that it counts as missed.
+	See "Tasks with the player" in Define Tasks.
+*/
+<<widget "CheckTaskScene">>
+	/* never in the middle of a quest/event scene (multi-part events run PassageReady on every part) */
+	<<if !tags().includesAny("event", "scene", "task_scene")>>
+		<<set _ctsOffer to setup.checkTaskScenes()>>
+		<<if _ctsOffer>><<run setup.offerTaskScene(_ctsOffer)>><</if>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<EndTaskScene ["Link text"]>>
+	The last link of a task scene. Spends the task's remaining actions, so it finishes the normal way
+	(onComplete, count, stages), and goes back to my location. Default text: "Get back to work".
+*/
+<<widget "EndTaskScene">>
+	<<set _etsText to $args[0] || "Get back to work">>
+	<<link _etsText>>
+		<<set _etsLeft to setup.getTaskSceneActionsLeft()>>
+		/* walked in on a one-action task: its action is already spent, so finish it right here */
+		<<if _etsLeft <= 0>><<run setup.completeTaskSceneEntry()>><</if>>
+		<<set $taskScene to null>>
+		<<if _etsLeft > 0>><<UseAction _etsLeft>><</if>>
+		<<goto $player.location.passage>>
+	<</link>>
+<</widget>>

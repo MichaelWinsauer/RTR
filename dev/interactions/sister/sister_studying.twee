@@ -1,0 +1,254 @@
+:: Sister studying [interaction] {"position":"400,2100","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister studying in her room at home.
+   1 (the focus tree) and 2 (the posh voice) always.
+   3 (the calculus wall): before sister_fakingIt. The last line changes once sister_planningAhead is done.
+   4 (sleeping better): after sister_focusIsKey, before sister_partyAnimal. The deal from Focus Is Key holds, so nobody says it.
+   5 (a math person now): after sister_sheMadeIt, before sister_conflictingFeelings. Mentions her tutoring if $sister.flags.isTutoring.
+   6 (the party question): after sister_partyAnimal, before sister_conflictingFeelings. She remembers nothing of that night.
+   7 (the door, +1 SisterLust if I close it): after sister_conflictingFeelings.
+   8 (her case study): after sister_internshipSeason. */
+<<silently>>
+<<set _variants to [1, 2]>>
+<<if !setup.questDone("sister_fakingIt")>><<run _variants.push(3)>><</if>>
+<<if setup.questDone("sister_focusIsKey") && !setup.questDone("sister_partyAnimal")>><<run _variants.push(4)>><</if>>
+<<if setup.questDone("sister_sheMadeIt") && !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(5)>><</if>>
+<<if setup.questDone("sister_partyAnimal") && !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(6)>><</if>>
+<<if setup.questDone("sister_conflictingFeelings")>><<run _variants.push(7)>><</if>>
+<<if setup.questDone("sister_internshipSeason")>><<run _variants.push(8)>><</if>>
+<<set _pick to setup.pickTalkScene("Sister studying", _variants)>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* 1: The focus tree */
+<<case 1>>
+$sister.callName is at her desk with a textbook open in front of her and her phone lying face up next to it. On the screen there's a little cartoon sapling with a countdown underneath, 18:42 and falling. When I come in, she points at me without looking up, the way you'd point at a dog that's thinking about jumping on the couch.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Don't make me touch my phone. If I touch my phone, the tree dies." },
+{ who: $player, text: "What tree?" },
+{ who: $sister, text: "My focus tree. You study for twenty-five minutes and it grows. You pick up the phone and it dies, and the app shows you a sad little stump. It's so judgmental. I love it." },
+{ text: "She nudges the screen sideways with one knuckle, very carefully, so it doesn't count as touching. Her forest is a grid of tiny trees. About a third of them are brown stumps." },
+{ who: $player, text: "What happened to those?" },
+{ who: $sister, text: "That one was the group chat. That one was a sale on boots. That one..." },
+{ text: "She squints at it." },
+{ who: $sister, text: "I don't even remember. Something stupid. They all died for something stupid. It's a graveyard of my bad decisions, and it's honestly very motivating." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I sit down on her bed and keep my mouth shut, which she seems to think is the nicest thing I've done for her all month. Eleven minutes in, my own phone buzzes in my pocket. She turns around in her chair and stares at me until I put it face down on the blanket.
+
+When the timer runs out, the sapling turns into a fat little pine with a squirrel in it. She holds the phone up for me to admire like she grew it herself. Then she spends the next ten minutes on that same phone, as a reward.
+
+/* 2: The posh voice */
+<<case 2>>
+I can hear her before I open the door. She's reading out loud in an accent that's trying very hard to be British and keeps drifting somewhere around a pirate who went to boarding school.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "The four Ps of marketing are product, price, place and promotion, darling. Promotion. Jolly good. Pip pip." },
+{ who: $player, text: "What is happening in here?" },
+{ who: $sister, text: "Oh, hello. I'm revising. Things stick better if I say them like a duchess." },
+{ who: $player, text: "Does it work?" },
+{ who: $sister, text: "I got a ninety-one on the last quiz, so you tell me, peasant." },
+{ who: $player, text: "Fine. What's a target market?" },
+{ who: $sister, text: "A target market, my good man, is the... the group of people who... okay, hang on. I only know it posh. If I say it normal, it falls out of my head." },
+{ text: "She closes her eyes, puts the accent back on and gets it word for word." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Try the accent yourself">>
+I take the book off her desk and read the next paragraph in my best voice. I get about four words into pricing strategy before she slides off her chair and onto the carpet, laughing so hard she has to hold onto the desk leg.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Stop. Stop! You sound like a butler who's about to poison the whole family." },
+{ who: $player, text: "That was a very good butler." },
+{ who: $sister, text: "That's what I'm saying! He's so good at it! Nobody suspects him until the will is read!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She makes me read the rest of the chapter as the butler. By the end she's mouthing the words along with me, and she knows the whole section on pricing, which is more than she knew when I walked in.
+<</linkreplace>>
+
+/* 3: The calculus wall (before sister_fakingIt) */
+<<case 3>>
+Her calculus book is open on the desk. $sister.callName is lying on the floor next to the desk, flat on her back, staring at the ceiling. In the margin next to problem fourteen she has written WHY in big letters, underlined it twice and drawn a small skull.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Is the book winning?" },
+{ who: $sister, text: "The book won an hour ago. I'm only lying down here so it can't take the floor too." },
+{ who: $sister, text: "Do you know what $prof.callName said today? He said limits are 'intuitive'. Out loud. To a room full of humans." },
+{ who: $player, text: "Want me to take a look?" },
+{ who: $sister, text: "If you explain it and I still don't get it, I'll have to move to another state and change my name. Just so you know what's at stake." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Get down on the floor with her">>
+I lie down next to her with the book held up over both of us and a pen I find under her bed. We do problem fourteen on the back of a pizza flyer. The first time I explain it, she nods along without hearing a word. The second time, she argues with me. The third time, she goes very quiet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Wait. Wait. So it doesn't matter what happens at the actual number. Only what happens on the way there?" },
+{ who: $player, text: "That's it. That's the whole thing." },
+{ who: $sister, text: "That's so stupid. Why didn't he just say that? Why did he say 'intuitive' and then write a whole wall of Greek?" },
+{ text: "She snatches the flyer and writes it down in her own words, under the pizza coupon, and draws a little arrow walking up to a door." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if setup.questDone("sister_planningAhead")>>
+Before I go, she asks if I really think she can pass. I tell her I'm sure of it. It's the most honest thing I've said to her all week.
+<<else>>
+Before I go, she asks if I really think she can pass. I tell her yes. She gives me the look she used to give me when I was the only one in the house who could fix the wifi, and she believes me.
+<</if>>
+<</linkreplace>>
+
+/* 4: Sleeping better (after sister_focusIsKey, before sister_partyAnimal) */
+<<case 4>>
+She's actually working. Her notes are in neat rows for once, every problem boxed, and she's humming something under her breath while she writes. A week ago she looked like she'd been studying inside a wind tunnel.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You look awake." },
+{ who: $sister, text: "I am awake! I slept nine hours last night. Nine! I haven't slept nine hours since I had the flu in middle school." },
+{ who: $sister, text: "I just lay down and boom, gone. Like somebody pulled my plug out of the wall." },
+{ text: "Then she hears herself. Her ears go pink first, then her neck, and she turns back to her notes very fast." },
+{ who: $sister, text: "Don't." },
+{ who: $player, text: "I didn't say anything." },
+{ who: $sister, text: "You were about to say something with your face. We have a deal. The deal is forever." },
+{ who: $player, text: "I was going to say nice work on problem six." },
+{ who: $sister, text: "...Oh. Thank you. It's a very good problem six." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She keeps her back to me for a while after that, but she goes on humming, only quieter. I sit on her bed and check problem six, which is right, and problem seven, which isn't. I let her find seven on her own. She does, eventually, and swears at it in a whisper.
+
+/* 5: A math person now (after sister_sheMadeIt, before sister_conflictingFeelings) */
+<<case 5>>
+The calculus test is stuck to the wall above her desk with four strips of washi tape, B plus facing out. Someone has added a gold star sticker next to the professor's 'much improved', and then drawn a tiny crown on the star.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Ah. Welcome. You may approach the math person." },
+{ who: $player, text: "Since when are you a math person?" },
+{ who: $sister, text: "Since the B plus. It's documented. It's on the wall. Legally, that makes me a math person." },
+{ text: "She's doing economics homework now, a supply and demand graph, and she walks me through it with total confidence. The demand curve is going the wrong way." },
+{ who: $player, text: "Your demand curve is upside down." },
+{ who: $sister, text: "Math people make mistakes all the time. That's how you know we're real. Fake math people never make mistakes, because they don't do any math." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $sister.flags.isTutoring>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Also, I have a student now. A freshman. His name is Tyler and he calls derivatives 'the little guys'." },
+{ who: $player, text: "Did you correct him?" },
+{ who: $sister, text: "No! It's working for him! He got a C on the last quiz. A C, from Tyler. I'm basically a miracle worker." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+She flips the curve around with a lot of muttering. When she's done, she leans back and looks up at the test on the wall for a moment, the way some people look at a photo of somewhere they went on vacation.
+
+/* 6: The party question (after sister_partyAnimal, before sister_conflictingFeelings) */
+<<case 6>>
+She's reading, or at least she's holding a book open at the right height for reading. The page doesn't turn the whole time I'm standing in the doorway. When she finally notices me, she shuts the book on her finger.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hey. Can I ask you something weird?" },
+{ who: $player, text: "Weirder than usual?" },
+{ who: $sister, text: "The night of the party. When I got home. Did I... say anything? Do anything stupid? Because I remember the shots, and I remember the Uber guy had a bobblehead of a goat on his dashboard, and after that it's just... nothing. And then it's morning." },
+{ text: "She's trying to make it sound like a joke. Her thumb is working at the corner of the page, folding it down and smoothing it out again." },
+{ who: $player, text: "You told me you loved me. Then you told the fridge you loved it more. Then you fell asleep with one shoe on." },
+{ who: $sister, text: "Oh my god. The fridge?" },
+{ who: $player, text: "You were very sincere with the fridge." },
+{ who: $sister, text: "Okay. Okay, that's embarrassing, but that's fine. That's normal drunk stuff. Everybody loves a fridge at two in the morning." },
+{ text: "She laughs, and her shoulders come down a little. She opens the book again." },
+{ who: $sister, text: "It's just, I keep having these... never mind. It's stupid." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't ask what she keeps having. I tell her the goat was probably a good omen, and she throws a pen at me. For the rest of the time I'm in her room she stays on that same page, and every time I move, she looks up.
+
+/* 7: The door (after sister_conflictingFeelings) */
+<<case 7>>
+She's sitting up in bed with her laptop on her knees and a highlighter cap between her teeth. When I come in, she pulls her feet up to make room for me at the end of the mattress, the way she's done a thousand times. Then her eyes go past me, to the open door.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "So, uh. Question. Do we close the door now? When you're in here?" },
+{ who: $player, text: "Do you want it closed?" },
+{ who: $sister, text: "I don't know! That's why I'm asking. I've been leaving it open, and then I thought, isn't it weirder if I leave it open? Like I'm making a point? And then I thought about it way too much, and now I'm asking you, like an idiot." },
+{ who: $sister, text: "Forget it. Sit. Quiz me on supply chains. Supply chains are very safe." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<div id="sister-study-door">
+	<div>
+		<<link "Close the door">>
+			<<replace "#sister-study-door">>
+				I get up again and push it shut. The latch clicks, very loud in the quiet room. She looks at the door, not at me.
+
+				<<silently>>
+				<<set _msgs = [
+				{ who: $sister, text: "Okay. Okay. Supply chains." },
+				{ text: "She reads me the first question in a voice that's a little higher than her normal one. Somewhere around the third question, her foot finds my leg under the blanket and stays there, and she doesn't mention it, so neither do I." },
+				{ text: "Out in the hall, $mom.callName's footsteps come up the stairs. $sister.callName stops in the middle of a word. She doesn't move until they've gone past and a door closes at the other end of the house." },
+				{ who: $sister, text: "...Just-in-time inventory. Where was I?" },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave it open">>
+			<<replace "#sister-study-door">>
+				I sit down and leave the door where it is. She lets out a breath and starts reading me questions. She looks relieved, and then, when she thinks I'm busy with her notes, a little disappointed. She gets the next four questions wrong, which she never does with supply chains.
+			<</replace>>
+		<</link>>
+	</div>
+</div>
+
+/* 8: Her case study (after sister_internshipSeason) */
+<<case 8>>
+She's at her desk with her internship lanyard still around her neck, which she's been told twice she doesn't need to wear at home. The document on her laptop is called 'Case Study FINAL final (2)'.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Perfect timing. Sit. I'm interviewing you." },
+{ who: $player, text: "For what?" },
+{ who: $sister, text: "For my small business class. We have to analyze a local company, and everybody else picked the bakery on Main Street. Six people! That poor woman is going to get interviewed to death." },
+{ text: "She picks up a highlighter and holds it under my chin like a microphone." },
+{ who: $sister, text: "So. Mister CEO. What would you say your company's mission is?" },
+{ who: $player, text: "We help people feel better at work. Calmer, and a lot easier to get along with." },
+{ who: $sister, text: "Ooh. Okay, that's good. I'm writing that down." },
+{ text: "She types it word for word, reads it back to me, and then adds a line of her own about employee wellbeing being at the heart of everything we do. She asks if that part's true. I tell her it's very true." },
+{ who: $sister, text: "Last question. What's your secret ingredient? Everybody has one. The bakery lady said hers is butter." },
+{ who: $player, text: "Good people. And good air conditioning." },
+{ who: $sister, text: "That's so boring. I'm putting butter." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She asks if she can put a picture of the office on the title page. I tell her sure, as long as it's taken from the street.
+
+<</switch>>
+
+<<UpdateStat "+" "SisterRelation" 1>>
+
+<div class="navigation-link"><<link "Leave her to the books" $player.location.passage>><</link>></div>

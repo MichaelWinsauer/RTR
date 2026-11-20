@@ -1,0 +1,66 @@
+:: CMD CCTV-Control [nobr] {"position":"2350,3025","size":"100,200"}
+/* One button per location with a camera (setup.cameraLocationIds, Define Items). Without any camera the panel
+   explains where cameras come from. Requests mom or sister have not carried out yet are listed below. */
+<<set _camIds to setup.cameraLocationIds()>>
+<<run setup.cctvCurrentId()>>
+<div class="cctv-control">
+	<<if _camIds.length > 0>>
+		<div id="cctv-control-panel" class="cctv-control-grid">
+			<<for _camId range _camIds>>
+				<<CCTVButton _camId>>
+			<</for>>
+		</div>
+	<<else>>
+		<div class="cctv-control-empty">
+			<b>No cameras yet.</b>
+			I can buy them at the Shop and hide them myself at home or here in the office. For $boss.callName's office, the college or $landlord.callName's place, I have to ask $mom.callName or $sister.callName to do it for me.
+		</div>
+	<</if>>
+	<<for _camPending range $cctv.pending>>
+		<div class="cctv-control-pending">
+			<<= State.variables[_camPending.who].callName>> still has to hide a camera at <<= setup.getLocationBySysName(_camPending.place).name>>.
+		</div>
+	<</for>>
+</div>
+
+<style>
+.cctv-control {
+	display: flex;
+	flex-direction: column;
+	gap: .4rem;
+	height: 100%;
+}
+
+.cctv-control-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: .25rem;
+	min-height: 0;
+	overflow-y: auto;
+}
+
+.cctv-control-empty {
+	padding: .5rem;
+	font-size: .8rem;
+	line-height: 1.4;
+	text-align: left;
+	opacity: .75;
+}
+
+.cctv-control-empty b {
+	display: block;
+	margin-bottom: .25rem;
+	font-size: .9rem;
+	color: var(--accent);
+}
+
+.cctv-control-pending {
+	padding: .3rem .5rem;
+	font-size: .7rem;
+	line-height: 1.3;
+	text-align: left;
+	opacity: .65;
+	border: 1px dashed var(--card-border);
+	border-radius: .4rem;
+}
+</style>

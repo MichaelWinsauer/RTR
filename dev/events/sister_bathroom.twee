@@ -1,0 +1,18 @@
+:: Sister Bathroom [event] {"position":"350,2775","size":"100,100"}
+<<Image "images/misc/closed_door.jpg">>
+<<set _sisterActivity to (setup.npcNow("sister").activity == "showering" ? 2 : 3)>>
+<<set _path to "images/characters/sister/events/" + (_sisterActivity == 2 ? "showering" : "peeing") + "/">>
+<<set _sisterImages to (_sisterActivity == 2 ? 3 : 0)>>
+<<RandomImage _path _sisterImages ".webp" "" 300>>
+
+<<UpdateStat "+" "Corruption" 1>>
+
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "+" "SisterLust" 10>>
+<<UpdateStat "+" "SisterResistance" 10>>
+
+
+<<ReturnFromEvent "Leave" >>
+<<AdvanceTime>>
+
+

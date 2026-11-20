@@ -1,0 +1,93 @@
+:: Mom working_boss [interaction] {"position":"725,2100","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $mom at work in $boss's office tower. She has no time for me
+   here, so these are short and change nothing.
+   Stage 0 (she still works for him): variants 1 and 2. Stage 1 (she's there as my consultant, Client Consultant
+   task): variants 3 and 4. */
+<<silently>>
+<<set _variants to ($company.stage == 0 ? [1, 2] : [3, 4])>>
+<<set _pick to setup.pickTalkScene("Mom working_boss", _variants)>>
+<</silently>>
+<<DisplayActivity $mom 500>>
+<<switch _pick>>
+
+/* ——— 1: Not here (Stage 0) ——— */
+<<case 1>>
+$mom.callName sees me before I'm halfway across the floor, and she doesn't look happy about it. She looks at me, then at the glass door of $boss.callName's office behind her, which is open, then back at me. She's out of her chair and next to me in about three steps.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey, what are you doing here? Is something wrong? Is it your $sister.relation?" },
+{ who: $player, text: "Nothing's wrong. I was in the area." },
+{ who: $mom, text: "You can't just... sweetie, this is my work. I can't have family visiting at my desk, he already thinks I..." },
+{ text: "From inside the office, a voice calls her full name, the way you'd call a dog that's wandered off. She flinches. It's small, but it goes through her whole body." },
+{ who: $mom, text: "Coming! One second!" },
+{ who: $mom, text: "Go home. I'll see you at dinner, okay? I love you. Go." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She squeezes my arm and hurries off, smoothing her skirt as she goes. I don't go right away. I stand by the water cooler and watch her stop at his doorway, fold her hands in front of her, and nod at whatever he's saying. She nods a lot.
+
+/* ——— 2: Five minutes (Stage 0) ——— */
+<<case 2>>
+She's on the phone when I get to her desk, writing something down with the receiver pinned under her chin. Her inbox is open on the screen next to her. It has a number in a red bubble that I'd rather not read out loud.
+
+She looks up, mouths 'hi, sweetie', and then holds up five fingers.
+
+Five minutes turn into fifteen. The call ends, and another starts before she can put the phone down. Somewhere in there, a man in a gray suit drops a stack of folders on the corner of her desk without saying a word, and she thanks him for it anyway.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'm so sorry, honey. It's one of those days. It's always one of those days." },
+{ who: $player, text: "I'll see you at home." },
+{ who: $mom, text: "Eat something real for lunch! Not chips!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She calls it after me across the office, and two people at the next desks look up. She turns red and goes straight back to the folders.
+
+/* ——— 3: On the clock (Stage 1) ——— */
+<<case 3>>
+I find $mom.callName in the little glass meeting room by the elevators, with a laptop open in front of her and three of $boss.callName's people around the table. She's explaining something on a printout, tapping it with her pen, and all three of them are taking notes. One of them is nodding a lot.
+
+She spots me through the glass. Her face does something complicated: she's glad to see me, she's worried about why I'm here, and she's trying not to let either of those show in front of the client. She gives me the smallest shake of her head and holds up her pen, as in 'later'.
+
+A minute later my phone buzzes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "In a meeting!! Everything OK?" },
+{ who: $player, text: "Everything's fine. Just checking in on my consultant." },
+{ who: $mom, text: "Your consultant is fine. Your consultant is very busy and very professional. Go away 😘" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Through the glass, she's already back on the printout, and the nodding guy is nodding again. A month ago these people walked past her desk without saying hello. Now they take notes when she talks, and they have me to thank for that, whether they know it or not.
+
+/* ——— 4: The boss stops by (Stage 1) ——— */
+<<case 4>>
+I barely get a word out before $boss.callName comes around the corner, coffee in hand, as if he'd been waiting for an excuse.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "Well, look at this. The kid himself. Come to make sure I'm treating your consultant right?" },
+{ who: $player, text: "Something like that." },
+{ who: $boss, text: "Relax. I'm treating her very well. Aren't I, $mom.name?" },
+{ text: "He puts his free hand on the back of her chair, close to her shoulder. She keeps her eyes on her screen." },
+{ who: $mom, text: "Yes. Everything's going very well." },
+{ who: $boss, text: "See? She's a natural. You should've sent her over years ago. Oh, wait." },
+{ text: "He laughs at his own joke. Nobody else does." },
+{ who: $boss, text: "Anyway. She's on my clock today, kid. Go build me something." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He doesn't move his hand until I've turned to leave. When I look back from the elevators, he's leaning over her desk to show her something on her screen, his chin almost on her shoulder, and she's nodding along with a polite little smile.
+
+Tonight at dinner she'll tell me it was a good day, and I'll tell her I'm glad to hear it.
+
+<</switch>>
+
+<div class="navigation-link"><<link "Leave her to it" $player.location.passage>><</link>></div>

@@ -1,0 +1,51 @@
+:: Sister Passing Hallway [micro_event event nobr] {"position":"1550,2775","size":"100,100"}
+/* Ambient: a few lines in passing, picked at random. Optional: stop and talk. */
+<<Video "images/characters/sister/events/hallway/walking.mp4" "" "" 500>>
+<<silently>>
+<<set _pool to [
+	[
+		{ who: $sister, text: "Don't talk to me. I have three chapters to read and a headache." },
+		{ who: $player, text: "Good luck." }
+	],
+	[
+		{ text: "She walks past with her headphones on, mouthing the lyrics, and doesn't notice me at all." }
+	],
+	[
+		{ who: $sister, text: "Have you seen my keys? Black keychain, tiny panda." },
+		{ who: $player, text: "Check the couch." },
+		{ who: $sister, text: "Genius. Thanks, little $sister.callPlayerShort." }
+	],
+	[
+		{ who: $sister, text: "I used all the hot water. Sorry, not sorry." },
+		{ who: $player, text: "Great." }
+	],
+	[
+		{ who: $sister, text: "Guess who got a seat in the front row. Me. I'm basically a genius." },
+		{ who: $player, text: "Basically." }
+	],
+	[
+		{ text: "She shuffles past in sunglasses, indoors." },
+		{ who: $sister, text: "Don't. Say. Anything." }
+	]
+]>>
+<<set _msgs to _pool.random()>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="choice1">
+	<<link "Stop and talk for a minute">>
+		<<replace "#choice1">>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $player, text: "Got a second?" },
+				{ who: $sister, text: "A second. Maybe two. Make it quick, little $sister.callPlayerShort." },
+				{ who: $player, text: "Nothing, really. Just wanted to say hi." },
+				{ who: $sister, text: "Hi. Okay, bye." }
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>She grins over her shoulder as she disappears into her room.</p>
+			<<UpdateStat "+" "SisterRelation" 1>>
+		<</replace>>
+	<</link>>
+</div>

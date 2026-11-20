@@ -1,0 +1,42 @@
+:: Mom's here to help [event mom_quest] {"position":"3025,1075","size":"100,100"}
+<<Video "images/characters/mom/events/here to help/makeup.mp4" "" "" 500>>
+
+$mom.callName is sitting at her vanity in the lamplight, putting on makeup, when I push the door open. The prototype is in my pocket, already on and turned low. <<UseQuestDevice $mom 3>>She sees my face in the mirror and puts the brush down. I let the anger show. Some of it is real.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$landlord.callName is screwing me over with the rent again. Every single week, like he's trying to bury me." },
+{ text: "She gets up, takes me by the arm and sits me down on the edge of the bed." },
+{ who: $mom, text: "Hey. Come here, sit. Tell me what happened." },
+{ who: $player, text: "I just paid it. <<if $debtMissed>>Or I tried to. I couldn't cover all of it this time, and if that happens again, I'm out.<<else>>I scraped it together... barely. It's taking everything I have.<</if>> How am I supposed to build a company when he takes all of it?" },
+{ who: $mom, text: "I know. I know it's hard. You've been working so hard, and it isn't fair." },
+{ who: $player, text: "If I lose the office, that's it. Everything I've put in, gone." },
+{ text: "She keeps a hand on my back, rubbing slow circles. I turn the dial up a notch in my pocket and watch her face soften." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<DevicePulse "+1">>
+<<set _msgs = [
+{ who: $mom, text: "What can I do? Tell me how I can help." },
+{ who: $player, text: "I need you to cover part of it. Five hundred a week. It's the only way I can keep going, $mom.callName." },
+{ who: $mom, text: "Five hundred? That's a lot, honey. What if you took a few more shifts at the diner until things pick up? That way it isn't all on me." },
+{ who: $player, text: "More shifts? I'm already there until I can barely stand, and then I come home to build something real. If I take more, there's no time left for the prototype or for clients. I'd be stuck there for good." },
+{ who: $player, text: "Please don't make me choose between getting by and getting somewhere." },
+{ text: "She bites her lip and her hands tighten on my arms. The guilt shows on her face before the answer does." },
+{ who: $mom, text: "I didn't mean it like that. Okay... okay, you're right. I still have a little put aside. I suppose this is what it was for." },
+{ who: $mom, text: "We'll manage somehow. We always do. What kind of $mom.relation would I be if I let my $mom.playerRelation give up now..." },
+{ who: $player, text: "Thank you. I knew you'd understand." },
+{ text: "She pulls me into a hug, and this time the little double pat on my back that usually means it's over doesn't come." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pull back and let out a long, relieved breath for her benefit. Underneath it, I'm completely calm. Five hundred a week, and she thanked me for letting her pay it.
+
+<<ProfileLog $mom "Helping with the Rent" "She agreed to chip in $500 every week to help me cover the rent, so I can keep focusing on the company instead of picking up more shifts.">>
+<<NextQuest $mom>>
+<<ReturnFromEvent>>
+
+
+

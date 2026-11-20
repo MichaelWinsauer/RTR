@@ -1,0 +1,129 @@
+:: Shop [location] {"position":"2275,1425","size":"100,100"}
+<<CheckLocation>>
+
+The shop is squeezed in between a nail salon and a place that has said "opening soon" for two years. Inside it's narrow and overstocked, the kind of store where phone chargers hang next to birthday candles and nobody asks why. The guy behind the counter doesn't look up when the bell over the door jingles. As far as I know, he has never looked up, which suits me fine today.
+
+<<if setup.itemAvailable("camera")>>Near the register, behind a smudged glass case, there's a row of tiny cameras. A handwritten sign calls them pet monitors.<</if>>
+
+/* Everything for sale comes from setup.items (Define Items), but only what setup.itemAvailable allows right now.
+   Buying costs no action. */
+<<nobr>>
+<div id="shop-items" class="shop-items">
+	<<for _shopId range Object.keys(setup.items).filter((id) => setup.itemAvailable(id))>>
+		<<set _shopItem to setup.items[_shopId]>>
+		<<set _shopOwned to setup.itemCount(_shopId)>>
+		<<set _shopAfford to setup.funds() >= _shopItem.price>>
+		<<set _shopLeft to setup.itemLeft(_shopId)>>
+		<div @class="'shop-item' + (_shopAfford ? '' : ' too-expensive')">
+			<div class="shop-item-head">
+				<span class="shop-item-name"><<= _shopItem.name>></span>
+				<span class="shop-item-price">$<<= _shopItem.price>></span>
+			</div>
+			<div class="shop-item-desc"><<= _shopItem.description>></div>
+			<div class="shop-item-foot">
+				<span class="shop-item-owned"><<if _shopOwned > 0>>I have <<= _shopOwned>><<else>>I have none<</if>></span>
+				<<if _shopLeft <= 0>>
+					<span class="shop-item-buy enough"><<= _shopItem.enoughText || "I have enough">></span>
+				<<elseif _shopAfford>>
+					<<capture _shopId>>
+						<span class="shop-item-buy"><<link "Buy">>
+							<<if setup.buyItem(_shopId)>>
+								<<run Notification.show("Bought: " + setup.items[_shopId].name, { type: Notification.POSITIVE })>>
+							<</if>>
+							<<run setTimeout(() => Engine.play(State.active.title, null, "back"), 0)>>
+						<</link>></span>
+					<</capture>>
+				<<else>>
+					<span class="shop-item-buy locked">Not enough money</span>
+				<</if>>
+			</div>
+		</div>
+	<</for>>
+</div>
+<</nobr>>
+
+<<CheckNPCLocation>>
+
+[[Leave|Residential Area]]
+
+<style>
+.shop-items {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+	gap: .5rem;
+	margin: 1rem 0;
+	text-align: left;
+}
+
+.shop-item {
+	display: flex;
+	flex-direction: column;
+	gap: .35rem;
+	padding: .6rem .8rem;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: .6rem;
+	backdrop-filter: blur(5px);
+}
+
+.shop-item-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: .5rem;
+}
+
+.shop-item-name {
+	font-weight: 700;
+	color: var(--accent);
+}
+
+.shop-item-price {
+	font-weight: 700;
+	color: #EAAF4C;
+}
+
+.shop-item-desc {
+	font-size: .85em;
+	opacity: .8;
+}
+
+.shop-item-foot {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: auto;
+	font-size: .85em;
+}
+
+.shop-item-owned {
+	opacity: .6;
+}
+
+.shop-item-buy a {
+	padding: .15rem .8rem;
+	font-weight: 700;
+	color: var(--accent);
+	text-decoration: none;
+	border: 1px solid var(--card-border);
+	border-radius: 999px;
+}
+
+.shop-item-buy a:hover {
+	color: #EAAF4C;
+	border-color: #EAAF4C;
+}
+
+.shop-item-buy.locked {
+	color: #ff9aa9;
+	opacity: .8;
+}
+
+.shop-item-buy.enough {
+	opacity: .6;
+}
+
+.shop-item.too-expensive .shop-item-price {
+	color: #ff6479;
+}
+</style>

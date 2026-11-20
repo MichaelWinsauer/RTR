@@ -1,0 +1,35 @@
+:: Sister Brushing Teeth [micro_event event nobr] {"position":"1800,3025","size":"100,100"}
+/* Mirror banter: very short, a muffled-dialogue gag. */
+<p>$sister.callName is at the bathroom mirror with a toothbrush in one hand and her phone in the other.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Mmf. Mmff mm mmf-mm." },
+	{ who: $player, text: "Sorry, what?" },
+	{ who: $sister, text: "(spits) I said you look terrible. Did you sleep at all?" }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Fire back">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Says the girl with toothpaste on her chin." },
+					{ who: $sister, text: "That's a style." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Wait for the sink">>
+			<<replace "#choice1">>
+				<p>I lean on the door frame until she's done. She waves her toothbrush at me on the way out.</p>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

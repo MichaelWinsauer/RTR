@@ -1,0 +1,69 @@
+:: The Helpful Son 2 [event mom_quest] {"position":"3150,825","size":"100,100"}
+<<silently>>
+<<set _msgs to [
+    { who: $player, text: "Hey. You okay? You're white as a sheet." },
+    { text: "She drops into her chair and stares at the screen without seeing it. Her hands are shaking, so she tucks them under her thighs." },
+    { who: $mom, text: "God, I hate that man. I hate him. In front of everyone, $player.name. Like I'm some intern who spilled coffee on his shoes." },
+    { who: $player, text: "What did he even say?" },
+    { who: $mom, text: "It's not even what he says, it's how. That tone. And the jokes he makes to the women in here, and then the second one of the guys walks in he's suddenly everybody's buddy. Yesterday he told me maybe I'd be more useful as his personal assistant." },
+    { who: $player, text: "He said that? Out loud?" },
+    { who: $mom, text: "With a smile. Half this floor would fall apart without me, and he wants me fetching his dry cleaning. How does somebody like that even end up running a place like this?" },
+    { who: $player, text: "Golf buddies?" },
+    { who: $mom, text: "...Probably golf buddies." },
+    { text: "That gets a short, wet laugh out of her. She wipes under one eye with a knuckle, careful of her mascara." },
+    { who: $player, text: "Hey, listen. This is actually the perfect time to try the prototype. You're wound up so tight right now, it'll have something to work with." },
+    { who: $mom, text: "Right now? Here? I don't know, honey..." },
+    { who: $player, text: "Nobody's going to notice. It just sits there and hums. You don't have to do anything except breathe." },
+    { who: $mom, text: "Well... we did say we'd try it. Okay. I trust you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Take out the prototype">>
+<<Video "images/characters/player/prototype/pocket_pull_out.mp4" "" "" 500>>
+
+I get the prototype out of my pocket before she can change her mind and set it on her desk, half hidden behind her monitor. She shifts in her chair and keeps her elbow well clear of it. I turn it on and spend a moment on the dials. It settles into a hum so faint the air conditioning drowns it out. <<UseQuestDevice $mom>>
+
+<<silently>>
+<<set _msgs to [
+    { who: $player, text: "Okay. It needs a minute to read you, so don't fight it." },
+    { who: $mom, text: "How do I not fight something? I don't even know what it's doing." },
+    { who: $player, text: "Just look at it and let your shoulders drop. I'll give you some space so it doesn't pick me up instead." },
+    { who: $mom, text: "Okay..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let it work">>
+<<Video "images/characters/player/prototype/on.mp4" "" "" 500>>
+
+I lean against the next desk over and watch. At first nothing happens. Then she takes a deeper breath than she means to, and a little color comes back into her cheeks. Then a little more. She crosses her legs, uncrosses them, and pretends to read her mail. All that adrenaline from the meeting has to go somewhere, and I've given it somewhere to go.
+
+I keep my voice low when I lean back in.
+
+<<silently>>
+<<set _msgs to [
+{ who: $player, text: "How's it feel? Anything yet?" },
+{ who: $mom, text: "It's... warm. Like the tension's moving somewhere else. Is it supposed to do that?" },
+{ who: $player, text: "That's exactly what it's supposed to do. All that stress from him has to go somewhere. $company.prototype.name just gives it a better place to go." },
+{ who: $mom, text: "Sweetie, I'm not sure about this. I'm feeling things I really shouldn't be feeling at my desk." },
+{ who: $player, text: "That's just your body letting go. Can you feel the anger fading?" },
+{ who: $mom, text: "I... yes. A little. Should I be worried?" },
+{ who: $player, text: "Not at all. Let it happen and you'll feel a lot better afterwards." },
+{ who: $mom, text: "If you say so. It's getting... stronger. It's all tingly, and it's not in my shoulders anymore, if you know what I mean." },
+{ who: $player, text: "Good. That means it's working." },
+{ who: $mom, text: "But what if someone notices? I'm starting to..." },
+{ who: $player, text: "Nobody's looking at you. Everyone's way too busy not looking at that meeting room." },
+{ text: "She opens her mouth to answer and doesn't manage it. Her fingers tighten around the edge of the desk." },
+{ who: $mom, text: "Oh god. I'm so hot. I need a minute. The restroom. I need... oh my god." },
+{ text: "She's up before she finishes the sentence, knees pressed together, walking much too fast for someone who's just freshening up. Her face is bright red." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+When I reach over to switch the prototype off, I notice the faint damp mark she's left on her chair. <<DevicePulse "off">> I roll a spare chair over to her desk, put the device back in my pocket, and get comfortable. I have a feeling she'll be gone for a while. I also have a feeling she'll be asking me to bring it again.
+
+<<link "Wait for $mom.callName" "The Helpful Son 3">><</link>>
+<</linkreplace>>
+<</linkreplace>>
+
+

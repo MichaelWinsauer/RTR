@@ -1,0 +1,53 @@
+:: Staff Office Argument [micro_event event nobr] {"position":"1800,3400","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 44, "A normal workday" in Define Events): $ethan and
+   $brian are fighting over a variable name at the whiteboard, $darius keeps score. I can settle it (Efficiency)
+   or let it run (Morale). $mom votes if she is around. */
+<div style="display: flex; justify-content: center">
+	<<Image $player.location.img "" "" 700>>
+</div>
+<p>Judging by the whiteboard, the argument has been going on for a while. On the left, in $ethan.name's loopy handwriting: <i>sensorReading</i>. On the right, in $brian.name's tiny block capitals: <i>RAW_ADC_VAL_CH0</i>. Somebody has drawn a line down the middle and written VS on it, and from the way $darius.name is holding the marker, I can guess who.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $ethan, text: "Boss! Thank god. Tell him. Tell him a variable name is supposed to be readable by humans." },
+	{ who: $brian, text: "It is readable. By, uh. By humans who know what an ADC is." },
+	{ who: $ethan, text: "That's four people on Earth, $brian.name." },
+	{ who: $brian, text: "That's... it's way more than four. It's a lot more than four. There are conferences." },
+	{ who: $darius, text: "For the record, you've been at this for forty-one minutes. At your combined hourly rates, this is now the most expensive variable in the company." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="staff-argument-choice">
+	<div>
+		<<link "Settle it">>
+			<<replace "#staff-argument-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "sensorRawCh0. Done. Back to work." },
+					{ who: $ethan, text: "That's the worst possible compromise." },
+					{ who: $brian, text: "Uh. I hate it. It's fine." },
+					{ who: $player, text: "That's how I know it's fair." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>$darius.name writes it in the middle of the board, underlines it twice and caps the marker with a click like a gavel. Ten minutes later, the office is quiet again except for keyboards and $ethan.name muttering 'sensor raw' to himself in a tone of deep personal betrayal.</p>
+				<<UpdateStat "+" "Efficiency" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Let them fight it out">>
+			<<replace "#staff-argument-choice">>
+				<p>I sit down on the edge of the nearest desk to watch. $darius.name takes that as permission to run it like a proper debate, with opening statements and a two-minute timer on his phone. $ethan.name's opening statement includes a slide. $brian.name's is a single sentence about memory addresses that he delivers to the floor.</p>
+				<<if setup.npcIsAt("mom", "companystage1")>>
+					<p>$mom.callName gets a vote too. She votes for $ethan.name's version because it 'looks friendlier', and $brian.name takes it so personally that she ends up bringing him a cookie as an apology.</p>
+				<</if>>
+				<<if setup.npcIsAt("sister", "companystage1")>>
+					<p>$sister.callName votes for $brian.name's version, 'because it sounds like a robot's name, and robots deserve rights'. $brian.name doesn't know what to do with that, so he writes it down.</p>
+				<</if>>
+				<p>$brian.name wins on points. $ethan.name demands a recount, loses that too, and spends the next hour renaming every variable in his own code to something absurdly long out of spite. It's the loudest the office has been all week, and everybody goes back to their desks grinning.</p>
+				<<UpdateStat "+" "Morale" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

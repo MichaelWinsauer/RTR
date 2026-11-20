@@ -1,0 +1,87 @@
+:: Second Boss Confrontation [event mom_quest] {"position":"3275,700","size":"100,100"}
+By now the lobby feels almost familiar. Same marble, same lighting, same receptionist, who glances up from her screen and waves me through before I've even reached the desk.
+
+<<silently>>
+<<set _msgs to [
+    { who: "Receptionist", text: "Floor 6. I'm starting to think you work here." },
+    { who: $player, text: "Give it time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+This time I spend the elevator ride with the prototype in my hand instead of my pocket, turning it over and over. I've been recalibrating it every night since he laughed at me. The error hasn't come back once in testing. Then again, I haven't tested it on anyone quite as pleasant as him.
+
+<<linkreplace "Arrive at floor 6...">>
+The doors open, and the first thing I see is $mom.callName.
+
+She's wearing what we talked about. A white blouse with one button more undone than she'd ever choose on her own, a fitted brown skirt with a slit up the side, her hair loose over one shoulder. She's bent over a notebook, writing fast, and every few seconds she tugs at her neckline without seeming to notice she's doing it.
+
+<<Video "images/characters/mom/events/second boss confrontation/mom_outfit.mp4" "" "" 500>>
+
+When she spots me, her face does two things at once: relief, and a flush that climbs all the way up to her ears.
+
+<<silently>>
+<<set _msgs to [
+    { who: $player, text: "Hey. You look nice today." },
+    { who: $mom, text: "Don't. I feel like everyone's staring at me." },
+    { who: $player, text: "Are they?" },
+    { who: $mom, text: "...Some of them. But honey, it actually worked. He hasn't yelled once. Not once! He even told me I seem 'more engaged' today, whatever that means." },
+    { who: $player, text: "Told you. Are you okay in it, though?" },
+    { who: $mom, text: "It's a little drafty. But if it keeps the peace, I can live with drafty. What are you doing here, anyway?" },
+    { who: $player, text: "Just checking on you. And I want to have a quick word with him, if he's in." },
+    { who: $mom, text: "He's in. Please be careful, sweetie. And be polite!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She squeezes my wrist as I pass, a little thank-you squeeze. She thinks she owes me for a good day.
+
+I knock on his door once and walk in. The prototype is already running in my pocket, the dial turned somewhere I've never tried before, aimed at whatever he keeps behind that smirk. <<UseQuestDevice $mom>> He looks up, annoyed for about half a second, and then visibly amused.
+
+<<linkreplace "Walk further in">>
+<<silently>>
+<<set _msgs to [
+    { who: $boss, text: "Well, look who's back. The kid with the calculator. What do you want this time?" },
+    { who: $player, text: "Did you notice $mom.name today?" },
+    { who: $boss, text: "Hard not to. She finally dressed like she wants to keep her job. Why?" },
+    { who: $player, text: "Because that was me. I told her to." },
+    { text: "That gets his attention. He sets his pen down and actually looks at me, properly, for the first time." },
+    { who: $boss, text: "You told her. And she listened. Huh. I didn't think you had it in you, kid." },
+    { who: $player, text: "I don't think we're that different, you and me. I've seen how you look at her." },
+    { who: $boss, text: "Careful." },
+    { who: $player, text: "I'm not judging. I just want something you have, and I think you'd like something I can get you. You want her out of here without a lawsuit. I want her working for me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The hum in my pocket is so faint I can barely feel it, but I can see it working. His shoulders loosen. The smirk turns into something hungrier and more honest, like we've just discovered we went to the same terrible school.
+
+<<silently>>
+<<set _msgs to [
+    { who: $boss, text: "Kid, you are a sick little bastard. I think I like you." },
+    { who: $boss, text: "Fine. Let's talk business. If I fire her, I want it clean. So here's what it costs you. Five thousand, cash. And a little video of your $mom.relation having some fun by herself. Call it a going-away present." },
+    { who: $player, text: "And the clean part?" },
+    { who: $boss, text: "That's your job, too. You live with her. Get into her laptop. Delete a few files, scramble her calendar, make her look sloppy. I'll do the rest in front of everybody, and no lawyer on earth will touch it." },
+    { text: "He says it the way other people order lunch." },
+    { who: $player, text: "Deal." },
+    { who: $boss, text: "Don't screw it up, kid. If any of this blows back on me, it lands on you twice as hard." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Take the elevator down">>
+On the way out I walk past $mom.callName's desk. She gives me a little wave and mouths //thank you//. I wave back.
+
+The elevator is empty. I lean against the mirrored wall and make a list in my head, because lists are easier than thinking about what's on them. Five thousand from my savings, which will hurt. A clip, which means waiting outside her door one night with my phone and the prototype. And her laptop, late, when the house is asleep.
+
+Then she gets fired, and she comes home with nowhere to go, and I'll be standing in the hallway with a job offer.
+
+The doors open on the lobby. The receptionist wishes me a nice day. I tell her I'm having one.
+
+<<UpdateStat "+" "Corruption" 5>>
+<<UpdateStat "+" "MomCorruption" 2>>
+<<NextQuest $mom>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

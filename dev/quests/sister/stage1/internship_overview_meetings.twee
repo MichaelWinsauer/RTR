@@ -1,0 +1,56 @@
+:: Internship Overview Meetings [event sister_quest scene] {"position":"3275,1325","size":"100,100"}
+/* Quest "Internship Overview Meetings" (sister_internshipOverviewRequest), part 1 of 2. A couple of days after
+   It Makes A Difference: she brings the internship journal her college wants to My Desk. Her advisor sent it back,
+   and she asks me for regular meetings to go over what happens at the office. She has not looked me in the eye
+   since the night of her text, and she has no idea I watched it.
+   Part 2: Internship Overview Meetings 2, the first meeting, which advances the quest and unlocks the task. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+For two days $sister.callName has been carrying a blue notebook around the office as if it holds the launch codes. She writes in it at her desk with one arm curled around the page, the way people guard a test from the guy next to them, and whenever I walk past she closes it on her pen.
+
+She also hasn't looked me straight in the eye since the night she sent me that text. I know why. She has no idea that I do.
+
+Today the notebook comes to my desk. She sets it down next to my keyboard and then doesn't let go of it, so for a moment we're both just looking at her hand.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. So. I need a favor, and it's a boring favor, so you're not allowed to say no just because it's boring." },
+{ who: $player, text: "That's usually my best reason." },
+{ who: $sister, text: "My college wants an internship journal. Weekly entries. What did you do, what did you learn, how does it connect to the company's processes. And I've been writing it, I swear, I just..." },
+{ text: "She gives up on the sentence, flips the notebook open to the first page and turns it toward me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Read it">>
+The handwriting is neat, round and very determined.
+
+<i>Monday. Brought coffee. Organized the supply cabinet by color.</i>
+<i>Tuesday. Brought coffee. The good stapler is NOT in the supply cabinet. Investigating.</i>
+<i>Wednesday. Brought coffee, but better. Learned that the coffee machine has a descaling button.</i>
+
+Under Wednesday somebody has written in red pen, in the small, tired hand of a person who grades a lot of these: <i>Please reflect on the company's processes.</i>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I don't know the company's processes! I know where the good stapler is. Well, I know where it isn't." },
+{ who: $player, text: "So what do you want from me?" },
+{ who: $sister, text: "Meetings. Real ones, in the calendar. Every couple of days you tell me what's going on around here, the clients, the projects, whatever I'm allowed to know, and I write it down so it sounds like I understood it. An internship overview." },
+{ text: "She says 'internship overview' very carefully, like a phrase she found online and practiced in the bathroom mirror." },
+{ who: $sister, text: "Fifteen minutes. Twenty, tops. I'll bring the coffee. You won't even notice I'm there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She could get every bit of that from $mom.callName, who keeps the calendar and knows every client down to the names of their kids. She knows that too. She came to my desk anyway, and what she's asking for is a room with a door, every couple of days, booked under her name.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Let's do the first one now. Meeting room." },
+{ who: $sister, text: "Now now? I didn't bring the coffee." },
+{ who: $player, text: "Bring the journal." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+[[Go to the meeting room|Internship Overview Meetings 2]]
+<</linkreplace>>

@@ -1,0 +1,88 @@
+:: Daily Update [system nobr] {"position":"2550,275","size":"100,100"}
+/* roll where mom and sister will be today (Define Schedule) */
+<<run setup.planDay()>>
+<<include "Action Update">>
+<<run setup.checkProjectDeadlines()>>
+
+/* If an important meal is waiting, name every meal today where it can play: "You should eat breakfast and dinner with your family today." */
+<<set _pendingMeals to setup.getPendingMealTypes()>>
+<<if _pendingMeals.length > 0>>
+	<<run Notification.show("You should eat " + setup.formatMealList(_pendingMeals) + " with your family today.", {type: Notification.INFORMATION})>>
+<</if>>
+
+/* her chores in the afternoon are part of her routine (stage0_college in Define Schedule). Stage 0 only: from Stage 1 on she
+   is my intern and gets a wage instead */
+<<if $sister.flags.doesChores == true && $company.stage == 0>>
+	<<UpdateStat "+" "Money" 50>>
+    <<UpdateStat "+" "MomRelation" 1>>
+<</if>>
+
+<<set $company.finances.money += $company.finances.income.revenue>>
+
+/* Monday morning: the staff gets paid for the week (setup.payWages, Define Company) */
+<<if $date.today.value == 0 && $company.stage >= 1>><<run setup.payWages()>><</if>>
+
+/* the finance chart (CMD Finances): the account balance, and what actually left the account that day
+   (rent and wages, counted in spentToday); then the day starts again at 0 */
+<<run $company.finances.history.income.push($company.finances.money)>>
+<<run $company.finances.history.expenses.push($company.finances.spentToday || 0)>>
+<<set $company.finances.spentToday to 0>>
+<<CalculateFinances true>>
+
+<<run 
+	$mom.stats.energy = Math.clamp($mom.stats.energy + 20 + Math.round($mom.stats.energy * .3), $mom.stats.min.energy, $mom.stats.max.energy);
+	$sister.stats.energy = Math.clamp($sister.stats.energy + 20 + Math.round($sister.stats.energy * .7), $sister.stats.min.energy, $sister.stats.max.energy);
+    
+    /* how much morale everyone wins back depends on the company Morale (setup.moraleRecovery, Define Company) */
+    const moraleBack = setup.moraleRecovery();
+    $company.employees.forEach((e) => {
+    	const employee = State.variables[e.sysName];
+        const maxMorale = employee.stats.max.morale;
+        const minMorale = employee.stats.min.morale;
+        State.variables[e.sysName].stats.morale = Math.clamp(employee.stats.morale + moraleBack, minMorale, maxMorale);
+    });
+    
+    [$mom.sysName, $sister.sysName].forEach((sysName) => {
+    	State.variables.activeTasks[sysName].forEach((activeTask) => {
+        	activeTask.inProgress = false;
+        });
+    });
+>>
+
+/* company Efficiency moves a few points toward its target (the vent unit, morale, ... see Define Company) */
+<<run setup.companyStatsDaily()>>
+
+/* The Stage 0 prototype trickles back some charge overnight; the player can speed that up with "Activity Charge Prototype" */
+<<set $company.prototype.charge to Math.min($company.prototype.maxCharge, $company.prototype.charge + ($company.prototype.rechargePerDay || 10))>>
+
+<<for _key, _prototype range $company.devices>>
+    <<if _prototype.owned>>
+    	<<set _prototype.charge += 15>>
+        
+        <<if _prototype.charge > _prototype.maxCharge>>
+        	<<set _prototype.charge to _prototype.maxCharge>>
+        <</if>>
+    <</if>>
+<</for>>
+
+/* The mail from $prof.callName is sent by his quest line (prof_waitFirstProjects in Define Quests) */
+
+/* Lust and resistance drift for mom and sister, weights in $statInfluence (Define Misc) */
+
+<<set $mom.stats.lust += $statInfluence.lustBase * $mom.stats.lust * $statInfluence.lustScaling + $statInfluence.lustFromCorruption * setup.corruptionEffective("mom") + $statInfluence.lustFromResistance * $mom.stats.resistance  + $statInfluence.lustFlatGrowth>>
+<<set $mom.stats.resistance to $mom.stats.resistance - $statInfluence.resistanceBase - $mom.stats.relation * $statInfluence.resistanceFromRelation - setup.corruptionEffective("mom") * $statInfluence.resistanceFromCorruption>>
+
+<<set $sister.stats.lust += $statInfluence.lustBase * $sister.stats.lust * $statInfluence.lustScaling + $statInfluence.lustFromCorruption * setup.corruptionEffective("sister") + $statInfluence.lustFromResistance * $sister.stats.resistance + $statInfluence.lustFlatGrowth>>
+<<set $sister.stats.resistance to $sister.stats.resistance - $statInfluence.resistanceBase - $sister.stats.relation * $statInfluence.resistanceFromRelation - setup.corruptionEffective("sister") * $statInfluence.resistanceFromCorruption>>
+
+<<set $mom.stats.relation to Math.clamp($mom.stats.relation, $mom.stats.min.relation, $mom.stats.max.relation)>>
+<<set $mom.stats.corruption to Math.clamp($mom.stats.corruption, $mom.stats.min.corruption, $mom.stats.max.corruption)>>
+<<set $mom.stats.lust to Math.clamp(Math.round($mom.stats.lust), $mom.stats.min.lust, $mom.stats.max.lust)>>
+<<set $mom.stats.resistance to Math.clamp(Math.round($mom.stats.resistance), $mom.stats.min.resistance, $mom.stats.max.resistance)>>
+
+<<set $sister.stats.relation to Math.clamp($sister.stats.relation, $sister.stats.min.relation, $sister.stats.max.relation)>>
+<<set $sister.stats.corruption to Math.clamp($sister.stats.corruption, $sister.stats.min.corruption, $sister.stats.max.corruption)>>
+<<set $sister.stats.lust to Math.clamp(Math.round($sister.stats.lust), $sister.stats.min.lust, $sister.stats.max.lust)>>
+<<set $sister.stats.resistance to Math.clamp(Math.round($sister.stats.resistance), $sister.stats.min.resistance, $sister.stats.max.resistance)>>
+
+

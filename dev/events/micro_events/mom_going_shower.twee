@@ -1,0 +1,78 @@
+:: Mom Going Shower [micro_event event nobr] {"position":"1175,3025","size":"100,100"}
+/* Care and small talk: she is heading to the shower and asks about your day. */
+<<set _vx to setup.homeDevice()>>
+<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
+<<set _vxCost to 10 + 10 * _vxLevel>>
+<<Video "images/characters/mom/events/hallway/mom_going_shower.mp4" "" "" 500>>
+<p>$mom.callName is in the hallway with a towel over her arm and her hair tied up in a knot.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "Oh, hi sweetheart. I'm just going to take a quick shower before dinner." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Ask about her day">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "How was your day?" },
+					{ who: $mom, text: "Same as always. They moved a deadline again and nobody told me. Don't worry about it." }
+				]>>
+				<<if $mom.flags.rentHelp>>
+					<<run _msgs.push({ who: $mom, text: "And I'm watching every dollar now that I'm helping with your office. Not that I mind." })>>
+					<<run _msgs.push({ who: $player, text: "I know. Thank you." })>>
+				<</if>>
+				<</silently>>
+				<<Chat _msgs>>
+                <br>
+				<<UpdateStat "+" "MomRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Tell her to take her time">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Take your time. I'll keep an eye on dinner." },
+					{ who: $mom, text: "You're sweet. Just don't let the pot boil over." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<if _vxLevel > 0>>
+		<div>
+			<<if _vx.lastUsedAtDay == $date.dayCount>>
+				<span style="opacity: .5;">Use the prototype (already used today)</span>
+			<<elseif _vx.charge < _vxCost>>
+				<span style="opacity: .5;">Use the prototype (not enough charge)</span>
+			<<else>>
+				<<link "Use the prototype while she talks">>
+					<<replace "#choice1">>
+						<<set _vx.charge -= _vxCost>>
+						<<set _vx.lastUsedAtDay to $date.dayCount>>
+						<<set _vx.lastUsedOnWho to "mom">>
+						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
+							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
+							<p>She stops mid-sentence and looks at my pocket, then at me. "Are you okay? You're being strange," she says, and goes to the bathroom a little faster than before.</p>
+							<<UpdateStat "-" "MomRelation" 3>>
+							<<UpdateStat "+" "MomResistance" 4>>
+						<<else>>
+							<<set _gain to 1 + _vxLevel>>
+							<<set _lustGain to 4 + 4 * _vxLevel>>
+							<p>I ask about her day and keep her talking. <<DevicePulse `_vxLevel + 1`>> She forgets about the shower for a while, leaning against the wall with her towel over her arm, laughing more easily than she has all week.</p>
+							<<UpdateStat "-" "MomRelation" 1>>
+							<<UpdateStat "+" "MomCorruption" _gain>>
+							<<UpdateStat "+" "MomLust" _lustGain>>
+						<</if>>
+					<</replace>>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
+</div>

@@ -1,0 +1,12 @@
+:: Company Stage 1 Meeting [location] {"position":"2350,2475","size":"100,100"}
+<<silently>>
+	<<CheckLocation>>
+<</silently>>
+The meeting room is a small square off the main office: one long table, six chairs and a blue accent wall that was the paint store's idea. There's no projector yet, and the whiteboard still has the price sticker in the corner because nobody has had the heart to peel it off. It does the job. This is where I sit at the head of the table and walk clients through numbers they're already in the mood to like, and where everybody files in when I call a meeting. With the door shut and the blinds down, the rest of the office can't see a thing in here, which is worth more to me than any projector.
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+[[Return|Company Stage 1]]
+
+

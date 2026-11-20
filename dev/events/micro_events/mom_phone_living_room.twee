@@ -1,0 +1,64 @@
+:: Mom Phone Living Room [micro_event event nobr] {"position":"1425,2900","size":"100,100"}
+/* Overheard call: listen in (she can catch you) or leave her to it. Her side of the call only. */
+<<silently>>
+<<set _calls to [
+	[
+		{ who: $mom, text: "No, I can't this weekend. I have laundry to catch up on... Yes, I know, I'm boring." },
+		{ who: $mom, text: "Maybe next month. Tell Karen I said hi." }
+	],
+	[
+		{ who: $mom, text: "He's fine, he's working a lot. No, he doesn't tell me much, he's like that." },
+		{ who: $mom, text: "I just want to know he's eating. That's all I want." }
+	],
+	[
+		{ who: $mom, text: "Did you see the email? They moved the deadline to Friday?" },
+		{ who: $mom, text: "Of course they did. Okay, I'll stay late tomorrow, but I'm not happy about it." }
+	]
+]>>
+<<if setup.questReached("mom_hasItTough")>>
+	<<run _calls.push([
+		{ who: $mom, text: "I can't keep covering for him. No, I'm not going to say anything. I don't want trouble." },
+		{ who: $mom, text: "I know, I know. I just need this week to be over." }
+	])>>
+	<<run _calls.push([
+		{ who: $mom, text: "Don't tell me that. Not today." },
+		{ who: $mom, text: "No, I'm fine. Really. I'll call you later." }
+	])>>
+<</if>>
+<<set _call to _calls.random()>>
+<</silently>>
+<p>$mom.callName is on the couch with her phone to her ear, speaking quietly. I can hear her voice from the hallway.</p>
+<div id="choice1">
+	<div>
+		<<link "Listen in">>
+			<<replace "#choice1">>
+				<<if random(1, 100) <= Math.clamp(15 + Math.round($mom.stats.resistance / 2) - Math.round($mom.stats.relation / 10), 5, 70)>>
+					<p>A floorboard creaks under my foot. She covers the phone with her hand and turns to look at me.</p>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $mom, text: "Sweetheart, this is a private call." },
+						{ who: $player, text: "Sorry. I was just passing through." },
+						{ who: $mom, text: "Mm-hm." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<br>
+					<<UpdateStat "-" "MomRelation" 3>>
+					<<UpdateStat "+" "MomResistance" 3>>
+				<<else>>
+					<p>I stop just outside the doorway and listen.</p>
+					<<set _msgs to _call>>
+					<<Chat _msgs>>
+					<p>She hangs up a minute later and sits there with the phone in her lap. I slip away before she sees me.</p>
+				<</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave her to it">>
+			<<replace "#choice1">>
+				<p>I leave her to it and go back the way I came.</p>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

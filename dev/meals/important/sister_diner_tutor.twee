@@ -1,0 +1,64 @@
+:: Meal Sister Diner Tutor [activity meal] {"position":"1600,2225"}
+/*
+{
+        id: "sister_diner_tutor",
+        passage: "Meal Sister Diner Tutor",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("sister_diner_tutor").isActive = false,
+        ]
+}
+   Activated by: "She'd Do Anything For Me" (sister_doAnythingForMe). She decided to wait tables
+   at $diner.name and tutor other students, to pay me back and help the family.
+*/
+$sister.callName has made a flyer.
+
+She lays it next to $mom.callName's plate with both hands, like a waiter presenting the wine list. Bright yellow paper, a cartoon brain wearing sunglasses, and in big bubble letters: CALCULUS, EXPLAINED BY SOMEONE WHO ALMOST FAILED IT. Underneath, smaller: Reasonable rates. No judgment. Snacks negotiable.
+
+/* IMAGE: images/meals/important/sister_diner_tutor.jpg | A bright yellow tutoring flyer with a cartoon brain in sunglasses lying next to a plate. Mom holding it at arm's length to read, Sister watching her reaction proudly. */
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Snacks negotiable?" },
+{ who: $sister, text: "It's a marketing thing. People respond to snacks." },
+{ who: $mom, text: "You're going to tutor? Sweetie, that's wonderful." },
+{ who: $sister, text: "And that's not all. I'm also going to wait tables at $diner.name. A few shifts a week. I already talked to $manager.callName." },
+{ text: "$mom.callName puts the flyer down. Her smile stays where it is, but something behind it slips." },
+{ who: $mom, text: "The diner? Honey, you don't have to do that. You have your classes, you finally got your grades back up..." },
+{ who: $sister, text: "I want to. Everybody in this house is working their butt off except me. I'm done being the one who just takes stuff." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if setup.questDone("mom_falseSympathy")>>
+$mom.callName looks down at her plate, and I know exactly what she's thinking: that $sister.callName is picking up shifts because of what happened at the firm. She doesn't say it. She doesn't have to. $sister.callName sees it too and squeezes her arm.
+<<else>>
+$mom.callName looks down at her plate, and I know exactly what she's thinking: that $sister.callName is picking up shifts because one paycheck doesn't stretch far enough anymore. She doesn't say it. $sister.callName sees it anyway and squeezes her arm.
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "It's not a sacrifice, $mom.callName. It's tips. Have you seen me be charming? I'm going to make a fortune." },
+{ who: $player, text: "The regulars at the counter tip in quarters, just so you know." },
+{ who: $sister, text: "Then I'll make a fortune in quarters. And you're going to show me how to carry three plates at once without dying." },
+{ who: $player, text: "That's advanced. You start with two." },
+{ who: $mom, text: "I just... thank you, sweetie. Both of you. I don't know when you two grew up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName beams. Then she catches my eye across the table, and for a second the beam turns into something softer and more private, a look that says she did this for me as much as for anyone. She folds a second flyer into a paper plane and sails it at my head.
+
+I let it hit me. A month ago she'd have laughed at the idea of working at the diner. Now she's lining up to work there because she wants me to see her do it.
+
+<<UpdateStat "+" "SisterRelation" 2>>
+<<UpdateStat "+" "MomRelation" 2>>

@@ -1,0 +1,17 @@
+:: Action Update [system nobr] {"position":"2650,275","size":"100,100"}
+/* Runs once for every action spent (<<UseAction>>), right after the clock moved on. */
+<<run checkTaskProgression()>>
+
+/* Project work for the action just spent. Once per action: the Daily Update includes this passage too,
+   so the first action of a day would otherwise count twice */
+<<set _auKey to $date.dayCount * 21 + $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+<<if $lastProgressKey != _auKey>>
+	<<set $lastProgressKey to _auKey>>
+    <<ProgressProjects>>
+<</if>>
+
+/* Finish projects whose requirements are met (also catches progress from tasks like Secretary Work) */
+<<run setup.checkProjects()>>
+
+/* $mom or $sister hides a camera she agreed to take, once she is at that place (Define Items) */
+<<run setup.checkPendingCameras()>>

@@ -1,0 +1,28 @@
+:: Help Company Mails [nobr] {"position":"825,4500"}
+/* The list below shows only the mails that have arrived (mail.active), never the ones still to come */
+<p>The inbox sits at the bottom, left of the action buttons. Each row shows the sender's portrait, the title and the first line of the mail. The newest mail is at the top.</p>
+
+<h3>Using it</h3>
+<dl class="help-stats">
+	<dt>Unread dot</dt><dd>A dot on a row means you haven't opened that mail yet.</dd>
+	<dt>Open</dt><dd>Click a row. The mail opens in a window with the sender's address, the whole message, and your replies shown on the right.</dd>
+	<dt>Star</dt><dd>The star at the end of a row marks a mail for yourself. It changes nothing else.</dd>
+	<dt>Reply</dt><dd>Some mails offer answers under the message. Choose one and it is sent. <b>You can answer each mail only once</b>, with one choice, and the other options disappear for good.</dd>
+</dl>
+<p>Reading, starring and replying cost no time. An answer can set things in motion: a new <a href="#" data-help="Help Company Projects">project</a> in the project overview, a new <a href="#" data-help="Help Company Tasks">task</a> for the schedule, or an appointment.</p>
+
+<<set _hcmMails to $company.mails.filter(function (m) { return m.active; })>>
+<<if $company.stage >= 1 && _hcmMails.length > 0>>
+<h3>Your inbox</h3>
+<table class="help-table">
+	<tr><th>Mail</th><th>From</th><th>Status</th></tr>
+	<<for _hcmMail range _hcmMails>>
+	<tr>
+		<td><<= _hcmMail.title>></td>
+		<td><<= State.variables[_hcmMail.who.sysName].callName>></td>
+		<td><<if _hcmMail.answered>>Answered<<elseif _hcmMail.answerOptions && _hcmMail.answerOptions.length > 0>>Waiting for your answer<<elseif _hcmMail.read>>Read<<else>>Unread<</if>></td>
+	</tr>
+	<</for>>
+</table>
+<</if>>
+<div class="help-note">Take a moment to read each mail before you answer. You only get one answer.</div>

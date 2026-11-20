@@ -1,0 +1,114 @@
+:: Task Mom Massage 2 [task_scene] {"position":"1900,4175"}
+/* Scene of the task "Private Attention", stage 2 (after 5 more massages, with her at 60 corruption).
+   Played every time the task starts while I'm in the meeting room. Effects are in the task's onComplete.
+   Stage 2: I'm wearing a tie. She comes in with her handbag as if she's only passing, takes over my neck, and every pass of
+   her hands goes a little further down my chest. Then she comes around to my side and opens my shirt. She always has a
+   reason, I never ask her for anything, and I don't touch my phone: this one is all hers. I keep my hands on the armrests.
+   Videos (images/characters/mom/tasks/), in this order:
+     massage_2_0  I rub my own neck, she comes in with her bag, drops it on the table and takes over from behind
+     massage_2_1  the massage, I loosen my tie
+     massage_2_2  her hands slide down over my shirt and up again
+     massage_2_3  she has come around to my side, hip against the table, hands on my chest and neck, face close
+     massage_2_4  she unbuttons the shirt and pushes it off my shoulders, I pull the tie off */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ms2Task to setup.getTaskById("task_mom_private_attention")>>
+	<<set _ms2First to (_ms2Task.count || 0) === (_ms2Task.stageStartCount || 0)>>
+<</silent>>
+I'm wearing a tie today, because <<= either("$boss.callName is coming by at four to 'see where his money goes', and he notices ties", "a bank wants a video call about a credit line, and banks like ties", "I have a call with a possible client, and $darius.name says people trust a man in a tie twelve percent more. I didn't ask where the number came from")>>. Two hours in, I regret it. I'm leaning back in the chair at the head of the meeting table, digging my fingers into the back of my own neck, when the door opens.
+
+$mom.callName comes in with her big black handbag over one shoulder, as if she's only stopping by on her way somewhere else. She sees what I'm doing and looks personally offended.
+
+<<linkreplace "Let her take over">>
+<<Video "images/characters/mom/tasks/massage_2_0.mp4" "" "" 600>>
+
+She swings the bag onto the table, where it lands with a thump that suggests a brick, and comes around to me. On her way past she gives my tie a little tug, as if she's checking that it's attached. Then she's behind the chair, pushing my hand out of the way.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't do that. You'll only make it worse. You never press in the right place." },
+{ who: $player, text: "It's my neck." },
+{ who: $mom, text: "And you've never known what to do with it. Hands down, sweetie. Let me." },
+{ text: "I put my hands down. She makes a pleased little sound, the one she makes when a cake comes out of the pan in one piece." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Loosen the tie">>
+<<Video "images/characters/mom/tasks/massage_2_1.mp4" "" "" 600>>
+
+I tug the knot down and open my top button with two fingers while she works, and she sighs over my head as if I've finally done something sensible.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Thank you. Honestly. Who tied that thing, a sailor?" },
+{ who: $player, text: "YouTube." },
+{ who: $mom, text: "Well, YouTube owes you an apology." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I let my head fall back and close my eyes. She goes to the usual places first, the knots she knows by heart by now, and works them with the heels of her hands until they give. Somewhere behind me she steps out of one of her heels. I hear it tip over on the carpet.
+
+<<linkreplace "Keep your eyes closed">>
+<<Video "images/characters/mom/tasks/massage_2_2.mp4" "" "" 600>>
+
+With my eyes shut I can follow her hands like a map. Up the sides of my neck, down again, and on the way down they don't stop at my shoulders anymore. They slide over my collarbones and onto my chest, palms flat on the shirt, and come back up. The next time they go a little lower. I start counting buttons. Two. Then three. She hasn't said a word in minutes.
+
+My phone stays in my pocket today. The vent unit runs at its office setting, the same for her as for $ethan.name and everybody else out there, and I haven't given her a single notch on top. Whatever she's doing, she's doing it on her own.
+
+<<linkreplace "Open your eyes">>
+<<Video "images/characters/mom/tasks/massage_2_3.mp4" "" "" 600>>
+
+When I open my eyes she isn't behind me anymore. She's come around to my side and leans with her hip against the edge of the table, one hand on my chest, the other at the side of my neck, and her face is very close. She looks at me as if she's waiting for me to say something that would make this make sense.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "This shirt." },
+{ who: $player, text: "What about it?" },
+{ who: $mom, text: "It's in the way. I can't get to the... it's too stiff, honey. I can't feel what I'm doing through it." },
+{ text: "She says it in the voice she uses for wet towels on the bathroom floor, a little put out and very practical, and her fingers are already on the second button." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+<<Video "images/characters/mom/tasks/massage_2_4.mp4" "" "" 600>>
+
+She opens the buttons quickly and matter-of-factly, the way she'd unbutton a coat for someone with their arms full, and she doesn't look at my face while she does it. I pull the tie off over my head and toss it onto the table to save her the trouble. She pushes the shirt open and back off my shoulders, puts her palms flat on my bare chest, and stops being matter-of-fact about anything.
+
+I'm not built like the men in the magazines she pretends not to read at the hairdresser's. She doesn't seem to mind. Her hands move slowly over my shoulders and down my chest and back up to my neck, and her face is so close that I can feel her breath on my cheek, short and warm.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "It's better for the circulation. Skin on skin. I read that somewhere." },
+{ who: $player, text: "Where?" },
+{ who: $mom, text: "...Somewhere, sweetie. A magazine." },
+{ text: "She swallows. Her hands stay where they are." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+A few weeks ago she needed a reason before she'd touch my neck. Now she opens my shirt first and finds the reason afterwards. I keep my hands on the armrests the whole time. When she thinks about this tonight, and she will, I want her to remember exactly whose fingers were on those buttons.
+
+<<linkreplace "Let her finish">>
+In the end she does the buttons back up herself, all but the top two, and drapes the tie over the back of my chair instead of putting it back on me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't wear that thing again. It's bad for you." },
+{ who: $player, text: "I need it later." },
+{ who: $mom, text: "Then you can put it on later. Not a minute before." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She smooths down her gray skirt, fishes for her shoe under the table with her toes, and leaves without her bag. <<if _ms2First>>Thirty seconds later the door opens again. She takes the bag off the table without looking at me and leaves a second time, a little faster.<<else>><<= either("Thirty seconds later the door opens again. She takes the bag off the table without looking at me and leaves a second time, a little faster.", "I carry it out to her desk ten minutes later. She thanks me without looking up from her screen, and the back of her neck turns red.", "It stays on the table all afternoon. She doesn't come back for it until everybody else has gone home.")>><</if>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

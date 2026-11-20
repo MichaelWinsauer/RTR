@@ -1,0 +1,766 @@
+:: CMD Header [nobr] {"position":"2250,2900","size":"200,100"}
+<<silent>>
+<<switch $time.current.value>>
+	<<case 0>><<set _greeting to "You're up early,">>
+	<<case 1>><<set _greeting to "Good Morning,">>
+	<<case 2>><<set _greeting to "Hello,">>
+	<<case 3>><<set _greeting to "Good Afternoon,">>
+	<<case 4>><<set _greeting to "Good Evening,">>
+	<<case 5>><<set _greeting to "It's getting late,">>
+	<<default>><<set _greeting to "Still at it,">>
+<</switch>>
+
+/* Builds three lists for the markup below:
+   hdrStaff:  one entry per employee (avatar, presence, energy)
+   hdrQuests: one chip per active quest line (see "Quests" below)
+   hdrNext:   things worth the player's attention, most important first. Always has at least one entry.
+              An entry opens a device dialog (device), a quest card (quest) or flashes a panel (target). */
+<<script>>
+var sv = State.variables;
+var maxAP = sv.time.actions.max;
+var row = sv.time.current.value * maxAP + (maxAP - sv.time.actions.left);
+var weekday = sv.date.today.value < 5;
+var hours = sv.company.workHours;
+var first = hours.indexOf(true);
+var last = hours.lastIndexOf(true);
+var isWorkTime = weekday && hours[row] === true;
+
+function plural(n, word) {
+	return n + " " + word + (n === 1 ? "" : "s");
+}
+
+var workLabel;
+if (!weekday) workLabel = "The office is closed for the weekend.";
+else if (first < 0) workLabel = "There are no work hours today.";
+else if (row > last) workLabel = "The work day is over.";
+else if (row < first) workLabel = "Work starts in " + plural(first - row, "action") + ".";
+else workLabel = "Work day ends in " + plural(last + 1 - row, "action") + ".";
+
+/* ---- Staff ---- */
+State.temporary.hdrStaff = ["mom", "sister"].map(function (key) {
+	var npc = sv[key];
+	var loc = npc.location || {};
+	var energy = Math.round(npc.stats.energy / npc.stats.max.energy * 100);
+	/* her location already includes a running task (setup.npcNow): a task away from the office counts as away */
+	var present = !!(loc.sysName && loc.sysName.indexOf("companystage") === 0);
+	var doing = npc.activity ? setup.activityText(npc, npc.activity) : "";
+	return {
+		sysName: key,
+		name: npc.callName,
+		doing: doing,
+		doingAt: doing + " at " + wikifyText(loc.name || ""),
+		present: present,
+		energy: energy,
+		tip: npc.callName + " - " + doing + " at " + wikifyText(loc.name || "") + " | Energy " + energy + "% | Click to open the profile"
+	};
+});
+
+/* ---- Next up ---- */
+var items = [];
+
+sv.company.projects.forEach(function (p) {
+	if (!p.active || p.completed) return;
+	var done = 0, req = 0;
+	Object.keys(p.requirements).forEach(function (k) {
+		if (p.requirements[k] > 0) {
+			done += Math.min(p.progress[k] || 0, p.requirements[k]);
+			req += p.requirements[k];
+		}
+	});
+	var pct = req > 0 ? Math.round(done / req * 100) : 0;
+	if (pct >= 100) return;
+	var left = p.due - sv.date.dayCount;
+	var title = wikifyText(p.title);
+	if (left <= 3) {
+		items.push({ prio: left <= 1 ? 0 : 1, tone: left <= 1 ? "bad" : "warn", target: "#cmd-projects",
+			text: title + (left > 0 ? " is due in " + plural(left, "day") : (left === 0 ? " is due today" : " is overdue")) + " (" + pct + "% done)" });
+	} else if (pct >= 80) {
+		items.push({ prio: 6, tone: "good", target: "#cmd-projects", text: title + " is almost done (" + pct + "%)" });
+	}
+});
+
+/* Suspicion only exists from Stage 2 on (Define Company) */
+var suspicion = setup.suspicionActive() ? Math.round(sv.company.stats.suspicion / sv.company.stats.max.suspicion * 100) : 0;
+if (suspicion >= 75) items.push({ prio: 2, tone: "bad", target: ".cmd-stats", text: "Suspicion is dangerously high (" + suspicion + "%)" });
+else if (suspicion >= 50) items.push({ prio: 7, tone: "warn", target: ".cmd-stats", text: "Suspicion is climbing (" + suspicion + "%)" });
+
+/* the vent unit on High eats the morale of the staff, remind me it is still running there */
+if (setup.ventLevel() === setup.ventLevels[setup.ventLevels.length - 1]) {
+	items.push({ prio: 6, tone: "warn", device: "vent", text: "The vent unit is still running on " + setup.ventLevel().name });
+}
+
+Object.keys(sv.company.devices).forEach(function (key) {
+	var d = sv.company.devices[key];
+	if (!d.owned) return;
+	if (d.charge <= 15) items.push({ prio: 3, tone: "bad", device: key, text: d.name + " is almost out of charge (" + d.charge + "%)" });
+	else if (d.charge <= 33) items.push({ prio: 8, tone: "warn", device: key, text: d.name + " is running low (" + d.charge + "%)" });
+});
+
+var nextEnd = 999, nextWho = null, nextTask = null, anyTask = false;
+/* tasks only run on weekdays (checkTaskProgression), so on weekends there is nothing to report */
+(weekday ? ["mom", "sister"] : []).forEach(function (key) {
+	(sv.activeTasks[key] || []).forEach(function (entry) {
+		anyTask = true;
+		/* a task with a cooldown that rests today does not run (Define Tasks) */
+		if (setup.taskRestsToday(entry.task)) return;
+		if (entry.endRow > row && entry.endRow < nextEnd) {
+			nextEnd = entry.endRow;
+			nextWho = sv[key].callName;
+			nextTask = wikifyText(entry.task.title);
+		}
+	});
+});
+if (nextWho) {
+	items.push({ prio: 4, tone: "info", target: ".cmd-schedule", text: nextWho + " finishes " + nextTask + " in " + plural(nextEnd - row, "action") });
+} else if (isWorkTime && !anyTask) {
+	items.push({ prio: 9, tone: "info", target: ".cmd-schedule", text: "Nobody has a task. Plan something in the scheduler." });
+}
+
+var unread = sv.company.mails.filter(function (m) { return !m.read && m.active; }).length;
+if (unread > 0) items.push({ prio: 5, tone: "info", target: ".cmd-mails", text: plural(unread, "unread mail") });
+
+/* ---- Quests ----
+   One token per active quest line (hdrQuests: line, owner, title, tone, state, note), and "Next up"
+   entries for quests that can be done now, or open later today with their requirements already met.
+   Blocked quests only show on their token, not in "Next up".
+   Tones: good (ready now), warn (right day and time, but the device or a requirement is missing),
+   info (opens later: state names the next window), idle (wait/check quests and the end of content).
+   A quest whose requirements are not met yet only shows its stand-in title and what it still needs,
+   never its place or time ("Locked quests" in Define Quests). */
+var eligible = setup.getEligibleQuests();
+var now = sv.time.current.value;
+var today = sv.date.today.value;
+var slotName = function (i) { return sv.timeSlots[i] ? sv.timeSlots[i].text : ""; };
+var dayName = function (i) { return sv.date.days[i] ? sv.date.days[i].text : ""; };
+
+State.temporary.hdrQuests = [];
+setup.questLines.forEach(function (key) {
+	var q = setup.getCurrentQuest(sv[key]);
+	/* hidden quests run in the background without a chip (Define Quests) */
+	if (!q || !q.active || q.hidden) return;
+
+	var shown = setup.questDisplay(q);
+	var title = wikifyText(shown.title);
+	var where = shown.locked ? "" : (q.where || []).map(function (loc) { return wikifyText(typeof loc === "object" ? loc.name : loc); }).join(", ");
+	var timed = q.whenDay && q.whenDay.length > 0 && q.whenTime && q.whenTime.length > 0;
+	var unmet = [];
+	(q.requirements || []).forEach(function (req, i) {
+		if (!Scripting.evalTwineScript(req)) unmet.push(setup.questRequirementText(q, i) || "requirements not met");
+	});
+	var owner = key === "player" ? "Main quest" : sv[key].callName + "'s quest";
+	var chip = { line: key, owner: owner, title: title, tone: "idle", state: "Waiting", note: "" };
+
+	if (q.id.endsWith("_end")) {
+		chip.state = "End of content";
+	} else if (shown.locked) {
+		chip.state = "Requirements missing";
+		chip.note = "Needs: " + unmet.join(", ");
+	} else if (!timed) {
+		chip.state = q.check ? "In progress" : "Waiting";
+	} else if (eligible.includes(q)) {
+		chip.tone = "good";
+		chip.state = "Ready" + (where ? " at " + where : " now");
+		items.push({ prio: 1.5, tone: "good", quest: key, text: title + " is ready" + (where ? " at " + where : "") });
+	} else if (q.whenDay.includes(today) && q.whenTime.includes(now)) {
+		/* The window is open, so something else is in the way: the device first, then the requirements */
+		var reason = unmet.length ? unmet.join(", ") : "";
+		if (q.device) {
+			var d = setup.questDevice(q.device);
+			var devName = d.dev ? d.dev.name : sv.company.prototype.name;
+			if (!d.calOk) reason = devName + " isn't calibrated for " + setup.presetLabel(q.device.target);
+			else if (!d.chargeOk) reason = devName + " needs " + d.cost + "% charge (" + (d.dev ? d.dev.charge : 0) + "% now)";
+		}
+		chip.tone = "warn";
+		chip.state = reason ? "Blocked: " + reason : "Blocked";
+	} else {
+		/* The next day and time slot the quest opens, today included */
+		var next = null;
+		for (var k = 0; k < 8 && !next; k++) {
+			if (!q.whenDay.includes((today + k) % 7)) continue;
+			var slots = q.whenTime.filter(function (t) { return k > 0 || t > now; }).sort(function (a, b) { return a - b; });
+			if (slots.length) next = { days: k, slot: slots[0] };
+		}
+		chip.tone = "info";
+		if (next) {
+			var when = next.days === 0 ? "Later today" : (next.days === 1 ? "Tomorrow" : dayName((today + next.days) % 7));
+			chip.state = when + ", " + slotName(next.slot);
+			if (next.days === 0 && !unmet.length) {
+				items.push({ prio: 6.5, tone: "info", quest: key, text: title + " opens later today (" + slotName(next.slot) + (where ? ", " + where : "") + ")" });
+			}
+		} else {
+			chip.state = "Not available";
+		}
+	}
+	if (chip.tone === "info") chip.note = [where, unmet.length ? "Needs: " + unmet.join(", ") : ""].filter(Boolean).join(" · ");
+	State.temporary.hdrQuests.push(chip);
+});
+
+items.sort(function (a, b) { return a.prio - b.prio; });
+items.push({ prio: 99, tone: "idle", text: workLabel });
+State.temporary.hdrNext = items;
+<</script>>
+<</silent>>
+<div class="cmd-header-row">
+	<div class="cmd-header-main">
+		<div class="cmd-header-tag"><<= $company.name>></div>
+		<div class="cmd-header-greeting"><<= _greeting>> <b class="accent">$player.name $player.surname!</b></div>
+		<div class="cmd-next">
+			<<if _hdrNext.length > 1>>
+				<button type="button" class="cmd-next-label cmd-next-cycle" title="Show the next item">Next up<span class="cmd-next-count">1/<<= _hdrNext.length>></span></button>
+			<<else>>
+				<span class="cmd-next-label">Next up</span>
+			<</if>>
+			<<for _n = 0; _n < _hdrNext.length; _n++>>
+				<button type="button" @class="'cmd-next-item ' + _hdrNext[_n].tone + (_n == 0 ? ' active' : '') + (_hdrNext[_n].target || _hdrNext[_n].device || _hdrNext[_n].quest ? ' clickable' : '')" @data-target="_hdrNext[_n].target || ''" @data-device="_hdrNext[_n].device || ''" @data-quest="_hdrNext[_n].quest || ''"><span class="cmd-next-dot"></span><span class="cmd-next-text"><<= _hdrNext[_n].text>></span></button>
+			<</for>>
+		</div>
+	</div>
+
+	<<include "CMD Visitor">>
+
+	<div class="cmd-header-side">
+		<<if _hdrQuests.length > 0>>
+			<div class="cmd-quests">
+				<<for _q range _hdrQuests>>
+					<button type="button" @class="'cmd-quest ' + _q.tone" @data-line="_q.line" @aria-label="_q.owner + ': ' + _q.title">
+						<svg class="cmd-quest-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 4h10l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						<span class="cmd-quest-dot"></span>
+						<span class="cmd-quest-tip">
+							<span class="cmd-quest-owner"><<= _q.owner>></span>
+							<span class="cmd-quest-title"><<= _q.title>></span>
+							<span class="cmd-quest-state"><<= _q.state>></span>
+							<<if _q.note>><span class="cmd-quest-note"><<= _q.note>></span><</if>>
+						</span>
+					</button>
+				<</for>>
+				<div class="cmd-quest-pop" hidden></div>
+			</div>
+		<</if>>
+		<div class="cmd-staff">
+			<<for _p range _hdrStaff>>
+				<button type="button" @class="'cmd-staff-member' + (_p.present ? ' present' : '')" @title="_p.tip" @data-npc="_p.sysName">
+					<span class="cmd-avatar"><span class="cmd-avatar-img" @style="'background-image:url(' + $path + 'images/characters/portraits/' + _p.sysName + '.jpg)'"></span></span>
+					<<if _p.present>>
+						<span class="cmd-staff-text"><span class="cmd-staff-name"><<= _p.name>></span><span class="cmd-staff-doing"><<= _p.doingAt>></span></span>
+					<</if>>
+				</button>
+			<</for>>
+		</div>
+		<button type="button" class="cmd-close" aria-label="Close" title="Leave the desk" onclick="SugarCube.Engine.play('Company Stage 1')">
+			<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+		</button>
+	</div>
+</div>
+
+<<script>>
+window.cmdFlash = function ($target) {
+	if (!$target.length) return;
+	$target.removeClass('cmd-flash');
+	void $target[0].offsetWidth;
+	$target.addClass('cmd-flash');
+	setTimeout(function () { $target.removeClass('cmd-flash'); }, 1300);
+};
+
+/* Re-renders the header in place (after a mail was read, a dialog closed, a task was removed),
+   keeping the "Next up" item that was showing */
+window.cmdRefreshHeader = function () {
+	var $section = $('.cmd-header');
+	if (!$section.length) return;
+	var $old = $section.find('.cmd-next-item');
+	var index = Math.max(0, $old.index($old.filter('.active')));
+	$section.empty().wiki('<<include "CMD Header">>');
+	var $items = $section.find('.cmd-next-item');
+	index = Math.min(index, $items.length - 1);
+	$items.removeClass('active').eq(index).addClass('active');
+	$section.find('.cmd-next-count').text((index + 1) + '/' + $items.length);
+};
+
+$(document).off('click.cmd-next').on('click.cmd-next', '.cmd-next-item', function () {
+	var device = this.dataset.device;
+	if (device && window.openValenxDialog) return window.openValenxDialog(device);
+	if (this.dataset.quest) return window.cmdQuestPop(this.dataset.quest, true);
+	if (this.dataset.target) window.cmdFlash($(this.dataset.target));
+});
+
+/* Opens the full quest card (the sidebar's <<SbQuest>>) under the quest tokens. A second click on the same
+   token closes it, unless keepOpen is set (the "Next up" items only ever open it). */
+window.cmdQuestPop = function (line, keepOpen) {
+	var $chip = $('.cmd-quest[data-line="' + line + '"]');
+	var $pop = $('.cmd-quest-pop');
+	if (!$chip.length || !$pop.length) return;
+	var isOpen = !$pop.prop('hidden') && $pop.attr('data-line') === line;
+	window.cmdQuestPopClose();
+	if (isOpen && !keepOpen) return;
+
+	$pop.attr('data-line', line).wiki('<<SbQuest `setup.getCurrentQuest($' + line + ')` "' + line + '">>').prop('hidden', false);
+	$chip.addClass('open');
+};
+
+window.cmdQuestPopClose = function () {
+	$('.cmd-quest-pop').prop('hidden', true).removeAttr('data-line').empty();
+	$('.cmd-quest').removeClass('open');
+};
+
+$(document).off('click.cmd-quest').on('click.cmd-quest', '.cmd-quest', function () {
+	window.cmdQuestPop(this.dataset.line);
+});
+
+$(document).off('click.cmd-quest-close').on('click.cmd-quest-close', function (ev) {
+	if (!$(ev.target).closest('.cmd-quest, .cmd-quest-pop, .cmd-next-item').length) window.cmdQuestPopClose();
+});
+
+/* Dialogs (mails, devices, task picker, staff) change what the header shows, so redraw it when one closes */
+$(document).off(':dialogclosed.cmd-header').on(':dialogclosed.cmd-header', function () {
+	window.cmdRefreshHeader();
+});
+
+$(document).off('click.cmd-cycle').on('click.cmd-cycle', '.cmd-next-cycle', function () {
+	var $items = $('.cmd-next-item');
+	var next = ($items.index($items.filter('.active')) + 1) % $items.length;
+	$items.removeClass('active').eq(next).addClass('active');
+	$(this).find('.cmd-next-count').text((next + 1) + '/' + $items.length);
+});
+
+$(document).off('click.cmd-avatar').on('click.cmd-avatar', '.cmd-staff-member', function () {
+	State.variables.profileNpc = this.dataset.npc;
+	State.variables.returnFromProfile = State.passage;
+	Engine.play('Profile');
+});
+<</script>>
+
+<style>
+.cmd-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	text-align: left; /* .passage is justified */
+}
+
+.cmd-header-main {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.cmd-header-tag {
+	font-size: .6rem;
+	font-weight: 600;
+	letter-spacing: .2em;
+	text-transform: uppercase;
+	opacity: .5;
+}
+
+.cmd-header-greeting {
+	overflow: hidden;
+	font-size: 24pt;
+	line-height: 1.2;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* ---- Next up ---- */
+.cmd-next {
+	display: flex;
+	align-items: center;
+	gap: .6rem;
+	min-width: 0;
+	min-height: 1.6rem;
+	font-size: .95rem;
+	white-space: nowrap;
+}
+
+.cmd-next-label {
+	flex-shrink: 0;
+	padding: .15rem .55rem;
+	font-size: .6rem;
+	font-weight: 600;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	border: 1px solid var(--card-border);
+	border-radius: 999px;
+	opacity: .6;
+}
+
+.cmd-next-item {
+	--tone: var(--accent);
+	appearance: none;
+	display: none;
+	align-items: center;
+	gap: .5rem;
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	text-align: left;
+	color: inherit;
+	background: none;
+	border: 0;
+	cursor: default;
+}
+
+.cmd-next-item.active {
+	display: inline-flex;
+	min-width: 0;
+	animation: cmd-next-in .25s ease;
+}
+
+.cmd-next-item.clickable {
+	cursor: pointer;
+}
+
+.cmd-next-item.clickable:hover {
+	color: var(--accent);
+}
+
+.cmd-next-item.good { --tone: #35DB76; }
+.cmd-next-item.warn { --tone: #E8803A; }
+.cmd-next-item.bad  { --tone: #DB354C; }
+.cmd-next-item.idle { --tone: #888; }
+
+.cmd-next-text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.cmd-next-dot {
+	flex-shrink: 0;
+	width: .5rem;
+	height: .5rem;
+	border-radius: 50%;
+	background: var(--tone);
+	box-shadow: 0 0 6px var(--tone);
+}
+
+/* The label doubles as the cycle button when there is more than one item */
+.cmd-next-cycle {
+	appearance: none;
+	display: inline-flex;
+	align-items: center;
+	gap: .6rem;
+	margin: 0;
+	font-family: inherit;
+	color: inherit;
+	background: var(--card-bg);
+	cursor: pointer;
+	transition: opacity .15s ease, background .15s ease;
+}
+
+.cmd-next-cycle:hover {
+	opacity: 1;
+	background: #ebddc51f;
+}
+
+.cmd-next-count {
+	color: var(--accent);
+	letter-spacing: .06em;
+}
+
+@keyframes cmd-next-in {
+	from { opacity: 0; transform: translateY(3px); }
+	to   { opacity: 1; transform: none; }
+}
+
+/* ---- Quests: one token per line. The ring shows whose quest it is, the dot whether it can be done.
+   Hover shows owner, title and state; a click opens the full card under the tokens ---- */
+.cmd-header {
+	position: relative;
+	z-index: 20; /* the quest card opens over the panels below */
+}
+
+.cmd-quests {
+	position: relative;
+	display: flex;
+	gap: .5rem;
+	padding-right: 1rem;
+	border-right: 1px solid var(--card-border);
+}
+
+.cmd-quest {
+	--line: #EAAF4C;
+	--tone: #888;
+	appearance: none;
+	position: relative;
+	box-sizing: border-box;
+	width: 2.4rem;
+	height: 2.4rem;
+	margin: 0;
+	padding: .55rem;
+	font: inherit;
+	color: var(--line);
+	background: var(--card-bg);
+	border: 2px solid var(--line);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background .15s ease;
+}
+
+.cmd-quest[data-line="mom"]    { --line: #E6798F; }
+.cmd-quest[data-line="sister"] { --line: #E87CB9; }
+.cmd-quest[data-line="prof"]   { --line: #8FB3D9; }
+
+.cmd-quest.good { --tone: #35DB76; }
+.cmd-quest.warn { --tone: #E8803A; }
+.cmd-quest.info { --tone: #EAAF4C; }
+.cmd-quest.idle { border-style: dashed; }
+.cmd-quest.idle .cmd-quest-icon { opacity: .45; }
+
+.cmd-quest:hover,
+.cmd-quest.open {
+	background: #ebddc51f;
+}
+
+.cmd-quest-icon {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.cmd-quest-dot {
+	position: absolute;
+	right: -.2rem;
+	bottom: -.2rem;
+	width: .55rem;
+	height: .55rem;
+	border: 2px solid rgb(34, 34, 46);
+	border-radius: 50%;
+	background: var(--tone);
+}
+
+.cmd-quest.idle .cmd-quest-dot {
+	display: none;
+}
+
+.cmd-quest.good .cmd-quest-dot {
+	box-shadow: 0 0 6px var(--tone);
+	animation: cmd-quest-pulse 2s ease-in-out infinite;
+}
+
+@keyframes cmd-quest-pulse {
+	50% { box-shadow: 0 0 12px var(--tone); }
+}
+
+/* hover label, hidden while the card is open */
+.cmd-quest-tip {
+	position: absolute;
+	top: calc(100% + .5rem);
+	right: -.5rem;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	gap: .1rem;
+	width: max-content;
+	max-width: 18rem;
+	padding: .5rem .75rem;
+	font-size: .8rem;
+	line-height: 1.3;
+	text-align: left;
+	color: #EBDDC5;
+	background: rgba(34, 34, 46, .95);
+	border: 1px solid var(--card-border);
+	border-radius: .6rem;
+	box-shadow: 0 8px 20px rgba(0,0,0,.35);
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-3px);
+	transition: opacity .12s ease, transform .12s ease, visibility .12s;
+	pointer-events: none;
+}
+
+.cmd-quest:hover .cmd-quest-tip {
+	opacity: 1;
+	visibility: visible;
+	transform: none;
+}
+
+.cmd-quest.open .cmd-quest-tip,
+.cmd-quests:has(.cmd-quest.open) .cmd-quest-tip {
+	display: none;
+}
+
+.cmd-quest-owner {
+	font-size: .6rem;
+	font-weight: 600;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--line);
+}
+
+.cmd-quest-title {
+	font-size: .9rem;
+	font-weight: bold;
+}
+
+.cmd-quest-state {
+	color: var(--tone);
+}
+
+.cmd-quest.idle .cmd-quest-state,
+.cmd-quest-note {
+	color: #EBDDC5;
+	opacity: .6;
+}
+
+/* the full card, reusing the sidebar's quest card */
+.cmd-quest-pop {
+	position: absolute;
+	top: calc(100% + .6rem);
+	right: 0;
+	isolation: isolate;
+	box-sizing: border-box;
+	width: 24rem;
+	padding: .9rem 1rem;
+	text-align: left;
+	background: rgba(34, 34, 46, .95);
+	border: 1px solid var(--card-border);
+	border-radius: .75rem;
+	box-shadow: 0 12px 30px rgba(0,0,0,.35);
+	backdrop-filter: blur(15px);
+	animation: cmd-next-in .2s ease;
+}
+
+.cmd-quest-pop[hidden] {
+	display: none;
+}
+
+.cmd-quest-pop .sb-quest {
+	padding-left: 0;
+	border-left: 0;
+}
+
+/* ---- Staff: avatar + what they are doing. Greyed out when not at the office ---- */
+.cmd-header-side {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-shrink: 0;
+}
+
+.cmd-staff {
+	display: flex;
+	gap: .7rem;
+	padding-right: 1rem;
+	border-right: 1px solid var(--card-border);
+}
+
+.cmd-staff-member {
+	appearance: none;
+	display: flex;
+	align-items: center;
+	gap: .6rem;
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	text-align: left;
+	color: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+
+/* same look as the CCTV and project avatars: accent ring, round portrait */
+.cmd-avatar {
+	position: relative;
+	z-index: 1;
+	flex-shrink: 0;
+	box-sizing: border-box;
+	width: 2.8rem;
+	height: 2.8rem;
+	padding: .1rem;
+	border: 2px solid var(--accent);
+	border-radius: 2rem;
+	overflow: hidden;
+	transition: border-color .2s ease, transform .15s ease;
+}
+
+.cmd-staff-member:hover .cmd-avatar {
+	transform: scale(1.03);
+}
+
+.cmd-avatar-img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 9999rem;
+	background-size: cover;
+	background-position: center 20%;
+	transition: filter .2s ease, opacity .2s ease;
+}
+
+.cmd-staff-member:not(.present) .cmd-avatar {
+	border-color: #ebddc540;
+}
+
+.cmd-staff-member:not(.present) .cmd-avatar-img {
+	filter: grayscale(1);
+	opacity: .5;
+}
+
+.cmd-staff-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  background: var(--card-bg);
+  padding: .25rem 1rem 0.25rem 2.5rem;
+  border-radius: .5rem;
+  border: 1px solid var(--card-border);
+  margin-left: -2.5rem;
+}
+
+.cmd-staff-name {
+	font-size: .85rem;
+	font-weight: bold;
+}
+
+.cmd-staff-doing {
+	font-size: .75rem;
+	color: var(--accent);
+	opacity: .85;
+}
+
+/* ---- Close button ---- */
+.cmd-close {
+	appearance: none;
+	flex-shrink: 0;
+	width: 2.8rem;
+	height: 2.8rem;
+	margin: 0;
+	padding: .8rem;
+	color: #ebddc5;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: .6rem;
+	cursor: pointer;
+	transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.cmd-close svg {
+	display: block;
+	transition: transform .2s ease;
+}
+
+.cmd-close:hover,
+.cmd-close:focus-visible {
+	color: #ff8a99;
+	background: #DB354C33;
+	border-color: #DB354C;
+	outline: none;
+}
+
+.cmd-close:hover svg,
+.cmd-close:focus-visible svg {
+	transform: rotate(90deg);
+}
+
+.cmd-close:active {
+	background: #DB354C55;
+}
+
+/* Pulse a dashboard panel when something points at it */
+.cmd-flash {
+	animation: cmd-flash 1s ease-out;
+}
+
+@keyframes cmd-flash {
+	30%, 50%, 80% 	{ box-shadow: inset 0 0 0 1px var(--accent); }
+	0%, 100%  { box-shadow: inset 0 0 0 1px transparent; }
+}
+</style>

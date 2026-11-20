@@ -1,0 +1,59 @@
+:: Mom Passing Hallway [micro_event event nobr] {"position":"1425,2775","size":"100,100"}
+/* Ambient: a few lines in passing, picked at random. Optional: stop and talk. */
+<<Video "images/characters/mom/events/hallway/walking.mp4" "" "" 400>>
+<<silently>>
+<<set _pool to [
+	[
+		{ who: $mom, text: "Long day. I'm going to sit down for five minutes and not move." },
+		{ who: $player, text: "Want me to bring you some tea?" },
+		{ who: $mom, text: "Maybe later, sweetheart." }
+	],
+	[
+		{ text: "She walks past with her phone against her ear, nodding along and not saying a word." },
+		{ who: $mom, text: "Later, honey. It's work." }
+	],
+	[
+		{ who: $mom, text: "If you have anything for the wash, put it in the basket by my door." },
+		{ who: $player, text: "Will do." }
+	],
+	[
+		{ who: $mom, text: "Is pasta okay tonight, or do you want something else?" },
+		{ who: $player, text: "Pasta's fine." },
+		{ who: $mom, text: "You always say that." }
+	],
+	[
+		{ who: $mom, text: "Are you eating enough? You look thin." },
+		{ who: $player, text: "I'm fine." },
+		{ who: $mom, text: "That's what you said last week, too." }
+	],
+	[
+		{ who: $mom, text: "The neighbors' dog learned to sit. Only for sausages, though." },
+		{ who: $player, text: "Smart dog." }
+	]
+]>>
+<<if $mom.flags.rentHelp>>
+	<<run _pool.push([
+		{ text: "She is counting something on her fingers as she walks. This week's bills, probably." },
+		{ who: $mom, text: "Oh, hi. Sorry, I was somewhere else." }
+	])>>
+<</if>>
+<<set _msgs to _pool.random()>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="choice1">
+	<<link "Stop and talk for a minute">>
+		<<replace "#choice1">>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $player, text: "Do you have a minute?" },
+				{ who: $mom, text: "For you? Always. Though I'm not very interesting company right now." },
+				{ who: $player, text: "I'll take what I can get." }
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>She squeezes my arm before she carries on down the hall.</p>
+			<<UpdateStat "+" "MomRelation" 1>>
+		<</replace>>
+	<</link>>
+</div>

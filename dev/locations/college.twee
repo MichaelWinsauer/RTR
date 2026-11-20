@@ -1,0 +1,14 @@
+:: College [location] {"position":"2025,1425","size":"100,100"}
+<<CheckLocation>>
+The college sits at the top of a wide concrete plaza, a long sand-colored building with a big wooden roof over the entrance, like somebody glued a ski lodge onto an office park. Two flights of stairs with white railings climb up to the glass doors, past two flagpoles that have never had a flag on them. Between classes the steps fill up with students and coffee cups, and five minutes later the plaza is empty again. $sister.callName spends half her week behind those doors and, depending on the day, either loves it or wants to burn it down.
+
+<<silently>>
+    <<set _locations to [ $locations[17], $locations[18], ]>>
+<</silently>>
+<<LocationLinks _locations>>
+
+<<CheckNPCLocation>>
+
+[[Return|Residential Area]]
+
+

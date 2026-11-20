@@ -1,0 +1,47 @@
+:: Ethan Desk Visit [micro_event event nobr] {"position":"1800,3025","size":"100,100"}
+/* Desk visitor (micro event 22, "Desk visitors" in Define Events): he comes by to show off something useless he built.
+   Shown in the CMD drawer, so no action is spent and there is no exit link. Small company effects only. */
+<p>$ethan.name sets his laptop down on the corner of my desk and turns it toward me, very carefully, like it's a cake he baked himself.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $ethan, text: "Okay, boss. You're going to love this, and then you're going to tell me to delete it, and I want you to know I'll respect that. Eventually." },
+	{ who: $player, text: "What did you do?" },
+	{ who: $ethan, text: either("I hooked the build server up to the office speaker. Every time one of $brian.name's tests fails, it plays a sad trombone. It's played eleven times today. He's started apologizing to it.", "I wrote a bot that guesses everyone's lunch order. It's right about seventy percent of the time. It's right about $darius.name a hundred percent of the time, because $darius.name has eaten the same salad every day since he started.", "I found out the coffee machine has an API. Don't ask me why a coffee machine has an API. It now posts in the team chat every time somebody takes the last cup and doesn't make a new pot. It's mostly posted about me.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="ethan-desk-choice">
+	<div>
+		<<link "Let him show you">>
+			<<replace "#ethan-desk-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "He runs me through the whole thing, including a demo he has very obviously rehearsed. Halfway through I catch myself laughing, and he points at me like he's just won a bet with himself." },
+					{ who: $ethan, text: "See? Morale. I'm basically HR now." },
+					{ who: $player, text: "You're not HR." },
+					{ who: $ethan, text: "I'm the fun part of HR. The part with snacks." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>Behind him, somebody at the other desks laughs at something on their screen, and it's the loose, easy kind of laugh I don't hear in here that often.</p>
+				<<UpdateStat "+" "Morale" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Ask about the actual work">>
+			<<replace "#ethan-desk-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Great. And the thing I'm actually paying you for?" },
+					{ who: $ethan, text: "Wow. Okay. Straight to the throat." },
+					{ text: "He closes the laptop, but he's still grinning, and then he gives me a proper rundown: what's done, what's stuck, and what's stuck because $brian.name and he can't agree on a variable name. It's a better report than I'd have got from him in a meeting." },
+					{ who: $ethan, text: "I'll have the stuck part unstuck by tomorrow. The variable name thing might take a mediator." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "Efficiency" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

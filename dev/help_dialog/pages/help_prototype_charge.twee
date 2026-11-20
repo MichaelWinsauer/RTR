@@ -1,0 +1,9 @@
+:: Help Prototype Charge [nobr] {"position":"425,4500"}
+<p>The prototype runs on <b>charge</b>, shown on its card. It can hold up to <b><<= $company.prototype.maxCharge>>%</b>.</p>
+<ul>
+	<li><b>Slowly by itself:</b> it regains <b><<= $company.prototype.rechargePerDay || 10>>%</b> every night.</li>
+	<li><b>Faster if you spend time on it:</b> press the <b>Charge</b> button on the card. Every action you spend charging gives <b><<= $company.prototype.chargePerAction || 20>>%</b>.</li>
+</ul>
+<p>You can only charge it at a <a href="#" data-help="Help Places Desks">desk</a> (your Bedroom or the Company office), and only while it isn't full.</p>
+<p>Using it in a <a href="#" data-help="Help Quests">quest</a> costs between <b><<= $company.impactCost[1]>>%</b> and <b><<= $company.impactCost[$company.impactCost.length - 1]>>%</b>, depending on how much the scene relies on it. The quest shows the amount it needs in its <b>ϟ</b> pill, and the scene won't start with less.</p>
+<p>It is at <b><<= $company.prototype.charge>>%</b> now.</p>

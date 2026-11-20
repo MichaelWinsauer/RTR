@@ -1,0 +1,60 @@
+:: Meal Party Animal [activity meal] {"position":"1350,2225"}
+/*
+{
+        id: "party_animal",
+        passage: "Meal Party Animal",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("party_animal").isActive = false,
+        ]
+}
+   Activated by: "Party Animal" (sister_partyAnimal). The morning after her party.
+   She came home at 2 a.m. and remembers almost nothing. $mom.callName slept through it.
+*/
+$sister.callName comes down at a quarter past ten wearing her biggest hoodie with the hood up, sunglasses, and one sock. She moves through the kitchen like the floor might shatter and lowers herself onto her chair one vertebra at a time.
+
+/* IMAGE: images/meals/important/party_animal.jpg | Sister slumped at the breakfast table in an oversized hoodie, hood up, sunglasses on, clutching a glass of water. Mom standing over her with arms crossed and a pan of bacon. */
+
+$mom.callName is frying bacon. She is frying it very loudly.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Good morning, sunshine." },
+{ who: $sister, text: "Please don't say sunshine." },
+{ who: $mom, text: "Twelve-thirty, you said. Twelve-thirty, and you'd text twice. I woke up at three to use the bathroom, and your shoes were in the middle of the hallway. One of them was in the plant." },
+{ who: $sister, text: "The plant looked lonely." },
+{ who: $mom, text: "What time did you get home?" },
+{ who: $sister, text: "Honestly? I have no idea. I remember the Uber. Sort of. I remember the Uber had a dog in it. Was there a dog?" },
+{ text: "$mom.callName puts a glass of water and two aspirin in front of her with the expression of a woman who has done this before, with this exact patient." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pass her the toast. She takes it without looking, then does look, and something crosses her face. It's not a memory exactly. More like the shadow of one.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I had the weirdest dream last night." },
+{ who: $mom, text: "You had about six tequila shots last night, I'd guess." },
+{ who: $sister, text: "No, like a really... never mind. It's dumb." },
+{ text: "She stops. Her cheeks go pink under the sunglasses, all the way up to her ears, and she takes a very long drink of water and doesn't finish the sentence." },
+{ who: $player, text: "Must have been some party." },
+{ who: $sister, text: "Must have been." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't look at me again for the rest of breakfast. She doesn't look at anything, really, except her plate. But when $mom.callName asks if she wants to lie down on the couch and watch something, she says only if I come too, and then pretends she didn't say it.
+
+I eat my bacon. $mom.callName fusses with the dishes, tutting about the shoe in the plant. Nobody at this table knows what happened last night except me. My phone is lying face down next to my plate.
+
+<<UpdateStat "+" "SisterRelation" 2>>

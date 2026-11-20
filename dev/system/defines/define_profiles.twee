@@ -1,0 +1,25 @@
+:: Define Profiles [system] {"position":"375,150","size":"100,100"}
+/* Which profile the "Profile" passage shows ("mom" or "sister"). Set it before going there:
+   <<set $profileNpc to "mom">><<set $returnFromProfile to passage()>><<goto "Profile">> */
+<<set $profileNpc to "mom">>
+
+/* personality / appearance are passage names (the texts live in their own passages).
+   log:      entries of the Progression tab,  added with <<ProfileLog>>
+   memories: entries of the Recollection tab, added with <<ProfileMemory>> */
+<<set $mom.profile to {
+	portrait: "images/characters/mom/0_transparent_crop.png",
+	facts: [ "Project manager", "Lives at home" ],
+	personality: "Personality-wise, my $mom.relation is supportive and caring, always loved me unconditionally, quick with a warm hug or encouraging words whenever I need them. She's excellent at her job as a project manager in a consulting firm, skilled in handling people, time, and tasks with effortless grace; though she earns solid money, most of it goes to our expensive house and $sister.callName's college tuition, but she never complains, always putting family first.",
+	appearance: "My $mom.relation $mom.name is a stunning woman at $mom.age, with long, wavy blonde hair cascading down her back like golden silk, framing a face that's both youthful and alluring with sharp blue eyes, full lips curved in a teasing smile, and flawless fair skin. Her body is toned and curvaceous, boasting generous C-cup breasts that strain against her casual off-shoulder gray top adorned with colorful studs, a slim waist flaring into wide hips, and a plump, heart-shaped ass perfectly hugged by ripped denim shorts that leave her smooth, tanned legs on full display, making her look more like a seductive MILF than my typical $mom.relation.",
+	log: [],
+	memories: [],
+}>>
+
+<<set $sister.profile to {
+	portrait: "images/characters/sister/0_transparent_crop.png",
+	facts: [ "College student", "Lives at home" ],
+	personality: "Personality-wise, my $sister.relation is playful and affectionate, always ready with a sarcastic joke or a sibling hug that knocks the air out of me, her bubbly energy lighting up the house like a carefree spirit who's been my confidante since we were kids. She's smart and driven, juggling college classes with ease thanks to $mom.callName's support, excelling in social dynamics and time management just like our $mom.relation, though she spends freely on fun stuff without a worry; deep down, her trusting nature and hidden curiosities make her the ideal target for my twisted fantasies, primed to be molded into a obedient slut who'll do anything to help my rise to power.",
+	appearance: "My $sister.relation $sister.name is a gorgeous girl at $sister.age, with long, straight brown hair flowing down her back like a silky curtain, framing a face that's innocently seductive with piercing blue eyes, pouty full lips in a subtle smirk, and smooth fair skin glowing with youth. Her body is fit and athletic, featuring perky B-cup breasts pressing against her tight red crop top hoodie that exposes her toned midriff and a tiny hip tattoo, a narrow waist leading to curvy hips, and a firm, round ass accentuated by skimpy matching shorts that showcase her long, shapely legs, making her look like the ultimate teasing college babe rather than just my $sister.relation.",
+	log: [],
+	memories: [],
+}>>

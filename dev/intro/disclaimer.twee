@@ -1,0 +1,21 @@
+:: Disclaimer [hide_sidebar] {"position":"100,425","size":"100,100"}
+<<Image "images/misc/banner.jpg" "" "" 1000>>
+
+<b class="accent">Rise to Ruin</b> is an adults-only interactive fiction game built with Twine (SugarCube 2).
+
+You play as $player.name, a young man living with his <<= $sister.relation >> and <<= $mom.relation >>.
+This story includes mature themes like manipulation, explicit sexual content and morally dark choices.
+
+All characters are 18+.
+The narrative is entirely fictional, and any resemblance to real people is coincidental.
+The story and texts are completely made up by the author. The images and videos, on the other hand... well, it's an HTML game. What can I say.
+
+You must be of legal age in your jurisdiction to continue. Are you?
+<<nobr>>
+<div class="navigation-link">
+[[Yes, start the game|Character Configuration]]
+[[No|Exit]]
+</div>
+<</nobr>>
+
+

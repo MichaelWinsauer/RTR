@@ -1,0 +1,173 @@
+:: CMD Actions [nobr] {"position":"2475,3375","size":"200,100"}
+/* My own buttons on the dashboard. Each one spends actions with <<UseAction>>, which runs the full update
+   (tasks, project work) for every single action, and then redraws the desk.
+     Work            one action of my own work: $playerWorking adds +1 to every requirement of every active project
+     Skip Work Day   I work through to the end of today's work hours ($company.workHours).
+                     Only on weekdays, while work hours are left
+     Complete Task   waits until the running task that ends first is done (setup.getRunningTaskEnd). The staff
+                     keep working, I don't. Only while a task runs
+     Wait for Work   before today's work hours: waits until they start. Weekdays only
+     Work until ...  a task with me (setup.getNextTaskWithPlayer, Define Tasks) comes up later today: I work, as with
+                     Work, until the action it starts on, then I'm where it needs me (the dialog opens there).
+                     Weekdays only, while it lies ahead
+     Join ...        that task has started somewhere else in the office (the meeting room) and she's waiting:
+                     goes there without spending an action, so I still arrive in time
+     Go Home         after today's work hours (or on the weekend): one action to get home, straight to my bedroom */
+<<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+<<set _caWeekday to $date.today.value < 5>>
+<<set _caFirst to $company.workHours.indexOf(true)>>
+<<set _caLast to $company.workHours.lastIndexOf(true)>>
+<<set _caSkip to (_caWeekday ? _caLast + 1 - _caRow : 0)>>
+<<set _caWait to (_caWeekday && _caFirst > _caRow ? _caFirst - _caRow : 0)>>
+<<set _caAfterWork to !_caWeekday || _caFirst < 0 || _caRow > _caLast>>
+<<set _caTaskEnd to setup.getRunningTaskEnd()>>
+<<set _caWp to setup.getNextTaskWithPlayer()>>
+<<if _caWp>>
+    <<set _caWpNpc to State.variables[_caWp.sysName]>>
+    <<set _caWpPlace to setup.getTaskPlace(_caWp.task)>>
+<</if>>
+<div class="cmd-actions-action-wrapper">
+    <div class="cmd-actions-action">
+        <div>
+	        <<Media "images/misc/work.png" "" "" "false">>
+        </div>
+        <<link "Work">>
+        	<<set $playerWorking to true>>
+            <<UseAction>>
+            <<set $playerWorking to false>>
+            <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
+        <</link>>
+    </div>
+    <<if _caSkip > 0>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/workskip.png" "" "" "false">>
+            </div>
+            <<link "Skip Work Day">>
+                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+                <<set _caSkip to $company.workHours.lastIndexOf(true) + 1 - _caRow>>
+                <<if _caSkip > 0>>
+                    <<set $playerWorking to true>>
+                    <<UseAction _caSkip>>
+                    <<set $playerWorking to false>>
+                <</if>>
+                <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
+            <</link>>
+        </div>
+    <</if>>
+    <<if _caTaskEnd > _caRow>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/worktask.png" "" "" "false">>
+            </div>
+            <<link "Complete Task">>
+                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+                <<set _caTaskEnd to setup.getRunningTaskEnd()>>
+                <<if _caTaskEnd > _caRow>>
+                    <<UseAction `_caTaskEnd - _caRow`>>
+                <</if>>
+                <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
+            <</link>>
+        </div>
+    <</if>>
+    <<if _caWp && !_caWp.waiting>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/workwait.png" "" "" "false">>
+            </div>
+            <<link `"Work until " + _caWpNpc.callName + "'s " + _caWp.task.title`>>
+                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+                <<set _caWp to setup.getNextTaskWithPlayer()>>
+                <<if _caWp && !_caWp.waiting>>
+                    <<set $playerWorking to true>>
+                    <<UseAction `_caWp.entry.startRow - _caRow`>>
+                    <<set $playerWorking to false>>
+                    /* where she will be: my desk counts for the office, anything else (the meeting room) is a walk */
+                    <<set _caWpPlace to setup.getTaskPlace(_caWp.task)>>
+                <</if>>
+                <<if _caWpPlace && _caWpPlace.passage != passage()>>
+                    <<goto `_caWpPlace.passage`>>
+                <<else>>
+                    <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
+                <</if>>
+            <</link>>
+        </div>
+    <</if>>
+    <<if _caWp && _caWp.waiting && _caWpPlace>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/call.png" "" "" "false">>
+            </div>
+            <<link `"Join " + _caWpNpc.callName + " in the " + wikifyText(_caWpPlace.name)`>>
+                <<goto `_caWpPlace.passage`>>
+            <</link>>
+        </div>
+    <</if>>
+    <<if _caWait > 0>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/workwait.png" "" "" "false">>
+            </div>
+            <<link "Wait for Work">>
+                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+                <<set _caWait to $company.workHours.indexOf(true) - _caRow>>
+                <<if $date.today.value < 5 && _caWait > 0>>
+                    <<UseAction _caWait>>
+                <</if>>
+                <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
+            <</link>>
+        </div>
+    <</if>>
+    <<if _caAfterWork>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/home.png" "" "" "false">>
+            </div>
+            <<link "Go Home">>
+                <<goto "Bedroom">>
+                <<UseAction>>
+            <</link>>
+        </div>
+    <</if>>
+    /* callFamilyToDesk also stores $interactionDesk, so the interaction screen knows she is still at work */
+    <<if canCallToDesk("mom")>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/call.png" "" "" "false">>
+            </div>
+            <<link "Call $mom.callName to my desk">>
+                <<run callFamilyToDesk("mom")>>
+            <</link>>
+        </div>
+    <</if>>
+    <<if canCallToDesk("sister")>>
+        <div class="cmd-actions-action">
+            <div>
+                <<Media "images/misc/call.png" "" "" "false">>
+            </div>
+            <<link "Call $sister.callName to my desk">>
+                <<run callFamilyToDesk("sister")>>
+            <</link>>
+        </div>
+    <</if>>
+</div>
+
+
+/* a click anywhere on a card clicks its link. Delegated and replaced on every render, so it is bound once.
+   window.cmdRefreshActions() redraws the cards, e.g. after a task was put into or taken out of the schedule */
+<<script>>
+window.cmdRefreshActions = function () {
+    $('.cmd-actions').empty().wiki('<<include "CMD Actions">>');
+};
+$(document)
+    .off('click.cmd-action')
+    .on('click.cmd-action', '.cmd-actions-action', function (e) {
+        if (!$(e.target).closest('a').length) {
+            const $link = $(this).find('a').first();
+            if ($link.length) {
+                e.preventDefault();
+                $link[0].click();
+            }
+        }
+    });
+<</script>>

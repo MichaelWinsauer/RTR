@@ -1,0 +1,42 @@
+:: Help Company Employees [nobr] {"position":"825,4250"}
+/* The wage table lists $company.employees from the live state (setup.helpEmployees, Help Dialog Script), so
+   nobody shows up here before the story has hired them */
+<p>Below the stats you see one card for each person who works for the company.</p>
+
+<h3>The cards</h3>
+<p>A card shows a round portrait, the name, the role, and:</p>
+<ul>
+	<li><b>Energy</b> (only for $mom.callName and $sister.callName): how much she has left for <a href="#" data-help="Help Company Tasks">tasks</a>.</li>
+	<li><b>Morale</b>: how motivated someone is, which matters for <a href="#" data-help="Help Company Skills">project work</a>.</li>
+	<li>Their two best <b>skills</b>.</li>
+</ul>
+<p>The numbers are red below 34, yellow below 66 and green above that.</p>
+
+<h3>The employee file</h3>
+<p>Click a card to open the employee file.</p>
+<dl class="help-stats">
+	<dt>Facts</dt><dd>Age, current location, the wage per day and what they cost per week (the daily wage times seven), how many projects they are on, and their best skill.</dd>
+	<dt>Energy gauge</dt><dd>Well rested from two thirds up, Tired from one third, Exhausted below that.</dd>
+	<dt>Morale gauge</dt><dd>Motivated, Neutral or Unhappy.</dd>
+	<dt>Skills</dt><dd>A radar chart of all nine skills, and chips for the top three.</dd>
+	<dt>Projects</dt><dd>The projects they are assigned to, with how far along each is.</dd>
+	<dt>Personal stats</dt><dd>For $mom.callName and $sister.callName only: Relation, Corruption, Lust, Resistance and Exhibition. See <a href="#" data-help="Help Npc Stats">Stats</a>.</dd>
+	<dt>Call to desk</dt><dd>For $mom.callName and $sister.callName, while they are in the office, at your desk or in the meeting room: opens the <a href="#" data-help="Help Npc Interaction">interaction screen</a> with her right there.</dd>
+</dl>
+
+<h3>Wages</h3>
+<<set _hceStaff to setup.helpEmployees()>>
+<<if _hceStaff.length > 0>>
+<table class="help-table">
+	<tr><th>Person</th><th>Wage per day</th><th>Per week</th></tr>
+	<<for _hcePerson range _hceStaff>>
+	<tr><td><<= _hcePerson.callName>></td><td>$<<= _hcePerson.wage>></td><td>$<<= _hcePerson.wage * 7>></td></tr>
+	<</for>>
+	<tr><td>Total</td><td></td><td>$<<= setup.weeklyWages()>></td></tr>
+</table>
+<<else>>
+<p class="help-empty">Nobody works for the company yet.</p>
+<</if>>
+<p>Wages count every day of the week, weekends included. The whole week is paid out of the company account every Monday morning, and the weekly total is part of the red expenses total on the <a href="#" data-help="Help Company Finances">finances</a> panel.</p>
+
+<div class="help-note">You don't give assignments from here. People are put on a project from the <a href="#" data-help="Help Company Projects">projects</a> panel, and $mom.callName and $sister.callName on a task from the <a href="#" data-help="Help Company Schedule">schedule</a>.</div>

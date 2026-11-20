@@ -1,0 +1,95 @@
+:: Mom Kitchen Wine [micro_event event nobr] {"position":"1800,2900","size":"100,100"}
+/* Confiding: she winds down with a glass of wine. Pick what to ask her about (each topic only once per visit). */
+<<set _vx to setup.homeDevice()>>
+<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
+<<set _vxCost to 10 + 10 * _vxLevel>>
+<p>I step into the kitchen. $mom.callName is at the table with a glass of red wine, shoes off, looking tired but a little more relaxed than usual.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "Evening, sweetheart. Rough day. This is my little treat." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<linkreplace "Ask about work">>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $player, text: "How's work?" },
+				{ who: $mom, text: "A new deadline every week and a boss who never reads the emails he asks for. I do the work of two people. It's fine." }
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<br>
+			<<UpdateStat "+" "MomRelation" 1>>
+		<</linkreplace>>
+	</div>
+	<div>
+		<<linkreplace "Ask about money">>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $player, text: "Are we okay? With money, I mean." },
+				{ who: $mom, text: "We're okay. We're always okay. I just count more than I used to." }
+			]>>
+			<<if $mom.flags.rentHelp>>
+				<<run _msgs.push({ who: $mom, text: "And the money for your office is my choice. Don't feel bad about it." })>>
+			<</if>>
+			<</silently>>
+			<<Chat _msgs>>
+			<<UpdateStat "+" "MomRelation" 1>>
+		<</linkreplace>>
+	</div>
+	<div>
+		<<linkreplace "Ask about $dad.callName">>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $player, text: "Do you ever talk to $dad.callName?" },
+				{ who: $mom, text: "Your $dad.relation isn't something I want to talk about over wine. Maybe another day." }
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+		<</linkreplace>>
+	</div>
+	<div>
+		<<linkreplace "Ask how she's really doing">>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $player, text: "How are you doing? Really." },
+				{ who: $mom, text: "Tired. But I'm glad you're home. Don't tell your $sister.relation I said that." }
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<<UpdateStat "+" "MomRelation" 2>>
+		<</linkreplace>>
+	</div>
+	<<if _vxLevel > 0>>
+		<div>
+			<<if _vx.lastUsedAtDay == $date.dayCount>>
+				<span style="opacity: .5;">Use the prototype (already used today)</span>
+			<<elseif _vx.charge < _vxCost>>
+				<span style="opacity: .5;">Use the prototype (not enough charge)</span>
+			<<else>>
+				<<link "Use the prototype while she talks">>
+					<<replace "#choice1">>
+						<<set _vx.charge -= _vxCost>>
+						<<set _vx.lastUsedAtDay to $date.dayCount>>
+						<<set _vx.lastUsedOnWho to "mom">>
+						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
+							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
+							<p>She puts her glass down and studies me. "You've been quiet and watchful lately," she says. "Is something going on?" The evening goes cold after that.</p>
+							<<UpdateStat "-" "MomRelation" 3>>
+							<<UpdateStat "+" "MomResistance" 4>>
+						<<else>>
+							<<set _gain to 1 + _vxLevel>>
+							<<set _lustGain to 4 + 4 * _vxLevel>>
+							<p>I turn the prototype on in my pocket and listen to her talk. <<DevicePulse `_vxLevel + 1`>> Her shoulders drop and she starts laughing at things that aren't that funny. By the time the glass is empty she's leaning toward me across the table.</p>
+							<<UpdateStat "-" "MomRelation" 1>>
+							<<UpdateStat "+" "MomCorruption" _gain>>
+							<<UpdateStat "+" "MomLust" _lustGain>>
+						<</if>>
+					<</replace>>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
+</div>

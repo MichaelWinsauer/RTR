@@ -1,0 +1,126 @@
+:: Task Mom Massage 1 [task_scene] {"position":"1900,4050"}
+/* Scene of the task "Private Attention", stage 1 (after 5 massages, with her at 40 corruption).
+   Played every time the task starts while I'm in the meeting room. Effects are in the task's onComplete.
+   Stage 1: she comes early, with no excuse in her hands, and waits by the whiteboard until I let her start. I make her wait
+   and give her profile one notch on the phone while she does. She has started painting her nails red. During the massage
+   she bends over me until her chest rests against the back of my head and stays like that. An interruption (random) or
+   nothing; either way she doesn't move away anymore. The first time I tell her to keep the red nail polish.
+   Videos (images/characters/mom/tasks/), in this order:
+     massage_1_0  she waves through the door, comes in and stops by the whiteboard, touching her hair
+     massage_1_1  she fidgets (finger on her lip, hand on her stomach), I drop the folder and turn my back to her
+     massage_1_2  the massage while I work, she leans down over me */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ms1Task to setup.getTaskById("task_mom_private_attention")>>
+	<<set _ms1First to (_ms1Task.count || 0) === (_ms1Task.stageStartCount || 0)>>
+	<<set _ms1 to random(0, 2)>>
+<</silent>>
+I'm at the meeting table with <<= either("a folder of $boss.callName's change requests, each one signed with the same aggressive little flourish", "a printout of $darius.name's latest numbers, which are good, which is exactly why I'm reading them twice", "the lease addendum $landlord.callName sent over, which smells faintly of cigars even on paper")>>, when somebody waves at me through the glass in the door.
+
+<<Video "images/characters/mom/tasks/massage_1_0.mp4" "" "" 600>>
+
+It's $mom.callName, a good twenty minutes early, with nothing in her hands. No tablet, no folder, not even a coffee to make it look like she just happened to be passing. She comes in, shuts the door behind her and then doesn't seem to know what to do with the rest of herself. She ends up next to the whiteboard $brian.name finally put up last week, slightly crooked, and stands there fiddling with her hair.
+
+<<if _ms1First>>She used to bring the tablet so that anybody looking through the glass would think she was here to talk about delivery dates. I don't know when she stopped. I only notice today that she has.<</if>>
+
+<<linkreplace "Make her wait">>
+I don't look up. I turn a page I haven't read, and then another one.
+
+My phone is lying next to the folder. I pick it up as if I've just felt it buzz, open her profile and push it up one notch with my thumb, then put it face down on the table again.<<DevicePulse 2>> She's going to stand there either way. I'd like to see what she does with the waiting.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Somebody wrote 'synergy' on the whiteboard. In green. I'm not saying who, but there's exactly one green marker in this office, and it lives on $ethan.name's desk." },
+{ who: $player, text: "Mm-hm." },
+{ who: $mom, text: "And the plant by the window is dying. I've been watering it. Maybe too much? Can you water a plant too much? I feel like that's something I should know at my age." },
+{ who: $player, text: "Mm." },
+{ text: "She stops talking. I hear her heels shift on the carpet, and then shift back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Look at her">>
+<<Video "images/characters/mom/tasks/massage_1_1.mp4" "" "" 600>>
+
+When I finally look up, she's still by the whiteboard, but she's given up pretending to read it. One fingertip rests against her lower lip. The other hand lies flat on her stomach, and she's rocking very slightly from her heels onto her toes and back, like someone in a waiting room who's been told the doctor will be right with her. I don't think she knows she's doing any of it. I prop my chin on my hand and watch her, and she lets me, and slowly goes pink.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You're early." },
+{ who: $mom, text: "I'm not early. You're... well, all right, I'm a little early. I had a gap. Between things." },
+{ who: $player, text: "What things?" },
+{ who: $mom, text: "Things, honey. Work things. Are you going to be much longer with that?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I toss the folder onto the table and swivel the chair around until my back is to her. I don't say anything, because I don't need to. She's behind me before the chair has stopped turning.
+
+<<linkreplace "Lean back">>
+<<Video "images/characters/mom/tasks/massage_1_2.mp4" "" "" 600>>
+
+She starts on my shoulders, and I pull the keyboard over and go back to work, because I can. <<if _ms1First>>Her nails are red. For as long as I can remember she's kept them bare, or a pale sensible pink, the color of a woman who doesn't want anybody asking about her nails. I don't say anything yet.<<else>>The red is on her nails again. It hasn't come off since the first time I mentioned it.<</if>>
+
+A few minutes in she bends lower to get at the base of my neck, and she doesn't come back up. Her chest settles against the back of my head, soft and warm through her blouse, and she goes on working like that, as if she hasn't noticed. She has. Her thumbs have slowed down to almost nothing.
+
+<<silently>>
+<<if _ms1 == 0>>
+<<set _msgs = [
+{ text: "Somebody knocks, and the door opens before either of us can answer. $ethan.name leans in with a mug in his hand." },
+{ who: $ethan, text: "Hey, boss, quick question about the... okay. Wow. Is there a waitlist for that? Because I would like to be on it." },
+{ who: $mom, text: "Sorry, $ethan.name. Family discount." },
+{ who: $ethan, text: "Story of my life. I'll come back." },
+{ text: "He pulls the door shut. $mom.callName laughs too, a little late, and in all that time she doesn't straighten up an inch. A month ago she'd have jumped back like she'd touched a hot stove." },
+]>>
+<<elseif _ms1 == 1>>
+<<set _msgs = [
+{ text: "Footsteps come down the hall and stop right outside the door." },
+{ who: $brian, text: "Uh... no, the other one. The, uh, the gray cable. No, the other gray cable." },
+{ text: "Her hands freeze on my shoulders. The footsteps move on toward the kitchen, and she listens until they're gone. Then she settles back in, a little lower than before." },
+]>>
+<<else>>
+<<set _msgs = [
+{ text: "Nobody knocks. Nobody ever knocks on an ergonomics check, which was the whole point of calling it that." },
+{ who: $mom, text: "Is the pressure all right?" },
+{ who: $player, text: "The pressure's fine." },
+{ who: $mom, text: "Because I can do it differently. If you want it... differently." },
+{ who: $player, text: "This is fine." },
+{ text: "She says 'okay' very quietly, and her hair falls forward over my shoulder and stays there." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Tell her that's enough">>
+She'd go on all afternoon, and she leaves it to me to decide that she won't. When I tell her that's enough for today, she straightens up at once and smooths the front of her blouse with both hands.
+
+<<silently>>
+<<if _ms1First>>
+<<set _msgs = [
+{ who: $mom, text: "Same time tomorrow?" },
+{ who: $player, text: "You keep the calendar." },
+{ who: $mom, text: "I know. I just like to hear you say it." },
+{ who: $player, text: "Same time tomorrow. And keep the nail polish." },
+{ text: "She glances down at the new color on her nails, then tucks her hands behind her back." },
+{ who: $mom, text: "Oh, that. It was a sample, at the drugstore. I just thought I'd try it." },
+{ who: $player, text: "Keep it." },
+{ text: "'All right,' she says, to the carpet." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: "Same time tomorrow?" },
+{ who: $player, text: "You keep the calendar." },
+{ who: $mom, text: "I know. I just like to hear you say it." },
+{ text: "I say it. She smiles at that like I've paid her a compliment." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+At the door she pats her hair down, twice, before she goes out into the office. <<= either("$darius.name doesn't look up as she passes. He is very carefully not looking up.", "$ethan.name salutes her with his mug. She salutes back without thinking about it, then looks at her hand like it's done something without asking.", "She goes straight to the kitchen and stands at the sink with a glass of water she doesn't drink.")>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

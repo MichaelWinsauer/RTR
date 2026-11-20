@@ -1,0 +1,15 @@
+:: Bedroom [location] {"position":"275,1425","size":"100,100"}
+<<CheckLocation>>
+
+During the day, light comes through the white curtains and makes the room look softer than I remember it. At night it turns into a quiet little box that's easy to think in. The bed takes up most of the space. When I'm tired, I can get a proper night's [[sleep|Activity Sleep]], or just kill an hour [[napping|Activity Nap]]. The nightstand does double duty as a desk: a notebook full of half-finished sketches, a tangle of cables and the laptop with every line of $company.prototype.name on it. I could put in some time and <<link "work on $company.prototype.name" "Activity Prototype" >><</link>>. The digital clock blinks at me like it's keeping score. The dresser I painted with diagonal stripes as a teenager still creaks in the same spot, and the dent in the wall from that controller is still there too. It's a little cramped, but for now it's enough.
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Hallway]]
+</div>
+<</nobr>>
+
+

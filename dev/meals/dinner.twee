@@ -1,0 +1,14 @@
+:: Dinner {"position":"1350,1975"}
+<<silent>>
+<<set $mealType to "dinner">>
+<<set _meal to setup.pickMeal()>>
+<</silent>>
+<<include _meal.passage>>
+
+<<UseAction>>
+<<link "return" $player.location.passage>>
+    <<set _meal.lastSeen to $date.dayCount>>
+    <<run State.temporary.meal.set.forEach((set) => {
+        set();
+    })>>
+<</link>>

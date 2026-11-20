@@ -1,0 +1,80 @@
+:: Meal Sister Internship [activity meal] {"position":"1725,2225"}
+/*
+{
+        id: "sister_internship",
+        passage: "Meal Sister Internship",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("sister_internship").isActive = false,
+        ]
+}
+   Activated by: "Internship Season" (sister_internshipSeason). She asked to do her college
+   internship at my company, and I said yes.
+*/
+Halfway through the meal, $sister.callName pulls a folded sheet of paper out of her back pocket, smooths it flat on the table with the side of her hand and pushes it across to me, along with a pen she's clearly been carrying around all day waiting for this moment.
+
+/* IMAGE: images/meals/important/sister_internship.jpg | An internship agreement form on the kitchen table next to a plate, a pen on top. Sister leaning across the table, chin in her hands, waiting. Mom reading the form upside down. */
+
+It's a form from her college. INTERNSHIP AGREEMENT, it says at the top, and near the bottom there's a line that says Supervisor Signature.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Sign here, please. And here. And initial there. Boss." },
+{ who: $mom, text: "What's this?" },
+{ who: $sister, text: "My internship! I'm doing it at his company. The advisor said it counts as long as I get real business experience and somebody signs off on my hours." },
+{ who: $mom, text: "At the company? With your $sister.playerRelation?" },
+{ who: $sister, text: "Who else is going to hire someone whose biggest professional achievement is a salt shaker presentation?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if setup.questDone("mom_falseSympathy")>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So it'll be the three of us. Every day." },
+{ who: $sister, text: "Family business! We should get matching polo shirts." },
+{ who: $mom, text: "We are not getting matching polo shirts." },
+{ who: $sister, text: "You'd look so good in teal, $mom.callName." },
+{ text: "$mom.callName laughs, but she also looks at me, and there's a question in it that she doesn't ask. Her $mom.playerRelation signs her paychecks. Now he's going to sign $sister.callName's hours too." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "That's... actually a lovely idea. You two working together." },
+{ who: $sister, text: "Right? I'll make him look professional. He'll make me look smart. Everybody wins." },
+{ who: $mom, text: "Just don't let him work you to death, sweetie. He gets that from me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+I read the form properly, all of it, while she bounces her knee under the table. Twenty hours a week. Duties as assigned by the supervisor. Evaluation at the end of the semester, which I'll write.
+
+Duties as assigned. I like that part.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You know you'll have to make the coffee. That's what interns do." },
+{ who: $sister, text: "I'll make the best coffee you've ever had. I'll make coffee people write poems about." },
+{ who: $player, text: "And you'll have to listen to your boss." },
+{ who: $sister, text: "I always listen to you." },
+{ text: "She says it lightly, as a joke. Then she seems to hear it, and she doesn't take it back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I sign. She snatches the form away before the ink is dry, folds it into her pocket and pats it twice, like it's money.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "SisterCorruption" 1>>

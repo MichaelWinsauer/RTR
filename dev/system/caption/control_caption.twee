@@ -1,0 +1,17 @@
+:: Control Caption [system nobr] {"position":"1800,225","size":"200,100"}
+<span class="sb-tab" data-tab="0"><<link "Quests">>
+    <<ShowInformationPanel 0>>
+    <<set $displayInformation = 0>>
+    <<set $previousDisplayInformation = 0>>
+<</link>></span>
+<<if setup.sameLocation($player.location, $mom.location) || setup.sameLocation($player.location, $sister.location)>><span class="sb-tab" data-tab="1"><<link "Activities">>
+    <<ShowInformationPanel 1>>
+    <<set $displayInformation = 1>>
+    <<set $previousDisplayInformation = 1>>
+<</link>></span><</if>>
+<<if $player.flags.isSomeoneFollowing == true>><span class="sb-tab" data-tab="3"><<link "Following">>
+    <<ShowInformationPanel 3>>
+    <<set $displayInformation = 3>>
+    <<set $previousDisplayInformation = 3>>
+<</link>></span><</if>>
+

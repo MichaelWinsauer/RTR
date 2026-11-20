@@ -1,0 +1,205 @@
+:: Control Session [event mom_quest scene] {"position":"3700,825"}
+/* Quest "No stimulus" (mom_controlSession), after ten test sessions. The first test without the device: at home, in my room,
+   no box and no phone. I tell her to undress, she hesitates and does it, and when she begs to keep her panties on I tell her
+   those too. She ends up naked on the edge of my bed, and at the last question she sees that I am hard, which is
+   what turns her seven into a nine (for later scenes: she has seen it since this quest). I never touch her.
+   The last paragraph of the Test Session stage 3 scene changes once this quest is done. */
+<<silent>>
+	<<SetBackground setup.getLocationBySysName("bedroom").img>>
+	<<set _csSisterHome to setup.npcNow("sister").location && setup.inLocations(setup.npcNow("sister").location.sysName, ["home"])>>
+<</silent>>
+I asked her this afternoon, at the office, between two calls. One extra session, at home tonight, in my room. I told her $darius.name's grid needs a baseline, and that the meeting room might be part of what we're measuring: the light, the hour, the glass door. She wrote it in her planner, under the dentist and above the reminder to buy dishwasher salt.
+
+Before she comes, I take my phone out of my pocket, look at her profile one last time, and put it in the desk drawer, face down. If tonight is going to tell me anything, I can't cheat.
+
+<<if _csSisterHome>>$sister.callName's music comes through the wall, something with a lot of bass and not much else. <</if>>At a quarter past ten there's a knock, two knuckles, soft, the way she used to knock when she thought I was already asleep.
+
+<<linkreplace "Let her in">>
+She's still in her office clothes. No, that's not right. She's back in her office clothes: the blouse and the gray skirt, fresh ones, and her hair pinned up again. Somewhere between dinner and now she went upstairs and got dressed for work, because to her that's what this is. She has the clipboard and both pens.
+
+She stops two steps inside the door and takes in the room. The laundry on the chair, the three mugs on the windowsill, the bed I haven't made since the weekend.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Sweetheart. Those mugs have been there since Thursday. I counted." },
+{ who: $player, text: "They're part of the baseline." },
+{ who: $mom, text: "They're part of a science experiment, is what they are." },
+{ text: "She moves the laundry from the chair to the bed, folds two shirts while she's at it because she can't not, and then looks around for something else." },
+{ who: $mom, text: "Where's the box?" },
+{ who: $player, text: "At the office. No box tonight." },
+{ who: $mom, text: "Oh. So I just... answer the questions? With nothing on?" },
+{ text: "She hears it a second after she's said it and goes pink to the ears." },
+{ who: $mom, text: "Switched on. With nothing switched on. You know what I meant." },
+{ who: $player, text: "With nothing switched on. That's the whole point. I need to know what you're like without it." },
+{ who: $mom, text: "Well, that's easy. I'm boring. You can write that down right now and save us both the hour." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the desk chair. She sits on the edge of my bed with her knees together and the clipboard flat on top of them, the way she used to sit in the pediatrician's waiting room when I was little, and hands me a pen without being asked.
+
+<<linkreplace "Start with the usual">>
+I go through $darius.name's questions in order. Without the box she's quick and a little stiff, like she's afraid of getting them wrong now that there's nothing to blame it on.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Calm, one to ten." },
+{ who: $mom, text: "Five? Your room makes me want to vacuum. Is that a number?" },
+{ who: $player, text: "Focus?" },
+{ who: $mom, text: "Six. Seven. Six." },
+{ text: "Same as always. Her focus has never cared much about the box." },
+{ who: $player, text: "How attractive do you feel right now?" },
+{ who: $mom, text: "Honey. Here? In my work blouse, in your room, with your socks on the floor?" },
+{ who: $player, text: "One to ten." },
+{ who: $mom, text: "...Five. And that's generous. Five." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Five. In the meeting room she hasn't said anything under seven for weeks.
+
+<<linkreplace "Ask her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "In every session, around question nine, you take your blouse off." },
+{ text: "Her hands go still on the clipboard." },
+{ who: $mom, text: "That's... sweetie, it gets warm in there. You know it does. The heating in that building is a disgrace, I've said so to $landlord.callName twice." },
+{ who: $player, text: "It's not warm in here." },
+{ who: $mom, text: "No. No, it isn't." },
+{ who: $player, text: "So I need to know whether that's the box or whether that's you. Stand up and take your clothes off." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs. It's a short, bright laugh, the one she does at dinner when $sister.callName says something outrageous, and then she waits for me to laugh too, so we can both move on. I don't. I just wait, with the pen over the sheet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey, I can't... I'm your $mom.relation. You can't ask your $mom.relation to..." },
+{ who: $player, text: "I'm not asking my $mom.relation. I'm asking my test subject. The same one who's been doing it twice a week without anybody asking." },
+{ who: $mom, text: "That's not the same. That was... I didn't even notice half the time." },
+{ who: $player, text: "That's exactly why I need to see it when you do notice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _csSisterHome>>Her eyes go to the wall, toward the music. <</if>>She looks at the door, and at the clipboard, and at the door again. She clicks her pen twice and then seems to realize she's holding a pen and puts it down on the bed beside her, very carefully, as if it might go off.
+
+<<linkreplace "Let her think">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You said you wanted to do more for the company." },
+{ who: $mom, text: "I did say that. I know I did." },
+{ text: "She says it to her knees. Then, more quietly, to nobody." },
+{ who: $mom, text: "It's for the test." },
+{ who: $mom, text: "And it's only... I mean, you've seen me at the pool. It's not so different from the pool, is it? It's just the pool without the pool." },
+{ who: $player, text: "It's just the pool without the pool." },
+{ who: $mom, text: "Don't repeat me, honey, it makes it worse." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stands up. She puts the clipboard on the bed, face down, and lays her hand flat on it for a second, the way she did with the body map, before she straightens up.
+
+The buttons take her a long time. In the meeting room she undoes that blouse in one smooth go without looking; here her fingers keep slipping, and twice she stops halfway and just stands there holding the edges together. When it's finally off she folds it, of course she does, and puts it on the bed next to the laundry. The skirt has a zip at the back. She has to reach for it twice. It slides down, and she steps out of it, and picks it up, and folds that too.
+
+Then she's standing on my rug in a white bra and white panties, with her arms crossed over her stomach, looking at a spot on the wall about a foot to the left of my head.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There. Happy? Write down... whatever you write down." },
+{ who: $player, text: "And the rest." },
+{ text: "That one takes longer. Long enough that I can hear the clock in the hallway, and the fridge downstairs, and my own pen tapping against the edge of the clipboard, which I make myself stop." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She reaches behind her back. The bra comes loose, and she holds it against her chest with both hands for a while, like a towel at the beach. Then she lets it go, and her arms come up to cover herself, and after a moment, when I say '$mom.callName', just that and quietly, they come down again.
+
+Her hands go to the waistband of her panties, and stay there.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Not these. Please, sweetie. Not these." },
+{ who: $player, text: "Those too." },
+{ who: $mom, text: "Honey, I'm asking you..." },
+{ who: $player, text: "And I'm waiting." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't say anything else. I don't have to. I sit there with the pen over the sheet, the same way I sit in the meeting room while she makes up her mind about question four, and I let the quiet do the rest.
+
+It takes her a while. Then her thumbs hook under the waistband. She pushes them down in one go, fast, the way you'd pull off a bandage, and steps out of them, and for once in her life she doesn't fold anything. She just holds them balled up in her fist.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Put them with the others. Then sit down." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lays them on top of the folded blouse, very carefully, like that makes it neater, and sits back down on the edge of my bed.
+
+She doesn't know how to sit. I watch her try every way there is. Knees together, then crossed, then together again. She puts her hands in her lap, takes them out of her lap, and finally plants them flat on the mattress on either side of her, which leaves nothing covered at all, and she realizes that a second too late and doesn't move them back, because moving them back would mean admitting it. She shifts her weight, and the bed creaks, and she freezes at the sound as if somebody downstairs might have heard it. Then she reaches over and straightens the stack of her clothes, which is already straight.
+
+<<linkreplace "Finish the sheet">>
+I go back to the top of the page and read the questions again, in the same voice as always, and she answers them sitting naked on the edge of my bed, her knees pressed so tightly together that her calves have started to shake a little.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Calm?" },
+{ who: $mom, text: "Calm? Honey, I'm sitting on your bed with... Three. Put three." },
+{ who: $player, text: "Physical comfort." },
+{ text: "The room is cool. I keep it that way. Her body doesn't seem to have heard about it: there's a flush climbing her chest, and her nipples have gone tight and dark, and she knows I can see that, and she can't do a thing about it." },
+{ who: $mom, text: "It's cold. I'm cold. Write down cold." },
+{ who: $player, text: "And how attractive do you feel?" },
+{ text: "She opens her mouth to say five. I watch her decide not to." },
+{ who: $mom, text: "...Seven." },
+{ text: "She looks at me for the first time since the blouse came off." },
+{ text: "Her eyes don't stay on my face. They drop, the way eyes do when they're trying hard not to, and land in my lap, where the clipboard on my knee isn't covering nearly as much as I'd like it to." },
+{ text: "She sees it. I watch her see it. Her breath stops halfway in, and a new wave of red climbs from her chest all the way up to her hairline, and she looks back at the spot on the wall so fast that her hair swings." },
+{ text: "I don't move the clipboard. I don't shift in the chair either." },
+{ who: $mom, text: "Nine. I don't know why. Nine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She watches my pen while I write it down, all the way to the end of the row, and she doesn't look at my lap again. Not looking takes her a lot more effort than looking did.
+
+The nine goes in the column on the far right, the one that says 'Control: no stimulus'. It's the first time anything has been written there. I stay where I am, on the desk chair with the clipboard on my knee. I haven't laid a finger on her, and I'm not going to start tonight.
+
+<<linkreplace "Let her get dressed">>
+I tell her that's all, and she's dressed again before I've capped the pen. Panties, bra, skirt, blouse, in that order, fast, the buttons done up wrong, and then halfway through doing them over she slows down, and finishes the last three almost carefully, and smooths the front flat with both hands.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Was that... did I do all right?" },
+{ who: $player, text: "You gave me exactly what I needed." },
+{ who: $mom, text: "Good. That's good." },
+{ text: "She picks up her clipboard and holds it against her chest, both arms, like she wants to be wearing it." },
+{ who: $mom, text: "Is that going in the folder?" },
+{ who: $player, text: "It's one row. Nobody looks at one row." },
+{ who: $mom, text: "Okay. Okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+At the door she stops with her hand on the frame. For a second I think she's going to say something about what just happened. Instead she tells me to bring those mugs down to the kitchen before they grow legs, and she says goodnight, and she closes the door behind her without a sound.
+
+When she's gone I take the phone out of the drawer and open her profile. Nothing on it has moved since this afternoon. I put the phone on the nightstand, turn off the light, and leave the mugs exactly where they are.
+
+<<UpdateStat "+" "Corruption" 2>>
+<<UpdateStat "+" "MomCorruption" 4>>
+<<UpdateStat "+" "MomLust" 3>>
+<<UpdateStat "-" "MomResistance" 2>>
+<<ProfileLog $mom "No Stimulus" "I asked her to do one test session at home, in my room, with nothing switched on. When I told her to take her clothes off, she laughed, waited for me to laugh too, and then did it. She begged me to let her keep her panties on. I told her those too, and after a while she took them off.">>
+<<ProfileMemory $mom "The control column" "She came to my room dressed for work, with her clipboard and both pens. Fully dressed she rated herself a five. Sitting naked on the edge of my bed, she said seven. Then she looked up, saw what she was doing to me, and said nine, and told me she didn't know why.">>
+<<NextQuest $mom>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

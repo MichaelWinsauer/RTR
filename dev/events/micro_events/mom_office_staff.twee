@@ -1,0 +1,74 @@
+:: Mom Office Staff [micro_event event nobr] {"position":"1175,3400","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 39, "A normal workday" in Define Events): she mothers
+   one of the staff (one of three variants). I can let her (Morale) or remind her that she is senior staff here,
+   not their mother (Efficiency, and she drops it at once). */
+<div class="activity-image-wrapper" style="max-height: 400px">
+	<<DisplayActivity $mom>>
+</div>
+<<set _mosVariant to random(0, 2)>>
+<<if _mosVariant is 0>>
+	<p>$mom.callName is standing at $brian.name's desk with a bowl of soup in both hands and a spoon sticking out of it. She brought a thermos from home. I saw it in the kitchen this morning and assumed it was for me.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "It's just chicken and rice, sweetie. Nothing scary. You can't live on those granola bars." },
+		{ who: $brian, text: "Uh. I can, actually. They have, uh, all the... they're fortified." },
+		{ who: $mom, text: "So is a cardboard box, if you write it on the side." },
+		{ text: "He takes the bowl because the alternative seems to be her standing there forever. He holds it like it's a component that might be live, and says thank you to the soup." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mosVariant is 1>>
+	<p>$darius.name is sitting very still at his desk with his left arm held out to the side, and $mom.callName is sewing a button back onto his cuff while he's still wearing the shirt. She keeps a sewing kit in her desk drawer. I don't know since when.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $darius, text: "You really don't have to do this. I can take it to a tailor." },
+		{ who: $mom, text: "And pay twelve dollars for a button? Hold still, honey. Tell me about your numbers, it'll take your mind off it." },
+		{ text: "So he does. He walks her through a client's quarter, cell by cell, holding his arm perfectly level the whole time, and she nods along as if she's following every word." },
+		{ who: $mom, text: "There. Good as new. And you, mister, need to eat something besides that salad." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>$ethan.name is staring at his desk in grief. There used to be a cup of instant noodles on it. Now there's a plastic container of pasta with a sticky note on the lid that says <i>microwave 2 min, stir halfway!!</i>, and $mom.callName is walking away with the noodle cup like she's confiscated a weapon.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $ethan, text: "That was my lunch. That was the spicy one. I was saving it." },
+		{ who: $mom, text: "That was salt and sadness in a cup, $ethan.name. Eat the pasta." },
+		{ who: $ethan, text: "Boss. Boss, is this how adoption works? Do I get a say?" },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
+<br>
+<div id="mom-staff-choice">
+	<div>
+		<<link "Let her">>
+			<<replace "#mom-staff-choice">>
+				<p>I go back to my screen. Behind me, the office makes the noise it makes when people forget for a minute that they're at work: a chair creaking back, somebody laughing through their nose, $mom.callName telling somebody else they look tired. It's a good noise. It's the kind that keeps people coming in on time.</p>
+				<<UpdateStat "+" "Morale" 2>>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Remind her where she is">>
+			<<replace "#mom-staff-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "$mom.callName. A word?" },
+					{ text: "She comes over still smiling. I keep my voice low." },
+					{ who: $player, text: "They're employees. You're senior staff. If they see you as everybody's $mom.relation, they'll stop seeing you as anything else." },
+					{ who: $mom, text: "I was only..." },
+					{ text: "She stops herself. Her hand goes to the collar of her blouse and straightens it, though nothing was wrong with it." },
+					{ who: $mom, text: "No, you're right, sweetie. Of course. I'll keep it professional." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She goes back to her desk, and she does. For the rest of the day she calls everybody by their name and nothing else. She uses 'sweetie' exactly once, at five o'clock, on me, very quietly, as if she's checking whether she's still allowed to.</p>
+				<<UpdateStat "+" "Efficiency" 1>>
+				<<UpdateStat "-" "MomRelation" 1>>
+				<<UpdateStat "+" "MomCorruption" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

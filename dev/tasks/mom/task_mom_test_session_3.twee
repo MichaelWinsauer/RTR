@@ -1,0 +1,145 @@
+:: Task Mom Test Session 3 [task_scene] {"position":"2025,4300"}
+/* Scene of the task "Test Session", stage 3 (from the 9th session on, and every session after that). Played every time the task
+   starts while I'm in the meeting room. Effects are in the task's onComplete, the amounts of this stage in its stage entry (Define Tasks).
+   Stage 3 is the peak reading. She keeps every rule from the earlier stages before I say a word. She tells me what she does in
+   the bath, and this time I tell her what to do: where her hand goes, how fast, and when to stop. She stops on my word, right
+   before she gets there, while the device is still running. Still no nudity beyond bra and skirt, and I never touch her. Both
+   belong to later quests: the test without the device after the tenth session (undressing in my bedroom), then the briefing.
+   The opening and the last paragraph change once that quest (mom_controlSession, "Control Session") is done. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ts3Task to setup.getTaskById("task_mom_test_session")>>
+	<<set _ts3First to (_ts3Task.count || 0) === (_ts3Task.stageStartCount || 0)>>
+	<<set _ts3 to random(0, 2)>>
+<</silent>>
+These days I don't have to make sure the meeting room stays empty. By the time the others are packing up, $mom.callName has already hung a sign on the door that says SESSION IN PROGRESS in her best handwriting, with a little drawing of the box underneath. $ethan.name asked if he could sign up for one. She told him there's a waiting list.
+
+<<= either(
+"The sleep mask is already out of her purse when I come in, lying folded next to her clipboard like a napkin at a nice restaurant.",
+"Her blazer is hanging on the hook behind the door, and her blouse is untucked, which it never is, not even at home on a Sunday.",
+"The ends of her hair are still damp. She went home at lunch to shower, she says, because these sessions always leave her so sticky afterward. Then she hears what she just said and studies the questionnaire very hard."
+)>> She's sitting with both hands flat on the table. I never told her to start like that.
+
+<<if setup.questDone("mom_controlSession")>><<= either(
+"Since the night in my room, she knocks on the meeting room door before she comes in, even though it's her own sign hanging on it.",
+"Since the night in my room, she doesn't fold the blouse quite as carefully when it comes off. She still folds it. Just faster.",
+"Since the night in my room, she sometimes gives me the first number before I've even switched the box on, and doesn't notice."
+)>><</if>>
+
+<<linkreplace "Switch it on">>
+I say the words and the light comes on, and she's halfway gone before I've touched anything. <<DevicePulse 6>> I run through $darius.name's twelve questions at a clip, and she gives me eights and nines, number after number, nothing else, until we get to the pages that are only mine.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Mask." },
+{ text: "She puts it on. The blouse comes off around question nine, the way it does now, folded and laid on the chair beside her, and her arms go straight back to the table afterward without a word from me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _ts3First>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Last time you said you think about these sessions in the bath." },
+{ who: $mom, text: "Did I say that out loud? I really have to stop saying things out loud." },
+{ who: $player, text: "Tell me about it. The sheet needs a peak reading, and you're going to describe it for me." },
+{ text: "She turns her face toward me, the mask black and blank, and for one second I think I've pushed too hard. Under the table I slide everything up another notch, and the second passes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The bath." },
+{ text: "That's all I have to say now. She takes a breath, and she starts." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Let her describe it">>
+She starts with the water. She likes it too hot, always has, hot enough that her skin goes pink. She lights the candle $sister.callName gave her for Christmas, even though it smells like a cupcake. She leans her head back against the rim and listens to the house, and the house is quiet, because these days it always is.
+
+Then she stops talking about the house.
+
+Her right hand twitches on the table. It wants to go where it went last time, and it stays where it is, because nobody has said it can go anywhere. She's actually waiting for me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Show me where your hand goes." },
+{ who: $mom, text: "Honey..." },
+{ text: "I move the slider up one notch and say nothing at all. Her lips part." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<DevicePulse "+1">>
+<<set _msgs = [
+{ who: $player, text: "Show me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her hand leaves the table. It slips under the hem of her skirt, which has ridden most of the way up already, and presses between her legs over her panties, and then it just stays there, still, as if that was as far as she dared.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "And then?" },
+{ text: "Then it starts to move." },
+{ who: $player, text: "Slower." },
+{ text: "It slows. Her breath catches on the change, and she makes a small sound she'd be mortified to hear on a recording." },
+{ who: $player, text: "Arousal." },
+{ who: $mom, text: "Ten. My arousal is a ten." },
+{ text: "I keep my voice exactly as flat as I do for question one, because that's what lets her keep going. As long as I sound like a questionnaire, this is still a questionnaire." },
+{ who: $player, text: "Faster now." },
+{ who: $mom, text: "Sweetie, I can't... I can't count anything right now." },
+{ who: $player, text: "I didn't ask you to count." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her lips are parted below the edge of the mask. Her other hand grips the edge of the table hard enough to make the clipboard rattle, and the chair creaks along with her in a rhythm that has nothing to do with the light anymore. Her thighs close around her own wrist. She's close. I've watched her face through every one of these sessions, and I know exactly how close.
+
+<<linkreplace "Tell her to stop">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Stop." },
+{ text: "Her hand stops." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I haven't touched my phone. The box is still on, the slider is still where I left it, and she stops anyway, because I said the word. She sits there with her breath caught halfway, her hand still under her skirt, waiting for the next one.
+
+Then I tell her the box is off and switch it off, and under the table I pull every slider back to the baseline at once, without any of the usual care. <<run setup.devicePulse(0, { fade: 150 })>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Why... why did you stop?" },
+{ who: $player, text: "It's been an hour." },
+{ text: "She pushes the mask up onto her forehead and looks at the clock on the wall. It's been an hour exactly. I made sure of that." },
+{ who: $player, text: "Hands on the table." },
+{ text: "She takes her hand back and lays it flat beside the other one. It's shaking a little. She presses it down harder so I won't notice, which is how I notice." },
+{ who: $mom, text: ["Did I do all right?", "Do we always have to stop right at the hour? Every single time?", "You won't tell anybody what I said? About the bath?"][_ts3] },
+{ who: $player, text: ["You did what I told you.", "Every time.", "It's data. Data doesn't have names on it."][_ts3] },
+{ who: $mom, text: ["Good. That's... good. I'm glad.", "Every time. Okay. Okay.", "That's not really an answer, sweetie."][_ts3] },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She can't tell me she wishes I hadn't stopped, because then she'd have to say what I stopped. So she sits with it, flushed all the way down to her bra, knees squeezed together, hands flat on the table, and she doesn't reach for her blouse until I tell her she can get dressed.
+
+<<linkreplace "Let her go">>
+She gets dressed slowly, with her back to me, and has to sit down again for a moment halfway through the buttons. On her way out she touches the top of the white box with two fingers, like she's checking whether it's still warm. It isn't.
+
+<<if setup.questDone("mom_controlSession")>>
+After she's gone I add up the sheet. Way over on the right of $darius.name's grid, the 'Control: no stimulus' column still has exactly one row filled in, the night in my room. I lay tonight's sheet next to it, and it's the last question I keep coming back to. She said nine that night, with nothing switched on, sitting naked on the edge of my bed, and tonight's number is no higher.
+<<else>>
+After she's gone I add up the sheet. Way over on the right of $darius.name's grid there's a column I've never used. It's labeled 'Control: no stimulus', and it's the only one I'm still curious about.
+<</if>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

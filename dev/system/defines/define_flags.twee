@@ -1,0 +1,8 @@
+:: Define Flags [system] {"position":"500,150","size":"100,100"}
+<<set $flags to {
+	introDone: false,
+	brianAskedAboutVent: false,     /* Stage 1: Brian Desk Vent happened (A normal workday, Define Events) */
+	dariusAskedAboutNumbers: false, /* Stage 1: Darius Desk Numbers happened */
+}>>
+
+

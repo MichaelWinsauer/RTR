@@ -1,0 +1,88 @@
+:: Family Landlord Help [event main_quest] {"position":"3275,500","size":"100,100"}
+Sunday dinner has migrated to the living room again. Nobody ever decides it, it just happens, the same way it did when we were kids. The whole house smells of garlic and tomato sauce, the pot sits on a folded towel on the coffee table, and the three of us eat with our plates balanced on our knees while the TV plays something on mute. $mom.callName has claimed the armchair and keeps leaning over to put more pasta on plates that didn't ask for it. $sister.callName is curled up at the other end of the couch in a snug tank top, winding spaghetti around her fork with more patience than she has for anything else in her life.
+
+I let them talk for a while. The neighbor's dog that keeps digging under the fence, some guy in one of $sister.callName's classes who wears sunglasses indoors. I laugh in the right places and wait.
+<<linkreplace "Bring up the landlord problem">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "This is really good, $mom.callName. I'd forgotten what food tastes like when it doesn't come out of a fryer." },
+{ who: $mom, text: "Oh, stop. There's more if you want it, honey. You've been working so hard lately... how's the company doing?" },
+{ who: $sister, text: "Yeah, you've basically been living in your room. I was about to start sliding food under the door." },
+{ who: $player, text: "It's... actually, there's something I wanted to talk to you both about. It's about $landlord.callName." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Explain the situation">>
+$mom.callName puts her fork down, which in this house is the equivalent of turning off the TV. $sister.callName stops winding her spaghetti mid-twirl.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "There's a bigger unit opening up on the third floor of his building. I went up to ask about it, because honestly, my office is a closet with a window. If the company is going to grow, I need the space. He turned me down flat." },
+{ who: $mom, text: "Just like that? Did he say why?" },
+{ who: $player, text: "Apparently it's for 'real tenants'. But that wasn't even the worst part. It was the way he talked." },
+{ who: $sister, text: "Oh no. Worst how?" },
+{ who: $player, text: "There's some young woman who wants the space too, and he kept going on about how good she looks, and how she might get a discount if she 'asks nicely'. He kept winking at me. Like I was in on it." },
+{ who: $sister, text: "Ew. Ew, ew, ew." },
+{ who: $mom, text: "That man. I always find a reason to check my mailbox when I see him coming." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Make the request">>
+Nobody says anything for a moment. $mom.callName's mouth has gone thin, and $sister.callName is pushing a mushroom around her plate like it personally offended her. I lean forward and keep my voice easy, the way you'd suggest ordering takeout instead of cooking.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So I've been thinking. What if the three of us went up there together? You two come along, dress up a little, and help me talk him around. He clearly responds to a certain kind of... charm." },
+{ who: $mom, text: "Dress up a little? $player.name, what exactly are you asking us to do?" },
+{ who: $player, text: "Look nice. Smile. Be friendly with him. Maybe we offer to help out around the building now and then, small stuff, errands and things, and in return he gives us the unit and takes a little off the rent." },
+{ who: $sister, text: "Wait. You want us to flirt with that creep so you can get a bigger office?" },
+{ who: $player, text: "I want you to be nice to a lonely old man for half an hour. If that gets me the office, I can finally hire people, the rent goes down, and nobody in this house has to count every dollar anymore." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wait for an answer">>
+They look at each other across the coffee table. It's a whole conversation in one glance, the way only the two of them can manage. $mom.callName folds her napkin, unfolds it and folds it again. $sister.callName chews on her lip.
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I don't like this, honey. Every time I run into him in the hallway I feel like I need a shower afterwards." },
+{ who: $sister, text: "Same. But..." },
+{ text: "She sighs and lets her fork clatter onto the plate." },
+{ who: $sister, text: "I did say I'd make it up to you. If it helps you and the company... fine. I can be nice to a creep for half an hour. I've survived worse frat parties." },
+{ who: $mom, text: "$sister.callName!" },
+{ who: $sister, text: "What? It's true." },
+{ who: $mom, text: "...If it really helps you, sweetie, then I suppose I can be friendly too. Friendly. That's all." },
+{ who: $player, text: "That's all I'm asking. Thank you. Both of you." },
+{ who: $sister, text: "I've got that black skirt and a top I never get to wear anywhere. Might as well get some use out of them." },
+{ who: $mom, text: "And I still have that silk blouse from the company party..." },
+{ text: "She says it quietly, almost to herself, like she's already standing in front of her closet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Get ready to go">>
+$mom.callName gets up and starts stacking plates, which is what she does whenever she needs to keep her hands busy.
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "If we're doing this tonight, we should get changed before I lose my nerve." },
+{ who: $sister, text: "Tonight? Okay. Okay, sure. Give me twenty minutes." },
+{ who: $player, text: "Take thirty. Thanks, you two. Really." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They disappear down the hallway, $mom.callName into her room and $sister.callName into hers, and a moment later I hear two closet doors slide open almost at the same time. I stay on the couch with my plate and the muted TV. Ten minutes ago they were both disgusted by him. Now they're picking out outfits for him.
+
+I finish the last of my pasta. It's still warm.
+
+<<UpdateStat "+" "Corruption" 4>>
+<<UpdateStat "+" "MomCorruption" 8>>
+<<UpdateStat "+" "SisterCorruption" 8>>
+[[Head to the landlord|Family Landlord Help 2]]
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

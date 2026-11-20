@@ -1,0 +1,115 @@
+:: It Makes A Difference 3 [event sister_quest scene] {"position":"3700,1650"}
+/* Quest "It Makes A Difference" (sister_itMakesADifference), part 3 of 3, after "It Makes A Difference 2". The Night of the
+   same day. I stayed late at the office (I told her so in part 2) and watch the feed from the camera in her room on the
+   dashboard at My Desk, until she touches herself thinking about me. Afterwards she cries, and then she texts me.
+   Advances the quest and returns to My Desk. The clips are CCTV clips (Video overlay "cctv"). */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+The invoices took forty minutes. The backup was real too, and it finished a little after eight. The cleaners came, emptied the bins around me without a word and left again, and since then the only things on in the whole office have been my desk lamp and the dashboard.
+
+At seven my phone buzzed: a photo of a plate of $mom.callName's lasagna under a sheet of cling film, and underneath it, <i>she made way too much. saving you some. dont work too late</i>.
+
+It's a little after eleven now. I've switched off the lamp. The dashboard is showing one feed, and I've made it as big as the screen allows.
+
+<<Video "images/characters/sister/events/it_makes_a_difference/cctv_0.mp4" "" "" 500 "cctv">>
+
+In the grainy grey of the camera her room looks smaller than it is. The string lights are on. She's in bed with the blanket kicked down to her knees, in the black hoodie of mine she borrowed at some point and never gave back, and she's holding her phone up above her face. She isn't scrolling. She's just holding it.
+
+<<linkreplace "Keep watching">>
+For a long time nothing happens. She puts the phone face down on her chest. She rolls onto her side, toward the wall, and then onto her back again. She pulls the hood up over her head and pushes it back down.
+
+Then her free hand starts to move across her stomach, slowly, as if she's hoping it doesn't count as long as she doesn't look at it. It stops at the waistband of her shorts and stays there. I lean closer to the screen.
+
+It slides under.
+
+<<Video "images/characters/sister/events/it_makes_a_difference/cctv_1.mp4" "" "" 500 "cctv">>
+
+Her knees fall open under the blanket. The phone slips off her chest onto the mattress, and she doesn't reach for it. The camera's microphone is cheap, and most of what it gives me is hiss, but I turn the volume all the way up anyway. In an empty office there's nothing else to compete with it, and under the hiss I can hear her breathing change, shorter now, catching at the top of every breath.
+
+<<silently>>
+<<set _msgs = [
+{ text: "Then, so quietly that I almost lose it in the noise:" },
+{ who: $sister, text: "...$player.name..." },
+{ text: "She turns her face into the pillow right after, as if she could take it back that way. Her hand doesn't stop." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The clock in the corner of the feed says 11:24. That's a little more than eight hours since the meeting room, which is about twenty feet from where I'm sitting.
+
+<<linkreplace "Don't look away">>
+<<Video "images/characters/sister/events/it_makes_a_difference/cctv_2.mp4" "" "" 500 "cctv">>
+
+When she comes, she bites down on the sleeve of my hoodie to keep quiet. $mom.callName's room is just down the hall, and some part of her still remembers that. Her back lifts off the mattress, her heels dig into the sheet, and for a few seconds she's completely rigid, the sleeve caught between her teeth.
+
+Then everything goes out of her at once.
+
+<<linkreplace "Watch what she does after">>
+She lies there for a while, just breathing. Then she takes her hand out and looks at it with her fingers spread, the way she checks a nail she thinks she just chipped. She wipes it on the sheet, stops halfway, and cleans it on a tissue from the nightstand instead, very thoroughly, the way you clean up after something you've decided you're never going to do again.
+
+She pulls the hood all the way up and curls onto her side with her knees against her chest. It takes me a moment to notice her shoulders are shaking. She isn't loud about it. She cries the way she used to when we were kids, when she didn't want $mom.callName to hear it through the wall.
+
+<<Video "images/characters/sister/events/it_makes_a_difference/cctv_3.mp4" "" "" 500 "cctv">>
+
+After a while she picks up the phone again.
+
+Next to my keyboard, my own phone lights up: her name, right under the lasagna photo, and under that, three little dots. They stay there a long time. They go away. They come back.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "thank you for today. like really" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<div id="supportive-night-choice">
+	<div>
+		<<link "Reply">>
+			<<replace "#supportive-night-choice">>
+				<<silently>>
+				<<set _msgs = [
+				{ who: $player, text: "Anytime. Save me some of that lasagna. And get some sleep." },
+				{ text: "On the feed, the phone lights up her face. She reads it, and then she reads it again. Then she holds the phone against her chest with both hands and lies like that, staring up at the ceiling, until the screen goes dark on its own." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+
+				I drag the last forty minutes of the feed into a folder on my own drive, one that isn't anywhere near the company server, and name it after today's date. Then I lock the dashboard and sit in the dark office for a while, listening to the building tick as it cools down.
+
+				<<UpdateStat "+" "SisterRelation" 1>>
+				<<UpdateStat "+" "SisterCorruption" 3>>
+				<<UpdateStat "+" "SisterLust" 2>>
+				<<UpdateStat "+" "Corruption" 1>>
+				<<ProfileLog $sister "It Makes A Difference" "I called her into the meeting room and thanked her for everything she does at the office. She nearly cried. That night, while I stayed late at the office, the camera in her room caught her touching herself, and she whispered my name. Afterwards she cried, and then she texted me to say thank you. I wrote back.">>
+				<<ProfileMemory $sister "Thank you for today" "A little more than eight hours after I thanked her in the meeting room, she bit down on the sleeve of my hoodie so nobody down the hall would hear her. I watched it from my desk. Afterwards she held her phone to her chest until the screen went dark.">>
+				<<NextQuest $sister>>
+				<<ReturnFromEvent "Lock the dashboard" "Company Stage 1 Desk">>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave it on read">>
+			<<replace "#supportive-night-choice">>
+				<<silently>>
+				<<set _msgs = [
+				{ text: "I leave it. On the feed, she checks her phone three times in the next ten minutes. The third time, she puts it face down on the nightstand, switches off the string lights and pulls the blanket up over her head, hood and all." },
+				{ text: "The camera flips over to night vision. The lump under the blanket keeps shifting for a long time before it finally goes still." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+
+				I drag the last forty minutes of the feed into a folder on my own drive, one that isn't anywhere near the company server, and name it after today's date. Then I lock the dashboard and sit in the dark office for a while, listening to the building tick as it cools down.
+
+				<<UpdateStat "+" "SisterCorruption" 3>>
+				<<UpdateStat "+" "SisterLust" 4>>
+				<<UpdateStat "+" "Corruption" 1>>
+				<<ProfileLog $sister "It Makes A Difference" "I called her into the meeting room and thanked her for everything she does at the office. She nearly cried. That night, while I stayed late at the office, the camera in her room caught her touching herself, and she whispered my name. Afterwards she cried, and then she texted me to say thank you. I left it on read.">>
+				<<ProfileMemory $sister "Thank you for today" "A little more than eight hours after I thanked her in the meeting room, she bit down on the sleeve of my hoodie so nobody down the hall would hear her. I watched it from my desk. Afterwards she checked her phone three times for my answer.">>
+				<<NextQuest $sister>>
+				<<ReturnFromEvent "Lock the dashboard" "Company Stage 1 Desk">>
+			<</replace>>
+		<</link>>
+	</div>
+</div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

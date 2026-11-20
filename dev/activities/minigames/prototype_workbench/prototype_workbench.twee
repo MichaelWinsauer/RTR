@@ -1,0 +1,1391 @@
+:: Prototype Workbench [activity nobr hide_sidebar] {"position":"2400,1800","size":"100,100"}
+/* The hands-on work on the prototype at the Company office (Stage 0), reached from "Company".
+   A session is three jobs, one from each group in setup.workbench.groups (Define Company):
+       hardware   wiring (leads onto controller pins)      solder (hold each pad until the heat sits in the window)
+       software   debug  (find the broken line, pick a fix) flash  (remap bad sectors before the write head gets there)
+       test       logic  (set switches so a gate board passes) stress (keep the temperature in band with the fan)
+   Every job has its own clock, which starts only when the player presses Start, and ends with a score from 0 to 1.
+   The jobs get harder from progress 40 and 70 (setup.workbenchTier). The end screen hands the result to
+   $workbenchResult = { score, gain, capped, flawless } and plays "Prototype Workbench Result", which applies it and
+   spends the actions. Leaving before the first job starts costs nothing.
+   Everything here is page-only: if the passage is left in the middle, nothing is saved and nothing is spent. */
+<<if $company.prototype.progress >= $company.prototype.maxProgress>>
+	<<goto "Company">>
+<<else>>
+<div class="wb" id="wb">
+	<div class="wb-head">
+		<div class="wb-id">
+			<div class="wb-logo">
+				<svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="#EBDDC5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+					<rect x="14" y="22" width="72" height="56" rx="6" fill="#EBDDC5" fill-opacity="0.06"></rect>
+					<path d="M28 22 V12 M44 22 V12 M60 22 V12 M76 22 V12 M28 78 V88 M44 78 V88 M60 78 V88 M76 78 V88" opacity="0.7"></path>
+					<path d="M30 58 L42 40 L52 52 L58 44 L70 58" stroke="#EAAF4C"></path>
+					<circle cx="72" cy="34" r="4" fill="#DB354C" stroke="none"></circle>
+				</svg>
+			</div>
+			<div>
+				<div class="wb-title">Workbench</div>
+				<div class="wb-sub">
+					<span class="wb-tag"><<print $company.prototype.name>></span>
+					<span class="wb-tag"><<print ["Rough build", "Working build", "Final build"][setup.workbenchTier()]>></span>
+					<span class="wb-tag dim">Progress <<print $company.prototype.progress>> / <<print $company.prototype.maxProgress>></span>
+				</div>
+			</div>
+		</div>
+		<div class="wb-timer">
+			<div id="wb-timer">--</div>
+			<div class="wb-timer-label">Clock</div>
+		</div>
+	</div>
+	<div class="wb-bar"><div id="wb-timer-bar"></div></div>
+	<div class="wb-steps" id="wb-steps"></div>
+	<div class="wb-stage" id="wb-stage"></div>
+	<div class="wb-foot">
+		<div class="wb-msg" id="wb-msg"></div>
+		<div class="wb-actions" id="wb-actions"></div>
+	</div>
+</div>
+
+<<script>>
+/* The page is attached to the document only after the passage has rendered, so start on :passagedisplay. */
+$(document).one(':passagedisplay', function () {
+  'use strict';
+  const root = document.getElementById('wb');
+  if (!root) return;
+
+  const W = setup.workbench;
+  const tier = setup.workbenchTier();
+  const protoName = State.variables.company.prototype.name;
+
+  /* ---- helpers ---- */
+  const qs = (sel, el) => (el || root).querySelector(sel);
+  const qsa = (sel, el) => Array.from((el || root).querySelectorAll(sel));
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const shuffle = (arr) => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  };
+  const range = (n, from) => Array.from({ length: n }, (_, k) => k + (from || 0));
+  const clamp01 = (x) => Math.max(0, Math.min(1, x));
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const restart = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+  const plural = (n, one, many) => n + ' ' + (n === 1 ? one : many);
+  const SVGNS = 'http://www.w3.org/2000/svg';
+
+  const timerEl = qs('#wb-timer');
+  const timerBar = qs('#wb-timer-bar');
+  const timerWrap = qs('.wb-timer');
+  const stepsEl = qs('#wb-steps');
+  const stage = qs('#wb-stage');
+  const msgEl = qs('#wb-msg');
+  const actionsEl = qs('#wb-actions');
+
+  /* listeners on window/document are removed again once the passage is gone */
+  const listeners = [];
+  function listen(target, type, fn, opts) { target.addEventListener(type, fn, opts); listeners.push([target, type, fn, opts]); }
+  let raf = 0;
+  function unlisten(list) { list.forEach((l) => l[0].removeEventListener(l[1], l[2], l[3])); list.length = 0; }
+  function cleanup() { unlisten(listeners); if (job) unlisten(job.listeners); cancelAnimationFrame(raf); }
+
+  let sayTimer = 0;
+  function say(text, kind) {
+    clearTimeout(sayTimer);
+    msgEl.innerHTML = text ? '<span class="wb-say ' + (kind || '') + '">' + esc(text) + '</span>' : '';
+    if (kind === 'bad' || kind === 'ok') sayTimer = setTimeout(() => { if (msgEl.isConnected) msgEl.innerHTML = ''; }, 2600);
+  }
+  function setActions(btns) {
+    actionsEl.innerHTML = '';
+    btns.forEach((b) => {
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'wb-btn' + (b.ghost ? ' ghost' : '');
+      el.textContent = b.label;
+      el.addEventListener('click', b.onClick);
+      actionsEl.appendChild(el);
+    });
+  }
+  function popPenalty(sec) {
+    const p = document.createElement('span');
+    p.className = 'wb-pen';
+    p.textContent = '-' + sec + 's';
+    timerWrap.appendChild(p);
+    setTimeout(() => p.remove(), 900);
+  }
+
+  /* ---- icons ---- */
+  const ICONS = {
+    wiring: '<path d="M16 30 C42 30 40 70 64 70"/><path d="M16 52 C40 52 42 30 64 30"/><circle cx="12" cy="30" r="5"/><circle cx="12" cy="52" r="5"/><rect x="66" y="20" width="22" height="60" rx="4"/>',
+    solder: '<path d="M14 14 L30 30" stroke-width="11"/><path d="M30 30 L64 64"/><path d="M64 64 L72 72"/><circle cx="80" cy="82" r="8"/><path d="M60 88 H96" opacity="0.6"/>',
+    debug: '<path d="M34 26 L12 50 L34 74"/><path d="M66 26 L88 50 L66 74"/><path d="M57 20 L43 80"/>',
+    flash: '<rect x="16" y="16" width="68" height="68" rx="6"/><path d="M16 39 H84 M16 61 H84 M39 16 V84 M61 16 V84"/><rect x="61" y="39" width="23" height="22" fill="currentColor" opacity="0.5"/>',
+    logic: '<path d="M26 24 H46 A26 26 0 0 1 46 76 H26 Z"/><path d="M8 38 H26 M8 62 H26 M72 50 H94"/>',
+    stress: '<path d="M6 62 H24 L32 30 L44 80 L54 40 L62 62 H94"/>',
+  };
+  const icon = (id) => '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[id] || '') + '</svg>';
+
+  /* ==== the jobs ==========================================================================
+     Each job: group, title, short (board card), how(tier) (the brief), tip (footer line while it runs), time[tier]
+     (its clock), timed (true: running out the clock is the normal end, not a failure) and build(el, api), which
+     draws it into el and returns { score() 0-1, detail(), [frame(dt)], [finish()] }.
+     api: tier, listen, say, running(), elapsed(), done() (finished early), mistake(seconds, text). */
+  const JOBS = {
+    wiring: {
+      group: 'hardware', title: 'Rewire the sensor board', time: [35, 40, 50],
+      short: 'Every lead from the sensor board goes onto its pin on the controller.',
+      how: (t) => [
+        'Drag a lead from the sensor board onto a controller pin. Or click the lead, then the pin.',
+        t === 0 ? 'The pins are labelled, so match the names.' : 'The controller only shows pin numbers. The datasheet on the right says which signal goes on which pin.',
+        'A wrong pin shorts out and costs 2 seconds.',
+      ],
+      tip: 'Drag each lead onto its pin.',
+      build: buildWiring,
+    },
+    solder: {
+      group: 'hardware', title: 'Solder the new parts', time: [25, 30, 35],
+      short: 'Hold the iron on each pad until the heat sits in the green, then let go.',
+      how: (t) => [
+        'Press and hold a pad to heat it. The ring around it fills up.',
+        'Let go while the ring is inside the green part for a clean joint.',
+        'Let go too early and you get a cold joint: heat it again, but it costs you. Hold it too long and the pad is ruined.',
+        t >= 2 ? 'Ground pads (GND) soak up heat and take longer to get there.' : 'Every pad heats a little differently. Watch the ring, not the clock.',
+      ],
+      tip: 'Hold a pad, let go in the green.',
+      build: buildSolder,
+    },
+    debug: {
+      group: 'software', title: 'Fix the firmware', time: [45, 75, 85],
+      short: 'A test is failing. Find the broken line and pick the right fix.',
+      how: (t) => [
+        'Read the failing test at the top. It tells you what the code gets wrong.',
+        'Click the line you think is broken, then pick the replacement that fixes it.',
+        'Clicking a line that works, or picking the wrong fix, costs 3 seconds.',
+        t === 0 ? 'One bug to find.' : 'Two bugs, one after the other.',
+      ],
+      tip: 'Click the broken line.',
+      build: buildDebug,
+    },
+    flash: {
+      group: 'software', title: 'Flash the new firmware', time: [16, 18, 20], timed: true,
+      short: 'The write head runs through the memory. Remap the bad sectors before it reaches them.',
+      how: (t) => [
+        'Bad sectors light up red ahead of the write head. Click them before the head gets there.',
+        t === 0 ? 'Clicking a healthy sector costs you.' : 'Amber flickers are just noise. Leave them alone: clicking a healthy sector costs you.',
+        'The flash runs until the head reaches the end, however fast you are.',
+      ],
+      tip: 'Click red sectors before the head reaches them.',
+      build: buildFlash,
+    },
+    logic: {
+      group: 'test', title: 'Test the logic board', time: [45, 55, 65],
+      short: 'Set the switches so every output ends up the way the test sheet wants.',
+      how: (t) => [
+        'Click the switches on the left to turn the inputs on and off.',
+        'The gates only show what they put out when you run the test, so work it out first.',
+        'AND needs both inputs on, OR at least one, XOR exactly one.' + (t > 0 ? ' A small circle in front of a gate flips that input.' : ''),
+        'Every failed test costs 4 seconds. Two boards to pass.',
+      ],
+      tip: 'Set the switches, then run the test.',
+      build: buildLogic,
+    },
+    stress: {
+      group: 'test', title: 'Run the stress test', time: [20, 22, 25], timed: true,
+      short: 'Keep the temperature in the green band while the load jumps around.',
+      how: (t) => [
+        'Drag the fan lever up to cool the board down and down to let it warm up. The mouse wheel works too.',
+        'The temperature follows with a delay, so steer early.',
+        t === 0 ? 'Load spikes are announced a moment before they hit.' : 'Spikes and drops are announced a moment before they hit.',
+        'The test runs until the clock is out. The longer it stays in the green, the better.',
+      ],
+      tip: 'Keep the line in the green band.',
+      build: buildStress,
+    },
+  };
+  const GROUP_LABEL = { hardware: 'Hardware', software: 'Software', test: 'Testing' };
+  const TIER_LEAD = [
+    "It's still a rough build, so none of this is hard, just fiddly.",
+    "It's a working build now, so every change has to fit around the parts that already work.",
+    "This is the final stretch. Everything is small, tight and unforgiving.",
+  ];
+
+  /* ==== Hardware: wiring ================================================================ */
+  const SIGNALS = ['VCC', 'GND', 'SDA', 'SCL', 'INT', 'RST', 'TX', 'RX', 'CLK', 'CS', 'MISO', 'MOSI'];
+  const WIRE_COLORS = ['#EAAF4C', '#ff6479', '#1cd88d', '#6fb7ff', '#c38bff', '#ff9f5a', '#EBDDC5', '#5fe0d6'];
+
+  function buildWiring(el, api) {
+    const count = [5, 6, 8][api.tier];
+    const labelled = api.tier === 0;
+    const sigs = shuffle(SIGNALS).slice(0, count);
+    const colors = shuffle(WIRE_COLORS);
+    const leads = shuffle(sigs).map((s, i) => ({ s, color: colors[i % colors.length], done: false }));
+    const pinOf = {};
+    shuffle(sigs).forEach((s, i) => { pinOf[s] = i + 1; });
+    const pins = sigs.map((s) => ({ n: pinOf[s], s, used: false })).sort((a, b) => a.n - b.n);
+
+    let sheet = '';
+    if (!labelled) {
+      const rows = pins.slice();
+      if (api.tier >= 2) rows.sort((a, b) => a.s.localeCompare(b.s));   /* sorted by signal: a real lookup */
+      sheet = '<div class="wb-sheet"><div class="wb-col-t">Datasheet</div>' +
+        rows.map((p) => '<div class="wb-sheet-row"><span>Pin ' + p.n + '</span><b>' + p.s + '</b></div>').join('') + '</div>';
+    }
+    el.innerHTML = '<div class="wb-wire' + (labelled ? '' : ' has-sheet') + '">' +
+      '<svg class="wb-wire-svg"></svg>' +
+      '<div class="wb-wire-col"><div class="wb-col-t">Sensor board</div>' +
+        leads.map((l, i) => '<div class="wb-lead" data-i="' + i + '" style="--c:' + l.color + '"><span class="wb-lead-s">' + l.s + '</span><span class="wb-jack"></span></div>').join('') +
+      '</div>' +
+      '<div class="wb-wire-gap"></div>' +
+      '<div class="wb-wire-col"><div class="wb-col-t">Controller</div><div class="wb-chip">' +
+        pins.map((p) => '<div class="wb-pin" data-n="' + p.n + '"><span class="wb-jack"></span><span class="wb-pin-n">' + p.n + '</span>' + (labelled ? '<span class="wb-pin-s">' + p.s + '</span>' : '') + '</div>').join('') +
+      '</div></div>' + sheet + '</div>';
+
+    const box = el.querySelector('.wb-wire');
+    const svg = box.querySelector('.wb-wire-svg');
+    const leadEls = Array.from(box.querySelectorAll('.wb-lead'));
+    const pinEls = Array.from(box.querySelectorAll('.wb-pin'));
+    const pinEl = (n) => pinEls.find((p) => Number(p.dataset.n) === n);
+    const wires = [];
+    let armed = -1, temp = null, downAt = null, mistakes = 0;
+
+    function centre(elm) {
+      const r = elm.querySelector('.wb-jack').getBoundingClientRect();
+      const b = box.getBoundingClientRect();
+      return { x: r.left + r.width / 2 - b.left, y: r.top + r.height / 2 - b.top };
+    }
+    function pointer(e) { const b = box.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; }
+    function curve(a, b) {
+      const dx = Math.max(30, Math.abs(b.x - a.x) * 0.5);
+      return 'M' + a.x + ' ' + a.y + ' C' + (a.x + dx) + ' ' + a.y + ' ' + (b.x - dx) + ' ' + b.y + ' ' + b.x + ' ' + b.y;
+    }
+    function path(cls, color) {
+      const p = document.createElementNS(SVGNS, 'path');
+      p.setAttribute('class', cls);
+      if (color) p.style.stroke = color;
+      svg.appendChild(p);
+      return p;
+    }
+    function redraw() {
+      wires.forEach((w) => {
+        const d = curve(centre(leadEls[w.i]), centre(pinEl(w.n)));
+        w.shadow.setAttribute('d', d);
+        w.line.setAttribute('d', d);
+      });
+    }
+    function moveTemp(e) { if (armed >= 0 && temp) temp.setAttribute('d', curve(centre(leadEls[armed]), pointer(e))); }
+    function arm(i, e) {
+      disarm();
+      armed = i;
+      leadEls[i].classList.add('armed');
+      temp = path('wb-wire-temp', leads[i].color);
+      downAt = { x: e.clientX, y: e.clientY };
+      moveTemp(e);
+    }
+    function disarm() {
+      if (armed >= 0) leadEls[armed].classList.remove('armed');
+      armed = -1;
+      downAt = null;
+      if (temp) { temp.remove(); temp = null; }
+    }
+    function tryPin(n) {
+      const i = armed;
+      if (i < 0) return;
+      const lead = leads[i];
+      const pin = pins.find((p) => p.n === n);
+      disarm();
+      if (!pin) return;
+      if (pin.used) { api.say("Something's already plugged in there.", 'bad'); return; }
+      if (pin.s !== lead.s) {
+        mistakes++;
+        restart(pinEl(n), 'spark');
+        api.mistake(2, lead.s + " doesn't go on pin " + n + '. That one sparked.');
+        return;
+      }
+      pin.used = true;
+      lead.done = true;
+      leadEls[i].classList.add('done');
+      pinEl(n).classList.add('done');
+      pinEl(n).style.setProperty('--c', lead.color);
+      wires.push({ i, n, shadow: path('wb-wire-shadow'), line: path('wb-wire-line', lead.color) });
+      redraw();
+      if (wires.length === count) api.done();
+    }
+
+    leadEls.forEach((le, i) => le.addEventListener('pointerdown', (e) => {
+      if (!api.running() || leads[i].done) return;
+      e.preventDefault();
+      if (armed === i) { disarm(); return; }
+      arm(i, e);
+    }));
+    pinEls.forEach((pe) => pe.addEventListener('pointerdown', (e) => {
+      if (!api.running() || armed < 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      tryPin(Number(pe.dataset.n));
+    }));
+    box.addEventListener('pointerdown', (e) => { if (armed >= 0 && !e.target.closest('.wb-lead, .wb-pin')) disarm(); });
+    api.listen(document, 'pointermove', moveTemp);
+    api.listen(document, 'pointerup', (e) => {
+      if (armed < 0 || !downAt) return;
+      const moved = Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 10;
+      downAt = null;
+      const hit = document.elementFromPoint(e.clientX, e.clientY);
+      const pe = hit && hit.closest ? hit.closest('.wb-pin') : null;
+      if (pe && box.contains(pe)) { tryPin(Number(pe.dataset.n)); return; }
+      if (moved) disarm();   /* dropped next to everything; a plain click keeps the lead in hand */
+    });
+    api.listen(window, 'resize', redraw);
+
+    return {
+      finish: disarm,
+      score: () => wires.length / count - 0.08 * mistakes,
+      detail: () => wires.length + '/' + count + ' leads connected' + (mistakes ? ', ' + plural(mistakes, 'short', 'shorts') : ''),
+    };
+  }
+
+  /* ==== Hardware: soldering ============================================================== */
+  const REFS = ['R', 'C', 'U', 'Q', 'D', 'L'];
+  const RING = 2 * Math.PI * 42;
+
+  function buildSolder(el, api) {
+    const count = [5, 6, 7][api.tier];
+    const win = [0.22, 0.17, 0.13][api.tier];
+    const cols = 4, rows = 3;
+    const cells = shuffle(range(cols * rows)).slice(0, count).sort((a, b) => a - b);
+    const gndAt = api.tier >= 2 ? shuffle(range(count)).slice(0, 2) : [];   /* two slow ground pads on the final build */
+    const pads = cells.map((c, k) => {
+      const gnd = gndAt.includes(k);
+      const ws = rnd(0.45, 0.88 - win);
+      return {
+        x: ((c % cols) + 0.25 + Math.random() * 0.5) / cols * 100,
+        y: (Math.floor(c / cols) + 0.25 + Math.random() * 0.5) / rows * 100,
+        dur: gnd ? rnd(1.9, 2.5) : rnd(0.95, 1.6),
+        ws, we: ws + win, heat: 0, state: 'open', gnd,
+        ref: gnd ? 'GND' : pick(REFS) + (k + 1),
+      };
+    });
+    const arc = (a, b) => 'stroke-dasharray="' + ((b - a) * RING).toFixed(2) + ' ' + RING.toFixed(2) + '" stroke-dashoffset="' + (-a * RING).toFixed(2) + '"';
+    let traces = '';
+    for (let k = 1; k < pads.length; k++) {
+      const a = pads[k - 1], b = pads[k];
+      traces += '<path d="M' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + ' H' + b.x.toFixed(1) + ' V' + b.y.toFixed(1) + '"/>';
+    }
+    el.innerHTML = '<div class="wb-pcb">' +
+      '<svg class="wb-traces" viewBox="0 0 100 100" preserveAspectRatio="none">' + traces + '</svg>' +
+      pads.map((p, k) => '<div class="wb-pad' + (p.gnd ? ' gnd' : '') + '" data-k="' + k + '" style="left:' + p.x + '%;top:' + p.y + '%">' +
+        '<svg viewBox="0 0 100 100"><g transform="rotate(-90 50 50)">' +
+          '<circle class="trk" cx="50" cy="50" r="42"/>' +
+          '<circle class="win" cx="50" cy="50" r="42" ' + arc(p.ws, p.we) + '/>' +
+          '<circle class="heat" cx="50" cy="50" r="42" stroke-dasharray="0 ' + RING.toFixed(2) + '"/>' +
+        '</g></svg>' +
+        '<div class="wb-pad-core"></div><div class="wb-pad-ref">' + p.ref + '</div></div>').join('') +
+      '</div>';
+
+    const padEls = Array.from(el.querySelectorAll('.wb-pad'));
+    pads.forEach((p, k) => { p.el = padEls[k]; p.heatEl = padEls[k].querySelector('.heat'); });
+    let holding = null, good = 0, colds = 0, burnt = 0;
+
+    function paint(p) {
+      p.heatEl.setAttribute('stroke-dasharray', (p.heat * RING).toFixed(2) + ' ' + RING.toFixed(2));
+      p.el.style.setProperty('--heat', p.heat.toFixed(3));
+      p.el.classList.toggle('inwin', p.heat >= p.ws && p.heat <= p.we);
+    }
+    function settle(p, state) {
+      p.state = state;
+      p.el.classList.remove('hot', 'inwin');
+      p.el.classList.add(state);
+      if (state === 'good') good++; else burnt++;
+      if (pads.every((q) => q.state !== 'open')) api.done();
+    }
+    function release() {
+      const p = holding;
+      holding = null;
+      if (!p || p.state !== 'open') return;
+      p.el.classList.remove('hot');
+      if (p.heat >= p.ws && p.heat <= p.we) {
+        api.say('Clean joint.', 'ok');
+        settle(p, 'good');
+      } else if (p.heat < p.ws) {
+        colds++;
+        restart(p.el, 'cold');
+        api.mistake(1, 'Cold joint. That needs more heat.');
+      } else {
+        api.mistake(2, 'Held it too long. The pad lifted right off the board.');
+        settle(p, 'burnt');
+      }
+    }
+    padEls.forEach((pe, k) => pe.addEventListener('pointerdown', (e) => {
+      const p = pads[k];
+      if (!api.running() || p.state !== 'open') return;
+      e.preventDefault();
+      holding = p;
+      pe.classList.add('hot');
+    }));
+    api.listen(document, 'pointerup', release);
+    api.listen(document, 'pointercancel', release);
+
+    return {
+      frame: (dt) => {
+        pads.forEach((p) => {
+          if (p.state !== 'open') return;
+          if (p === holding) {
+            p.heat += dt / p.dur;
+            if (p.heat >= 1) { p.heat = 1; paint(p); release(); return; }
+          } else if (p.heat > 0) {
+            p.heat = Math.max(0, p.heat - dt * 0.6);   /* a pad that is let go cools off again */
+          }
+          paint(p);
+        });
+      },
+      finish: () => { holding = null; },
+      score: () => good / count - 0.07 * colds,
+      detail: () => good + '/' + count + ' clean joints' + (colds ? ', ' + plural(colds, 'cold one', 'cold ones') : '') + (burnt ? ', ' + burnt + ' ruined' : ''),
+    };
+  }
+
+  /* ==== Software: debugging ==============================================================
+     Snippets by difficulty (tier). bug = index of the broken line, fix = the line that repairs it, wrong = two
+     replacements that look plausible but don't. The test line has to make the bug findable without guessing. */
+  const SNIPPETS = [
+    { tier: 0, file: 'heartbeat.js', test: 'bpm(833) should be 72, got 0',
+      code: ['// beats per minute from the gap between two peaks', 'function bpm(peakGapMs) {', '  if (peakGapMs <= 0) {', '    return 0;', '  }', '  const seconds = peakGapMs * 1000;', '  return Math.round(60 / seconds);', '}'],
+      bug: 5, fix: '  const seconds = peakGapMs / 1000;', wrong: ['  const seconds = peakGapMs + 1000;', '  const seconds = peakGapMs * 60;'] },
+    { tier: 0, file: 'output.js', test: 'clampLevel(140) should be 100, got 0',
+      code: ['// keep the output level inside what the coil can take', 'function clampLevel(level) {', '  const MIN = 0;', '  const MAX = 100;', '  if (level < MIN) return MIN;', '  if (level > MAX) return MIN;', '  return level;', '}'],
+      bug: 5, fix: '  if (level > MAX) return MAX;', wrong: ['  if (level < MAX) return MAX;', '  if (level > MAX) return level;'] },
+    { tier: 0, file: 'camera.js', test: 'average([4, 6, 8]) should be 6, got NaN',
+      code: ['// average brightness over the last few frames', 'function average(frames) {', '  let sum = 0;', '  for (let i = 0; i <= frames.length; i++) {', '    sum += frames[i];', '  }', '  return sum / frames.length;', '}'],
+      bug: 3, fix: '  for (let i = 0; i < frames.length; i++) {', wrong: ['  for (let i = 1; i <= frames.length; i++) {', '  for (let i = 0; i <= frames.length + 1; i++) {'] },
+    { tier: 0, file: 'motion.js', test: 'isMoving(10, 90, 25) should be true, got false',
+      code: ['// is anyone moving in the room?', 'function isMoving(before, now, threshold) {', '  const delta = Math.abs(now - before);', '  return delta < threshold;', '}'],
+      bug: 3, fix: '  return delta > threshold;', wrong: ['  return delta == threshold;', '  return now < threshold;'] },
+    { tier: 0, file: 'buffer.js', test: 'latest([3, 5, 9]) should be 9, got undefined',
+      code: ['// the newest reading is the last one in the buffer', 'function latest(buffer) {', '  if (buffer.length === 0) {', '    return null;', '  }', '  return buffer[buffer.length];', '}'],
+      bug: 5, fix: '  return buffer[buffer.length - 1];', wrong: ['  return buffer[0];', '  return buffer[buffer.length + 1];'] },
+    { tier: 1, file: 'sensors.js', test: 'strongest() should return "window", got "door"',
+      code: ['// pick the strongest of the room sensors', 'function strongest(sensors) {', '  let best = sensors[0];', '  for (const s of sensors) {', '    if (s.signal > best.signal) {', '      best = sensors[0];', '    }', '  }', '  return best.name;', '}'],
+      bug: 5, fix: '      best = s;', wrong: ['      best = s.signal;', '      best = sensors[1];'] },
+    { tier: 1, file: 'sampler.js', test: 'expected a sample every 100 ms, got one every 0.01 ms',
+      code: ['// sample the room ten times a second', 'const SAMPLES_PER_SECOND = 10;', '', 'function startSampling(readRoom) {', '  const interval = SAMPLES_PER_SECOND / 1000;', '  return setInterval(readRoom, interval);', '}'],
+      bug: 4, fix: '  const interval = 1000 / SAMPLES_PER_SECOND;', wrong: ['  const interval = SAMPLES_PER_SECOND * 1000;', '  const interval = SAMPLES_PER_SECOND;'] },
+    { tier: 1, file: 'pulse.js', test: 'readyToPulse({ heartRate: 120, angle: 10 }) should be false, got true',
+      code: ['// only fire when the target is calm AND facing the unit', 'function readyToPulse(target) {', '  const calm = target.heartRate < 80;', '  const facing = target.angle < 30;', '  return calm || facing;', '}'],
+      bug: 4, fix: '  return calm && facing;', wrong: ['  return !calm || facing;', '  return facing;'] },
+    { tier: 1, file: 'rooms.js', test: 'expected "kitchen" first (activity 9), got "hallway" (activity 2)',
+      code: ['// rank the rooms from the busiest to the quietest', 'function rankRooms(rooms) {', '  const ranked = rooms.slice();', '  ranked.sort((a, b) => a.activity - b.activity);', '  return ranked.map((r) => r.name);', '}'],
+      bug: 3, fix: '  ranked.sort((a, b) => b.activity - a.activity);', wrong: ['  ranked.sort((a, b) => a.activity + b.activity);', '  ranked.sort((a, b) => a.name - b.name);'] },
+    { tier: 2, file: 'phase.js', test: 'wrapPhase(-90) should be 270, got 90',
+      code: ['// keep the phase between 0 and 360 degrees', 'function wrapPhase(deg) {', '  let p = deg % 360;', '  if (p < 0) {', '    p = -p;', '  }', '  return p;', '}'],
+      bug: 4, fix: '    p += 360;', wrong: ['    p = 360 - p;', '    p = 0;'] },
+    { tier: 2, file: 'calibration.js', test: 'matchScore(50, 50, 10) should be 1, got 0',
+      code: ['// how close a calibration is: 0 is way off, 1 is perfect', 'function matchScore(target, actual, tolerance) {', '  const diff = Math.abs(target - actual);', '  if (diff > tolerance) {', '    return 0;', '  }', '  return diff / tolerance;', '}'],
+      bug: 6, fix: '  return 1 - diff / tolerance;', wrong: ['  return tolerance / diff;', '  return diff * tolerance;'] },
+    { tier: 2, file: 'presets.js', test: 'after preview(), the saved preset should still have gain 40, got 75',
+      code: ['// try out changes without touching the saved preset', 'function preview(saved, changes) {', '  const draft = saved;', '  Object.assign(draft, changes);', '  return draft;', '}'],
+      bug: 2, fix: '  const draft = { ...saved };', wrong: ['  let draft = saved;', '  const draft = saved.copy;'] },
+    { tier: 2, file: 'alarms.js', test: 'sensor 0 fired, but the alarm says sensor 3',
+      code: ['// one alarm per sensor, each one says which sensor fired', 'function armSensors(sensors, alarm) {', '  for (var i = 0; i < sensors.length; i++) {', '    sensors[i].onTrigger = () => alarm(i);', '  }', '}'],
+      bug: 2, fix: '  for (let i = 0; i < sensors.length; i++) {', wrong: ['  for (var i = 1; i < sensors.length; i++) {', '  for (var i = 0; i <= sensors.length; i++) {'] },
+  ];
+  const KEYWORDS = /^(const|let|var|function|return|if|else|for|of|new|null|true|false)$/;
+  function highlight(src) {
+    const re = /(\/\/.*$)|("[^"]*"|'[^']*')|([A-Za-z_]\w*)|(\d+(?:\.\d+)?)/g;
+    let out = '', last = 0, m;
+    while ((m = re.exec(src))) {
+      out += esc(src.slice(last, m.index));
+      if (m[1]) out += '<span class="c">' + esc(m[1]) + '</span>';
+      else if (m[2]) out += '<span class="s">' + esc(m[2]) + '</span>';
+      else if (m[3]) out += KEYWORDS.test(m[3]) ? '<span class="k">' + m[3] + '</span>' : esc(m[3]);
+      else out += '<span class="n">' + m[4] + '</span>';
+      last = re.lastIndex;
+    }
+    return out + esc(src.slice(last));
+  }
+
+  function buildDebug(el, api) {
+    const tiers = api.tier === 0 ? [0] : (api.tier === 1 ? [0, 1] : [1, 2]);
+    const chosen = tiers.map((t) => pick(SNIPPETS.filter((s) => s.tier === t)));
+    let k = 0, fixed = 0, mistakes = 0, busy = false;
+
+    function show() {
+      const s = chosen[k];
+      busy = false;
+      el.innerHTML = '<div class="wb-debug">' +
+        '<div class="wb-test"><span class="wb-test-tag">FAIL</span><span class="wb-test-msg">' + esc(s.test) + '</span>' +
+          (chosen.length > 1 ? '<span class="wb-test-n">Bug ' + (k + 1) + ' of ' + chosen.length + '</span>' : '') + '</div>' +
+        '<div class="wb-code"><div class="wb-file">' + esc(s.file) + '</div><div class="wb-lines">' +
+          s.code.map((line, i) => '<div class="wb-line" data-l="' + i + '"><span class="wb-ln">' + (i + 1) + '</span><span class="wb-lc">' + (highlight(line) || ' ') + '</span></div>').join('') +
+        '</div></div></div>';
+      el.querySelectorAll('.wb-line').forEach((ln) => ln.addEventListener('click', () => {
+        if (!api.running() || busy) return;
+        const i = Number(ln.dataset.l);
+        const text = s.code[i].trim();
+        if (!text || text === '}') return;
+        if (text.indexOf('//') === 0) { api.say("That's just a comment.", ''); return; }
+        if (i === s.bug) { openFixes(ln, s); return; }
+        mistakes++;
+        restart(ln, 'nope');
+        api.mistake(3, 'Line ' + (i + 1) + ' looks fine to me.');
+      }));
+    }
+    function openFixes(ln, s) {
+      const old = el.querySelector('.wb-fixes');
+      if (old) old.remove();
+      const box = document.createElement('div');
+      box.className = 'wb-fixes';
+      box.innerHTML = '<div class="wb-fixes-t">Replace line ' + (s.bug + 1) + ' with</div>' +
+        shuffle([s.fix].concat(s.wrong)).map((opt) => '<button type="button" class="wb-fix" data-ok="' + (opt === s.fix ? 1 : 0) + '">' + highlight(opt.trim()) + '</button>').join('') +
+        '<button type="button" class="wb-fix-cancel">Never mind</button>';
+      ln.after(box);
+      box.querySelector('.wb-fix-cancel').addEventListener('click', () => box.remove());
+      box.querySelectorAll('.wb-fix').forEach((b) => b.addEventListener('click', () => {
+        if (!api.running() || busy || b.disabled) return;
+        if (b.dataset.ok !== '1') {
+          mistakes++;
+          b.disabled = true;
+          b.classList.add('wrong');
+          api.mistake(3, 'The test still fails with that.');
+          return;
+        }
+        busy = true;
+        fixed++;
+        box.remove();
+        ln.querySelector('.wb-lc').innerHTML = highlight(s.fix);
+        ln.classList.add('fixed');
+        const test = el.querySelector('.wb-test');
+        test.classList.add('pass');
+        test.querySelector('.wb-test-tag').textContent = 'PASS';
+        api.say('Green.', 'ok');
+        if (k + 1 >= chosen.length) { api.done(); return; }
+        setTimeout(() => { if (api.running()) { k++; show(); } }, 700);
+      }));
+    }
+    show();
+
+    return {
+      score: () => fixed / chosen.length - 0.12 * mistakes,
+      detail: () => fixed + '/' + chosen.length + ' bugs fixed' + (mistakes ? ', ' + plural(mistakes, 'wrong guess', 'wrong guesses') : ''),
+    };
+  }
+
+  /* ==== Software: flashing ================================================================ */
+  function buildFlash(el, api) {
+    const cols = [10, 10, 12][api.tier], rows = 5, total = cols * rows;
+    const dur = JOBS.flash.time[api.tier];
+    const nBad = [6, 8, 10][api.tier];
+    const nNoise = [0, 4, 7][api.tier];
+    const warn = [14, 11, 8][api.tier];   /* how many sectors ahead of the head a bad one shows up */
+    const order = shuffle(range(total - 8, 8));
+    const bad = new Set(order.slice(0, nBad));
+    const noise = new Set(order.slice(nBad, nBad + nNoise));
+    const hex = (k) => '0x' + (k * 256).toString(16).toUpperCase().padStart(4, '0');
+
+    el.innerHTML = '<div class="wb-flash">' +
+      '<div class="wb-flash-top"><span>Writing ' + esc(protoName) + ' firmware</span><span class="wb-flash-pct">0%</span></div>' +
+      '<div class="wb-grid" style="--cols:' + cols + '">' + range(total).map((k) => '<div class="wb-sec" data-k="' + k + '"></div>').join('') + '</div>' +
+      '<div class="wb-legend"><span><i class="lg-bad"></i>Bad: click it</span><span><i class="lg-fixed"></i>Remapped</span>' +
+        (nNoise ? '<span><i class="lg-noise"></i>Noise: leave it</span>' : '') + '<span><i class="lg-head"></i>Write head</span></div>' +
+      '</div>';
+    const secs = Array.from(el.querySelectorAll('.wb-sec'));
+    const pctEl = el.querySelector('.wb-flash-pct');
+    let head = -1, fixed = 0, lost = 0, wrong = 0;
+
+    function reveal(k) {
+      if (k >= total) return;
+      if (bad.has(k)) secs[k].classList.add('bad');
+      else if (noise.has(k)) { const s = secs[k]; s.classList.add('noise'); setTimeout(() => s.classList.remove('noise'), 900); }
+    }
+    for (let k = 0; k < warn; k++) reveal(k);
+    function advanceTo(h) {
+      while (head < h && head < total - 1) {
+        if (head >= 0) secs[head].classList.remove('head');
+        head++;
+        const s = secs[head];
+        s.classList.remove('noise');
+        if (bad.has(head) && !s.classList.contains('fixed')) {
+          s.classList.remove('bad');
+          s.classList.add('lost');
+          lost++;
+          api.say('Sector ' + hex(head) + ' got written bad.', 'bad');
+        } else if (!s.classList.contains('fixed')) {
+          s.classList.add('written');
+        }
+        s.classList.add('head');
+        reveal(head + warn);
+      }
+    }
+    secs.forEach((s, k) => s.addEventListener('pointerdown', (e) => {
+      if (!api.running()) return;
+      e.preventDefault();
+      if (k <= head || s.classList.contains('fixed')) return;
+      if (s.classList.contains('bad')) { s.classList.remove('bad'); s.classList.add('fixed'); fixed++; return; }
+      wrong++;
+      restart(s, 'oops');
+      api.mistake(0, 'That sector was fine.');
+    }));
+
+    return {
+      frame: () => {
+        const h = Math.min(total - 1, Math.floor(api.elapsed() / dur * total));
+        advanceTo(h);
+        pctEl.textContent = Math.round((head + 1) / total * 100) + '%';
+      },
+      finish: () => { advanceTo(total - 1); if (head >= 0) secs[head].classList.remove('head'); pctEl.textContent = '100%'; },
+      score: () => fixed / nBad - 0.08 * wrong,
+      detail: () => fixed + '/' + nBad + ' bad sectors remapped' + (wrong ? ', ' + plural(wrong, 'healthy one', 'healthy ones') + ' clicked' : ''),
+    };
+  }
+
+  /* ==== Testing: logic board =============================================================== */
+  const OPS = { AND: (a, b) => a && b, OR: (a, b) => a || b, XOR: (a, b) => a !== b };
+  function evalBoard(b, ins) {
+    const gv = b.gates.map((g) => OPS[g.op](ins[g.a] !== g.na, ins[g.b] !== g.nb));
+    const tv = b.top ? OPS[b.top.op](gv[b.top.a], gv[b.top.b]) : null;
+    return { gates: gv, top: tv, outs: b.outs.map((o) => (o === 'top' ? tv : gv[o])) };
+  }
+  function genBoard(t) {
+    const nIn = [3, 4, 4][t];
+    const nGate = [2, 3, 3][t];
+    const ops = t === 0 ? ['AND', 'OR'] : ['AND', 'OR', 'XOR'];
+    let board = null;
+    for (let tries = 0; tries < 300; tries++) {
+      const gates = range(nGate).map(() => {
+        const ins = shuffle(range(nIn)).slice(0, 2).sort((a, b) => a - b);
+        return { op: pick(ops), a: ins[0], b: ins[1], na: t > 0 && Math.random() < 0.3, nb: t > 0 && Math.random() < 0.3 };
+      });
+      const used = new Set();
+      gates.forEach((g) => { used.add(g.a); used.add(g.b); });
+      if (used.size < nIn) continue;
+      const keys = gates.map((g) => [g.op, g.a, g.b, g.na, g.nb].join());
+      if (new Set(keys).size < keys.length) continue;
+      /* on the final build the third LED reads a gate that combines gates 2 and 3 */
+      const top = t === 2 ? { op: pick(ops), a: 1, b: 2 } : null;
+      board = { nIn, gates, top, outs: top ? [0, 1, 'top'] : range(nGate) };
+      const goal = range(nIn).map(() => Math.random() < 0.5);
+      if (!goal.some(Boolean)) continue;
+      board.want = evalBoard(board, goal).outs;
+      const start = evalBoard(board, range(nIn).map(() => false)).outs;
+      if (!board.want.some(Boolean) || start.every((v, i) => v === board.want[i])) continue;
+      return board;
+    }
+    return board;
+  }
+
+  function buildLogic(el, api) {
+    const rounds = 2;
+    let round = 0, fails = 0, totalFails = 0;
+    const scores = [];
+    let b, state, sw, leds, wiresIn, gateOut, topOut, runBtn, busy = false;
+
+    function draw() {
+      b = genBoard(api.tier);
+      state = range(b.nIn).map(() => false);
+      busy = false;
+      fails = 0;
+      const rowH = 78, H = Math.max(b.nIn, b.gates.length) * rowH + 30;
+      const yIn = (i) => 15 + (i + 0.5) * (H - 30) / b.nIn;
+      const yG = (g) => 15 + (g + 0.5) * (H - 30) / b.gates.length;
+      const GX = 250, GW = 86, TX = 410, LX = 575;
+      const yTop = b.top ? (yG(b.top.a) + yG(b.top.b)) / 2 : 0;
+      const bez = (x1, y1, x2, y2) => { const dx = (x2 - x1) * 0.5; return 'M' + x1 + ' ' + y1 + ' C' + (x1 + dx) + ' ' + y1 + ' ' + (x2 - dx) + ' ' + y2 + ' ' + x2 + ' ' + y2; };
+      let s = '';
+      /* wires from the switches into the gates */
+      b.gates.forEach((g, gi) => {
+        [ [g.a, g.na, -12], [g.b, g.nb, 12] ].forEach((p) => {
+          const end = GX - (p[1] ? 10 : 0);
+          s += '<path class="lg-wire lg-in" data-in="' + p[0] + '" d="' + bez(100, yIn(p[0]), end, yG(gi) + p[2]) + '"/>';
+          if (p[1]) s += '<circle class="lg-neg" cx="' + (GX - 5) + '" cy="' + (yG(gi) + p[2]) + '" r="5"/>';
+        });
+      });
+      /* wires out of the gates */
+      b.gates.forEach((g, gi) => {
+        const y = yG(gi);
+        if (b.top && (gi === b.top.a || gi === b.top.b)) {
+          s += '<path class="lg-wire lg-out" data-g="' + gi + '" d="' + bez(GX + GW, y, TX, yTop + (gi === b.top.a ? -12 : 12)) + '"/>';
+        }
+        const li = b.outs.indexOf(gi);
+        if (li >= 0) s += '<path class="lg-wire lg-out" data-g="' + gi + '" d="' + bez(GX + GW, y, LX - 16, y) + '"/>';
+      });
+      if (b.top) s += '<path class="lg-wire lg-out" data-g="top" d="' + bez(TX + GW, yTop, LX - 16, yTop) + '"/>';
+      /* gates */
+      b.gates.forEach((g, gi) => {
+        s += '<g class="lg-gate"><rect x="' + GX + '" y="' + (yG(gi) - 24) + '" width="' + GW + '" height="48" rx="10"/><text x="' + (GX + GW / 2) + '" y="' + (yG(gi) + 5) + '">' + g.op + '</text></g>';
+      });
+      if (b.top) s += '<g class="lg-gate"><rect x="' + TX + '" y="' + (yTop - 24) + '" width="' + GW + '" height="48" rx="10"/><text x="' + (TX + GW / 2) + '" y="' + (yTop + 5) + '">' + b.top.op + '</text></g>';
+      /* switches */
+      range(b.nIn).forEach((i) => {
+        const y = yIn(i);
+        s += '<g class="lg-sw" data-i="' + i + '"><text class="lg-name" x="14" y="' + (y + 5) + '">' + 'ABCD'[i] + '</text>' +
+          '<rect x="34" y="' + (y - 14) + '" width="64" height="28" rx="14"/><circle class="lg-knob" cx="49" cy="' + y + '" r="10"/></g>';
+      });
+      /* LEDs with what the test sheet wants */
+      b.outs.forEach((o, li) => {
+        const y = o === 'top' ? yTop : yG(o);
+        s += '<g class="lg-led ' + (b.want[li] ? 'want-on' : 'want-off') + '"><circle class="led" cx="' + LX + '" cy="' + y + '" r="15"/>' +
+          '<text class="lg-want" x="' + (LX + 24) + '" y="' + (y + 4) + '">' + (b.want[li] ? 'ON' : 'OFF') + '</text></g>';
+      });
+
+      el.innerHTML = '<div class="wb-logic">' +
+        '<div class="wb-logic-head"><span>Board ' + (round + 1) + ' of ' + rounds + '</span><span>Test sheet: the LEDs on the right have to read as marked</span></div>' +
+        '<svg class="wb-logic-svg" viewBox="0 0 640 ' + H + '" preserveAspectRatio="xMidYMid meet">' + s + '</svg>' +
+        '<div class="wb-logic-foot"><span class="wb-logic-legend">AND: both on · OR: at least one · XOR: exactly one' + (api.tier > 0 ? ' · ○ flips the input' : '') + '</span>' +
+        '<button type="button" class="wb-btn wb-run">Run test</button></div></div>';
+
+      sw = Array.from(el.querySelectorAll('.lg-sw'));
+      leds = Array.from(el.querySelectorAll('.lg-led'));
+      wiresIn = Array.from(el.querySelectorAll('.lg-in'));
+      gateOut = Array.from(el.querySelectorAll('.lg-out'));
+      runBtn = el.querySelector('.wb-run');
+      sw.forEach((g) => g.addEventListener('click', () => {
+        if (!api.running() || busy) return;
+        const i = Number(g.dataset.i);
+        state[i] = !state[i];
+        paint(false);
+      }));
+      runBtn.addEventListener('click', run);
+      paint(false);
+    }
+    function paint(showOut) {
+      sw.forEach((g, i) => g.classList.toggle('on', state[i]));
+      wiresIn.forEach((w) => w.classList.toggle('lit', state[Number(w.dataset.in)]));
+      const r = evalBoard(b, state);
+      gateOut.forEach((w) => {
+        const v = w.dataset.g === 'top' ? r.top : r.gates[Number(w.dataset.g)];
+        w.classList.toggle('lit', showOut && v);
+        w.classList.toggle('dark', showOut && !v);
+      });
+      if (!showOut) leds.forEach((l) => l.classList.remove('ok', 'bad', 'is-on'));
+    }
+    function run() {
+      if (!api.running() || busy) return;
+      const out = evalBoard(b, state).outs;
+      paint(true);
+      leds.forEach((l, i) => {
+        l.classList.toggle('is-on', !!out[i]);
+        l.classList.toggle('ok', out[i] === b.want[i]);
+        l.classList.toggle('bad', out[i] !== b.want[i]);
+      });
+      const wrongN = out.filter((v, i) => v !== b.want[i]).length;
+      if (wrongN) {
+        fails++;
+        totalFails++;
+        api.mistake(4, wrongN + ' of ' + out.length + ' outputs wrong.');
+        return;
+      }
+      busy = true;
+      runBtn.disabled = true;
+      scores.push(Math.max(0.25, 1 - 0.25 * fails));
+      api.say('Test passed.', 'ok');
+      if (round + 1 >= rounds) { api.done(); return; }
+      setTimeout(() => { if (api.running()) { round++; draw(); } }, 900);
+    }
+    draw();
+
+    return {
+      score: () => scores.reduce((a, c) => a + c, 0) / rounds,
+      detail: () => scores.length + '/' + rounds + ' boards passed' + (totalFails ? ', ' + plural(totalFails, 'failed test', 'failed tests') : ''),
+    };
+  }
+
+  /* ==== Testing: stress test =============================================================== */
+  function buildStress(el, api) {
+    const t = api.tier;
+    const half = [0.11, 0.08, 0.06][t];
+    const band = [0.5 - half, 0.5 + half];
+    const NEAR = 0.05;
+    const tau = [0.9, 1.05, 1.25][t];         /* how slowly the temperature follows */
+    const gap = [ [5, 7], [4, 6], [3, 5] ][t];  /* seconds between load spikes */
+    const WINDOW = 8;
+    const RUN = JOBS.stress.time[t];          /* the score counts the whole run, so leaving early doesn't pay */
+
+    el.innerHTML = '<div class="wb-stress">' +
+      '<div class="wb-scope"><canvas></canvas><div class="wb-alert"></div></div>' +
+      '<div class="wb-lever"><div class="wb-lever-t">Max</div><div class="wb-lever-track"><div class="wb-lever-fill"></div><div class="wb-lever-knob"></div></div><div class="wb-lever-t">Off</div><div class="wb-lever-v">Fan</div></div>' +
+      '</div>' +
+      '<div class="wb-stress-stats"><span>Temp <b class="st-temp">--</b></span><span>Load <b class="st-load">--</b></span><span>Fan <b class="st-fan">--</b></span><span>In the green <b class="st-in">0%</b></span></div>';
+
+    const canvas = el.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const alertEl = el.querySelector('.wb-alert');
+    const lever = el.querySelector('.wb-lever');
+    const track = el.querySelector('.wb-lever-track');
+    const st = { temp: el.querySelector('.st-temp'), load: el.querySelector('.st-load'), fan: el.querySelector('.st-fan'), inb: el.querySelector('.st-in') };
+
+    let time = 0, T = 0.5, Lbase = 0.6, Lgoal = 0.6, Lnow = 0.6, goalIn = 2, F = 0.3, Fe = 0.3;
+    let nextSpike = rnd(gap[0], gap[1]) * 0.6 + 1.5, pending = null, active = null;
+    let inBand = 0, near = 0, totalT = 0;
+    const hist = [];
+
+    function setFan(v) { F = clamp01(v); lever.style.setProperty('--f', F.toFixed(3)); }
+    setFan(F);
+    let dragging = false;
+    function fromY(e) { const r = track.getBoundingClientRect(); setFan(1 - (e.clientY - r.top) / r.height); }
+    track.addEventListener('pointerdown', (e) => { if (!api.running()) return; e.preventDefault(); dragging = true; fromY(e); });
+    api.listen(document, 'pointermove', (e) => { if (dragging) fromY(e); });
+    api.listen(document, 'pointerup', () => { dragging = false; });
+    lever.addEventListener('wheel', (e) => { if (!api.running()) return; e.preventDefault(); setFan(F + (e.deltaY < 0 ? 0.05 : -0.05)); }, { passive: false });
+    const tempC = (v) => Math.round(40 + v * 80);
+
+    function drawScope() {
+      const dpr = window.devicePixelRatio || 1;
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      const lo = 0.1, hi = 0.9;
+      const y = (v) => h - (v - lo) / (hi - lo) * h;
+      const nowX = w * 0.82;
+      const x = (tt) => nowX - (time - tt) / WINDOW * nowX;
+      /* zones */
+      ctx.fillStyle = 'rgba(234,175,76,0.07)';
+      ctx.fillRect(0, y(band[1] + NEAR), w, y(band[0] - NEAR) - y(band[1] + NEAR));
+      ctx.fillStyle = 'rgba(28,216,141,0.14)';
+      ctx.fillRect(0, y(band[1]), w, y(band[0]) - y(band[1]));
+      ctx.strokeStyle = 'rgba(28,216,141,0.55)';
+      ctx.lineWidth = 1;
+      [band[0], band[1]].forEach((v) => { ctx.beginPath(); ctx.moveTo(0, y(v)); ctx.lineTo(w, y(v)); ctx.stroke(); });
+      /* grid */
+      ctx.strokeStyle = 'rgba(235,221,197,0.06)';
+      for (let gx = 0; gx < w; gx += 40) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
+      ctx.beginPath(); ctx.moveTo(nowX, 0); ctx.lineTo(nowX, h); ctx.strokeStyle = 'rgba(235,221,197,0.2)'; ctx.stroke();
+      /* trace */
+      if (hist.length > 1) {
+        ctx.lineWidth = 2.5;
+        ctx.lineJoin = 'round';
+        for (let k = 1; k < hist.length; k++) {
+          const a = hist[k - 1], c = hist[k];
+          const inb = c.v >= band[0] && c.v <= band[1];
+          ctx.strokeStyle = inb ? '#1cd88d' : (c.v >= band[0] - NEAR && c.v <= band[1] + NEAR ? '#EAAF4C' : '#ff6479');
+          ctx.beginPath(); ctx.moveTo(x(a.t), y(a.v)); ctx.lineTo(x(c.t), y(c.v)); ctx.stroke();
+        }
+      }
+      const inb = T >= band[0] && T <= band[1];
+      ctx.beginPath(); ctx.arc(nowX, y(T), 6, 0, Math.PI * 2);
+      ctx.fillStyle = inb ? '#1cd88d' : '#ff6479';
+      ctx.shadowColor = ctx.fillStyle; ctx.shadowBlur = 14; ctx.fill(); ctx.shadowBlur = 0;
+      /* the load, faint, so a spike can be seen coming in */
+      ctx.fillStyle = 'rgba(235,221,197,0.5)';
+      ctx.font = '600 11px Manrope, sans-serif';
+      ctx.fillText(tempC(band[1]) + '°C', 8, y(band[1]) - 6);
+      ctx.fillText(tempC(band[0]) + '°C', 8, y(band[0]) + 14);
+    }
+
+    return {
+      frame: (dt) => {
+        time += dt;
+        goalIn -= dt;
+        if (goalIn <= 0) { Lgoal = rnd(0.45, 0.85); goalIn = rnd(1.4, 2.8); }
+        Lbase += (Lgoal - Lbase) * Math.min(1, dt * 0.9);
+        nextSpike -= dt;
+        if (!pending && !active && nextSpike <= 0) {
+          pending = { kind: (t > 0 && Math.random() < 0.35) ? 'drop' : 'spike', left: 1.1 };
+          alertEl.className = 'wb-alert show ' + pending.kind;
+          alertEl.textContent = pending.kind === 'drop' ? 'Load drop' : 'Load spike';
+        }
+        if (pending) {
+          pending.left -= dt;
+          if (pending.left <= 0) { active = { amt: pending.kind === 'drop' ? -0.22 : 0.3, left: rnd(1.4, 2.2) }; pending = null; }
+        }
+        let extra = 0;
+        if (active) {
+          extra = active.amt;
+          active.left -= dt;
+          if (active.left <= 0) { active = null; nextSpike = rnd(gap[0], gap[1]); alertEl.className = 'wb-alert'; }
+        }
+        Lnow += (Lbase + extra - Lnow) * Math.min(1, dt * 4);
+        Fe += (F - Fe) * Math.min(1, dt / 0.35);
+        const E = 0.3 + 0.8 * Lnow - Fe;
+        T += (E - T) * Math.min(1, dt / tau);
+        totalT += dt;
+        if (T >= band[0] && T <= band[1]) inBand += dt;
+        else if (T >= band[0] - NEAR && T <= band[1] + NEAR) near += dt;
+        hist.push({ t: time, v: T });
+        while (hist.length && hist[0].t < time - WINDOW) hist.shift();
+        st.temp.textContent = tempC(T) + '°C';
+        st.load.textContent = Math.round(Lnow * 100) + '%';
+        st.fan.textContent = Math.round(F * 100) + '%';
+        st.inb.textContent = Math.round(inBand / Math.max(0.001, totalT) * 100) + '%';
+        drawScope();
+      },
+      finish: () => { dragging = false; alertEl.className = 'wb-alert'; },
+      score: () => {
+        const raw = (inBand + 0.5 * near) / RUN;
+        return (raw - 0.25) / 0.65;
+      },
+      detail: () => Math.round(Math.min(1, inBand / RUN) * 100) + '% of the run in the green',
+    };
+  }
+
+  /* ==== the session ======================================================================== */
+  const plan = Object.keys(W.groups).map((g) => pick(W.groups[g].filter((id) => JOBS[id]))).filter(Boolean);
+  const results = [];
+  let job = null;
+  let index = -1;
+  let committed = false;   /* once the first job has started, the session costs its actions */
+
+  function grade(s) {
+    if (s >= 0.9) return ['Clean', 'g-a'];
+    if (s >= 0.65) return ['Solid', 'g-b'];
+    if (s >= 0.35) return ['Sloppy', 'g-c'];
+    if (s > 0) return ['Barely holds', 'g-d'];
+    return ['Botched', 'g-f'];
+  }
+  function paintSteps() {
+    stepsEl.innerHTML = plan.map((id, i) => {
+      const r = results[i];
+      const cls = r ? 'done' : (i === index ? 'active' : '');
+      const right = r ? Math.round(r.score * 100) + '%' : JOBS[id].time[tier] + 's';
+      return '<div class="wb-step ' + cls + '"><span class="wb-step-ic">' + icon(id) + '</span><span class="wb-step-t">' + esc(JOBS[id].title) + '</span><span class="wb-step-r' + (r ? ' ' + grade(r.score)[1] : '') + '">' + right + '</span></div>';
+    }).join('');
+  }
+  function paintTimer() {
+    if (!job) return;
+    const left = Math.max(0, job.left);
+    timerEl.textContent = Math.ceil(left) + 's';
+    timerEl.classList.toggle('low', job.running && left <= 5);
+    timerBar.style.width = (left / job.total * 100) + '%';
+  }
+  function paintIdle(sec) {
+    timerEl.textContent = sec ? sec + 's' : '--';
+    timerEl.classList.remove('low');
+    timerBar.style.width = '100%';
+  }
+  function leave() { cleanup(); Engine.play('Company'); }
+
+  function showBoard() {
+    index = -1;
+    job = null;
+    paintSteps();
+    paintIdle(null);
+    stage.innerHTML = '<div class="wb-board"><p class="wb-intro">' + "Three things on the list today. Each one gets its own clock, and the clock only starts once I'm ready. " +
+      esc(TIER_LEAD[tier]) + ' The cleaner the work, the further ' + esc(protoName) + ' gets.</p><div class="wb-cards">' +
+      plan.map((id) => {
+        const d = JOBS[id];
+        return '<div class="wb-card"><div class="wb-card-top"><span class="wb-card-ic">' + icon(id) + '</span><span class="wb-card-g">' + GROUP_LABEL[d.group] + '</span><span class="wb-card-time">' + d.time[tier] + 's</span></div>' +
+          '<div class="wb-card-t">' + esc(d.title) + '</div><div class="wb-card-d">' + esc(d.short) + '</div></div>';
+      }).join('') + '</div></div>';
+    say('This takes ' + W.actions + ' actions once the first job starts. Backing out now costs nothing.', 'info');
+    setActions([{ label: 'Not now', ghost: true, onClick: leave }, { label: 'Get to work', onClick: () => showBrief(0) }]);
+  }
+  function showBrief(i) {
+    index = i;
+    job = null;
+    paintSteps();
+    const id = plan[i], d = JOBS[id];
+    paintIdle(d.time[tier]);
+    stage.innerHTML = '<div class="wb-brief"><div class="wb-brief-ic">' + icon(id) + '</div>' +
+      '<div class="wb-brief-g">Job ' + (i + 1) + ' of ' + plan.length + ' · ' + GROUP_LABEL[d.group] + ' · ' + d.time[tier] + ' seconds</div>' +
+      '<div class="wb-brief-t">' + esc(d.title) + '</div>' +
+      '<ul class="wb-how">' + d.how(tier).map((h) => '<li>' + esc(h) + '</li>').join('') + '</ul></div>';
+    say('The clock starts when you press Start.', 'info');
+    setActions([
+      committed ? { label: 'Stop here', ghost: true, onClick: stopHere } : { label: 'Not now', ghost: true, onClick: leave },
+      { label: 'Start', onClick: () => startJob(i) },
+    ]);
+  }
+  function startJob(i) {
+    committed = true;
+    const id = plan[i], d = JOBS[id];
+    stage.innerHTML = '<div class="wb-job wb-job-' + id + '"></div>';
+    job = { id, def: d, total: d.time[tier], left: d.time[tier], running: true, mistakes: 0, listeners: [] };
+    const j = job;
+    j.inst = d.build(stage.firstElementChild, {
+      tier,
+      listen: (target, type, fn, opts) => { target.addEventListener(type, fn, opts); j.listeners.push([target, type, fn, opts]); },
+      say,
+      running: () => j.running,
+      elapsed: () => j.total - j.left,
+      done: () => { if (j.running) endJob(true); },
+      mistake: (sec, text) => {
+        if (!j.running) return;
+        j.mistakes++;
+        if (sec > 0) { j.left = Math.max(0, j.left - sec); popPenalty(sec); }
+        if (text) say(text, 'bad');
+        restart(stage, 'wb-hit');
+      },
+    });
+    say(d.tip, 'info');
+    setActions([{ label: 'Leave it like this', ghost: true, onClick: () => endJob(false) }]);
+    paintSteps();
+    paintTimer();
+  }
+  function endJob(completed) {
+    if (!job || !job.running) return;
+    const j = job;
+    j.running = false;
+    if (j.inst.finish) j.inst.finish();
+    unlisten(j.listeners);
+    const score = clamp01(j.inst.score());
+    results[index] = { id: j.id, score, detail: j.inst.detail() };
+    paintSteps();
+    paintTimer();
+    const g = grade(score);
+    const ov = document.createElement('div');
+    ov.className = 'wb-result';
+    ov.innerHTML = '<div class="wb-result-k">' + (completed || j.def.timed ? 'Job done' : (j.left <= 0 ? 'Out of time' : 'Left as it is')) + '</div>' +
+      '<div class="wb-result-t">' + esc(j.def.title) + '</div>' +
+      '<div class="wb-result-pct ' + g[1] + '">' + Math.round(score * 100) + '%</div>' +
+      '<div class="wb-result-g ' + g[1] + '">' + g[0] + '</div>' +
+      '<div class="wb-result-d">' + esc(results[index].detail) + '</div>';
+    stage.appendChild(ov);
+    say('', '');
+    const last = index >= plan.length - 1;
+    setActions([{ label: last ? 'See how it went' : 'Next job', onClick: () => (last ? showSummary() : showBrief(index + 1)) }]);
+  }
+  function stopHere() {
+    plan.forEach((id, i) => { if (!results[i]) results[i] = { id, score: 0, detail: 'Skipped' }; });
+    showSummary();
+  }
+  function showSummary() {
+    index = plan.length;
+    job = null;
+    paintSteps();
+    paintIdle(null);
+    const scores = plan.map((id, i) => (results[i] ? results[i].score : 0));
+    const g = setup.workbenchGain(scores);
+    const p = State.variables.company.prototype;
+    const room = Math.max(0, p.maxProgress - p.progress);
+    const gain = Math.min(g.gain, room);
+    const og = grade(g.score);
+    stage.innerHTML = '<div class="wb-summary">' +
+      '<div class="wb-sum-rows">' + plan.map((id, i) => {
+        const r = results[i] || { score: 0, detail: 'Skipped' };
+        const rg = grade(r.score);
+        return '<div class="wb-sum-row"><span class="wb-sum-ic">' + icon(id) + '</span><div class="wb-sum-main"><div class="wb-sum-t">' + esc(JOBS[id].title) + '</div><div class="wb-sum-d">' + esc(r.detail) + '</div>' +
+          '<div class="wb-sum-bar"><div class="' + rg[1] + '" style="width:' + Math.round(r.score * 100) + '%"></div></div></div>' +
+          '<span class="wb-sum-pct ' + rg[1] + '">' + Math.round(r.score * 100) + '%</span></div>';
+      }).join('') + '</div>' +
+      '<div class="wb-sum-total"><div class="wb-sum-score"><span>Overall</span><b class="' + og[1] + '">' + Math.round(g.score * 100) + '%</b><em class="' + og[1] + '">' + og[0] + '</em></div>' +
+        '<div class="wb-sum-gain"><span>Progress</span><b>+' + gain + '</b>' +
+          (g.bonus ? '<em class="g-a">includes +' + g.bonus + ' for a flawless session</em>' : '<em>every job at ' + Math.round(W.flawlessAt * 100) + '% or better adds +' + W.flawlessBonus + '</em>') +
+          (gain < g.gain ? '<em class="g-d">capped: ' + esc(protoName) + ' is as far as it gets for now</em>' : '') +
+        '</div></div></div>';
+    say('', '');
+    setActions([{ label: 'Pack up', onClick: () => {
+      cleanup();
+      State.variables.workbenchResult = { score: g.score, gain, capped: gain < g.gain, flawless: g.bonus > 0 };
+      Engine.play('Prototype Workbench Result');
+    } }]);
+  }
+
+  /* ---- the clock ---- */
+  let lastT = performance.now();
+  function loop(now) {
+    if (!root.isConnected) { cleanup(); return; }
+    const dt = Math.min(0.1, Math.max(0, (now - lastT) / 1000));
+    lastT = now;
+    if (job && job.running) {
+      job.left -= dt;
+      if (job.inst.frame) job.inst.frame(dt);
+      if (job.running && job.left <= 0) { job.left = 0; endJob(false); }
+      paintTimer();
+    }
+    raf = requestAnimationFrame(loop);
+  }
+  raf = requestAnimationFrame(loop);
+  showBoard();
+});
+<</script>>
+
+<style>
+/* ——— shell: a fixed full-viewport bench, like the calibration console ——— */
+.wb {
+  --gold: #EAAF4C; --cream: #EBDDC5; --red: #ff6479; --crimson: #DB354C; --ok: #1cd88d; --blue: #6fb7ff;
+  position: fixed; inset: 0; z-index: 800;
+  display: flex; flex-direction: column; gap: 0.65rem;
+  padding: clamp(0.6rem, 1.6vh, 1.2rem) clamp(0.8rem, 2.4vw, 2rem);
+  background: radial-gradient(120% 120% at 70% 0%, var(--main-bg-deep) 0%, var(--main-bg-deep) 55%, rgba(16,16,22,0.97) 100%);
+  color: var(--cream); font-family: "Manrope", sans-serif; text-align: left; overflow: hidden;
+  user-select: none; -webkit-user-select: none;
+}
+.wb *, .wb *::before, .wb *::after { box-sizing: border-box; }
+.wb::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(235,221,197,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(235,221,197,0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 85%);
+}
+.wb > * { position: relative; z-index: 1; }
+.wb svg { display: block; }
+
+/* ——— header ——— */
+.wb-head { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.wb-id { display: flex; align-items: center; gap: 0.8rem; min-width: 0; }
+.wb-logo { flex: none; width: clamp(2.2rem, 6vh, 3.2rem); height: clamp(2.2rem, 6vh, 3.2rem); padding: 0.35rem; border: 1px solid rgba(235,221,197,0.2); border-radius: 0.6rem; background: rgba(235,221,197,0.05); }
+.wb-title { font-size: clamp(0.8rem, 2vh, 1rem); font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; }
+.wb-sub { display: flex; gap: 0.4rem; margin-top: 0.3rem; flex-wrap: wrap; }
+.wb-tag { padding: 0.1rem 0.55rem; border: 1px solid rgba(234,175,76,0.4); border-radius: 999px; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.wb-tag.dim { border-color: rgba(235,221,197,0.2); color: rgba(235,221,197,0.6); }
+.wb-timer { position: relative; text-align: right; line-height: 1; }
+#wb-timer { font-size: clamp(1.5rem, 4.4vh, 2.3rem); font-weight: 800; font-variant-numeric: tabular-nums; }
+#wb-timer.low { color: var(--red); animation: wb-pulse 0.6s ease-in-out infinite; }
+.wb-timer-label { margin-top: 0.2rem; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.5; }
+.wb-pen { position: absolute; right: 100%; top: 0.35rem; margin-right: 0.7rem; font-weight: 800; font-size: 1.2rem; color: var(--red); animation: wb-pen 0.9s ease-out forwards; pointer-events: none; }
+.wb-bar { flex: none; height: 3px; margin-top: -0.2rem; border-radius: 2px; background: rgba(235,221,197,0.1); overflow: hidden; }
+#wb-timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--crimson), var(--gold)); }
+
+/* ——— job steps ——— */
+.wb-steps { flex: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.wb-step { display: flex; align-items: center; gap: 0.55rem; min-width: 0; padding: 0.4rem 0.8rem; border: 1px solid rgba(235,221,197,0.14); border-radius: 999px; font-size: 0.7rem; color: rgba(235,221,197,0.5); transition: border-color 0.3s, color 0.3s, background-color 0.3s; }
+.wb-step-ic { flex: none; width: 1.05rem; height: 1.05rem; }
+.wb-step-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wb-step-r { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wb-step.active { border-color: var(--gold); color: var(--gold); background: rgba(234,175,76,0.08); }
+.wb-step.done { border-color: rgba(235,221,197,0.3); color: var(--cream); background: rgba(235,221,197,0.05); }
+
+/* ——— stage ——— */
+.wb-stage { flex: 1; min-height: 0; position: relative; padding: 0.9rem 1rem; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem; background: var(--card-bg); box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.35); }
+.wb-stage.wb-hit { animation: wb-hit 0.3s; }
+.wb-job { height: 100%; }
+.wb-col-t { margin-bottom: 0.5rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+
+/* ——— footer ——— */
+.wb-foot { flex: none; display: flex; align-items: center; gap: 1rem; min-height: 2.6rem; }
+.wb-msg { flex: 1; min-width: 0; font-size: 0.8rem; }
+.wb-say { animation: wb-fade 0.25s; }
+.wb-say.info { color: rgba(235,221,197,0.6); }
+.wb-say.ok { color: var(--ok); }
+.wb-say.bad { color: var(--red); }
+.wb-actions { flex: none; display: flex; gap: 0.6rem; }
+.wb .wb-btn {
+  margin: 0; padding: 0.6rem 1.6rem; border-radius: 999px; min-width: 9rem;
+  background: rgba(234,175,76,0.14); border: 1px solid rgba(234,175,76,0.7); color: var(--gold);
+  font-family: inherit; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+.wb .wb-btn:hover { background: rgba(234,175,76,0.28); color: #fff; box-shadow: 0 0 20px rgba(234,175,76,0.3); }
+.wb .wb-btn.ghost { background: transparent; border-color: rgba(235,221,197,0.3); color: rgba(235,221,197,0.75); }
+.wb .wb-btn.ghost:hover { border-color: var(--cream); color: #fff; box-shadow: none; }
+.wb .wb-btn:disabled { opacity: 0.4; cursor: default; box-shadow: none; }
+
+/* ——— board, brief, results ——— */
+.wb-board { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; max-width: 60rem; margin: 0 auto; }
+.wb-intro { margin: 0; font-size: 0.95rem; line-height: 1.6; color: rgba(235,221,197,0.85); }
+.wb-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.wb-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem; background: rgba(235,221,197,0.04); }
+.wb-card-top { display: flex; align-items: center; gap: 0.5rem; }
+.wb-card-ic { width: 1.8rem; height: 1.8rem; color: var(--gold); }
+.wb-card-g { flex: 1; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
+.wb-card-time { font-size: 0.7rem; font-weight: 700; color: rgba(235,221,197,0.6); }
+.wb-card-t { font-weight: 800; font-size: 1rem; }
+.wb-card-d { font-size: 0.8rem; line-height: 1.45; color: rgba(235,221,197,0.7); }
+
+.wb-brief { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.6rem; max-width: 40rem; margin: 0 auto; animation: wb-fade 0.3s; }
+.wb-brief-ic { width: 3.4rem; height: 3.4rem; color: var(--gold); }
+.wb-brief-g { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
+.wb-brief-t { font-size: clamp(1.2rem, 3vh, 1.6rem); font-weight: 800; }
+.wb-how { margin: 0.4rem 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.45rem; text-align: left; }
+.wb-how li { position: relative; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5; color: rgba(235,221,197,0.85); }
+.wb-how li::before { content: ''; position: absolute; left: 0.2rem; top: 0.6em; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--gold); }
+
+.wb-result { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; border-radius: inherit; background: rgba(12,12,16,0.84); backdrop-filter: blur(3px); animation: wb-fade 0.3s; text-align: center; }
+.wb-result-k { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
+.wb-result-t { font-weight: 800; font-size: 1.05rem; }
+.wb-result-pct { font-size: clamp(2.8rem, 10vh, 4.8rem); font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; animation: wb-pop 0.45s cubic-bezier(.2,1.6,.4,1); }
+.wb-result-g { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; }
+.wb-result-d { margin-top: 0.4rem; font-size: 0.8rem; color: rgba(235,221,197,0.65); }
+.g-a { color: var(--ok); } .g-b { color: var(--gold); } .g-c { color: var(--cream); } .g-d { color: #ff9f5a; } .g-f { color: var(--red); }
+
+.wb-summary { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; max-width: 46rem; margin: 0 auto; animation: wb-fade 0.3s; }
+.wb-sum-rows { display: flex; flex-direction: column; gap: 0.7rem; }
+.wb-sum-row { display: flex; align-items: center; gap: 0.9rem; padding: 0.7rem 0.9rem; border: 1px solid rgba(235,221,197,0.14); border-radius: 0.6rem; background: rgba(235,221,197,0.03); }
+.wb-sum-ic { flex: none; width: 1.8rem; height: 1.8rem; color: var(--gold); }
+.wb-sum-main { flex: 1; min-width: 0; }
+.wb-sum-t { font-weight: 800; font-size: 0.9rem; }
+.wb-sum-d { font-size: 0.72rem; color: rgba(235,221,197,0.6); margin: 0.1rem 0 0.4rem; }
+.wb-sum-bar { height: 5px; border-radius: 3px; background: rgba(235,221,197,0.1); overflow: hidden; }
+.wb-sum-bar div { height: 100%; border-radius: 3px; background: currentColor; animation: wb-grow 0.8s ease-out; transform-origin: left; }
+.wb-sum-pct { flex: none; width: 3.4rem; text-align: right; font-weight: 800; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.wb-sum-total { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.wb-sum-score, .wb-sum-gain { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; padding: 0.9rem; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem; background: rgba(235,221,197,0.04); text-align: center; }
+.wb-sum-gain { border-color: rgba(234,175,76,0.55); background: rgba(234,175,76,0.07); }
+.wb-sum-total span { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
+.wb-sum-total b { font-size: 2.2rem; font-weight: 800; line-height: 1.15; animation: wb-pop 0.5s cubic-bezier(.2,1.6,.4,1); }
+.wb-sum-gain b { color: var(--gold); }
+.wb-sum-total em { font-style: normal; font-size: 0.72rem; color: rgba(235,221,197,0.6); }
+
+/* ——— wiring ——— */
+.wb-wire { position: relative; height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(3rem, 1.3fr) minmax(0, 1fr); gap: 0 1rem; align-items: center; touch-action: none; }
+.wb-wire.has-sheet { grid-template-columns: minmax(0, 1fr) minmax(3rem, 1.1fr) minmax(0, 0.9fr) minmax(0, 0.9fr); }
+.wb-wire-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 3; }
+.wb-wire-line { fill: none; stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 3px rgba(0,0,0,0.6)); }
+.wb-wire-shadow { fill: none; stroke: rgba(0,0,0,0.55); stroke-width: 8; stroke-linecap: round; }
+.wb-wire-temp { fill: none; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 7 6; opacity: 0.9; }
+.wb-wire-col { min-width: 0; }
+.wb-lead { display: flex; align-items: center; justify-content: flex-end; gap: 0.7rem; margin: 0.35rem 0; padding: 0.4rem 0.7rem; border: 1px solid rgba(235,221,197,0.18); border-radius: 0.5rem; background: rgba(235,221,197,0.04); cursor: grab; transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s; }
+.wb-lead:hover, .wb-lead.armed { border-color: var(--c); }
+.wb-lead.armed { box-shadow: 0 0 14px var(--c); }
+.wb-lead.done { opacity: 0.55; cursor: default; }
+.wb-lead-s, .wb-pin-s, .wb-sheet-row b { font-family: ui-monospace, Consolas, monospace; font-weight: 700; font-size: 0.85rem; }
+.wb-jack { flex: none; width: 0.95rem; height: 0.95rem; border-radius: 50%; background: var(--c, var(--cream)); box-shadow: 0 0 8px var(--c, transparent); }
+.wb-chip { padding: 0.5rem; border: 2px solid rgba(235,221,197,0.3); border-radius: 0.6rem; background: #14141b; box-shadow: inset 0 0 18px rgba(0,0,0,0.6); }
+.wb-pin { display: flex; align-items: center; gap: 0.7rem; margin: 0.35rem 0; padding: 0.4rem 0.6rem; border: 1px solid rgba(235,221,197,0.12); border-radius: 0.4rem; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }
+.wb-pin:hover { border-color: rgba(234,175,76,0.6); background: rgba(234,175,76,0.06); }
+.wb-pin .wb-jack { background: #26262f; border: 2px solid rgba(235,221,197,0.45); box-shadow: none; }
+.wb-pin.done .wb-jack { background: var(--c); border-color: var(--c); box-shadow: 0 0 8px var(--c); }
+.wb-pin.done { cursor: default; }
+.wb-pin-n { font-weight: 800; font-variant-numeric: tabular-nums; min-width: 1.2rem; }
+.wb-pin-s { color: rgba(235,221,197,0.7); }
+.wb-pin.spark { animation: wb-spark 0.45s; }
+.wb-sheet { align-self: center; padding: 0.7rem 0.8rem; border: 1px solid rgba(235,221,197,0.2); border-radius: 0.5rem; background: #ece4d4; color: #23212a; box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.4); transform: rotate(1.2deg); }
+.wb-sheet .wb-col-t { color: #8a5a12; }
+.wb-sheet-row { display: flex; justify-content: space-between; gap: 0.6rem; padding: 0.18rem 0; border-bottom: 1px dashed rgba(35,33,42,0.2); font-size: 0.78rem; }
+.wb-sheet-row:last-child { border-bottom: 0; }
+
+/* ——— soldering ——— */
+.wb-pcb {
+  position: relative; height: 100%; border-radius: 0.6rem; overflow: hidden; touch-action: none;
+  border: 1px solid rgba(28,216,141,0.25);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(28,216,141,0.08), transparent 60%),
+    linear-gradient(rgba(28,216,141,0.05) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgba(28,216,141,0.05) 1px, transparent 1px) 0 0 / 22px 22px,
+    #0e211b;
+}
+.wb-traces { position: absolute; inset: 0; width: 100%; height: 100%; }
+.wb-traces path { fill: none; stroke: rgba(234,175,76,0.3); stroke-width: 4; vector-effect: non-scaling-stroke; }
+.wb-pad { --heat: 0; position: absolute; width: clamp(4.2rem, 12vh, 6.2rem); aspect-ratio: 1; transform: translate(-50%, -50%); cursor: pointer; }
+.wb-pad svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.wb-pad .trk { fill: rgba(8,8,11,0.65); stroke: rgba(235,221,197,0.14); stroke-width: 8; }
+.wb-pad .win { fill: none; stroke: var(--ok); stroke-width: 8; opacity: 0.55; }
+.wb-pad .heat { fill: none; stroke: var(--gold); stroke-width: 8; }
+.wb-pad.inwin .heat { stroke: var(--ok); }
+.wb-pad.inwin .win { opacity: 1; }
+.wb-pad-core { position: absolute; inset: 27%; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #f3c39a, #b8733f 60%, #7a4a26); box-shadow: 0 0 calc(var(--heat) * 26px) rgba(255,140,60,0.9); transition: background 0.3s; }
+.wb-pad.gnd .wb-pad-core { inset: 22%; }
+.wb-pad.hot .wb-pad-core { filter: brightness(calc(1 + var(--heat) * 0.6)); }
+.wb-pad.good .wb-pad-core { background: radial-gradient(circle at 36% 30%, #ffffff, #c9ced6 45%, #6f7682); box-shadow: 0 0 14px rgba(28,216,141,0.6); }
+.wb-pad.good .win, .wb-pad.good .heat { stroke: var(--ok); opacity: 0.8; }
+.wb-pad.burnt { cursor: default; }
+.wb-pad.burnt .wb-pad-core { background: radial-gradient(circle at 40% 35%, #3b2b23, #120c0a); box-shadow: none; }
+.wb-pad.burnt .heat { stroke: var(--crimson); }
+.wb-pad.burnt .win { opacity: 0.15; }
+.wb-pad.good, .wb-pad.burnt { pointer-events: none; }
+.wb-pad.cold { animation: wb-cold 0.5s; }
+.wb-pad-ref { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 0.15rem; font-family: ui-monospace, Consolas, monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(235,221,197,0.55); white-space: nowrap; }
+.wb-pad.gnd .wb-pad-ref { color: var(--gold); }
+
+/* ——— debugging ——— */
+.wb-debug { height: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
+.wb-test { flex: none; display: flex; align-items: center; gap: 0.8rem; padding: 0.55rem 0.8rem; border: 1px solid rgba(255,100,121,0.5); border-radius: 0.5rem; background: rgba(255,100,121,0.08); font-family: ui-monospace, Consolas, monospace; font-size: 0.82rem; transition: border-color 0.3s, background-color 0.3s; }
+.wb-test-tag { flex: none; padding: 0.1rem 0.5rem; border-radius: 0.3rem; background: var(--red); color: #1a1015; font-weight: 800; letter-spacing: 0.12em; }
+.wb-test-msg { flex: 1; min-width: 0; }
+.wb-test-n { flex: none; font-family: "Manrope", sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; }
+.wb-test.pass { border-color: rgba(28,216,141,0.6); background: rgba(28,216,141,0.08); }
+.wb-test.pass .wb-test-tag { background: var(--ok); }
+.wb-code { flex: 1; min-height: 0; overflow: auto; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.5rem; background: rgba(8,8,11,0.65); font-family: ui-monospace, Consolas, monospace; font-size: clamp(0.78rem, 1.9vh, 0.98rem); }
+.wb-file { padding: 0.4rem 0.9rem; border-bottom: 1px solid rgba(235,221,197,0.12); font-size: 0.68rem; letter-spacing: 0.1em; color: rgba(235,221,197,0.5); }
+.wb-lines { padding: 0.4rem 0; }
+.wb-line { display: flex; padding: 0.12rem 0; white-space: pre; cursor: pointer; transition: background-color 0.15s; }
+.wb-line:hover { background: rgba(234,175,76,0.1); }
+.wb-ln { flex: none; width: 3rem; padding-right: 1rem; text-align: right; color: rgba(235,221,197,0.3); }
+.wb-lc { flex: 1; min-width: 0; color: #e6dccb; }
+.wb-line.nope { animation: wb-nope 0.5s; }
+.wb-line.fixed { background: rgba(28,216,141,0.14); }
+.wb-code .k { color: #EAAF4C; } .wb-code .s { color: #1cd88d; } .wb-code .n { color: #6fb7ff; } .wb-code .c { color: rgba(235,221,197,0.42); font-style: italic; }
+.wb-fixes { margin: 0.35rem 1rem 0.5rem 3rem; padding: 0.65rem; display: flex; flex-direction: column; gap: 0.4rem; border: 1px solid rgba(234,175,76,0.5); border-radius: 0.5rem; background: #17171f; box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.5); animation: wb-fade 0.2s; white-space: normal; }
+.wb-fixes-t { font-family: "Manrope", sans-serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+.wb .wb-fix, .wb .wb-fix-cancel { margin: 0; padding: 0.4rem 0.7rem; text-align: left; white-space: pre; font-family: inherit; font-size: inherit; color: #e6dccb; border: 1px solid rgba(235,221,197,0.2); border-radius: 0.35rem; background: rgba(235,221,197,0.04); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
+.wb .wb-fix:hover { border-color: var(--gold); background: rgba(234,175,76,0.1); }
+.wb .wb-fix.wrong { text-decoration: line-through; opacity: 0.45; border-color: var(--red); cursor: default; }
+.wb .wb-fix-cancel { align-self: flex-end; font-family: "Manrope", sans-serif; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(235,221,197,0.6); }
+
+/* ——— flashing ——— */
+.wb-flash { height: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
+.wb-flash-top { flex: none; display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+.wb-flash-pct { font-variant-numeric: tabular-nums; color: var(--cream); }
+.wb-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 0.35rem; touch-action: none; }
+.wb-sec { border-radius: 0.3rem; border: 1px solid rgba(235,221,197,0.12); background: rgba(235,221,197,0.05); cursor: pointer; transition: background-color 0.15s, border-color 0.15s; }
+.wb-sec:hover { border-color: rgba(235,221,197,0.35); }
+.wb-sec.written { background: rgba(28,216,141,0.2); border-color: rgba(28,216,141,0.3); cursor: default; }
+.wb-sec.bad { background: rgba(255,100,121,0.55); border-color: var(--red); box-shadow: 0 0 12px rgba(255,100,121,0.5); animation: wb-blink 0.45s ease-in-out infinite alternate; }
+.wb-sec.fixed { background: rgba(111,183,255,0.4); border-color: var(--blue); cursor: default; animation: none; box-shadow: none; }
+.wb-sec.lost { background: #4a1119; border-color: var(--crimson); animation: none; box-shadow: none; }
+.wb-sec.noise { background: rgba(234,175,76,0.5); border-color: var(--gold); animation: wb-flicker 0.12s steps(2) infinite; }
+.wb-sec.head { background: var(--gold); border-color: #fff3d8; box-shadow: 0 0 14px var(--gold); }
+.wb-sec.oops { animation: wb-oops 0.4s; }
+.wb-legend { flex: none; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.68rem; color: rgba(235,221,197,0.65); }
+.wb-legend span { display: flex; align-items: center; gap: 0.4rem; }
+.wb-legend i { width: 0.8rem; height: 0.8rem; border-radius: 0.2rem; }
+.wb-legend .lg-bad { background: var(--red); } .wb-legend .lg-fixed { background: var(--blue); } .wb-legend .lg-noise { background: var(--gold); opacity: 0.6; } .wb-legend .lg-head { background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+
+/* ——— logic board ——— */
+.wb-logic { height: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
+.wb-logic-head { flex: none; display: flex; justify-content: space-between; gap: 1rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+.wb-logic-head span:last-child { font-weight: 500; letter-spacing: 0.12em; color: rgba(235,221,197,0.5); }
+.wb-logic-svg { flex: 1; min-height: 0; width: 100%; }
+.wb-logic-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.wb-logic-legend { font-size: 0.75rem; color: rgba(235,221,197,0.65); }
+.lg-wire { fill: none; stroke: rgba(235,221,197,0.22); stroke-width: 3; transition: stroke 0.2s; }
+.lg-wire.lit { stroke: var(--gold); filter: drop-shadow(0 0 4px rgba(234,175,76,0.8)); }
+.lg-wire.dark { stroke: rgba(235,221,197,0.1); }
+.lg-neg { fill: #14141b; stroke: var(--cream); stroke-width: 2; }
+.lg-gate rect { fill: #17171f; stroke: rgba(235,221,197,0.5); stroke-width: 2; }
+.lg-gate text { fill: var(--cream); font: 800 15px Manrope, sans-serif; letter-spacing: 2px; text-anchor: middle; }
+.lg-sw { cursor: pointer; }
+.lg-sw rect { fill: #1d1d26; stroke: rgba(235,221,197,0.45); stroke-width: 2; transition: fill 0.2s, stroke 0.2s; }
+.lg-sw .lg-knob { fill: var(--cream); transition: transform 0.15s; }
+.lg-sw.on rect { fill: rgba(234,175,76,0.3); stroke: var(--gold); }
+.lg-sw.on .lg-knob { transform: translateX(34px); fill: #fff3d8; }
+.lg-sw:hover rect { stroke: var(--gold); }
+.lg-name { fill: var(--cream); font: 800 16px Manrope, sans-serif; }
+.lg-led .led { fill: #17171f; stroke: rgba(235,221,197,0.35); stroke-width: 3; transition: fill 0.2s, stroke 0.2s; }
+.lg-led.is-on .led { fill: var(--gold); }
+.lg-led.ok .led { stroke: var(--ok); }
+.lg-led.bad .led { stroke: var(--red); }
+.lg-want { font: 800 13px Manrope, sans-serif; letter-spacing: 1px; fill: rgba(235,221,197,0.55); }
+.lg-led.want-on .lg-want { fill: var(--gold); }
+
+/* ——— stress test ——— */
+.wb-stress { height: calc(100% - 2rem); display: flex; gap: 0.9rem; }
+.wb-scope { position: relative; flex: 1; min-width: 0; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.5rem; background: rgba(8,8,11,0.65); overflow: hidden; }
+.wb-scope canvas { display: block; width: 100%; height: 100%; }
+.wb-alert { position: absolute; top: 0.7rem; right: 0.8rem; padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0; transition: opacity 0.15s; }
+.wb-alert.show { opacity: 1; }
+.wb-alert.spike { color: var(--red); border: 1px solid var(--red); background: rgba(255,100,121,0.14); animation: wb-blink 0.3s ease-in-out infinite alternate; }
+.wb-alert.drop { color: var(--blue); border: 1px solid var(--blue); background: rgba(111,183,255,0.14); animation: wb-blink 0.3s ease-in-out infinite alternate; }
+.wb-lever { --f: 0.3; flex: none; width: 4.6rem; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.wb-lever-t, .wb-lever-v { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(235,221,197,0.5); }
+.wb-lever-v { color: var(--gold); font-weight: 700; }
+.wb-lever-track { position: relative; flex: 1; width: 2.4rem; border-radius: 1.2rem; border: 1px solid rgba(235,221,197,0.22); background: rgba(235,221,197,0.05); cursor: ns-resize; touch-action: none; }
+.wb-lever-fill { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--f) * 100%); border-radius: inherit; background: linear-gradient(to top, rgba(111,183,255,0.12), rgba(111,183,255,0.45)); pointer-events: none; }
+.wb-lever-knob { position: absolute; left: -0.45rem; right: -0.45rem; height: 1.4rem; bottom: calc(var(--f) * (100% - 1.4rem)); border-radius: 0.45rem; background: #fff3d8; border: 2px solid var(--gold); box-shadow: 0 0 12px rgba(234,175,76,0.6); pointer-events: none; }
+.wb-stress-stats { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 0.6rem; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
+.wb-stress-stats b { margin-left: 0.35rem; font-size: 0.85rem; letter-spacing: 0.04em; color: var(--cream); font-variant-numeric: tabular-nums; }
+
+/* ——— animations ——— */
+@keyframes wb-pulse { 50% { opacity: 0.45; } }
+@keyframes wb-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes wb-pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes wb-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes wb-pen { from { transform: translateY(0); opacity: 1; } to { transform: translateY(1rem); opacity: 0; } }
+@keyframes wb-hit { 20% { transform: translateX(-6px); } 45% { transform: translateX(5px); } 70% { transform: translateX(-3px); } 100% { transform: translateX(0); } }
+@keyframes wb-spark { 0%, 100% { background: transparent; } 20% { background: rgba(255,100,121,0.55); box-shadow: 0 0 22px var(--red); } 50% { background: rgba(255,243,216,0.35); } }
+@keyframes wb-cold { 30% { transform: translate(-50%, -50%) scale(0.92); filter: saturate(0.2); } 100% { transform: translate(-50%, -50%) scale(1); } }
+@keyframes wb-nope { 0%, 100% { background: transparent; } 30% { background: rgba(255,100,121,0.25); } }
+@keyframes wb-blink { from { opacity: 1; } to { opacity: 0.55; } }
+@keyframes wb-flicker { 50% { opacity: 0.3; } }
+@keyframes wb-oops { 0%, 100% { background: rgba(235,221,197,0.05); } 30% { background: rgba(255,100,121,0.5); } }
+
+/* ——— small screens ——— */
+@media (max-width: 860px) {
+  .wb-steps { grid-template-columns: minmax(0, 1fr); }
+  .wb-cards { grid-template-columns: minmax(0, 1fr); }
+  .wb-board { justify-content: flex-start; overflow-y: auto; }
+  .wb-wire.has-sheet { grid-template-columns: minmax(0, 1fr) 2rem minmax(0, 1fr); }
+  .wb-wire.has-sheet .wb-sheet { grid-column: 1 / -1; margin-top: 0.6rem; transform: none; }
+  .wb-sum-total { grid-template-columns: minmax(0, 1fr); }
+  .wb-foot { flex-direction: column-reverse; align-items: stretch; }
+  .wb-actions { justify-content: flex-end; }
+}
+@media (max-height: 620px) {
+  .wb-tag, .wb-timer-label { display: none; }
+  .wb-lead, .wb-pin { margin: 0.2rem 0; padding-top: 0.25rem; padding-bottom: 0.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wb *, .wb { animation: none !important; transition: none !important; }
+}
+</style>
+<</if>>

@@ -1,0 +1,107 @@
+:: Project Widgets [nobr system widget] {"position":"2675,150","size":"100,100"}
+/* Usage: =====================================================================
+	<<StartProject "project_id">>
+	Starts that project (setup.startProject in Define Projects): deadline, onStart, its task.
+*/
+<<widget "StartProject">>
+	<<run setup.startProject(_args[0])>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<ProgressProjects>>
+	One action of project work. "Action Update" runs it once for every action spent, after the clock
+	has moved on. The staff work when the action that was just spent lies in $company.workHours;
+	I add +1 to every requirement while $playerWorking is set (Work, Skip Work Day, Complete Task).
+	Staff work is scaled by company Efficiency, the morale it costs by company Morale and the vent unit
+	(setup.efficiencyFactor / setup.moraleDrainFactor, Define Company). My own work stays flat.
+*/
+<<widget "ProgressProjects">>
+	<<script>>
+		(function() {
+			const v = State.variables;
+			if (v.date.today.value >= 5) return;   /* weekend */
+			const company = v.company || {};
+			if (!Array.isArray(company.projects)) return;
+
+			/* the action that was worked is the one before the current clock position */
+			const perDay = v.timeSlots.length * v.time.actions.max;
+			const nowRow = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+			const workedRow = (nowRow + perDay - 1) % perDay;
+			const staffWorks = !!company.workHours[workedRow];
+
+			let moraleNotification = false;
+
+			/* company stats (Define Company): Efficiency speeds up the work, company Morale and the vent unit
+			   decide how much of their own morale it costs them. Both are x1 at 50 and the Low vent setting. */
+			const efficiencyFactor = setup.efficiencyFactor();
+			const drainFactor = setup.moraleDrainFactor();
+
+			for (const project of company.projects) {
+				if (!project || project.active !== true) continue;
+				if (!project.progress) project.progress = {};
+				if (!project.requirements) project.requirements = {};
+
+				const assigned = Array.isArray(project.assigned) ? project.assigned : [];
+
+				if (staffWorks) {
+					for (const member of assigned) {
+						const employee = v[member.sysName];
+						if (!employee || employee.stats.morale <= 0) continue;
+
+						const skills = employee.skills;
+						if (!skills || typeof skills !== "object" || Array.isArray(skills)) continue;
+
+						let totalWorkThisTick = 0;
+
+						Object.keys(skills).forEach(cat => {
+							const skillValue = Number(skills[cat]) || 0;
+							if (skillValue <= 0) return;
+
+							/* only work on categories the project needs and that aren't finished yet */
+							const need = Number(project.requirements[cat]) || 0;
+							if (need <= 0 || (Number(project.progress[cat]) || 0) >= need) return;
+
+							/* tired staff still get something done: 50% of their skill at 0 morale, 100% at full morale */
+							const deduction = 0.5 + 0.5 * employee.stats.morale / employee.stats.max.morale;
+							let contribution = skillValue / 10 / employee.assignedProjectCount;
+							totalWorkThisTick += contribution;
+
+							contribution = contribution * deduction * efficiencyFactor;
+							if (employee.stats.morale <= 33) moraleNotification = true;
+
+							project.progress[cat] = Math.min(need, Number.parseFloat(((Number(project.progress[cat]) || 0) + contribution).toFixed(1)));
+						});
+
+						/* the morale the work costs: a flat effort per action they worked (split over their projects),
+						   times the drain factor (company Morale and the vent level). About 14 a day on the Low vent, which
+						   the nightly recovery (+15 at company Morale 50) almost makes up for; Medium and High wear
+						   them down. Whole points come off the stat, the fraction waits in moraleCarry. */
+						if (totalWorkThisTick > 0) {
+							const drain = setup.companyStatTuning.moraleDrainPerAction * drainFactor / Math.max(1, employee.assignedProjectCount)
+								+ (Number(employee.moraleCarry) || 0);
+							const whole = Math.floor(drain);
+							employee.moraleCarry = drain - whole;
+							employee.stats.morale = Math.max(employee.stats.min.morale, employee.stats.morale - whole);
+						}
+					}
+				}
+
+				if (v.playerWorking) {
+					Object.keys(project.requirements).forEach(cat => {
+						const need = Number(project.requirements[cat]) || 0;
+						if (need <= 0) return;
+						project.progress[cat] = Math.min(need, (Number(project.progress[cat]) || 0) + 1);
+					});
+				}
+			}
+
+			/* once per day: a long skip runs this for every action and would stack up the same warning */
+			if (moraleNotification && v.lowMoraleNoticeKey !== v.date.dayCount) {
+				v.lowMoraleNoticeKey = v.date.dayCount;
+				Notification.show('Employee Morale is low!', {type: Notification.WARN});
+			}
+		})();
+	<</script>>
+<</widget>>
+
+

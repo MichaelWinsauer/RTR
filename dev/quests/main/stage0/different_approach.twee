@@ -1,0 +1,62 @@
+:: Different Approach [event main_quest] {"position":"3150,375","size":"100,100"}
+I head down the hall toward $sister.callName's room. Her window is cracked open, and the warm air keeps nudging the curtains so the whole room seems to breathe. I leave the prototype on my desk this time. I've hit a wall with clients, and if anyone can help me think straight without a little push, it's her.
+
+I knock twice. She answers before my hand is even back at my side.
+
+<<silently>>
+<<set _msgs = [
+  { who: $sister,  text: "It's open!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's sprawled across her bed with her phone held up over her face and her feet propped against the wall. When she sees it's me, she lowers the phone onto her chest, but she doesn't bother sitting up.
+
+<<silently>>
+<<set _msgs = [
+  { who: $player,  text: "Got a minute?" },
+  { who: $sister,  text: "For you? I have like... four. What's up?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I sit down on the corner of her bed and leave enough room between us that it doesn't feel like an ambush.
+
+<<silently>>
+<<set _msgs = [
+  { who: $player,  text: "I hate to say it, but I need your help again." },
+  { who: $sister,  text: "Again? I'm already doing your dishes, $player.name. What's next, your taxes?" },
+  { who: $player,  text: "I know, I know. This is different. I don't need your time, I need your brain." },
+  { who: $sister,  text: "Flattery. Okay, now I'm actually worried. What happened?" },
+  { who: $player,  text: "I spent the whole day emailing and calling people about the prototype. Cafés, gyms, a tutoring center. Zero. Everyone wants references, and nobody wants to be the first one to give me a chance to get any." },
+  { who: $sister,  text: "Wait, back up. What does it even do? $mom.callName says it 'reads rooms', which sounds like a horoscope app." },
+  { text: "I give her the version I give everyone." },
+  { who: $player,  text: "It picks up how the people in a room are feeling, whether they're bored, stressed or paying attention, and helps whoever runs the place keep them in a good mood. People in a good mood stay longer and spend more." },
+  { who: $sister,  text: "Huh. That's actually kind of smart. Slightly creepy, but smart." },
+  { who: $player,  text: "Thanks. I think." },
+  { who: $sister,  text: "So everybody thinks it's cool, and nobody wants to be the guinea pig." },
+  { who: $player,  text: "Pretty much." },
+  { who: $sister,  text: "Then you need a guinea pig who already likes you. Or at least has to put up with you." },
+  { text: "She rolls onto her side and props her head on her hand, suddenly wide awake." },
+  { who: $sister,  text: "Your diner! You're there like five days a week anyway. Talk to your manager. Tell him you'll test it during your own shift, for free, and if it works, he gives you a quote or whatever it is you need." },
+  { who: $player,  text: "$manager.callName? He laughs at me every time I mention the company." },
+  { who: $sister,  text: "So make him stop laughing. Put a couple of new things on the menu that make him more money and see if people order them more with your gadget running. If they do, boom, you've got numbers." },
+  { text: "I open my mouth to argue and realize I don't have anything." },
+  { who: $player,  text: "That's... actually really good." },
+  { who: $sister,  text: "I know. You're allowed to call me a genius, by the way." },
+  { who: $player,  text: "Why didn't I think of that?" },
+  { who: $sister,  text: "Because you've been staring at the same screen for a week and forgot other people exist. Keep it small. No cost to him, you do all the work. People say yes when saying no is more effort." },
+  { who: $player,  text: "And if he still says no?" },
+  { text: "If he still says no, the prototype fits in my apron pocket just fine. I keep that part to myself." },
+  { who: $sister,  text: "Then you ask again, nicely, like a normal person. Text me after, okay? I want to know if we're celebrating or brainstorming round two." },
+  { who: $player,  text: "Deal. Thanks, $sister.callName. Seriously." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+By the time I'm back in my room I already have a one-pager open and half a test plan for $diner.name typed out. My head is buzzing for a good reason, for once. Tomorrow I'll try again, and this time I'll have something to show.
+<<NextQuest $player>>
+<<AdvanceTime>>
+<<ReturnFromEvent>>
+
+

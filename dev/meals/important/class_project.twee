@@ -1,0 +1,61 @@
+:: Meal Class Project [activity meal] {"position":"1225,2100"}
+/*
+{
+        id: "class_project",
+        passage: "Meal Class Project",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("class_project").isActive = false,
+        ]
+}
+   Activated by: "Class Project" (sister_classProject). I demoed the prototype for her
+   business communication presentation.
+*/
+<<set _cpFood to ($mealType == "breakfast" ? "cereal" : ($mealType == "lunch" ? "grilled cheese" : "spaghetti"))>>
+I've barely sat down in front of my _cpFood when $sister.callName stands up, picks the salt shaker off the table and holds it up between two fingers like it's made of glass.
+
+/* IMAGE: images/meals/important/class_project.jpg | Sister standing at the kitchen table, presenting a salt shaker like a product on stage. Mom watching with her chin in her hand, amused. */
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Pretend this is $company.prototype.name." },
+{ who: $mom, text: "That's the salt, sweetie." },
+{ who: $sister, text: "Use your imagination, $mom.callName. I'm practicing. I present on Thursday and I need a test audience that won't throw things." },
+{ text: "She clears her throat and puts on a voice I've never heard before, warm and slightly too slow, like a commercial for a bank." },
+{ who: $sister, text: "Imagine a room that knows how you feel. Imagine a café that notices you're stressed before you do. That's $company.prototype.name. Developed right here, in a bedroom, by a man who survives exclusively on energy drinks." },
+{ who: $player, text: "That's not in the script." },
+{ who: $sister, text: "It's called authenticity. Professors love it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName is laughing, but she's also looking at me with an expression I haven't seen since high school graduation. Like I've done something she can tell her friends about.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "He really let you borrow it? For your class?" },
+{ who: $sister, text: "He did a whole demo for me. It reads you, $mom.callName. Your pulse and how you're sitting and stuff. And then it just... takes the edge off. I felt amazing afterwards. Like after a spa day, except I didn't have to pay for a spa." },
+{ who: $mom, text: "I know. It's very relaxing." },
+{ text: "She says it before she thinks about it. Then she reaches for her glass and drinks from it for quite a long time." },
+{ who: $sister, text: "Right? Everyone else is presenting phone cases. One guy is doing a water bottle. I'm going to destroy them." },
+{ who: $player, text: "Just don't let anyone take it apart." },
+{ who: $sister, text: "Nobody is touching my salt shaker." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She sits back down, still glowing, and spends the rest of the meal asking me questions about sensors that are better than the ones some investors asked me. I give her clean, simple answers she can put on a slide. Every one of them is true, and none of them is the important part.
+
+When she gets up to clear her plate, she knocks her knuckles against my head on the way past. If this house had subtitles, that one would read: thanks, genius.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "MomRelation" 1>>

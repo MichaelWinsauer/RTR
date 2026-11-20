@@ -1,0 +1,76 @@
+:: Sister working_diner [interaction] {"position":"400,2475","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister on a shift at $diner.name (Diner Shift task). She's working,
+   so I sit at the counter and get a few minutes between her tables. */
+<<silently>>
+<<set _pick to setup.pickTalkScene("Sister working_diner", [1, 2, 3])>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* ——— 1: The customer ——— */
+<<case 1>>
+I take a stool at the counter. $sister.callName comes over with the coffee pot in one hand and her order pad in the other, and her face doesn't change at all when she sees it's me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Welcome to $diner.name. My name is $sister.name, and I'll be your server today. Can I start you off with something to drink?" },
+{ who: $player, text: "Coffee." },
+{ who: $sister, text: "Excellent choice, sir. It's the only choice, actually. The juice machine has been broken since before I was born." },
+{ text: "She pours. A trucker at the end of the counter raises his mug at her and calls her sweetheart, and she says 'coming, hon' over her shoulder in a voice I've never heard her use before, warm and a little tired and completely fake." },
+{ who: $sister, text: "If he calls me sweetheart one more time, I'm putting decaf in his cup. He'll never know. He'll just be sad all afternoon and not know why." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's off down the counter before I can answer. I drink my coffee and watch her work the room. She's good at it, better than I ever was behind this counter. She remembers who wants cream and who wants the check without asking, and every table she leaves is smiling a bit.
+
+/* ——— 2: The manager ——— */
+<<case 2>>
+I've barely sat down when $manager.callName comes out of the kitchen, wiping his hands on a towel, and plants himself in front of me on the other side of the counter.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Well, well. Look who's on the paying side of the counter for once." },
+{ who: $player, text: "Hello, $manager.callName." },
+{ who: $manager, text: "You here to check up on your little gadget? It's still in the back, blinking. Don't know what it's doing, but it's doing it very quietly." },
+{ who: $sister, text: "He's here to see me, $manager.name. I'm the attraction." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<silently>>
+<<set _msgs = [
+{ text: "She slides in next to him with a tray of empty plates and bumps him out of the way with her hip, and he lets her, which is not something I ever saw him let anyone do when I worked here." },
+{ who: $manager, text: "Table four wants more ketchup, attraction." },
+{ who: $sister, text: "Table four is drowning in ketchup. Table four needs an intervention." },
+{ who: $manager, text: "Then go intervene." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He grumbles off into the kitchen, and she rolls her eyes at me before she goes. A year ago, that man made me redo a whole shift's worth of silverware rolls because the napkins were folded 'wrong'. Now there's a box of my hardware in his back room, logging every customer who walks through the door, and my $sister.relation is the reason he's in a good mood.
+
+/* ——— 3: The break ——— */
+<<case 3>>
+It's the dead hour between lunch and dinner, and the diner is almost empty. $sister.callName slides into the booth across from me, kicks off one shoe under the table and puts her foot up on the seat next to me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Five minutes. I get a five-minute break, and I'm spending it with you, so you'd better be interesting." },
+{ text: "She steals a fry off my plate without asking, then another one, and then she just moves the plate to her side of the table." },
+{ who: $sister, text: "My feet hurt so much I can hear them. Is that possible? Can you hear your own feet?" },
+{ who: $player, text: "Only if you work here long enough." },
+{ who: $sister, text: "Oh, right. You did this for, like, a year. I forgot. I'm sorry. Retroactively. For every time I complained about my classes." },
+{ who: $player, text: "You complained a lot." },
+{ who: $sister, text: "I know! I was awful! I'm being punished!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her five minutes turn into seven. Then the bell over the door rings, a family of four comes in, and she groans, slides her shoe back on and stands up, smoothing her apron. She takes one last fry for the road.
+
+<</switch>>
+
+<<UpdateStat "+" "SisterRelation" 1>>
+
+<div class="navigation-link"><<link "Leave a tip and go" $player.location.passage>><</link>></div>

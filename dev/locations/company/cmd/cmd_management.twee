@@ -1,0 +1,802 @@
+:: CMD Management [nobr] {"position":"2350,3250","size":"200,100"}
+<div class="cmd-management-wrapper">
+    <<for _i = 0; _i < $company.employees.length; _i++>>
+    	<<set _employee to $company.employees[_i]>>
+		<div class="cmd-management-employee-card" @id="_employee.sysName">
+        	<div class="cmd-management-employee-image">
+            	<<set _path to "images/characters/portraits/" + _employee.sysName + ".jpg">>
+            	<<Media _path "" "" "false">> 
+            </div>
+            <div class="cmd-management-employee-content">
+            	<div class="cmd-management-employee-content-name">
+            		_employee.name _employee.surname
+            	</div>
+                <div class="cmd-management-employee-content-title">
+            		_employee.relation
+            	</div>
+                <div class="cmd-management-employee-content-info">
+                	<div class="cmd-management-employee-content-energy-morale">
+                    	<<if _employee.id == 0 || _employee.id == 1>>
+                        	<<set _energyColor to (State.variables[_employee.sysName].stats.energy < 66 ? (State.variables[_employee.sysName].stats.energy < 34 ? "red" : "yellow" ) : "green")>>
+                        	<div @class="'cmd-management-employee-content-energy ' + _energyColor">
+								<div class="energy-icon">&#xf0e7;</div>
+                                <span style="font-weight: bold"><<= State.variables[_employee.sysName].stats.energy>></span>
+                            </div>
+                        <</if>>
+                        <<set _moraleColor to (State.variables[_employee.sysName].stats.morale < 66 ? (State.variables[_employee.sysName].stats.morale < 34 ? "red" : "yellow" ) : "green")>>
+                        <div @class="'cmd-management-employee-content-morale ' + _moraleColor">
+							<div class="morale-icon">&#xf240;</div>
+                            <span style="font-weight: bold"><<= State.variables[_employee.sysName].stats.morale>></span>
+                        </div>
+                    </div>
+                    <div class="cmd-management-employee-content-skills">
+                        <<set _skillList to []>>
+                        <<if _employee.skills>>
+                            <<for _skillName, _value range _employee.skills>>
+                                <<if _value gt 0>>
+                                    <<set _skillList.push({name: _skillName, value: _value})>>
+                                <</if>>
+                            <</for>>
+
+                            <<if _skillList.length gt 0>>
+                                <<set _topTwoSkills to _skillList.sort((a, b) => b.value - a.value).slice(0, 2)>>
+
+                                <<for _skill range _topTwoSkills>>
+                                    <div class="cmd-management-employee-content-skills-skill">
+                                        <<= _skill.name.charAt(0).toUpperCase() + _skill.name.slice(1) >>
+                                    </div>
+                                <</for>>
+                            <</if>>
+                        <</if>>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <</for>>
+</div>
+
+<style>
+.cmd-management-wrapper {
+	display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: .5rem;  
+    height: 100%;
+  	width: 100%;
+}
+
+.cmd-management-employee-card {
+	height: 30%;
+  	width: 49%;
+    border-radius: .5rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .25rem;
+  	box-sizing: border-box;
+    transition: .1s ease;
+    cursor: pointer;
+}
+
+.cmd-management-employee-card:hover {
+	transform: translateX(.25rem);
+}
+
+.cmd-management-employee-image {
+  height: 90%;
+  aspect-ratio: 1;
+  flex-shrink: 0;   /* a long name or text next to it would otherwise squeeze the portrait to nothing */
+  box-sizing: border-box;
+  margin: .25rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #EBDDC5;
+  padding: .125rem;
+}
+
+.cmd-management-employee-image > div {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.cmd-management-employee-content {
+  flex: 1;
+  height: 100%;
+  border-left: 1px solid #EBDDC550;
+  padding-left: .5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.cmd-management-employee-content-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #EBDDC5;
+  line-height: 1rem;
+}
+
+.cmd-management-employee-content-title {
+  font-size: .65rem;
+  font-weight: 500;
+  opacity: .8;
+  text-transform: uppercase;
+  line-height: .75rem;
+}
+
+.cmd-management-employee-content-info {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.cmd-management-employee-content-energy-morale {
+  display: flex;
+  font-size: .6rem;
+  align-items: end;
+  gap: .25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cmd-management-employee-content-energy,
+.cmd-management-employee-content-morale  {
+  display: flex;
+  align-items: center;
+  gap: .1rem;
+}
+
+.morale-icon, .energy-icon {
+  font-family: sc-icons !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  speak: never;
+  text-rendering: auto;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cmd-management-employee-content-skills {
+  display: flex;
+  overflow: hidden;
+  gap: .125rem;
+  justify-content: end;
+  align-items: end;
+  height: 100%;
+}
+
+.cmd-management-employee-content-skills-skill {
+  font-size: 55%;
+  padding: 0rem .25rem;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  height: 80%;
+  border: 1px solid var(--card-border);
+}
+</style>
+
+<<script>>
+(function() {
+  const COLOR = { fg: '#EBDDC5', track: '#EBDDC51f', mid: '#DBAF35', low: '#DB354C' };
+  const charts = [];
+
+  const cap   = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const money = (n) => '$' + Number(n).toLocaleString('en-US');
+  const pctOf = (v, max) => max > 0 ? Math.round(Math.min(Math.max(v / max, 0), 1) * 100) : 0;
+  const level = (p) => p >= 66 ? 'ok' : (p >= 34 ? 'mid' : 'low');
+  const gaugeColor = (p) => ({ ok: COLOR.fg, mid: COLOR.mid, low: COLOR.low })[level(p)];
+  const energyLabel = (p) => p >= 66 ? 'Well rested' : (p >= 34 ? 'Tired' : 'Exhausted');
+  const moraleLabel = (p) => p >= 66 ? 'Motivated' : (p >= 34 ? 'Neutral' : 'Unhappy');
+
+  setTimeout(() => {
+    document.querySelectorAll('.cmd-management-employee-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const sysName = this.getAttribute('@id') || this.getAttribute('id');
+        openEmployeeDialog(sysName);
+      });
+    });
+  }, 100);
+
+  /* projects this employee is assigned to, with overall completion in % */
+  function getProjects(employee) {
+    return State.variables.company.projects
+      .filter(p => p.assigned.some(e => e.id == employee.id))
+      .map(p => {
+        let need = 0, done = 0;
+        Object.keys(p.requirements || {}).forEach(k => {
+          need += p.requirements[k];
+          done += Math.min((p.progress && p.progress[k]) || 0, p.requirements[k]);
+        });
+        return {
+          title: p.title,
+          /* p.client is a copy from StoryInit: read the live NPC, so a renamed client shows his new name */
+          client: p.client ? ((c) => c.name + ' ' + (c.surname || ''))(State.variables[p.client.sysName] || p.client) : '',
+          pct: need > 0 ? Math.round(done / need * 100) : 0
+        };
+      });
+  }
+
+  function statBar(label, value, max) {
+    return `<div class="emp-bar">
+      <div class="emp-bar-head"><span>${label}</span><span class="emp-bar-val">${value}<small>/${max}</small></span></div>
+      <div class="emp-bar-track"><div class="emp-bar-fill" style="width:${pctOf(value, max)}%"></div></div>
+    </div>`;
+  }
+
+  function openEmployeeDialog(sysName) {
+    const employee = State.variables[sysName];
+    if (!employee) return;
+
+    const isFamily = (sysName === "mom" || sysName === "sister");
+    const projects = getProjects(employee);
+    const stats = employee.stats;
+    const energyPct = pctOf(stats.energy, stats.max.energy);
+    const moralePct = pctOf(stats.morale, stats.max.morale);
+
+    const skills = Object.entries(employee.skills || {}).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
+    const topChips = skills.slice(0, 3).map(([k, v]) => `<span class="emp-chip">${cap(k)} <b>${v}</b></span>`).join('');
+
+    const facts = [];
+    if (employee.age != null)  facts.push(['Age', employee.age]);
+    facts.push(['Location', (employee.location ? employee.location.name : 'Unknown')]);
+    if (employee.wage != null) {
+      facts.push(['Wage', money(employee.wage) + ' / day']);
+      facts.push(['Weekly cost', money(employee.wage * 7)]);
+    }
+    facts.push(['Projects', projects.length]);
+    if (skills.length) facts.push(['Best skill', cap(skills[0][0]) + ' (' + skills[0][1] + ')']);
+    const factsHtml = facts.map(([k, v]) => `<div class="emp-fact"><span>${k}</span><b>${v}</b></div>`).join('');
+
+    const canCall = isFamily && window.canCallToDesk(sysName);
+
+    const projectsHtml = projects.length ? projects.map(p => `
+        <div class="emp-project">
+          <div class="emp-project-head"><span class="emp-project-title">${p.title}</span><span class="emp-bar-val">${p.pct}%</span></div>
+          <div class="emp-bar-track"><div class="emp-bar-fill" style="width:${p.pct}%"></div></div>
+          ${p.client ? `<div class="emp-project-client">Client: ${p.client}</div>` : ''}
+        </div>`).join('') : `<div class="emp-empty">Not assigned to any project.</div>`;
+
+    const statsHtml = isFamily ? `
+      <div class="emp-card">
+        <div class="emp-label">Personal stats</div>
+        <div class="emp-bars">
+          ${statBar('Relation',   stats.relation,   stats.max.relation)}
+          ${statBar(setup.corruptionLabel(employee), stats.corruption, stats.max.corruption)}
+          ${statBar('Lust',       stats.lust,       stats.max.lust)}
+          ${statBar('Resistance', stats.resistance, stats.max.resistance)}
+          ${statBar('Exhibition', stats.exhibition, stats.max.exhibition)}
+        </div>
+      </div>` : '';
+
+    const content = `
+      <div class="emp-wrap">
+        <div class="emp-head">Employee file</div>
+        <div class="emp-dlg">
+
+          <aside class="emp-card emp-profile">
+            <div class="emp-avatar"><<Media "images/characters/portraits/${employee.sysName}.jpg" "" "" "false">></div>
+            <div class="emp-name">${employee.name} ${employee.surname}</div>
+            <div class="emp-role">${employee.relation || employee.callName}</div>
+            <div class="emp-facts">${factsHtml}</div>
+            ${canCall ? `<button class="emp-call-btn" onclick="callFamilyToDesk('${sysName}')">Call to desk</button>` : ''}
+          </aside>
+
+          <section class="emp-main">
+            <div class="emp-card">
+              <div class="emp-card-head"><span class="emp-label">Energy</span><span class="emp-badge ${level(energyPct)}">${energyLabel(energyPct)}</span></div>
+              <div class="emp-gauge"><canvas id="empEnergy"></canvas></div>
+            </div>
+            <div class="emp-card">
+              <div class="emp-card-head"><span class="emp-label">Morale</span><span class="emp-badge ${level(moralePct)}">${moraleLabel(moralePct)}</span></div>
+              <div class="emp-gauge"><canvas id="empMorale"></canvas></div>
+            </div>
+
+            <div class="emp-card emp-span2">
+              <div class="emp-card-head"><span class="emp-label">Skills</span><span class="emp-chips">${topChips}</span></div>
+              <div class="emp-radar"><canvas id="empSkills"></canvas></div>
+            </div>
+
+            <div class="emp-card ${isFamily ? '' : 'emp-span2'}">
+              <div class="emp-label">Assigned projects</div>
+              <div class="emp-projects">${projectsHtml}</div>
+            </div>
+            ${statsHtml}
+          </section>
+
+        </div>
+      </div>`.replace(/\n\s*/g, '');
+
+    Dialog.setup("", "glass-employee-dialog");
+    Dialog.wiki(content);
+    Dialog.open();
+
+    setTimeout(() => initCharts(employee), 50);
+  }
+
+  function gauge(canvasId, value, max) {
+    const color = gaugeColor(pctOf(value, max));
+    return new Chart(document.getElementById(canvasId), {
+      type: 'doughnut',
+      data: { datasets: [{
+        data: [value, Math.max(max - value, 0)],
+        backgroundColor: [color, COLOR.track],
+        borderWidth: 0,
+        borderRadius: 999,
+        cutout: '82%'
+      }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        rotation: -135,
+        circumference: 270,
+        animation: { duration: 700 },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      },
+      plugins: [{
+        id: 'centerText',
+        afterDraw(chart) {
+          const a = chart.chartArea;
+          const cx = (a.left + a.right) / 2, cy = (a.top + a.bottom) / 2;
+          const size = Math.min(a.right - a.left, a.bottom - a.top);
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = `800 ${Math.round(size * 0.28)}px Manrope, sans-serif`;
+          ctx.fillText(value, cx, cy - size * 0.03);
+          ctx.fillStyle = '#EBDDC599';
+          ctx.font = `600 ${Math.round(size * 0.1)}px Manrope, sans-serif`;
+          ctx.fillText('of ' + max, cx, cy + size * 0.2);
+          ctx.restore();
+        }
+      }]
+    });
+  }
+
+  function radar(canvasId, employee) {
+    if (!employee.skills) return null;
+    const labels = Object.keys(employee.skills).map(cap);
+    const values = Object.values(employee.skills);
+    /* scale follows the data so low skill values are still readable */
+    const scaleMax = Math.max(20, Math.ceil(Math.max(...values, 0) * 1.25 / 10) * 10);
+
+    return new Chart(document.getElementById(canvasId), {
+      type: 'radar',
+      data: { labels, datasets: [{
+        label: 'Skill level',
+        data: values,
+        fill: true,
+        backgroundColor: '#EBDDC52e',
+        borderColor: COLOR.fg,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        pointBackgroundColor: COLOR.fg,
+        pointBorderColor: '#22222e',
+        pointBorderWidth: 1
+      }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { r: {
+          min: 0,
+          max: scaleMax,
+          ticks: { display: false, stepSize: scaleMax / 4 },
+          grid: { color: '#EBDDC51c' },
+          angleLines: { color: '#EBDDC51c' },
+          pointLabels: { color: '#EBDDC5cc', font: { size: 11, weight: '600', family: 'Manrope, sans-serif' } }
+        } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1d1e28ee',
+            titleColor: '#EBDDC5',
+            bodyColor: '#FFFFFF',
+            borderColor: '#EBDDC540',
+            borderWidth: 1,
+            padding: 8,
+            displayColors: false
+          }
+        }
+      }
+    });
+  }
+
+  function initCharts(employee) {
+    charts.splice(0).forEach(c => c.destroy());
+    charts.push(gauge('empEnergy', employee.stats.energy, employee.stats.max.energy));
+    charts.push(gauge('empMorale', employee.stats.morale, employee.stats.max.morale));
+    const r = radar('empSkills', employee);
+    if (r) charts.push(r);
+  }
+})();
+<</script>>
+
+<<script>>
+/* She can be called when she is somewhere in the office (also used by the "Call ... to my desk" actions) */
+window.canCallToDesk = function(sysName) {
+  return [10, 13, 14, 15, 16].includes(State.variables[sysName].location.id);
+};
+
+window.callFamilyToDesk = function(sysName) {
+  Dialog.close();
+  State.variables.interactionCharacter = sysName;
+  /* remembers where she was called from, so the interaction screen does not send the player away */
+  State.variables.interactionDesk = {
+    npc: sysName,
+    npcLoc: State.variables[sysName].location.id,
+    playerLoc: State.variables.player.location.id
+  };
+  Engine.play("NPC Interaction");
+};
+<</script>>
+
+<style>
+/* ==========================================================================
+   Employee dialog
+   ========================================================================== */
+#ui-dialog:has(#ui-dialog-body.glass-employee-dialog) {
+  width: min(1040px, 94vw);
+  max-width: none;
+}
+
+/* title bar only carries the close button, floating in the top right corner */
+#ui-dialog:has(#ui-dialog-body.glass-employee-dialog) #ui-dialog-titlebar {
+  position: absolute;
+  top: .8rem;
+  right: 1.1rem;
+  z-index: 3;
+  width: 2rem;
+  height: 2rem;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+}
+
+#ui-dialog:has(#ui-dialog-body.glass-employee-dialog) #ui-dialog-title {
+  display: none;
+}
+
+#ui-dialog:has(#ui-dialog-body.glass-employee-dialog) #ui-dialog-close {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  font-size: .8rem;
+  color: #EBDDC5;
+  border: 1px solid #EBDDC535;
+  border-radius: 50%;
+  background-color: #EBDDC510;
+}
+
+#ui-dialog:has(#ui-dialog-body.glass-employee-dialog) #ui-dialog-close:hover {
+  background-color: #EBDDC530;
+  border-color: #EBDDC5;
+}
+
+#ui-dialog-body.glass-employee-dialog {
+  width: auto;
+  height: auto !important;
+  max-height: 88vh;
+  padding: 1.1rem 1.4rem 1.4rem;
+  overflow: auto;
+  font-family: "Manrope", sans-serif;
+  color: #EBDDC5;
+  background-color: rgba(34, 34, 46, .6);
+  scrollbar-width: thin;
+}
+
+.emp-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+.emp-head {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding-right: 3rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #EAAF4C;
+}
+
+.emp-head::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #EBDDC540, transparent);
+}
+
+.emp-dlg {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: .9rem;
+}
+
+.emp-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.emp-span2 {
+  grid-column: 1 / -1;
+}
+
+.emp-card {
+  min-width: 0;
+  padding: 1rem 1.1rem;
+  background-color: #EBDDC50d;
+  border: 1px solid #EBDDC51f;
+  border-radius: 1rem;
+}
+
+.emp-label {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #EBDDC5;
+  opacity: .6;
+}
+
+.emp-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  min-height: 1.5rem;
+}
+
+/* ——— profile ——— */
+.emp-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.emp-avatar {
+  width: 132px;
+  height: 132px;
+  margin-top: .3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #EBDDC5;
+  box-shadow: 0 0 0 6px #EBDDC51a, 0 10px 30px rgba(0, 0, 0, .35);
+  background-color: #EBDDC51a;
+}
+
+.emp-avatar > *,
+.emp-avatar .media,
+.emp-avatar .media-wrapper,
+.emp-avatar img,
+.emp-avatar video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  border: none;
+  padding: 0;
+}
+
+.emp-name {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #EBDDC5;
+}
+
+.emp-role {
+  margin-top: .45rem;
+  padding: .2rem .8rem;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #EBDDC5;
+  border: 1px solid #EBDDC540;
+  border-radius: 999px;
+}
+
+.emp-facts {
+  width: 100%;
+  margin: 1.2rem 0;
+  padding-top: .5rem;
+  border-top: 1px solid #EBDDC51f;
+}
+
+.emp-fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .5rem 0;
+  font-size: .85rem;
+  border-bottom: 1px solid #EBDDC512;
+}
+
+.emp-fact:last-child {
+  border-bottom: none;
+}
+
+.emp-fact span {
+  color: #EBDDC5;
+  opacity: .6;
+}
+
+.emp-fact b {
+  font-weight: 700;
+  text-align: right;
+  color: #fff;
+}
+
+.emp-call-btn {
+  width: 100%;
+  margin-top: auto;           /* pinned to the bottom of the profile card */
+  padding: .75rem 1rem;
+  font-family: inherit;
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #EBDDC520;
+  border: 1px solid #EBDDC5;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.emp-call-btn:hover {
+  background-color: #EBDDC5;
+  color: #1a1408;
+}
+
+/* ——— status badges ——— */
+.emp-badge {
+  padding: .15rem .6rem;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.emp-badge.ok  { color: #EBDDC5; background: #EBDDC51a; border-color: #EBDDC540; }
+.emp-badge.mid { color: #DBAF35; background: #DBAF3518; border-color: #DBAF3550; }
+.emp-badge.low { color: #ff6479; background: #DB354C18; border-color: #DB354C60; }
+
+/* ——— gauges / radar ——— */
+.emp-gauge {
+  position: relative;
+  height: 135px;
+  margin-top: .3rem;
+}
+
+.emp-radar {
+  position: relative;
+  height: 240px;
+  margin-top: .3rem;
+}
+
+.emp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .35rem;
+}
+
+.emp-chip {
+  padding: .15rem .6rem;
+  font-size: .7rem;
+  font-weight: 600;
+  color: #EBDDC5;
+  background: #EBDDC51a;
+  border-radius: 999px;
+}
+
+.emp-chip b {
+  margin-left: .2rem;
+  color: #fff;
+}
+
+/* ——— bars (personal stats + project progress) ——— */
+.emp-bars {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  margin-top: .9rem;
+}
+
+.emp-bar-head,
+.emp-project-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .8rem;
+  margin-bottom: .35rem;
+  font-size: .85rem;
+  color: #f0e9dc;
+}
+
+.emp-bar-val {
+  font-size: .8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.emp-bar-val small {
+  margin-left: .1rem;
+  font-weight: 500;
+  opacity: .5;
+}
+
+.emp-bar-track {
+  height: 6px;
+  overflow: hidden;
+  background-color: #EBDDC51f;
+  border-radius: 999px;
+}
+
+.emp-bar-fill {
+  height: 100%;
+  background-color: #EBDDC5;
+  border-radius: 999px;
+  transition: width .5s ease;
+}
+
+/* ——— projects ——— */
+.emp-projects {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  margin-top: .9rem;
+}
+
+.emp-project-title {
+  font-weight: 600;
+}
+
+.emp-project-client {
+  margin-top: .3rem;
+  font-size: .72rem;
+  color: #EBDDC5;
+  opacity: .55;
+}
+
+.emp-empty {
+  padding: 1rem 0 .4rem;
+  font-size: .85rem;
+  text-align: center;
+  color: #EBDDC5;
+  opacity: .5;
+}
+
+/* ——— narrow screens ——— */
+@media (max-width: 860px) {
+  .emp-dlg {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

@@ -1,0 +1,831 @@
+:: CalibrateDevice [nobr hide_sidebar] {"position":"700,650"}
+<<silently>>
+	<<if $activePrototype == "prototype">>
+		<<set _proto = $company.prototype>>
+	<<else>>
+		<<set _proto = $company.devices[$activePrototype]>>
+		<<if !_proto>><<set $activePrototype to "valenx">><<set _proto = $company.devices.valenx>><</if>>
+	<</if>>
+	/* every device has its own layout ("Calibrate <key>"); one without falls back to the valenx layout */
+	<<set _calibrateLayout to "Calibrate " + $activePrototype>>
+	<<if !Story.has(_calibrateLayout)>>
+		<<run console.error('CalibrateDevice: there is no passage "' + _calibrateLayout + '", using "Calibrate valenx"')>>
+		<<set _calibrateLayout to "Calibrate valenx">>
+	<</if>>
+	<<set _preset = $calibrationPreset || "mom">>
+<</silently>>
+
+<<include _calibrateLayout>>
+
+<<script>>
+window.initCalibration = function() {
+  let gameEnded = false;
+  let ready = false;
+
+  /* What is being calibrated for decides the details (see the passage "Define Calibration").
+     A target without a profile, or a save from before the profiles existed, gets the "default" one. */
+  const sv = State.variables;
+  const profiles = sv.calibrationProfiles || {};
+  const profile = profiles[sv.calibrationPreset] || profiles.default || {};
+  const npc = profile.npc ? sv[profile.npc] : null;
+  const resistance = npc ? npc.stats.resistance : 0;
+  /* the corruption total (stage * 100 + bar, Define NPCs), so the phrases stay as dirty after a stage-up */
+  const corruption = npc ? setup.corruptionTotal(npc) : 0;
+  const playerName = sv.player.name;
+
+  /* The Stage 0 prototype is only available in Stage 0, and the less finished it is (progress 0-100) the more it glitches:
+     0 = rock solid, 1 = a mess. Every effect in startGlitches() scales with this and is off at 0. */
+  const isProto = sv.activePrototype === "prototype";
+  if (isProto && sv.company.stage !== 0) { Engine.play(sv.calibrationReturn || "Bedroom"); return; }
+  const glitch = isProto ? Math.max(0, Math.min(1, 1 - sv.company.prototype.progress / 100)) : 0;
+  let frozen = false;
+  const glitchLog = { dials: 0, sliders: 0, drops: 0, freezes: 0, stutters: 0 };
+
+  /* more resistance = less time */
+  const TOTAL_TIME = Math.max(20, Math.round((profile.time || 35) * (1 - resistance / 300)));
+  let timeLeft = TOTAL_TIME;
+
+  const waveforms = Array.from(document.querySelectorAll('#wave-canvas'));
+  const glitches = [];
+  const dials = Array.from(document.querySelectorAll('.dial'));
+
+  document.querySelectorAll('.cal-signal').forEach(section => {
+    const textEl = section.querySelector('.glitch-text');
+    const input = section.querySelector('.glitch-input');
+    const feedback = section.querySelector('.glitch-feedback');
+    if (textEl && input) {
+      glitches.push({ section, textEl, input, feedback });
+    }
+  });
+
+  const timerEl = document.getElementById("timer");
+  if (timerEl) timerEl.textContent = TOTAL_TIME + "s";
+  const timerBar = document.getElementById("timer-bar");
+  const statusEl = document.getElementById("cal-status");
+  const submitBtn = document.getElementById("submit-btn");
+
+  const timerInt = setInterval(() => {
+    if (gameEnded) return;
+    /* the passage was left before the timer ran out */
+    if (!timerEl || !timerEl.isConnected) { gameEnded = true; clearInterval(timerInt); return; }
+    timeLeft--;
+    if (glitch > 0 && Math.random() < glitch * 0.05) { timeLeft--; glitchLog.stutters++; }   /* the clock skips */
+    timerEl.textContent = timeLeft + "s";
+    timerEl.classList.toggle("low", timeLeft <= 10);
+    if (timerBar) timerBar.style.width = (Math.max(0, timeLeft) / TOTAL_TIME * 100) + "%";
+    if (timeLeft <= 0) finishCalibration();
+  }, 1000);
+
+  /* live "what is still open" chips in the footer */
+  function refreshStatus() {
+    if (!ready || !statusEl) return;
+    const chips = [];
+    if (waveData.length) {
+      const ok = waveData.every(w => w.matched());
+      chips.push([ok, "Waveform" + (ok ? " ✓" : "")]);
+    }
+    if (glitchData.length) {
+      const n = glitchData.filter(g => g.correct()).length;
+      chips.push([n === glitchData.length, "Signals " + n + "/" + glitchData.length]);
+    }
+    if (dialData.length) {
+      const n = dialData.filter(d => d.getScore() === 1).length;
+      chips.push([n === dialData.length, "Dials " + n + "/" + dialData.length]);
+    }
+    statusEl.innerHTML = chips.map(c => '<span class="cal-chip' + (c[0] ? ' ok' : '') + '">' + c[1] + '</span>').join("");
+  }
+
+  function createDial(el) {
+    const step = 15;
+    const targetAng = Math.floor(Math.random() * 24) * 15;
+    let rot = 0;
+    let locked = false;   /* once the pointer is on the marker the dial stays put: neither the player nor a glitch can move it */
+    function lock() { locked = true; el.classList.add("ok", "locked"); }
+
+    el.innerHTML = `
+      <div class="target" style="transform:translate(-50%,-100%) rotate(${targetAng}deg)"></div>
+      <div class="pointer"></div>
+    `;
+
+    const pointer = el.querySelector(".pointer");
+    const isCorrect = () => Math.abs((((rot - targetAng) % 360) + 540) % 360 - 180) <= step / 2;
+    el.classList.toggle("ok", isCorrect());
+    if (isCorrect()) lock();
+
+    function updateRotation(clientX, clientY) {
+      if (frozen || locked) return;
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      let deg = Math.atan2(clientY - cy, clientX - cx) * 180 / Math.PI;
+      deg = (deg + 90 + 360) % 360;
+      const q = Math.round(deg / step) * step;
+
+      pointer.style.transform = `translate(-50%,-100%) rotate(${q}deg)`;
+      rot = q;
+      el.classList.toggle("ok", isCorrect());
+      if (isCorrect()) lock();
+
+      checkAutoSubmit();
+    }
+
+    el.addEventListener("pointerdown", function(e) {
+      if (gameEnded || frozen || locked) return;
+      e.preventDefault();
+      updateRotation(e.clientX, e.clientY);
+
+      const onMove = ev => updateRotation(ev.clientX, ev.clientY);
+      const onUp = () => {
+        document.removeEventListener("pointermove", onMove);
+        document.removeEventListener("pointerup", onUp);
+        document.removeEventListener("pointercancel", onUp);
+      };
+      document.addEventListener("pointermove", onMove);
+      document.addEventListener("pointerup", onUp);
+      document.addEventListener("pointercancel", onUp);
+    });
+
+    return {
+      getScore: () => isCorrect() ? 1 : 0,
+      /* a glitch pushes the pointer a few steps */
+      isLocked: () => locked,
+      nudge: (n) => {
+        if (locked) return;
+        rot = (((rot + n * step) % 360) + 360) % 360;
+        pointer.style.transform = `translate(-50%,-100%) rotate(${rot}deg)`;
+        el.classList.toggle("ok", isCorrect());
+        if (isCorrect()) { lock(); checkAutoSubmit(); }   /* a glitch can also push it onto the marker by luck */
+      }
+    };
+  }
+
+  const dialData = dials.map(createDial);
+
+  const waveData = [];
+  waveforms.forEach((canvas) => {
+    const container = canvas.closest(".cal-screen") || document;
+    const f = container.querySelector("#freq");
+    const a = container.querySelector("#amp");
+    const p = container.querySelector("#phase");
+
+    if (!f || !a || !p) return;
+
+    /* coarse slider steps keep the minigame forgiving; the target always sits exactly on a step */
+    const STEPS = { freq: 0.01, amp: 10, phase: 0.5 };
+    const FREQ_N = 5, AMP_N = 7, PHASE_N = 13;   /* 0.02–0.06, 20–80, 0–6.0 */
+    f.step = STEPS.freq;  f.value = 0.04;
+    a.step = STEPS.amp;   a.value = 50;
+    p.step = STEPS.phase; p.max = 6; p.value = 3;
+
+    /* slider fill + readout */
+    const SLIDERS = [
+      [f, v => (v * 100).toFixed(1) + " Hz"],
+      [a, v => Math.round(v) + " mV"],
+      [p, v => Math.round(v * 180 / Math.PI) + "°"]
+    ];
+    function paintSliders() {
+      SLIDERS.forEach(([el, fmt]) => {
+        el.style.setProperty("--pct", ((el.value - el.min) / (el.max - el.min) * 100) + "%");
+        const out = el.parentElement.querySelector("output");
+        if (out) out.textContent = fmt(parseFloat(el.value));
+      });
+    }
+    SLIDERS.forEach(([el]) => el.addEventListener("input", paintSliders));
+    paintSliders();
+
+    /* logical 640x240 drawing space, rendered at 2x so it stays sharp when the CSS scales the canvas */
+    const W = 640, H = 240, S = 2, MID = H / 2;
+    canvas.width = W * S;
+    canvas.height = H * S;
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(S, 0, 0, S, 0, 0);
+
+    /* the target's "signature": which part of each slider range it sits in, how spiky the wave is, how fast it moves */
+    const sig = profile.wave || {};
+    const pick = (range, n) => {
+      const lo = range ? range[0] : 0, hi = range ? range[1] : n - 1;
+      return lo + Math.floor(Math.random() * (hi - lo + 1));
+    };
+    const harmonic = sig.harmonic || 0;
+    const speed = sig.speed || 1;
+
+    const target = {
+      freq: 0.02 + pick(sig.freq, FREQ_N) * STEPS.freq,
+      amp: 20 + pick(sig.amp, AMP_N) * STEPS.amp,
+      phase: pick(null, PHASE_N) * STEPS.phase
+    };
+
+    let t = 0;
+    let matched = false;
+    let waveLocked = false;   /* once the waves match, the sliders lock for good */
+
+    const EDGE = x => Math.pow(Math.sin(Math.PI * x / W), 0.6);   /* tapers both ends to the centre line */
+    let tick = 0;
+
+    function wy(x, fr, am, ph) {
+      const a = x * fr + ph;
+      return MID + (Math.sin(a + t) + harmonic * Math.sin(2 * a + t * 1.6)) * am * EDGE(x) / (1 + harmonic * 0.5);
+    }
+
+    function trace(fr, am, ph, step) {
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += step) {
+        const y = wy(x, fr, am, ph);
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+    }
+
+    /* purely decorative: faint phantom waves drifting behind, plus the odd glitch burst. Never part of the match. */
+    const PHANTOM_COLORS = ["219,53,76", "234,175,76", "235,221,197", "219,53,76"];
+    const phantoms = PHANTOM_COLORS.map((rgb, i) => ({
+      rgb,
+      freq: 0.012 + Math.random() * 0.05,
+      amp: 18 + Math.random() * 50,
+      phase: Math.random() * 6.28,
+      speed: (0.4 + Math.random() * 1.1) * (i % 2 ? 1 : -1),
+      alpha: 0.07 + Math.random() * 0.07,
+      yOff: (Math.random() - 0.5) * H * 0.18
+    }));
+    let glitchLeft = 0, glitchBand = { y: 0, h: 0, dx: 0 }, nextGlitch = 90 + Math.random() * 160;
+
+    function drawPhantoms() {
+      ctx.lineWidth = 1.2;
+      phantoms.forEach(w => {
+        ctx.strokeStyle = "rgba(" + w.rgb + "," + w.alpha.toFixed(3) + ")";
+        ctx.beginPath();
+        for (let x = 0; x <= W; x += 4) {
+          const y = MID + w.yOff + Math.sin(x * w.freq + w.phase + t * w.speed) * w.amp * EDGE(x)
+                  + Math.sin(x * w.freq * 3.1 - t * w.speed * 1.7) * w.amp * 0.18 * EDGE(x);
+          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      });
+    }
+
+    function drawGlitch() {
+      if (--nextGlitch <= 0) {
+        glitchLeft = 4 + Math.floor(Math.random() * 6);
+        nextGlitch = 100 + Math.random() * 220;
+      }
+      if (glitchLeft <= 0) return;
+      glitchLeft--;
+      if (glitchLeft % 2 === 0 || !glitchBand.h) {
+        glitchBand = { y: Math.random() * H * 0.8, h: 6 + Math.random() * 26, dx: (Math.random() - 0.5) * 50 };
+      }
+      const g = glitchBand;
+      ctx.globalCompositeOperation = "lighter";
+      ctx.globalAlpha = 0.55;
+      ctx.drawImage(canvas, 0, g.y * S, W * S, g.h * S, g.dx, g.y, W, g.h);
+      ctx.globalAlpha = 0.25;
+      ctx.drawImage(canvas, 0, g.y * S, W * S, g.h * S, -g.dx * 0.6, g.y + 1, W, g.h);
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function drawGrid() {
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(235,221,197,0.05)";
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += 40) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); }
+      for (let y = MID % 25; y <= H; y += 25) { ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); }
+      ctx.stroke();
+      ctx.strokeStyle = "rgba(235,221,197,0.14)";
+      ctx.setLineDash([2, 6]);
+      ctx.beginPath(); ctx.moveTo(0, MID); ctx.lineTo(W, MID); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    function draw() {
+      if (gameEnded) return;
+      tick++;
+
+      const pf = parseFloat(f.value);
+      const pa = parseFloat(a.value);
+      const pp = parseFloat(p.value);
+
+      const close = waveLocked || (Math.abs(pf - target.freq) < 0.003 &&
+                    Math.abs(pa - target.amp) < 5 &&
+                    Math.abs(pp - target.phase) < 0.3);
+      if (close && !waveLocked) {
+        waveLocked = true;
+        [f, a, p].forEach(el => { el.disabled = true; el.dataset.locked = "1"; });
+      }
+
+      /* 0 = far off, 1 = locked; drives glow strength and the colour of the player wave */
+      const sync = Math.max(0, 1 - (Math.abs(pf - target.freq) / 0.03 + Math.abs(pa - target.amp) / 60 + Math.abs(pp - target.phase) / 3.14) / 3);
+
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, W, H);
+      const bg = ctx.createRadialGradient(W / 2, MID, 10, W / 2, MID, W * 0.6);
+      bg.addColorStop(0, close ? "rgba(106,255,138,0.10)" : "rgba(234,175,76,0.07)");
+      bg.addColorStop(1, "rgba(8,8,11,0)");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+      drawGrid();
+
+      /* the gap between both waves: fills in and fades the closer they get */
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += 4) {
+        const y = wy(x, target.freq, target.amp, target.phase);
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      for (let x = W; x >= 0; x -= 4) { ctx.lineTo(x, wy(x, pf, pa, pp)); }
+      ctx.closePath();
+      ctx.fillStyle = "rgba(219,53,76," + (0.16 * (1 - sync)).toFixed(3) + ")";
+      ctx.fill();
+
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.globalCompositeOperation = "lighter";
+
+      drawPhantoms();
+
+      /* target: the signal to chase, glowing crimson */
+      ctx.shadowColor = "rgba(219,53,76,0.9)";
+      ctx.shadowBlur = 14 * S;
+      ctx.strokeStyle = "rgba(219,53,76,0.55)";
+      ctx.lineWidth = 3;
+      trace(target.freq, target.amp, target.phase, 2);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = "rgba(255,170,180,0.55)";
+      ctx.lineWidth = 1;
+      trace(target.freq, target.amp, target.phase, 2);
+      ctx.stroke();
+
+      /* player: fading echoes, a halo and a bright core; turns green when locked */
+      const hue = close ? "106,255,138" : "234,175,76";
+      for (let e = 4; e >= 1; e--) {
+        t -= e * 0.05;
+        ctx.strokeStyle = "rgba(" + hue + "," + (0.07 * (5 - e)).toFixed(3) + ")";
+        ctx.lineWidth = 1.2;
+        trace(pf, pa, pp, 3);
+        ctx.stroke();
+        t += e * 0.05;
+      }
+      ctx.shadowColor = "rgba(" + hue + ",1)";
+      ctx.shadowBlur = (8 + 18 * sync) * S;
+      ctx.strokeStyle = "rgba(" + hue + ",0.45)";
+      ctx.lineWidth = 6;
+      trace(pf, pa, pp, 2);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = close ? "#d8ffe2" : "#fff3d8";
+      ctx.lineWidth = 2;
+      trace(pf, pa, pp, 2);
+      ctx.stroke();
+
+      /* scan head riding on the player wave */
+      const sx = (tick * 2.2) % W, sy = wy(sx, pf, pa, pp);
+      const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, 16);
+      sg.addColorStop(0, "rgba(" + hue + ",0.9)");
+      sg.addColorStop(1, "rgba(" + hue + ",0)");
+      ctx.fillStyle = sg;
+      ctx.fillRect(sx - 16, sy - 16, 32, 32);
+
+      /* soft scan line sweeping across */
+      ctx.globalCompositeOperation = "source-over";
+      const lg = ctx.createLinearGradient(sx - 40, 0, sx, 0);
+      lg.addColorStop(0, "rgba(" + hue + ",0)");
+      lg.addColorStop(1, "rgba(" + hue + ",0.07)");
+      ctx.fillStyle = lg;
+      ctx.fillRect(sx - 40, 0, 40, H);
+
+      drawGlitch();
+
+      canvas.classList.toggle("locked", close);
+
+      t += 0.028 * speed;
+      if (close !== matched) {
+        matched = close;
+        if (ready) checkAutoSubmit();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    waveData.push({ target, harmonic, speed, matched: () => matched });
+  });
+
+  /* phrases: from the target's own pool, picked by corruption stage; the longer ones when resistance is high.
+     {player} stands for the player's name, {relation} for what he is to her. Each signal gets a different phrase while the pool lasts. */
+  const stages = (profile.phrases && profile.phrases.length) ? profile.phrases
+    : [ ["I trust {player} completely", "{player} knows what is best for me", "I feel safe when {player} is in control"] ];
+  let stage = 0;
+  (profile.stageAt || []).forEach((from, i) => { if (corruption >= from) stage = i; });
+  let pool = stages[Math.min(stage, stages.length - 1)].slice().sort((a, b) => a.length - b.length);
+  if (resistance >= 50) pool = pool.slice(-Math.max(glitches.length, Math.ceil(pool.length / 2)));
+  const usedPhrases = [];
+  function nextPhrase() {
+    const free = pool.filter(p => !usedPhrases.includes(p));
+    const choices = free.length ? free : pool;
+    const p = choices[Math.floor(Math.random() * choices.length)];
+    usedPhrases.push(p);
+    return p.replace(/\{player\}/g, playerName).replace(/\{relation\}/g, npc ? npc.playerRelation : "");
+  }
+  /* share of the characters hidden by the static: more resistance, more static */
+  const corruptChance = Math.min(0.75, 0.48 + resistance / 400);
+
+  const glitchData = [];
+  glitches.forEach((g) => {
+    const { section, textEl, input, feedback } = g;
+    const phrase = nextPhrase();
+    textEl.textContent = phrase;
+
+    let interval = setInterval(() => {
+      if (gameEnded) return;
+      let corrupted = "";
+      for (let c of phrase) {
+        corrupted += Math.random() < corruptChance ? ["░","▒","▓"][Math.floor(Math.random()*3)] : c;
+      }
+      textEl.textContent = corrupted;
+    }, 115);
+
+    input.addEventListener("input", () => {
+      if (gameEnded) return;
+      if (input.value.trim().toLowerCase() === phrase.toLowerCase()) {
+        clearInterval(interval);
+        textEl.textContent = phrase;
+        feedback.textContent = "✓ LOCKED";
+        section.classList.add("ok");
+        input.disabled = true;
+      } else if (glitch > 0 && input.value.length > 2 && Math.random() < glitch * 0.07) {
+        /* glitchy prototype: now and then the last typed character is lost (never once the phrase is right) */
+        input.value = input.value.slice(0, -1);
+        glitchLog.drops++;
+        feedback.textContent = "ERR";
+        setTimeout(() => { if (!section.classList.contains("ok")) feedback.textContent = "Corrupted"; }, 600);
+      }
+      checkAutoSubmit();
+    });
+
+    glitchData.push({ phrase, correct: () => input.value.trim().toLowerCase() === phrase.toLowerCase() });
+  });
+
+  ready = true;
+  refreshStatus();
+  startGlitches();
+
+  /* the glitches of the Stage 0 prototype (see "glitch" at the top) */
+  function startGlitches() {
+    if (glitch <= 0) return;
+    const alive = () => !gameEnded && timerEl && timerEl.isConnected;
+    const cal = document.querySelector(".cal");
+    const sliders = Array.from(document.querySelectorAll(".cal-sliders input[type=range]"));
+
+    /* dials slip a step or two */
+    const dialInt = setInterval(() => {
+      if (!alive()) { clearInterval(dialInt); return; }
+      const open = dialData.filter(d => !d.isLocked());
+      if (frozen || !open.length || Math.random() > glitch * 0.6) return;
+      open[Math.floor(Math.random() * open.length)].nudge((Math.random() < 0.5 ? -1 : 1) * (1 + Math.floor(Math.random() * 2)));
+      glitchLog.dials++;
+    }, 2200);
+
+    /* sliders drift by one step */
+    const sliderInt = setInterval(() => {
+      if (!alive()) { clearInterval(sliderInt); return; }
+      const open = sliders.filter(sl => sl.dataset.locked !== "1");
+      if (frozen || !open.length || Math.random() > glitch * 0.55) return;
+      const sl = open[Math.floor(Math.random() * open.length)];
+      const step = parseFloat(sl.step) || 1;
+      sl.value = Math.max(parseFloat(sl.min), Math.min(parseFloat(sl.max), parseFloat(sl.value) + (Math.random() < 0.5 ? -1 : 1) * step));
+      sl.dispatchEvent(new Event("input", { bubbles: true }));
+      glitchLog.sliders++;
+    }, 1600);
+
+    /* the screen tears for a moment */
+    const tearInt = setInterval(() => {
+      if (!alive()) { clearInterval(tearInt); return; }
+      if (Math.random() > glitch) return;
+      cal.classList.add("tear");
+      setTimeout(() => cal.classList.remove("tear"), 220);
+    }, 2600);
+
+    /* the whole thing hangs: nothing can be touched for a second or two */
+    function scheduleFreeze() {
+      if (glitch < 0.15) return;
+      setTimeout(() => {
+        if (!alive() || timeLeft <= 6) return;
+        frozen = true;
+        glitchLog.freezes++;
+        const veil = document.createElement("div");
+        veil.className = "cal-freeze";
+        veil.innerHTML = "<b>System hang</b><span>buffer overflow, rebooting...</span>";
+        cal.appendChild(veil);
+        const inputs = Array.from(document.querySelectorAll(".cal input"));
+        const solved = (i) => i.dataset.locked === "1" || !!(i.closest(".cal-signal") && i.closest(".cal-signal").classList.contains("ok"));
+        inputs.forEach(i => { i.disabled = true; });
+        setTimeout(() => {
+          veil.remove();
+          frozen = false;
+          if (!gameEnded) inputs.forEach(i => { i.disabled = solved(i); });
+          scheduleFreeze();
+        }, (1200 + Math.random() * 1000) * (0.6 + 0.6 * glitch));
+      }, (8 + Math.random() * 10) / glitch * 1000);
+    }
+    scheduleFreeze();
+  }
+
+  function checkAutoSubmit() {
+    if (gameEnded) return;
+    refreshStatus();
+
+    const allDialsCorrect = dialData.length === 0 || dialData.every(d => d.getScore() === 1);
+    const allGlitchesCorrect = glitchData.length === 0 || glitchData.every(g => g.correct());
+    const allWaveformsCorrect = waveData.length === 0 || waveData.every(w => w.matched());
+
+    if (allDialsCorrect && allGlitchesCorrect && allWaveformsCorrect) {
+      finishCalibration();
+    }
+  }
+
+  function finishCalibration() {
+    if (gameEnded) return;
+    gameEnded = true;
+    clearInterval(timerInt);
+    document.querySelectorAll(".cal input").forEach(i => { i.disabled = true; });
+
+    const dialP = dialData.length > 0 ? Math.round((dialData.reduce((sum, d) => sum + d.getScore(), 0) / dialData.length) * 100) : 100;
+    const glitchP = glitchData.length > 0 ? Math.round((glitchData.filter(g => g.correct()).length / glitchData.length) * 100) : 100;
+    const waveP = waveData.length > 0 ? (waveData.every(w => w.matched()) ? 100 : 0) : 100;
+
+    const total = Math.round(dialP * 0.4 + glitchP * 0.3 + waveP * 0.3);
+
+    const btn = document.getElementById("submit-btn");
+    btn.innerHTML = `${total}% SUCCESS`;
+
+    btn.classList.remove("red", "yellow", "green");
+    if (total >= 60) btn.classList.add("green");
+    else if (total >= 50) btn.classList.add("yellow");
+    else btn.classList.add("red");
+
+    btn.onclick = () => {
+    	if (total >= 60) {
+        	const device = isProto ? State.variables.company.prototype : State.variables.company.devices[State.variables.activePrototype];
+        	device.calibration = State.variables.calibrationPreset;
+        	device.calibrationQuality = total;
+        	device.calibratedAtDay = State.variables.date.dayCount;
+        }
+    	/* tuning the prototype takes an action; afterwards the player goes back to where they started */
+    	if (isProto) wikifyText("<<UseAction>>");
+    	Engine.play(isProto ? (State.variables.calibrationReturn || "Bedroom") : State.variables.locations[14].passage);
+    };
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener("click", finishCalibration);
+  }
+};
+
+setTimeout(() => window.initCalibration(), 50);
+<</script>>
+
+<style>
+/* ——— shell: a fixed full-viewport console, so everything always fits on screen ——— */
+.cal {
+  --gold: #EAAF4C;
+  --cream: #EBDDC5;
+  --crimson: #DB354C;
+  --ok: #6aff8a;
+  position: fixed; inset: 0; z-index: 800;
+  display: flex; flex-direction: column; gap: 0.7rem;
+  padding: clamp(0.6rem, 1.6vh, 1.2rem) clamp(0.8rem, 2.4vw, 2rem);
+  background: radial-gradient(120% 120% at 70% 0%, var(--main-bg) 0%, var(--main-bg) 55%, var(--card-bg) 100%);
+  color: var(--cream);
+  font-family: "Manrope", sans-serif;
+  text-align: left;
+  overflow: hidden;
+}
+.cal *, .cal *::before, .cal *::after { box-sizing: border-box; }
+.cal::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(235,221,197,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(235,221,197,0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 85%);
+}
+.cal::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px);
+}
+.cal > * { position: relative; z-index: 1; }
+
+/* ——— header ——— */
+.cal-head { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.cal-id { display: flex; align-items: center; gap: 0.8rem; min-width: 0; }
+.cal-device {
+  flex: none; width: clamp(2.2rem, 6vh, 3.2rem); height: clamp(2.2rem, 6vh, 3.2rem); padding: 0.35rem;
+  border: 1px solid rgba(235,221,197,0.2); border-radius: 0.6rem; background: rgba(235,221,197,0.05);
+}
+.cal-title { font-size: clamp(0.8rem, 2vh, 1rem); font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; }
+.cal-sub { display: flex; gap: 0.4rem; margin-top: 0.3rem; flex-wrap: wrap; }
+.cal-tag {
+  padding: 0.1rem 0.55rem; border: 1px solid rgba(234,175,76,0.4); border-radius: 999px;
+  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+}
+.cal-timer { text-align: right; line-height: 1; }
+#timer { font-size: clamp(1.5rem, 4.4vh, 2.3rem); font-weight: 800; font-variant-numeric: tabular-nums; color: var(--cream); }
+#timer.low { color: var(--crimson); animation: cal-pulse 1s ease-in-out infinite; }
+.cal-timer-label { margin-top: 0.2rem; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.5; }
+.cal-bar { flex: none; height: 3px; margin-top: -0.2rem; border-radius: 2px; background: rgba(235,221,197,0.1); overflow: hidden; }
+#timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--crimson), var(--gold)); transition: width 1s linear; }
+@keyframes cal-pulse { 50% { opacity: 0.45; } }
+
+/* ——— body grid: screen / code / dials, mirroring the device sketch ——— */
+.cal-body {
+  flex: 1; min-height: 0; display: grid; gap: 0.7rem;
+  grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-areas: "screen dials" "code dials";
+}
+.cal-body.is-wide {
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas: "screen code";
+}
+.cal-screen { grid-area: screen; }
+.cal-code   { grid-area: code; }
+.cal-dials  { grid-area: dials; }
+
+.cal-panel {
+  position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem;
+  background: var(--card-bg);
+  box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.35);
+}
+.cal-label {
+  flex: none; display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+}
+.cal-label span:last-child { font-weight: 500; letter-spacing: 0.14em; color: rgba(235,221,197,0.45); }
+
+/* ——— waveform ——— */
+.cal-wave { flex: 1; min-height: 0; container-type: size; display: grid; place-items: center; }
+#wave-canvas {
+  display: block;
+  width: min(100cqw, calc(100cqh * 8 / 3));
+  height: min(100cqh, calc(100cqw * 3 / 8));
+  border: 1px solid rgba(235,221,197,0.18); border-radius: 0.5rem;
+  background: rgba(8,8,11,0.55);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+#wave-canvas.locked { border-color: var(--ok); box-shadow: 0 0 18px rgba(106,255,138,0.35); }
+
+.cal-sliders { flex: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 0.6rem; }
+.cal-slider { display: flex; flex-direction: column; gap: 0.2rem; }
+.cal-slider-top { display: flex; justify-content: space-between; gap: 0.4rem; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(235,221,197,0.6); }
+.cal-slider output { color: var(--cream); letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+.cal-slider input[type=range] {
+  --pct: 50%;
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 1.2rem; margin: 0; padding: 0; background: transparent; cursor: pointer;
+}
+.cal-slider input[type=range]:focus { outline: none; }
+.cal-slider input[type=range]::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold) var(--pct), rgba(235,221,197,0.18) var(--pct));
+}
+.cal-slider input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; margin-top: -5px; border-radius: 50%;
+  background: #fff3d8; border: 2px solid var(--gold); box-shadow: 0 0 10px rgba(234,175,76,0.7);
+}
+.cal-slider input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(235,221,197,0.18); }
+.cal-slider input[type=range]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--gold); }
+.cal-slider input[type=range]::-moz-range-thumb { width: 10px; height: 10px; border-radius: 50%; background: #fff3d8; border: 2px solid var(--gold); box-shadow: 0 0 10px rgba(234,175,76,0.7); }
+.cal-slider input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(234,175,76,0.35), 0 0 10px rgba(234,175,76,0.7); }
+.cal-slider input[type=range]:disabled { cursor: default; opacity: 0.55; }
+
+/* ——— signals (code lines) ——— */
+.cal-signals { flex: 1; min-height: 0; display: grid; grid-auto-rows: minmax(0, 1fr); gap: 0.6rem; }
+.cal-signal {
+  min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 0.3rem;
+  padding: 0.4rem 0.75rem; border-left: 2px solid rgba(234,175,76,0.6); border-radius: 0 0.4rem 0.4rem 0;
+  background: rgba(235,221,197,0.035); transition: border-color 0.3s, background-color 0.3s;
+}
+.cal-signal.ok { border-left-color: var(--ok); background: rgba(106,255,138,0.06); }
+.cal-signal-head { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(235,221,197,0.5); }
+.glitch-feedback { letter-spacing: 0.16em; color: rgba(219,53,76,0.85); }
+.cal-signal.ok .glitch-feedback { color: var(--ok); }
+.glitch-text {
+  min-height: 1.3em; line-height: 1.3; word-break: break-word;
+  font-family: ui-monospace, Consolas, monospace; font-size: clamp(0.78rem, 1.9vh, 1rem);
+  color: var(--gold); text-shadow: 0 0 10px rgba(234,110,60,0.55);
+}
+.cal-signal.ok .glitch-text { color: var(--ok); text-shadow: 0 0 10px rgba(106,255,138,0.6); }
+.glitch-input {
+  width: 100%; margin: 0; padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(235,221,197,0.25); border-radius: 0.4rem; background: var(--card-border);
+  color: var(--cream); font-family: ui-monospace, Consolas, monospace; font-size: 0.85rem;
+}
+.glitch-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 2px rgba(234,175,76,0.2); }
+.glitch-input::placeholder { color: rgba(235,221,197,0.3); }
+.cal-signal.ok .glitch-input { border-color: var(--ok); opacity: 0.7; }
+
+/* ——— dials: sized from the panel so the cluster always fits ——— */
+.cal-dial-field { flex: 1; min-height: 0; container-type: size; }
+.cal-dial-grid {
+  --d: min(6.8rem, calc((100cqw - 1.2rem) / 3.4), calc((100cqh - 6.8rem) / 3.7));
+  height: 100%; display: grid; grid-template-columns: repeat(3, var(--d));
+  justify-content: space-evenly; align-content: space-evenly; row-gap: 0.4rem;
+}
+.dial-wrapper { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.dial-big { grid-column: 1 / -1; justify-self: center; }
+.dial-big .dial { width: calc(var(--d) * 1.45); height: calc(var(--d) * 1.45); }
+.dial-label { font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(235,221,197,0.45); }
+
+.dial {
+  position: relative; width: var(--d); height: var(--d); border-radius: 50%; cursor: pointer; user-select: none; touch-action: none;
+  border: 2px solid rgba(235,221,197,0.28);
+  background: radial-gradient(circle at 50% 38%, rgba(235,221,197,0.12), rgba(235,221,197,0.02) 70%);
+  box-shadow: inset 0 0 14px rgba(0,0,0,0.5);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.dial::before {
+  content: ''; position: absolute; inset: -9px; border-radius: 50%; pointer-events: none;
+  background: repeating-conic-gradient(from -0.7deg, rgba(235,221,197,0.35) 0 1.4deg, transparent 1.4deg 15deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 5px));
+}
+.dial::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 0.5rem; height: 0.5rem; transform: translate(-50%, -50%);
+  border-radius: 50%; background: rgba(235,221,197,0.7);
+}
+.dial:hover { border-color: rgba(234,175,76,0.7); }
+.dial .pointer, .dial .target { position: absolute; left: 50%; top: 50%; transform-origin: bottom center; border-radius: 2px; pointer-events: none; }
+.dial .pointer { width: 3px; height: 36%; background: var(--cream); box-shadow: 0 0 8px rgba(235,221,197,0.5); transform: translate(-50%, -100%) rotate(0deg); }
+.dial .target { width: 2px; height: 47%; background: rgba(234,175,76,0.45); }
+.dial .target::after {
+  content: ''; position: absolute; top: -3px; left: 50%; width: 7px; height: 7px; transform: translateX(-50%);
+  border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold);
+}
+.dial.ok { border-color: var(--ok); box-shadow: 0 0 16px rgba(106,255,138,0.35), inset 0 0 14px rgba(0,0,0,0.5); }
+.dial.ok .pointer { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+.dial.ok .target { background: rgba(106,255,138,0.4); }
+.dial.ok .target::after { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+
+/* ——— footer ——— */
+.cal-foot { flex: none; display: flex; align-items: center; gap: 1rem; }
+#cal-status { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.cal-chip {
+  padding: 0.3rem 0.65rem; border: 1px solid rgba(235,221,197,0.22); border-radius: 999px;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(235,221,197,0.6);
+  transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+}
+.cal-chip.ok { border-color: var(--ok); color: var(--ok); background: rgba(106,255,138,0.1); }
+
+.submit-btn {
+  flex: 0 0 min(22rem, 45%); margin: 0; padding: 0.7rem 0; border-radius: 999px;
+  background: rgba(234,175,76,0.14); border: 1px solid rgba(234,175,76,0.7); color: var(--gold);
+  font-family: inherit; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.submit-btn:hover { background: rgba(234,175,76,0.28); color: #fff; box-shadow: 0 0 20px rgba(234,175,76,0.3); }
+.submit-btn.green  { background: rgba(106,255,138,0.15); border-color: #6aff8a; color: #6aff8a; }
+.submit-btn.yellow { background: rgba(255,204,0,0.15);   border-color: #ffcc00; color: #ffcc00; }
+.submit-btn.red    { background: rgba(255,106,106,0.15); border-color: #ff6a6a; color: #ff6a6a; }
+
+/* ——— small screens: stack the panels and let the body scroll ——— */
+@media (max-width: 860px) {
+  .cal-body, .cal-body.is-wide {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: auto;
+    grid-template-areas: "screen" "code" "dials"; overflow-y: auto;
+  }
+  .cal-wave { flex: none; height: 11rem; }
+  .cal-dial-field { flex: none; height: 24rem; }
+  .cal-signals { grid-auto-rows: auto; }
+  .cal-foot { flex-direction: column-reverse; align-items: stretch; }
+  .submit-btn { flex: none; }
+}
+@media (max-height: 560px) {
+  .cal-tag, .cal-timer-label { display: none; }
+}
+/* ——— the Stage 0 prototype glitches ——— */
+.cal-freeze {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+  background: rgba(8, 8, 11, 0.82); backdrop-filter: blur(2px);
+  text-transform: uppercase; letter-spacing: 0.3em; text-align: center;
+}
+.cal-freeze b { font-size: 1.1rem; color: var(--crimson); animation: cal-pulse 0.5s ease-in-out infinite; }
+.cal-freeze span { font-size: 0.7rem; letter-spacing: 0.2em; opacity: 0.7; }
+.cal.tear .cal-body { animation: cal-tear 0.22s steps(2) 1; }
+@keyframes cal-tear {
+  0%   { transform: translateX(0); filter: none; }
+  30%  { transform: translateX(-10px) skewX(3deg); filter: hue-rotate(-40deg) saturate(1.6); }
+  60%  { transform: translateX(8px) skewX(-2deg); filter: hue-rotate(40deg); }
+  100% { transform: translateX(0); filter: none; }
+}
+.cal-tag.warn { border-color: rgba(219, 53, 76, 0.55); color: var(--crimson); }
+@media (prefers-reduced-motion: reduce) {
+  .cal.tear .cal-body { animation: none; }
+  .cal-freeze b { animation: none; }
+  #timer.low { animation: none; }
+  #timer-bar { transition: none; }
+}
+</style>

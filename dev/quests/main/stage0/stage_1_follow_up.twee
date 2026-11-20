@@ -1,0 +1,47 @@
+:: Stage 1 Follow Up [event main_quest hide_sidebar] {"position":"3400,375","size":"100,100"}
+<<nobr>>
+<span class="stage-title">
+<<type 100ms start 2s none>>
+	Stage 
+<</type>>
+<<type 150ms start 1s none>>
+	1
+<</type>>
+</span>
+<</nobr>>
+
+
+<<timed 6s>>
+  <<silent>>
+    <<set $company.stage = 1>>
+    /* Stage 1 lifts the cap on my own corruption (Stage 0: 40), the same as Skip to Chapter 1 */
+    <<set $player.stats.max.corruption to 100>>
+    /* both of them now spend their weekdays at my office (Define Schedule) */
+    <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
+    <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
+
+    <<run State.variables.company.employees.push(State.variables.mom)>>
+    <<run State.variables.company.employees.push(State.variables.sister)>>
+  <</silent>>
+  <<ReturnFromEvent "A week passes...">>
+<</timed>>
+
+<style>
+.stage-title {
+  font-size: 64pt;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding: 3em 0;
+}
+
+.stage-title div {
+  padding: 0 2%;
+  filter: drop-shadow(0 0 1.5rem #FBCC7C);
+  text-transform: uppercase;
+}
+</style>
+
+

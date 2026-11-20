@@ -1,0 +1,61 @@
+:: Sister Sleepy Hallway [micro_event event nobr] {"position":"1175,2900","size":"100,100"}
+/* Grumpy morning: bring coffee or leave her alone. At higher relation she mumbles something honest. */
+<p>I run into $sister.callName in the hallway. Her hair is going in every direction, her eyes are half closed, and she's wearing only one sock.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Mmgh. No talking. Coffee first. Then talking." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="choice1">
+	<div>
+		<<link "Bring her a coffee">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I make one for her and put it in her hands. She holds it with both of them like a lifeline." },
+					{ who: $sister, text: "You're the best. Don't tell anyone I said that." }
+				]>>
+				<<if $sister.stats.relation >= 40>>
+					<<run _msgs.push({ who: $sister, text: either(
+						"I had a dream I missed the exam, and when I woke up it felt worse that it wasn't real.",
+						"$mom.callName is so tired all the time. I wish I could help more.",
+						"Don't tell anyone, but I don't know what I want to do after college.",
+						"It's good having you back. It's too loud in my head when the house is quiet."
+					) })>>
+				<</if>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave her alone">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I step aside and let her shuffle past." },
+					{ who: $sister, text: "Smart." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Tease her about it">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "You look like a ghost." },
+					{ who: $sister, text: "Then I'll haunt you. Starting now." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

@@ -1,0 +1,349 @@
+:: Notes for me: {"position":"800,400","size":"200,200"}
+Todo List:
+    ✔ C: Media still frozen in firefox sometimes??
+    ✔ cctv "->" Arrow only when scene available - else just put potentially m/s toggle button there
+    ✔ C: new activity locations implementation + schedule change (+ random placement in bathroom)
+    ✔ C: buy cctv from shop -> misc. quest to place them in rooms
+    ✔ C: make quests easier to see in CMD
+    ✔ C: Location Images Links greyed out and not selectable when they are not available
+    - add task media to tasks (like the 'events' that a with_me task plays needs the partly already added media macros)
+    ✔ story quests advancement
+    ✔ C: add descriptions to college & other office
+    ✔ add more micro_events
+    ✔ add landlord apartment location + change rent due to there
+    ✔ C: plan company stat usage
+    ✔ C: plan npc corruption stages 
+    ✔ remove already available devices (disable basically)
+    ✔ C: add quicktravel from bedroom to Office (sidebar?)
+    ✔ C: Project overview passage not existent
+    ✔ 4th Mail not appearing (not hooked up yet)
+    ✔ next M quest (+ new interaction)
+    ✔ CMD New way to display micro_events (+ Notification?) - Micro events @CMD can happen when m/s work at the office. While task (not with me) or no task.
+    ✔ Add Micro events for M & S (talk_with_employees, talk_with_player, phone_call, bored)
+    ✔ Ask C: S-Quest 1, how should it appear? With micro_events or something different?
+    ✔ next S Quest Content (It makes a difference) or smth. Unsure how the night part should work. Maybe new quest?
+
+Stage 0:
+
+	NPCs Stats:
+	- Corruption:	Increases in Scenes or Quests - is required for quests.
+    - Relation:		Increases by Interactions or Quests, decreases by bad interactions (spy in shower, spy masturbating, disturb sleep, too many interactions, etc.) - is required for quests.
+    - Lust:			Increases exponentially each day until the npc relieved herself -> Reset to 0. But get's decreased by Resistance each day as well - is required for Scenes (Masturbation or other random events).
+    - Resistance:	Increases when the player uses the Prototype on them to manipulate them, also increases when relation decreases. Get's reduced every day, and when the player interacts with the npc - prevents Scenes or random events.
+    
+    NPC Interactions:
+    - The player can interact with a NPC every day, every timeSlot & every Action Point, but only X positive interactions.
+    - The player can choose to use the prototype to increase additional stats when interacting.
+    - Random Interactions appear throughout the day (Meeting mom/sister in the hallway, They entering players bedroom, etc...)
+    
+    
+    
+    
+    Main:
+    - progress prototype to 70
+    - ⁠Test on sister 
+    - ⁠try to find new client -> Fail
+    - ⁠talk to sister about
+    - ⁠suggest diner manager test
+    - ⁠finish prototype 
+    - ⁠use in diner -> First client
+    - ⁠talk to landlord about larger office and renovations
+    - ⁠let mom/sister help in convincing
+    - ⁠contract
+    - ⁠buy larger office -> Stage 1
+
+    Mom:
+    - catch relieving
+    - ⁠ask to wake up 
+    - ⁠ask for money for landlord
+    - ⁠catch mom having a terrible day
+    - ⁠when at work, fuck something in laptop up
+    - ⁠mom struggles at work
+    - ⁠visit mom at work to help through prototype, make it seem that player is helpful for mom
+    - ⁠visit boss of mom and convince him that he needs to cut costs
+    - ⁠he will be second client
+    - ⁠make him fire mom for fuck up from laptop and something else
+    - ⁠suggest mom work for player -> stage 1 
+
+    Sister:
+    - Class project -> She asks for a demonstration of the prototype for a class project. I use the situation to make her trust me more.
+    - Struggling Student -> As I was about to enter her room, I overhear her talking to a friend over the phone, where she says that she's struggling in two classes and is about to fail them. She never struggled and was always great at school, but those two exams are not her forte.
+    - Plan ahead -> I go to my room to plan ahead and use her situation for my gain. I know that she's brilliant and I want her to succeed, but only for my gain. I will try to manipulate the situation that she'll get to work for me.
+    - Moving the pieces -> Now with a concrete plan, I visit her again and talk about how school used to be hard for me and I wasn't nearly as good as she is - to build trust. Now I want her to ask me for help with her tests. I use the prototype on her to get better at them the more time she spends with me. 
+    - Helping her focus -> To get better at those subjects I manipulate her to be more at ease with her mind and to relax more often.
+    - Faking it -> Of course she can't just get smarter by spending time with me, so I'll need to control the tests outcome by convincing the teacher to make her pass -> COLLEGE UNLOCKED
+    - She made it! -> She passed the tests! She goes to a party for passing her tests. When she comes home balckout drunk, she undresses in front of me and wants to thank me for my help. I take compromising photos of her and manipulate her using the prototype in her drunken state which is super efficient to make her yearn for me.
+    - She'd do anything for me! -> Now with her seeing me in a different light and yearning for me, I can ask her to help me out more. -> Tutoring & Diner Shifts helping me & mom out with money
+    - Conflicted feelings -> She enters my room because she want's to talk with me about her feelings and how those are wrong. I use the prototype on her to strengthen those feelings but keep her submissive and unsure. She kisses me.
+    - Internship season! -> She needs an internship for her college and thougth that it would be perfect to spend more time with me and support me and my company. -> STAGE 1
+
+
+
+Stage 1:
+
+	Mom & Sister Stats:
+    - Corruption: 		Continue to use like before + Multiple Stages of Corruption -> 3-4 Stages? Advance Stage whenever 100 corruption is reached.
+    - Relation: 		Same as before.
+    - Lust:				Same as before - now impacts chance of events even more (even microevents)
+    - Resistance: 		Same as before - now impacts chance of events even more (even microevents) - negativly obviously
+    - Exhibition:		Dictates how comfortable the NPC is with doing acts in public.
+
+	Employee Stats (also mom & sister):
+	- Energy:	Dictates how much more the NPC can do tasks before they need rest. This would limit the progression Speed at which Tasks could be completed.
+    - Moral:	Dictates how much more the NPC can work on projects before they need rest. This would limit the progression Speed at which Projects could be completed.
+    
+    Player Stats:
+    - Corruption:		Gates off Events/Quests - increases with sexual acts or morally dark desicions.
+    - CorruptionStage:  When Corruption hits 100, it returns back to 0 while the Corruption Stage increases. This indicates the moral stage the player is willing to go.
+    
+    Company Stats:
+    - Suspicion:		Depending on the usage of the prototype (& revenue?) government officials will knock on the door.
+    - Efficiency: 		Deciding how fast a project is getting done.
+    - Reputation: 		How easy it is to get more clients & better projects.
+    - Morale:			The higher the morale of the employees, the more they can be "overworked" and don't complain.
+    - WeeklyIncome: 	Dictates how much money the company get's at the start of the week.
+    - WeeklyCosts:  	Dictates how much money the company looses at the start of the week. More gadgets & Employees = more costs. More work employees = more costs.
+    
+    
+ 	Story:
+    
+	:: Main Story:
+    	- The Player takes 1 Week to set the office up, his mom and sister visit the new office and he shows them their place.
+        - Meanwhile he got his first two Projects for the first two Clients. Mom's ex-boss and the diner Manager.
+		- The Player reviews the Mails he's gotten about the projects.
+        	a) Mom's ex-boss wants to have a version of the prototype. Since the player has only his own, he needs to build a new one. He got ~2-3 Weeks time for that.
+            b) The Diner Manager wants the sister to take shifts as he was promised. Also he wants a detailed analysis of how he could improve the diner using the prototype. By doing this, the player has to use the Prototype at the diner, analyze the data and then send the result to the Manager.
+		- The player then discusses this with him mom and sister and they agree that they need employees. They also talk about their place at the company.
+		- As this is too much work for the player alone and neither the mom or the sister has knowledge in the required fields, he'll need employees. He'll hire three people to help him.
+        	a) 1 software developer -> He's the one who build the first version of the Prototype with the player before it could influence people. (This will become the main Antagonist at the end of Stage 1, though do not hint at it yet)
+            b) 1 hardware expert -> New Person (Average fat nerd, though seems very skilled in what he does)
+            c) 1 data analyst -> New Person (Lean & Fit Black person, very impressive skillset as well as looks)
+        - The player demonstrates the prototype (in a weaker version, so they don't immediately get suspicious) and they have a meeting to discuss the two new Projects.
+        - When both Projects are done (if they fail, time get's extended but the player has to pay a fine), he'll get repeatable Projects, where he can work for completion to earn money 
+        	a) Be creative what those two Projects could be, while they make sense in the story, so the player can also send the mom & sister to their respective tasks
+		- The player decides it's time to build a official Product the company can advertise with so that the company can grow. This will be more or less the same version as the one the company sent the ex-boss (weaker version, which is easier to control)
+        - After the product is completed, the player calls the whole team into the main office and announces the plan to launch the first official $company.prototype.name product variant.
+            a) A subtle room-wide influence device that gently makes everyone in a meeting more agreeable and open to suggestions without anyone noticing anything strange.
+            b) He assigns Evan the most important part: cleaning up the core code so it looks completely harmless on the surface.
+            c) The hardware expert is told to design it as a sleek modern wall panel that could pass for an expensive Wi-Fi router.
+            d) The data analyst is tasked with building a clean dashboard that hides all the real influence metrics behind fake productivity scores.
+            e) The player sets a strict 12-day internal deadline and makes it clear that the finished product must look 100% professional and marketable.
+        	f) Evan grins and says “Finally something fun to work on, boss.” The player feels a genuine spark of friendship for the first time in years.
+        - Late at night the player stays behind with Evan to finalize the code of the new device.
+            a) They spend almost three hours fine-tuning the field strength until it feels just right.
+            b) When they finally turns it on in the empty main office he feels the soft pressure settle over his mind like warm water.
+            c) He smiles in the dark and understands how powerful this technology can become. 
+            d) The player claps him on the shoulder and says “I knew I could count on you.”
+        - The player takes the version of the room-wide device to a client pitch with a small local marketing firm that has been on the fence for weeks, as they need a area version instead of a in person version.
+            a) The player walks out with his first real commercial sale of the official $company.prototype.name product.
+          	b) He immediately texts Evan: “We did it. Drinks on me tonight.” They go drinking and have a good time and grow closer.
+        -: Requirement for next story beat: To unlock the big gym-chain contract the player must first progress $mom.name’s private corruption arc far enough that she is willing to “help entertain” important clients during after-hours meetings.
+        - The gym requires the device to look like a router or something to not get attention. The player and Evan spend the entire afternoon redesigning the room-wide device into a clean wall-mounted unit that looks exactly like an expensive modern router.
+            a) They laugh and argue about color choices like old friends.
+		- As the workload get's heavier, the moral constanly is low in the office. The player asks $mom & $sister to be flirtier to the employees as well as dress nicer
+        - One evening Evan stays long after everyone else has left to run extra diagnostics on the device logs.
+            a) While digging through the hidden data he notices small influence spikes that do not match the official “weak and safe” settings the player described.
+            b) He quietly starts making his own notes and comparing the real numbers against the fake dashboard.
+            c) He does not say anything to anyone.
+        - The player can order the mom or sister to bring anyone a coffee and have a nice long chat with them to increase their morale.
+        - The player decides the company needs a stronger single-target tool for really difficult negotiations.
+            a) He builds a new handheld device that can force short-term absolute obedience on one person for a few minutes.
+        - The player feels a rush of power and starts wondering how far he can push this technology.
+            a) He texts Evan and they have a chat. The player trusts him enough to hint at the actual capabilities
+            b) This fits the spikes Evan saw in the logs. He doesn't mention it to the player.
+        -: Requirement for next story beat: To secure the major investor meeting the player must first advance $sister.name’s private corruption arc to the point where she is comfortable being used as attractive “eye-candy” and light entertainment for important guests.
+        - $mom.name and $sister.name are mostly used nowadays to get coffee and snacks and for conversation.
+            a) They seem to enjoy the attention they are getting.
+            d) He watches his mother and sister slowly become the companys enjoyment.
+        - Another night, Evan finds an old hidden backup folder on the main server containing the original full-strength code from the very first prototype.
+            a) He copies several key files to his personal drive without telling anyone.
+            b) Over the next few days he begins quietly studying the code in the testing corner after everyone else has gone home.
+            c) The player notices he is even more withdrawn than usual but assumes he is just focused.
+        -: Requirement for next story beat: To close the big regional bank contract the player must first reach the point in $mom.name’s private story where she is willing to let employees “relax” with her after successful deals.
+        - The team reaches a major milestone.
+            a) First month with consistent profit.
+            b) The player gathers everyone for a short celebration in the main office.
+            c) He orders pizza and drinks and announces plans for Version 2.0 development.
+            d) Evan gets drunk and tells the whole team that the player is the best boss he has ever had.
+        - A new Version of the Device is in planning.
+            a) A device that can scan a person and gently amplify one of their existing hidden desires while linking it to serving the company’s interests.
+        - Later one weekend the player and Evan stay completely alone in the office under the pretense of “final stability checks” for the new device.
+            a) While testing the copied full-strength code Evan accidentally triggers a real influence sequence on himself.
+            b) For almost ten minutes he experiences the full power of the original prototype.
+            c) When it finally wears off he looks at the player with something unreadable in his eyes.
+            d) The player pretends not to notice.
+        - The next morning Evan acts completely normal.
+            a) The player feels the first tiny crack in their friendship and ignores it.
+        - The player prepares for the biggest client pitch yet.
+            a) A national retail chain that could change everything for the company.
+            b) He asks Evan to set up all the demo equipment the night before.
+            c) Evan volunteers immediately.
+            d) The player gives him full access to every prototype and the master source repository “to make sure everything runs perfectly.”
+        - Evan spends the entire evening alone with the technology.
+            a) Methodically copying everything he can.
+            b) The player has no idea what is about to happen.
+        -: Requirement for next story beat: To secure the final big supplier deal before the end of the stage the player must first reach the point in both $mom.name’s and $sister.name’s private corruption arcs where they are willing to be traded for favors.
+            a) Including drugs that can be used to control difficult clients or suppliers.
+            b) This happens in their dedicated stories.
+        - The player found out through online research as well as his experience with the prototype that drugs would exponetially increase the effectiveness of the prototype - long term.
+        - The player uses $mom.name and $sister.name to trade sexual favors for a large supply of party drugs from a shady contact (or $20k).
+            a) They are now almost fully corrupted and obedient.
+            b) The transaction happens in the drug house at night.
+            c) He feels nothing but cold satisfaction that his mother and sister are finally becoming the tools he always knew they could be.
+        - Climax of Stage 1.
+            a) The player arrives at the office the next morning to find Evan’s desk completely empty.
+            b) Every physical prototype unit is gone.
+            c) The servers are wiped clean.
+            d) A short cold resignation email is waiting in the inbox with no explanation.
+        - The player immediately checks the security footage.
+            a) He sees Evan leaving at 3:17 a.m. carrying two large boxes and a laptop bag.
+            b) A quick inventory check confirms that every working prototype, every spare part, and every backup drive has been taken.
+            c) The player feels a cold knot form in his stomach.
+            d) He has just lost months of work and the only person he was starting to think of as a real friend.
+        - End of Stage 1. The player sits alone in his new office late at night.
+			a) He stares at the empty testing corner. The player receives a formal call from the authorities about an anonymous tip concerning unlicensed mind-influence technology being developed and sold without proper oversight. The company is now under official investigation. 
+            b) The player must immediately hire a lawyer and start preparing documentation that makes everything look completely legitimate on paper.
+            b) He realizes that the real game has only just begun. He has lost Evan. But he still has his mother and sister. And they are finally exactly where he wants them.
+            d) The stolen technology is already being used by Evan to launch a rival startup that is somehow getting glowing press coverage within days
+        
+      
+    :: Sister Story: (Private Corruption arc)
+    	- Right after the player moves into the new office, $sister.name starts spending a lot of time around him.
+            - She tells herself she just wants to support her little brother, but she feels strangely warm and happy whenever she’s near him.
+            - She starts finding excuses to be alone with him — bringing him coffee, asking for advice, staying late to “help.”
+            - She doesn’t understand why yet, but being close to him makes her feel safe, excited, and a little nervous at the same time.
+        - A few days later, the player calls her into his office for a private talk.
+        	- The player tells her how thankful he is that she tries so hard to help here.
+        	- She feels a rush of warmth and happiness that almost brings tears to her eyes.
+            - That night she lies in bed touching herself while thinking about him. She feels deeply ashamed afterward but can’t stop thinking about it.
+        - She comes to him to ask for private "internship overview" meetings
+        	- She has to write a diary about the stuff she does for the internship & the company
+            - She wants the players help
+            - They talk about how she feels, especially with working for the player
+            - She admits that she's really happy to spend so much time with the player
+        - After some meetings, she says that most of her subjects are more or less done for the semester and she can spend more time at the company -> 3 more slots
+        	- With more time on her hand, she should now visit other employees as well. She's to talk to them, keep them company and bring everyone Coffee
+        - After a week, the player shows her the photos he took of her the night she got blackout drunk in Stage 0.
+    		- He doesn’t threaten her. He just says he kept them because they’re “special memories” between them.
+    		- She feels sick with shame but also strangely touched that he wanted to keep them.
+    		- She can't belive that she did that, she always thought it was a dream.
+            - But she couldn't stop thinking about it.
+            - Shyly she asks if she can touch his dick again. She gives him a handjob.
+            - After cumming over her, she asks if she can do this more often
+        - She wants to talk to the player again.
+            - She says she can't stop thinking about him. Even though she know it's wrong.
+            - Her lust keeps growing and she masturbated multiple times with just the thought of touching him again.
+            - The player uses this moment, to influence her and make her send him videos when she does.
+        - The next time the player walks in on her masturbating, he helps her cum.
+        	- Afterwards he confronts her about her feelings. In a state of extacy she struggles to tell the truth, but gives in and says, that she want's to touch him even more, to give more.
+            - He tells her that he knows she has “special feelings” for him that go beyond what a sister should feel.
+            - She breaks down crying and admits that she thinks she might be in love with him, even though she knows it’s wrong.
+            - He holds her and tells her that it’s okay — that love between family can be beautiful if they both want it. She feels relieved and terrified at the same time.
+        - The player uses her feelings towards him to convince her to be more FLIRTATIOUS towards other employees to keep their morale higher.
+        -: Requirement: Valenx Catalyst
+        - The player calls her over to his desk in the evening, when noone is around anymore. He talks about his current project which is so stressful.
+        	- She asks if he wants a handjob here in the open.
+            - The player turns on the prototype catalyst and tells her that to love means to give everything. And her love crosses a line, so she has to deliver. 
+            - He demands a blowjob to prove her love.
+            - While she’s on her knees sucking his cock, he makes her look up at him and say “I love you” with his dick in her mouth.
+        - Again, using the Catalyst, the player talks to her and says that he might feel something like love as well towards her.
+        	- But his love is different. He is dedicated to his company. That means that he'll give anything for it. He is willing, but he questions wether she is.
+            - He drops his pants, reveals his cock and tells her that she can either submit completely right here right now or leave.
+            - She's unsure, but give in, his manipulation is already too deep. She want's to be his. She has to.
+        -
+
+    
+    :: Mom Story: (Private Corruption arc)
+    	- A few days after the player has 3 new employees, he talks to the mom in the office at the evening. He tells her how stressful it is, being responsible for multiple people. With the use of the prototype, the mom give him a back massage.
+        	- The player then can schedule the mom to give him private attention (back massages)
+        - One week after the ex-boss Project has started, the player speaks with the mom in the evening in her room. He asks her how she's doing (especially compared to her old job). She's decently positive although thinks that she can do more.
+        	- This unlocks 3 more cells in the scheduler (evening)
+        - The player wants to speak to the mom again about further help at work. He asks her to have private test-sessions for the new prototype, as she's a really valuable test-person since she doesn't really know how it works. 
+        	- By doing these sessions, he can slowly progress the corruption of her
+        - After 10 Sessions, the player increased her corruption enough to test her without the prototype again. They meet in the players bedroom and he asks her to undress. She's confused at first but will do after a bit of hestitation.
+        - After the ex-boss Prototype is ready and only the delivery remains, the mom meets the player in the office meeting for him to give her a briefing on what she has to say and act.
+            - The player uses his Prototype to calm her down as she is quite anxious. He tells her to wear no bra and a lewd outfit to make the ex-bosses mood better. He turns a dial and after a few moments, the mom realizes that the player is extreamly stressed.
+            - She notices the players bulge because of her outfit. She realizes that the player hasn't had time for any dating since his buisness failed and he had to move back. So it's only natural that he (his dick) reacts that way. 
+            - Thanks to the earlier "test" Sessions, the mom is now more willing and decides to help the player calm down by giving him a handjob.
+        	- The meeting with the $boss works out great, though he groped the mom a few times. Though he is happy about the project and is now willing to pay for maintanance as well as consulting for the device.
+        - When $mom.stats.lust is very high, she visists the player at night in his bedroom. She wants to check up on him after the handjob and wants to talk to him
+        	- She then says that it felt right at the moment, but shouldn't have done it. She was just so overwhelmed seeing her son like that and she wanted to help him no matter what. She's about to close the window of opportiunity, when the player dials his prototype up as much as possible.
+            - He convinces her that that is her duty as a mom. She always cared for her kids and now she has to continue to do so. It's not wrong. And because of her high lust, she is conflicted at first, but then agrees to help him out from now on. -> Opens a new Interaction (Handjob)
+            - She gives him another handjob in his bed.
+        - Player buys booze and celebrates with his mom the success thus far at night in the living room.
+            - He influences her to passively build lust much more then before. When her lust is high she either wans to give the player a handjob or masturbates
+            - She is now masturbating in more locations (Her room, shower, living-room at night, meeting room (when alone)
+        	- The player can walk into her catching her and can demand a handjob
+        - With her new increased Lust, the player talks to her in the meeting room and orders her to be more flirtatious with the employees to boost their morale. This is a task.
+        - After the player received more handjobs, the mom starts to tease him around their house and work. She enjoys the attention she’s getting from the player as well as his reactions. She feels alive again, after the bad time at her old job.
+        - They talk again about how she feels here.
+        	- She notices how often the player comes home late.
+            - She feels bad for him and offer to help him out even more. (+ 3 actionslots in scheduler: night editable now)
+            - The player uses the prototype to make her have more pity on him. Then he says that he needs more. Her handjobs aren't doing enough for him.
+            - She notices his bulge but says she can't do it.
+        	- The player is upset and scoffs her away.
+        - The player doesn't interact with her for a few days (1 week)
+        - He sets up the prototype to passivly make the mom feel guilty at her place.
+        - Friday night, the player stays late again. The mom notices and wants to talk to him to apologize.
+        	- Everyone is gone by now and only the player and mom are at the office.
+            - She tries to talk to him, but the player acts rude towards her
+            - She concedes and show him what she put on for him, unveiling hot lingerie.
+            - She get's on the floor on all fours and crawls up to him and starts giving him a blowjob
+	        - The player (still acting rudely towards her) insults her and calls her names. 
+            - Now that she's on her knees sucking him off, he demands that she'll give him morning Blowjob to the coffee. She agrees obediently
+		- The mom now is open to being ordered around at home, submitting to the player up to blowjobs.
+        - After 15 sexual interactions, the player can now order the mom to entertain the clinets.
+        	- Client Entertainment (flirtatious) (Unlocks Gym Quest Step for Main Story)
+        - Now that the player realized the moms limit, he decides to research further brain functionality.
+        	- He finds our that people are more prone to agree when it's something they want (which is obvious, but this gives him an idea)
+            - He reads through 10s of papers describing the brain, emotion and traits and how it all is connected. This together with a new sensor, creates the project to build the new Valenx Catalyst device.
+            - This creates a new internal Project: Valenx Catalyst
+        -: Requirement: Valenx Catalyst - The Prototype that inhances dorment traits/desires is completed.
+		- Sex
+        -: Requirement: Valenx (Hammer - terrible name): He'll need the immense powerful device that gives someone a terrifying power - to completely bypass resistances and plant one deep idea into the mind of someone.
+        - Free-Use for Player
+    	- Sexual services for employees
+    
+    
+    
+	:: Ex-Boss Story:
+    
+    
+    
+    
+    
+    :: Diner Story:
+    	- (task) The player has to send the sister 3 times a week to the diner for a shift, otherwise it he'll have to pay a small fine the week he didn't do it.
+        - After the Project for the Manager is finished, the player meets him to discuss the analysis. The player suggests certain changes to the menu as well as the (either new or upcoming, depending on the main story) Version of Valenx (Veil - the area prototype)
+        - Whenever the sister works is taking a shift, she also uses the device, which makes her important for the diner. 
+        	- After 10 shifts, an incident happens, where a customer is getting aggressive when something from the menu is out of stock. This is mostly thanks to the device makeing him yearn more satisfaction though the food.
+            - The sister has to calm him down (nothing sexual).
+            - She reports back to the player and explains the situation, the player connects the dots and realizes that it happened because of the prototype for people with low dopamin in combination with high testosterone.
+        -: Requirement: Sister has to be more open publicly.
+        - The player realizes that the area prototype may negatively influence customers if something bad would happen. This means that their mood should be kept high. 
+        	- The easiest way to do this is by making the sister more friendly towads the male customers.
+        - The manager notices a further increase in sales whenever the sister is there working a shift. 
+        	- He write the player a mail, requesting a meeting.
+        - They Manager comes to the meeting room in the company. He and the player talk about the sale increase. The manager is open to change some policies in favor of even better sales.
+        	- He'll change uniforms to make them more reveiling. 
+            - The sister will have more work at the diner, having to visit there 7 times a week now. (new Task)
+        - 
+    
+    :: Prof Story:
+    	- The player has to send the sister doing private tutoring 10 Times, before this story advances.
+    	- After completing both first Projects, and waiting a Week, the player receives a Mail from sister's Prof ($prof) who wants to have a conversation with the player again.
+        	- The pupils are getting worse and he has a proporsition from the dean that if he can improve the overall graduation percentage and the willingness of the pupils to study, he'll get rewarded. 
+            - And since he heared by a student that $sister.name is successfully doing tutoring, he thought to take advantage of this and suggest a plan with the player.
+        	- The player suggest using a modified version of a prototype to influence the whole class at once so the grades will improve fast. But this needs time and money. 
+            - The Prof then offers it as a "research project". But until this is finished, the prof wants the sister to do more tutoring, even at school as well, especially for some troublesome students. This will play into the "internship" of the sister as well.
+            - The prof wants the sister to act as the of face of the project at the college, since she's decently popular with the students and by that they may get more students to take the tutoring. 
+        - 
+    
+    :: Landlord Story:
+    
+    
+    
+    
+    :: Misc Story:
+
+

@@ -1,0 +1,24 @@
+:: Planning Ahead [event sister_quest] {"position":"3025,1650","size":"100,100"}
+I close my door with a quiet click and the hallway light disappears, leaving just the desk lamp and the blue glow of the monitor. I drop into my chair, which complains the way it always does, and stare at the $company.prototype.name code still open on the screen without really reading it. My pulse hasn't quite settled since I left her door. The phone call keeps replaying: the crack in her voice, the bit about peaking at sixteen. That's not the $sister.callName who used to act like the world owed her a parking spot.
+
+I rub my face with both hands. She's never had to try at anything, and now she's walked into the first wall that doesn't move when she smiles at it.
+
+I can't just stroll in there with the prototype again. She isn't stupid, and two 'demos' in one week would feel strange even to her. So I go slow. I play the worried little $sister.playerRelation and get her talking about the class again. I tell her some of my own high school misery, the parts that are actually true: the grades nobody saw, the lunches in the computer lab, the nights I was sure something in my head was broken. Let her feel like we're in the same trench. Then, once she's talking to me instead of at me, I remind her how relaxed she felt during the demo and wonder out loud whether it might help her focus, too.
+
+She'll hesitate. She has too much pride not to. But she liked how she felt that evening, and she'll remember that before she remembers to be suspicious. This time it won't just be calm. It'll be confidence, the feeling that she's good at this after all and the problem is the professor, not her. And if she ends up connecting that feeling with sitting next to me, I'm not going to talk her out of it.
+
+There's still the professor, though. If he really does have it in for her, no amount of studying will fix that, and I'll have to deal with him myself. I should find out who he is.
+
+I grab a pen and the back of an old printout and start writing it down.
+
+<<linkreplace "Start scribbling">>
+<<Image "images/characters/sister/events/planning ahead/note.jpg" "" "" 500>>
+
+I fold the paper twice and slide it under my keyboard. My reflection in the dark corner of the monitor looks a little too pleased with itself. For years I've been the one she rolls her eyes at. Give it a few weeks and I'll be the first person she calls when something goes wrong, and after that, I doubt she'll remember how she ever managed without me.
+
+<<UpdateStat "+" "Corruption" 5>>
+<<NextQuest $sister>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+
+

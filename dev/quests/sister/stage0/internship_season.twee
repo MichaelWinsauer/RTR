@@ -1,0 +1,63 @@
+:: Internship Season [event sister_quest] {"position":"3275,1400","size":"100,100"}
+I'm at my desk with the last of the evening light fading behind the monitor, going over numbers for the new office. It isn't huge, but after the broom closet I've been working out of, it feels like a palace. I'm trying to work out how soon we can move in and start hiring when there's a soft knock, and $sister.callName lets herself in without waiting for an answer.
+
+She stops just inside the door with her hand still on the handle. The last time she came in here this late, she sat on my bed and kissed me, and from the way her eyes go to the bed and then quickly somewhere else, she remembers that as well as I do. Neither of us has brought it up since. At breakfast we've both become very interested in our cereal.
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hey, $player.name... got a minute? I want to pitch you something. Like, a real pitch. A work thing. Totally a work thing." },
+{ who: $player, text: "A pitch. Okay, I'm intrigued. Go." },
+{ text: "She sits down on the very end of my bed, about as far from the pillow as she can get without sitting on the floor, and folds her hands in her lap. Very formal, like she's at a job interview. It doesn't suit her at all." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She takes a breath and looks at me with that determined crease between her eyebrows.
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "So. You know I need an internship for college, right? It's a requirement this semester, and everyone in my program is fighting over the same three places downtown. I've been thinking about it a lot, and I think I found the perfect one." },
+{ who: $player, text: "Oh yeah? Where?" },
+{ who: $sister, text: "Here. With you. At your company." },
+{ text: "It comes out fast, like she practiced it in the mirror and wanted to get it over with." },
+{ who: $sister, text: "I know it's small and you only just got the new office, but that's the point. At a big company I'd be making copies for some guy named Chad. With you I could actually do things. Organizing, emails, helping with clients, whatever you need. And I'd finally be contributing something at home instead of just eating all the cereal." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She watches me while I think about it. There's a little pink in her cheeks, and she's picking at a loose thread on her sleeve.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You really want to intern at my startup? You know it barely pays anything yet." },
+{ who: $sister, text: "I know. I don't care. You got me through that test when I was falling apart. Let me be useful for once instead of just being the one who needs help." },
+{ text: "She leans forward, and the formal posture is gone." },
+{ who: $sister, text: "And I heard you talking to $mom.callName about the office. You're about to hire people, right? I could start right away. Filing, scheduling, making coffee. I make very good coffee, ask anyone. I just... really want to be part of this. With you." },
+{ text: "The last two words hang in the room. She hears them too, and the tips of her ears go red." },
+{ who: $sister, text: "Professionally. With you, professionally. God, I should have made cue cards." },
+{ who: $player, text: "You're sure? It won't be glamorous. Long hours, terrible pay, a boss who's very demanding." },
+{ who: $sister, text: "The boss is my $sister.playerRelation, I think I can handle him. And yes, I'm sure. It's been all I've thought about for days. It feels right, not just for the credits." },
+{ text: "She reaches for my arm, stops halfway like she has to check whether that's still allowed, and then squeezes it anyway, quick and light." },
+{ who: $sister, text: "Please, $player.name. Let me help you build this." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+I already know my answer. I take a sip from the water glass on my desk anyway, and then another one. She's watching me the way you watch someone holding the envelope with your exam results, and it's a strange feeling to be that person for her.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Alright. If you're really sure, then yes. You can intern with me. We'll make it official once we've moved into the new office." },
+{ who: $sister, text: "Really? Oh my god, thank you! You won't regret it, I promise. I'm going to be the best intern you've ever had." },
+{ who: $player, text: "You'll be the only intern I've ever had." },
+{ who: $sister, text: "Then the bar is on the floor and I'm going to step right over it." },
+{ text: "She laughs and throws her arms around me in a quick, tight hug, and then forgets to let go until I pat her back twice, like somebody tapping out of a wrestling hold." },
+{ text: "When she finally pulls back, her face is right in front of mine. She blinks, clears her throat and puts a careful foot of air between us." },
+{ who: $sister, text: "Okay. So. That was a colleague hug. Very normal, very HR-approved. I'm actually excited. Working with you every day. Who would've thought." },
+{ who: $player, text: "We'll sort out the details soon." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She bounces off the bed, already talking about emailing her advisor and which days she could start, and she's still talking when she pulls the door shut behind her. Not one word about the other night. I'm fairly sure that was half the point of the pitch: a reason to knock on my door that she can say out loud. I listen to her footsteps go down the hall. Between the internship and her shifts at the diner, there's hardly going to be an hour of her week that doesn't run through me, and she's the one who asked for it.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<ProfileLog $sister "My Intern" "She's going to do her college internship at my company. Her idea, not mine. We'll make it official once we move into the new office.">>
+<<set setup.getMealById("sister_internship").isActive to true>>
+<<NextQuest $sister>>
+<<ReturnFromEvent>>
+
+

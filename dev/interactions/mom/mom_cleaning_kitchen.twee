@@ -1,0 +1,105 @@
+:: Mom cleaning_kitchen [interaction] {"position":"725,2475","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $mom cleaning the kitchen.
+   Variants 1 (dishes) and 2 (the fridge) always; 3 in Stage 0 after she lost her job (False Sympathy);
+   4 from Stage 1 on, when she cleans after a day at my office. */
+<<silently>>
+<<set _variants to [1, 2]>>
+<<if $company.stage == 0 && setup.questDone("mom_falseSympathy")>><<run _variants.push(3)>><</if>>
+<<if $company.stage >= 1>><<run _variants.push(4)>><</if>>
+<<set _pick to setup.pickTalkScene("Mom cleaning_kitchen", _variants)>>
+<</silently>>
+<<DisplayActivity $mom 500>>
+<<switch _pick>>
+
+/* ——— 1: The pot ——— */
+<<case 1>>
+$mom.callName is at the sink with her sleeves pushed up past the elbows and yellow gloves on, scrubbing a pot with the kind of focus usually reserved for defusing bombs. I recognize the pot. I left it there to soak.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't. Don't say it's soaking." },
+{ who: $player, text: "It was soaking." },
+{ who: $mom, text: "It was soaking on Tuesday, sweetheart. Since Wednesday it has been growing a personality." },
+{ text: "She hands me a dish towel without looking, the way a surgeon holds out a hand for the scalpel. I take it. Apparently that's how this works now." },
+{ who: $player, text: "I could just buy a new pot." },
+{ who: $mom, text: "You could also just wash the one you have. Plates go in the left cupboard. Left, honey." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We do the rest of the dishes like that, her washing, me drying, the radio on the windowsill playing some oldies station she'd deny listening to. She hums along with the songs she knows and makes up words for the ones she doesn't. When I put a glass in the wrong cupboard, she moves it without comment, and when I do it again, she gives up and laughs.
+
+By the end the pot is clean, more or less, and she holds it up to the light like a trophy.
+
+/* ——— 2: The fridge ——— */
+<<case 2>>
+The fridge is wide open, and half of what was inside it is now lined up on the counter in rows. $mom.callName is crouching in front of the bottom shelf with a spray bottle, inspecting each container like a customs officer.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Perfect, a witness. Can you tell me why there's an empty pizza box in here? Someone put an empty box back in the fridge." },
+{ who: $player, text: "That's a $sister.callName thing." },
+{ who: $mom, text: "I know it's a $sister.callName thing. I'm asking you to confirm it, so I can be angry with confidence." },
+{ text: "She sniffs a jar, makes a face and puts it in the trash pile. Then she holds up a container with a strip of tape on the lid that says THURSDAY in her handwriting. It's empty, apart from one grain of rice." },
+{ who: $mom, text: "And this one? This was my Thursday lunch." },
+{ who: $player, text: "It's not Thursday." },
+{ who: $mom, text: "That's exactly my point, sweetie!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I confess to the Thursday lunch, because she's going to work it out anyway, and she points the spray bottle at me like it's loaded. Then she sends me to the garage for the box of baking soda, which, she explains on my way out, is the only thing in this house that has ever kept its promises.
+
+/* ——— 3: Already clean (Stage 0, after she lost her job and started working for me from home) ——— */
+<<case 3>>
+The kitchen is spotless. It was spotless yesterday, too. $mom.callName is wiping down the cupboard doors anyway, one by one, top to bottom, with a cloth that's already dry.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I think that one's clean." },
+{ who: $mom, text: "Hm? Oh. Yes. I'm just..." },
+{ text: "She frowns at the cloth, surprised to find it still in her hand." },
+{ who: $mom, text: "I don't know what to do with my hands, honey. I answered your three mails by nine. I filed them. I made a folder for the folder. And then it was ten o'clock, and the whole day was still sitting there." },
+{ who: $player, text: "It'll pick up. There'll be more clients." },
+{ who: $mom, text: "For years I had too much to do. Now I have a company with one client and a dish towel." },
+{ who: $player, text: "Two clients, soon. And the dish towel is doing great." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That gets half a smile out of her. She folds the cloth into a neat square and lays it over the edge of the sink, and then she stands there with nothing in her hands again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I just don't want to be a burden. On you two. That's all." },
+{ who: $player, text: "You're not. You couldn't be." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the cloth off the sink and put it back in the drawer, so she'll have to go looking for it next time. She lets me. Then she asks if I'm hungry, because she can make me something, and it's the first time all morning she sounds like herself.
+
+/* ——— 4: After the office (Stage 1) ——— */
+<<case 4>>
+She's wiping down the counters in her office clothes, shoes kicked off by the door, her blouse untucked. There's a mug of tea next to the stove with the bag still in it, gone cold and very dark.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There's my CEO. Did you eat? There's pasta in the blue container." },
+{ who: $player, text: "I ate. Long day?" },
+{ who: $mom, text: "Long, but a good long. Is that a thing? It feels like a thing." },
+{ text: "She rinses the cloth and wrings it out with both hands, hard, the way she does with everything that needs doing properly." },
+{ who: $mom, text: "You know what I noticed today? Nobody yelled. Not once. Somebody made a mistake on an invoice, and we just... fixed it. And then we went on with our day." },
+{ who: $player, text: "That's how it's supposed to work." },
+{ who: $mom, text: "I know that, honey. I know that's how it's supposed to work. I'd just forgotten." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She picks up the tea, finally, makes a face at how strong it's gotten and drinks it anyway. Then she leans against the counter next to me, close enough that our shoulders touch, and tells me about every single person at the office, one by one. What they ate for lunch, who's tired, who's lonely. She doesn't know that's exactly what I want to hear. She just likes telling me.
+
+<</switch>>
+
+<<UpdateStat "+" "MomRelation" 1>>
+
+<div class="navigation-link"><<link "Leave her to the kitchen" $player.location.passage>><</link>></div>

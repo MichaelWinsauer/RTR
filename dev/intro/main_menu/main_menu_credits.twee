@@ -1,0 +1,10 @@
+:: Main Menu Credits [system] {"position":"0,750"}
+/*
+	Content of the "Credits" panel on the main menu. Plain HTML / SugarCube markup.
+	One block per role:
+	<div class="mm-credit"><div class="mm-credit-role">Role</div><div class="mm-credit-name">Name</div>...</div>
+*/
+<div class="mm-credit"><div class="mm-credit-role">Story & Design</div><div class="mm-credit-name">Your Name</div></div><br>
+<div class="mm-credit"><div class="mm-credit-role">Art</div><div class="mm-credit-name">Your Name</div></div><br>
+<div class="mm-credit"><div class="mm-credit-role">Engine</div><div class="mm-credit-name">Twine & SugarCube 2</div></div><br>
+<div class="mm-credit"><div class="mm-credit-role">Special Thanks</div><div class="mm-credit-name">Everyone who played and gave feedback</div></div><br>

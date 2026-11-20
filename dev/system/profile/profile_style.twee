@@ -1,0 +1,390 @@
+:: Profile Style [stylesheet] {"position":"2400,925","size":"100,100"}
+/* Profile layout:
+     portrait | header card
+     + traits | stats card
+     ---------------------------------
+     tabs: Progression / Schedule / Recollection */
+.pf {
+    display: grid;
+    grid-template-columns: 17rem minmax(0, 1fr);
+    /* Everything has to fit on the screen. The tabs always get at least half of the height (the schedule
+       needs it), the header card takes what is left up to its full text and scrolls inside when it gets
+       less, the stats card keeps its size */
+    grid-template-rows: minmax(0, auto) auto minmax(50%, 1fr);
+    grid-template-areas:
+		"side head"        
+		"side stats"        
+		"tabs tabs";
+    gap: 0.75rem;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;
+    box-sizing: border-box;
+    padding-bottom: 2rem;
+    text-align: left;
+    height: calc(100vh - 6.5rem);
+}
+.pf ul, .pf ol { margin: 0; padding: 0; }
+.pf li { margin: 0; padding-left: 0; }
+.pf li::before, .pf li::marker { content: none; }
+
+.pf-card {
+	background: var(--main-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 0.75rem;
+	padding: 0.9rem 1.1rem;
+	min-width: 0;
+	backdrop-filter: blur(10px);
+}
+.pf-label {
+	margin: 0 0 0.55rem;
+	font-size: 0.65rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	opacity: 0.6;
+	font-weight: 600;
+}
+
+/* ---- left column ---- */
+.pf-side {
+	grid-area: side;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	min-height: 0;
+	backdrop-filter: blur(10px);
+}
+.pf-portrait {
+	flex: 1;
+	min-height: 0;
+	background: var(--main-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 0.75rem;
+	overflow: hidden;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+.pf-portrait img,
+.pf-portrait .media {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: bottom center;
+	display: block;
+}
+.pf-traits {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+.pf-traits li {
+	border: 1px solid #EBDDC540;
+	border-radius: 0.4rem;
+	padding: 0.15rem 0.6rem;
+	font-size: 0.72rem;
+}
+
+/* ---- header card ---- */
+.pf-head {
+	grid-area: head;
+	min-height: 0;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(235, 221, 197, .3) transparent;
+}
+.pf-head-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+}
+.pf-head h2 {
+	margin: 0;
+	font-size: 2rem;
+	line-height: 1.1;
+	color: #EBDDC5;
+}
+.pf-role {
+	font-size: 0.7rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: #EBDDC5;
+	opacity: 0.8;
+}
+.pf-facts {
+	list-style: none;
+	margin: 0.4rem 0 0.7rem;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem 1.1rem;
+	font-size: 0.8rem;
+	opacity: 0.7;
+}
+.pf-bio {
+	margin: 0;
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+.pf-actions {
+	margin-top: 0.8rem;
+	display: flex;
+	gap: 0.9rem;
+	font-size: 0.8rem;
+}
+
+/* ---- stats card ---- */
+.pf-stats { grid-area: stats; }
+.pf-stat-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.3rem 2rem;
+}
+
+/* ---- tabs (CSS only: radio inputs drive the panels) ---- */
+.pf-tabs {
+	grid-area: tabs;
+	padding: 0;
+	overflow: hidden;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+.pf-tabs > input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+.pf-tabbar {
+	display: flex;
+	gap: 1.6rem;
+	padding: 0 1.1rem;
+	border-bottom: 1px solid #EBDDC530;
+}
+.pf-tabbar label {
+	padding: 0.8rem 0;
+	margin-bottom: -1px;
+	border-bottom: 2px solid transparent;
+	font-size: 0.7rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	cursor: pointer;
+	opacity: 0.55;
+}
+.pf-tabbar label:hover { opacity: 0.85; }
+#pf-tab-progress:checked ~ .pf-tabbar label[for="pf-tab-progress"],
+#pf-tab-schedule:checked ~ .pf-tabbar label[for="pf-tab-schedule"],
+#pf-tab-recollection:checked ~ .pf-tabbar label[for="pf-tab-recollection"] {
+	opacity: 1;
+	border-bottom-color: #EBDDC5;
+}
+/* the panels fill the rest of the tabs card: progression and recollection scroll inside it,
+   the schedule shrinks to fit (see below) */
+.pf-panels {
+	flex: 1 1 auto;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 1.1rem 1.1rem;
+}
+.pf-panel {
+	display: none;
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+}
+#pf-tab-progress:checked ~ .pf-panels .pf-panel-progress,
+#pf-tab-recollection:checked ~ .pf-panels .pf-panel-recollection { display: block; }
+#pf-tab-schedule:checked ~ .pf-panels .pf-panel-schedule {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+.pf-empty { margin: 0; opacity: 0.55; font-size: 0.85rem; }
+
+/* ---- progression timeline ---- */
+.pf-tl {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.pf-tl::before {
+	/* the vertical rail, centred behind the dots */
+	content: "";
+	position: absolute;
+	left: calc(5rem + 0.9rem + 0.3rem);
+	top: 0.4rem;
+	bottom: 0.4rem;
+	width: 1px;
+	background: #EBDDC540;
+}
+.pf-tl-item {
+	display: grid;
+	grid-template-columns: 5rem 0.6rem minmax(0, 1fr);
+	column-gap: 0.9rem;
+	padding: 0.55rem 0;
+}
+.pf-tl-when {
+	text-align: right;
+	font-size: 0.7rem;
+	opacity: 0.55;
+	padding-top: 0.15rem;
+}
+.pf-tl-dot {
+	width: 0.6rem;
+	height: 0.6rem;
+	margin-top: 0.35rem;
+	border-radius: 50%;
+	background: #EBDDC5;
+	position: relative;
+	z-index: 1;
+}
+.pf-tl-title {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem 0.5rem;
+}
+.pf-tl-body p {
+	margin: 0.2rem 0 0;
+	font-size: 0.85rem;
+	opacity: 0.8;
+	line-height: 1.4;
+}
+.pf-kind,
+.pf-status,
+.pf-effect {
+	font-size: 0.6rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	border-radius: 0.3rem;
+	padding: 0.05rem 0.4rem;
+}
+.pf-kind { border: 1px solid #EBDDC540; opacity: 0.8; }
+.pf-status.ok { color: #7ed49a; }
+.pf-status.active { color: #f0b45a; }
+.pf-status.locked { opacity: 0.55; }
+.pf-effect.up { color: #7ed49a; }
+.pf-effect.down { color: #e88a8a; }
+.pf-tl-item.is-upcoming { opacity: 0.55; }
+.pf-tl-item.is-upcoming .pf-tl-dot { background: #1a1a1a; border: 1px solid #EBDDC580; }
+.pf-tl-item.is-now .pf-tl-dot { background: #f0b45a; box-shadow: 0 0 0 3px #f0b45a30; }
+.pf-tl-item.st-done .pf-tl-dot { background: #7ed49a; }
+.pf-tl-item.st-log .pf-tl-dot { background: #EBDDC5; }
+
+/* ---- schedule: today's plan ----
+   A grid: time label + one column per action, one row per time slot. The rows share the height of the
+   panel (minmax(0, 1fr), set inline by Profile Schedule), so the whole day always fits. Every cell is a
+   size container: when it gets too flat for two lines, place and activity move onto one line. */
+.pf-plan-head {
+	display: flex;
+	align-items: baseline;
+	gap: 0.8rem;
+	flex: 0 0 auto;
+	margin-bottom: 0.6rem;
+}
+.pf-plan-day {
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+.pf-plan-note { font-size: 0.75rem; opacity: 0.55; }
+.pf-plan {
+	flex: 1 1 auto;
+	min-height: 0;
+	display: grid;
+	gap: 0.25rem;
+}
+.pf-plan-time {
+	display: flex;
+	align-items: center;
+	min-height: 0;
+	overflow: hidden;
+	padding-right: 0.4rem;
+	font-size: 0.65rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	white-space: nowrap;
+	opacity: 0.55;
+}
+.pf-plan-time.is-now { opacity: 1; color: #EAAF4C; }
+.pf-plan-cell {
+	container-type: size;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+	background: #EBDDC50d;
+	border: 1px solid #EBDDC51f;
+	border-radius: 0.45rem;
+}
+.pf-plan-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+	padding: 0 0.55rem;
+	min-width: 0;
+}
+.pf-plan-place, .pf-plan-doing {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 1.3;
+}
+.pf-plan-place { font-size: 0.78rem; font-weight: 600; }
+.pf-plan-doing { font-size: 0.7rem; opacity: 0.6; }
+@container (max-height: 2.4rem) {
+	.pf-plan-body { flex-direction: row; align-items: center; gap: 0.5rem; }
+	.pf-plan-place { flex: 0 1 auto; }
+	.pf-plan-doing { flex: 1 1 0; }
+}
+@container (max-height: 1.3rem) {
+	.pf-plan-place { font-size: 0.65rem; }
+	.pf-plan-doing { font-size: 0.6rem; }
+	.pf-plan-badge { display: none; }
+}
+.pf-plan-cell.is-past { opacity: 0.38; }
+.pf-plan-cell.is-task { border-color: #EAAF4C80; }
+.pf-plan-cell.is-now {
+	background: #EBDDC526;
+	border-color: #EBDDC5;
+	opacity: 1;
+}
+.pf-plan-badge {
+	margin-left: 0.4rem;
+	padding: 0 0.35rem;
+	font-size: 0.55rem;
+	font-weight: 800;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #EAAF4C;
+	border: 1px solid #EAAF4C80;
+	border-radius: 999px;
+}
+
+/* ---- recollection ---- */
+.pf-appearance { margin: 0 0 1.2rem; font-size: 0.95rem; line-height: 1.5; }
+.pf-memories { list-style: none; margin: 0; padding: 0; }
+.pf-memories li { padding: 0.6rem 0; border-top: 1px solid #EBDDC520; }
+.pf-mem-head { display: flex; justify-content: space-between; gap: 1rem; }
+.pf-mem-head span { font-size: 0.7rem; opacity: 0.55; }
+.pf-memories p { margin: 0.2rem 0 0; font-size: 0.85rem; opacity: 0.8; line-height: 1.4; }
+
+@media (max-width: 900px) {
+	/* stacked: the page scrolls, so the tabs get a height of their own */
+	.pf {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto;
+		grid-template-areas: "head" "side" "stats" "tabs";
+		height: auto;
+	}
+	.pf-tabs { height: 34rem; }
+}

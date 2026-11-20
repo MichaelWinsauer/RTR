@@ -1,0 +1,10 @@
+:: Help Menu Buttons [nobr] {"position":"425,4375"}
+<p>The small buttons at the top of the sidebar:</p>
+<dl class="help-stats">
+	<dt>Back / forward</dt><dd>Step through the passages you have visited.</dd>
+	<dt>Saves</dt><dd>Save the game, load a save, or export and import saves. Each save shows how long you have played (hours:minutes:seconds). Time on the main menu, in a hidden tab or after five minutes without input doesn't count.</dd>
+	<dt>Restart</dt><dd>Start over from the beginning. Unsaved progress is lost.</dd>
+	<dt>Settings</dt><dd>Change how the game looks and sounds.</dd>
+	<dt>?</dt><dd>This help.</dd>
+</dl>
+<div class="help-note">Save before you try something you might regret.</div>

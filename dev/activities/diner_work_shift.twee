@@ -1,0 +1,106 @@
+:: Diner Work Shift [activity] {"position":"2525,1550","size":"100,100"}
+<<RandomVideo "images/characters/player/activities/diner/" 7 ".webm">>
+<<UseAction>>
+<<silently>>
+<<SetLocation "Diner">>
+<<CheckLocation>>
+
+/* One action behind the counter. Which shifts can come up depends on where the story is:
+   before the diner test run (main_dinerTestRun) $manager is still just my boss who thinks the founder thing is hilarious,
+   after it he is a paying client who still makes me mop, and from Stage 1 on I run a company and pick up a shift anyway. */
+<<set _pool = ["rush", "marry", "pancakes", "bathroom"]>>
+<<if $company.stage >= 1>>
+	<<run _pool.push("slumming", "circle")>>
+<<elseif setup.questDone("main_dinerTestRun")>>
+	<<run _pool.push("gadget", "consultant")>>
+<<else>>
+	<<run _pool.push("founder", "tip")>>
+<</if>>
+<<set _shiftScene = _pool.random()>>
+<<set $diner.exp += 1>>
+<</silently>>
+<<switch _shiftScene>>
+<<case "rush">>
+The rush hits all at once, the way it always does, as though the whole town set the same alarm. Two truckers, a table of nurses coming off the night shift, and a man who orders the pancakes and then explains to me, at length, why he doesn't trust pancakes. I refill eleven coffees in twenty minutes. Somewhere around the ninth I stop being a person and turn into a pair of hands attached to a pot.
+
+<<case "marry">>
+Slow hour. I marry the ketchups, which is what $manager.callName calls pouring the half-empty bottles into each other, and which he explained to me on my first day with a wink I still think about. Then I wipe the counter. Then he walks past, and I wipe it again.
+
+<<case "pancakes">>
+A kid's birthday party takes over the big booth. Balloons, a sheet cake somebody brought from home, eight pancake orders shaped like animals that the grill cook refuses to shape like animals. I tell the birthday girl her pancake is a very abstract bear. She accepts this. Whoever paid for the party tips in quarters, a little stack of them, very neat, and I take it to the register like it's a bar of gold.
+
+<<case "bathroom">>
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Bathroom, kid. The men's." },
+{ who: $player, text: "What happened?" },
+{ who: $manager, text: "Don't ask. I don't know, and I don't want to know. Gloves are under the sink." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There are things about the human race I learn in the next fifteen minutes that I'll be taking with me to my grave. I come out smelling of bleach, and $manager.callName holds the door for me, which is the closest he has ever come to an apology.
+
+<<case "founder">>
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Hey, founder. Table six wants to invest in some more coffee." },
+{ who: $player, text: "Funny." },
+{ who: $manager, text: "I thought so. Nobody else laughs, but I thought so." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's been doing that one since the day he found out I have an LLC. I take table six their coffee. On my way back I smile at him, nice and wide, and think about how much a guy like him would pay to have every booth full on a Tuesday night.
+
+<<case "tip">>
+A family of four, sixty-two dollars, two hours of ketchup and complaints about the ice. They leave two dollars and a pamphlet that asks whether I know where I'm going when I die. I do, actually. The back room, to get more napkins.
+
+$manager.callName reads the pamphlet over my shoulder and snorts. "Better than what I'd have left you," he says, and walks off before I can decide whether that was a joke.
+
+<<case "gadget">>
+The little box is still sitting behind the laminated menus by the register, where $manager.callName pretends it isn't. The room's calmer than it used to be. People stay for dessert. Nobody has yelled about the ice in two weeks.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Your gadget's doing its thing, kid. Doesn't mean the floor mops itself." },
+{ who: $player, text: "I'd never suggest it." },
+{ who: $manager, text: "Good. You're on fries at two." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<case "consultant">>
+$manager.callName has started calling me "Mr. Consultant" in front of the regulars, in the same voice he used for "founder." It's supposed to be a joke. It almost is. Every time he says it he glances at the box behind the menus, like he's checking whether it heard him.
+
+He's my first client now. He signs my company's invoices and my timesheet with the same pen, and he still makes me wipe down the high chairs.
+
+<<case "slumming">>
+I own a company. I have staff, an office on the third floor and clients who answer my calls, and I'm standing behind the counter of $diner.name in a paper hat.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Slumming it, kid?" },
+{ who: $player, text: "Market research." },
+{ who: $manager, text: "Uh-huh. Well, market research wants table nine's eggs over easy, and she wants them before Christmas." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take table nine her eggs. $sister.callName's name is on the schedule on the wall next to mine, in his handwriting, with a little smiley face next to hers and nothing next to mine.
+
+<<case "circle">>
+$manager.callName pays my company every month to tell him how to make this place more money, and he pays me by the hour to carry plates around it. Today he's paying me to refill the sugar dispensers while he reads through the latest numbers my company sent him, at the counter, three feet away, moving his lips a little.
+
+He doesn't look up once. I fill every dispenser in the place, and I watch the money go round in a circle and end up right back where I'm standing.
+<</switch>>
+
+<<if $diner.exp >= 50>>
+	$manager.callName catches me on my way out and tells me, like every word of it physically hurts him, that I'm getting a raise. Ten bucks more.
+	<<set $diner.exp to 0>>
+    <<set $diner.pay += 10>>
+<</if>>
+
+<<UpdateStat "+" "Money" $diner.pay>>
+
+[[Finish up|Diner]]

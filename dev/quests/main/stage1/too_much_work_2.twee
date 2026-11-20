@@ -1,0 +1,94 @@
+:: Too Much Work 2 [event main_quest] {"position":"3700,250"}
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+I put the job postings online that same evening, and by breakfast my inbox is overflowing. Most of it is junk. People who can't spell "software", people who obviously stopped reading somewhere around the word "salary", and one guy who sent nothing but a photo of his car. No CV, no message, just the car. It is a nice car, to be fair. After an hour of digging I'm left with two names worth my time. The third one I already had. I book all three for the same day, back to back, in the meeting room.
+
+<<linkreplace "The first interview">>
+The first one isn't really an interview. The moment I started thinking about who should write the code, only one name came to mind, so I skipped the posting entirely and just called him.
+
+$ethan.name $ethan.surname shows up ten minutes early, backpack slung over one shoulder, wearing the same lazy grin he had at university. We spent two semesters crammed into a basement lab back then, building the very first version of the prototype. It was a clunky headset with more wires than sense, and on a good day it could pick up a handful of brainwave patterns. It didn't do anything to anyone. All it did was listen, and most of the code that taught it how to listen was his.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Would you look at that. A real office. With chairs that aren't held together by duct tape and hope." },
+{ who: $player, text: "Good to see you too, $ethan.name. Sit down before you start inspecting the furniture." },
+{ who: $ethan, text: "So the rumors are true? You actually kept tinkering with our old headset?" },
+{ who: $player, text: "Tinkering is underselling it a bit. Let's say it grew up. It does things now we wouldn't have dared to put in our project report." },
+{ who: $ethan, text: "Ha! I told you it had potential. Nobody ever listens to me." },
+{ who: $player, text: "Well, I'm listening now. I've got two clients and one very tight deadline, and I need somebody who writes clean code fast and doesn't need me to explain how my brain works." },
+{ who: $ethan, text: "Your brain? Man, nobody can explain how your brain works. But honestly, your timing is perfect. The startup I was contracting for went belly-up last month. I've been on a strict instant noodle diet ever since." },
+{ who: $player, text: "Then consider this your rescue from the noodles." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We end up talking for almost an hour, half of it work and half of it "remember when". When he leaves, he shakes my hand with both of his, like I just pulled him out of a lake, and he looks honestly grateful. It catches me off guard. I can't remember the last time I had anything that felt like a friend.
+
+<<linkreplace "The second interview">>
+$brian.name $brian.surname couldn't be more different from $ethan.name if he tried. He's in his mid-thirties, a bit heavy-set, in a band shirt that has been washed so often the band is mostly a rumor, and he pushes his glasses back up his nose about twice a minute. He sits down without waiting to be asked, digs a small circuit board out of his jacket pocket and slides it across the table before I've even managed a hello.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Built that last weekend. Custom signal amplifier. Check out the solder joints." },
+{ text: "I turn it over in my fingers. The joints are tiny, shiny and perfect. It's nicer than anything I've ever soldered myself, and I don't love admitting that." },
+{ who: $player, text: "You did all of this by hand?" },
+{ who: $brian, text: "Yeah. Microscope, steady hands, way too much coffee. Your ad said compact hardware with low power draw. That's, uh... that's pretty much my whole personality." },
+{ who: $player, text: "Say I hand you a schematic. How long until I'm holding a working unit?" },
+{ who: $brian, text: "Depends on the schematic. If it's good, about a week. If it's bad, I fix the schematic first, and then it's about a week." },
+{ who: $player, text: "Fair. I'll try to give you a good one." },
+{ who: $brian, text: "Everybody says that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's awkward in a way that's almost endearing. His eyes never quite land on mine, and he talks about voltage tolerances the way other guys talk about football. But he clearly knows his stuff, and in the whole conversation he doesn't ask me once what the hardware is actually supposed to do. I'll take that over charm any day.
+
+<<linkreplace "The third interview">>
+$darius.name $darius.surname is the last one, and he walks in like he's the one who scheduled the meeting. He's tall and athletic, his shirt was very obviously tailored, and he's got a leather folder tucked under one arm. His handshake is firm without trying to prove anything, and he waits until I've sat down before he takes his own seat.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Thanks for having me. I tried to read up on your company beforehand, but there isn't a whole lot out there yet." },
+{ who: $player, text: "We're new. That's more or less why you're here." },
+{ who: $darius, text: "Makes sense. For the last three years I did performance analytics for a sports franchise. Player tracking, fatigue models, crowd behavior. Mostly I took mountains of numbers nobody wanted to look at and turned them into decisions people could actually make." },
+{ who: $player, text: "Then you'll feel right at home. I've got a diner owner who'd love to know why some days are packed and others are dead. And soon I'll have a lot of sensor data that needs to make sense to people without an engineering degree." },
+{ who: $darius, text: "What kind of sensor data are we talking about?" },
+{ who: $player, text: "Behavioral stuff. Mood, focus, engagement. I'll walk you through the details once you've signed." },
+{ who: $darius, text: "Mysterious. I can work with that. Problems I've already seen tend to bore me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's sharp, a fair bit sharper than I'd hoped. He asks good questions and doesn't forget a single answer, which means I'll have to be careful about what I show him and when. Then again, that's exactly the kind of mind that can make the numbers look spotless for a client.
+
+<<linkreplace "Talk it over with $mom.callName and $sister.callName">>
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+By the time the last candidate is out the door it's already evening, and $mom.callName and $sister.callName are waiting for me in the main room. Judging by their faces, they watched every one of them come and go.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay, so. The tall one. $darius.name? Just putting it out there, he's cute." },
+{ who: $player, text: "He's an analyst, $sister.callName. Not a dating profile." },
+{ who: $sister, text: "I don't see why he can't be both." },
+{ who: $mom, text: "The one with the glasses walked straight past me. He didn't even say hello." },
+{ who: $player, text: "That's $brian.name. He's not here to make friends, he's here to build hardware, and he's the best I've come across." },
+{ who: $mom, text: "Your friend from university seemed lovely, though." },
+{ who: $player, text: "$ethan.name. He's the only one I'd trust with the code. He was there right at the beginning." },
+{ who: $mom, text: "So... which one are you going to pick?" },
+{ who: $player, text: "All of them. They start Monday." },
+{ who: $mom, text: "All three? Honey, wouldn't it be smarter to start with one and see how it..." },
+{ who: $player, text: "$mom.callName. I didn't put it to a vote. I'm telling you how it is." },
+{ text: "The room goes very quiet. $mom.callName holds my gaze for a long moment, then her shoulders sink and she nods." },
+{ who: $mom, text: "You're right. It's your company. I'm sorry, I shouldn't have..." },
+{ who: $player, text: "You don't have to apologize. You just have to be ready. Monday morning I want fresh coffee waiting when they walk in, and I want the two of you looking the part. People remember first impressions." },
+{ who: $sister, text: "Yes, boss." },
+{ who: $player, text: "Exactly." },
+{ text: "She says it like a joke. Then she waits for one of us to laugh, and neither of us does." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+[[Monday morning|Too Much Work 3]]
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

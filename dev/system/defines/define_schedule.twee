@@ -1,0 +1,730 @@
+:: Define Schedule [system] {"position":"500,0","size":"100,100"}
+/* Routines and daily plans ====================================================
+   Where mom and sister are, and what they do, works in two layers:
+
+   1. A ROUTINE (setup.routines.<sysName>.<routineId>, constants below) says what MAY happen in each
+      of the 21 action rows of a day (row = time slot * 3 + action, see $timeSlots).
+   2. The PLAN ($mom.plan / $sister.plan, story variables) is what WILL happen today. It is rolled from
+      the routine once per day (Daily Update, or the first time anyone asks for it that day), so it
+      stays the same for the whole day, even after a reload.
+
+   Scheduled tasks ($activeTasks) are not written into either of them. They are laid on top when
+   someone asks where she is (setup.npcAt / setup.npcNow), so a task that does not run (weekend, not
+   enough energy, missed) simply leaves her in her plan.
+
+   Which routine she follows lives in the state, by name only:
+       $mom.routine = { weekday: "mom_stage0", weekend: "weekend" }
+   A single weekday (0 Mon ... 6 Sun) can get its own routine: { weekday: "...", weekend: "...", 4: "friday_out" }.
+   Story code switches routines with  <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
+
+   A routine ------------------------------------------------------------------------------------------
+   {
+       extends: "mom_stage0",   optional: start from that routine (of the same character) and change only
+                           what this one names. rows is then an OBJECT of the rows that differ, keyed by
+                           row number: { 12: [ ...options ], 13: [ ...options ] } (a full array replaces all
+                           21). tasks and extras come from the base unless this routine has its own.
+                           A base can extend another routine too
+       rows: [ 21 rows ],  each row is an ARRAY OF OPTIONS, one of them is picked:
+           { location: "livingroom", activity: [ "watching_tv" ], weight: 2, requirements: [ "..." ] }
+               location      sysName of the place (Define Locations)
+               activity      activity ids (Define Activities), one of them is picked.
+                             Empty or left out: a random activity of hers for that place whose "when"
+                             includes the time slot (activities without "when" are never picked that way)
+               weight        optional, how likely this option is compared to the others (default 1)
+               requirements  optional TwineScript strings, all must be true or the option is dropped
+           One option with one activity is a PINNED row: it always happens and extras never replace it.
+           Pin everything the story relies on (sleep, meals, work).
+       tasks: [ { first: 4, last: 11 [, requirements: [ "..." ]] } ],
+                           rows (both ends included) the CMD scheduler may put tasks into. All other rows
+                           are locked there. Tasks only run on weekdays, so weekend rows are always locked
+       extras: [ { location: "bathroom", activity: [ "peeing" ], times: [0, 2], from: [ "home" ] }, ... ],
+                           short visits sprinkled over the day, min to max times. Always only into rows that
+                           are not pinned, not covered by a task today, and never next to another extra or to
+                           a row that is already at that place. Each extra narrows it down further with:
+               when          optional time slots it may happen in (default any)
+               from          optional places she has to be planned at for the row to be replaced: sysNames
+                             or group names from setup.locationGroups ("home"). Default: anywhere
+               requirements  optional TwineScript strings, checked once when the day is planned
+               check         optional function (cell, row, who) returning true if this row may be
+                             replaced. cell is the planned { location, activity }. For anything the fields
+                             above can not express, e.g. check: (cell) => cell.activity !== "studying"
+   }
+
+   Activities can carry two more fields for the plan (Define Activities):
+       when:     [ 1, 2, 3, 4, 5 ]   time slots in which a random pick may choose it
+       duration: [ 2, 3 ]            once picked, it goes on for that many actions (random between the two)
+                                     as long as the following rows allow it. Default 1
+
+   setup.privateLocations: places only one of them uses at a time (the bathroom). An option or extra
+   there is skipped while the other one is already planned there, unless it is the only choice.
+   setup.locationGroups: names for several places at once, usable in the "from" of an extra.
+   setup.inLocations(place, list)  is the place (sysName) one of list (sysNames or group names)?
+
+   Helpers:
+   setup.useRoutine(who, day, id)       switch routine: day = "weekday", "weekend" or 0-6 (id null removes
+                                        a single-day routine). Replans the rest of today if today changed
+   setup.getRoutineId(who [, weekday])  the routine id for that weekday (default today)
+   setup.getRoutine(who [, weekday])    the routine itself, with "extends" applied
+   setup.resolveRoutine(who, id)        any routine by id, with "extends" applied (undefined and a console
+                                        error if it does not exist)
+   setup.checkRoutines()                console errors for every broken routine (wrong row count, a row
+                                        without options, unknown place or activity). Runs at the end of
+                                        this passage, so a mistake shows up as soon as the game starts
+   setup.isTaskRow(who, row [, weekday])  may the CMD scheduler put a task in this row?
+   setup.planDay([who [, fromRow]])     rolls today's plan (both when who is left out). Rows before
+                                        fromRow keep what they had
+   setup.getPlan(who)                   today's plan { day, routine, rows: [ { location, activity [, extra] } ] },
+                                        rolled first if it is from another day
+   setup.npcAt(who, row)                { location, activity, task, extra } at that row today: the running
+                                        task (current row) or the scheduled one (other rows), else the plan.
+                                        location is the $locations entry, task the $activeTasks entry
+   setup.npcNow(who)                    the same for the current row
+   setup.npcIsAt(who, place)            is she at that place (sysName) right now? For event requirements
+   setup.updateNpcPositions()           PassageReady: copies npcNow into $mom/$sister.location and .activity
+   setup.describePlan(who)              the plan for the profile: per time slot, merged cells
+   (who = "mom", "sister" or the NPC object)
+*/
+<<set setup.routines to {
+    mom: {
+        /* Stage 0, until False Sympathy: she still works at the office of her boss */
+        mom_stage0: {
+            rows: [
+                /* Early Morning */
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "kitchen", activity: [ "cooking" ] } ],
+                /* Morning */
+                [ { location: "kitchen", activity: [ "cooking" ] } ], /* Breakfast */
+                [ { location: "bathroom", activity: [ "showering" ] }, { location: "momroom", activity: [ "getting_dressed" ] } ],
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                /* Noon */
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                /* Afternoon */
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                [ { location: "momswork", activity: [ "working_boss" ] } ],
+                /* Evening */
+                [ { location: "kitchen", activity: [ "cooking" ] } ], /* Dinner */
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                /* Night */
+                [ { location: "momroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "momroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "momroom" } ],
+                /* Late Night */
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+            ],
+            tasks: [ { first: 4, last: 11 } ],
+            extras: [
+                { location: "bathroom", activity: [ "peeing" ], times: [0, 2], from: [ "home" ] },
+                { location: "bathroom", activity: [ "showering" ], times: [0, 1], when: [4, 5], from: [ "home" ] },
+            ],
+        },
+        /* Stage 0, after False Sympathy: fired, home all day. Like mom_stage0, but her work hours are free time */
+        stage0_fired: {
+            extends: "mom_stage0",
+            rows: {
+                /* Morning 3 */
+                5: [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                /* Noon */
+                6: [ { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "momroom" } ],
+                7: [ { location: "kitchen", activity: [ "cooking" ] } ],
+                8: [ { location: "momroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Afternoon */
+                9: [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                10: [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                11: [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+            },
+        },
+        /* Stage 1 (Stage 1 Follow Up): she works at my office. Like mom_stage0, but at my office from Morning 2 on */
+        mom_stage1: {
+            extends: "mom_stage0",
+            rows: {
+                /* Morning 2 and 3 */
+                4: [ { location: "companystage1", activity: [ "working" ] } ],
+                5: [ { location: "companystage1", activity: [ "working" ] } ],
+                /* Noon */
+                6: [ { location: "companystage1", activity: [ "working" ] } ],
+                7: [ { location: "companystage1", activity: [ "working" ] } ],
+                8: [ { location: "companystage1", activity: [ "working" ] } ],
+                /* Afternoon */
+                9: [ { location: "companystage1", activity: [ "working" ] } ],
+                10: [ { location: "companystage1", activity: [ "working" ] } ],
+                11: [ { location: "companystage1", activity: [ "working" ] } ],
+            },
+            tasks: [
+                { first: 4, last: 11 },
+                /* the evening opens up after How is your new job? */
+                { first: 12, last: 14, requirements: [ "setup.questDone('mom_newJobImpression')" ] },
+            ],
+        },
+        /* Saturday and Sunday, every stage */
+        weekend: {
+            rows: [
+                /* Early Morning */
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] }, { location: "kitchen", activity: [ "cooking" ] } ],
+                /* Morning: breakfast */
+                [ { location: "kitchen", activity: [ "cooking" ] } ],
+                [ { location: "bathroom", activity: [ "showering" ] }, { location: "momroom", activity: [ "getting_dressed" ] }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                /* Noon */
+                [ { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "livingroom", activity: [ "watching_tv" ] }, { location: "momroom" } ],
+                [ { location: "kitchen", activity: [ "cooking" ] } ],
+                [ { location: "kitchen", activity: [ "cooking" ] } ],
+                /* Afternoon: lunch */
+                [ { location: "momroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                /* Evening: dinner */
+                [ { location: "kitchen", activity: [ "cooking" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "kitchen", activity: [ "cleaning_kitchen" ] }, { location: "momroom" } ],
+                /* Night */
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "momroom" } ],
+                [ { location: "momroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "momroom" } ],
+                /* Late Night */
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping" ] } ],
+            ],
+            tasks: [],
+            extras: [
+                { location: "bathroom", activity: [ "peeing" ], times: [0, 2], from: [ "home" ] },
+                { location: "bathroom", activity: [ "showering" ], times: [0, 1], when: [1, 4, 5], from: [ "home" ] },
+            ],
+        },
+    },
+    /*
+    ==========================================================================================================
+    ===============================================   Sister   ===============================================
+    ==========================================================================================================
+    */
+    sister: {
+        /* Stage 0: classes in the morning, free afternoon (chores once More Time Needed is done) */
+        sister_stage0: {
+            rows: [
+                /* Early Morning */
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping", "watching_reels" ] } ],
+                /* Morning: breakfast */
+                [ { location: "kitchen", activity: [ "doing_chores" ] } ],
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "bathroom", activity: [ "showering" ] } ],
+                [ { location: "college", activity: [ "studying_college" ] } ],
+                /* Noon */
+                [ { location: "college", activity: [ "studying_college" ] } ],
+                [ { location: "college", activity: [ "studying_college" ] } ],
+                [ { location: "college", activity: [ "studying_college" ] } ],
+                /* Afternoon */
+                [
+                    { location: "livingroom", activity: [ "doing_chores" ], requirements: [ "$sister.flags.doesChores" ] },
+                    { location: "livingroom", activity: [ "watching_tv" ], weight: 2, requirements: [ "!$sister.flags.doesChores" ] },
+                    { location: "sisterroom", requirements: [ "!$sister.flags.doesChores" ] },
+                ],
+                [
+                    { location: "livingroom", activity: [ "doing_chores" ], requirements: [ "$sister.flags.doesChores" ] },
+                    { location: "livingroom", activity: [ "watching_tv" ], weight: 2, requirements: [ "!$sister.flags.doesChores" ] },
+                    { location: "sisterroom", requirements: [ "!$sister.flags.doesChores" ] },
+                ],
+                [ { location: "sisterroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Evening: dinner */
+                [ { location: "kitchen", activity: [ "doing_chores" ] } ],
+                [ { location: "sisterroom", activity: [ "studying" ], weight: 2 }, { location: "sisterroom", activity: [ "watching_reels" ] }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "sisterroom", activity: [ "studying" ], weight: 2 }, { location: "sisterroom", activity: [ "watching_reels" ] }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Night */
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ] }, { location: "sisterroom", activity: [ "watching_reels" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ] }, { location: "sisterroom", activity: [ "watching_reels" ] } ],
+                /* Late Night */
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+            ],
+            extras: [
+                { location: "bathroom", activity: [ "peeing" ], times: [0, 2], from: [ "home" ] },
+                { location: "bathroom", activity: [ "showering" ], times: [0, 1], when: [4, 5], from: [ "home" ] },
+            ],
+        },
+        /* Stage 1 (Stage 1 Follow Up): like sister_stage0, but her afternoons are at my office */
+        sister_stage1: {
+            extends: "sister_stage0",
+            rows: {
+                /* Afternoon */
+                9: [ { location: "companystage1", activity: [ "working" ] } ],
+                10: [ { location: "companystage1", activity: [ "working" ] } ],
+                11: [ { location: "companystage1", activity: [ "working" ] } ],
+            },
+            tasks: [ 
+                { first: 9, last: 11 },
+                { first: 6, last: 8, requirements: [ "setup.questDone('sister_mostlyDone')" ] },
+            ],
+        },
+        sister_stage1_noon: {
+            extends: "sister_stage1",
+            rows: {
+                /* Afternoon */
+                6: [ { location: "companystage1", activity: [ "working" ] } ],
+                7: [ { location: "companystage1", activity: [ "working" ] } ],
+                8: [ { location: "companystage1", activity: [ "working" ] } ],
+            },
+        },
+        /* Saturday and Sunday, every stage */
+        weekend: {
+            rows: [
+                /* Early Morning */
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                /* Morning: breakfast */
+                [ { location: "kitchen", activity: [ "doing_chores" ] } ],
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "bathroom", activity: [ "showering" ] } ],
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Noon */
+                [ { location: "kitchen", activity: [ "doing_chores" ] } ],
+                [ { location: "sisterroom", activity: [ "studying", "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "sisterroom", activity: [ "studying", "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Afternoon: lunch */
+                [ { location: "sisterroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "sisterroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "sisterroom", weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Evening: dinner */
+                [ { location: "kitchen", activity: [ "doing_chores" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "sisterroom", activity: [ "watching_reels" ] } ],
+                [ { location: "livingroom", activity: [ "watching_tv" ], weight: 2 }, { location: "sisterroom", activity: [ "watching_reels" ] } ],
+                /* Night */
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                [ { location: "sisterroom", activity: [ "watching_reels" ], weight: 2 }, { location: "livingroom", activity: [ "watching_tv" ] } ],
+                /* Late Night */
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+                [ { location: "sisterroom", activity: [ "sleeping" ] } ],
+            ],
+            tasks: [],
+            extras: [
+                { location: "bathroom", activity: [ "peeing" ], times: [0, 2], from: [ "home" ] },
+                { location: "bathroom", activity: [ "showering" ], times: [0, 1], when: [4, 5], from: [ "home" ] },
+            ],
+        },
+    },
+}>>
+
+<<set setup.scheduleNpcs to ["mom", "sister"]>>
+<<set setup.privateLocations to ["bathroom"]>>
+<<set setup.locationGroups to {
+    home: [ "hallway", "bedroom", "livingroom", "kitchen", "bathroom", "momroom", "sisterroom" ],
+}>>
+
+/* The routine each of them starts with. Plans are rolled on demand (setup.getPlan) */
+<<set $mom.routine to { weekday: "mom_stage0", weekend: "weekend" }>>
+<<set $mom.plan to null>>
+<<set $sister.routine to { weekday: "sister_stage0", weekend: "weekend" }>>
+<<set $sister.plan to null>>
+
+/* Small helpers ============================================================== */
+<<set setup.scheduleKey = (who) => {
+    return (who && typeof who === "object") ? who.sysName : who;
+}>>
+
+<<set setup.scheduleRowCount = () => {
+    return State.variables.timeSlots.length * State.variables.time.actions.max;
+}>>
+
+<<set setup.scheduleCurrentRow = () => {
+    const t = State.variables.time;
+    return t.current.value * t.actions.max + (t.actions.max - t.actions.left);
+}>>
+
+<<set setup.scheduleRequirementsMet = (list) => {
+    return (list || []).every((req) => {
+        try {
+            return !!Scripting.evalTwineScript(req);
+        } catch (e) {
+            console.error('Schedule requirement "' + req + '" failed: ' + e.message);
+            return false;
+        }
+    });
+}>>
+
+<<set setup.scheduleLocationOpen = (place, slot) => {
+    const loc = setup.getLocationBySysName(place);
+    return !!loc && (!Array.isArray(loc.open) || loc.open.length === 0 || loc.open.includes(slot));
+}>>
+
+<<set setup.inLocations = (place, list) => {
+    return (list || []).some((entry) => entry === place
+        || (Array.isArray(setup.locationGroups[entry]) && setup.locationGroups[entry].includes(place)));
+}>>
+
+<<set setup.randomInt = (min, max) => {
+    return min + Math.floor(Math.random() * (max - min + 1));
+}>>
+
+<<set setup.pickWeighted = (list, weightOf) => {
+    if (!list.length) { return undefined; }
+    const total = list.reduce((sum, item) => sum + weightOf(item), 0);
+    let roll = Math.random() * total;
+    for (const item of list) {
+        roll -= weightOf(item);
+        if (roll < 0) { return item; }
+    }
+    return list[list.length - 1];
+}>>
+
+/* Routines ==================================================================== */
+
+<<set setup.getRoutineId = (who, weekday) => {
+    const v = State.variables;
+    const npc = v[setup.scheduleKey(who)];
+    const day = (weekday == null) ? v.date.today.value : weekday;
+    return npc.routine[day] || npc.routine[day < 5 ? "weekday" : "weekend"];
+}>>
+
+<<set setup.resolveRoutine = (who, id, chain) => {
+    const key = setup.scheduleKey(who);
+    const own = (setup.routines[key] || {})[id];
+    if (!own) {
+        console.error('setup.resolveRoutine: "' + key + '" has no routine "' + id + '"');
+        return undefined;
+    }
+    if (!own.extends) { return own; }
+
+    const seen = (chain || []).concat(id);
+    if (seen.includes(own.extends)) {
+        console.error('setup.resolveRoutine: routines of "' + key + '" extend each other in a circle: ' + seen.concat(own.extends).join(" > "));
+        return undefined;
+    }
+    const base = setup.resolveRoutine(key, own.extends, seen);
+    if (!base) { return undefined; }
+
+    let rows = (base.rows || []).slice();
+    if (Array.isArray(own.rows)) {
+        rows = own.rows;
+    } else if (own.rows) {
+        Object.keys(own.rows).forEach((row) => {
+            const index = Number(row);
+            if (!(index >= 0 && index < rows.length)) {
+                console.error('setup.resolveRoutine: routine "' + id + '" of "' + key + '" changes row ' + row + ', which does not exist');
+                return;
+            }
+            rows[index] = own.rows[row];
+        });
+    }
+    return {
+        rows: rows,
+        tasks: own.tasks || base.tasks || [],
+        extras: own.extras || base.extras || [],
+    };
+}>>
+
+<<set setup.getRoutine = (who, weekday) => {
+    const key = setup.scheduleKey(who);
+    return setup.resolveRoutine(key, setup.getRoutineId(key, weekday));
+}>>
+
+<<set setup.checkRoutines = () => {
+    const total = setup.scheduleRowCount();
+    Object.keys(setup.routines).forEach((key) => {
+        Object.keys(setup.routines[key]).forEach((id) => {
+            const routine = setup.resolveRoutine(key, id);
+            if (!routine) { return; }
+            const where = 'Routine "' + id + '" of "' + key + '"';
+            if (routine.rows.length !== total) {
+                console.error(where + " has " + routine.rows.length + " rows instead of " + total);
+            }
+            const entries = [];
+            routine.rows.forEach((row, index) => {
+                const list = Array.isArray(row) ? row : (row ? [row] : []);
+                if (!list.length) { console.error(where + ": row " + index + " has no options"); }
+                list.forEach((option) => entries.push({ option: option, at: "row " + index }));
+            });
+            (routine.extras || []).forEach((extra, index) => entries.push({ option: extra, at: "extra " + index }));
+            entries.forEach((entry) => {
+                if (!setup.getLocationBySysName(entry.option.location)) {
+                    console.error(where + ", " + entry.at + ': unknown place "' + entry.option.location + '"');
+                }
+                [].concat(entry.option.activity || []).forEach((activity) => {
+                    if (!(setup.activities[key] || {})[activity]) {
+                        console.error(where + ", " + entry.at + ': unknown activity "' + activity + '"');
+                    }
+                });
+            });
+        });
+    });
+}>>
+
+<<set setup.useRoutine = (who, day, id) => {
+    const v = State.variables;
+    const key = setup.scheduleKey(who);
+    if (id != null && !(setup.routines[key] || {})[id]) {
+        console.error('setup.useRoutine: "' + key + '" has no routine "' + id + '"');
+        return;
+    }
+    const before = setup.getRoutineId(key);
+    if (id == null) {
+        delete v[key].routine[day];
+    } else {
+        v[key].routine[day] = id;
+    }
+    const plan = v[key].plan;
+    if (plan && plan.day === v.date.dayCount && setup.getRoutineId(key) !== before) {
+        setup.planDay(key, setup.scheduleCurrentRow());
+    }
+}>>
+
+<<set setup.isTaskRow = (who, row, weekday) => {
+    const v = State.variables;
+    const day = (weekday == null) ? v.date.today.value : weekday;
+    /* tasks only run on weekdays (checkTaskProgression) */
+    if (day >= 5) { return false; }
+    const routine = setup.getRoutine(who, day);
+    return !!routine && (routine.tasks || []).some((range) =>
+        row >= range.first && row <= range.last && setup.scheduleRequirementsMet(range.requirements));
+}>>
+
+/* The options of one routine row that pass their requirements, with activity as an array and a weight */
+<<set setup.routineOptions = (who, routine, row) => {
+    const raw = (routine && routine.rows) ? routine.rows[row] : undefined;
+    const list = Array.isArray(raw) ? raw : (raw ? [raw] : []);
+    return list
+        .filter((option) => setup.scheduleRequirementsMet(option.requirements))
+        .map((option) => ({
+            location: option.location,
+            activity: [].concat(option.activity || []),
+            weight: (Number(option.weight) > 0) ? Number(option.weight) : 1,
+        }));
+}>>
+
+/* Activity ids an option can pick from: its own list, or the random pool of the place */
+<<set setup.optionActivities = (who, option, slot) => {
+    if (option.activity.length) { return option.activity; }
+    const loc = setup.getLocationBySysName(option.location);
+    if (!loc) { return []; }
+    return setup.getActivitiesForLocation(who, loc)
+        .filter((activity) => Array.isArray(activity.when) && activity.when.includes(slot))
+        .map((activity) => activity.id);
+}>>
+
+/* Plans ======================================================================= */
+
+/* Rolls the 21 rows of one day. others = plans of the other NPCs for the same day (private places) */
+<<set setup.buildPlan = (who, weekday, others) => {
+    const v = State.variables;
+    const key = setup.scheduleKey(who);
+    const routine = setup.getRoutine(key, weekday);
+    const max = v.time.actions.max;
+    const total = setup.scheduleRowCount();
+    const takenAt = (row, place) => setup.privateLocations.includes(place)
+        && others.some((plan) => plan.rows[row] && plan.rows[row].location === place);
+    const rows = [];
+    const flexible = [];
+    let current = null;
+
+    for (let row = 0; row < total; row++) {
+        const slot = Math.floor(row / max);
+        const all = setup.routineOptions(key, routine, row);
+        flexible.push(all.length > 1 || (all.length === 1 && all[0].activity.length !== 1));
+
+        let options = all.filter((option) => setup.scheduleLocationOpen(option.location, slot));
+        if (!options.length) { options = all; }
+        const free = options.filter((option) => !takenAt(row, option.location));
+        if (free.length) { options = free; }
+
+        if (!options.length) {
+            console.error('setup.buildPlan: row ' + row + ' of the routine "' + setup.getRoutineId(key, weekday) + '" of ' + key + ' has no option');
+            rows.push(rows.length ? clone(rows[rows.length - 1]) : { location: "hallway", activity: "" });
+            current = null;
+            continue;
+        }
+
+        /* keep doing the same thing while its duration lasts and this row allows it */
+        if (current && current.left > 0 && options.some((option) => option.location === current.location
+                && setup.optionActivities(key, option, slot).includes(current.activity))) {
+            current.left--;
+            rows.push({ location: current.location, activity: current.activity });
+            continue;
+        }
+
+        const option = setup.pickWeighted(options, (o) => o.weight);
+        const ids = setup.optionActivities(key, option, slot);
+        const activity = ids.length ? ids[Math.floor(Math.random() * ids.length)] : "";
+        if (!activity) {
+            console.error('setup.buildPlan: ' + key + ' has no activity with "when" for ' + option.location + ' in time slot ' + slot);
+        }
+        const definition = activity ? setup.getActivity(key, activity) : undefined;
+        const span = (definition && Array.isArray(definition.duration) && definition.duration.length) ? definition.duration : [1, 1];
+        current = { location: option.location, activity: activity, left: setup.randomInt(span[0], span[span.length - 1]) - 1 };
+        rows.push({ location: option.location, activity: activity });
+    }
+
+    setup.placeScheduleExtras(key, routine, rows, flexible, weekday, others);
+    return rows;
+}>>
+
+/* Sprinkles the routine extras (bathroom visits, ...) over the rows that are not pinned */
+<<set setup.placeScheduleExtras = (who, routine, rows, flexible, weekday, others) => {
+    const v = State.variables;
+    const key = setup.scheduleKey(who);
+    const max = v.time.actions.max;
+    /* a task that rests today (cooldown, Define Tasks) leaves its rows to the routine */
+    const tasks = (weekday < 5) ? ((v.activeTasks || {})[key] || []).filter((e) => !setup.taskRestsToday(e.task)) : [];
+    const used = [];
+
+    ((routine && routine.extras) || []).forEach((extra) => {
+        if (!setup.scheduleRequirementsMet(extra.requirements)) { return; }
+        const ids = [].concat(extra.activity || []);
+        if (!ids.length) { return; }
+        const times = extra.times || [1, 1];
+        let count = setup.randomInt(times[0], times[times.length - 1]);
+
+        const candidates = [];
+        rows.forEach((cell, row) => {
+            const slot = Math.floor(row / max);
+            if (!flexible[row]) { return; }
+            if (Array.isArray(extra.when) && !extra.when.includes(slot)) { return; }
+            if (tasks.some((entry) => row >= entry.startRow && row < entry.endRow)) { return; }
+            if ([rows[row - 1], rows[row + 1]].some((near) => near && near.location === extra.location)) { return; }
+            if (Array.isArray(extra.from) && !setup.inLocations(cell.location, extra.from)) { return; }
+            if (typeof extra.check === "function" && !extra.check(cell, row, key)) { return; }
+            if (!setup.scheduleLocationOpen(extra.location, slot)) { return; }
+            if (setup.privateLocations.includes(extra.location)
+                && others.some((plan) => plan.rows[row] && plan.rows[row].location === extra.location)) { return; }
+            candidates.push(row);
+        });
+
+        while (count > 0 && candidates.length) {
+            const row = candidates.splice(Math.floor(Math.random() * candidates.length), 1)[0];
+            if (used.some((other) => Math.abs(other - row) < 2)) { continue; }
+            used.push(row);
+            rows[row] = { location: extra.location, activity: ids[Math.floor(Math.random() * ids.length)], extra: true };
+            count--;
+        }
+    });
+}>>
+
+<<set setup.planDay = (who, fromRow) => {
+    const v = State.variables;
+    const keys = who ? [setup.scheduleKey(who)] : setup.scheduleNpcs;
+    keys.forEach((key) => {
+        const npc = v[key];
+        const others = setup.scheduleNpcs
+            .filter((other) => other !== key && v[other].plan && v[other].plan.day === v.date.dayCount)
+            .map((other) => v[other].plan);
+        const rows = setup.buildPlan(key, v.date.today.value, others);
+        const old = npc.plan;
+        if (fromRow > 0 && old && old.day === v.date.dayCount) {
+            for (let row = 0; row < fromRow && row < rows.length; row++) {
+                rows[row] = old.rows[row];
+            }
+        }
+        npc.plan = { day: v.date.dayCount, routine: setup.getRoutineId(key), rows: rows };
+    });
+}>>
+
+<<set setup.getPlan = (who) => {
+    const v = State.variables;
+    const key = setup.scheduleKey(who);
+    if (!v[key].plan || v[key].plan.day !== v.date.dayCount) {
+        setup.planDay(key);
+    }
+    return v[key].plan;
+}>>
+
+/* Where is she, and what is she doing? =========================================
+   Tasks only count on weekdays. In the current row only a task that really runs (inProgress) counts,
+   in the other rows every scheduled one that was not missed today. */
+<<set setup.npcAt = (who, row) => {
+    const v = State.variables;
+    const key = setup.scheduleKey(who);
+    const now = (row === setup.scheduleCurrentRow());
+    const entry = (v.date.today.value < 5)
+        ? ((v.activeTasks || {})[key] || []).find((e) => row >= e.startRow && row < e.endRow
+            && (now ? e.inProgress : (e.missedDay !== v.date.dayCount && !setup.taskRestsToday(e.task))))
+        : undefined;
+    const cell = setup.getPlan(key).rows[row] || {};
+    const planned = setup.getLocationBySysName(cell.location);
+
+    if (entry) {
+        const task = setup.getLiveTask(entry.task);
+        return {
+            location: (task.location && v.locations[task.location.id]) || planned,
+            activity: setup.getTaskActivity(task) || cell.activity,
+            task: entry,
+            extra: false,
+        };
+    }
+    return { location: planned, activity: cell.activity, task: undefined, extra: !!cell.extra };
+}>>
+
+<<set setup.npcNow = (who) => {
+    return setup.npcAt(who, setup.scheduleCurrentRow());
+}>>
+
+/* Is she at that place (sysName) right now? Reads npcNow, so it is right even before PassageReady has
+   moved her (CheckForEvent runs first): use it in event requirements */
+<<set setup.npcIsAt = (who, place) => {
+    const now = setup.npcNow(who);
+    return !!now.location && setup.sameLocation(now.location, setup.getLocationBySysName(place));
+}>>
+
+<<set setup.updateNpcPositions = () => {
+    const v = State.variables;
+    setup.scheduleNpcs.forEach((key) => {
+        const npc = v[key];
+        const now = setup.npcNow(key);
+        if (!now.location) { return; }
+        if (npc.location && npc.location.id !== now.location.id) {
+            npc.previousLocation = clone(npc.location);
+        }
+        npc.location = clone(now.location);
+        npc.activity = now.activity;
+    });
+}>>
+
+/* The plan for the profile: one entry per time slot, neighbouring actions that are the same merged
+   into one cell { place, doing, task, title, span, now, past } */
+<<set setup.describePlan = (who) => {
+    const v = State.variables;
+    const key = setup.scheduleKey(who);
+    const max = v.time.actions.max;
+    const nowRow = setup.scheduleCurrentRow();
+    return v.timeSlots.map((slot, s) => {
+        const cells = [];
+        for (let a = 0; a < max; a++) {
+            const row = s * max + a;
+            const at = setup.npcAt(key, row);
+            const place = at.location ? wikifyText(at.location.name) : "";
+            const doing = at.activity ? setup.activityText(key, at.activity) : "";
+            const task = !!at.task;
+            const last = cells[cells.length - 1];
+            if (last && last.place === place && last.doing === doing && last.task === task) {
+                last.span++;
+                last.rows.push(row);
+            } else {
+                cells.push({
+                    place: place,
+                    doing: doing,
+                    task: task,
+                    title: task ? wikifyText(setup.getLiveTask(at.task.task).title) : "",
+                    span: 1,
+                    rows: [row],
+                });
+            }
+        }
+        cells.forEach((cell) => {
+            cell.now = cell.rows.includes(nowRow);
+            cell.past = cell.rows[cell.rows.length - 1] < nowRow;
+        });
+        return { text: slot.text, now: Math.floor(nowRow / max) === s, cells: cells };
+    });
+}>>
+
+/* catches mistakes in the routines as soon as the game starts (see the browser console) */
+<<run setup.checkRoutines()>>

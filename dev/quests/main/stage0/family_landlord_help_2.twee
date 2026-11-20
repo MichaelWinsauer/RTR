@@ -1,0 +1,82 @@
+:: Family Landlord Help 2 [event main_quest] {"position":"3400,0","size":"100,100"}
+The staircase creaks under three people in a way it never does under one. $mom.callName and $sister.callName are right behind me, and I can hear $sister.callName's heels clicking on every step and $mom.callName quietly telling her to walk on the balls of her feet. $mom.callName is wearing the silk blouse, one button more open than she'd ever wear to an office, and a skirt that hugs her hips. $sister.callName went with the short black skirt and a tight top, and has spent the whole way over tugging the hem down an inch at a time. Neither of them has said much since we left the house.
+
+The hallway still smells of mildew and his cologne. I knock twice.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Yeah, yeah, come in already..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+His office is the same mess as always, invoices stacked halfway to the ceiling and the desk lamp doing its best to make everything look a little more yellow. $landlord.callName doesn't bother looking up at first. When he finally does and sees who's standing behind me, his little eyes go wide. Then the grin comes, slow and wet, and his gaze goes from $mom.callName to $sister.callName and back again, like he's trying to decide where to start.
+
+<<linkreplace "Enter the office">>
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Well, well, well. Look who brought company this time. Damn, kid. You've been holding out on me." },
+{ who: $player, text: "This is my $mom.relation, $mom.name, and my $sister.relation, $sister.name. We'd like to talk about the unit on the third floor." },
+{ who: $landlord, text: "The third floor. Still? I told you, kid, that's for real tenants." },
+{ text: "He says it to me, but he's looking at them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let them do the talking">>
+$mom.callName steps forward first. She's wearing her polite office smile, the one she saves for difficult clients, but her hand is gripping the strap of her purse hard enough to turn her knuckles white.
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "$landlord.callName, we know the space is in demand. But it would mean so much to us, to the whole family. We're happy to work with you, on the rent and... on anything else you might need." },
+{ who: $sister, text: "Yeah. We could help out around the building. Cleaning, errands, carrying stuff... whatever." },
+{ who: $landlord, text: "Anything, huh? That's a big word, sweetheart." },
+{ text: "He leans back until the chair groans, folds his hands over his gut and takes his time looking at them." },
+{ who: $landlord, text: "Your boy here said something about making it worth my while. Is that what this is? You two here to make it worth my while?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Step in">>
+$sister.callName's smile slips for a second. I step half in front of her before he can see it.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "That's exactly what it is. You give us the unit and a small break on the rent, and they'll come by regularly and help with whatever needs doing around here. Dressed nicely, friendly, whatever makes your week easier." },
+{ who: $mom, text: "We'd be happy to. Really." },
+{ who: $sister, text: "And if it takes a little off the rent every time we come by, everybody wins. Right?" },
+{ text: "He looks at $mom.callName's blouse for a long time, then at $sister.callName's legs, and runs his tongue over his bottom lip like he's tasting the deal." },
+{ who: $landlord, text: "Let me get this straight. Your $mom.relation and your $sister.relation, coming up here dressed like that, helping me out whenever I ask?" },
+{ who: $player, text: "As long as we get the office and the discount." },
+{ who: $landlord, text: "Hmph. That young lady with the startup sure as hell can't offer me two of 'em." },
+{ text: "He drums his fingers on the desk, enjoying every second he makes us wait." },
+{ who: $landlord, text: "Fine. You win, kid. The third floor's yours. They start next week, and I'll knock a little off every time they show up. Every time. So they'd better show up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Leave the office">>
+$mom.callName and $sister.callName put on matching polite smiles, the kind you give a dentist. Neither of them backs out. He's practically drooling on his ledger.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Thank you. We appreciate it." },
+{ who: $landlord, text: "Don't thank me yet. I expect those visits regular. And friendly. Real friendly. Now get out of my office before I change my mind." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We walk back down the hallway without a word. $mom.callName and $sister.callName stay close together, shoulders almost touching, their heels clicking on the old boards in step. At the bottom of the stairs $sister.callName finally lets out a breath and tugs her skirt down one last time, as if it could still make a difference.
+
+$mom.callName puts an arm around her. Over her head she gives me a small, tired smile, the one that says we did it, and she means it as a comfort for me. I smile back.
+
+<<UpdateStat "+" "Corruption" 6>>
+<<UpdateStat "+" "MomCorruption" 10>>
+<<UpdateStat "+" "SisterCorruption" 10>>
+<<ProfileLog $mom "The Landlord's Helper" "Together with $sister.callName she'll visit $landlord.callName every week, dressed up and ready to help with whatever he wants. In return I got the bigger office, and he takes a little off the rent each time they show up.">>
+<<ProfileLog $sister "The Landlord's Helper" "Together with $mom.callName she'll visit $landlord.callName every week, dressed up and ready to help with whatever he wants. In return I got the bigger office, and he takes a little off the rent each time they show up.">>
+<<set setup.getMealById("landlord_help_awkward").isActive to true>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

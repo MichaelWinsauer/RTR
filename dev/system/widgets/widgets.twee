@@ -1,0 +1,302 @@
+:: Widgets [nobr system widget] {"position":"2225,25","size":"200,200"}
+/* Usage: =====================================================================
+	<<DisplayActivity CHARACTER [SIZE]>>
+	One of the files of what she is doing right now (setup.activityMedia, the same one for the whole
+	action). SIZE is the image height / the maximum video size in px. Nothing when the activity has no files.
+*/
+<<widget "DisplayActivity">>
+	<<set _daFile to setup.activityMedia($args[0], $args[0].activity)>>
+	<<if _daFile>>
+		<<if ["mp4", "webm", "ogg", "mov"].includes(_daFile.split(".").pop().toLowerCase())>>
+			<<Video _daFile "" "" $args[1]>>
+		<<else>>
+			<<Image _daFile "" "" "" $args[1]>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<ShowInformationPanel 0|1|2]>>
+*/
+<<widget "ShowInformationPanel">>
+	<<set _target = $args[0]>>
+	<<if $displayInformation != _target>>
+		<<set $displayInformation = _target>>
+		<<replace "#ui-left-panel">>
+			<<switch _target>>
+				<<case 0>><<include "Quests Caption">>
+				<<case 1>><<include "Activities Caption">>
+                <<case 3>><<include "Following Caption">>
+			<</switch>>
+		<</replace>>
+		<<run $('.sb-tabs').attr('data-active', _target)>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CacheAudio "name" "path">>
+*/
+<<widget "CacheAudio">>
+	<<set _path to $path + $args[1]>>
+    <<cacheaudio $args[0] _path>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<ConsoleLog VALUE DESCRIPTION>>
+*/
+<<widget "ConsoleLog">>
+	<<nobr>>
+		<<if $args[1] != undefined>>
+			<<set _description to $args[1]>>
+			<<print "<<script>>console.log('" + _description + $args[0] + "')<</script>>">>
+		<<else>>
+			<<print "<<script>>console.log('" + $args[0] + "')<</script>>">>
+		<</if>>
+	<</nobr>>
+<</widget>>
+/* Usage: =====================================================================
+	<<Capitalize STRING>>
+*/
+<<widget "Capitalize">>
+	<<print "<<script>>$(output).wiki(window.capitalize('" + $args[0] + "'))<</script>>">>
+<</widget>>
+
+<<widget "GenerateEventsForQuests">>
+	<<set _gefqLines to setup.getQuestLines()>>
+	<<for _gefqL = 0; _gefqL < _gefqLines.length; _gefqL++>>
+		<<set _gefqLine to _gefqLines[_gefqL]>>
+		<<for _i = 0; _i < _gefqLine.quests.length; _i++>>
+			<<set _q to _gefqLine.quests[_i]>>
+			<<if _q.needsEvent == true and def _q.passage and def _q.returnPassage>>
+				<<set _gefq_event = {
+					id: $events.length,
+					passage: _q.passage,
+					where: _q.where,
+					whenTime: _q.whenTime,
+					whenDay: _q.whenDay,
+					requirements: _q.requirements,
+					device: _q.device,
+					chance: 100,
+					cooldown: 0,
+					once: true,
+					returnPassage: _q.returnPassage,
+					active: _q.active,
+					finished: false,
+					completedAtDay: 0
+				}>>
+				<<set _q.eventId to _gefq_event.id>>
+				<<set $events.push(_gefq_event)>>
+			<</if>>
+		<</for>>
+	<</for>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<Mail _selectedMail [SHOWANSWEROPTIONS]>>
+*/
+<<widget "Mail">>
+	<<set _mail to $args[0]>>
+
+	<div class="mail-container">
+    	<div class="mail-title">
+        	<<=_mail.title>>
+        </div>
+        <div class="mail-address">
+        	/* the live address of the sender: the mail itself holds a copy from StoryInit, with the default names */
+        	<<= (State.variables[_mail.who.sysName] || {}).mailAddress || _mail.mailAddress>>
+        </div>
+        
+        <div class="mail-body">
+        	<<for _i = 0; _i < _mail.body.length; _i++>>
+            	<<set _part to _mail.body[_i]>>
+            	<<if _part.who && _part.who.sysName == "player">>
+                	<div class="mail-body-part right">
+                        <<print _part.text>>
+                    </div>
+                <<else>>
+                	<div class="mail-body-part">
+                        <<print _part.text>>
+                    </div>
+                <</if>>
+            <</for>>
+        </div>
+
+        <<if _mail.answerOptions && _mail.answerOptions.length > 0 && $args[1] != "false">>
+        <div class="mail-answer-options">
+            <<for _j = 0; _j < _mail.answerOptions.length; _j++>>
+                <<set _opt to _mail.answerOptions[_j]>>
+                /* capture: the link runs on click, when the loop has long moved _opt on to the last option */
+                <<capture _mail, _opt>>
+                <<link _opt.short>>
+                    <<run handleMailReply(_mail.id, _opt.id)>>
+                <</link>>
+                <</capture>>
+                <br>
+            <</for>>
+        </div>
+        <</if>>
+    </div>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CCTVButton NAME KEY>>
+*/
+<<widget "CCTVButton">>
+	<<set _id = $args[0]>>
+    <<set _location = $locations[$args[0]]>>
+	<<set _active = ($cctv.currentId === _id)>>
+    <<set _className to "cctv-location-button">>
+    <<set _chars to [$mom, $sister]>>
+    <<if _active>>
+    	<<set _className += " cctv-location-button-active">>
+    <</if>>
+	
+    <div @class='_className' style='cursor:pointer;'>
+       	<<capture _id>>
+        	<<link _location.name>>
+                <<set $cctv.currentId = _id>>
+                <<replace "#cctv-display">>
+                    <<include "CMD CCTV">>
+                <</replace>>
+                <<replace "#cctv-control">>
+                    <<include "CMD CCTV-Control">>
+                <</replace>>
+                <<run setup.restoreScroll()>>
+            <</link>>
+        <</capture>>
+        <<for _i, _character range _chars>>
+        	<<if setup.sameLocation(_character.location, _location)>>
+            	<div class="cctv-location-button-avatar">
+                	<div>
+                        <<set _path to "images/characters/portraits/" + _character.sysName + ".jpg">>
+                        <<Media _path "" "" "false">>
+                    </div>
+                </div>
+            <</if>>
+        <</for>>
+    </div>
+		
+<</widget>>
+
+/* Usage: =====================================================================
+	<<DisplayCurrentCCTV>>
+*/
+<<widget "DisplayCurrentCCTV">>
+	<<set _cctvSubject to setup.getCCTVSubject()>>
+
+    <<set _overlay to "cctv-max">>
+    <<if $time.current.value >= 5>>
+    	<<set _overlay += " night">>
+    <</if>>
+
+	<<if _cctvSubject and _cctvSubject.media>>
+		<<Media _cctvSubject.media "" "" "false" _overlay>>
+	<<else>>
+		<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#666; background:#111; font-size:1.3em; text-align:center; padding:40px;">
+			<<set _path to "images/locations/cctv/" + $locations[$cctv.currentId].sysName + ".jpg">>
+            <<Media _path "" "" "false" _overlay>>
+		</div>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<DisplayStatHorizontal TEXT VALUE MAX [ICON]>>
+*/
+<<widget "DisplayStatHorizontal">>
+	<<set _text  = $args[0]>>
+	<<set _value = Number($args[1])>>
+	<<set _max   = Number($args[2])>>
+	<<set _icon  = ($args[3] || "")>>
+
+	<<set _percent = (_max > 0) ? Math.clamp((_value / _max) * 100, 0, 100) : 0 >>
+
+	<<set _filledBarStyle = "<div style='height: 100%; width: " + _percent + "%; background: #EBDDC5; transition: width .4s ease;border-radius: .5rem;box-shadow: 0 10px 30px rgba(0,0,0,.1) inset;'></div>">>
+	<div style="position: relative; width: 100%; display: flex; justify-content: start; flex-direction: column; margin-bottom: .5rem;">
+		<div style="display: flex; align-items: center; ">
+			<<if _icon != "">>
+				<span style="font-size: 1.25rem; line-height: 1;"><<=_icon>></span>
+			<</if>>
+			<span style="flex: 1; text-align: left;"><<=_text>></span>
+			<span style="font-size: .75rem; opacity: .75; white-space: nowrap;"><<=_value>>/<<=_max>></span>
+		</div>
+		<div style=" height: .5rem; overflow: hidden; display: flex;position: relative;gap: .15rem;">
+
+            <<=_filledBarStyle>>
+            <div style="flex: 1; height: 100%; background: #EBDDC550;border-radius: .5rem;box-shadow: 0 10px 30px rgba(0,0,0,.1) inset;"></div>
+		</div>
+	</div>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CalculateFinances RESET?>>
+*/
+<<widget "CalculateFinances">>
+    <<if $args[0]>>
+        <<set $company.finances.income.projects = 0>>
+        <<set $company.finances.income.revenue = 0>>
+        <<set $company.finances.income.tasks = 0>>
+        <<set $company.finances.income.subscriptions = 0>>
+        <<set $company.finances.income.sales = 0>>
+        <<set $company.finances.income.services = 0>>
+        <<set $company.finances.income.investments = 0>>
+        <<set $company.finances.income.rent = 0>>
+        <<set $company.finances.income.extra = 0>>
+
+        <<set $company.finances.expenses.rent = $rent>>
+        <<set $company.finances.expenses.wages = 0>>
+        <<set $company.finances.expenses.utensils = 0>>
+        <<set $company.finances.expenses.tax = 0>>
+        <<set $company.finances.expenses.equipment = 0>>
+        <<set $company.finances.expenses.utilities = 0>>
+        <<set $company.finances.expenses.extra = 0>>
+    <</if>>
+
+
+    <<set $company.finances.income.revenue = 0>>
+    <<for _i = 0; _i < $company.projects.length; _i++>>
+        <<set _project to $company.projects[_i]>>
+        <<if _project.active>>
+            <<set $company.finances.income.revenue += _project.revenue>>
+        <</if>>
+    <</for>>
+
+    <<if $company.stage > 0>>
+        <<set $company.finances.money += $player.money>>
+        <<set $company.finances.income.extra += $player.money>>
+        <<set $player.money = 0>>
+    <</if>>
+
+    /* always the current rent (Define Misc), not only after a reset: it changes with the landlord deal */
+    <<set $company.finances.expenses.rent = $rent>>
+
+    <<set $company.finances.expenses.wages = 0>>
+    <<for _i = 0; _i < $company.employees.length; _i++>>
+        <<set _employee to State.variables[$company.employees[_i].sysName]>>
+        <<set $company.finances.expenses.wages += _employee.wage * 7>>
+    <</for>>
+<</widget>>
+
+
+
+/* Usage: =====================================================================
+	<<PayRent>>
+	Pays what the landlord wants right now (setup.rentOwed: this week plus last week's leftovers) from my wallet
+	in Stage 0 or the company account later, prints the money line, clears the debt and moves the rent on to
+	next week (setup.settleRent, Define Misc). Also lets the mom quest "Waiting..." (mom_waitRent) move on.
+	Check setup.rentFunds() >= setup.rentOwed() before offering it. Used by "Rent Due" and "Landlord Pay Rent".
+*/
+<<widget "PayRent">>
+	<<set _prOwed to setup.rentOwed()>>
+	<<if $company.stage == 0>>
+		<<UpdateStat "-" "Money" _prOwed>>
+	<<else>>
+		<<set $company.finances.money -= _prOwed>>
+		<<run Notification.show("Company funds have decreased by $" + _prOwed + ".", { type: Notification.NEGATIVE })>>
+		<span class="red statupdate">Company funds have decreased by $<<= _prOwed>>.</span>
+	<</if>>
+	<<set $company.finances.spentToday += _prOwed>>
+	<<set $player.debt to 0>>
+	<<set $debtMissed to false>>
+	<<run setup.settleRent()>>
+	<<if setup.getQuestById("mom_waitRent").active == true>><<NextQuest $mom>><</if>>
+<</widget>>

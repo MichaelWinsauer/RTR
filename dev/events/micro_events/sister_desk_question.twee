@@ -1,0 +1,75 @@
+:: Sister Desk Question [micro_event event nobr] {"position":"1300,3150"}
+/* Desk visitor (micro event 24, "Her excuses to be near me" in Define Events): she brings me a problem she could
+   have solved herself, or taken to $mom. Shown in the CMD drawer, so no action is spent and there is no exit link.
+   Counts toward $sister.flags.officeExcuses. */
+<<set $sister.flags.officeExcuses += 1>>
+<p>She parks the chair on my side of the desk instead of across from it, close enough that her knee knocks into mine when she sits down. She doesn't move it away. Her laptop is already open on her lap.</p>
+<<DisplayActivity $sister 300>>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay, I need a professional opinion. A boss opinion. The real kind, with the frowny face." },
+	{ who: $player, text: "Is something on fire?" },
+	{ who: $sister, text: "Sort of? The cleaning company skipped the meeting room again. So I wrote them an email. Three emails, actually. You pick." },
+	{ text: "She turns the laptop toward me. The first one apologizes four times for bothering them. The second one says 'frankly unacceptable' and has two exclamation marks in the subject line. The third one is the second one plus a GIF of a cat pushing a glass off a table." },
+	{ who: $player, text: "You know $mom.callName handles the building stuff." },
+	{ who: $sister, text: "I didn't want to bother her with it." },
+	{ who: $player, text: "But me you'll bother." },
+	{ who: $sister, text: "You're different. You're... you've got the nicer chair. It's very calming over here. I think it's the armrests." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="desk-question-choice">
+	<div>
+		<<link "Walk her through it">>
+			<<replace "#desk-question-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I take the laptop and start on a fourth version. She leans in to read along, her chin almost on my shoulder, and every time I delete a line she makes a small wounded noise on behalf of her exclamation marks." },
+					{ who: $sister, text: "You're taking all the feelings out." },
+					{ who: $player, text: "That's what makes it scary. Nobody's scared of a cat GIF." },
+					{ who: $sister, text: "I would be. From a stranger? Terrifying." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>The finished email is two sentences long and takes us twenty minutes, mostly because she insists on typing it herself, one key at a time, as slowly as she can get away with. When she finally hits send, she doesn't get up. She sits there with the laptop closed on her knees, warm against my arm, and asks whether I've eaten anything today.</p>
+				<<UpdateStat "+" "SisterRelation" 2>>
+				<<UpdateStat "+" "SisterLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Send her to $mom.callName">>
+			<<replace "#desk-question-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Ask $mom.callName. It's her department, and she's better at scary emails than I am." },
+					{ who: $sister, text: "Right. No, totally. That makes sense." },
+					{ text: "She closes the laptop and smiles at me. It's a perfectly nice smile that doesn't go anywhere near her eyes." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>Her chair squeaks all the way back across the office. Later I see which version went out: the polite one, with all four apologies still in it. As far as I can tell, she never went anywhere near $mom.callName's desk.</p>
+				<<UpdateStat "-" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Let her work from your desk">>
+			<<replace "#desk-question-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Send the second one and lose the cat. And if it's that calming over here, stay and work from here." },
+					{ who: $sister, text: "Wait, really? Here here?" },
+					{ who: $player, text: "Take the corner. Don't touch my coffee." },
+					{ who: $sister, text: "I would never touch your coffee. Your coffee is basically syrup." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She pulls her chair in against the corner of my desk and stays there for the rest of the afternoon with her knees tucked up, humming under her breath while she works. She gets more done in two hours than she usually manages in a day. Every so often I look up and find her already looking at me, and she dives straight back into her screen as if I'd caught her taking something out of my wallet.</p>
+				<<UpdateStat "+" "SisterRelation" 1>>
+				<<UpdateStat "+" "SisterLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

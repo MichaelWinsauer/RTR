@@ -1,0 +1,100 @@
+:: Sister Desk Flashcards [micro_event event nobr] {"position":"1675,3275","size":"100,100"}
+/* Desk visitor (micro event 37, "A normal workday" in Define Events): she has a stats midterm and wants me to quiz
+   her. Shown in the CMD drawer, so no action is spent and there is no exit link.
+   The third choice needs her at 40 corruption: a question for every card she gets right, and one for me if she
+   misses. She misses one on purpose. */
+<p>$sister.callName drops into the chair across from me and slaps a stack of index cards onto my desk. They're held together with a hair tie. Some are written in blue pen, some in green, and one in what looks like eyeliner.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Quiz me. Five minutes. I have a stats midterm on Friday and my brain is basically a screensaver right now." },
+	{ who: $player, text: "Don't you have a study group?" },
+	{ who: $sister, text: "I have a group chat called 'study group'. It's ninety percent memes and one guy asking if anybody has the slides. Nobody ever has the slides." },
+	{ text: "I pull the first card off the stack." },
+	{ who: $player, text: "What's a p-value?" },
+	{ who: $sister, text: "It's the... probability... that you're wrong. On purpose?" },
+	{ who: $player, text: "No." },
+	{ who: $sister, text: "Okay, but in spirit?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="sister-flashcards-choice">
+	<div>
+		<<link "Quiz her properly">>
+			<<replace "#sister-flashcards-choice">>
+				<p>I go through the whole stack with her. The first ten are a massacre. Somewhere around card fifteen she stops guessing and starts thinking, and by card twenty-five she's answering before I've finished reading the question and slapping the desk every time she's right.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $sister, text: "Standard deviation! How far things wander off from the average! Like $ethan.name in a meeting!" },
+					{ who: $ethan, text: "I heard that." },
+					{ who: $sister, text: "You were meant to!" },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>When the stack runs out, she wraps the hair tie back around it and holds the cards against her chest like a diploma.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $sister, text: "Same time tomorrow?" },
+					{ who: $player, text: "Your midterm's on Friday." },
+					{ who: $sister, text: "So, yes." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Make it interesting">>
+			<<replace "#sister-flashcards-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Every card you miss, you stand up and say 'my $sister.playerRelation is a genius'. Loud enough for the whole office." },
+					{ who: $sister, text: "Absolutely not. That's psychological warfare." },
+					{ who: $player, text: "Then don't miss." },
+					{ text: "She narrows her eyes at me, and I can see the exact moment the competitive streak kicks in. It's the same face she used to make at Monopoly, right before she flipped the board." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She misses three. The first time she mumbles it into her collar. The second time it's at normal volume, through her teeth. The third time she gets up, faces the room and announces it like a town crier, and $ethan.name gives her a standing ovation from his chair while $brian.name claps twice, very quietly, without looking up from his board.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $sister, text: "I hate you. You're a terrible tutor and a worse person." },
+					{ who: $player, text: "You got thirty-one out of thirty-four." },
+					{ who: $sister, text: "...I did, didn't I?" },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+				<<UpdateStat "+" "Morale" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<if setup.corruptionTotal("sister") >= 40>>
+		<div>
+			<<link "Trade questions">>
+				<<replace "#sister-flashcards-choice">>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "New rules. Every one you get right, you can ask me anything. Every one you miss, I get to ask you." },
+						{ who: $sister, text: "Anything anything?" },
+						{ who: $player, text: "Anything." },
+						{ text: "She gets the next six right. Her questions are easy ones, at first: my worst date, whether I still have the dinosaur sheets, if I cried at the end of that movie we watched when she was home with the flu. Then card seven comes up. It's the p-value again, and she knew that one two minutes ago." },
+						{ who: $sister, text: "No idea. Totally blank. Your turn." },
+						{ text: "She sits very straight in her chair with her hands in her lap and waits." },
+						{ who: $player, text: "Why'd you miss that one?" },
+						{ text: "Her mouth opens, closes. The tips of her ears go pink." },
+						{ who: $sister, text: "That's... you can't ask that. Ask a better question." },
+						{ who: $player, text: "That's the one I want." },
+						{ who: $sister, text: "Then I'm going to need way more flashcards." },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<p>She scoops the cards off my desk and leaves without answering. For the rest of the afternoon she types with her head down, and every once in a while I see her turn one particular card over in her fingers and put it back on the pile.</p>
+					<<UpdateStat "+" "SisterLust" 2>>
+					<<UpdateStat "+" "SisterRelation" 1>>
+				<</replace>>
+			<</link>>
+		</div>
+	<</if>>
+</div>

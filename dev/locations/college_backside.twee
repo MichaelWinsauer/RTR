@@ -1,0 +1,9 @@
+:: College Backside [location] {"position":"2100,1550","size":"100,100"}
+<<CheckLocation>>
+Behind the main building, the college stops pretending. A row of green dumpsters lines the brick wall, every one stenciled CARDBOARD ONLY and every one stuffed with trash bags, under a sign that threatens to prosecute anyone else who uses them. The concrete is always a little wet and smells faintly of old milk. The noise from the front barely reaches back here, and if two people wanted a conversation the whole campus didn't hear, this is where they'd have it.
+
+<<CheckNPCLocation>>
+
+[[College]]
+
+

@@ -1,0 +1,110 @@
+:: Company Management Dashboard [nobr] {"position":"2250,2675","size":"200,200"}
+<div id="Company-Management-Dashboard">
+	<section class="cmd-header">
+    	<<include "CMD Header">>
+    </section>
+    <section class="cmd-schedule-slots">
+    	<<include "CMD Schedule Slots">>
+    </section>
+    <section class="cmd-area cmd-schedule" id="cmd-schedule">
+    	<<include "CMD Schedule">>
+    </section>
+    <section class="cmd-area cmd-finances">
+    	<<include "CMD Finances">>
+    </section>
+    <section class="cmd-area cmd-projects" id="cmd-projects">
+    	<<include "CMD Projects">>
+    </section>
+    <section class="cmd-area cmd-cctv-control" id="cctv-control">
+    	<<include "CMD CCTV-Control">>
+    </section>
+    <section class="cmd-area cmd-cctv" id="cctv-display">
+    	<<include "CMD CCTV">>
+    </section>
+    <section class="cmd-area cmd-stats" id="cmd-stats">
+    	<<include "CMD Stats">>
+    </section>
+    <section class="cmd-area cmd-management">
+    	<<include "CMD Management">>
+    </section>    
+    <section class="cmd-area cmd-other">
+    	<<include "CMD Other">>
+    </section>
+    <section class="cmd-area cmd-mails">
+    	<<include "CMD Mails">>
+    </section>
+    <section class="cmd-area cmd-actions">
+    	<<include "CMD Actions">>
+    </section>
+    <div id="ui-bar-tray">
+    	<div id="ui-bar-history">
+            <button id="nav-back" onclick="SugarCube.Engine.backward()" title="Go Back">
+
+            </button>
+            <button id="nav-forward" onclick="SugarCube.Engine.forward()" title="Go Forward">
+
+            </button>
+        </div>
+        <div id="custom-tray-buttons" class="tray-icons">
+        	<button class="tray-icon-btn" aria-label="Quests" title="Quests" onclick="displayQuestDialog()">
+            	<span class="sc-ic">&#xf06e;</span>
+            </button>
+        	<button class="tray-icon-btn" aria-label="Saves" title="Saves" onclick="SugarCube.UI.saves()">
+            	<span class="sc-ic">&#xf0c7;</span>
+            </button>
+            <button class="tray-icon-btn" aria-label="Restart" title="Restart" onclick="SugarCube.UI.restart()">
+            	<span class="sc-ic">&#xf2f1;</span>
+            </button>
+            <button class="tray-icon-btn" aria-label="Settings" title="Settings" onclick="SugarCube.UI.settings()">
+            	<span class="sc-ic">&#xf013;</span>
+            </button>
+            <button class="tray-icon-btn" aria-label="Help" title="Help" onclick="displayHelpDialog()">
+            	<span class="help-q">?</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<<script>>
+window.displayQuestDialog = function () {
+    Dialog.create("Active Quests", "quest-dialog");
+	
+    const container = document.createElement("div");    
+    container.innerHTML = window.wikifyHTML('<<include "Quests Caption">>');
+        
+    Dialog.body().append(container);
+    Dialog.open();
+};
+<</script>>
+
+<style>
+#ui-bar-tray {
+  position: absolute;
+  top: -2.5rem;
+  left: .5rem;
+}
+
+#nav-back::before, #nav-forward::before {
+  content: "\f060";
+  display: block;
+  font-size: 1.1em;
+  width: 1em;
+  font-family: sc-icons !important;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+  text-transform: none;
+}
+#nav-forward::before {
+  content: "\f061";
+}
+
+.quest-dialog {
+  min-width: 30vw !important;
+  max-width: 50vw !important;
+}
+</style>
+
+

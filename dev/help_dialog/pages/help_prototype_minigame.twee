@@ -1,0 +1,19 @@
+:: Help Prototype Minigame [nobr] {"position":"300,4625"}
+<p>You have a short time to finish three things. The timer is at the top right.</p>
+<dl class="help-stats">
+	<dt>Waveform</dt><dd>Move the three sliders (frequency, amplitude, phase) until your wave lines up with the red one. Worth 30% of the score.</dd>
+	<dt>Signals</dt><dd>Type the corrupted phrases exactly. The static hides some of the letters but the rest stays readable. Worth 30%.</dd>
+	<dt>Dials</dt><dd>Turn every dial so its pointer sits on the small marker. Worth 40%.</dd>
+</dl>
+<p><b>Once a part is matched it is locked for good.</b> A locked dial, waveform or phrase can't be changed again, not by you and not by the machine.</p>
+<p><b>Glitches.</b> An unfinished prototype misbehaves. The less stable it is, the more often:</p>
+<ul>
+	<li>dials slip a step or two,</li>
+	<li>the sliders drift,</li>
+	<li>a typed letter disappears,</li>
+	<li>the timer skips a second,</li>
+	<li>the screen tears for a moment,</li>
+	<li>the whole thing hangs and ignores you for a second or two.</li>
+</ul>
+<p>At full stability none of this happens. The finished score is shown on the button when you are done.</p>
+<div class="help-note">Lock the easy parts first and keep an eye on the clock. A hang is a good moment to look at what is still open.</div>

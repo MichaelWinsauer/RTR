@@ -1,0 +1,79 @@
+:: It Makes A Difference 2 [event sister_quest scene] {"position":"3700,1525"}
+/* Quest "It Makes A Difference" (sister_itMakesADifference), part 2 of 3, after "It Makes A Difference". I thank her for everything
+   she does at the office, and she nearly cries. She half brings up the kiss from Conflicting Feelings, and I let it go.
+   Before she leaves I tell her I'm staying late at the office tonight, and send her home when she offers to stay.
+   The link to part 3 jumps the clock to the Night (<<AdvanceTimeTo 5>>) and puts me at My Desk. */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+She sits down across the table from me instead of next to me and puts the notepad down between us, lined up neatly with the edge of the table. She clicks the pen. Then she clicks it again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Whatever it is, I can fix it. Just say it fast, like ripping off a band-aid." },
+{ who: $player, text: "It's nothing you need to fix." },
+{ text: "Click. She glances at the closed door, then back at me, and her voice drops, even though there's nobody out there to hear it." },
+{ who: $sister, text: "Is it about... you know. Before. At home. Because I haven't said anything to anybody, I swear, and we don't have to... I mean, if you want to talk about it we can, but we also really, really don't have to..." },
+{ who: $player, text: "It's not about that either." },
+{ text: "Something crosses her face, and she gets rid of it quickly. It looks like relief. Most of it does." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Tell her why she's here">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I wanted to say thank you. Properly, and not in passing at the coffee machine." },
+{ who: $sister, text: "...For what?" },
+{ who: $player, text: "You come in every afternoon straight from class. You stay late when nobody asks you to. You take every boring little job in this place and somehow turn it into something people actually want to look at." },
+{ who: $player, text: "I notice all of it. I just never said so." },
+{ text: "The pen stops clicking." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Some of it is even true. Half of what she does, anybody with a spreadsheet could do, and on some days the office would run faster without her drifting over to my desk every hour. That isn't what she needs to hear, though, and I've watched her go hungry for this for weeks.
+
+<<Video "images/characters/sister/events/it_makes_a_difference/meeting.mp4" "" "" 500>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Wow. Okay. That's..." },
+{ text: "She laughs, and it comes out about an octave too high. Her eyes have gone bright and wet, and she blinks hard at the ceiling, as if the rest of the sentence is written up there." },
+{ who: $sister, text: "You can't just say stuff like that in a room with a door. There should be a warning. A sign, or something." },
+{ who: $player, text: "I mean it." },
+{ who: $sister, text: "I know you do, that's the problem! Oh my god. It's the air in here. The air's really dry. Somebody should look at the air in this room." },
+{ text: "She presses the heel of her hand under one eye, then under the other, laughing at herself the whole time." },
+{ who: $sister, text: "I just like helping. That's all it is. I like being useful to you. And being... where you are." },
+{ text: "She hears it about a second after it's out." },
+{ who: $sister, text: "With the company, I mean. Being where the company is. Which is here. Obviously." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Walk around the table">>
+I get up and come around to her side. She's on her feet before I get there, and she walks straight into me, as if she's been waiting for permission. Her arms go around my neck, tight, and her face ends up pressed into my shoulder. I can feel her breathing in, slow and deep, the way you breathe in something you want to keep.
+
+I don't let go first, and neither does she. Her fingers curl into the back of my shirt, and out in the office somebody's phone rings four times and stops. Her heart is going hard enough that I can feel it through both our shirts. When I finally lean back, she lets go at once, as if somebody just walked in on us.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Okay! Back to work. I have very important... things. On my desk. That need me." },
+{ who: $player, text: "Go. And don't wait up for me tonight, I'm staying late." },
+{ who: $sister, text: "Again? What is it this time?" },
+{ who: $player, text: "Month-end. Invoices, payroll, and a server backup that somebody has to sit next to until it's done, because the last time nobody did, it wasn't." },
+{ who: $sister, text: "I could stay. I'm great at sitting next to things. I sat next to you in the back of the car for fifteen years." },
+{ who: $player, text: "Go home. Eat something. Tell $mom.callName I'm still alive." },
+{ text: "She opens her mouth to argue, the way she argues every evening, and then, for once, she doesn't." },
+{ text: "At the door she stops with her hand on the handle and turns halfway around, not quite all the way." },
+{ who: $sister, text: "Thanks for... yeah. Just, thanks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For the rest of the afternoon she doesn't come over to my desk once. Every time I look across the room she's typing, and every time I look away again, I can feel her eyes on the back of my head. When the day is over she leaves with everyone else and waves at me from the door without quite looking at me.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "SisterLust" 2>>
+
+<div class="navigation-link"><<link "Stay late" "It Makes A Difference 3">><<AdvanceTimeTo 5>><<SetLocation "My Desk">><</link>></div>
+<</linkreplace>>
+<</linkreplace>>

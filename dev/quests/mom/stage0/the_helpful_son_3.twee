@@ -1,0 +1,53 @@
+:: The Helpful Son 3 [event mom_quest] {"position":"3150,950","size":"100,100"}
+Five minutes pass. Then a few more. I sit at $mom.callName's desk scrolling through my phone without reading anything, because a guy staring at nothing in someone else's chair looks suspicious and a guy on his phone looks like every other person in this building.
+
+Her coffee mug says WORLD'S OKAYEST EMPLOYEE. Someone must have given it to her as a joke. There's a sticky note on her monitor in her handwriting that just says "breathe". I peel it off, read it twice, and stick it back exactly where it was.
+
+I could tell myself I did this to help her with the stress, and it wouldn't even be a lie. It's just not the whole truth. Every time she feels this good, she'll know whose device was running when it happened. And every time she says yes to it, the next yes gets a little easier. I just can't rush it.
+
+<<linkreplace "Give it five more minutes">>
+Another five minutes. That's long enough. I want to see what I did.
+
+I stand up and stretch like someone who's been waiting too long, which is true. Nobody looks up. The whole floor is still carefully typing and carefully not talking about what happened in the meeting room. I walk down the corridor toward the restrooms like I'm looking for the water cooler.
+
+The door to the women's restroom isn't locked. I push it open an inch and hold my breath. The room is empty except for one closed stall at the end, and for a moment all I can hear is the hum of the fluorescent lights. Then a small, sharp breath from inside the stall, and a sound she's trying very hard to swallow.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "...$player.name... no, no, this is so wrong..." },
+{ text: "My own name. I almost let go of the door." },
+{ who: $mom, text: "Oh god... why does it feel this good..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her breathing comes faster after that, uneven, muffled behind her hand. I stay exactly where I am, one hand flat against the door, and listen to my $mom.relation come apart in a company bathroom because of a box I built in my bedroom. My heart is going so hard I can feel it in my throat.
+
+When her voice catches and breaks into a stifled little cry, I ease the door shut and walk back to her desk at a perfectly normal speed. By the time she comes out, I'm back in the spare chair, phone in hand, bored. Her cheeks are still flushed, and a strand of hair has come loose that she keeps trying to tuck behind her ear. She sits down without quite looking at me.
+
+<<silently>>
+<<set _msgs to [
+{ who: $player, text: "Everything okay? You were gone a while." },
+{ who: $mom, text: "Y-yes, sweetie. I just... needed to freshen up." },
+{ text: "She straightens her keyboard, which was already straight." },
+{ who: $mom, text: "That prototype of yours, though. I don't know what it does, but it works." },
+{ who: $player, text: "Told you. Feeling any better?" },
+{ who: $mom, text: "Much better. Honestly, I'm not even angry anymore. I keep looking for it and it's just... not there. That's crazy, isn't it?" },
+{ who: $player, text: "That's the idea. We can do it again whenever you want." },
+{ who: $mom, text: "Maybe. Yes. I think we should." },
+{ text: "She finally looks at me, and her ears go pink." },
+{ who: $mom, text: "Thank you, $player.name. Really. You might be the only reason I make it through this week." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "Corruption" 3>>
+<<UpdateStat "+" "MomCorruption" 2>>
+<<UpdateStat "-" "MomResistance" 5>>
+
+<<ProfileLog $mom "Stress Relief at Work" "I used $company.prototype.name on her at the office. All that stress turned into something else, and she ended up relieving herself in the restroom. She thinks it's a miracle cure and wants to do it again.">>
+<<NextQuest $mom>>
+<<ReturnFromEvent "Leave her workplace...">>
+<</linkreplace>>
+
+

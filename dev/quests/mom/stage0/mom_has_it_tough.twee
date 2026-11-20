@@ -1,0 +1,42 @@
+:: Mom Has It Tough [event mom_quest] {"position":"3025,1200","size":"100,100"}
+The living room is mostly dark. Some sitcom is murmuring away on the TV, a laugh track cheering at jokes nobody is listening to, and $mom.callName is sunk so deep into the couch she might as well be part of it. There's a bottle of cheap red on the coffee table, already half gone, and she's topping up her glass with a hand that isn't quite steady. Her eyes are red at the rims. The whole room smells like her perfume and wine.
+
+<<Video "images/characters/mom/events/mom has it tough/wine.webm" "" "" 500>>
+
+I stop in the doorway and watch her take a long swallow. I've never seen her like this. She's always been the one who holds everything together, the one who comes home from work and still asks how //my// day was. Seeing her fall apart should make me want to fix it. Instead, a much quieter part of me starts doing the math.
+
+<<silently>>
+    <<set _msgs = [
+        { who: $player, text: "Rough day, $mom.callName? You look like you could use a refill. Or three." },
+        { text: "She jumps a little, the glass stopping halfway to her mouth." },
+        { who: $mom, text: "Oh, $player.name... yeah. God, I hate that man. I swear, if I have one more day like this one..." },
+        { who: $player, text: "Whoa. I thought it was just the workload. What happened?" },
+        { text: "She lets out a short, humorless laugh and stares into her glass like the answer might be at the bottom." },
+        { who: $mom, text: "Where do I even start? He talks down to everyone, but especially to the women. Little comments, little hints, always with that smile. Ugh, it makes my skin crawl just thinking about it. And because I never play along, he takes it out on me. He yelled at me today in front of the whole office, honey. The whole office." },
+        { who: $player, text: "That's harassment. You know that, right?" },
+        { who: $mom, text: "Of course I know. But he's the boss, and he plays golf with half the people who could do something about it. I'm not going to win that fight. So I'll just... swallow it. Like always." },
+        { who: $player, text: "That's awful." },
+        { text: "Neither of us says anything for a while. The laugh track goes off again, which doesn't help." },
+        { who: $player, text: "Hey. This might sound a little weird, but what if I came by your work sometime? I could bring the prototype. Take the edge off for you when it gets bad." },
+        { who: $mom, text: "Bring it... to the office? Honey, how would that even work?" },
+        { who: $player, text: "Same as last time. You remember how much calmer you were afterwards, right?" },
+        { who: $mom, text: "I... well, it did help, I suppose. But what would my coworkers think? Me with my $mom.playerRelation and his little gadget." },
+        { who: $player, text: "They'd think you have a $mom.playerRelation who brings you lunch. Come on, it can't hurt to try. Unless you'd rather quit?" },
+        { who: $mom, text: "Ha. I wish, sweetie. The house doesn't pay for itself." },
+        { text: "She swirls the wine around for a moment, then sighs and leans her head back against the couch." },
+        { who: $mom, text: "Okay. Fine. We'll try it. Now be a dear and fill this up for me." },
+    ]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pour her another glass, a generous one. She thanks me without looking, eyes already drifting back to the TV.
+
+If it's this bad when she does everything right, I wonder what happens the day she actually makes a mistake. Or the day somebody makes one for her.
+
+<<UpdateStat "+" "Corruption" 2>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomResistance" 3>>
+<<set $locations[12].name to "$mom.callName's Work">>
+<<set setup.getMealById("mom_has_it_tough").isActive to true>>
+<<NextQuest $mom>>
+<<ReturnFromEvent>>

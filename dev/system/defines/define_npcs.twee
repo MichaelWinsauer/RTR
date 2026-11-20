@@ -1,0 +1,538 @@
+:: Define NPCs [system] {"position":"250,0","size":"100,100"}
+<<set $sister = {
+	id: 0,
+	name: "Sophie",
+	surname: "Adams",
+	gender: "female",
+	callPlayer: "Michael",
+	age: 20,
+	quest: null,
+    assignedProjectCount: 0,
+    wage: 13,
+	sysName: "sister",
+	callName: "Sophie",
+	relation: "sister",
+	playerRelation: "brother",
+	callPlayerShort: "bro",     /* what she calls me for short, as in little bro (setup.syncNameFields) */
+	corruptionStage: 0,     /* see Corruption stages at the end of this passage */
+}>>
+
+<<set $sister.location = {
+	id: 0,
+    name: "Hallway",
+    img: "images/locations/hallway.jpg"
+}>>
+
+<<set $sister.previousLocation = {
+	id: 0,
+    name: "Hallway",
+    img: "images/locations/hallway.jpg"
+}>>
+
+<<set $sister.stats = {
+	lust: 0,
+    corruption: 0,
+    exhibition: 0,
+    relation: 0,
+    reputation: 100,
+	resistance: 0,
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $sister.stats.max = {
+	lust: 100,
+    corruption: 100,
+    exhibition: 100,
+    relation: 100,
+    reputation: 100,
+	resistance: 100,
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $sister.stats.min = {
+	lust: 0,
+    corruption: 0,
+    exhibition: 0,
+    relation: 0,
+    reputation: 0,
+	resistance: 0,
+    energy: 0,
+    morale: 0,
+}>>
+
+<<set $sister.skills = {
+    software:     0,
+    hardware:     0,
+    analysis:     3,
+    testing:      2,
+    consulting:   0,
+    management:   0,
+    hr:           0,
+    sales: 		  10,
+    marketing:    15,
+}>>
+
+<<set $sister.flags = {
+	met: true,
+	isHome: false,
+    doesChores: false,
+    bedMasturbationSeen: false,
+    collegeUnlocked: false,
+	worksAtDiner: false,
+	isTutoring: false,
+	passedTest: false,
+	workUnlocked: false,
+    isEmployee: false,
+    taskInProgress: false,
+    favorsOwed: false,
+    snackRevenge: false,
+    photoTaken: false,
+    officeExcuses: 0,       /* Stage 1: how often she came up with a reason to be near me (Define Events) */
+    movedDesk: false,       /* Sister Office New Spot happened */
+}>>
+
+/*Mom*/
+
+<<set $mom = {
+	id: 1,
+	name: "Anna",
+	surname: "Adams",
+	gender: "female",
+	callPlayer: "Sweetie",
+	age: 39,
+	quest: null,
+    assignedProjectCount: 0,
+    wage: 15,
+	sysName: "mom",
+	sysColor: "#C90443",
+	callName: "Mom",
+	relation: "mother",
+	playerRelation: "son",
+	corruptionStage: 0,     /* see Corruption stages at the end of this passage */
+}>>
+
+<<set $mom.location = {
+	id: 0,
+    name: "Hallway",
+    img: "images/locations/hallway.jpg"
+}>>
+
+<<set $mom.previousLocation = {
+	id: 0,
+    name: "Hallway",
+    img: "images/locations/hallway.jpg"
+}>>
+
+<<set $mom.stats = {
+	lust: 0,
+    corruption: 0,
+    exhibition: 0,
+    relation: 0,
+    reputation: 100,
+	resistance: 0,
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $mom.stats.max = {
+	lust: 100,
+    corruption: 100,
+    exhibition: 100,
+    relation: 100,
+    reputation: 100,
+	resistance: 100,
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $mom.stats.min = {
+	lust: 0,
+    corruption: 0,
+    exhibition: 0,
+    relation: 0,
+    reputation: 0,
+	resistance: 0,
+    energy: 0,
+    morale: 0,
+}>>
+
+<<set $mom.skills = {
+    software:     0,
+    hardware:     0,
+    analysis:     2,
+    testing:      3,
+    consulting:   10,
+    management:   20,
+    hr:           10,
+    sales: 		  0,
+    marketing:    0,
+}>>
+
+<<set $mom.flags = {
+	met: true,
+	isHome: false,
+    isAtWork: false,
+    wakeUp: false,
+    rentHelp: false,
+	workUnlocked: false,
+    isEmployee: false,
+    taskInProgress: false,
+    bedMasturbationSeen: false,
+    handjobs: 0,            /* times the Handjob interaction was played (Mom Handjob), after A Knock at Night */
+    officePlants: 0,        /* Stage 1: times Mom Office Plants played (the first time she brings them in) */
+}>>
+
+/*Dad*/
+
+<<set $dad = {
+	id: 1,
+	name: "Arthur",
+	surname: "Adams",
+	gender: "male",
+	callPlayer: "son",
+	age: 54,
+	quest: 0,
+	sysName: "dad",
+	sysColor: "#C90443",
+	callName: "Dad",
+	relation: "father",
+	playerRelation: "son"
+}>>
+
+<<set $landlord = {
+	id: 2,
+	name: "Norman",
+	surname: "Howell",
+	gender: "male",
+	callPlayer: "Kid",
+	age: 76,
+	quest: 0,
+	sysName: "landlord",
+	sysColor: "#1E1914",
+	callName: "Mr. Howell",
+	relation: "landlord",
+	playerRelation: "tenant",
+    mailAddress: "N.Howell@landlord.to",
+}>>
+
+<<set $boss = {
+	id: 3,
+	name: "Victor",
+	surname: "Anderson",
+	gender: "male",
+	callPlayer: $player.surname,
+	age: 57,
+	quest: 0,
+	sysName: "boss",
+	sysColor: "#141E14",
+	callName: "Mr. Anderson",
+	relation: $mom.callName + "'s boss",
+	playerRelation: "stranger",
+    mailAddress: "victor.anderson@business.to",
+}>>
+
+<<set $prof = {
+	id: 3,
+	name: "Antony",
+	surname: "Walsh",
+	gender: "male",
+	callPlayer: $player.surname,
+	age: 61,
+	quest: 0,
+	sysName: "prof",
+	sysColor: "#14191E",
+	callName: "Mr. Walsh",
+	relation: $sister.callName + "'s professor",
+	playerRelation: "stranger",
+    mailAddress: "walsh.a@yahoo.com",
+}>>
+
+<<set $manager = {
+	id: 4,
+	name: "Frank",
+	surname: "Morales",
+	gender: "male",
+	callPlayer: $player.surname,
+	age: 48,
+	quest: 0,
+	sysName: "manager",
+	sysColor: "#14191E",
+	callName: "Mr. Morales",
+	relation: "Manager",
+	playerRelation: "Employee",
+    mailAddress: "frank-morales@diner.to",
+}>>
+
+
+<<set $ethan = {
+	id: 5,
+	name: "Ethan",
+	surname: "Reed",
+	gender: "male",
+	callPlayer: "Boss",
+    assignedProjectCount: 0,
+    wage: 25,
+	age: 28,
+	sysName: "ethan",
+	sysColor: "#3498db",
+	callName: "Ethan",
+	relation: "employee",
+	playerRelation: "boss"
+}>>
+
+<<set $ethan.stats = {
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $ethan.stats.max = {
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $ethan.stats.min = {
+    energy: 0,
+    morale: 0,
+}>>
+
+<<set $ethan.skills = {
+    software:     30,
+    hardware:     3,
+    analysis:     4,
+    testing:      15,
+    consulting:   5,
+    management:   3,
+    hr:           0,
+    sales: 		  2,
+    marketing:    0,
+}>>
+
+<<set $brian = {
+	id: 6,
+	name: "Brian",
+	surname: "Hayes",
+	gender: "male",
+	callPlayer: "Boss",
+    assignedProjectCount: 0,
+    wage: 22,
+	age: 34,
+	sysName: "brian",
+	sysColor: "#2ecc71",
+	callName: "Brian",
+	relation: "employee",
+	playerRelation: "boss"
+}>>
+
+<<set $brian.stats = {
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $brian.stats.max = {
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $brian.stats.min = {
+    energy: 0,
+    morale: 0,
+}>>
+
+<<set $brian.skills = {
+    software:     5,
+    hardware:     35,
+    analysis:     0,
+    testing:      5,
+    consulting:   0,
+    management:   0,
+    hr:           0,
+    sales: 		  0,
+    marketing:    0,
+}>>
+
+<<set $darius = {
+	id: 7,
+	name: "Darius",
+	surname: "Brooks",
+	gender: "male",
+	callPlayer: "Boss",
+    assignedProjectCount: 0,
+    wage: 26,
+	age: 26,
+	sysName: "darius",
+	sysColor: "#e67e22",
+	callName: "Darius",
+	relation: "employee",
+	playerRelation: "boss"
+}>>
+
+<<set $darius.stats = {
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $darius.stats.max = {
+    energy: 100,
+    morale: 100,
+}>>
+
+<<set $darius.stats.min = {
+    energy: 0,
+    morale: 0,
+}>>
+
+<<set $darius.skills = {
+    software:     3,
+    hardware:     0,
+    analysis:     32,
+    testing:      0,
+    consulting:   7,
+    management:   0,
+    hr:           0,
+    sales: 		  15,
+    marketing:    0,
+}>>
+
+
+
+/* Name-dependent fields =======================================================
+   setup.syncNameFields()   rebuilds every field that is made from another character's name or relation
+                            (the sister's callPlayer, the client surnames, "<Mom>'s boss", the dad's relation, ...).
+   The values above are only the defaults at StoryInit. Character Configuration and Skip Intro call this
+   once the player has picked the names, so a renamed character never shows the default name. */
+<<set setup.syncNameFields = () => {
+    const v = State.variables;
+    v.sister.callPlayer = v.player.name;
+    v.dad.surname = v.player.surname;
+    v.dad.playerRelation = v.mom.playerRelation;
+    v.dad.callPlayer = v.mom.playerRelation;
+    v.boss.callPlayer = v.player.surname;
+    v.prof.callPlayer = v.player.surname;
+    v.manager.callPlayer = v.player.surname;
+    v.boss.relation = v.mom.callName + "'s boss";
+    v.prof.relation = v.sister.callName + "'s professor";
+    /* her short name for me: bro, or whatever the player renamed the relation to */
+    v.sister.callPlayerShort = String(v.sister.playerRelation).toLowerCase() === "brother" ? "bro" : v.sister.playerRelation;
+    /* the mail addresses are made from the names too (N.Howell@..., victor.anderson@...) */
+    const addr = (text) => String(text).replace(/\s+/g, "");
+    v.landlord.mailAddress = addr(v.landlord.name.charAt(0) + "." + v.landlord.surname) + "@landlord.to";
+    v.boss.mailAddress = addr(v.boss.name + "." + v.boss.surname).toLowerCase() + "@business.to";
+    v.prof.mailAddress = addr(v.prof.surname + "." + v.prof.name.charAt(0)).toLowerCase() + "@yahoo.com";
+    v.manager.mailAddress = addr(v.manager.name + "-" + v.manager.surname).toLowerCase() + "@diner.to";
+}>>
+
+
+
+/* Corruption stages ===========================================================
+   The corruption of mom and sister (stats.corruption, 0-100) is the progress inside her current stage;
+   $mom.corruptionStage / $sister.corruptionStage is the stage she is in (0 at the start). The bar stops at
+   its max: 100 means she is ready, and points above that are lost, so grinding stops paying and the story
+   has to move on. A milestone scene moves her up with <<AdvanceCorruptionStage $mom>> (Profile Widgets):
+   stage +1, the bar back to 0, a notification and an entry in her Progression log.
+
+   setup.corruptionStages.<sysName> = [ { name, milestone }, ... ]   constants, one entry per stage
+       name        short label for the sidebar, the profile and the CMD
+       milestone   id of the quest whose scene leads INTO this stage, null while that is not decided. Only
+                   read by the UI and the help page; the scene itself calls <<AdvanceCorruptionStage>>
+       To add a stage, add an entry (and a milestone scene). She can only move up into a stage that has an
+       entry, so a full bar in the last stage does not count as ready.
+
+   Checks never read stats.corruption directly. They use one of these two:
+   setup.corruptionTotal(who)       stage * 100 + corruption, for thresholds. The Stage 0 checks keep their
+                                    numbers (30, 40, 60, 75) and stay true after a stage-up; new content
+                                    counts higher ("stage 1, 40" is 140). Quests, task stages, interaction
+                                    needs/max, camera spots, calibration phrases, text variants.
+   setup.corruptionEffective(who)   corruption + stage * $statInfluence.corruptionPerStage, for formulas
+                                    (daily lust and resistance drift, chances), so a stage-up does not
+                                    drop them and the raw total of 100+ does not blow them up.
+
+   setup.corruptionStage(who)                 her stage number
+   setup.corruptionStageInfo(who [, stage])   the entry of that stage (default: hers), or undefined
+   setup.corruptionStageName(who)             the name of her stage ("" if it has none)
+   setup.corruptionReady(who)                 the bar is full and there is a next stage
+   setup.corruptionLabel(who)                 "Corruption · <name>" plus " · ready": the label of her bar
+   setup.corruptionNeedText(total)            a total as the player reads it: 40 -> "40", 140 -> "40 (stage 1)"
+   setup.advanceCorruptionStage(who)          the stage-up itself (the widget calls it), false without a next stage
+   who is "mom" / "sister" or the NPC object. Anyone else counts as stage 0 with their plain corruption. */
+<<set setup.corruptionStages to {
+    mom: [
+        { name: "Reserved", milestone: null },
+        { name: "Dutiful", milestone: "mom_briefing" },
+    ],
+    sister: [
+        { name: "Conflicted", milestone: null },
+        { name: "Yearning", milestone: null },
+    ],
+}>>
+
+<<set setup.corruptionNpc = (who) => {
+    if (who && typeof who === "object") { return State.variables[who.sysName] || who; }
+    return State.variables[who];
+}>>
+
+<<set setup.corruptionStage = (who) => {
+    const npc = setup.corruptionNpc(who);
+    return npc ? (Number(npc.corruptionStage) || 0) : 0;
+}>>
+
+<<set setup.corruptionStageInfo = (who, stage) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc) { return undefined; }
+    const list = setup.corruptionStages[npc.sysName] || [];
+    return list[stage === undefined ? setup.corruptionStage(npc) : stage];
+}>>
+
+<<set setup.corruptionStageName = (who) => {
+    const info = setup.corruptionStageInfo(who);
+    return info ? info.name : "";
+}>>
+
+<<set setup.corruptionTotal = (who) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !npc.stats) { return 0; }
+    return setup.corruptionStage(npc) * 100 + (Number(npc.stats.corruption) || 0);
+}>>
+
+<<set setup.corruptionEffective = (who) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !npc.stats) { return 0; }
+    const perStage = Number(State.variables.statInfluence.corruptionPerStage) || 0;
+    return (Number(npc.stats.corruption) || 0) + setup.corruptionStage(npc) * perStage;
+}>>
+
+<<set setup.corruptionReady = (who) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !npc.stats) { return false; }
+    const full = npc.stats.corruption >= npc.stats.max.corruption;
+    /* only ready when the next stage has a milestone scene that can take her there (the sister has none yet) */
+    const next = setup.corruptionStageInfo(npc, setup.corruptionStage(npc) + 1);
+    return full && !!next && !!next.milestone;
+}>>
+
+<<set setup.corruptionLabel = (who) => {
+    const name = setup.corruptionStageName(who);
+    let label = "Corruption";
+    if (name) { label += " · " + name; }
+    if (setup.corruptionReady(who)) { label += " · ready"; }
+    return label;
+}>>
+
+<<set setup.corruptionNeedText = (total) => {
+    const stage = Math.floor(Number(total) / 100);
+    return stage > 0 ? (Number(total) - stage * 100) + " (stage " + stage + ")" : String(total);
+}>>
+
+<<set setup.advanceCorruptionStage = (who) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !npc.stats) { return false; }
+    const next = setup.corruptionStage(npc) + 1;
+    if (!setup.corruptionStageInfo(npc, next)) {
+        console.error("setup.advanceCorruptionStage: " + npc.sysName + " has no corruption stage " + next + " (setup.corruptionStages)");
+        return false;
+    }
+    npc.corruptionStage = next;
+    npc.stats.corruption = npc.stats.min.corruption;
+    return true;
+}>>

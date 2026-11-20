@@ -1,0 +1,12 @@
+:: Moms Work [location] {"position":"2150,1425","size":"100,100"}
+<<silently>>
+<<CheckLocation>>
+<</silently>>
+The tower is all glass and brushed steel, and the sixth floor looks like it was ordered out of a catalogue: white desk islands with low dividers, expensive monitors, a potted plant on every other desk and blinds that stay half down all day. A meeting room hides behind striped frosted glass. $boss.callName's corner office is at the far end with the door usually shut, and people lower their voices when they walk past it, the way you would near a sleeping dog.
+
+
+<<CheckNPCLocation>>
+
+[[Residential Area]]
+
+

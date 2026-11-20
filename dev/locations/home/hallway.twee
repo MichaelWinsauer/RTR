@@ -1,0 +1,24 @@
+:: Hallway [location] {"position":"275,1300","size":"100,100"}
+<<CheckLocation>>
+<<silently>>
+    <<set _locations to []>>
+    <<for _i = 1; _i < 7; _i++>>
+        <<set _locations.push($locations[_i])>>
+    <</for>>
+<</silently>>
+<<LocationLinks _locations>>
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<<if $flags.introDone == false>>
+	<<CheckLocationLink "Residential Area" "Outside" "I've got a few things to do before I head out">>
+<<else>>
+    <div class="navigation-link">
+        [[Outside|Residential Area]]
+    </div>
+<</if>>
+<</nobr>>
+
+

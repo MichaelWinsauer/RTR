@@ -1,0 +1,19 @@
+:: Sister Office Coffee [micro_event event nobr] {"position":"1175,3150"}
+/* Inline micro event in the Stage 1 main room (micro event 27, "Her excuses to be near me" in Define Events):
+   whenever I go for a coffee, she happens to be at the machine already. Repeatable, the excuse changes.
+   Counts toward $sister.flags.officeExcuses. */
+<<set $sister.flags.officeExcuses += 1>>
+<<Media "images/characters/sister/activities/bringing_coffee_0.mp4" 400>>
+<p>I get up for a refill, and by the time I reach the coffee machine, $sister.callName is already standing next to it, which is slowly turning into a pattern. Her own mug is still full.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: either("Oh! Hey. I was just... checking whether we need more milk. We do. Somebody should tell somebody.", "Hi. I'm descaling. Well, I'm thinking about descaling. Did you know you're supposed to descale these things? It says so on the side.", "Hey! Total coincidence. I was getting water. From the coffee machine. It has a hot water button, it's very versatile.") },
+	{ text: "She takes the mug out of my hand before I can do anything with it and makes my coffee herself: three sugars, a splash of milk, stirred until the spoon stops clinking. She still makes it the way I took it at twelve, and she has never once asked if that changed." },
+	{ who: $player, text: "You know I can make my own coffee." },
+	{ who: $sister, text: "You can. Badly. You put the sugar in last and then it all just sits at the bottom, like a sad little reef." },
+	{ text: "While the machine gurgles she leans against the counter next to me, close enough that our shoulders touch, and talks about nothing in particular: a song she can't get out of her head, the bus driver who says good morning to every passenger by name, whether a hot dog counts as a sandwich." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<p>When I head back, she stays behind at the machine. I hear her mug clink down on the counter, still full, and about a minute later she's back at her own desk too, sneaking one more look in my direction before she finally starts typing.</p>
+<<UpdateStat "+" "SisterRelation" 1>>

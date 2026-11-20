@@ -1,0 +1,79 @@
+:: Profile [system nobr hide_sidebar] {"position":"2525,800","size":"100,100"}
+/* One profile for everyone: $profileNpc decides who is shown (see "Define Profiles"). */
+<<set _npc to State.variables[$profileNpc]>>
+<<set _p to _npc.profile>>
+
+/* Current time slot, and where the NPC is right now (set by PassageReady from setup.npcNow) */
+<<set _slotIndex to Math.max(0, $timeSlots.findIndex((slot) => slot.text === $time.current.text))>>
+<<set _nowLoc to ((_npc.location && _npc.location.name) || "")>>
+
+<div style="display: flex;
+			justify-content: end;
+			position: relative;
+			left: 48%;
+			transform: translateX(-50%);
+			width: 70vw;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			font-size: .7rem;">
+	<<link "Return">><<goto $returnFromProfile>><</link>>
+</div>
+<div class="pf">
+	<aside class="pf-side">
+		<div class="pf-portrait">
+			<<Image _p.portrait "" "" "" 600 "false">>
+		</div>
+	</aside>
+
+	<section class="pf-card pf-head">
+		<div class="pf-head-top">
+			<h2><<= _npc.name>> <<= _npc.surname>></h2>
+			<span class="pf-role"><<= _npc.relation>></span>
+		</div>
+		<ul class="pf-facts">
+			<li>Age <<= _npc.age>></li>
+			<<for _fact range _p.facts>>
+				<li><<= _fact>></li>
+			<</for>>
+			<li><<= $timeSlots[_slotIndex].text>><<if _nowLoc>> - <<= wikifyText(_nowLoc)>><</if>></li>
+			<<if _npc.following || (_npc.flags && _npc.flags.isFollowing)>>
+				<li>Following you</li>
+			<</if>>
+		</ul>
+		<p class="pf-appearance"><<= _p.appearance>></p>
+		<p class="pf-bio"><span><<= _p.personality>></span></p>
+
+	</section>
+
+	<section class="pf-card pf-stats">
+		<div class="pf-stat-grid">
+			<<DisplayStatHorizontal "Relation" _npc.stats.relation _npc.stats.max.relation>>
+			<<DisplayStatHorizontal `setup.corruptionLabel(_npc)` _npc.stats.corruption _npc.stats.max.corruption>>
+			<<DisplayStatHorizontal "Lust" _npc.stats.lust _npc.stats.max.lust>>
+			<<DisplayStatHorizontal "Resistance" _npc.stats.resistance _npc.stats.max.resistance>>
+			<<DisplayStatHorizontal "Exhibition" _npc.stats.exhibition _npc.stats.max.exhibition>>
+		</div>
+	</section>
+
+	<section class="pf-card pf-tabs">
+		<input type="radio" name="pf-tab" id="pf-tab-progress" checked>
+		<input type="radio" name="pf-tab" id="pf-tab-schedule">
+		<input type="radio" name="pf-tab" id="pf-tab-recollection">
+		<div class="pf-tabbar">
+			<label for="pf-tab-progress">Progression</label>
+			<label for="pf-tab-schedule">Schedule</label>
+			<label for="pf-tab-recollection">Recollection</label>
+		</div>
+		<div class="pf-panels">
+			<div class="pf-panel pf-panel-progress">
+				<<include "Profile Progression">>
+			</div>
+			<div class="pf-panel pf-panel-schedule">
+				<<include "Profile Schedule">>
+			</div>
+			<div class="pf-panel pf-panel-recollection">
+				<<include "Profile Recollection">>
+			</div>
+		</div>
+	</section>
+</div>

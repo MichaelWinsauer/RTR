@@ -1,0 +1,66 @@
+:: Mom Office Blouse [micro_event event nobr] {"position":"1425,3400","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 41, "A normal workday" in Define Events): after The
+   Briefing she has started dressing differently for work, and the staff notices. I can tell her it suits her, or
+   tell her to button up, which she does without a question. A line changes after A Knock at Night. */
+<div class="activity-image-wrapper" style="max-height: 400px">
+	<<DisplayActivity $mom>>
+</div>
+<p>$mom.callName's blouse today is one I haven't seen before: cream silk, soft enough that it moves a moment after she does, with one button less done up than she would have allowed herself a month ago. On anybody else, she'd have called it 'a bit much for the office'.</p>
+<p>She's leaning over $darius.name's desk to point at something on his screen. $darius.name looks at the screen with tremendous discipline. Across the room, $ethan.name has stopped typing, and from the way $brian.name is staring at the inside of his own monitor, he's noticed $ethan.name noticing.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "...so if we move the invoice to the fifteenth, they'll still pay on time, they just won't notice they're paying on time. Does that make sense, honey?" },
+	{ who: $darius, text: "It does. Yes. Absolutely." },
+	{ text: "She straightens up and catches me watching. Her hand goes to the open button at her collar, rests there for a second and doesn't do anything with it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="mom-blouse-choice">
+	<div>
+		<<link "Tell her it suits her">>
+			<<replace "#mom-blouse-choice">>
+				<p>I catch her later at the coffee machine, where nobody can hear us over the grinder.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $mom, text: "Is it too much? It's been in the back of my closet for years. I just thought, this morning... why not." },
+					{ who: $player, text: "It suits you. Wear it again." },
+					{ who: $mom, text: "...Okay." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<if setup.questDone("mom_nightVisit")>>
+					<<silently>>
+					<<set _msgs to [
+						{ text: "She keeps stirring her coffee, around and around, though she hasn't put anything in it. Her voice drops." },
+						{ who: $mom, text: "Is that for work, sweetie? Or is that for..." },
+						{ text: "She doesn't finish. She doesn't need to. She picks up her mug and walks back to her desk, and she doesn't fix the button." },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<<else>>
+					<p>She says it to her coffee. Then she smooths the silk over her stomach with her free hand, as if she's only now feeling what she put on this morning.</p>
+				<</if>>
+				<<UpdateStat "+" "MomLust" 2>>
+				<<UpdateStat "+" "MomCorruption" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Tell her to button up">>
+			<<replace "#mom-blouse-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I wait until she passes my desk." },
+					{ who: $player, text: "Button it." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She doesn't ask why. She glances around the room, quick, the way you'd check a street for traffic, to see who else got a look at her before I said anything. Then she does it right there, still walking, without slowing down, and her cheeks go pink while her fingers work the button closed.</p>
+				<p>$ethan.name starts typing again a moment later.</p>
+				<<UpdateStat "+" "MomCorruption" 1>>
+				<<UpdateStat "+" "Efficiency" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+:: Check Event Requirements [system] {"position":"1575,400","size":"100,100"}
+<<for _i = 0; _i < $events.length; _i++>>
+	<<if $events[_i].cooldown > 0 && $events[_i].once == false>>
+    	<<if $events[_i].completedAtDay + $events[_i].cooldown <= $date.dayCount>>
+        	<<set $events[_i].active to true>>
+        <</if>>
+    <</if>>
+<</for>>
+
+

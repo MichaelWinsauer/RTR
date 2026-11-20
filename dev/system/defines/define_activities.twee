@@ -1,0 +1,606 @@
+:: Define Activities [system] {"position":"625,0","size":"100,100"}
+/* Activities ==================================================================
+   What mom and sister can be doing, per character and keyed by id. The definitions are constants
+   (setup); the game state only ever stores the id:
+     - routines and plans       { location: "kitchen", activity: [ "cooking" ] }   (Define Schedule)
+     - tasks and task stages    activity: "giving_massage0"                         (Define Tasks)
+     - $mom.activity / $sister.activity, set from setup.npcNow by PassageReady
+
+   setup.activities.<sysName>.<id> = {
+       id:          "testing_prototype",     the same as the key. A trailing number is the stage of a task
+       base:        "testing_prototype",      optional, shared by all stages of one activity, so interaction
+                                              rules (blocked/only) can name every stage at once
+       text:        "testing the prototype",  what the player reads ("Mom is here testing the prototype."),
+                                              may contain variables
+       locations:   [ setup.getLocationBySysName("kitchen") ],
+                                              where she can be doing it (read by getActivitiesForLocation)
+       when:        [ 1, 2, 3, 4, 5 ],        optional: time slots in which a routine row that names only a
+                                              place may pick it at random. Without it, it is never picked at
+                                              random (task activities, sleeping, cooking, ...)
+       duration:    [ 2, 3 ],                 optional: once a plan picks it, it lasts that many actions (random
+                                              between the two) as long as the next rows allow it. Default 1
+       media:      [ "testing_prototype0_0.jpg", "testing_prototype0_1.mp4" ],
+                                              images/characters/<sysName>/activities/<file>
+       cctv:        [ "testing_prototype0_0.mp4" ],
+                                              images/characters/<sysName>/tasks/<file>. Empty: the camera
+                                              shows the activity media instead
+       cctvPassage: "Passage",                optional: where the CCTV arrow leads when no task stage names one
+
+       Optional, per corruption stage of mom/sister ("Corruption stages" in Define NPCs). The key is the
+       stage from which on it is used; the highest key up to her stage wins, below the lowest key the plain
+       field above is used. Leave them out until a stage really looks different.
+       stageText:   { 1: "watching TV in nothing but a long shirt" }
+       stageMedia:  { 1: [ "watching_tv_s1_0.jpg" ] }        same folder as media
+       stageCctv:   { 1: [ "watching_tv_s1_0.mp4" ] }        same folder as cctv
+   }
+
+   File names are <id>_<n>.<ext>, stage files <id>_s<stage>_<n>.<ext>. Any image or video format works
+   (jpg, png, webp, gif, mp4, webm).
+   An activity without files just shows no picture. Check the lists against the files on disk with
+       node tools/activity-media.mjs
+
+   Helpers:
+   setup.getActivity(who, id)               the definition, or undefined (who = "mom", "sister" or the NPC)
+   setup.getNpcActivity(npc)                the definition of what she is doing right now
+   setup.activityText(who, id)              its display text (stageText of her stage if there is one),
+                                            variables filled in
+   setup.activityByStage(who, byStage)      the entry of a stageText/stageMedia/stageCctv object for her
+                                            current corruption stage, or undefined
+   setup.activityIs(who, id, list)          is the activity one of list (ids or bases)?
+   setup.getActivitiesForLocation(who, location)
+                                            every activity definition whose locations include that place
+                                            (location object or id, compared with setup.sameLocation)
+   setup.activityMedia(who, id [, kind [, random]])
+                                            the path of one of its files: kind "media" (default) or "cctv"
+                                            (falls back to media), the stage lists first if her corruption
+                                            stage has one. The same file for the whole action, so
+                                            panels that redraw do not flicker; a random one if random is
+                                            true. "" when there is nothing to show
+*/
+<<set setup.activities to {
+    mom: {
+        sleeping: {
+            id: "sleeping",
+            text: "sleeping",
+            locations: [
+                setup.getLocationBySysName("momroom"),
+            ],
+            media: [ 
+                "sleeping_0.mp4"
+            ],
+            cctv: [],
+        },
+        working: {
+            id: "working",
+            text: "working",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+            ],
+            media: [ 
+                "working_0.gif",
+                "working_1.mp4",
+                "working_2.mp4",
+                "working_3.mp4",
+                "working_4.mp4",
+                "working_5.mp4",
+                "working_6.mp4",
+                "working_7.mp4",
+                "working_8.mp4",
+                "working_9.mp4",
+                "working_10.mp4",
+            ],
+            cctv: [ 
+
+            ],
+        },
+        working_boss: {
+            id: "working_boss",
+            text: "working",
+            locations: [
+                setup.getLocationBySysName("momswork"),
+            ],
+            media: [ 
+                "working_boss_0.mp4", 
+                "working_boss_1.mp4", 
+                "working_boss_2.mp4",
+                "working_boss_3.mp4",
+            ],
+            cctv: [ 
+
+            ],
+        },
+        showering: {
+            id: "showering",
+            text: "showering",
+            locations: [
+                setup.getLocationBySysName("bathroom"),
+            ],
+            media: [ 
+                "shower_0.mp4", 
+                "shower_1.mp4", 
+                "shower_2.mp4", 
+            ],
+            cctv: [
+
+            ],
+        },
+        peeing: {
+            id: "peeing",
+            text: "peeing",
+            locations: [
+                setup.getLocationBySysName("bathroom"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        getting_dressed: {
+            id: "getting_dressed",
+            text: "getting dressed",
+            when: [0, 1],
+            locations: [
+                setup.getLocationBySysName("momroom"),
+            ],
+            media: [
+                "getting_dressed_0.mp4",
+                "getting_dressed_1.mp4",
+                "getting_dressed_2.mp4",
+            ],
+            cctv: [
+
+            ],
+        },
+        watching_tv: {
+            id: "watching_tv",
+            text: "watching TV",
+            when: [1, 2, 3, 4, 5],
+            duration: [2, 3],
+            locations: [
+                setup.getLocationBySysName("livingroom"),
+            ],
+            media: [ 
+                "watching_tv_0.jpg", 
+                "watching_tv_1.jpg", 
+                "watching_tv_2.jpg", 
+                "watching_tv_3.jpg", 
+                "watching_tv_4.jpg", 
+                "watching_tv_5.jpg" 
+            ],
+            cctv: [
+
+            ],
+        },
+        cooking: {
+            id: "cooking",
+            text: "cooking",
+            locations: [
+                setup.getLocationBySysName("kitchen"),
+            ],
+            media: [
+                "cooking_0.mp4", 
+                "cooking_1.mp4", 
+                "cooking_2.mp4" 
+            ],
+            cctv: [
+
+            ],
+        },
+        cleaning_kitchen: {
+            id: "cleaning_kitchen",
+            text: "cleaning",
+            when: [1, 2, 3, 4],
+            duration: [1, 2],
+            locations: [
+                setup.getLocationBySysName("kitchen"),
+            ],
+            media: [
+                "cleaning_0.mp4", 
+                "cleaning_1.mp4", 
+                "cleaning_2.mp4",
+            ],
+            cctv: [
+
+            ],
+        },
+        relaxing: {
+            id: "relaxing",
+            text: "relaxing",
+            when: [1, 2, 3, 4, 5],
+            duration: [1, 3],
+            locations: [
+                setup.getLocationBySysName("momroom"),
+            ],
+            media: [ 
+                "relaxing_0.jpg" 
+            ],
+            cctv: [
+
+            ],
+        },
+        /* task "Helping the landlord", stage 0 */
+        helping_landlord0: {
+            id: "helping_landlord0",
+            base: "helping_landlord",
+            text: "helping $landlord.callName",
+            locations: [
+                setup.getLocationBySysName("landlordapartment"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        /* task "Private Attention" (unlocked by CEO Struggles), stage 0 */
+        giving_massage0: {
+            id: "giving_massage0",
+            base: "giving_massage",
+            text: "giving a massage",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        /* task "Private Attention", stage 1 */
+        giving_massage1: {
+            id: "giving_massage1",
+            base: "giving_massage",
+            text: "giving a massage",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        /* task "Private Attention", stage 2 */
+        giving_massage2: {
+            id: "giving_massage2",
+            base: "giving_massage",
+            text: "giving a massage",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        /* task "Private Attention", stage 3 */
+        giving_massage3: {
+            id: "giving_massage3",
+            base: "giving_massage",
+            text: "giving a massage",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        /* task "Test Session" (unlocked by Test Session Request), stage 0 */
+        testing_prototype: {
+            id: "testing_prototype",
+            base: "testing_prototype",
+            text: "testing the prototype",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+    },
+    /*
+    ==========================================================================================================
+    ===============================================   Sister   ===============================================
+    ==========================================================================================================
+     */
+    sister: {
+        sleeping: {
+            id: "sleeping",
+            text: "sleeping",
+            locations: [
+                setup.getLocationBySysName("sisterroom"),
+            ],
+            media: [ 
+                "sleeping_0.jpg", 
+                "sleeping_1.jpg", 
+                "sleeping_2.jpg", 
+                "sleeping_3.jpg", 
+                "sleeping_4.jpg", 
+                "sleeping_5.jpg", 
+                "sleeping_6.jpg" 
+            ],
+            cctv: [
+
+            ],
+        },
+        studying: {
+            id: "studying",
+            text: "studying",
+            when: [1, 2, 3, 4, 5],
+            duration: [2, 3],
+            locations: [
+                setup.getLocationBySysName("sisterroom"),
+            ],
+            media: [ 
+                "studying_0.mp4",
+            ],
+            cctv: [
+
+            ],
+        },
+        studying_college: {
+            id: "studying_college",
+            text: "studying",
+            locations: [
+                setup.getLocationBySysName("college"),
+            ],
+            media: [ 
+                "studying_0.mp4",
+            ],
+            cctv: [
+
+            ],
+        },
+        showering: {
+            id: "showering",
+            text: "showering",
+            locations: [
+                setup.getLocationBySysName("bathroom"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        peeing: {
+            id: "peeing",
+            text: "peeing",
+            locations: [
+                setup.getLocationBySysName("bathroom"),
+            ],
+            media: [
+
+            ],
+            cctv: [
+
+            ],
+        },
+        watching_tv: {
+            id: "watching_tv",
+            text: "watching TV",
+            when: [2, 3, 4, 5],
+            duration: [2, 3],
+            locations: [
+                setup.getLocationBySysName("livingroom"),
+            ],
+            media: [ 
+                "watching_tv_0.jpg", 
+                "watching_tv_1.jpg", 
+                "watching_tv_2.jpg", 
+                "watching_tv_3.mp4" 
+            ],
+            cctv: [
+
+            ],
+        },
+        watching_reels: {
+            id: "watching_reels",
+            text: "watching reels",
+            when: [0, 1, 2, 3, 4, 5, 6],
+            duration: [1, 3],
+            locations: [
+                setup.getLocationBySysName("sisterroom"),
+            ],
+            media: [ 
+                "watching_reels_0.jpg", 
+                "watching_reels_1.jpg", 
+                "watching_reels_2.jpg", 
+                "watching_reels_3.jpg", 
+                "watching_reels_4.mp4", 
+                "watching_reels_5.mp4", 
+                "watching_reels_6.mp4", 
+                "watching_reels_7.mp4", 
+                "watching_reels_8.mp4" 
+            ],
+            cctv: [
+
+            ],
+        },
+        doing_chores: {
+            id: "doing_chores",
+            text: "doing chores",
+            locations: [
+                setup.getLocationBySysName("kitchen"),
+                setup.getLocationBySysName("livingroom"),
+            ],
+            media: [ 
+                "doing_chores_0.mp4", 
+                "doing_chores_1.mp4",
+            ],
+            cctv: [
+
+            ],
+        },
+        working: {
+            id: "working",
+            text: "working",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+            ],
+            media: [
+                "working_0.mp4",
+                "working_1.mp4",
+                "working_2.mp4",
+                "working_4.mp4",
+                "working_5.mp4",
+                "working_6.mp4",
+                "working_7.mp4",
+                "working_8.mp4",
+                "working_9.mp4",
+                "working_10.mp4",
+            ],
+            cctv: [],
+        },
+        bring_coffee: {
+            id: "bring_coffee",
+            text: "bringing everyone coffee",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+            ],
+            media: [
+                "bringing_coffee_0.mp4",
+            ],
+            cctv: [],
+        },
+        /* the task Internship Overview (task_sister_internship_overview), with me in the meeting room */
+        internship_overview: {
+            id: "internship_overview",
+            text: "going over her internship journal",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        working_diner: {
+            id: "working_diner",
+            text: "working",
+            locations: [
+                setup.getLocationBySysName("diner"),
+            ],
+            media: [
+                
+            ],
+            cctv: [
+
+            ],
+        },
+        tutor_home: {
+            id: "tutor_home",
+            text: "tutoring a student",
+            locations: [
+                setup.getLocationBySysName("livingroom"),
+                setup.getLocationBySysName("sisterroom"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        tutor_college: {
+            id: "tutor_college",
+            text: "tutoring a student",
+            locations: [
+                setup.getLocationBySysName("college"),
+                setup.getLocationBySysName("collegehallway"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task "Helping the landlord", stage 0 */
+        helping_landlord0: {
+            id: "helping_landlord0",
+            base: "helping_landlord",
+            text: "helping $landlord.callName",
+            locations: [
+                setup.getLocationBySysName("landlordapartment"),
+            ],
+            media: [],
+            cctv: [],
+        },
+    },
+}>>
+
+<<set setup.getActivity = (who, id) => {
+    const sysName = (who && typeof who === "object") ? who.sysName : who;
+    if (!id) { return undefined; }
+    const activity = (setup.activities[sysName] || {})[id];
+    if (!activity) { console.error('setup.getActivity: "' + sysName + '" has no activity "' + id + '"'); }
+    return activity;
+}>>
+
+<<set setup.getNpcActivity = (npc) => {
+    return npc ? setup.getActivity(npc, npc.activity) : undefined;
+}>>
+
+<<set setup.activityByStage = (who, byStage) => {
+    if (!byStage || typeof byStage !== "object") { return undefined; }
+    const stage = setup.corruptionStage(who);
+    const keys = Object.keys(byStage).map(Number).filter((key) => key <= stage);
+    return keys.length ? byStage[Math.max(...keys)] : undefined;
+}>>
+
+<<set setup.activityText = (who, id) => {
+    const activity = setup.getActivity(who, id);
+    if (!activity) { return id || ""; }
+    const text = setup.activityByStage(who, activity.stageText) || activity.text;
+    return text.includes("$") ? wikifyText(text) : text;
+}>>
+
+<<set setup.activityIs = (who, id, list) => {
+    if (!id || !Array.isArray(list)) { return false; }
+    const activity = setup.getActivity(who, id);
+    return list.includes(id) || !!(activity && activity.base && list.includes(activity.base));
+}>>
+
+<<set setup.getActivitiesForLocation = (who, location) => {
+    const sysName = (who && typeof who === "object") ? who.sysName : who;
+    return Object.values(setup.activities[sysName] || {}).filter((activity) =>
+        (activity.locations || []).some((loc) => setup.sameLocation(loc, location))
+    );
+}>>
+
+<<set setup.activityMedia = (who, id, kind, random) => {
+    const sysName = (who && typeof who === "object") ? who.sysName : who;
+    const activity = setup.getActivity(sysName, id);
+    if (!activity) { return ""; }
+    let folder = "activities";
+    let files = setup.activityByStage(sysName, activity.stageMedia) || activity.media || [];
+    const cctv = setup.activityByStage(sysName, activity.stageCctv) || activity.cctv || [];
+    if (kind === "cctv" && cctv.length) {
+        folder = "tasks";
+        files = cctv;
+    }
+    if (!files.length) { return ""; }
+
+    const v = State.variables;
+    const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+    const index = random ? Math.floor(Math.random() * files.length) : ((Number(v.date.dayCount) || 0) * 21 + row) % files.length;
+    return "images/characters/" + sysName + "/" + folder + "/" + files[index];
+}>>

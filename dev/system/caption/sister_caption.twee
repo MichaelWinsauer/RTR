@@ -1,0 +1,3 @@
+:: Sister Caption [system nobr] {"position":"1900,525","size":"100,100"}
+<<SbNpc $sister "sister">>
+

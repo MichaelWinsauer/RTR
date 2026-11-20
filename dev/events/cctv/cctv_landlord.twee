@@ -1,0 +1,12 @@
+:: CCTV Mom Landlord 0 [scene] {"position":"100,3100","size":"100,100"}
+/* Placeholder: stage 0 of the "Helping $landlord.callName" task (mom). Opened with the CCTV arrow. */
+I lean closer to the monitor. On the feed from $landlord.callName's place, $mom.callName is busy tidying up while he watches her from his armchair.
+
+<<ReturnFromCCTV "Back to the desk">>
+
+
+:: CCTV Sister Landlord 0 [scene] {"position":"225,3100","size":"100,100"}
+/* Placeholder: stage 0 of the "Helping $landlord.callName" task (sister). Opened with the CCTV arrow. */
+I lean closer to the monitor. On the feed from $landlord.callName's place, $sister.callName is carrying boxes around while he points out where they go.
+
+<<ReturnFromCCTV "Back to the desk">>

@@ -1,0 +1,21 @@
+:: Activity Cook [activity] {"position":"650,1800","size":"100,100"}
+/* Cooking something for myself (Kitchen: "throw something together", only offered at breakfast, lunch and dinner time).
+   Two actions, no effects. The family meals themselves are micro events (Define Events / Define Meals). */
+<<switch $time.current.value>>
+<<case 0>>
+Eggs, then. I crack three into a pan and push them around until they look like the scrambled eggs on the $diner.name menu, which, after all those shifts behind that counter, is the only standard I've got. Toast with too much butter. Coffee from a pot that has been sitting on the warmer for who knows how long.
+
+I eat standing at the counter, reading mail between bites, and leave the pan on the stove because I'll definitely want more eggs at some point. Probably.
+<<case 2>>
+Grilled cheese. It's the one thing I can make without looking anything up, and I've made it so many times I could do it asleep. I watch the edges go brown, flip it a little too early anyway, and eat it straight off the spatula, because a plate would just be one more thing to wash.
+
+It's perfect. I'm not going to tell anybody that, but it is.
+<<case 4>>
+I put a pot of water on and stare at it until it boils, which takes exactly as long as everybody says it does when you stare. Pasta, a jar of sauce from the back of the pantry, and parmesan that I grate until my knuckles start to get nervous.
+
+Nobody is going to write about it. It's hot, though, and there's a lot of it, and I eat the whole bowl at the counter before anyone can wander in and ask for some. The pot goes in the sink to soak, which is what $mom.callName calls it when I do it, and what I call doing the dishes.
+<<default>>
+I open a few cabinets, look at a can of soup for a while and decide I'm not that hungry after all.
+<</switch>>
+
+<div class="navigation-link"><<link "Clean up (sort of)" "Kitchen">><<UseAction 2>><</link>></div>

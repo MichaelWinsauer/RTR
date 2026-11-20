@@ -1,0 +1,75 @@
+:: Sister Phone Living Room [micro_event event nobr] {"position":"1300,2900","size":"100,100"}
+/* Overheard call about her social life: listen in (she can catch you), interrupt, or leave. Her side of the call only. */
+<<silently>>
+<<set _calls to [
+	[
+		{ who: $sister, text: "No, I can't do Thursday, I have the lab report. Okay, Friday? Fine. Bring snacks." },
+		{ who: $sister, text: "And please read the chapter this time." }
+	],
+	[
+		{ who: $sister, text: "Saturday? Whose place? Okay, I'll text you when I'm ready." },
+		{ who: $sister, text: "Not before ten, I'm not a kid." }
+	],
+	[
+		{ who: $sister, text: "No way. He did not. That is so awkward, I can't even." },
+		{ who: $sister, text: "Okay, tell me everything. From the start." }
+	],
+	[
+		{ who: $sister, text: "No, stop. I'm not telling you who. Because you'll tell everyone." },
+		{ who: $sister, text: "Okay, maybe I like someone. Maybe." }
+	]
+]>>
+<<set _call to _calls.random()>>
+<</silently>>
+<p>$sister.callName is curled up on the couch, talking on her phone and twirling a strand of hair around her finger.</p>
+<div id="choice1">
+	<div>
+		<<link "Listen in">>
+			<<replace "#choice1">>
+				<<if random(1, 100) <= Math.clamp(15 + Math.round($sister.stats.resistance / 2) - Math.round($sister.stats.relation / 10), 5, 70)>>
+					<p>She catches my reflection in the dark TV screen and spins around.</p>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $sister, text: "Excuse me? Private call!" },
+						{ who: $player, text: "I was just getting a glass of water." },
+						{ who: $sister, text: "In the living room? Nice try, weirdo." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<<UpdateStat "-" "SisterRelation" 3>>
+					<<UpdateStat "+" "SisterResistance" 3>>
+				<<else>>
+					<p>I stay out of her line of sight and listen.</p>
+					<<set _msgs to _call>>
+					<<Chat _msgs>>
+					<p>She hangs up a minute later and goes back to scrolling. She never looks my way.</p>
+				<</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Interrupt with a joke">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Tell your friend I said hi!" },
+					{ who: $sister, text: "He says hi. Now get out!" }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<if $sister.stats.relation >= 20>>
+					<<UpdateStat "+" "SisterRelation" 1>>
+				<<else>>
+					<<UpdateStat "-" "SisterRelation" 1>>
+				<</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave her to it">>
+			<<replace "#choice1">>
+				<p>I head back to my room without a word.</p>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

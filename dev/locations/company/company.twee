@@ -1,0 +1,12 @@
+:: Company [location] {"position":"2400,1425","size":"100,100"}
+<<CheckLocation>>
+
+$landlord.callName calls this place a broom closet, and he's being generous. It's a box with windows. The lights buzz, every step echoes off the tile, and the air still smells faintly of paint that never quite dried. Four second-hand desks are shoved together into a plus sign in the middle of the room, mostly because there's nowhere else to put them, and every chair creaks like it's filing a complaint. The shelves along the wall are completely empty, still waiting for a company that hasn't shown up yet. I pay way too much for this little square of quiet, and the room makes sure I remember it every time I unlock the door.
+
+The only view is the windows of the building across the street. None of the ceiling panels quite match, and the radiator and the AC take turns making noise, like two roommates who stopped talking to each other months ago. Nobody would call it inspiring. It's a place to put in the hours and go home.
+
+Still, as long as I'm here, I might as well make it count. I can open the laptop and [[research|Activity Prototype Company]] new ways to improve the device, <<if $company.prototype.progress < $company.prototype.maxProgress>>or clear the desk and [[get the board out|Prototype Workbench]] to actually build on it, which eats a lot more time but moves it forward a lot further if I don't botch it<<else>>though the board itself is as far along as soldering can get it until I know what it needs to do next<</if>>. Or I take the hint and [[get back outside|Residential Area]] before this room drains whatever momentum I have left.
+
+<<CheckNPCLocation>>
+
+

@@ -1,0 +1,4 @@
+:: Dinner Include [micro_event event] {"position":"1300,2775","size":"100,100"}
+<b>$mom.callName and $sister.callName are eating dinner. [[Join them|Dinner]]</b>
+
+

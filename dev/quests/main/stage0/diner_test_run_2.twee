@@ -1,0 +1,51 @@
+:: Diner Test-Run 2 [event main_quest] {"position":"3275,125","size":"100,100"}
+By seven the place is full. Truckers at the counter, a couple of nurses coming off a night shift, commuters who order like they're defusing a bomb and keep one eye on the clock. I'm running plates and refilling mugs like always, but half my attention is on the people themselves: how they sit, how fast they eat, when they start looking around for the check.
+
+<<linkreplace "Watch the first tables fill up">>
+Table seven is a middle-aged couple. He looks like the day has already beaten him, and it isn't even eight. She's typing on her phone with the grim focus of someone answering emails she resents. Coffee and toast, they tell me, and the check right away, please.
+
+I take the long way around the counter. On my second pass with the pot, his shoulders have come down an inch and she's put the phone face down next to her plate. By the third pass they're actually talking to each other, and he has the menu open again.
+<<silently>>
+<<set _msgs = [
+{ who: "Middle-aged Man", text: "You know what? Let's get the chocolate cake. We've earned it." },
+{ who: "Middle-aged Woman", text: "At eight in the morning?" },
+{ who: "Middle-aged Man", text: "It's somebody's afternoon somewhere." },
+{ who: $player, text: "One chocolate cake, two forks. Coming right up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They stay forty-five minutes longer than coffee and toast has any right to take, and order a second round before they go. In the kitchen doorway I add the times to a note on my phone, under a heading that just says 'T7'.
+
+<<linkreplace "Check the counter">>
+The three guys at the counter are regulars of a different kind. Loud, elbows everywhere, usually in and out in fifteen minutes because one of them always has to be somewhere. Today nobody seems to have anywhere to be.
+<<silently>>
+<<set _msgs = [
+{ who: "Young Guy 1", text: "Man, these hash browns are hitting different today. Let's get another plate." },
+{ who: "Young Guy 2", text: "Yeah, and throw in a stack of pancakes. And more coffee, my man." },
+{ who: "Young Guy 3", text: "Screw it, add the apple pie. We're celebrating." },
+{ who: "Young Guy 1", text: "Celebrating what?" },
+{ who: "Young Guy 3", text: "Pie, apparently." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+They leave almost an hour later with full stomachs and a tip twice the size of what they usually throw on the counter. One of them even says thanks on his way out. I've worked here for months, and I'm pretty sure that's a first.
+
+<<linkreplace "Observe the quiet customers">>
+Then there's the older woman at table twelve. She comes in alone every morning, orders coffee and a slice of pie, reads exactly one section of the newspaper and leaves twenty minutes later without saying more than two words. Today she orders the full breakfast. Then she asks me how my day is going, and actually waits for an answer.
+
+I tell her it's going pretty well. For once, that isn't a lie.
+
+Between orders I keep adding to the note on my phone. Table times, check totals, desserts nobody planned on. By now the numbers don't look like a lucky morning anymore. They look like a pattern, and a pattern is something I can put on a slide and show to all the people who stopped answering my emails.
+
+<<linkreplace "Keep observing the last customers">>
+The rush thins out around ten. The last straggler is a guy in a hi-vis vest who has ordered black coffee to go every single morning since I started here. Today he sits down. He gets the breakfast platter and then, after a long, thoughtful look at the dessert board, a strawberry milkshake.
+
+I bring it over, and he sips it like it's the best decision he's made all year. I head for the back before he can see the grin I can't get off my face.
+[[Continue|Diner Test-Run 3]]
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

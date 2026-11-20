@@ -1,0 +1,212 @@
+:: Sister watching_reels [interaction] {"position":"150,2100","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister on her phone in her room.
+   1 (the knife guy) and 2 (the reels she sends me) always.
+   3 (just one more): at Night or Late Night ($time.current.value 5 or 6). One extra line after sister_conflictingFeelings.
+   4 (the favorite child): before sister_conflictingFeelings.
+   5 (study with me): before sister_sheMadeIt.
+   6 (what dreams mean): after sister_partyAnimal, before sister_conflictingFeelings. She remembers nothing of that night.
+   7 (side by side, +1 SisterLust): after sister_conflictingFeelings.
+   8 (office tours): after main_tooMuchWork, so the staff exists. */
+<<silently>>
+<<set _variants to [1, 2]>>
+<<if $time.current.value >= 5>><<run _variants.push(3)>><</if>>
+<<if !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(4)>><</if>>
+<<if !setup.questDone("sister_sheMadeIt")>><<run _variants.push(5)>><</if>>
+<<if setup.questDone("sister_partyAnimal") && !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(6)>><</if>>
+<<if setup.questDone("sister_conflictingFeelings")>><<run _variants.push(7)>><</if>>
+<<if setup.questDone("main_tooMuchWork")>><<run _variants.push(8)>><</if>>
+<<set _pick to setup.pickTalkScene("Sister watching_reels", _variants)>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* 1: The knife guy */
+<<case 1>>
+$sister.callName is lying on her stomach across the bed with her chin on her fists, watching a man in a garage sand the rust off an old cleaver. There's no music and no talking, only the sound of sandpaper.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Shh. Shh. He's about to do the handle." },
+{ who: $player, text: "Who is this?" },
+{ who: $sister, text: "No idea. I call him Kevin. He buys rusty old knives at flea markets and makes them beautiful again, and he never says a single word. I've watched forty-three of these." },
+{ who: $player, text: "You don't even cook." },
+{ who: $sister, text: "I don't even own a knife! I own one butter knife, and I stole it from the college cafeteria. That's not the point. The point is Kevin." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's no way to see the screen except to lie down next to her, so I do. Kevin glues two pieces of dark wood onto the blade, clamps them, and the video skips ahead a whole day. Kevin oils the steel. Kevin cuts a tomato so thin you could read through it, and $sister.callName grabs my arm and squeezes it like we're watching a penalty shootout.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Every time. Every single time, the tomato. He knows exactly what he's doing to me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She makes me watch two more. By the third one I have opinions about Kevin's choice of wood, and she tells me to keep them to myself, because Kevin is perfect.
+
+/* 2: The reels she sends me */
+<<case 2>>
+My phone buzzes in my pocket while I'm knocking. It buzzes again while I'm opening the door, and twice more while I'm standing in it. $sister.callName is sitting against the headboard with her knees up, thumb moving, and she doesn't look up.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Did you get them?" },
+{ who: $player, text: "Get what?" },
+{ who: $sister, text: "The reels! I've sent you nine today. You haven't opened a single one. I can see that, by the way. It just says 'delivered'. It's like yelling down a well." },
+{ who: $player, text: "I was busy." },
+{ who: $sister, text: "Doing what? No, don't answer. Open them. Now, in front of me. I want to watch your face." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Open them one by one">>
+So I sit on the end of her bed and open them while she watches me over the top of her phone. First a raccoon stealing a cat's dinner, very politely, one piece at a time. Then a man who spends all summer building a pool in his backyard and admits on camera that he can't swim. Then a woman ranking airports by how sad their sandwiches are, and then a duck standing in a puddle, which is the whole video. That one, she explains, is for when I'm stressed.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You didn't laugh at the raccoon." },
+{ who: $player, text: "I smiled at the raccoon." },
+{ who: $sister, text: "Barely. You smile like somebody's charging you for it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+My phone buzzes again before I'm off her bed. It's the duck.
+<</linkreplace>>
+
+/* 3: Just one more (night) */
+<<case 3>>
+The rest of the house went quiet hours ago. The only light in her room comes from her phone, lighting her face from underneath, and she's lying on her side under the blanket with her eyes half shut.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "It's the middle of the night." },
+{ who: $sister, text: "I know. I'm going to sleep. I've been going to sleep since eleven." },
+{ who: $player, text: "How's that going?" },
+{ who: $sister, text: "Great. Really great. I'm just finishing this one. And then the one after it, because the one after it is always better, that's how they get you. And then I'm asleep." },
+{ text: "The one after it is a man explaining why you should never put grapes in the microwave. She watches the whole thing with total seriousness." },
+{ who: $sister, text: "Did you know that? About grapes? That's important. I'm a safer person now. You can't sleep without knowing stuff like that." },
+{ who: $sister, text: "Lie down for one. Just one, and then I'll stop. Promise." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Watch just one">>
+I lie down on top of her blanket. One turns into six. Somewhere around a man ranking soups, her thumb stops moving and the phone slowly tips forward until it lands on her chin. She doesn't wake up.
+
+I take it out of her hand, plug it in on the nightstand and switch the screen off in the middle of a cream of mushroom review.<<if setup.questDone("sister_conflictingFeelings")>> Her head has ended up on my shoulder at some point. I stay where I am for a while before I ease it down onto the pillow.<</if>>
+<</linkreplace>>
+
+/* 4: The favorite child (before sister_conflictingFeelings) */
+<<case 4>>
+$sister.callName is sitting cross-legged on her bed with her phone in one hand and a pen in the other, writing numbers on the back of her hand.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay, this reel says the oldest kid is always the favorite. Scientifically. So I'm making a list. With evidence." },
+{ who: $player, text: "Evidence of what?" },
+{ who: $sister, text: "That I'm $mom.callName's favorite. Point one. She cuts the crusts off my sandwiches and not yours." },
+{ who: $player, text: "I asked her to stop when I was nine." },
+{ who: $sister, text: "Point two. My baby pictures are on the fridge. Yours are in a drawer." },
+{ who: $player, text: "Because in all of mine I'm holding a pigeon." },
+{ who: $sister, text: "It's a beautiful pigeon. That's not the pigeon's fault. Point three. When I call her, she picks up on the first ring. When you call her, she says 'is everything all right?' like you're calling from jail." },
+{ text: "She writes a 3 on her knuckle and holds the hand up for me to see, very pleased with herself." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I let her have the win. She's right about the phone, though. I decide to start calling $mom.callName more often, about nothing at all, until she stops bracing herself every time my name comes up on her screen.
+
+/* 5: Study with me (before sister_sheMadeIt) */
+<<case 5>>
+Her calculus book is open on the desk. She isn't at the desk. She's on the bed watching a girl in a very clean apartment study, in real time, with soft music and a candle burning next to her laptop.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Shouldn't you be..." },
+{ who: $sister, text: "I am. This is a study-with-me video. She studies, I study. It's very motivating." },
+{ who: $player, text: "You're not studying." },
+{ who: $sister, text: "I'm absorbing the energy. Look how calm she is. Look at her highlighters, they all have their caps on." },
+{ who: $player, text: "How long have you been absorbing?" },
+{ who: $sister, text: "...Two of her sessions. She's on her third. She's a machine, honestly. I think she's in med school. Or she's a robot. Maybe both, they have robots in med school now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Put the book in her lap">>
+I take the book off the desk and drop it in her lap. She groans like I've dropped a cinder block, but she sits up. We prop the phone against her lamp, so the robot girl can keep an eye on her, and for half an hour it actually works.
+
+When the girl in the video takes her break, $sister.callName takes hers too, right on cue. I don't mention that the girl in the video studied for fifty minutes and she studied for thirty-five.
+<</linkreplace>>
+
+/* 6: What dreams mean (after sister_partyAnimal, before sister_conflictingFeelings) */
+<<case 6>>
+I knock and open the door at the same time, which she hates, and she locks her phone so fast it clacks against the headboard. Before the screen goes black I catch a pink title card with a crescent moon on it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Knock! You have to knock and then wait! The waiting is the important part!" },
+{ who: $player, text: "What are you watching?" },
+{ who: $sister, text: "Nothing. Horoscope stuff. Dream stuff. It's dumb." },
+{ text: "She turns the phone over and lays her hand flat on top of it." },
+{ who: $sister, text: "Do you ever dream about people you know? Like, real people, and it's really... vivid, and then you have to see them at breakfast?" },
+{ who: $player, text: "Sometimes. Who've you been dreaming about?" },
+{ who: $sister, text: "Nobody! A guy from my stats class. He has a ponytail. It was horrible." },
+{ text: "It comes out too fast, and she tells it to a spot on the carpet next to my feet." },
+{ who: $player, text: "So what does the internet say it means?" },
+{ who: $sister, text: "That I need to 'confront my unspoken desires'. Which is what the internet says about everything. You dream about a sandwich, it's your unspoken desires." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her the ponytail guy is probably a sign she needs more sleep, and she agrees with me right away, which she never does when I'm right. When I leave, I hear her pick the phone back up before the door has even closed.
+
+/* 7: Side by side (after sister_conflictingFeelings) */
+<<case 7>>
+$sister.callName is on her back with the phone held up over her face, the position that always ends with a phone on the nose. When she sees me, she scoots over to the wall without a word. For as long as I can remember, she has never once made room for me on anything without negotiating first.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Lie down. You have to see this one. A guy proposes at a baseball game, on the big screen, and she says no." },
+{ text: "I lie down. The bed is narrow, and there's no way to do it without our shoulders pressing together. She shows me the proposal. The next reel is a couple slow-dancing in their kitchen in their socks, and she swipes past it so fast the app stutters." },
+{ who: $sister, text: "Boring. Next." },
+{ text: "The next one is a girl lip-syncing to a song about a guy she can't have. $sister.callName stops scrolling. She doesn't swipe and she doesn't say anything, and the song loops around twice." },
+{ who: $player, text: "You can swipe." },
+{ who: $sister, text: "I know I can swipe." },
+{ text: "She swipes. The next one is a dachshund in a hot dog costume, and she laughs a lot harder than the dachshund deserves." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't move her shoulder away for the rest of the time I'm there. When I get up, she rolls over into the warm spot I left and keeps scrolling with the sound off.
+
+<<UpdateStat "+" "SisterLust" 1>>
+
+/* 8: Office tours (after main_tooMuchWork) */
+<<case 8>>
+She's watching an office tour of some tech company in California, the kind with a wall made of moss and a guy in a vest who keeps saying 'culture'.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay, look at this. They have a slide. A slide, $sister.callPlayer. Between floors." },
+{ who: $player, text: "Our office is one floor." },
+{ who: $sister, text: "So we put it in the meeting room. Corner to corner. You come in on the slide for important meetings. It'd be so intimidating." },
+{ who: $sister, text: "And they have a dog. An office dog. His name is Biscuit and he has his own lanyard." },
+{ who: $player, text: "Who'd look after it?" },
+{ who: $sister, text: "$brian.name. Obviously. He'd never talk to any of us again, he'd only talk to the dog. He'd be so happy." },
+{ text: "She has a list in her notes app called OFFICE DEMANDS, and I'm allowed to read it. It starts with a nap pod and real coffee, then the dog, then a plant that isn't plastic, then 'make $darius.name wear a hat, once, any hat'. Number six just says 'snacks??' with two question marks, like she wasn't sure she was allowed to ask." },
+{ who: $player, text: "You can have the plant." },
+{ who: $sister, text: "One plant. Wow. Okay. I'll take it. It's a start." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She writes APPROVED next to the plant in capital letters. Underneath, much smaller, she adds 'negotiate dog later'.
+
+<</switch>>
+
+<<UpdateStat "+" "SisterRelation" 1>>
+
+<div class="navigation-link"><<link "Leave her to her phone" $player.location.passage>><</link>></div>

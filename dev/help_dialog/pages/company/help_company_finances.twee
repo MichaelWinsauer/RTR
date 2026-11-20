@@ -1,0 +1,32 @@
+:: Help Company Finances [nobr] {"position":"825,4375"}
+<p>The finances panel is at the top, next to the devices.</p>
+
+<h3>What you see</h3>
+<ul>
+	<li><b>Company money</b>, top left: the balance of the company account. Your own cash joins it whenever the dashboard refreshes, so you only ever have one pile of money from Stage 1 on.</li>
+	<li><b>+ and −</b>, top right: a green total of what is coming in (the daily revenue of your active projects and any task pay earned since midnight) and a red total of what goes out (the weekly rent plus the weekly wages of all employees).</li>
+	<li><b>The chart</b>: a small line chart of the last seven days. The beige line is your balance at the start of each day, the red one what actually left the account that day (rent and wages). It starts to fill in as the days pass.</li>
+</ul>
+
+<h3>How your money changes</h3>
+<dl class="help-stats">
+	<dt>Projects</dt><dd>Every night each active project pays its daily revenue.</dd>
+	<dt>Tasks</dt><dd>Each finished <a href="#" data-help="Help Company Tasks">task</a> pays its amount straight away.</dd>
+	<dt>$mom.callName's help</dt><dd>In Stage 0, while she still has her old job and helps with the rent, $500 comes in once a week.</dd>
+	<dt>Wages</dt><dd>Every Monday morning the whole week of wages is paid out of the account at once.</dd>
+	<dt>Rent</dt><dd>Taken when the landlord visits (below).</dd>
+</dl>
+<p>Rent and wages are the bills that are paid out of the account. The account can go below zero.</p>
+
+<h3>The rent</h3>
+<p>Rent is due every <b>Monday</b>, and right now it is <b>$<<= $rent>></b> a week. You have two ways to pay it:</p>
+<ul>
+	<li><b>Bring it to him.</b> Go to $landlord.callName's place (Residential Area) and pay there, for <b>1 action</b>. Do it before Monday evening and he's in a much better mood, because he didn't have to come looking. Later still works, he's just his usual self. You can only pay there if you have the full amount.</li>
+	<li><b>Wait for him.</b> From Monday evening on, he comes to you as soon as you're at home or at the office. If you're somewhere else all night, he catches you the next time you are. If you can pay, you pay him. If you can't, you tell him you're short.</li>
+</ul>
+<p>Telling him you're short has consequences:</p>
+<ul>
+	<li>The first time, what you couldn't pay is added to next week's rent and you get a warning.</li>
+	<li>If you miss it <b>a second time</b>, it is <b>Game Over</b>.</li>
+</ul>
+<div class="help-note">Keep an eye on the balance on Sundays.</div>

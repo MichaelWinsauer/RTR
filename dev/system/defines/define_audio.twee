@@ -1,0 +1,64 @@
+:: Define Audio [system] {"position":"875,150","size":"100,100"}
+<<CacheAudio "music-home"  						"audio/music/home.mp3">>
+<<CacheAudio "music-residential-area"  			"audio/music/residential-area.mp3">>
+<<CacheAudio "music-company"  					"audio/music/company.mp3">>
+<<CacheAudio "music-main-menu"  				"audio/music/main-menu.mp3">>
+
+<<createaudiogroup ":music">>
+	<<track "music-home">>
+	<<track "music-residential-area">>
+    <<track "music-company">>
+    <<track "music-main-menu">>
+<</createaudiogroup>>
+
+<<CacheAudio "ambience-home"					"audio/ambience/home.mp3">>
+<<CacheAudio "ambience-home-night"				"audio/ambience/home-night.mp3">>
+<<CacheAudio "ambience-residential-area"		"audio/ambience/residential-area.mp3">>
+<<CacheAudio "ambience-residential-area-night" 	"audio/ambience/residential-area-night.mp3">>
+<<CacheAudio "ambience-company"					"audio/ambience/company.mp3">>
+<<CacheAudio "ambience-company-night"			"audio/ambience/company-night.mp3">>
+<<CacheAudio "ambience-momwork"					"audio/ambience/momwork.mp3">>
+<<CacheAudio "ambience-momwork-night"			"audio/ambience/momwork-night.mp3">>
+<<CacheAudio "ambience-diner"					"audio/ambience/diner.mp3">>
+<<CacheAudio "ambience-diner-night"				"audio/ambience/diner-night.mp3">>
+<<CacheAudio "ambience-shop"					"audio/ambience/shop.mp3">>
+<<CacheAudio "ambience-shop-night"				"audio/ambience/shop-night.mp3">>
+/* the heartbeat under the main menu music, played by "Main Menu" */
+<<CacheAudio "effect-heartbeat"					"audio/ambience/heartbeat.mp3">>
+
+<<createaudiogroup ":ambience">>
+	<<track "ambience-home">>
+    <<track "ambience-home-night">>
+	<<track "ambience-residential-area">>
+    <<track "ambience-residential-area-night">>
+    <<track "ambience-company">>
+    <<track "ambience-company-night">>
+    <<track "ambience-momwork">>
+    <<track "ambience-momwork-night">>
+    <<track "ambience-diner">>
+    <<track "ambience-diner-night">>
+    <<track "ambience-shop">>
+    <<track "ambience-shop-night">>
+    <<track "effect-heartbeat">>
+<</createaudiogroup>>
+
+<<set $audio to {
+	now: { 
+    	music: null, 
+        ambience: null 
+    },
+  	override: { 
+        music: null, 
+        ambience: null 
+    }
+}>>
+
+<<CacheAudio "effect-hover" "audio/effects/hover.mp3">>
+<<CacheAudio "effect-click" "audio/effects/click.mp3">>
+
+<<createaudiogroup ":sfx">>
+    <<track "effect-hover">>
+    <<track "effect-click">>
+<</createaudiogroup>>
+
+

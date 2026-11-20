@@ -1,0 +1,20 @@
+:: Default Meal Mom [activity meal] {"position":"1475,2100"}
+/*
+{
+        id: "default_mom",
+        passage: "Default Meal Mom",
+        isActive: true,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: false,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: false,
+        lastSeen: -1,
+        present: ["mom"],
+        requirements: [
+        ],
+        set: [
+        ]
+}
+*/
+Default Meal $mom.callName

@@ -1,0 +1,64 @@
+:: Meal Welcome Home [activity meal] {"position":"1975,2225"}
+/*
+{
+        id: "welcome_home",
+        passage: "Meal Welcome Home",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("welcome_home").isActive = false,
+        ]
+}
+   Activated by: "Meet Sister" (main_meetSister). My first dinner back home.
+*/
+$mom.callName has gone overboard. There's a lasagna the size of a suitcase in the middle of the table, garlic bread, a salad nobody is going to touch, and the good plates, the ones with the thin gold rim that normally only come out at Thanksgiving. Somebody lit a candle. Judging by the way $sister.callName keeps smirking at it, that somebody wasn't her.
+
+/* IMAGE: images/meals/important/welcome_home.jpg | The kitchen table set for three with the good plates, a huge lasagna, a single candle. Mom beaming, Sister smirking at the candle. */
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Sit, sit. You must be starving after all that driving. I made the lasagna. Your lasagna." },
+{ who: $sister, text: "She made the lasagna. She also cleaned the bathroom twice. I'm just saying, when I came home from two weeks of summer camp, I got a frozen pizza." },
+{ who: $mom, text: "You were sixteen, and you came back with a tattoo you thought I wouldn't notice." },
+{ who: $sister, text: "And a lot of personal growth." },
+{ text: "$mom.callName piles a slab of lasagna onto my plate that could feed a family of four, then adds a second piece of garlic bread before I can stop her." },
+{ who: $mom, text: "Did the car make it all right? $sister.callName said you were worried about it." },
+{ who: $player, text: "It made it. It made some new noises on the highway, but it made it." },
+{ who: $sister, text: "That's how you know it's happy to be home." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For a while it's easy. $sister.callName tells a story about a girl from her study group that requires three separate voices, $mom.callName laughs until she has to put her fork down, and I eat more than I have in a month. My room upstairs is still full of boxes, but down here nothing has moved an inch. Same chairs, same squeaky table leg, same magnet on the fridge from a vacation when I was nine.
+
+Then $mom.callName refills my glass, and I can see the question coming before she asks it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So... how's the company, honey? Really?" },
+{ text: "$sister.callName gets very interested in her salad. She already heard my answer earlier, on the couch." },
+{ who: $player, text: "It's fine." },
+{ who: $mom, text: "Fine." },
+{ who: $player, text: "It's in a slow phase. Lots of building, not a lot of selling. That's normal at the start." },
+{ who: $mom, text: "Well, you know you can stay as long as you need. There's no rush. Your room is your room." },
+{ who: $sister, text: "Your room is very much your room. She didn't even take down the poster with the dragon." },
+{ who: $player, text: "That dragon is a classic." },
+{ who: $sister, text: "That dragon has abs." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName reaches across the table and squeezes my hand, quickly, the way she did when I was a kid and had a test the next morning. She means it kindly. It still lands like a pat on the head.
+
+I squeeze back and tell her the lasagna is the best thing I've eaten all year, which is true, and let the conversation drift back to $sister.callName's study group. Nobody here knows what I'm working on upstairs. For the first time in a long time, that feels like an advantage.
+
+<<UpdateStat "+" "MomRelation" 2>>
+<<UpdateStat "+" "SisterRelation" 2>>

@@ -1,0 +1,28 @@
+:: Help Company Actions [nobr] {"position":"825,4125"}
+<p>The large picture cards at the bottom right are the only things on the dashboard that make time pass. You can click anywhere on a card. Time always passes one action at a time, even when a card spends several at once: every action lets your scheduled tasks start and finish on time and gives your employees one action of project work. Then the dashboard refreshes. Cards only show up when they make sense right now.</p>
+
+<h3>Work</h3>
+<p>Costs <b>1 action</b>. You work on your projects yourself: on a weekday, every requirement of every active project goes up by <b>1</b> (never past what it needs). Your employees also contribute, but only for actions inside work hours. On weekends it just passes time.</p>
+
+<h3>Wait for Work</h3>
+<p>Before the work day has started on a weekday: waits until it does.</p>
+
+<h3>Skip Work Day</h3>
+<p>Spends every action that is left until the work day ends and the evening begins. From the start of the work day that is 8 actions, from dawn 12. You work during every one of them, as if you had clicked Work each time, and your employees work along.</p>
+<p>Tasks in the <a href="#" data-help="Help Company Schedule">schedule</a> run exactly as they would if you clicked through: the ones in those hours start and finish (and pay), later ones are left for later. The card only shows on weekdays while work hours are left.</p>
+
+<h3>Complete Task</h3>
+<p>Waits until the task of $mom.callName or $sister.callName that is running right now is done, using the actions in between. If both have one running, it stops when the first one ends. Your employees keep working while time passes, but you don't, so you add no progress yourself. The card only shows while a task is running.</p>
+
+<h3>Work until ...</h3>
+<p>Shows when a <a href="#" data-help="Help Company Tasks">task with you</a> is scheduled for later today. You work, exactly as if you had clicked Work for every action, until the action the task starts on. Then you are where it needs you, and she asks you right away. If it takes place in another room of the office, you walk over at the end without spending an extra action.</p>
+<div class="help-note">She still needs the energy to start it. If she is too tired by then, she doesn't come, and you just spent the time working.</div>
+
+<h3>Join ...</h3>
+<p>Shows when a task with you has just started in another room of the office and she is waiting for you. It takes you there for free, so you still make it in time.</p>
+
+<h3>Go Home</h3>
+<p>After the work day, and all weekend: <b>1 action</b> to get home, straight to your bedroom.</p>
+
+<h3>Call $mom.callName / $sister.callName to my desk</h3>
+<p>These two cards only appear while that person is in the office, at your desk or in the meeting room. Calling her costs no time and opens the <a href="#" data-help="Help Npc Interaction">interaction screen</a> with her. Whatever you do there costs what it always costs.</p>

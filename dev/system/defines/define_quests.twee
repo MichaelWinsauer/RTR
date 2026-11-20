@@ -1,0 +1,1359 @@
+:: Define Quests [system] {"position":"875,0","size":"100,100"}
+<<set $player.quests to [
+	{
+    	id: "main_meetSister",
+    	next: "main_plan",
+    	title: "Meet $sister.name",
+        task: "It's time to catch up with $sister.callName.",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [0, 1, 2, 3, 4, 5 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6 ],
+        active: true,
+        needsEvent: true,
+        passage: "Meet Sister",
+        returnPassage: "Living Room",
+    },
+    {
+    	id: "main_plan",
+    	next: "main_prototype40",
+    	title: "Everyone needs a Plan",
+        task: "I need a solid plan for the upcoming time.",   
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [0, 1, 2, 3, 4, 5 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6 ],
+        active: false,
+        needsEvent: true,
+        passage: "Stage 0 Plan",
+        returnPassage: "Bedroom",
+        set: [ "$locations[7].open to [0, 1, 2, 3, 4, 5, 6]", "$flags.introDone = true" ],
+    },
+    {
+    	id: "main_prototype40",
+    	next: "main_testRunPrep",
+    	title: "Work work work work work",
+        task: "Get the progress of your $company.prototype.name prototype to 40.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$company.prototype.progress >= 40",
+    },
+    {
+    	id: "main_testRunPrep",
+    	next: "main_momRelation10",
+    	title: "Prototype Test-Run Preparations",
+        task: "Go to your Office and plan your Test-Run.",
+        where: [ setup.getLocationBySysName("company") ],
+        whenTime: [0, 1, 2, 3, 4, 5, ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Prototype Test-Run Preparation",
+        returnPassage: "Company",
+    },    
+    {
+    	id: "main_momRelation10",
+    	next: "main_testRun",
+    	title: "Further Preparations",
+        task: "I have to strengthen my relationship with $mom.callName to at least 10.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$mom.stats.relation >= 10",
+    },
+    {
+    	id: "main_testRun",
+    	next: "main_continueMom",
+    	title: "Prototype Test-Run",
+        task: "Meet your $mom.relation in the Kitchen to test your prototype.",
+        where: [ setup.getLocationBySysName("kitchen") ],
+        whenTime: [ 4 ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6 ],
+        active: false,
+        needsEvent: true,
+        passage: "Prototype Test-Run",
+        device: { target: "mom", impact: 6 },
+        returnPassage: "Bedroom",
+    },      
+    {
+    	id: "main_continueMom",
+    	next: "main_breakthrough",
+    	title: "Continue $mom.callName's Quest",
+        task: "Continue $mom.callName's ($mom.name $mom.surname) Quest",
+        where: [ ],
+        whenTime: [ ],
+        whenDay: [ ],
+        active: false,
+    },          
+    {
+    	id: "main_breakthrough",
+    	next: "main_prototype70",
+    	title: "Breakthrough",
+        task: "I can't believe it.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [ 5 ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6, ],
+        active: false,
+        needsEvent: true,
+        passage: "Prototype Breakthrough",
+        returnPassage: "Bedroom",
+        set: [ 
+        	"$company.prototype.maxProgress to 70", 
+            "setup.activateQuest('sister_classProject')"
+        ],
+    },
+    {
+    	id: "main_prototype70",
+    	next: "main_moreTimeNeeded",
+    	title: "Things are getting started!",
+        task: "Now that I'm sure that my prototype actually works, I should continue to work on it! [Progress to 70]",
+        where: [ ],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$company.prototype.progress >= 70",
+    },    
+    {
+    	id: "main_moreTimeNeeded",
+    	next: "main_officeOutreach",
+    	title: "More time needed",
+        task: "Money's getting tight if I want to spend more time on my prototype. Maybe I can use my prototype on $sister.name to help me out a little...",
+        where: [ setup.getLocationBySysName("sisterroom")],
+        whenTime: [ 3, ],
+        whenDay: [ 0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "More Time Needed",
+        device: { target: "sister", impact: 4 },
+        returnPassage: "Living Room",
+        set: [ "$sister.flags.doesChores to true" ],
+        requirements: ["$sister.stats.relation >= 25"],
+        requirementsText: ["$sister.name's relation >= 25"],
+    },
+    {
+    	id: "main_officeOutreach",
+    	next: "main_differentApproach",
+    	title: "Office Outreach",
+        task: "Now that I've enough time to focus on my prototype, I should try to advertise to some new clients!",
+        where: [ setup.getLocationBySysName("company") ],
+        whenTime: [ 2, ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Office Outreach",
+        returnPassage: "Company",
+    },
+    {
+    	id: "main_differentApproach",
+    	next: "main_dinerSuggestion",
+    	title: "Different approach",
+        task: "Just writing mails won't work. I need connections, but how do I get those? Maybe $sister.name has an Idea",
+        where: [ setup.getLocationBySysName("sisterroom") ],
+        whenTime: [ 4, 5, ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Different Approach",
+        returnPassage: "Bedroom",
+        requirements: ["setup.questDone('sister_partyAnimal')"],
+        requirementsText: ["Finish $sister.name's quest \"Party Animal\""],
+    },
+    {
+    	id: "main_dinerSuggestion",
+    	next: "main_prototype100",
+    	title: "Not a bad Idea",
+        task: "Honestly don't know why I didn't thought of that on my own. Anyway, I should talk to my manager at the Diner about my prototype. I should also get the prototype ready for the talk...",
+        where: [ setup.getLocationBySysName("diner") ],
+        whenTime: [ 3 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Diner Suggestion",
+        returnPassage: "Diner",
+        set: [ "$company.prototype.maxProgress = 100" ],
+        requirements: ["setup.questReached('sister_conflictingFeelings')"],
+        requirementsText: ["Reach $sister.callName's quest \"Conflicting feelings\""],
+    },
+    {
+    	id: "main_prototype100",
+    	next: "main_dinerTestRun",
+    	title: "Time to Finish",
+        task: "It's time to complete my prototype before I run the first offial test with strangers. [Progress to 100]",
+        where: [ ],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$company.prototype.progress >= 100",
+    },
+    {
+    	id: "main_dinerTestRun",
+    	next: "main_expansionRequest",
+    	title: "The time has come.",
+        task: "Okay, with my Prototype finished, it's time to try my prototype in the real world. Fingers crossed.",
+        where: [ setup.getLocationBySysName("diner") ],
+        whenTime: [ 1 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Diner Test-Run",
+        device: { target: "general", impact: 6 },
+        returnPassage: "Diner",
+    },
+    {
+    	id: "main_expansionRequest",
+    	next: "main_homeRelations",
+    	title: "Time to Expand",
+        task: "Nice, now that I finally have a stable client, I should talk to $landlord.callName to get a larger Office, so I can hire employees!",
+        where: [ setup.getLocationBySysName("company") ],
+        whenTime: [ 1 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Landlord Expansion Request",
+        returnPassage: "Company",
+    },
+    {
+    	id: "main_homeRelations",
+    	next: "main_familyLandlordHelp",
+    	title: "Home Relations",
+        task: "Progress $mom.callName's & $sister.callName's [Relation to 40] and [Corruption to 30]",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$mom.stats.relation >= 40 && setup.corruptionTotal('mom') >= 30 && $sister.stats.relation >= 40 && setup.corruptionTotal('sister') >= 30",
+    },
+    {
+    	id: "main_familyLandlordHelp",
+    	next: "main_waitLandlord",
+    	title: "Family's there for one another.",
+        task: "I need $mom.callName and $sister.callName to convince $landlord.callName.",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [ 4 ],
+        whenDay: [ 6 ],
+        active: false,
+        needsEvent: true,
+        passage: "Family Landlord Help",
+        returnPassage: "Residential Area",
+        set: [ "$waitForLandlordMessage to $date.dayCount" ],
+    },
+    {
+    	id: "main_waitLandlord",
+    	next: "main_stage1",
+    	title: "Wait on $landlord.callName Message",
+        task: "Fuck yeah, with my first client now, I can finally really get things rolling. I need to prepare the expansion of my Company!",
+        where: [ ],
+        whenTime: [ ],
+        whenDay: [ ],
+        active: false,
+        check: "$waitForLandlordMessage + 3 <= $date.dayCount"
+    },
+    {
+    	id: "main_stage1",
+    	next: "main_finishingRenovations",
+    	title: "Stage 1",
+        task: "It's time to finally pay up the renovations and move into a larger office! [Money 10000]",
+        where: [ setup.getLocationBySysName("company") ],
+        whenTime: [0, 1, 2, 3, 4, 5 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Stage 1",
+        returnPassage: "Company Stage 1",
+        requirements: [
+        	"setup.questDone('sister_internshipSeason')",
+            "setup.questDone('mom_businessRelations')",
+            "$player.money >= 10000",
+        ],
+        requirementsText: [
+        	"Finish $sister.callName's quest \"Internship season!\"",
+            "\nFinish $mom.callName's quest \"Business Relations\"",
+            "\nMoney >= 10000",
+        ],
+        set: ["$companyLocationIdReference = 13"]
+    },    
+    {
+    	id: "main_finishingRenovations",
+    	next: "main_tooMuchWork",
+    	title: "Finishing Renovations",
+        task: "It's been a week since I got the new office. It was quite a lot of work but worth it in the end...",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [0, 1, 2, 3, 4, 5 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Finishing Renovations",
+        returnPassage: "Company Stage 1",
+    },
+    {
+    	id: "main_tooMuchWork",
+    	next: "main_officialProductMeeting",
+    	title: "Too Much Work",
+        task: "I should answer all of my mails.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3, 4, 5],
+        whenDay: [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Too Much Work",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "$company.mails[0].answered == true",
+            "$company.mails[1].answered == true",
+            "$company.mails[2].answered == true",
+        ],
+        requirementsText: [
+        	"Answer $landlord.callName's Mail.",
+            "Answer $boss.callName's Mail.",
+            "Answer $manager.callName's Mail.",
+        ],
+        set: [
+            "$company.employees.push($ethan)",
+            "$company.employees.push($brian)",
+            "$company.employees.push($darius)"
+        ],
+    },
+    {
+    	id: "main_officialProductMeeting",
+    	next: "main_end",
+    	title: "It'll be official",
+        task: "Let's have a meeting to talk with everyone about the next step.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3, 4, 5],
+        whenDay: [1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Official Product Meeting",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "setup.projectDone('project_boss_prototype')",
+            "setup.projectDone('project_diner_analysis')",
+        ],
+        requirementsText: [
+        	"Finish $boss.callName's Project",
+        	"Finish $manager.callName's Project",
+        ],
+        set: [  "setup.unlockProject('project_company_official')" ], /* shows the product project in the overview */
+    },
+    {
+    	id: "main_end",
+    	title: "End of Content - Main",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+<<set $mom.quests to [
+	{
+    	id: "mom_stressRelief",
+    	next: "mom_relation25",
+    	title: "$mom.callName Stress Relief",
+        task: "I should check if I can catch her masturbating!",
+        where: [ setup.getLocationBySysName("momroom") ],
+        whenTime: [ 5, ],
+        whenDay: [ 0, 1, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Mom Bed Masturbation",
+        returnPassage: "Hallway",
+    },
+    {
+    	id: "mom_relation25",
+    	next: "mom_wakingTroubles",
+    	title: "$mom.callName's relation",
+        task: "I have to strengthen my relationship with $mom.callName to at least 25.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$mom.stats.relation >= 25",
+    },
+    {
+    	id: "mom_wakingTroubles",
+    	next: "mom_waitRent",
+    	title: "Waking Troubles",
+        task: "I should try to use $company.prototype.name on her again, now that we have a stronger relationship.",
+        where: [ setup.getLocationBySysName("momroom"), setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
+        whenTime: [0, 4, 5 ],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Waking Troubles",
+        device: { target: "mom", impact: 4 },
+        returnPassage: "Bedroom",
+        set: [ "$mom.flags.wakeUp = true" ],
+    },
+    {
+    	id: "mom_waitRent",
+    	next: "mom_hereToHelp",
+    	title: "Waiting...",
+        task: "Wait until after you paid this weeks rent.",
+        where: [ ],
+        whenTime: [ ],
+        whenDay: [ ],
+        active: false,
+    },    
+    {
+    	id: "mom_hereToHelp",
+    	next: "mom_waitMainOutreach",
+    	title: "$mom.callName's here to help",
+        task: "I should talk to her again in her room.",
+        where: [ setup.getLocationBySysName("momroom") ],
+        whenTime: [0, 1, 4, 5 ],
+        whenDay: [0, 1, 2, 3, 4, 5, 6 ],
+        active: false,
+        needsEvent: true,
+        passage: "Mom's here to help",
+        device: { target: "mom", impact: 4 },
+        returnPassage: "Mom Room",
+        set: [ "$mom.flags.rentHelp to true" ]
+    },    
+    {
+    	id: "mom_waitMainOutreach",
+    	next: "mom_descent",
+    	title: "Progress Main Quest",
+        task: "Continue with the main Quest before you can continue $mom.callName's.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "setup.questReached('main_officeOutreach')",
+    },
+    {
+    	id: "mom_descent",
+    	next: "mom_hasItTough",
+    	title: "Descent",
+        task: "Increase your [Corruption to 35]",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$player.stats.corruption >= 35",
+    },
+    {
+    	id: "mom_hasItTough",
+    	next: "mom_helpfulSon",
+    	title: "$mom.callName has it tough.",
+        task: "Catch $mom.callName in the living room in the evening. She's had a rough few days lately.",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [ 4 ],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Mom Has It Tough",
+        returnPassage: "Living Room",
+        set: [ "$mom.flags.workUnlocked = true" ],
+    },
+    {
+    	id: "mom_helpfulSon",
+    	next: "mom_firstConfrontation",
+    	title: "The Helpful $mom.playerRelation",
+        task: "So $mom.callName's having trouble at work. I offered her to help her with my prototype at work, so I should meet her at her workplace to help her unwind a little...",
+        where: [ setup.getLocationBySysName("momswork") ],
+        whenTime: [ 1, 2, 3 ],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Helpful Son",
+        device: { target: "mom", impact: 8 },
+        returnPassage: "Residential Area",
+    },
+    {
+    	id: "mom_firstConfrontation",
+    	next: "mom_waitBoss",
+    	title: "First Confrontation",
+        task: "Damn, I just experienced first hand how terrible her boss really is. I will manipulate him using my prototype to shut him up for good!",
+        where: [ setup.getLocationBySysName("momswork") ],
+        whenTime: [ 1, 2, 3 ],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "First Boss Confrontation",
+        device: { target: "general", impact: 6 },
+        returnPassage: "Moms Work",
+        set: [ "$bossTalkedOnDay to $date.dayCount" ],
+        requirements: ["$company.prototype.progress >= 40"],
+        requirementsText: ["Prototype Progress >= 40"],
+    },
+    {
+    	id: "mom_waitBoss",
+    	next: "mom_hasItToughAgain",
+    	title: "Waiting",
+        task: "I should wait a few days and see if all this has made any difference...",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$date.dayCount >= $bossTalkedOnDay + 3"
+    },
+    {
+    	id: "mom_hasItToughAgain",
+    	next: "mom_secondConfrontation",
+    	title: "$mom.callName Has It Tough Again",
+        task: "I should enter her room in the evening. She seems down lately again.",
+        where: [ setup.getLocationBySysName("momroom") ],
+        whenTime: [ 4, 5, 6 ],
+        whenDay: [ 0, 1, 2, 3, 4 ],
+        active: false,
+        needsEvent: true,
+        passage: "Mom Has It Tough Again",
+        device: { target: "mom", impact: 7 },
+        returnPassage: "Hallway",
+        requirements: ["$player.stats.corruption >= 15"],
+        requirementsText: ["Corruption >= 15"],
+    },    
+    {
+    	id: "mom_secondConfrontation",
+    	next: "mom_agreement",
+    	title: "Second Confrontation",
+        task: "Fuck, I really made things worse. Okay, fuck this guy, I'll make him agree!",
+        where: [ setup.getLocationBySysName("momswork") ],
+        whenTime: [ 1, 2, 3 ],
+        whenDay: [ 0, 1, 2, 3, 4 ],
+        active: false,
+        needsEvent: true,
+        passage: "Second Boss Confrontation",
+        device: { target: "general", impact: 8 },
+        returnPassage: "Moms Work",        
+        requirements: ["$company.prototype.progress >= 70"],
+        requirementsText: ["Prototype progress >= 70"],
+    },
+    {
+    	id: "mom_agreement",
+    	next: "mom_agreement2",
+    	title: "Agreement",
+        task: "$mom.callName's Boss and I came to an agreement afterall. Though I have to get $5000 now and a short clip of $mom.callName masturbating... I'll focus on the money first.",
+        where: [ ],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$player.money >= 5000",
+    },
+    {
+    	id: "mom_agreement2",
+    	next: "mom_sabotage",
+    	title: "Agreement 2",
+        task: "Now for the short Video of $mom.callName masturbating. I should walk in on her in her room when she's masturbating again.",
+        where: [ setup.getLocationBySysName("momroom") ],
+        whenTime: [ 5 ],
+        whenDay: [ 0, 1, 4, 5, 6 ],
+        active: false,
+        check: "$player.flags.hasMomClip == true",
+    },
+    {
+    	id: "mom_sabotage",
+    	next: "mom_falseSympathy",
+    	title: "Sabotage",
+        task: "Ok, now that I have the money I need, it's time to sneak into $mom.callName's room at night and mess her work up.",
+        where: [ setup.getLocationBySysName("momroom") ],
+        whenTime: [ 6 ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6 ],
+        active: false,
+        needsEvent: true,
+        passage: "Sabotage",
+        returnPassage: "Hallway",
+    },
+    {
+    	id: "mom_falseSympathy",
+    	next: "mom_businessRelations",
+    	title: "False Sympathy",
+        task: "Now I just have to wait for $mom.callName to come back from work.",
+        where: [ setup.getLocationBySysName("hallway") ],
+        whenTime: [ 4 ],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "False Sympathy",
+        device: { target: "mom", impact: 6 },
+        returnPassage: "Hallway",
+        requirements: ["setup.questDone('main_familyLandlordHelp')"],
+        requirementsText: ["Finish the main quest \"Family's there for one another.\""],
+    }, 
+    {
+    	id: "mom_businessRelations",
+    	next: "mom_waitMainStage1",
+    	title: "Business Relations",
+        task: "I should talk to $mom.callName's boss again. I think we could profit from each other.",
+        where: [ setup.getLocationBySysName("momswork") ],
+        whenTime: [ 1, 2, 3, ],
+        whenDay: [ 0, 1, 2, 3, 4 ],
+        active: false,
+        needsEvent: true,
+        passage: "Business Relations",
+        device: { target: "general", impact: 4 },
+        returnPassage: "Moms Work",
+        requirements: ["$player.money >= 5000"],
+        requirementsText: ["Money >= 5000"],
+    },      
+    {
+    	id: "mom_waitMainStage1",
+    	next: "mom_ceoStruggles",
+    	title: "Progress Main Quest",
+        task: "Continue with the main Quest before you can continue $mom.callName's.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "setup.questDone('main_stage1')",
+    },            
+    {
+    	id: "mom_ceoStruggles",
+    	next: "mom_waitNewJobImpression",
+    	title: "Being a CEO is hard...",
+        task: "Three people depend on me now, and my back is starting to feel it. Maybe $mom.callName can help me unwind after work.",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "CEO Struggles",
+        returnPassage: $locations[13].passage,
+        device: { key: "valenx", target: "mom", impact: 3 },
+        requirements: [
+            "setup.questDone('main_tooMuchWork')",
+            "setup.questDone('main_tooMuchWork') && $date.dayCount >= setup.getQuestById('main_tooMuchWork').doneDay + 3",
+        ],
+        requirementsText: [
+            "Hire your first employees",
+            "Give them a few days to settle in",
+        ],
+        set: [ "setup.getTaskById('task_mom_private_attention').active = true" ], /* unlocks the "Private Attention" task */
+    },
+    {
+    	id: "mom_waitNewJobImpression",
+    	next: "mom_newJobImpression",
+    	title: "Wait a few days...",
+        task: "...",
+        where: [ ],
+        whenTime: [ ],
+        whenDay:  [],
+        active: false,
+        check: "$date.dayCount >= setup.getQuestById('mom_ceoStruggles').doneDay + 3"
+    },
+    {
+    	id: "mom_newJobImpression",
+    	next: "mom_waitTestSessionRequest",
+    	title: "How's your new job?",
+        task: "Our first project is done. I should drop by $mom.callName's room in the evening and ask how she likes working for me.",
+        where: [ setup.getLocationBySysName("momroom") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "New Job Impression",
+        returnPassage: "Hallway",
+        requirements: ["State.variables.company.projects.some((p) => p.timesCompleted > 0)"],
+        requirementsText: ["Finish your first project"],
+        /* finishing it opens her weekday Evening cells (rows 12-14) in the scheduler: see the task rows of
+           the routine mom_stage1 in Define Schedule */
+    },
+    {
+    	id: "mom_waitTestSessionRequest",
+    	next: "mom_testSessionRequest",
+    	title: "Wait till tomorrow",
+        task: "...",
+        where: [ ],
+        whenTime: [ ],
+        whenDay:  [ ],
+        active: false,
+        check: "$date.dayCount >= setup.getQuestById('mom_newJobImpression').doneDay + 1"
+    },
+    {
+    	id: "mom_testSessionRequest",
+    	next: "mom_controlSession",
+    	title: "Can you help me a little more?",
+        task: "$mom.callName wants to do more for the company. I could use a test subject who has no idea how $company.prototype.name works. I'll ask her to stay late and meet me in the meeting room.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Test Session Request",
+        returnPassage: $locations[13].passage,
+        device: { key: "valenx", target: "mom", impact: 2 },
+        set: [ "setup.getTaskById('task_mom_test_session').active = true" ], /* unlocks the "Test Session" task */
+    },
+    {
+    	/* the first test without the device: she undresses in my room because I ask her to. The last paragraph of
+    	   the Test Session stage 3 scene reads questDone of this quest */
+    	id: "mom_controlSession",
+    	next: "mom_briefing",
+    	title: "No stimulus",
+        task: "Ten test sessions, and every one of them with $company.prototype.name doing the talking. I need to know what's left of all that when it's switched off. Tonight, in my room, with no box on the table.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [5],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Control Session",
+        returnPassage: "Bedroom",
+        requirements: [
+            "setup.getTaskById('task_mom_test_session').count >= 10",
+            "setup.corruptionTotal('mom') >= 40",
+            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Hold 10 test sessions with $mom.callName ({{Math.min(10, setup.getTaskById('task_mom_test_session').count)}}/10)",
+            "$mom.callName needs 40 corruption ({{Math.min(40, setup.corruptionTotal('mom'))}}/40)",
+            "$mom.callName has to be home",
+        ],
+    },
+    {
+    	/* Her first corruption milestone (stage 0 to 1, setup.corruptionStages in Define NPCs): the morning of the
+    	   handover of the boss prototype. Two passages, The Briefing (meeting room, ends with the stage-up) and
+    	   The Handover (the boss office, advances the quest). Finishing it unlocks the repeatable support project. */
+    	id: "mom_briefing",
+    	next: "mom_nightVisit",
+    	title: "The Briefing",
+        task: "$boss.callName's unit is finished, and the handover is on his floor, in front of his people. Before $mom.callName walks in there, I'll go through everything with her in the meeting room. What she says, and what she wears.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Briefing",
+        returnPassage: $locations[13].passage,
+        device: { key: "valenx", target: "mom", impact: 5 },
+        requirements: [
+            "setup.projectDone('project_boss_prototype')",
+            "setup.corruptionReady('mom') || setup.corruptionStage('mom') >= 1",
+        ],
+        requirementsText: [
+            "Finish $boss.callName's prototype",
+            "$mom.callName's corruption is full",
+        ],
+        set: [ "setup.unlockProject('project_boss_support')" ],
+    },
+    {
+    	/* A few nights after The Briefing, with her lust very high, she comes up to my room to take the handjob back.
+    	   I turn the device all the way up and talk her into seeing it as her duty, and she does it again in my bed.
+    	   Two passages, Night Visit and Night Visit 2. Finishing it unlocks the Handjob interaction (its requires in
+    	   Define Interactions reads questDone of this quest) */
+    	id: "mom_nightVisit",
+    	next: "mom_end",
+    	title: "A Knock at Night",
+        task: "Since the morning of the handover, $mom.callName has been cleaning the kitchen until midnight again. Sooner or later she'll come upstairs to talk about it. When she does, I want $company.prototype.name in my desk drawer, calibrated to her and charged all the way.",
+        lockedTask: "$mom.callName has been very cheerful since the handover. She's been cleaning a lot, too.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [5, 6],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Night Visit",
+        returnPassage: "Bedroom",
+        device: { key: "valenx", target: "mom", impact: 10 },
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('mom_briefing').doneDay + 2",
+            "$mom.stats.lust >= 80",
+            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Give her a few days after the handover",
+            "$mom.callName needs 80 lust ({{Math.min(80, $mom.stats.lust)}}/80)",
+            "$mom.callName has to be home",
+        ],
+    },
+    {
+    	id: "mom_end",
+    	title: "End of Content - $mom.name",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+
+<<set $sister.quests to [
+	{
+    	id: "sister_classProject",
+    	next: "sister_waitClassProject",
+    	title: "$sister.name’s Class Project",
+        task: "She wants to talk to me.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [ 3, 4,],
+        whenDay:  [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Class Project",
+        device: { target: "sister", impact: 3 },
+        returnPassage: "Bedroom",
+        set: [ "$sisterQuestWait to $date.dayCount + 3" ],
+    },    
+    {
+    	id: "sister_waitClassProject",
+    	next: "sister_strugglingStudent",
+    	title: "Nothing to do...",
+        task: "...",
+        where: [ ],
+        whenTime: [ ],
+        whenDay:  [],
+        active: false,
+        check: "$sisterQuestWait <= $date.dayCount"
+    },
+    {
+    	id: "sister_strugglingStudent",
+    	next: "sister_planningAhead",
+    	title: "Struggling Student",
+        task: "I should talk to $sister.name again.",
+        where: [ setup.getLocationBySysName("sisterroom") ],
+        whenTime: [ 4, ],
+        whenDay:  [ 0, ],
+        active: false,
+        needsEvent: true,
+        passage: "Struggling Student",
+        returnPassage: "Hallway",
+    },
+    {
+    	id: "sister_planningAhead",
+    	next: "sister_movingThePieces",
+    	title: "Planning ahead",
+        task: "I should think about how I want to proceed...",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [ 5, 6],
+        whenDay:  [ 0, ],
+        active: false,
+        needsEvent: true,
+        passage: "Planning Ahead",
+        returnPassage: "Bedroom",
+    },
+    {
+    	id: "sister_movingThePieces",
+    	next: "sister_focusIsKey",
+    	title: "Moving the pieces",
+        task: "I should set my plan into action. I need to speak to $sister.name.",
+        where: [ setup.getLocationBySysName("sisterroom") ],
+        whenTime: [ 4, ],
+        whenDay:  [ 1, 2, 3, 4, ],
+        active: false,
+        needsEvent: true,
+        passage: "Moving The Pieces",
+        device: { target: "sister", impact: 7 },
+        returnPassage: "Hallway",
+    },
+    {
+    	id: "sister_focusIsKey",
+    	next: "sister_fakingIt",
+    	title: "Focus is key",
+        task: "I should 'help' her out even more...",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [3, 4, 5,],
+        whenDay:  [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Focus Is Key",
+        device: { target: "sister", impact: 6 },
+        returnPassage: "Living Room",
+        set: ["$sister.flags.collegeUnlocked = true", "$events[4].active to true"],
+        requirements: ["$company.prototype.progress >= 70"],
+        requirementsText: ["Prototype progress >= 70"],
+    },
+    {
+    	id: "sister_fakingIt",
+    	next: "sister_waitExam",
+    	title: "Faking it",
+        task: "I have to make sure she passes the test...",
+        where: [ setup.getLocationBySysName("collegehallway") ],
+        whenTime: [2, 3,],
+        whenDay:  [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Faking It",
+        device: { target: "general", impact: 5 },
+        returnPassage: "College",
+        set: [ "$sisterExamDate to $date.dayCount" ],
+        requirements: ["$company.prototype.progress >= 70"],
+        requirementsText: ["Prototype progress = 70"],
+    },
+    {
+    	id: "sister_waitExam",
+    	next: "sister_sheMadeIt",
+    	title: "Wait for a week...",
+        task: "I hope things work out...",
+        where: [ ],
+        whenTime: [ ],
+        whenDay:  [],
+        active: false,
+        check: "$sisterExamDate + 7 <= $date.dayCount"
+    },
+    {
+    	id: "sister_sheMadeIt",
+    	next: "sister_partyAnimal",
+    	title: "She made it!",
+        task: "She passed her test and is so happy! She want's to share the good news!",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [2, 3, 4,],
+        whenDay:  [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "She Made It",
+        returnPassage: "Living Room",
+    },
+    {
+    	id: "sister_partyAnimal",
+    	next: "sister_doAnythingForMe",
+    	title: "Party Animal",
+        task: "She goes to a party on Friday night to celebrate her success.",
+        where: [ setup.getLocationBySysName("hallway") ],
+        whenTime: [ 6, ],
+        whenDay:  [ 4, ],
+        active: false,
+        needsEvent: true,
+        passage: "Party Animal",
+        device: { target: "sister", impact: 10 },
+        returnPassage: "Hallway",
+    },
+    {
+    	id: "sister_doAnythingForMe",
+    	next: "sister_waitWork",
+    	title: "She'd do anything for me!",
+        task: "With her latest advances, I can push her more to do my bidding...",
+        where: [ setup.getLocationBySysName("sisterroom") ],
+        whenTime: [ 3, 4, 5, ],
+        whenDay:  [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "She'd Do Anything For Me",
+        returnPassage: "Hallway",
+        set: [ "$sisterStartWork to $date.dayCount" ],
+    },
+    {
+    	id: "sister_waitWork",
+    	next: "sister_conflictingFeelings",
+    	title: "Continue a few days...",
+        task: "",
+        where: [ ],
+        whenTime: [],
+        whenDay:  [],
+        active: false,
+        check: "$sisterStartWork + 3 <= $date.dayCount"
+    },
+    {
+    	id: "sister_conflictingFeelings",
+    	next: "sister_internshipSeason",
+    	title: "Conflicting feelings",
+        task: "She's struggling with her new feelings...",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [5, ],
+        whenDay:  [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Conflicting Feelings",
+        device: { target: "sister", impact: 8 },
+        returnPassage: "Bedroom",
+    },    
+    {
+    	id: "sister_internshipSeason",
+    	next: "sister_waitSupportiveSister",
+    	title: "Internship season!",
+        task: "$sister.name need's an internship for her college.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [4,],
+        whenDay:  [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Internship Season",
+        returnPassage: "Bedroom",
+        requirements: ["setup.questDone('main_familyLandlordHelp')"],
+        requirementsText: ["Finish the main quest \"Family's there for one another.\""],
+    },
+    {
+    	id: "sister_waitSupportiveSister",
+    	next: "sister_itMakesADifference",
+    	title: "$sister.name is now working for you!",
+        task: "$sister.name is working as an intern for you. She seems really happy lately, and she keeps finding reasons to come by your desk.",
+        where: [ ],
+        whenTime: [],
+        whenDay:  [],
+        active: false,
+        check: "$date.dayCount >= setup.getQuestById('sister_internshipSeason').doneDay + 7 && $sister.flags.officeExcuses >= 5",
+        /* the same two conditions as the check, so the card can show how far along they are. The card keeps its
+           title and text while they are not met (lockedTitle/lockedTask). Her excuses are micro events that need
+           her at the office (her afternoons, rows 9 to 11): tasks elsewhere then keep them from happening. */
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('sister_internshipSeason').doneDay + 7",
+            "$sister.flags.officeExcuses >= 5",
+        ],
+        requirementsText: [
+            "Give her a week at the office (day {{Math.min(7, $date.dayCount - setup.getQuestById('sister_internshipSeason').doneDay)}}/7)",
+            "She finds excuses to come by your desk ({{Math.min(5, $sister.flags.officeExcuses)}}/5), but only on afternoons she spends at the office, not on a task elsewhere",
+        ],
+        lockedTitle: "$sister.name is now working for you!",
+        lockedTask: "$sister.name is working as an intern for you. She seems really happy lately, and she keeps finding reasons to come by your desk.",
+    },
+    {
+    	id: "sister_itMakesADifference",
+    	next: "sister_waitInternshipOverviewRequest",
+    	/* Three passages: It Makes A Difference (her desk, I call her into the meeting room), It Makes A Difference 2
+    	   (I thank her and tell her I stay late, then the clock jumps to the Night) and It Makes A Difference 3 (My Desk,
+    	   the feed from the camera in her room). The camera requirement is there because the last part is watched through it */
+    	title: "It makes a difference",
+        task: "$sister.name has been working harder for me than anyone else in that office, and she should hear that from me.",
+        lockedTask: "$sister.name comes up with a new reason to be near my desk every day.",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [3,],
+        whenDay:  [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "It Makes A Difference",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.hasCamera('sisterroom')",
+            "setup.npcIsAt('sister', 'companystage1')",
+        ],
+        requirementsText: [
+            "Hide a camera in $sister.callName's room",
+            "$sister.callName has to be at the office",
+        ],
+    },
+    {
+    	id: "sister_waitInternshipOverviewRequest",
+    	next: "sister_internshipOverviewRequest",
+    	title: "Wait for tomorrow",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay:  [],
+        active: false,
+        check: "$date.dayCount >= setup.getQuestById('sister_itMakesADifference').doneDay + 1",
+    },
+    {
+    	/* Two passages: Internship Overview Meetings (she brings her internship journal to My Desk and asks for
+    	   regular meetings) and Internship Overview Meetings 2 (the first one, in the meeting room). Finishing it
+    	   unlocks the task Internship Overview, which runs every other day at most (cooldown, Define Tasks) */
+    	id: "sister_internshipOverviewRequest",
+    	next: "sister_waitMostlyDone",
+    	title: "Internship Overview Meetings",
+        task: "$sister.callName has been carrying a notebook around the office and closing it whenever I walk past. I give it a day before she brings it to my desk.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [2, 3,],
+        whenDay:  [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Internship Overview Meetings",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.npcIsAt('sister', 'companystage1')",
+        ],
+        requirementsText: [
+            "$sister.callName has to be at the office",
+        ],
+        set: [ "setup.getTaskById('task_sister_internship_overview').active = true" ],
+    },
+    {
+    	id: "sister_waitMostlyDone",
+    	next: "sister_mostlyDone",
+    	title: "Wait for tomorrow",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay:  [],
+        active: false,
+        check: "$date.dayCount >= setup.getQuestById('sister_internshipOverviewRequest').doneDay + 3",
+    },
+    {
+    	id: "sister_mostlyDone",
+    	next: "sister_end",
+    	title: "Good News?",
+        task: "$sister.name wants to talk to me.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3, 4,],
+        whenDay:  [0, 1, 2, 3, 4,],
+        active: false,
+        needsEvent: true,
+        passage: "Mostly Done",
+        returnPassage: "Company Stage 1",
+        /* she has to be at the office, and the staff has to be hired: the scene sends her round to them */
+        requirements: [
+            "setup.npcIsAt('sister', 'companystage1')",
+            "setup.questDone('main_tooMuchWork')",
+        ],
+        requirementsText: [
+            "$sister.callName has to be at the office",
+            "Hire your first employees",
+        ],
+        /* from now on she is at the office from Noon on (and her Noon cells open in the scheduler, Define Schedule).
+           Her visits to the staff show up as micro events in the main room (Her rounds in Define Events) */
+        set: [ "setup.useRoutine($sister.sysName, 'weekday', 'sister_stage1_noon')"]
+    },
+    {
+    	id: "sister_end",
+    	title: "End of Content - $sister.name",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+/* The professor. His line starts hidden in the background (hidden: true) and only shows up once his mail arrives,
+   a week after both first projects are done */
+<<set $prof.quests to [
+    {
+    	/* runs from the start of the game, but nobody sees it: it only waits for the two first projects and then
+    	   a week, and its set sends his mail ($company.mails[3]) */
+    	id: "prof_waitFirstProjects",
+    	next: "prof_mail",
+    	title: "Waiting for the first projects",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: true,
+        hidden: true,
+        check: "setup.projectDone('project_boss_prototype') && setup.projectDone('project_diner_analysis') && $date.dayCount >= Math.max(setup.getProjectById('project_boss_prototype').completedAtDay, setup.getProjectById('project_diner_analysis').completedAtDay) + 7",
+        set: [
+            "$company.mails[3].active = true",
+            "Notification.show('New mail from ' + $prof.callName + '.', { type: Notification.INFORMATION })",
+        ],
+    },
+    {
+    	/* advances when I answer his mail at My Desk; the answer sets the day of the meeting (answeredDay) */
+    	id: "prof_mail",
+    	next: "prof_researchProject",
+    	title: "A mail from $prof.callName",
+        task: "$sister.callName's calculus professor wants to meet me. It's been a while since I last stood in his office, and he didn't say why. His mail is in my inbox at My Desk.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$company.mails[3].answered == true",
+    },
+    {
+    	/* He comes to the office on the Thursday afternoon after I answered his mail. Unlocks her college tutoring */
+    	id: "prof_researchProject",
+    	next: "prof_end",
+    	title: "The Proposition",
+        task: "$prof.callName is coming by the office on Thursday afternoon. Whatever he wants, he didn't want to put it in writing.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [3],
+        whenDay: [3],
+        active: false,
+        needsEvent: true,
+        passage: "Research Project",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount > ($company.mails[3].answeredDay || 0)" ],
+        requirementsText: [ "Wait for the day of the meeting" ],
+        set: [ "setup.getTaskById('task_sister_tutoring_college').active = true" ],
+    },
+    {
+    	id: "prof_end",
+    	title: "End of Content - $prof.callName",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+<<set $quests to [
+
+]>>
+
+/* The quest each line starts with. "quest" always holds the id of the line's current quest,
+   <<NextQuest>> moves it along the "next" ids. */
+<<set $player.quest to "main_meetSister">>
+<<set $mom.quest to "mom_stressRelief">>
+<<set $sister.quest to "sister_classProject">>
+<<set $prof.quest to "prof_waitFirstProjects">>
+
+/* Quests that use the device: device: { target, impact [, key] [, minQuality] }
+   key:        a device in $company.devices (Stage 1). Without it the Stage 0 prototype is used.
+   target:     the calibration the scene needs (mom, sister, general, or a preset of that device)
+   impact:     1-10, the charge it costs (see $company.impactCost)
+   minQuality: optional, the calibration quality needed. Without it any successful calibration counts.
+   Checked separately from "requirements" (event check, eligible glow) and shown as pills on the sidebar quest.
+   The scene spends the charge itself with <<UseQuestDevice $mom>> (see "Quest Widgets").
+   setup.questDevice(device) returns { dev, cost, calOk, chargeOk, ok } for the current state. */
+<<set setup.questDevice = (device) => {
+    const v = State.variables;
+    const dev = device.key ? v.company.devices[device.key] : v.company.prototype;
+    const cost = v.company.impactCost[device.impact] || 0;
+    const calOk = !!dev && dev.calibration === device.target && dev.calibrationQuality >= (device.minQuality || 1);
+    const chargeOk = !!dev && dev.charge >= cost;
+    return { dev, cost, calOk, chargeOk, ok: calOk && chargeOk };
+}>>
+
+
+<<set setup.getActiveQuests = () => {
+    let result = [];
+
+    setup.getQuestLines().forEach((line) => {
+        line.quests.forEach((quest) => {
+            if(quest.active) {
+                result.push(quest);
+            }
+        });
+    });
+
+    return result;
+}>>
+
+
+<<set setup.getEligibleQuests = () => {
+    const v = State.variables;
+    const day = v.date.today.value;
+    const time = v.time.current.value;
+
+    const result = [];
+    setup.getQuestLines().forEach((character) => {
+        character.quests.forEach((quest) => {
+            if (quest.active
+                && quest.whenDay && quest.whenDay.includes(day)
+                && quest.whenTime && quest.whenTime.includes(time)
+                && setup.questRequirementsMet(quest)
+                && (!quest.device || setup.questDevice(quest.device).ok)) {
+                result.push(quest);
+            }
+        });
+    });
+
+    return result;
+}>>
+
+/* Locked quests ===============================================================
+   While the requirements of a quest are not met yet (the device does not count), the sidebar card and the
+   CMD header do not show its title, task, place, day and time, so nothing gets spoiled. They show
+   setup.questLockedText instead, and the requirements checklist stays visible so the player knows what to do.
+   A quest can bring its own stand-in text with the optional fields
+       lockedTitle   "Something about $sister.callName"
+       lockedTask    "She has been acting strange lately."
+   setup.questRequirementsMet(quest)   every requirements string is true (true without requirements)
+   setup.questLocked(quest)            it has requirements and they are not met yet
+   setup.questDisplay(quest)           { title, task, locked }: what the UI shows for it right now */
+<<set setup.questLockedText to {
+    title: "Not yet available...",
+    task: "",
+}>>
+
+<<set setup.questRequirementsMet = (quest) => {
+    if (!quest || !quest.requirements) { return true; }
+    return quest.requirements.every((req) => !!Scripting.evalTwineScript(req));
+}>>
+
+<<set setup.questLocked = (quest) => {
+    return !!quest && !!quest.requirements && quest.requirements.length > 0 && !setup.questRequirementsMet(quest);
+}>>
+
+<<set setup.questDisplay = (quest) => {
+    if (setup.questLocked(quest)) {
+        return {
+            title: quest.lockedTitle || setup.questLockedText.title,
+            task: quest.lockedTask || setup.questLockedText.task,
+            locked: true,
+        };
+    }
+    return { title: quest.title, task: quest.task, locked: false };
+}>>
+
+/* Live counters in requirement texts ===========================================
+   A requirementsText entry may hold {{TwineScript}}, which is replaced by its value whenever the text is shown
+   (sidebar card, CMD header, profile): "Hold 10 test sessions ({{setup.getTaskById(...).count}}/10)".
+   (A print macro in there would close the set macro that defines the quests, so it can not be used.)
+   setup.questRequirementText(quest, i)   the i-th requirement text with its counters filled in */
+<<set setup.questRequirementText = (quest, i) => {
+    const raw = ((quest && quest.requirementsText) || [])[i];
+    if (raw == null) { return ""; }
+    return String(raw).replace(/\{\{(.+?)\}\}/g, (match, code) => {
+        try { return String(Scripting.evalTwineScript(code)); }
+        catch (e) { console.error('setup.questRequirementText: "' + code + '" failed: ' + e.message); return "?"; }
+    });
+}>>
+
+/* Shortens runs of consecutive values: [0,1,2,3,4] with day labels gives "Mon-Fri", [5,6] gives "Sat, Sun". */
+<<set setup.formatRuns = (values, labels) => {
+    const sorted = [...new Set(values)].sort((a, b) => a - b);
+    const runs = [];
+    sorted.forEach((value) => {
+        const last = runs[runs.length - 1];
+        if (last && value === last.end + 1) {
+            last.end = value;
+        } else {
+            runs.push({ start: value, end: value });
+        }
+    });
+    return runs.map((run) => {
+        if (run.start === run.end) { return labels[run.start]; }
+        if (run.end === run.start + 1) { return labels[run.start] + ", " + labels[run.end]; }
+        return labels[run.start] + "–" + labels[run.end];
+    }).join(", ");
+}>>
+
+/* Quest lookup ================================================================
+   Every quest has a unique string id ("main_...", "mom_...", "sister_...") and the id of the quest
+   that follows it in "next" (the last quest of a line has none). Never reference quests by array index.
+
+   setup.questLines            the characters that own a quest line. Add a new one here and the
+                               helpers, events, checks, the sidebar and the CMD header pick it up.
+                               A new line needs: <<set $<key>.quests to [ ... ]>> above, its start with
+                               <<set $<key>.quest to "id">>, a "<key>_end" quest, and a portrait at
+                               images/characters/portraits/<key>.jpg (sidebar card, CMD header).
+                               Optional: a ring color for its CMD header chip (.cmd-quest[data-line] in CMD Header).
+   setup.getQuestLines()       those characters' objects ($player, $mom, ...)
+   setup.questLineLabel(key)   who a line belongs to, for notifications: "" for the main line, else the callName
+
+   A quest with hidden: true runs like any other (check, set, events) but is never shown: no sidebar card,
+   no CMD header chip. For background waits at the start of a line that the player should not know about yet.
+   setup.getQuestById(id)      the quest with that id, from any line
+   setup.getQuestLine(id)      the character whose line contains that quest
+   setup.getCurrentQuest($mom) the quest the line is on right now (it can still be inactive)
+   setup.questDone(id)         true once <<NextQuest>> moved past that quest
+   setup.questReached(id)      true when the quest is the current one or done
+   setup.activateQuest(id)     sets the quest active, and its event if it has one */
+<<set setup.questLines = ["player", "mom", "sister", "prof"]>>
+
+<<set setup.getQuestLines = () => {
+    return setup.questLines.map((key) => State.variables[key]);
+}>>
+
+<<set setup.questLineLabel = (key) => {
+    if (key === "player") { return ""; }
+    const owner = State.variables[key];
+    return owner ? (owner.callName || owner.name || key) : key;
+}>>
+
+<<set setup.getQuestById = ((id) => {
+    for (const line of setup.getQuestLines()) {
+        const quest = line.quests.find((q) => q.id === id);
+        if (quest) { return quest; }
+    }
+    console.error('setup.getQuestById: there is no quest with the id "' + id + '"');
+    return undefined;
+})>>
+
+<<set setup.getQuestLine = ((id) => {
+    return setup.getQuestLines().find((line) => line.quests.some((q) => q.id === id));
+})>>
+
+<<set setup.getCurrentQuest = ((character) => {
+    return setup.getQuestById(character.quest);
+})>>
+
+<<set setup.questDone = ((id) => {
+    const quest = setup.getQuestById(id);
+    return !!(quest && quest.done);
+})>>
+
+<<set setup.questReached = ((id) => {
+    const line = setup.getQuestLine(id);
+    return setup.questDone(id) || (!!line && line.quest === id);
+})>>
+
+<<set setup.activateQuest = ((id) => {
+    const quest = setup.getQuestById(id);
+    if (!quest) { return; }
+    quest.active = true;
+    if (quest.eventId != null) {
+        State.variables.events[quest.eventId].active = true;
+    }
+})>>
+
+/* Needs the helpers above, so it runs last. */
+<<GenerateEventsForQuests>>

@@ -1,0 +1,314 @@
+:: Media Widgets [nobr system widget] {"position":"2425,0","size":"100,100"}
+/* Usage: ===============================================================
+	<<Image PATH NAME ENDING WIDTH HEIGHT BORDER? OVERLAY>> 
+	BORDER -> none||false
+*/
+<<widget "Image">>
+	<<set _path to $args[0]>>
+    <<set _width to $args[3]>>
+    <<set _height to $args[4]>>
+    <<set _border to $args[5]>>
+    <<set _overlay to $args[6]>>
+    <<set _hideBorder = $args[5] != undefined && (_border == "none" || _border == "false")>>
+    
+	<<set _tmp to '<img src="' + $path +  _path>>
+	
+	<<if $args[1] != undefined>>
+		<<set _tmp += $args[1]>>
+	<</if>>
+	
+	<<if $args[2] != undefined>>
+		<<set _tmp += $args[2]>>
+	<</if>>
+	
+	<<if $args[3] != undefined>>
+		<<set _tmp += '" width="' + $args[3]>>
+	<</if>>
+	
+	<<if $args[4] != undefined>>
+		<<set _tmp += '" height="' + $args[4]>>
+	<</if>>
+
+	<<set _tmp += '" alt="' + $args[0]>>
+
+	<<if $args[1] != undefined>>
+		<<set _tmp += $args[1]>>
+	<</if>>
+	<<if $args[2] != undefined>>
+		<<set _tmp += $args[2]>>
+	<</if>>
+	
+	<<set _tmp += '">'>>
+	
+	<<set _output to "">>
+	<<set _output += "<div id='media-output' style='display: flex; justify-content: center; height: 100%; ">>
+   	
+    <<if _hideBorder>>
+    	<<set _output += "width: 100%;">>
+    <</if>>
+    
+    <<set _output += "'>">>
+    
+    <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative; border: 5px #EBDDC5 solid; padding: .25em;">>
+
+	<<if _hideBorder>>
+		<<set _output += ' border: none; padding: 0;'>>
+	<<else>>
+    	<<set _output += ' width: initial;'>>
+    <</if>>
+    
+    <<if _overlay && _overlay.includes(" ")>>
+    	<<set _overlayArray to _overlay.split(" ")>>
+    <<else>>
+    	<<set _overlayArray to [ _overlay ]>>
+    <</if>>
+    
+    <<for _o = 0; _o < _overlayArray.length; _o++>>
+        <<if _overlayArray[_o] == "cctv-max">>
+        	<<set _output += ' position: inherit;'>>
+        <</if>>
+    <</for>>
+
+    <<set _output += "'>">>
+    
+    <<for _o = 0; _o < _overlayArray.length; _o++>>
+    <<if $settings.showCCTVOverlay == true>>
+        <<if _overlayArray[_o] == "cctv-max">>
+            <<set _output += '<div class="video-camera-overlay" style="left: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_1.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-2" class="video-camera-overlay" style="right: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_2.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-3" class="video-camera-overlay" style="left: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_3.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-4" class="video-camera-overlay" style="right: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_4.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-5" class="video-camera-overlay" style="width: 4em; background-image: url(' + $path + 'images/misc/cctv_5.png); align-self: center;"></div>'>>
+            <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%;'>">>
+        <</if>>
+        <<if _overlayArray[_o] == "cctv">>
+        	<<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'>">>
+            <<set _output += '<div class="video-camera-overlay" style="left: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_1.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-2" class="video-camera-overlay" style="right: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_2.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-3" class="video-camera-overlay" style="left: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_3.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-4" class="video-camera-overlay" style="right: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_4.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-5" class="video-camera-overlay" style="width: 4em; background-image: url(' + $path + 'images/misc/cctv_5.png); align-self: center;"></div>'>>
+		<</if>>
+        <<if _overlayArray[_o] == "dream">>
+        	<<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'>">>
+        	<<set _output += '<div class="dream-haze" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(230,245,255,0.35) 0%, rgba(255,230,245,0.25) 50%, rgba(240,255,255,0.3) 100%); mix-blend-mode: screen; pointer-events: none; z-index: 5; filter: blur(2px);"></div>'>>
+            <<set _output += '<div class="dream-light-orb1" style="position: absolute; top: 12%; left: 8%; width: 35%; height: 35%; background: radial-gradient(circle at 30% 30%, rgba(255,255,240,0.65) 0%, transparent 55%); border-radius: 50%; filter: blur(18px); animation: etherealPulse 9s infinite ease-in-out; pointer-events: none; z-index: 6;"></div>'>>
+            <<set _output += '<div class="dream-light-orb2" style="position: absolute; bottom: 18%; right: 12%; width: 28%; height: 28%; background: radial-gradient(circle at 70% 40%, rgba(240,255,255,0.55) 0%, transparent 60%); border-radius: 50%; filter: blur(22px); animation: etherealPulse 13s infinite ease-in-out; pointer-events: none; z-index: 6;"></div>'>>
+            <<set _output += '<div class="dream-sparkle1" style="position: absolute; top: 22%; right: 18%; width: 12px; height: 12px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 18px 6px rgba(255,255,255,0.85); border-radius: 50%; animation: dreamSparkle 2.8s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>'>>
+            <<set _output += '<div class="dream-sparkle2" style="position: absolute; bottom: 35%; left: 25%; width: 8px; height: 8px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 14px 5px rgba(200,230,255,0.9); border-radius: 50%; animation: dreamSparkle 3.5s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>'>>
+            <<set _output += '<div class="dream-sparkle3" style="position: absolute; top: 55%; left: 65%; width: 15px; height: 15px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 20px 7px rgba(255,245,230,0.8); border-radius: 50%; animation: dreamSparkle 2.2s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>'>>
+		<</if>>
+        <<if _overlayArray[_o] == "night">>
+            <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'>">>
+            <<set _output += '<div class="night-tint" style="position: absolute; inset: 0; background: rgba(8, 18, 50, .5); mix-blend-mode: multiply; pointer-events: none; z-index: 5;"></div>'>>
+            <<set _output += '<div class="night-vignette" style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, .20) 42%, rgba(2, 8, 35, 0.6) 100%); pointer-events: none; z-index: 6;"></div>'>>
+            <<set _output += '<div class="night-glow" style="position: absolute; top: 15%; left: 20%; width: 32%; height: 32%; background: radial-gradient(circle, rgba(190, 215, 255, 0.16) 5%, transparent 65%); filter: blur(25px); pointer-events: none; z-index: 4;"></div>'>>
+        <</if>>
+        <<if _overlayArray[_o] == "prototype">>
+            <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative; overflow: hidden'>">>
+        <</if>>
+    <</if>>
+    <</for>>
+
+	<<set _output += _tmp>>
+    
+    <<if $settings.showCCTVEffect == true>>
+    	<<for _o = 0; _o < _overlayArray.length; _o++>>
+    	<<if _overlayArray[_o] == "cctv-max" || _overlay == "cctv">>
+    		<<set _output += '<div class="cctv-overlay"></div>'>>
+        <</if>>
+        <<if _overlayArray[_o] == "prototype">>
+            <<set _output += '<div class="mindbend-overlay"></div>'>>
+            <<set _output += '<div class="corruption-overlay"></div>'>>
+            <<set _output += '<div class="influence-overlay"></div>'>>
+        <</if>>
+        <</for>>
+    <</if>>
+    
+    <<if _overlay != undefined && _overlay != "">>
+    	<<set _output += '</div>'>>
+    <</if>>
+
+	<<set _output += "</div></div>">>
+	
+	<<set $imageReturn to _tmp>>
+    <<if $settings.showImages == true>>
+		<<print _output>>
+    <<elseif $debug>>
+    	<<set _filename to $args[0] + "" + $args[1] + "" + $args[2]>>
+        <<set _filenameSplit to _filename.split("/")>>
+        <<set _firstCharacter to _filenameSplit[_filenameSplit.length -1].first()>>
+    	<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;"><<Capitalize _firstCharacter>></div>
+    <</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<RandomImage PATH AMOUNT ENDING WIDTH HEIGHT>>
+*/
+<<widget "RandomImage">>
+	<<if $args[1] != undefined>>
+		<<set _tmp to random($args[1])>>
+	<</if>>
+	
+	<<Image $args[0] _tmp $args[2] $args[3] $args[4]>>
+<</widget>>
+
+/* Usage: ===============================================================
+	<<Video PATH NAME ENDING HEIGHT OVERLAY BORDER?>>
+*/
+<<widget "Video">>
+	<<set _overlay to $args[4]>>
+    <<set _border to $args[5]>>
+    <<set _hideBorder = _border != undefined && (_border == "none" || _border == "false")>>
+    
+	<<set _tmp to '<video src="' + $path + $args[0]>>
+	
+	<<if $args[1] != undefined>>
+		<<set _tmp += $args[1]>>
+	<</if>>
+	
+	<<if $args[2] != undefined>>
+		<<set _tmp += $args[2]>>
+	<</if>>
+	
+	<<if $args[3] != undefined>>
+		<<set _tmp += '" style="max-width: ' + $args[3] + 'px; max-height: ' + $args[3] + "px;">>
+	<</if>>
+    
+	<<set _tmp += '" loop muted autoplay></video>'>>
+    
+    <<set _output to "">>
+	<<set _output += "<div id='media-output' style='display: flex; justify-content: center; height: 100%; ">>
+   	
+    <<if _hideBorder>>
+    	<<set _output += "width: 100%;">>
+    <</if>>
+    
+    <<set _output += "'>">>
+    
+    <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative; border: 5px #EBDDC5 solid; padding: .25em;">>
+
+	<<if _hideBorder>>
+		<<set _output += ' border: none; padding: 0;'>>
+    <<else>>
+    	<<set _output += ' width: initial; '>>
+	<</if>>
+    
+    <<if _overlay && _overlay.includes(" ")>>
+    	<<set _overlayArray to _overlay.split(" ")>>
+    <<else>>
+    	<<set _overlayArray to [ _overlay ]>>
+    <</if>>
+    
+    <<for _o = 0; _o < _overlayArray.length; _o++>>
+        <<if _overlayArray[_o] == "cctv-max">>
+        	<<set _output += ' position: inherit;'>>
+        <</if>>
+    <</for>>
+    
+    <<set _output += "'>">>
+    
+    <<for _o = 0; _o < _overlayArray.length; _o++>>
+    <<if $settings.showCCTVOverlay == true>>
+        <<if _overlayArray[_o] == "cctv-max">>
+            <<set _output += '<div class="video-camera-overlay" style="left: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_1.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-2" class="video-camera-overlay" style="right: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_2.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-3" class="video-camera-overlay" style="left: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_3.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-4" class="video-camera-overlay" style="right: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_4.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-5" class="video-camera-overlay" style="width: 4em; background-image: url(' + $path + 'images/misc/cctv_5.png); align-self: center;"></div>'>>
+            <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%;'>">>
+        <</if>>
+        <<if _overlayArray[_o] == "cctv">>
+        	<<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'>">>
+            <<set _output += '<div class="video-camera-overlay" style="left: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_1.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-2" class="video-camera-overlay" style="right: 2.5%; top: 2.5%; background-image: url(' + $path + 'images/misc/cctv_2.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-3" class="video-camera-overlay" style="left: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_3.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-4" class="video-camera-overlay" style="right: 2.5%; bottom: 2.5%; background-image: url(' + $path + 'images/misc/cctv_4.png);"></div>'>>
+            <<set _output += '<div id="video-camera-overlay-5" class="video-camera-overlay" style="width: 4em; background-image: url(' + $path + 'images/misc/cctv_5.png); align-self: center;"></div>'>>
+		<</if>>
+        <<if _overlayArray[_o] == "dream">>
+        	<<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'>">>
+        	<<set _output += '<div class="dream-haze" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(230,245,255,0.35) 0%, rgba(255,230,245,0.25) 50%, rgba(240,255,255,0.3) 100%); mix-blend-mode: screen; pointer-events: none; z-index: 5; filter: blur(2px);"></div>'>>
+            <<set _output += '<div class="dream-light-orb1" style="position: absolute; top: 12%; left: 8%; width: 35%; height: 35%; background: radial-gradient(circle at 30% 30%, rgba(255,255,240,0.65) 0%, transparent 55%); border-radius: 50%; filter: blur(18px); animation: etherealPulse 9s infinite ease-in-out; pointer-events: none; z-index: 6;"></div>'>>
+            <<set _output += '<div class="dream-light-orb2" style="position: absolute; bottom: 18%; right: 12%; width: 28%; height: 28%; background: radial-gradient(circle at 70% 40%, rgba(240,255,255,0.55) 0%, transparent 60%); border-radius: 50%; filter: blur(22px); animation: etherealPulse 13s infinite ease-in-out; pointer-events: none; z-index: 6;"></div>'>>
+            <<set _output += '<div class="dream-sparkle1" style="position: absolute; top: 22%; right: 18%; width: 12px; height: 12px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 18px 6px rgba(255,255,255,0.85); border-radius: 50%; animation: dreamSparkle 2.8s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>'>>
+            <<set _output += '<div class="dream-sparkle2" style="position: absolute; bottom: 35%; left: 25%; width: 8px; height: 8px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 14px 5px rgba(200,230,255,0.9); border-radius: 50%; animation: dreamSparkle 3.5s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>'>>
+            <<set _output += '<div class="dream-sparkle3" style="position: absolute; top: 55%; left: 65%; width: 15px; height: 15px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 20px 7px rgba(255,245,230,0.8); border-radius: 50%; animation: dreamSparkle 2.2s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>'>>
+		<</if>>
+        <<if _overlayArray[_o] == "night">>
+            <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'>">>
+            <<set _output += '<div class="night-tint" style="position: absolute; inset: 0; background: rgba(8, 18, 50, .5); mix-blend-mode: multiply; pointer-events: none; z-index: 5;"></div>'>>
+            <<set _output += '<div class="night-vignette" style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, .20) 42%, rgba(2, 8, 35, 0.6) 100%); pointer-events: none; z-index: 6;"></div>'>>
+            <<set _output += '<div class="night-glow" style="position: absolute; top: 15%; left: 20%; width: 32%; height: 32%; background: radial-gradient(circle, rgba(190, 215, 255, 0.16) 5%, transparent 65%); filter: blur(25px); pointer-events: none; z-index: 4;"></div>'>>
+        <</if>>
+        <<if _overlayArray[_o] == "prototype">>
+            <<set _output += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative; overflow: hidden'>">>
+        <</if>>
+    <</if>>
+    <</for>>
+
+	<<set _output += _tmp>>
+    
+    <<if $settings.showCCTVEffect == true>>
+    	<<for _o = 0; _o < _overlayArray.length; _o++>>
+    	<<if _overlayArray[_o] == "cctv-max" || _overlay == "cctv">>
+    		<<set _output += '<div class="cctv-overlay"></div>'>>
+        <</if>>
+        <<if _overlayArray[_o] == "prototype">>
+            <<set _output += '<div class="mindbend-overlay"></div>'>>
+            <<set _output += '<div class="corruption-overlay"></div>'>>
+            <<set _output += '<div class="influence-overlay"></div>'>>
+        <</if>>
+        <</for>>
+    <</if>>
+    
+    <<if _overlay != undefined && _overlay != "">>
+    	<<set _output += '</div>'>>
+    <</if>>
+
+	<<set _output += "</div></div>">>
+    	
+	<<set $videoReturn to _tmp>>
+	<<if $settings.showImages == true>>
+		<<print _output>>
+    <</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<RandomVideo PATH AMOUNT ENDING WIDTH HEIGHT>>
+*/
+<<widget "RandomVideo">>
+	<<if $args[1] != undefined>>
+		<<set _tmp to random($args[1])>>
+	<</if>>
+	
+	<<Video $args[0] _tmp $args[2] $args[3] $args[4]>>
+	
+<</widget>>
+
+/* Usage: =====================================================================
+	<<SetBackground IMAGE>>
+*/
+<<widget "SetBackground">>
+	<<script>>
+        document.body.style.backgroundImage = "url('" + State.variables.path + State.temporary.args[0] + "')";
+    	document.body.style.backgroundAttachment = "fixed";
+	<</script>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<Media PATH WIDTH HEIGHT BORDER? OVERLAY>>
+*/
+<<widget "Media">>
+    <<set _lower to $args[0].toLowerCase()>>
+    <<set _ext to _lower.split(".").pop()>>
+    <<set _isVideo to ["mp4","webm","ogg","mov"].includes(_ext)>>
+    
+    <<if _isVideo>>
+    	<<Video $args[0] "" "" $args[1] $args[4] $args[3]>>
+    <<else>>
+    	<<Image $args[0] "" "" $args[1] $args[2] $args[3] $args[4]>>
+    <</if>>
+<</widget>>
+
+

@@ -1,0 +1,24 @@
+:: Intro 1 [hide_sidebar] {"position":"175,800","size":"100,100"}
+<<silently>>
+<<SetLocation "Bedroom">>
+<<CheckLocation>>
+<<set _msgs = [
+  { who: $mom,    text: $player.name + ", are you alright up there? Do you need any help unpacking?"  },
+  { who: $player, text: "I'm good, thanks! Just dropping my stuff. I'll be down in a sec." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+This is going to take some getting used to. It isn't my place anymore, it's home again. Not all of that is bad, though. I don't have to pay rent anymore, and having $mom.callName around has never been a downside. I've always gotten along great with my $mom.relation. She looked out for me, had dinner waiting when I had long days at school and helped with homework when she could, all while holding down her office job. I couldn't tell you much about the company she works for. From what I've picked up, she's the one in the office who keeps everybody's schedule straight and notices things before they fall through the cracks. She's great with people, quick to pick up on what someone actually wants, and somehow everybody walks away from her in a better mood.
+
+Then there's the other part, the one I never say out loud. After more than a year away, I can barely keep it together. I've always been attracted to my $mom.relation, and to $sister.callName too, and there's no point lying to myself about it. I thought moving out would make it easier. Now that I'm back, it's worse than ever. I can't stop fantasizing about them.
+
+<<linkreplace "Think about $mom.callName...">>
+$mom.callName is $mom.age, though you'd never guess it. She has that easy, athletic way of moving that comes from never really sitting still. Her hair is long and wavy, a warm gold-blonde that catches the light and slides over her shoulder whenever she turns her head. Her eyes are a clear, light blue under darker brows, which gives even her friendliest look a bit of an edge. Her skin is fair and smooth, and her lips have a natural rose tint she covers with lipstick for work anyway. Even dressed down in a loose off-shoulder top and worn-in denim shorts, she carries herself with a quiet sort of confidence. And when I picture her without those clothes... her breasts are on the small side, a B-cup maybe, and they suit her frame perfectly. Her butt, on the other hand, is perfectly round, the kind of bubble butt half the women at her gym are paying a personal trainer for.
+
+Anyway. I should drop my bags and settle in first. After that I'll go find $sister.callName and catch up.
+
+[[Settle in|Bedroom]]
+<</linkreplace>>
+
+

@@ -1,0 +1,49 @@
+:: Sister Office Darius [micro_event event nobr] {"position":"2925,2900","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 31, "Her rounds" in Define Events): she is at $darius's
+   desk, admiring a chart and him, and checks whether I'm watching. I can let her stay (Morale) or call her over. */
+<<Media "images/characters/sister/events/office/darius.mp4" 400>>
+<p>$sister.callName is standing behind $darius.name's chair, leaning over his shoulder to look at a chart on his screen. He's walking her through it with the cap of his pen, point by point, and she's nodding along and tucking the same strand of hair behind her ear for the third time.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $darius, text: "This line is foot traffic at one of our clients. And this jump here is the week they changed absolutely nothing. Which is why it interests me." },
+	{ who: $sister, text: "So it's a mystery." },
+	{ who: $darius, text: "It's an anomaly. Mysteries are for people who don't have the data yet." },
+	{ who: $sister, text: "That's such a cool thing to say. Do you practice those?" },
+	{ who: $darius, text: "Only in the car." },
+	{ text: "She laughs. Then, still laughing, she glances across the room, straight at me, quick, the way she does in our overview meetings when she wants to see what my face does." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="sister-darius-choice">
+	<div>
+		<<link "Look back at your screen">>
+			<<replace "#sister-darius-choice">>
+				<p>My face doesn't do anything. I look back at my screen, and out of the corner of my eye I watch her turn back to the chart, slowly. She asks him another question, and then another one. $darius.name answers every single one of them, precisely and patiently, and by the end he's smiling in a way I haven't seen on him in a meeting.</p>
+				<p>When she finally leaves his desk, she walks past mine without stopping, which is a first. She doesn't manage not to look, though.</p>
+				<<UpdateStat "+" "Morale" 1>>
+				<<UpdateStat "+" "SisterLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Call her over">>
+			<<replace "#sister-darius-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "$sister.callName. Got a second?" },
+					{ text: "She's at my desk before $darius.name has put the cap back on his pen." },
+					{ who: $sister, text: "Yes, boss?" },
+					{ who: $player, text: "I need the client list printed." },
+					{ who: $sister, text: "We have a client list?" },
+					{ who: $player, text: "Print it anyway." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She goes off to the printer, smiling at nothing in particular, and on her way past $darius.name's desk she doesn't look at it once.</p>
+				<<UpdateStat "+" "SisterRelation" 1>>
+				<<UpdateStat "+" "SisterLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

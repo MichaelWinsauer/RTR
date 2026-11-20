@@ -1,0 +1,133 @@
+:: Sister working [interaction] {"position":"400,2350","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister at work in the Stage 1 office.
+   Variants 1 (her slide deck) and 3 (lunch at her desk) always; 2 needs $darius in (setup.officeWorkday);
+   4 needs the staff in. */
+<<silently>>
+<<set _variants to [1, 3]>>
+<<if setup.officeWorkday("darius")>><<run _variants.push(2)>><</if>>
+<<if setup.officeWorkday()>><<run _variants.push(4)>><</if>>
+<<set _pick to setup.pickTalkScene("Sister working", _variants)>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* ——— 1: The deck ——— */
+<<case 1>>
+$sister.callName is hunched over her laptop with her tongue between her teeth, dragging a stock photo of two men in suits shaking hands into a slide. The slide already has three of them. The title says OUR CULTURE in a font that I'm pretty sure is called something like 'Corporate Sunrise'.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Don't look, it's not finished. Okay, look. What do you think?" },
+{ who: $player, text: "Why is everybody shaking hands?" },
+{ who: $sister, text: "Because that's what culture looks like. I googled it. It's either handshakes or people laughing at a salad." },
+{ who: $player, text: "Who is this for?" },
+{ who: $sister, text: "My internship portfolio. I need to show I 'contributed to the company's identity'. So I'm contributing an identity. You're welcome." },
+{ text: "She clicks to the next slide. It says MEET THE CEO, and under it there's an empty gray box." },
+{ who: $sister, text: "I need a picture of you for this one. A professional one. Arms crossed, looking out a window at your empire." },
+{ who: $player, text: "We have one window, and it looks at a parking lot." },
+{ who: $sister, text: "Then you'll look at your parking lot with vision, $sister.callPlayer. Come on. Stand over there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Pose for her">>
+I stand by the window and cross my arms. She takes eleven pictures, makes me uncross them, cross them again, tilt my chin, and 'think about money'. In the end she picks the one where I'm trying not to laugh at her and drops it into the gray box.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Perfect. You look like a guy who owns a boat and doesn't tell anyone about it." },
+{ who: $player, text: "Is that good?" },
+{ who: $sister, text: "It's intimidating. In a hot way. For a CEO, I mean. In a general CEO way." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns back to the laptop very fast and starts adjusting the photo's border, which was fine. Under it, in the text box for the caption, she types 'Our fearless leader' and then deletes 'fearless', and then deletes 'Our', and leaves it like that.
+<</linkreplace>>
+
+/* ——— 2: The record (with $darius) ——— */
+<<case 2>>
+$sister.callName is typing so hard that her water bottle is wobbling. There's a stack of paper invoices on her left and a spreadsheet on the screen, and a stopwatch app running on her phone, propped up against her water bottle.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can't talk. I'm in the zone. Talk to me in, like, forty seconds." },
+{ text: "I wait forty seconds. She slaps the space bar, stops the timer and spins around in her chair with both arms in the air." },
+{ who: $sister, text: "Three hundred and twelve rows! In one hour! $darius.name, did you hear that? Three hundred and twelve!" },
+{ who: $darius, text: "I heard. How many of them are correct?" },
+{ who: $sister, text: "All of them. Probably. Most of them. A very high percentage." },
+{ who: $darius, text: "Then it doesn't count yet. I'll check a sample after lunch." },
+{ who: $sister, text: "He's had the record since Monday. Three hundred and forty. He did it while eating a salad. With a fork. One-handed." },
+{ who: $player, text: "So beat it tomorrow." },
+{ who: $sister, text: "Oh, I'm going to. I'm going to beat it and then I'm going to make him a certificate. With a gold border. He's going to have to hang it in his car." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+From across the room, $darius.name says he doesn't have a car, he has a bike, and she says fine, he can hang it on the bike. He actually smiles at his screen. I've never seen anybody else get that out of him in the office.
+
+Data entry is the most boring job in the building, and she has managed to turn it into a sport, which means it gets done twice as fast and nobody notices how boring it is. She's getting the whole backlog.
+
+/* ——— 3: Lunch ——— */
+<<case 3>>
+She's eating lunch at her desk: a sandwich in wax paper, an apple, and a bag of chips that she's opened from the side, like a psychopath. When I pull a chair over, she tears the sandwich in half without asking and holds out the bigger piece.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Turkey and the good mustard. Don't tell $mom.callName I took the good mustard." },
+{ who: $player, text: "She'll know." },
+{ who: $sister, text: "She always knows. It's terrifying. I think she counts the jars." },
+{ text: "We eat. For a while neither of us says anything, which is nice, actually. It's quiet in a way the house never is. Then she folds the wax paper into smaller and smaller squares." },
+{ who: $sister, text: "Can I ask you something? And you can't make it weird." },
+{ who: $player, text: "I never make it weird." },
+{ who: $sister, text: "You're making it weird right now, with your face." },
+{ text: "She looks at the folded square in her hand, not at me." },
+{ who: $sister, text: "Is it weird? That I'm here. With you being... you know. My boss. And... the rest." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+'The rest' is doing a lot of work in that sentence. She's been not-talking about that kiss for weeks now, loudly, in every way she can think of.
+
+<<linkreplace "Tell her it isn't">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "It's not weird. You're here because you're good at this. Everything else is ours, and it's nobody's business." },
+{ who: $sister, text: "Ours. Okay. Yeah." },
+{ text: "She says it twice more under her breath, like she's trying out how it sounds. Then she bumps my knee with hers under the desk and leaves it there." },
+{ who: $sister, text: "You can have the rest of the chips. As a reward for not making it weird." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the chips. 'Nobody's business' was the part I needed her to hear, and from the look on her face, she took it as something sweet. That works for me too.
+<<UpdateStat "+" "SisterLust" 1>>
+<</linkreplace>>
+
+/* ——— 4: The hoodie (staff in) ——— */
+<<case 4>>
+$sister.callName is working with her knees pulled up on her chair and my old gray hoodie zipped up to her chin, the one I've been looking for since last month. The sleeves are so long that she's typing through the fabric.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "That's mine." },
+{ who: $sister, text: "It was yours. Then you left it on the couch for a week. That's abandonment. I'm a rescue shelter." },
+{ who: $player, text: "It's warm out." },
+{ who: $sister, text: "It's warm out there. In here it's like a meat locker. It's that vent, it's always blowing right on my desk. I've complained to $brian.name, like, three times." },
+{ text: "She points at the ceiling without looking up. I don't look up either." },
+{ who: $sister, text: "It's weird, though. I keep wanting to move desks, and then I don't. I like it here. Everybody here is so..." },
+{ who: $player, text: "So what?" },
+{ who: $sister, text: "I don't know. Chill? Nice? Nobody's ever in a bad mood. At the diner, somebody's crying in the walk-in fridge by eleven. Here, $ethan.name brought donuts for no reason. On a Tuesday." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it like it's a little mystery she'd like to solve one day, when she has time. I tell her she should keep the desk, since she likes it so much. She can keep the hoodie, too.
+
+She grins and pulls the hood up, and goes back to typing, right under the vent, happy as anything.
+
+<</switch>>
+
+<<UpdateStat "+" "SisterRelation" 1>>
+
+<div class="navigation-link"><<link "Let her work" $player.location.passage>><</link>></div>

@@ -1,0 +1,49 @@
+:: Sister Office Ethan [micro_event event nobr] {"position":"2800,2900","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 30, "Her rounds" in Define Events): she is sitting on
+   $ethan's desk while he shows her a bug. I can join them (Morale) or send them back to work (Efficiency). */
+<<Media "images/characters/sister/events/office/ethan.mp4" 400>>
+<p>The laughing is coming from $ethan.name's desk. $sister.callName is sitting on the edge of it with her feet on his spare chair, and he has his screen turned toward her.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $ethan, text: "Okay, okay, so this is the bug. Watch. You click save, and it saves. And then it saves again. And then it saves a third time, just to be sure." },
+	{ who: $sister, text: "It's anxious. Your code is anxious." },
+	{ who: $ethan, text: "It gets that from me." },
+	{ text: "She laughs with her whole head thrown back, and $ethan.name looks like a man who has been waiting since breakfast for somebody to laugh at that exact joke." },
+	{ who: $ethan, text: "Hey, boss! Your intern says my code needs therapy." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="sister-ethan-choice">
+	<div>
+		<<link "Join them">>
+			<<replace "#sister-ethan-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Your code needs a priest." },
+					{ who: $ethan, text: "See, that's the leadership I signed up for." },
+					{ text: "He walks us through the whole disaster, with sound effects, and for ten minutes the three of us are crowded around one screen laughing at a save button. $sister.callName ends up leaning against my shoulder without seeming to notice she's done it. $ethan.name notices. He doesn't say anything, he just grins at his screen." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "Morale" 2>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Ask whether it saves four times yet">>
+			<<replace "#sister-ethan-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Does it save four times yet? Because I can wait." },
+					{ who: $ethan, text: "Message received, boss. Back to the mines." },
+					{ text: "$sister.callName slides off the desk. On her way past me she sticks her tongue out, quick enough that nobody else sees it, and then she goes to refill the water jug as if that had been the plan all along." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "Efficiency" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

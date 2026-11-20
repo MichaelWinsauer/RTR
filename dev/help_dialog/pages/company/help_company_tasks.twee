@@ -1,0 +1,61 @@
+:: Help Company Tasks [nobr] {"position":"700,4250"}
+/* The table is built from the unlocked tasks ($tasks, task.active), so it never lists a task the player hasn't
+   unlocked yet and its numbers always match Define Tasks (setup.helpTasks, Help Dialog Script). */
+<p>Tasks are the jobs you put into the <a href="#" data-help="Help Company Schedule">schedule</a> for $mom.callName and $sister.callName. A task takes a number of actions (its <b>duration</b>), can only start in certain time slots, may earn money for the company and costs the person energy.</p>
+
+<<set _hctTasks to setup.helpTasks()>>
+<<if $company.stage < 1>>
+<p class="help-empty">Your family doesn't work for the company yet.</p>
+<<elseif _hctTasks.length > 0>>
+<h3>The tasks you have unlocked</h3>
+<table class="help-table">
+	<tr><th>Task</th><th>Who</th><th>Place</th><th>Takes</th><th>Starts in</th><th>Pays</th><th>Energy</th></tr>
+	<<for _hctTask range _hctTasks>>
+	<tr>
+		<td><<= _hctTask.title>><<if _hctTask.withMe>> <span class="help-pill">With me</span><</if>></td>
+		<td><<= _hctTask.who>></td>
+		<td><<= _hctTask.place>></td>
+		<td><<= _hctTask.takes>></td>
+		<td><<= _hctTask.starts>></td>
+		<td><<if _hctTask.pays > 0>>$<<= _hctTask.pays>><<else>>-<</if>></td>
+		<td><<= _hctTask.energy>></td>
+	</tr>
+	<</for>>
+</table>
+<p>The energy column is the base cost. Low morale adds to it (see <b>Running a task</b> below).</p>
+
+<h3>What they do</h3>
+<dl class="help-stats">
+	<<for _hctTask range _hctTasks>>
+	<dt><<= _hctTask.title>> (<<= _hctTask.who>>)</dt><dd><<if _hctTask.description != "">><<= _hctTask.description>><<elseif _hctTask.pays > 0>>Earns the company $<<= _hctTask.pays>> each time.<<else>>See for yourself.<</if>></dd>
+	<</for>>
+</dl>
+<<else>>
+<p>No tasks are unlocked yet.</p>
+<</if>>
+<p>New tasks show up as the story goes on and when you take on new projects. The money goes into the <b>company account</b>, not to the person doing the task.</p>
+
+<h3>Tasks that need a break</h3>
+<p>Some tasks can't happen every day. The task picker marks them (<b>EVERY OTHER DAY</b>, <b>EVERY 3 DAYS</b>). You plan them like any other task, but after a day on which one actually happened, it rests: its block in the schedule is greyed out with a dashed border and says <b>Rests today</b>, and she follows her normal routine in those actions instead. Nothing happens, nothing is paid, and she doesn't wait for you, so it costs nothing either. Weekends count as days. If one is missed or you send her away, it doesn't rest, and she's back the next day.</p>
+
+<h3>Running a task</h3>
+<ul>
+	<li>When a task's first action comes, it <b>starts</b>, but only if the person has at least its base energy. If she is too tired it simply doesn't start that day, and it pays nothing.</li>
+	<li>When its last action ends, it <b>finishes</b>: the company is paid and the energy is spent.</li>
+	<li>The energy spent is the base cost, plus a surcharge for the <a href="#" data-help="Help Company Skills">morale</a> she is missing: the longer the task and the lower her morale, the more it costs. A 3-action task with a base cost of 15 costs her 30 at half morale. The picker and the tiles in the schedule always show the real cost.</li>
+	<li>Energy comes back every night, and $sister.callName recovers more than $mom.callName.</li>
+</ul>
+
+<h3>Tasks with you</h3>
+<p>Some tasks need you there. They are marked <b>With me</b> in the task picker, and their tile in the schedule is gold. The picker tells you where you have to be.</p>
+<ul>
+	<li>If you are there when it starts, she asks you first. Say yes and its scene plays. At the end you get back to work, and the task's actions pass with it.</li>
+	<li>If you are somewhere else when it starts, you get a notice that she's waiting. Its first action is your time to get there: walk over and she asks you as soon as you arrive.</li>
+	<li>Say no (or close the window) and you send her away. That counts the same as not being there.</li>
+	<li>If you are still not there once that first action is over, it doesn't happen that day and she spends no energy. But she came by for nothing, and depending on the task she can lose some Relation and Morale for every action it would have taken.</li>
+	<li>If you skip past it from your desk (<b>Skip Work Day</b>, <b>Complete Task</b>) while you are where it needs you, it still counts, without the scene.</li>
+	<li>To get the scene without clicking Work over and over, use the <a href="#" data-help="Help Company Actions">Work until ...</a> card. Away from the office, the <b>Go to work</b> quick link in the sidebar tells you when the next one is.</li>
+	<li>Two tasks with you can't overlap, not even across both columns. You can only be in one place at a time.</li>
+	<li>Like other tasks, they can change the more often they are done.</li>
+</ul>
+<div class="help-note">Tasks only run on weekdays. Check the energy shown on the <a href="#" data-help="Help Company Employees">employee cards</a> before you stack the day.</div>

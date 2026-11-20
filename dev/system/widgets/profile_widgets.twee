@@ -1,0 +1,49 @@
+:: Profile Widgets [nobr system widget] {"position":"2800,0","size":"100,100"}
+/* Usage: =====================================================================
+	<<ProfileLog $mom "More agreeable" "She agrees to small requests without the usual pushback.">>
+	Adds an entry to the Progression tab of the profile (the last two arguments, a stat
+	name and its change, are optional). Title and text may contain $variables.
+	<<ProfileLog $mom 
+*/
+<<widget "ProfileLog">>
+	<<run $args[0].profile.log.push({
+		when: $date.dayCount,
+		kind: "Event",
+		title: $args[1],
+		text: $args[2]
+	})>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<ProfileMemory $mom "Kitchen table" "She stayed up waiting for me again.">>
+	Adds an entry to the Recollection tab of the profile.
+*/
+<<widget "ProfileMemory">>
+	<<run $args[0].profile.memories.push({
+		when: $date.dayCount,
+		title: $args[1],
+		text: $args[2]
+	})>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<AdvanceCorruptionStage $mom ["Text for her Progression log"]>>
+	The milestone of a corruption stage (see "Corruption stages" in Define NPCs): she moves up one stage,
+	her corruption bar goes back to 0, and a notification plus a Progression entry ("Stage 1: <name>")
+	show it. Call it in the milestone scene, before <<NextQuest>>. Does nothing (and logs an error in
+	the console) if there is no next stage in setup.corruptionStages.
+*/
+<<widget "AdvanceCorruptionStage">>
+	<<if setup.advanceCorruptionStage($args[0])>>
+		<<set _acsStage to setup.corruptionStage($args[0])>>
+		<<set _acsTitle to "Stage " + _acsStage + ": " + setup.corruptionStageName($args[0])>>
+		<<run $args[0].profile.log.push({
+			when: $date.dayCount,
+			kind: "Stage",
+			title: _acsTitle,
+			text: $args[1] || "Her corruption reached a new stage."
+		})>>
+		<span class="statupdate accent"><<= $args[0].callName>> has reached corruption <<= _acsTitle>>.</span>
+		<<run Notification.show($args[0].callName + " has reached corruption " + _acsTitle + ".", { type: Notification.POSITIVE })>>
+	<</if>>
+<</widget>>

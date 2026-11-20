@@ -1,0 +1,1158 @@
+:: Default Meal [activity meal nobr] {"position":"1350,2100"}
+<<silent>>
+/*
+{
+        id: "default",                                  // id for referencing. Unique
+        passage: "Default Meal",                        // Passage to include.
+        isActive: true,                                   // Should this meal be considered to display?
+        mealType: ["breakfast", "lunch", "dinner"],     // When can this be shown? Breakfast, Lunch or Dinner? Multiple allowed, but should be cared for when writing the scene
+        isImportant: false,                             // is it an important Scene? E.g. after a quest.
+        dayType: ["weekday", "weekend"],                // show on weekdays or weekend (or both)
+        cooldown: 0,                                    // how soon it can show up again
+        once: false,                                    // boolean if should show only once
+        lastSeen: -1,
+        present: ["mom", "sister"],                     // if empty, ignore
+        requirements: [                                 // List of functions that all have to be true in order for the meal to play. Checked before picking this meal
+        //    () => State.variables.date.dayCount >= 0,
+        ],
+        set: [                                          // List of functions that will be set after finishing this meal. E.g. Statupdates or something.
+        //    () => State.variables.date.dayCount >= 0,
+        ]
+}
+*/
+
+/* ==========================================================================
+   DEFAULT MEAL: Mom + Sister at the table. Slice of life, nothing story related.
+   - Passage is tagged "nobr": line breaks in this file do NOT render. Every paragraph is an explicit <p>...</p>.
+   - Included by Breakfast / Lunch / Dinner, so: no UseAction / return link here.
+   - Temp vars use _dm / _m / _s prefixes to not clash with the caller's _meal.
+   - Each scenario has 2-3 variants (random), each with its own dialogue and image placeholder.
+   - Stats used for variance: relation, energy, morale, money, prototype progress, a few flags. No corruption.
+   - Image placeholders: IMAGE: <path> | <what is happening>
+   ========================================================================== */
+
+<<set _dmType to $mealType>>
+<<set _dmWeekday to $date.today.value < 5>>
+<<set _mRel to $mom.stats.relation>>
+<<set _sRel to $sister.stats.relation>>
+<<set _mTired to $mom.stats.energy < 40>>
+<<set _sTired to $sister.stats.energy < 40>>
+<<set _mDown to $mom.stats.morale < 40>>
+<<set _sDown to $sister.stats.morale < 40>>
+<<if _dmType == "breakfast">>
+	<<set _food to either("scrambled eggs", "toast and jam", "pancakes", "oatmeal", "bacon and eggs", "cereal")>>
+<<elseif _dmType == "lunch">>
+	<<set _food to either("sandwiches", "leftover pasta", "chicken salad", "tomato soup", "quesadillas", "grilled cheese")>>
+<<else>>
+	<<set _food to either("lasagna", "roast chicken", "stir fry", "tacos", "meatloaf", "baked salmon", "chili")>>
+<</if>>
+<</silent>>
+
+/* ---------- SETTING ---------- */
+<<if _dmType == "breakfast">>
+	<<switch random(1, 4)>>
+	<<case 1>><p>Pale morning light slants across the kitchen table. The coffee machine gurgles its last breath and the whole room smells like _food.</p>
+	<<case 2>><p>The kitchen is still half asleep. A radio murmurs about traffic and the table is crowded with plates, cups and a butter dish nobody put back.</p>
+	<<case 3>><p>Somebody opened the window, and the cool morning air chases the smell of _food around the kitchen.</p>
+	<<case 4>><p>The first sunlight turns the steam over the coffee cups gold. It's the quiet, slightly crumpled part of the day.</p>
+	<</switch>>
+<<elseif _dmType == "lunch">>
+	<<switch random(1, 4)>>
+	<<case 1>><p>Midday sun falls straight onto the kitchen table. There's _food on the plates and the dishwasher is still grumbling from breakfast.</p>
+	<<case 2>><p>The kitchen is warm and a little cluttered. Mail, half a newspaper and _food share the table.</p>
+	<<case 3>><p>Lunch happens the way it always does here: whoever is home drifts into the kitchen and somehow ends up sitting down together.</p>
+	<<case 4>><p>The house is calm and bright. The table is set for _food and for once nobody is in a rush.</p>
+	<</switch>>
+<<else>>
+	<<switch random(1, 4)>>
+	<<case 1>><p>The overhead light makes the kitchen warm and yellow. _food steams in the middle of the table and plates are already being passed around.</p>
+	<<case 2>><p>Dinner is on the table: _food, a bowl of something green nobody asked for, and the familiar clatter of cutlery.</p>
+	<<case 3>><p>It's evening, the curtains are drawn and the kitchen smells like home. Plates are being filled before I've even sat down.</p>
+	<<case 4>><p>The day is over and the kitchen is where everyone ends up. _food first, talking second.</p>
+	<</switch>>
+<</if>>
+/* IMAGE: images/meals/default/table_<breakfast|lunch|dinner>.jpg | Wide shot of the kitchen table with Mom and Sister seated, food on the table, light matching the time of day (morning / midday / warm evening). */
+
+/* ---------- MOOD (energy + morale only) ---------- */
+<p>
+<<if _mTired>>$mom.callName looks worn out and keeps stirring her coffee without drinking it.
+<<elseif _mDown>>$mom.callName is quiet and a little far away, pushing food around her plate.
+<<elseif $mom.stats.morale >= 80>>$mom.callName is in a good mood and hums while she serves.
+<<else>>$mom.callName sets out plates with the calm efficiency of someone who's done it a thousand times.
+<</if>>
+<<if _sTired>>$sister.callName slumps in her chair and yawns behind her hand every other minute.
+<<elseif _sDown>>$sister.callName answers in single words and scrolls through her phone without really reading.
+<<elseif $sister.stats.morale >= 80>>$sister.callName is bright and chatty, swinging her foot under the table.
+<<else>>$sister.callName leans back in her chair with her phone beside her plate.
+<</if>>
+</p>
+
+/* ---------- SCENARIO POOL ---------- */
+<<set _pool to ["weather", "neighbors", "phone", "dishes", "wifi", "groceries", "borrowed", "anecdote", "nag", "car", "trash", "bathroom", "gossip", "company", "compliment", "quiet", "tvshow"]>>
+<<if _dmType == "breakfast">>
+	<<run _pool.push("coffee", "dream", "horoscope")>>
+	<<if _dmWeekday>><<run _pool.push("rushed")>><<else>><<run _pool.push("pancakes")>><</if>>
+<<elseif _dmType == "lunch">>
+	<<run _pool.push("leftovers", "plans", "sniffles")>>
+	<<if !_dmWeekday>><<run _pool.push("choreslist")>><</if>>
+<<else>>
+	<<run _pool.push("recipe", "dessert", "birthday", "vacation", "money")>>
+	<<if _dmWeekday>><<run _pool.push("longday")>><</if>>
+<</if>>
+<<if $sister.flags.worksAtDiner>><<run _pool.push("dinertips")>><</if>>
+<<if $sister.flags.collegeUnlocked>><<run _pool.push("college")>><</if>>
+<<if $sister.flags.doesChores>><<run _pool.push("chores")>><</if>>
+<<if _pool.length > 1 && $dmLast>><<set _pool to _pool.filter(s => s !== $dmLast)>><</if>>
+<<set _pick to _pool.random()>>
+<<set $dmLast to _pick>>
+
+<<switch _pick>>
+
+/* ==========================================================================
+   ANY MEAL
+   ========================================================================== */
+
+/* ---------- weather ---------- */
+<<case "weather">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "They say thirty-five degrees all week. I don't know how people live in this." },
+	{ who: $sister, text: "I'm going to sleep in the fridge. Don't look for me." },
+	{ who: $mom, text: "Keep the blinds closed during the day and drink water. Actual water, $sister.callName. Not iced coffee." },
+	{ who: $player, text: "The heat's not going to hurt the old fan, is it?" },
+	{ who: $mom, text: "The old fan has been dying since 2009. It's earned a medal." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/weather_heat.jpg | Sister fanning herself with a menu, Mom mopping her brow, curtains drawn, bright harsh light at the window edges. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "Did you see the sky? It's, like, purple." },
+	{ who: $mom, text: "The radar says it's coming in around six. Everyone take an umbrella." },
+	{ who: $sister, text: "My shoes will die. They're literally suede." },
+	{ who: $mom, text: "Then wear different shoes. That's how it works." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/weather_storm.jpg | Dark clouds in the kitchen window, rain starting on the glass, Sister glaring at her suede shoes by the door. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $mom, text: "First frost tonight, they say. I should bring the plants inside." },
+	{ who: $sister, text: "Can we turn on the heating yet? My toes are blue." },
+	{ who: $mom, text: "Put on socks. I'm not paying to heat the whole house for a cold toe." },
+	{ who: $sister, text: "You said that last year and then we were all under blankets in the living room." },
+	{ who: $mom, text: "And it was lovely. Socks." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/weather_cold.jpg | Frost on the kitchen window, Sister pulling her sweater sleeves over her hands, Mom holding a steaming mug. */
+<</switch>>
+
+/* ---------- neighbors, one choice ---------- */
+<<case "neighbors">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "The new people in the corner house have a dog that barks at nothing. All night. I could hear it through the window." },
+	{ who: $sister, text: "Maybe it barks at ghosts." },
+	{ who: $mom, text: "Maybe it barks because nobody walks it. I'd love to say something, but I don't want to be that neighbor." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/neighbors_dog.jpg | Mom at the window glancing at the neighboring house, a small dog silhouette barking in the next yard. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "Mr. Brandt parked in front of our driveway again. Half of the car. Half!" },
+	{ who: $sister, text: "He's like ninety. He probably thinks he's parked at home." },
+	{ who: $mom, text: "He's seventy-one, and he knows exactly what he's doing." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/neighbors_car.jpg | View through the kitchen window of a car blocking half of the driveway, Mom with arms crossed, Sister smirking. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $mom, text: "Someone's moving into the apartment above Mrs. Alvarez. A young couple, I heard." },
+	{ who: $sister, text: "Ooh, do they have a cute friend?" },
+	{ who: $mom, text: "Is that all you're thinking about? Maybe bake them something." },
+	{ who: $sister, text: "I'm not baking. I'll buy something and put it on a plate." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/neighbors_moving.jpg | Through the window, a moving van outside the building with boxes on the sidewalk, Mom and Sister peeking out. */
+<</switch>>
+<div id="dm-choice">
+<<link "Offer to deal with it">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: either("Want me to say something? I don't mind.", "I'll handle it. I'll just be friendly about it.", "Leave it to me, $mom.callName.") },
+		{ who: $mom, text: either("Would you? That would be such a relief.", "That's sweet, $mom.callPlayer. Just be polite, okay?") },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "MomRelation" 1>>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 3, 0, 100)>>
+<</replace>><</link>>
+<br>
+<<link "Stay out of it">><<replace "#dm-choice">>
+	<p>I nod along and keep eating. Some wars are better left alone.</p>
+<</replace>><</link>>
+</div>
+
+/* ---------- phone at the table ---------- */
+<<case "phone">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ text: "$sister.callName's phone buzzes for the third time in a minute. She reads, smirks and types without looking up." },
+	{ who: $mom, text: "Phone away, $sister.callName. We're eating." },
+	{ who: $sister, text: "It's, like, important." },
+	{ who: $mom, text: "Is it going to eat your food for you? Then it can wait." },
+	{ text: "She puts it face down next to her plate. It buzzes against the wood every thirty seconds until the end of the meal." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/phone_buzz.jpg | Close-up of the phone face down on the table, vibrating, Sister's eyes flicking to it, Mom giving her a flat look. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "Hold on, I just need to answer one email." },
+	{ who: $sister, text: "No phones at the table, remember? That's a rule. I think I read it somewhere." },
+	{ who: $mom, text: "That rule is for children." },
+	{ who: $sister, text: "I'm twenty." },
+	{ who: $mom, text: "Then it's for you. I'm the adult here." },
+	{ text: "$sister.callName looks at me with the expression of someone who just lost an argument she was never going to win." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/phone_mom_typing.jpg | Mom typing on her phone with a fork in her other hand, Sister raising an eyebrow at her. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay, look at this. Look at this! Someone made a video of a cat riding a vacuum." },
+	{ who: $mom, text: "Is the cat all right?" },
+	{ who: $sister, text: "He's thriving! Look at his face!" },
+	{ text: "$mom.callName insists on watching it twice. By the third time, all three of us are leaning over the screen." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/phone_cat_video.jpg | All three heads close together over Sister's phone, laughing, food forgotten. */
+<<UpdateStat "+" "SisterRelation" 1>>
+<</switch>>
+
+/* ---------- dishes: whose turn, random outcome ---------- */
+<<case "dishes">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "Whose turn is it to do the dishes?" },
+	{ who: $sister, text: "Not mine. I did them on Tuesday." },
+	{ who: $mom, text: "Tuesday was the week before last." },
+	{ who: $sister, text: "That's, like, the same week emotionally." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/dishes_argument.jpg | Mom pointing at the full sink, Sister leaning back with arms crossed, the player in the middle. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "I'm not doing dishes if he doesn't." },
+	{ who: $mom, text: "Nobody's doing anything until somebody decides, and I'm too tired to decide." },
+	{ who: $sister, text: "Rock paper scissors?" },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/dishes_rps.jpg | Sister holding out a fist, expectant grin, a stack of plates in the background. */
+<</switch>>
+<div id="dm-choice">
+<<link "I'll do them">><<replace "#dm-choice">>
+	<p>"Fine, I'll do them," I say, already pushing back my chair. $mom.callName blinks as if I've handed her a gift.</p>
+	<<UpdateStat "+" "MomRelation" 2>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Rock, paper, scissors">><<replace "#dm-choice">>
+	<<set _rps to random(1, 3)>>
+	<<if _rps == 1>>
+		<p>Rock beats scissors. $sister.callName stares at her own hand for a very long second, then throws herself dramatically onto the table.</p>
+		<p>"Best of three," she moans. There is no best of three.</p>
+		<<UpdateStat "+" "SisterRelation" 1>>
+	<<elseif _rps == 2>>
+		<p>Paper covers rock. Her fist stays out, and her eyes narrow. "You cheated."</p>
+		<p>"With what, exactly?" I ask, gathering up the first plates.</p>
+		<<UpdateStat "+" "SisterRelation" 1>>
+	<<else>>
+		<p>A tie, a tie, a tie. By the fourth round $mom.callName rolls her eyes, sighs and gets up to start the water herself.</p>
+		<p>Guilt wins. We end up drying while she washes.</p>
+		<<UpdateStat "+" "MomRelation" 1>>
+	<</if>>
+<</replace>><</link>>
+</div>
+
+/* ---------- wifi, one choice ---------- */
+<<case "wifi">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "The internet is crawling again. I have a video call tomorrow and I can't even load my email." },
+	{ who: $sister, text: "It's not me. I'm only streaming. And downloading. And on a call. Okay, maybe it's me." },
+	{ who: $mom, text: "Please, go one thing at a time." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/wifi_slow.jpg | Mom with a laptop on the corner of the table and a spinning loading circle on the screen, Sister's phone propped against the juice. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "Did someone change the wifi password? Mine isn't working." },
+	{ who: $mom, text: "I did. The old one was our street number and the dog's name, anyone could guess it." },
+	{ who: $sister, text: "We don't have a dog." },
+	{ who: $mom, text: "It was the neighbor's dog. It's on the fridge now, don't lose it." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/wifi_password.jpg | A sticky note with a long password stuck on the fridge, Sister squinting at it with her phone in hand. */
+<</switch>>
+<div id="dm-choice">
+<<link "I'll check the router tonight">><<replace "#dm-choice">>
+	<p>"I'll look at the router after dinner," I say. $mom.callName looks relieved. $sister.callName raises her glass of juice in a mock toast.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Blame the neighbors">><<replace "#dm-choice">>
+	<p>"Probably the neighbors stealing our wifi," I say gravely. Nobody believes me, but $sister.callName snorts into her cup.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- groceries, one choice ---------- */
+<<case "groceries">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "We're almost out of everything. Milk, eggs, bread, the good coffee." },
+	{ who: $sister, text: "And chips. You always forget the chips." },
+	{ who: $mom, text: "Chips are not a food group." },
+	{ who: $sister, text: "They're a lifestyle." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/groceries_list.jpg | Mom writing a shopping list on the back of an envelope, Sister leaning over to add 'chips' in her own handwriting. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "I looked in the fridge this morning and it was just mustard and half a lemon." },
+	{ who: $sister, text: "That's the 'make it work' challenge." },
+	{ who: $mom, text: "Someone needs to go shopping. I'm too tired for a supermarket today." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/groceries_fridge.jpg | Open fridge with almost nothing in it, Mom holding the door and peering in, Sister peeking from behind. */
+<</switch>>
+<div id="dm-choice">
+<<if $player.money >= 40>>
+<<link "I'll go shopping">><<replace "#dm-choice">>
+	<p>"I'll go," I say. "Give me the list." $mom.callName hands me an envelope covered in her neat handwriting, with a smudged 'chips' at the bottom.</p>
+	<<UpdateStat "-" "Money" 40>>
+	<<UpdateStat "+" "MomRelation" 2>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<</if>>
+<<link "Not today">><<replace "#dm-choice">>
+	<p>"I'm swamped today," I say. $mom.callName nods, a little tired, and says she'll do it on the way home.</p>
+<</replace>><</link>>
+</div>
+
+/* ---------- borrowed things, one choice ---------- */
+<<case "borrowed">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "Has anyone seen my good scissors? The orange ones?" },
+	{ who: $sister, text: "Why are you looking at me?" },
+	{ who: $mom, text: "Because last time they were in your room." },
+	{ who: $sister, text: "...They might be in my room." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/borrowed_scissors.jpg | Mom with one hand out, palm up, Sister pretending not to hear, a pair of orange scissors visible on a shelf behind. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "Who ate my yogurt? It had my name on it. In marker." },
+	{ who: $mom, text: "I didn't touch it." },
+	{ text: "Both of them turn to me." },
+	{ who: $player, text: "I don't even like strawberry." },
+	{ who: $sister, text: "That's what a thief would say." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/borrowed_yogurt.jpg | Sister holding an empty yogurt cup with a name scribbled on it, pointing it at the player like evidence. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay, who took my charger? It was right next to my bed." },
+	{ who: $player, text: "I borrowed it. Mine's dead." },
+	{ who: $sister, text: "You borrowed it three days ago! It's a loan, not a gift." },
+	{ who: $mom, text: "You two are impossible. Buy a second charger and end this." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/borrowed_charger.jpg | Sister holding out an open hand for the charger, the player digging it out of his pocket with a guilty look. */
+<</switch>>
+<div id="dm-choice">
+<<link "Own up and apologize">><<replace "#dm-choice">>
+	<p>"Fine. It was me. Sorry." $sister.callName accepts it like a queen receiving tribute.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Deny everything">><<replace "#dm-choice">>
+	<p>"I've never seen it in my life," I say with a straight face. $sister.callName narrows her eyes. $mom.callName sighs.</p>
+	<<if random(0, 1) == 1>>
+		<p>It holds until the end of the meal. Then she catches me trying to sneak it away and smacks me with a napkin.</p>
+		<<UpdateStat "+" "SisterRelation" 1>>
+	<<else>>
+		<p>It does not hold. She finds it in my room an hour later and does not let me forget it.</p>
+		<<UpdateStat "-" "SisterRelation" 1>>
+	<</if>>
+<</replace>><</link>>
+</div>
+
+/* ---------- anecdote ---------- */
+<<case "anecdote">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "Did I ever tell you about the time you hid in the dryer during hide and seek?" },
+	{ who: $player, text: "You mean the time I fell asleep in it?" },
+	{ who: $mom, text: "I looked for you for forty minutes. Forty. I called the neighbors. Your $sister.relation found you." },
+	{ who: $sister, text: "I heard you snoring. Best day of my life." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/anecdote_dryer.jpg | Mom laughing while telling the story with her hands; optionally an old photo of a small boy asleep in a laundry drum. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "$sister.callName, remember when you cut your own hair before school photos?" },
+	{ who: $sister, text: "I was eight! I thought bangs would make me look older." },
+	{ who: $mom, text: "You looked like a medieval monk." },
+	{ who: $player, text: "I still have the photo. It's on my wall." },
+	{ who: $sister, text: "It is NOT." },
+	{ who: $player, text: "It's not. But it's now a goal." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/anecdote_haircut.jpg | Sister covering her face in embarrassment, Mom laughing, a framed old school photo visible on a shelf in the background. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $mom, text: "I found an old box in the attic. Your school drawings, your report cards, a tooth." },
+	{ who: $sister, text: "Whose tooth?" },
+	{ who: $mom, text: "I don't know. I'm choosing not to know." },
+	{ who: $player, text: "Please tell me you won't show anyone." },
+	{ who: $mom, text: "I'll show whoever I want. I'm your $mom.relation." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/anecdote_box.jpg | A dusty cardboard box on the corner of the table with crayon drawings spilling out, Mom pulling one out with a fond smile. */
+<</switch>>
+<<UpdateStat "+" "MomRelation" 1>>
+
+/* ---------- nag: Mom worries about everyday things, one choice ---------- */
+<<case "nag">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "I heard you up at three again last night. Do you ever sleep?" },
+	{ who: $player, text: "I sleep. In small bursts." },
+	{ who: $mom, text: "That's not sleep, that's a nap with extra steps. You'll run yourself into the ground." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/nag_sleep.jpg | Mom pointing a fork at the player with a worried-but-stern expression, Sister smirking over her mug. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "Eat your vegetables. Both of you. All of them." },
+	{ who: $sister, text: "There's a rule that broccoli doesn't count if it's cold." },
+	{ who: $mom, text: "That rule doesn't exist." },
+	{ who: $sister, text: "It does in my heart." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/nag_veggies.jpg | A plate with a neat pile of pushed-aside broccoli, Sister staring at it like an enemy. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $mom, text: "Are you drinking enough water? You both look pale." },
+	{ who: $sister, text: "I drink water. I drink coffee. Coffee is mostly water." },
+	{ who: $mom, text: "Honey, that's not how any of that works." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/nag_water.jpg | Mom filling a water glass in front of each person at the table with determined efficiency. */
+<</switch>>
+<div id="dm-choice">
+<<link "Promise to do better">><<replace "#dm-choice">>
+	<p>"You're right, I'll try," I say. $mom.callName looks at me for a long moment, the way she does when she's deciding whether to believe me, and then squeezes my hand.</p>
+	<<UpdateStat "+" "MomRelation" 2>>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 3, 0, 100)>>
+<</replace>><</link>>
+<br>
+<<link "Joke it off">><<replace "#dm-choice">>
+	<p>"I'm basically a plant," I say. "Sunlight and coffee." $sister.callName barks a laugh. $mom.callName pinches the bridge of her nose, but the corner of her mouth twitches.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- car trouble, one choice ---------- */
+<<case "car">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "That old car of yours made a noise in the driveway this morning. A scary noise." },
+	{ who: $player, text: "It always makes that noise." },
+	{ who: $sister, text: "That's not a comforting thing to say." },
+	{ who: $mom, text: "Please have someone look at it before it leaves you on the highway." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/car_noise.jpg | View through the kitchen window of the player's old car in the driveway, a faint puff of exhaust, Mom looking out with worry. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "Your car's got a warning light on. I saw it when I borrowed a charger from the glovebox." },
+	{ who: $player, text: "That light has been on since I bought it." },
+	{ who: $mom, text: "Which one?" },
+	{ who: $player, text: "The orange one. It's more of a suggestion." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/car_light.jpg | Close-up of an old dashboard with a glowing orange engine light; or Mom and Sister exchanging a deadpan look. */
+<</switch>>
+<div id="dm-choice">
+<<if $player.money >= 80>>
+<<link "Take it to a mechanic ($80)">><<replace "#dm-choice">>
+	<p>"I'll take it in on Saturday," I say. $mom.callName visibly relaxes. "Thank you. I'll sleep better."</p>
+	<<UpdateStat "-" "Money" 80>>
+	<<UpdateStat "+" "MomRelation" 2>>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 4, 0, 100)>>
+<</replace>><</link>>
+<br>
+<</if>>
+<<link "Deal with it later">><<replace "#dm-choice">>
+	<p>"It's fine. I'll deal with it later," I say. $mom.callName gives me the look. I know the look.</p>
+	<<UpdateStat "-" "MomRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- trash / recycling ---------- */
+<<case "trash">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "Tomorrow is recycling day. Who's taking the bins out?" },
+	{ who: $sister, text: "It's someone's turn who isn't me." },
+	{ who: $mom, text: "That narrows it down to nobody, which is why the bins are still full." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/trash_bins.jpg | A packed recycling bin by the kitchen door, overflowing with cardboard, Mom gesturing at it. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "Does anyone else smell that?" },
+	{ who: $mom, text: "It's the trash. Somebody didn't take it out yesterday." },
+	{ who: $sister, text: "I did the laundry. That counts." },
+	{ who: $mom, text: "It does not count. They're different smells." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/trash_smell.jpg | Sister pinching her nose, Mom opening the window, a bulging trash bag in the corner. */
+<</switch>>
+<<if random(1, 2) == 1>>
+	<p>I get up and take it out before they can finish arguing. $mom.callName smiles at me when I come back in.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+<<else>>
+	<p>Nobody moves. The bag stays exactly where it is, and everyone pretends it's invisible until the meal is over.</p>
+<</if>>
+
+/* ---------- bathroom, one choice ---------- */
+<<case "bathroom">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $mom, text: "The hot water ran out at seven this morning. I stood in there for ten minutes waiting for it." },
+	{ who: $sister, text: "Okay, that might have been me. I wanted to be clean." },
+	{ who: $mom, text: "For forty minutes?" },
+	{ who: $sister, text: "I have a lot of surface area." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/bathroom_hotwater.jpg | Mom with a towel on her head and a slightly cold-shocked expression, Sister sheepishly staring at her plate. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay, which one of you left the bathroom light on? Again? It's like a lighthouse in there." },
+	{ who: $mom, text: "I don't think it was me." },
+	{ text: "Both of them look at me. I raise both hands in a gesture of total innocence." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/bathroom_light.jpg | The bathroom door visible down the hallway with a bright strip of light under it, Sister pointing at it with a spoon. */
+<</switch>>
+<div id="dm-choice">
+<<link "Side with $mom.callName">><<replace "#dm-choice">>
+	<p>"Honestly, you do take long showers," I tell $sister.callName. She gasps theatrically and kicks me under the table.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+	<<UpdateStat "-" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Side with $sister.callName">><<replace "#dm-choice">>
+	<p>"I think the boiler is just old," I say. $sister.callName looks at me with the grateful eyes of someone saved from a firing squad.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- gossip ---------- */
+<<case "gossip">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay, so my friend Jess is not talking to her roommate. At all. They communicate by sticky notes." },
+	{ who: $mom, text: "What did the roommate do?" },
+	{ who: $sister, text: "She ate Jess's leftovers. A whole lasagna." },
+	{ who: $mom, text: "Well. I'd also stop talking to someone over a lasagna." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/gossip_friends.jpg | Sister animatedly telling the story with her hands, Mom leaning in with mock-scandalized interest. */
+<<case 2>>
+<<set _msgs to []>>
+<<if setup.questReached("mom_agreement2")>>
+	<<run _msgs.push({ who: $mom, text: "I ran into Carol from my old office yesterday. Apparently they're already on their third replacement for me." })>>
+	<<run _msgs.push({ who: $sister, text: "Because you can't be replaced." })>>
+	<<run _msgs.push({ who: $mom, text: "Flatterer. But yes, a little bit." })>>
+<<else>>
+	<<run _msgs.push({ who: $mom, text: "Carol from the third floor got engaged. The whole office organized a cake." })>>
+	<<run _msgs.push({ who: $sister, text: "Did you get a slice?" })>>
+	<<run _msgs.push({ who: $mom, text: "I got the corner piece with the most frosting. It's the one perk of seniority." })>>
+<</if>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/gossip_work.jpg | Mom telling a story with a fork raised like a conductor's baton, a faint smile as she remembers. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $sister, text: "Did you hear about the guy from the diner who proposed to his girlfriend with a ring in a milkshake?" },
+	{ who: $mom, text: "That's romantic. And dangerous." },
+	{ who: $sister, text: "She nearly swallowed it. They're getting married anyway." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/gossip_milkshake.jpg | Sister miming a startled swallow, Mom with a hand to her chest. */
+<</switch>>
+<<UpdateStat "+" "SisterRelation" 1>>
+
+/* ---------- company: mundane update, one choice ---------- */
+<<case "company">>
+<<set _prog to $company.prototype.progress>>
+<<set _msgs to [
+	{ who: $mom, text: either("So, $mom.callPlayer, how's the company going? You never tell us anything.", "You've been in that room a lot lately. Anything we should know?", "Tell me about the company. Humor your old $mom.callName.") },
+]>>
+<<if _prog < 40>>
+	<<run _msgs.push({ who: $player, text: either("Slow. I'm still building the first version of everything.", "Early days. Lots of coffee, not much to show yet.") })>>
+	<<run _msgs.push({ who: $mom, text: "Every business starts slow. Don't let it get to you." })>>
+<<elseif _prog < 70>>
+	<<run _msgs.push({ who: $player, text: either("Getting there. I've got something that really works now.", "Better, actually. The prototype is doing things I didn't think it could.") })>>
+	<<run _msgs.push({ who: $mom, text: "That's wonderful. I knew you'd get somewhere." })>>
+<<else>>
+	<<run _msgs.push({ who: $player, text: either("It's working. Properly working. People are going to notice.", "Things are moving faster than I can explain.") })>>
+	<<run _msgs.push({ who: $mom, text: "Listen to you. You sound like someone who knows what he's doing." })>>
+<</if>>
+<<if $player.money < 500>>
+	<<run _msgs.push({ who: $sister, text: "Does 'working' come with, like, money? Asking for a friend." })>>
+<<else>>
+	<<run _msgs.push({ who: $sister, text: "Does 'working' mean you're buying dinner sometime? Hint hint." })>>
+<</if>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/company_talk.jpg | Mom leaning forward with genuine interest over her plate, Sister chin-in-hand next to her, the player half-turned to answer. */
+<div id="dm-choice">
+<<link "Brag a little">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "Trust me, in a year you'll be telling people you knew me when." },
+		{ who: $mom, text: either("Just don't forget who fed you in the meantime.", "Aren't we confident. I like it.", "I'm so proud of you, you have no idea.") },
+	]>>
+	<<Chat _msgs>>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 5, 0, 100)>>
+	<<UpdateStat "+" "MomRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Keep it humble">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "It's still uncertain. I don't want to jinx it." },
+		{ who: $sister, text: "Superstitious nerd. Don't change." },
+		{ text: "$mom.callName reaches across and squeezes my hand, and for a second nobody makes a joke." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+	<<UpdateStat "+" "MomRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- compliment: praise the cook, one choice ---------- */
+<<case "compliment">>
+<<set _msgs to [
+	{ text: "The first bite is so good I stop talking mid-sentence." },
+	{ who: $sister, text: "Wow, you actually made a face. That's a first." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/compliment_meal.jpg | Close-up of the player lifting a forkful, impressed expression; Mom pleased in the background. */
+<div id="dm-choice">
+<<link "Compliment $mom.callName">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: either("This is incredible, $mom.callName. Seriously, best _food ever.", "You've outdone yourself, as usual.", "I don't think I've eaten this well in years.") },
+		{ who: $mom, text: either("Oh, stop. It's only _food. But thank you.", "Thank you, sweetie. That means more than you think.", "Flatterer. Keep going, I'm enjoying this.") },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "MomRelation" 2>>
+<</replace>><</link>>
+<br>
+<<link "Compliment $sister.callName's side dish">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "And the salad is actually good. Who made that?" },
+		{ who: $sister, text: either("...Me. Don't make it weird.", "Okay, yes, me. Finally, a human with taste.", "Me. I put in the little croutons. You noticed the croutons?") },
+		{ who: $mom, text: "She did, actually. She's been getting better at this." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "SisterRelation" 2>>
+<</replace>><</link>>
+</div>
+
+/* ---------- quiet: a meal with barely any talk ---------- */
+<<case "quiet">>
+<<set _msgs to [ { text: "For a while there is only the sound of cutlery and the fridge humming in the corner." } ]>>
+<<if _mDown || _sDown>>
+	<<run _msgs.push({ who: $mom, text: either("Is everyone alright? You're all so quiet.", "I know days like this. If someone wants to talk, I'm here.") })>>
+	<<run _msgs.push({ who: $sister, text: either("Just tired.", "I'm fine. Really.", "Can we not do the family therapy thing today?") })>>
+<<elseif _mTired || _sTired>>
+	<<run _msgs.push({ who: $mom, text: either("Early night for everyone, I think.", "You both look like you could sleep standing up.") })>>
+	<<run _msgs.push({ who: $sister, text: "Mm-hm." })>>
+<<else>>
+	<<run _msgs.push({ who: $sister, text: either("This is the most peaceful meal in history.", "Nobody say anything. I want to enjoy this.") })>>
+	<<run _msgs.push({ who: $mom, text: "I could get used to this." })>>
+<</if>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/quiet_meal.jpg | Calm wide shot of the three eating in silence, soft light, small details (steam, a clock) hinting at time passing. */
+<<if _mDown>>
+	<p>When I top up $mom.callName's glass without being asked, she gives me a small, grateful smile.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+<<elseif _sDown>>
+	<p>Under the table her foot finds mine and rests there, a tiny silent thank-you for not asking.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<<else>>
+	<p>Nothing happens. And for once, that feels like enough.</p>
+<</if>>
+
+/* ---------- tv show ---------- */
+<<case "tvshow">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $sister, text: "Do NOT spoil the finale. I'm only on episode six." },
+	{ who: $mom, text: "Who would spoil it? I don't even know what it's about." },
+	{ who: $sister, text: "You watched four episodes with me, $mom.callName." },
+	{ who: $mom, text: "I fell asleep during four episodes with you, sweetheart." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/tvshow_spoiler.jpg | Sister pointing a finger across the table like a warning, Mom innocently buttering a roll. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "There's a new baking show on. We should watch it tonight." },
+	{ who: $sister, text: "Oh no. Not the one with the tents." },
+	{ who: $mom, text: "Everyone is so polite on it. It's the only reality show I trust." },
+	{ who: $player, text: "I'm in. I need five minutes of polite people." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/tvshow_baking.jpg | Mom with the remote, TV visible in the next room showing a bake-off tent, Sister sighing dramatically. */
+<<UpdateStat "+" "MomRelation" 1>>
+<</switch>>
+
+/* ---------- flag: sister works at the diner ---------- */
+<<case "dinertips">>
+<<set _msgs to [
+	{ text: "$sister.callName pulls a crumpled handful of bills out of her pocket and smooths them out next to her plate like treasure." },
+	{ who: $sister, text: either("Forty bucks in tips. FORTY. From one guy who kept calling me 'sweetheart'.", "Look at this. Table six. I'm basically rich.", "Tips were insane today. Maybe I'm just good at this.") },
+	{ who: $mom, text: "That's wonderful, honey. Put some away, don't spend it all on clothes." },
+	{ who: $sister, text: "Yeah, yeah. I'll pay my share, I promise." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/diner_tips.jpg | Sister proudly spreading small bills on the table, her diner uniform visible under her jacket, Mom looking proud. */
+<<UpdateStat "+" "SisterRelation" 1>>
+<<set $sister.stats.morale to Math.clamp($sister.stats.morale + 5, 0, 100)>>
+
+/* ---------- flag: college ---------- */
+<<case "college">>
+<<set _msgs to [
+	{ who: $sister, text: either("My professor handed back the quiz and I swear he looked at me when he said 'some people clearly don't study'.", "There's this girl in class who answers every single question. I want to throw something.", "I have a presentation on Friday and I haven't even picked a topic.") },
+	{ who: $mom, text: "You'll manage. You always do. Just start early." },
+]>>
+<<if $sister.flags.passedTest>>
+	<<run _msgs.push({ who: $sister, text: "I mean, I did get that B+. So I guess I'm not totally hopeless." })>>
+	<<run _msgs.push({ who: $mom, text: "You're not hopeless at all. You're brilliant." })>>
+<<else>>
+	<<run _msgs.push({ who: $sister, text: "I just feel like everyone else got a manual and I missed the class." })>>
+<</if>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/college_talk.jpg | Sister gesturing with her fork while ranting, a textbook on the chair beside her, Mom listening patiently. */
+<<if $sister.stats.morale < 50>>
+	<p>She sighs and rubs her eyes. I nudge her plate closer, wordlessly, and she gives me a tired smile.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</if>>
+
+/* ---------- flag: sister does chores ---------- */
+<<case "chores">>
+<<set _msgs to [
+	{ who: $mom, text: either("$sister.callName, the house has never looked this clean. What got into you?", "I came home and the dishes were done. I almost called an ambulance.", "I don't know what's happened, but I'm not going to question it. Thank you, honey.") },
+	{ who: $sister, text: either("Uh... I just felt like it?", "It wasn't a big deal.", "I like being useful, I guess. It's weirdly relaxing.") },
+	{ text: "She says it to her plate, but her eyes slide over to me for a second. $mom.callName doesn't notice." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/chores_praise.jpg | Mom beaming at Sister who looks slightly embarrassed, clean kitchen in the background, the player trying not to smile. */
+<<UpdateStat "+" "SisterRelation" 1>>
+
+/* ==========================================================================
+   BREAKFAST
+   ========================================================================== */
+
+/* ---------- coffee ---------- */
+<<case "coffee">>
+<<set _msgs to []>>
+<<if $mom.flags.wakeUp>>
+	<<run _msgs.push({ who: $mom, text: either("I already brought you coffee this morning, so don't pretend you're not awake.", "Eat something. You can't live on coffee and ambition, $mom.callPlayer.") })>>
+	<<run _msgs.push({ who: $player, text: "I'm eating. I'm eating." })>>
+<<else>>
+	<<run _msgs.push({ who: $mom, text: either("Coffee's in the pot, help yourself.", "Who finished the milk? I can see the evidence.") })>>
+<</if>>
+<<run _msgs.push({ text: "$sister.callName is face-down on her arms on the table, a mug at her elbow." })>>
+<<run _msgs.push({ who: $sister, text: either("Don't talk to me. Not yet.", "Five more minutes. In this exact position.", "I'm not awake. This is a rumor.") })>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/coffee_morning.jpg | Sister asleep on the table with her cheek on her arm, Mom pouring coffee, bright morning window light. */
+<<if _sRel >= 40>>
+	<p>I slide my coffee across the table to her. She takes it without opening her eyes. "Marry me," she mumbles.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<<else>>
+	<p>I pour her a cup and set it in front of her. She grunts in what I choose to interpret as gratitude.</p>
+<</if>>
+
+/* ---------- dream ---------- */
+<<case "dream">>
+<<switch random(1, 3)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $sister, text: "I had the weirdest dream. We were all in a supermarket and everything was on fire, but nobody cared." },
+	{ who: $mom, text: "Were we at least buying something?" },
+	{ who: $sister, text: "Yes! Tiny cucumbers. You had a list." },
+	{ who: $mom, text: "That sounds like me." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/dream_supermarket.jpg | Sister mid-story with wide eyes and a spoon in the air, Mom's amused expression. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "I dreamed I forgot to go to work and showed up an hour before closing. In pajamas." },
+	{ who: $player, text: "That's the most relatable nightmare there is." },
+	{ who: $mom, text: "The worst part was that nobody noticed." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/dream_work.jpg | Mom shaking her head with an exasperated smile, her coffee halfway to her lips. */
+<<case 3>>
+<<set _msgs to [
+	{ who: $sister, text: "I dreamed I took my exam and I was a goldfish. I could answer everything but I couldn't hold the pen." },
+	{ who: $player, text: "Did you pass?" },
+	{ who: $sister, text: "I don't know. I woke up. Which is annoying." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/dream_goldfish.jpg | Sister miming flapping fins with her hands at the table, Mom shaking her head. */
+<</switch>>
+
+/* ---------- horoscope ---------- */
+<<case "horoscope">>
+<<set _msgs to [
+	{ who: $mom, text: "Listen to this. 'A surprise will arrive from an unexpected direction.'" },
+	{ who: $sister, text: "That's what it says every week. It's, like, the only sentence they have." },
+	{ who: $mom, text: "What does yours say, $mom.callPlayer?" },
+	{ who: $player, text: either("'Avoid important decisions before noon.'", "'Someone close to you has a secret.'", "'Money matters improve, but don't spend it all at once.'") },
+	{ who: $mom, text: "Well. That sounds sensible." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/horoscope.jpg | Mom with a folded newspaper held up in one hand and her glasses perched on her nose, reading out loud. */
+
+/* ---------- rushed: weekday morning ---------- */
+<<case "rushed">>
+<<set _msgs to [
+	{ who: $mom, text: either("Who has my keys? Does anyone have my keys?!", "I'm already late. Eat quickly, both of you.", "Where is my other shoe?") },
+	{ who: $sister, text: either("Wait, I have class in twenty minutes? Why didn't anyone tell me?", "Toast on the go. Don't judge me.", "Can someone drive me? Pleeease?") },
+	{ text: "$mom.callName swoops in, grabs a slice of toast, kisses me on the cheek and is gone in a whirl of perfume and car keys." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/rushed_morning.jpg | Mom in motion in the kitchen doorway with toast in her mouth and keys in hand, Sister frantically stuffing a bag, the player sitting calm in the foreground. */
+<<if _mRel >= 40>>
+	<<UpdateStat "+" "MomRelation" 1>>
+<</if>>
+
+/* ---------- pancakes: weekend, one choice ---------- */
+<<case "pancakes">>
+<<set _msgs to [
+	{ who: $mom, text: either("Weekend pancakes! Who's hungry?", "Nobody has anywhere to be today. I'm making pancakes and that's final.") },
+	{ who: $sister, text: "Pancakes? Okay, now it's a good day." },
+	{ text: "$mom.callName is at the stove, spatula in hand, and the first pancake is dangerously close to burning." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/pancakes.jpg | Mom at the stove flipping a pancake, flour on her cheek, a stack of pancakes on the table, Sister reaching for the syrup. */
+<div id="dm-choice">
+<<link "Help $mom.callName at the stove">><<replace "#dm-choice">>
+	<p>I take the spatula and flip the pancake before it burns. It lands golden-side up and $mom.callName ruffles my hair like I'm ten.</p>
+	<<UpdateStat "+" "MomRelation" 2>>
+<</replace>><</link>>
+<br>
+<<link "Stay seated">><<replace "#dm-choice">>
+	<p>I stay where I am and let the smell of pancakes do its work. $sister.callName throws a napkin at me for being useless.</p>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ==========================================================================
+   LUNCH
+   ========================================================================== */
+
+/* ---------- leftovers ---------- */
+<<case "leftovers">>
+<<set _msgs to [
+	{ who: $sister, text: "There's literally nothing in the fridge except leftovers and one sad pickle." },
+	{ who: $mom, text: either("That's lunch. Leftovers are an art form.", "Then eat the leftovers. They're better the second day.") },
+	{ text: "We end up eating straight from the containers, three forks in one dish." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/leftovers.jpg | Three forks reaching into the same container, Sister laughing, Mom pretending to scold, casual lunchtime light. */
+<<if _mRel >= 15 && _sRel >= 15>>
+	<p>It's silly and messy, and for a few minutes it feels like years ago.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<<else>>
+	<p>We eat quickly, everyone to their own corner of the container.</p>
+<</if>>
+
+/* ---------- plans: the afternoon ---------- */
+<<case "plans">>
+<<set _msgs to [
+	{ who: $mom, text: either("What does everyone have planned for the afternoon?", "I thought we could actually do something together today. Anything.") },
+	{ who: $sister, text: either("Shopping? I need new jeans and I need company.", "Netflix. A blanket. Zero obligations.", "I'm meeting a friend. Don't wait up.") },
+	{ who: $player, text: either("Honestly? A nap sounds fantastic.", "I've got work to do. I'll see you later.", "I'm free. What are we doing?") },
+	{ who: $mom, text: "Then it's settled. We all do our own thing and meet back for dinner." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/plans_lunch.jpg | Three people lounging at the table after lunch, Mom with a mug, Sister showing something on her phone, a laid-back weekend vibe. */
+
+/* ---------- sniffles, one choice ---------- */
+<<case "sniffles">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ text: "$mom.callName sneezes three times in a row and waves away our concern." },
+	{ who: $mom, text: "It's allergies. Don't give me that look. It's allergies." },
+	{ who: $sister, text: "That's what you said last time. Then you were in bed for four days." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/sniffles_mom.jpg | Mom with a tissue pressed to her nose and glassy eyes, Sister leaning away dramatically. */
+<<case 2>>
+<<set _msgs to [
+	{ text: "$sister.callName has been sniffing since she sat down. Her voice has a nasal edge." },
+	{ who: $sister, text: "I'm fine. I'm just a little stuffed up." },
+	{ who: $mom, text: "You've got a fever, I can tell from here." },
+	{ who: $sister, text: "I do not have a fever." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/sniffles_sister.jpg | Sister wrapped in a blanket at the table with a red nose and a cup of tea, Mom feeling her forehead. */
+<</switch>>
+<div id="dm-choice">
+<<link "Make tea">><<replace "#dm-choice">>
+	<p>I get up and put the kettle on, then dig out the honey from the back of the cupboard. Nobody says thank you, but the look I get is better.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Keep my distance">><<replace "#dm-choice">>
+	<p>I move my chair an inch away and pointedly open the window. "Sorry, I can't afford to get sick right now."</p>
+	<<UpdateStat "-" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- chore list: weekend, one choice ---------- */
+<<case "choreslist">>
+<<set _msgs to [
+	{ who: $mom, text: "Today we're getting this house in order. I've written a list." },
+	{ who: $sister, text: "A list. On a weekend. Nobody's safe." },
+	{ who: $mom, text: "Laundry, the garage and the windows. Pick one each." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/choreslist.jpg | Mom holding up a handwritten list, Sister groaning with her head on the table, the player scanning the list. */
+<div id="dm-choice">
+<<link "Take the garage">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "I'll take the garage." },
+		{ who: $mom, text: "Brave. There's something living behind the paint cans." },
+		{ who: $sister, text: "I'm taking laundry. I choose life." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "MomRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Take the windows">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "I'll do the windows." },
+		{ who: $sister, text: "Of course you pick the easy one." },
+		{ who: $mom, text: "He picked the one with the most light. Smart." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ==========================================================================
+   DINNER
+   ========================================================================== */
+
+/* ---------- recipe: a new dish, one choice ---------- */
+<<case "recipe">>
+<<set _msgs to [
+	{ who: $mom, text: either("I tried a new recipe tonight. Be honest, how is it?", "This is from a cooking video. I've no idea if I did it right.", "I changed a few things in the recipe. Tell me if it's a disaster.") },
+	{ text: "Two forks hover over the plate. $mom.callName watches us chew with the focus of a judge." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/recipe_new.jpg | Mom watching the others expectantly while they take their first bite, a somewhat unusual-looking dish in the middle of the table. */
+<div id="dm-choice">
+<<link "Honest review">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: either("It's good. A little too much salt, but good.", "Honestly? It's great, but the sauce needs more garlic.", "It's different. I like it, but I'd skip the olives.") },
+		{ who: $mom, text: "See? That's useful. I'll fix it next time." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "MomRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Polite lie">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "It's perfect. Seriously, don't change a thing." },
+		{ who: $sister, text: "...Yeah. It's, uh, really something." },
+		{ who: $mom, text: "You're both terrible liars. But thank you." },
+	]>>
+	<<Chat _msgs>>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 3, 0, 100)>>
+<</replace>><</link>>
+</div>
+
+/* ---------- dessert: last piece, one choice ---------- */
+<<case "dessert">>
+<<set _msgs to [
+	{ text: "There's exactly one slice of cake left. All three of us have noticed. Nobody says a word." },
+	{ who: $sister, text: "I'm not hungry. I'm just saying that if someone doesn't want it..." },
+	{ who: $mom, text: "I've been thinking about that slice since lunch." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/dessert_last_slice.jpg | A single slice of cake on a plate in the middle of the table, three pairs of eyes fixed on it. */
+<div id="dm-choice">
+<<link "Give it to $mom.callName">><<replace "#dm-choice">>
+	<p>I push the plate across to $mom.callName. She tries to refuse twice, then takes it with an enormous smile.</p>
+	<<UpdateStat "+" "MomRelation" 2>>
+	<<UpdateStat "-" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Give it to $sister.callName">><<replace "#dm-choice">>
+	<p>I slide it over to $sister.callName. She stares at it, then at me. "Who are you and what have you done with my $sister.playerRelation?"</p>
+	<<UpdateStat "+" "SisterRelation" 2>>
+	<<UpdateStat "-" "MomRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Split it three ways">><<replace "#dm-choice">>
+	<p>I fetch a knife and divide the slice into three. It's mathematically impossible to do fairly, and we argue about it for the next five minutes. Everybody has a good time.</p>
+	<<UpdateStat "+" "MomRelation" 1>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+</div>
+
+/* ---------- birthday: gift ideas, one choice ---------- */
+<<case "birthday">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $sister, text: "$mom.callName's birthday is coming up and I have zero ideas. Zero." },
+	{ who: $mom, text: "I'm sitting right here, you know." },
+	{ who: $sister, text: "I know. I'm being subtle." },
+	{ who: $mom, text: "I don't need anything. Truly. A card and a nice dinner is more than enough." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/birthday_mom.jpg | Mom with an amused raised eyebrow, Sister leaning across the table in a conspiratorial whisper. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "$sister.callName, your birthday is next month. What do you want?" },
+	{ who: $sister, text: "Honestly? New headphones. And a weekend where nobody asks me to do anything." },
+	{ who: $mom, text: "I can do one of those." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/birthday_sister.jpg | Sister miming big over-ear headphones with her hands, Mom writing something on a notepad. */
+<</switch>>
+<div id="dm-choice">
+<<link "Suggest an idea">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: either("What about a spa day, or a nice dinner out? I'll chip in.", "I'll handle the cake. I can make it a surprise.", "Let's all go on a day trip. Just the three of us.") },
+		{ who: $mom, text: "Now that's a thought. Let me think about it." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "+" "MomRelation" 1>>
+	<<UpdateStat "+" "SisterRelation" 1>>
+<</replace>><</link>>
+<br>
+<<link "Say nothing">><<replace "#dm-choice">>
+	<p>I pretend to be very interested in my food. Gift ideas are a minefield and I don't have a map.</p>
+<</replace>><</link>>
+</div>
+
+/* ---------- vacation ---------- */
+<<case "vacation">>
+<<switch random(1, 2)>>
+<<case 1>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay, hear me out. A beach. One week. We all take a break." },
+	{ who: $mom, text: "I'd love that. But I can't afford it. Not this year." },
+	{ who: $sister, text: "A lake, then. Cheaper lake. Smaller beach." },
+	{ who: $mom, text: "A smaller beach might be doable." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/vacation_beach.jpg | Sister holding up her phone showing a sunny beach photo, Mom looking wistfully at it. */
+<<case 2>>
+<<set _msgs to [
+	{ who: $mom, text: "I found photos of our old trip to the mountains. Remember that cabin?" },
+	{ who: $sister, text: "The one with the bats?" },
+	{ who: $mom, text: "There weren't bats. There was one bat." },
+	{ who: $player, text: "There were definitely multiple bats." },
+]>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/vacation_cabin.jpg | A faded family photo in front of a mountain cabin held up by Mom, Sister squinting at it, laughing. */
+<</switch>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "+" "SisterRelation" 1>>
+
+/* ---------- money: bills at the table, one choice ---------- */
+<<case "money">>
+<<set _msgs to [
+	{ who: $mom, text: either("The electricity bill is higher than I expected. Again.", "I'm going over the budget tonight. Don't mind me.", "I don't want to bring this up at the table, but we should talk about money.") },
+]>>
+<<if $mom.flags.rentHelp>>
+	<<run _msgs.push({ who: $mom, text: "At least the $500 I put toward the rent every week is going where it should." })>>
+<<else>>
+	<<run _msgs.push({ who: $mom, text: "We'll manage. We always do." })>>
+<</if>>
+<<run _msgs.push({ who: $sister, text: either("I can chip in a bit. I think. Maybe.", "I'll look at my budget.", "Whatever you need, $mom.callName. Just tell me.") })>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/money_talk.jpg | Mom with a pile of bills and a pen next to her plate, tired but composed, Sister and the player exchanging a look. */
+<div id="dm-choice">
+<<if $player.money >= 100>>
+<<link "Offer $100 toward it">><<replace "#dm-choice">>
+	<<set _msgs to [
+		{ who: $player, text: "Here. Take it. I can spare it." },
+		{ who: $mom, text: either("Oh, honey, I can't take your money.", "That's so generous. But only this once.", "You're a good $mom.playerRelation. You know that?") },
+		{ text: "She takes the bills with both hands and holds them like something fragile." },
+	]>>
+	<<Chat _msgs>>
+	<<UpdateStat "-" "Money" 100>>
+	<<UpdateStat "+" "MomRelation" 3>>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 8, 0, 100)>>
+<</replace>><</link>>
+<br>
+<</if>>
+<<link "Stay out of it">><<replace "#dm-choice">>
+	<p>I keep my eyes on my plate. $mom.callName sighs, folds the bill in half, and the subject quietly sinks.</p>
+	<<set $mom.stats.morale to Math.clamp($mom.stats.morale - 3, 0, 100)>>
+<</replace>><</link>>
+</div>
+
+/* ---------- long day: weekday dinner ---------- */
+<<case "longday">>
+<<set _msgs to []>>
+<<if !setup.questReached("mom_agreement2")>>
+	<<if $mom.flags.workUnlocked>>
+		<<run _msgs.push({ who: $mom, text: either("My boss was on a rampage again. I swear the man lives to find mistakes.", "Another day of him calling me into his office. I'm so tired of it.") })>>
+	<<else>>
+		<<run _msgs.push({ who: $mom, text: either("The quarterly numbers are due and nobody knows how to use the spreadsheet but me.", "Work was fine. Long, but fine.") })>>
+	<</if>>
+<<else>>
+	<<run _msgs.push({ who: $mom, text: either("The new office is starting to feel real. It's strange, working for my own $mom.playerRelation.", "Work was good today. Better than my old job, honestly.") })>>
+<</if>>
+<<run _msgs.push({ who: $sister, text: either("Mine was awful. A guy asked me for my number three times.", "College was a blur. I fell asleep during the lecture.") })>>
+<<if _mTired || _sTired>>
+	<<run _msgs.push({ who: $player, text: "You both look exhausted. Sit, I'll clean up tonight." })>>
+	<<run _msgs.push({ who: $mom, text: "Are you sure? That's very sweet." })>>
+<<else>>
+	<<run _msgs.push({ who: $player, text: "Sounds like a long one. Anything I can do?" })>>
+	<<run _msgs.push({ who: $mom, text: "You being here already helps." })>>
+<</if>>
+<<Chat _msgs>>
+/* IMAGE: images/meals/default/long_day.jpg | Mom and Sister slumped slightly in their chairs after a long day, work bag and uni backpack visible on the floor, the player watching them with a sympathetic expression. */
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 3, 0, 100)>>
+<<set $sister.stats.morale to Math.clamp($sister.stats.morale + 3, 0, 100)>>
+
+<</switch>>

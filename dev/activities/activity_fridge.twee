@@ -1,0 +1,25 @@
+:: Activity Fridge [activity] {"position":"525,1800","size":"100,100"}
+/* A snack from the kitchen (Kitchen: "raid the fridge"). One action, no effects. Late at night it picks one of the night variants. */
+<<set _fridgeScene to ($time.current.value >= 5 ? random(5, 6) : random(1, 4))>>
+<<switch _fridgeScene>>
+<<case 1>>
+I open the fridge and stand there with the door wide open, the way $mom.callName has been telling me not to since I was six. Yogurt, half a lemon, three kinds of mustard, and a casserole dish with a sticky note on the lid that only says "NO." in her handwriting.
+
+I respect the note. I take a yogurt instead and eat it leaning against the counter, watching the dish like it might change its mind.
+<<case 2>>
+There's leftover pizza on the middle shelf, wrapped in foil like it's evidence. Two slices. I eat the first one cold, standing up, and I'm halfway through the second before it occurs to me that it might not have been mine.
+
+It was almost certainly $sister.callName's. I'll hear about it tonight, probably in a group chat I'm not in, and it'll still have been the right call.
+<<case 3>>
+The fridge hums at me while I look for anything that doesn't need a pan. Eggs, no. Raw chicken, absolutely not. I settle on a cheese stick and a handful of grapes, which is about the most balanced meal I've had all week, and eat them while I skim my mail on my phone.
+<<case 4>>
+Somebody, and I have a pretty good guess who, has sorted the fridge by expiry date. There's a neat row of labeled containers up front, the kind of meal prep you see in videos where every kitchen is beige. I take the one marked "Thursday."
+
+It isn't Thursday. Chicken, rice, something green that tastes better than it looks. I'll let $mom.callName figure out the math on Thursday.
+<<case 5>>
+The house is dark and the fridge light is the brightest thing in it. I build a sandwich out of whatever's on the top shelf, turkey, a slice of cheese that has seen better days, way too much mustard, and eat it over the sink so there are no crumbs to explain in the morning.
+<<case 6>>
+I'm not even hungry. I just like standing in front of the open fridge at this hour, because it's cold and quiet and nobody wants anything from me. Eventually I grab a juice box out of the door, one of the ones $sister.callName swears she buys "for guests," and drink it on my way out of the kitchen.
+<</switch>>
+
+<div class="navigation-link"><<link "Close the fridge" "Kitchen">><<UseAction>><</link>></div>

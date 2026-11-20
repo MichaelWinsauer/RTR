@@ -1,0 +1,14 @@
+:: Company Stage 1 [location] {"position":"2350,2375","size":"100,100"}
+<<CheckLocation>>
+
+The third floor still smells faintly of fresh paint, but at least nothing up here is held together by duct tape and hope anymore. Four L-shaped desks stand in a row along the far wall, each with its own monitor, a wireless keyboard and a chair with actual lumbar support. The light wood floor catches whatever sun makes it through the big window, and right by the glass is my desk, where I can see every screen in the room and nobody can see mine. Above the last desk there's an air vent like any other, if you don't wonder why its grille is the only one in the building without a layer of dust on it. Somebody stuck a sticky note on the coffee machine that says DESCALE ME. So far, nobody has.
+
+<<CheckNPCLocation>>
+
+<<silently>>
+    <<set _locations to [ $locations[14], $locations[15], $locations[7] ]>>
+<</silently>>
+<<LocationLinks _locations>>
+<<CameraSpot>>
+
+

@@ -1,0 +1,70 @@
+:: Activity Toilet [activity] {"position":"775,1800","size":"100,100"}
+/* A trip to the toilet (Bathroom: "take a minute and be done with it"). Spends the rest of the time slot, no effects.
+   Mostly me on my phone. Stage 0: rejections, the diner, $mom and her boss. Stage 1: the company chat, clients, the office feed. */
+<<silently>>
+<<set _pool = ["bottles"]>>
+<<if $company.stage >= 1>>
+	<<run _pool.push("bossMail", "calendar")>>
+	/* the team chat and the office feed need the staff hired (Too Much Work); the feed also needs a camera hidden in the office (CMD CCTV) */
+	<<if setup.questDone("main_tooMuchWork")>><<run _pool.push("teamChat")>><</if>>
+	<<if setup.hasCamera("companystage1") && setup.questDone("main_tooMuchWork")>><<run _pool.push("feed")>><</if>>
+<<else>>
+	<<run _pool.push("rejection", "schedule", "server")>>
+	<<if !setup.questDone("mom_sabotage")>><<run _pool.push("boss")>><</if>>
+<</if>>
+<<set _toiletScene = _pool.random()>>
+<</silently>>
+Some of my best thinking happens in here. It's not something I'd put on a pitch deck.
+
+<<switch _toiletScene>>
+<<case "bottles">>
+There are eleven bottles lined up along the edge of the tub. I count them twice. One is mine, one is $mom.callName's, and the other nine belong to $sister.callName, including three that are, as far as I can tell, the same shampoo in different colors. One of them promises "a salon experience." Another one promises "a vacation for your hair."
+
+I read every label. I learn that my $sister.relation's hair has been to more places than I have.
+
+<<case "rejection">>
+New mail. "Thanks so much for reaching out!" Exclamation mark. Nobody has ever opened a yes with an exclamation mark. I read the rest anyway: they love the vision, the timing isn't right, they'll keep me in mind for the future, which is a place where nobody has ever been kept in mind for anything.
+
+The guy who wrote it is twenty-four. The fund was founded by a man with the same last name. I close the app and sit there with the phone in my hand, looking at nothing, for a while.
+
+<<case "schedule">>
+$manager.callName posted the new schedule in the diner group chat. My name is on the Saturday double again, with a little note next to it in his special font, all caps: DON'T BE LATE, FOUNDER.
+
+Four people put a laughing emoji on it. One of them is the dishwasher, who doesn't speak to me. I tap on the reactions and read the names, one by one, slowly, so they stick.
+
+<<case "server">>
+The hosting company would like to remind me, in a friendly tone, that my invoice is fourteen days overdue. They've attached a cartoon of a little cloud looking worried. The cloud and I have a lot in common.
+
+I do the math on the back of my hand with a fingernail. Pay the server and eat properly this week, or pay the server and buy the parts for the next board. I go with the parts. The cloud can stop worrying, at least. One of us should get to.
+
+<<case "boss">>
+$mom.callName came home late again yesterday, sat down at the kitchen table without taking her coat off and just stayed there. $boss.callName had made her redo the quarterly report. Three times. Because of a font.
+
+I look him up while I'm sitting here. Fifty-seven, a corner office, two divorces and a profile photo taken on somebody's yacht. Everybody has something that makes them move. Some people are kind enough to post it online.
+
+<<case "teamChat">>
+The team chat is busy. $ethan.name has posted a meme about a programmer and a rubber duck. $brian.name has replied with a three-paragraph technical correction of the meme. $darius.name has reacted to both with the same neutral thumbs up, which I'm pretty sure is a data point he's collecting.
+
+I add a thumbs up to all three. Leadership.
+
+<<case "bossMail">>
+$boss.callName has sent a mail. "Dear $player.surname, following up on our arrangement," and so on, three paragraphs of perfectly formal English with nothing in them. He signs it "Best regards." From him that reads like a threat, and from me, when I answer, it's going to read like one too.
+
+I start the answer right here, with one thumb. It's polite. It's very polite. I save it as a draft, so I can make it even more polite later.
+
+<<case "calendar">>
+$mom.callName has put a meeting in my calendar for tomorrow at twelve-thirty. It's called "LUNCH (please actually eat)." She has marked it as high priority and sent it to herself as well, probably so she can check that I've accepted.
+
+I accept it. Then I move my two o'clock so it won't run into it, because she'll check that too.
+
+<<case "feed">>
+I open the office camera feed on my phone. Not for anything. $brian.name is hunched over his bench. $ethan.name has his feet on the desk. $darius.name is standing at the window with a coffee, the way he does when he's thinking.
+
+Nobody's doing anything interesting. They're all doing exactly what they're supposed to be doing, at exactly the pace I'd want, and none of them knows I'm looking. I watch them for a few minutes anyway. It's oddly relaxing.
+<</switch>>
+
+I flush and wash my hands. The phone buzzes again before I've dried them.
+
+<<link "Finish" "Bathroom">>
+    <<AdvanceTime>>
+<</link>>

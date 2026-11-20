@@ -1,0 +1,9 @@
+:: Company Stage 1 Desk [location hide_sidebar] {"position":"2250,2475","size":"100,100"}
+<<silently>>
+	/* no inline micro events here: they would render into nothing. Desk visitors show in the CMD header (Define Events) */
+	<<CheckLocation "NoMicroEvents">>
+	<<run setup.updateDeskVisitor()>>
+<</silently>>
+<<include "Company Management Dashboard">>
+
+

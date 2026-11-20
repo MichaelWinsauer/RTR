@@ -1,0 +1,10 @@
+:: Diner [location] {"position":"2525,1425","size":"100,100"}
+<<CheckLocation>>
+
+I hate this place. <<= $diner.name>> is all humming fluorescent tubes and red vinyl booths that stick to the back of your legs. The floor tiles never look clean, no matter how hard you mop them, and the fryer oil hangs so thick in the air that I still smell it in my hair the next morning. Everything in here that can be laminated is laminated, and judging by the waitresses, that includes the smiles. The clock over the counter runs on pure spite and slows down whenever somebody looks at it.
+
+Still, this is where the cash comes from. If I can swallow my pride, I'll [[clock in and start my shift|Diner Work Shift]], or, if I'd rather get it over with in one go, [[work the rest of the day|Diner Work Day]]. Or I can [[walk back out|Residential Area]] and save my mood while I still have one.
+
+<<CheckNPCLocation>>
+
+

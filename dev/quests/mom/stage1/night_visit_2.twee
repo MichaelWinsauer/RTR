@@ -1,0 +1,184 @@
+:: Night Visit 2 [event mom_quest scene] {"position":"3900,1075","size":"100,100"}
+/* Quest "A Knock at Night" (mom_nightVisit), part 2 of 2, after "Night Visit". I make her take off the robe first: under it
+   she has put on a tiny white bra and pink lace panties, and there is a bottle of almond oil in the pocket, though she came
+   up to take it all back. She lies on her side along me, propped on her elbow by my hip, oils me and gives me a handjob,
+   talking the whole time the way she used to talk me through a nightmare. I make her bare her breasts, she starts touching
+   them on her own, and when I come she keeps stroking, against her breast. Then she tucks me in and leaves.
+   Advances the quest, which unlocks the Handjob interaction ("Ask her to take care of you", Define Interactions).
+   Videos: images/characters/mom/events/night_visit/hj_<0-5>.mp4, all with the "night" overlay:
+     hj_0 oil   hj_1 she starts and spreads it   hj_2 faster   hj_3 the bra   hj_4 she touches her breasts   hj_5 I come */
+<<silent>><<SetBackground $locations[1].img>>
+/* The dials in the drawer are still all the way up from part 1, so the pulse carries on at full power */
+<<DevicePulse 10>><</silent>>
+I switch off the desk lamp myself, and the only light left comes in from the hallway. She's still sitting on the very edge of the bed with her hands in her lap. I lie back against the pillow and wait, and after a while she turns her head and looks at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Lie down with me." },
+{ who: $mom, text: "I... honey, I don't know if..." },
+{ who: $player, text: "It's your job, remember?" },
+{ text: "She closes her eyes. When she opens them, something has changed in her face, a softness that wasn't there before, the one she always wore when one of us woke up from a bad dream. She starts to swing her legs up onto the bed, robe and all." },
+{ who: $player, text: "Not in that. Take it off." },
+{ who: $mom, text: "Sweetheart, there's hardly anything under it." },
+{ who: $player, text: "Then it won't take long." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stands up. Her fingers find the belt and pick at the double knot, and it takes her two tries, because her hands won't keep still. The robe slides off her shoulders. She catches it halfway down out of habit, then lets it go, and something heavy in the pocket knocks against the bed frame on the way to the floor.
+
+Under it she's wearing a white bra so thin it barely counts, two little triangles on strings, and a pair of pink lace panties. That isn't what she sleeps in. I've carried enough laundry baskets through this house to know what she sleeps in: T-shirts from charity runs and flannel pants with sheep on them. She came up here to tell me it could never happen again, and she put this on first.
+
+She sees me looking and crosses her arms over her chest. Then she uncrosses them again, as if she's remembered whose job this is.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't look at me like that. It's laundry day tomorrow, that's all. Everything else is in the hamper." },
+{ who: $player, text: "What's in the pocket?" },
+{ text: "She bends down, fishes a small bottle out of the robe and holds it up, very pink in the face. Almond oil, the one from the bathroom cabinet." },
+{ who: $mom, text: "It's for my hands. They get dry. At night." },
+{ who: $player, text: "Of course they do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lies down on her side next to me, lower than I expect, propped up on one elbow by my hip, with her braid falling forward over her shoulder and the bottle still in her hand. She's close enough that I can smell the vanilla hand cream she keeps in her desk drawer at the office. She puts her free hand flat on my stomach first and looks up at my face, as if she wants to check that my heart is really going as fast as I said.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You're all tense. You've been like this for weeks, haven't you?" },
+{ who: $player, text: "Yes." },
+{ who: $mom, text: "Shh. I've got you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/mom/events/night_visit/hj_0.mp4" "" "" "" "night">>
+
+She pushes my waistband down without looking at what she's doing. Then she does look, and her lips part a little. She thumbs the cap off the bottle and tips it, and the oil runs down over me, cold enough that I twitch, and she winces on my behalf.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Sorry, sorry. It's cold. I should have warmed it in my hands first." },
+{ who: $player, text: "It's fine." },
+{ who: $mom, text: "It isn't fine, I know better than that. I just wasn't... I didn't plan any of this, honey." },
+{ text: "The bottle in her hand says otherwise. I let her keep the lie. She needs it a lot more than I need to take it from her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hold still">>
+<<Media "images/characters/mom/events/night_visit/hj_1.mp4" "" "" "" "night">>
+
+She sets the bottle down on the mattress and takes me in her hand. She's careful at first, the way she was careful in the meeting room, as if part of her is still waiting for one of us to call it off. Then she spreads the oil, all of it, from the base to the tip and back, slowly and very thoroughly, with the same concentration she puts into rubbing sunscreen into somebody's shoulders at the beach. She doesn't miss a spot. She never has.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is this alright? Tell me what you need, honey. I want to do it right." },
+{ who: $player, text: "Slower. Hold it tighter." },
+{ who: $mom, text: "Like this?" },
+{ who: $player, text: "Like that." },
+{ text: "She does exactly that, and keeps doing it, looking up at my face the whole time and reading it the way she's always read it, for fever, for lies, for bad report cards." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Don't hold back">>
+<<Media "images/characters/mom/events/night_visit/hj_2.mp4" "" "" "" "night">>
+
+Her hand picks up speed, a little at a time, as if she's checking after every stroke whether that was too much. Her own breathing has gone uneven, short and high in her throat, and every so often her hips shift against the mattress and her thighs press together. I don't think she knows she's doing it.
+
+She talks the whole time, softly, in the same voice she used for thunderstorms.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "That's it. Just breathe. You don't have to carry everything all by yourself." },
+{ who: $mom, text: "I'm right here. I'm not going anywhere." },
+{ who: $mom, text: "Let go, sweetheart. It's alright. Let me take care of it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Take the bra off">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Take that off." },
+{ text: "Her hand stops. She glances down at the two little white triangles, and then at the door, which is closed and has been closed the whole time." },
+{ who: $mom, text: "Honey... that isn't part of..." },
+{ who: $player, text: "Off." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<Media "images/characters/mom/events/night_visit/hj_3.mp4" "" "" "" "night">>
+
+She doesn't argue a second time. She hooks one finger under the edge of a cup and pulls it aside, then the other one, and leaves the strings where they are, over her shoulders, as if that part still counts for something. Then her hand goes back to me and picks up the rhythm exactly where it left off.
+
+<<linkreplace "Watch her">>
+<<Media "images/characters/mom/events/night_visit/hj_4.mp4" "" "" "" "night">>
+
+It doesn't take long before her free hand starts to wander. First it rests flat on her own collarbone, then it slides lower, and then she's touching her breasts while she strokes me, slow circles that keep losing the beat of her other hand and finding it again. Her eyes have gone half shut, and her mouth is open.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "What are you doing?" },
+{ text: "She looks down at her own hand and watches it work, with the same small frown she gives the grocery receipt. It doesn't stop." },
+{ who: $mom, text: "I don't... I don't know, sweetheart. It just... don't look." },
+{ who: $player, text: "I'm looking." },
+{ text: "She makes a small sound in the back of her throat and keeps going, with both hands." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For a moment I wonder how much of this is still the dials in my desk drawer and how much is her. Then I decide I don't care.
+
+<<linkreplace "Faster">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Faster." },
+{ who: $mom, text: "Yes. Okay. Okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<Media "images/characters/mom/events/night_visit/hj_5.mp4" "" "" "" "night">>
+
+Her hand speeds up, slick and quick now, her breath coming out in little huffs, and she doesn't take her eyes off my face. When I come, it runs down over her fingers. She doesn't let go. She keeps stroking me through it, slower and slower, and leans in while she does, until I'm pressed against her breast and some of it ends up there too, shining on her skin in the light from the hallway. If she notices, she doesn't stop for it. She keeps going until I'm completely still.
+
+<<linkreplace "Afterwards">>
+She gets the tissues from my nightstand and cleans me up, then her hand, then her chest, thoroughly and without a word, with the same small frown she used to wear when she cleaned out a scraped knee. She pulls the cups back into place. Then she gets up, picks her robe off the floor, puts the little bottle back in the pocket and ties the belt again. Twice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There. Better?" },
+{ who: $player, text: "Much better." },
+{ text: "She pulls the blanket up over me, tucks it in along my side and kisses my forehead, exactly where she always has." },
+{ who: $mom, text: "Get some sleep. You have a long day tomorrow." },
+{ text: "At the door she stops, with her hand on the frame and her back to me." },
+{ who: $mom, text: "Whenever it gets bad... you come and find me. Alright? You don't have to wait until it's that bad. You just come and find me." },
+{ who: $player, text: "I will." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes. Down the hall her door clicks shut, and a minute later I hear the shower run for a long time.
+
+The chamomile on my desk has gone cold. I drink it anyway.
+
+<<UpdateStat "+" "Corruption" 3>>
+<<UpdateStat "+" "MomCorruption" 5>>
+<<UpdateStat "+" "MomLust" 3>>
+<<UpdateStat "-" "MomResistance" 3>>
+<<ProfileLog $mom "Her Duty" "A few nights after the handover she came up to my room to take back what happened in the meeting room. I turned $company.prototype.name all the way up and reminded her that taking care of me has always been her job. She agreed, and showed me in my bed. Whenever it gets bad, I'm to come and find her.">>
+<<ProfileMemory $mom "Chamomile" "She brought me tea for sleeping and meant to tell me it could never happen again. Under her robe she had put on underwear I had never seen, and there was a bottle of almond oil in the pocket. She lay down next to me and talked me through it in her thunderstorm voice, then tucked me in and kissed my forehead.">>
+<<NextQuest $mom>>
+<<run Notification.show("New interaction with " + $mom.callName + ": Ask her to take care of you", { type: Notification.INFORMATION })>>
+<<ReturnFromEvent "Continue">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

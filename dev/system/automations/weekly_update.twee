@@ -1,0 +1,8 @@
+:: Weekly Update [system nobr] {"position":"2450,275","size":"100,100"}
+/* her help with the rent while she still has her old job (set by mom_hereToHelp, cleared when she is fired in False Sympathy) */
+<<if $mom.flags.rentHelp>>
+	<<set $player.money += 500>>
+<</if>>
+
+/* company Morale settles 5 points back toward 50 (Define Company) */
+<<run setup.companyStatsWeekly()>>

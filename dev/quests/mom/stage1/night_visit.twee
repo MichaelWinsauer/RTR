@@ -1,0 +1,118 @@
+:: Night Visit [event mom_quest scene] {"position":"3775,1075","size":"100,100"}
+/* Quest "A Knock at Night" (mom_nightVisit), part 1 of 2. A few nights after The Briefing, with her lust very high, she
+   comes up to my room with a cup of tea to take the handjob in the meeting room back: it felt right, but it can't happen
+   again. Before she can close that door I turn the device all the way up (impact 10) and talk her into seeing it as her
+   duty as my $mom.relation. Part 2: Night Visit 2, the handjob in my bed, which advances the quest. */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+The house went quiet an hour ago. I'm at my desk with only the lamp on, pretending to read a contract, when the knock comes: two soft taps, a pause, and a third. It's the knock she used when we were kids and she wasn't sure if we were still awake.
+
+$mom.callName comes in with a mug in each hand and nudges the door shut behind her with her hip. She's in her bathrobe, the thick one, with the belt tied twice. Her hair is in the loose braid she sleeps in, her face is scrubbed clean, and she's been crying a little at some point today, or not sleeping, or both.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I saw your light. I made you some tea. It's chamomile, it's... it's for sleeping." },
+{ who: $player, text: "Thanks." },
+{ text: "She sets one mug down by my keyboard. Then, instead of leaving, she sits down on the edge of my bed with the other one held in both hands, and doesn't drink from it." },
+{ who: $mom, text: "How are you, honey? Really. You've been at that office day and night since the handover." },
+{ who: $player, text: "I'm fine." },
+{ who: $mom, text: "Good. That's good. That's..." },
+{ text: "She turns the mug a quarter turn in her hands. Then another quarter turn." },
+{ who: $mom, text: "Sweetheart, I need to talk to you about that morning." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her talk">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I keep thinking about it. In the meeting room. I've cleaned the whole kitchen three times this week, you probably noticed. I even did behind the fridge." },
+{ who: $mom, text: "And it felt right. At the time, it really did, I'm not going to sit here and pretend it didn't. You were so wound up, honey, you were practically shaking, and I saw my $mom.playerRelation like that and I just wanted to make it stop. I would have done anything to make it stop." },
+{ who: $mom, text: "But I shouldn't have. I'm your $mom.relation. That's not something a $mom.relation does, and I think we both know that. So I think the best thing is if we just... put it away. We never have to talk about it again. It was just the once." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She has said "just the once" to herself so many times this week that it comes out smooth, like a line she practiced in the car. She glances at the door. She's already set the mug on my nightstand, and her hands are on her knees, ready to push her up. In a moment she'll stand, kiss my forehead and close this for good, and tomorrow she'll be extra cheerful at breakfast.
+
+$company.prototype.name is in my desk drawer, a few inches from my hand, calibrated to her. It has been for weeks.
+
+<<linkreplace "Turn every dial all the way up">>
+I open the drawer as if I'm looking for a pen and turn the dials, one after the other, as far as they go. <<UseQuestDevice $mom>>
+
+There's no sound I can hear. There's only her, a second later, not standing up. Her hands stay where they are. She takes a slow breath, and her shoulders come down, and then her eyes come back to me and stay there, wide and a little wet, like somebody who has walked into a room and forgotten what she came in for.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Can I say something?" },
+{ who: $mom, text: "Of course, honey. Always." },
+{ who: $player, text: "You've taken care of us my whole life. When I was sick, you sat up with me all night. When the company went under, you cleared out my old room and had dinner on the table the night I came home, and you never once said you'd told me so." },
+{ who: $player, text: "That's what you do. You see one of us hurting and you fix it. You don't stop and ask whether it's allowed." },
+{ who: $mom, text: "That's different, sweetheart. That's... being a $mom.relation." },
+{ who: $player, text: "So was that morning." },
+{ text: "She opens her mouth, and nothing comes out." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Keep going">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I'm not a little boy anymore. The things that wear me down aren't scraped knees. I've got a whole office that depends on me, and there are nights I can hardly breathe for it. The only time this month I felt like I could was in that meeting room. With you." },
+{ who: $mom, text: "Honey..." },
+{ who: $player, text: "It isn't wrong. Wrong would be you lying awake down the hall, knowing I'm up here falling apart, and doing nothing, because of a rule somebody made up for other families." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I can see it land. She takes the thought and turns it over, looking for the flaw in it, and the drawer next to my knee takes the edge off every flaw she finds. Under the robe her knees have drawn together, and she's breathing through her mouth.
+
+Then she shakes her head, hard, like a swimmer coming up for air.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "No. No, you're twisting it, honey. I know what you're doing, you were always so clever. But it isn't the same thing. I can't." },
+{ text: "She stands up so fast that the bed creaks. She makes it as far as the nightstand, where she puts down her untouched mug with a rattle, and then she just stays there with her back to me and one hand flat on the wood, like the room is moving." },
+{ who: $mom, text: "I'm going to go to bed. We're going to forget this conversation, and in the morning I'll make pancakes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She means it. Her feet are already pointed at the door. A cooler head would let her go, and she'd spend the next week cleaning things that were already clean.
+
+<<linkreplace "Don't let her leave">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Sit down, $mom.callName." },
+{ who: $mom, text: "$player.name..." },
+{ who: $player, text: "Sit down." },
+{ text: "I don't raise my voice. I don't need to. Her shoulders flinch at it anyway, the same way they used to when I was the one in trouble and she was the one trying not to laugh." },
+{ who: $player, text: "I'm not asking you to like it. I'm telling you what it is. Taking care of me is your job. It's been your job since the day I was born, and you didn't stop being my $mom.relation when I turned nineteen." },
+{ who: $mom, text: "It isn't supposed to be this kind of care." },
+{ who: $player, text: "It's the kind I need. So it's the kind you give." },
+{ text: "She doesn't answer. Her hand is still pressed against the nightstand, and I can see her fingers tightening on the edge of it." },
+{ who: $mom, text: "I haven't been able to think straight all week. I lie in bed and I..." },
+{ text: "She stops. Her whole neck has gone red." },
+{ who: $player, text: "I know what you lie in bed and think about. It's why you came up here with tea." },
+{ who: $mom, text: "That isn't why I..." },
+{ who: $player, text: "Sit." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It takes her a while. Then she turns around, slowly, and sits down on the very edge of the bed, as far from the pillow as she can get, with her hands in her lap like she's been called into the principal's office. She doesn't look at me. She looks at her knees.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Only when it gets bad." },
+{ who: $mom, text: "If it gets bad. Only then, and only if you really need it. You'll promise me that." },
+{ who: $player, text: "Only when I need it." },
+{ text: "She nods, small and stiff, the way she nodded in the meeting room that morning, right before she did what I asked. She's looking for a rule to hold onto, so I hand her one. She never asks who gets to decide what bad means." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+[[Let her take care of you|Night Visit 2]]
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

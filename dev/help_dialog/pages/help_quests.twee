@@ -1,0 +1,6 @@
+:: Help Quests [nobr] {"position":"300,4375"}
+<p>Open the <b>Quests</b> tab in the sidebar. Each quest has a short description and tells you <b>where</b> it can start and on which <b>days</b> and at what <b>time of day</b>.</p>
+<p>Go to that place at the right time and the scene starts on its own. Quests are colour-coded by whose story they belong to: your own, $mom.callName's or <<= $sister.name>>'s.</p>
+<p>Some quests list <b>requirements</b>, for example a stat that has to be high enough or a step that has to be finished first. A green <b>✓</b> means a requirement is met, a red <b>✕</b> means it isn't yet.</p>
+<p>Quests that use the prototype also need it <a href="#" data-help="Help Prototype Calibration">calibrated</a> for the right person and enough <a href="#" data-help="Help Prototype Charge">charge</a>. The bigger the part it plays in the scene, the more charge it costs. Such quests show two small pills next to their title: <b>◎</b> whom it has to be calibrated for, and <b>ϟ</b> the charge it needs. Green means ready, red means not yet; hover over a pill to see where it stands now.</p>
+<div class="help-note">Not every quest is waiting for you at once. Finishing a quest usually unlocks the next step of that story.</div>

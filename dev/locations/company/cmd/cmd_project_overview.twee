@@ -1,0 +1,363 @@
+:: CMD Project Overview [nobr] {"position":"2700,3250","size":"100,100"}
+/* Project overview: every project in $company.projects, grouped by setup.projectStatus (Define Projects).
+   Opened with the arrow in the head of CMD Projects (window.openProjectOverview). Active projects open
+   their project window (window.openProjectDialog), available ones are started here (the only place a
+   project ever starts). Projects the story has not unlocked yet (status
+   "hidden", see unlocked in Define Projects) are left out, so the list never spoils what comes next. Uses the dialog frame and prj-* classes of
+   CMD Projects; its own classes start with pov-. */
+<<script>>
+(function () {
+  const GROUPS = [
+    { status: 'active',    label: 'Active' },
+    { status: 'available', label: 'Ready to start' },
+    { status: 'cooldown',  label: 'Available again soon' },
+    { status: 'locked',    label: 'Locked' },
+    { status: 'done',      label: 'Finished' },
+  ];
+  const BADGE = {
+    active: 'Running', available: 'Available',
+    cooldown: 'Cooling down', locked: 'Locked', done: 'Finished',
+  };
+
+  const money = (n) => '$' + Number(n || 0).toLocaleString('en-US');
+  const plural = (n, word) => n + ' ' + word + (n === 1 ? '' : 's');
+  const portrait = (sysName) => `<<Media "images/characters/portraits/${sysName}.jpg" "" "" "false">>`;
+
+  function percent(project) {
+    let need = 0, done = 0;
+    Object.keys(project.requirements || {}).forEach((cat) => {
+      const req = Number(project.requirements[cat]) || 0;
+      if (req <= 0) return;
+      need += req;
+      done += Math.min(Number(project.progress[cat]) || 0, req);
+    });
+    return need > 0 ? Math.round(done / need * 100) : 0;
+  }
+
+  /* the line under the description, different for every status */
+  function statusLine(project, status) {
+    const v = State.variables;
+    const runs = Number(project.timesCompleted) || 0;
+    const runsText = project.type === 'repeatable' && runs > 0 ? `<span class="pov-note">Finished ${plural(runs, 'time')} so far</span>` : '';
+
+    if (status === 'active') {
+      const pct = percent(project);
+      const left = setup.getProjectDaysLeft(project);
+      const team = (project.assigned || []).length;
+      return `
+        <div class="pov-progress">
+          <div class="prj-bar-track"><div class="prj-bar-fill" style="width:${pct}%"></div></div>
+          <span class="pov-pct">${pct}%</span>
+        </div>
+        <div class="pov-notes">
+          <span class="pov-note ${left < 0 ? 'bad' : (left <= 2 ? 'warn' : '')}">${setup.getProjectDeadlineText(project)}</span>
+          <span class="pov-note">${team ? (team === 1 ? '1 person' : team + ' people') + ' on it' : 'Nobody assigned yet'}</span>
+          ${runsText}
+        </div>`;
+    }
+    if (status === 'available') {
+      return `<div class="pov-notes"><span class="pov-note">Runs for ${plural(project.duration, 'day')} once I start it</span>${runsText}</div>`;
+    }
+    if (status === 'cooldown') {
+      return `<div class="pov-notes"><span class="pov-note">Can start again in ${plural(setup.projectCooldownLeft(project), 'day')}</span>${runsText}</div>`;
+    }
+    if (status === 'locked') {
+      const items = setup.projectUnlockState(project).map((c) =>
+        `<li class="${c.met ? 'met' : ''}"><span class="pov-check">${c.met ? '&#10003;' : '&#10005;'}</span>${c.text}</li>`).join('');
+      return `<ul class="pov-unlock">${items}</ul>`;
+    }
+    /* done */
+    const ago = v.date.dayCount - (Number(project.completedAtDay) || 0);
+    const when = ago <= 0 ? 'today' : (ago === 1 ? 'yesterday' : ago + ' days ago');
+    const late = Number(project.daysOverdue) || 0;
+    return `
+      <div class="pov-notes">
+        <span class="pov-note">Finished ${when}</span>
+        <span class="pov-note ${late ? 'warn' : 'good'}">${late ? plural(late, 'day') + ' late' : 'On time'}${project.reward ? ', paid ' + money(project.paidReward) : ''}</span>
+      </div>`;
+  }
+
+  function row(project, status) {
+    const v = State.variables;
+    const client = project.client ? (v[project.client.sysName] || project.client) : null;
+    const place = project.location ? v.locations[project.location.id].name : '';
+    const clientLine = [client ? `${client.name} ${client.surname || ''}` : 'In-house', place].filter(Boolean).join(' at ');
+
+    let action = '';
+    if (status === 'active')    action = `<button class="prj-pill-btn" data-pov-open="${project.id}">Open</button>`;
+    if (status === 'available') action = `<button class="prj-pill-btn pov-start" data-pov-start="${project.id}">Start</button>`;
+
+    return `
+      <div class="pov-row pov-${status}" ${status === 'active' ? `data-pov-open="${project.id}"` : ''}>
+        <div class="prj-avatar sm">${portrait(client ? client.sysName : 'player')}</div>
+        <div class="pov-main">
+          <div class="pov-title-line">
+            <span class="pov-title">${project.title}</span>
+            <span class="pov-type">${project.type === 'repeatable' ? 'Repeatable' : 'Story'}</span>
+            <span class="pov-badge ${status}">${BADGE[status]}</span>
+          </div>
+          <div class="pov-client">${clientLine}</div>
+          ${project.description ? `<div class="pov-desc">${project.description}</div>` : ''}
+          ${statusLine(project, status)}
+        </div>
+        <div class="pov-side">
+          ${project.reward
+            ? `<div class="pov-money">${money(setup.getProjectBaseReward(project))}</div><div class="pov-sub">on completion${setup.reputationRewardFactor(project) !== 1 ? ", with your Reputation" : ""}</div>`
+            : `<div class="pov-money">${project.outcome || 'In-house'}</div><div class="pov-sub">on completion</div>`}
+          ${project.revenue ? `<div class="pov-sub">${money(project.revenue)} per day</div>` : ''}
+          <div class="pov-sub">${plural(project.duration, 'day')}</div>
+          ${action}
+        </div>
+      </div>`;
+  }
+
+  function build() {
+    const projects = State.variables.company.projects || [];
+    const sorted = {};
+    projects.forEach((p) => {
+      const status = setup.projectStatus(p);
+      (sorted[status] = sorted[status] || []).push(p);
+    });
+
+    const groups = GROUPS.filter((g) => sorted[g.status]).map((g) => `
+      <section class="pov-group">
+        <div class="prj-label">${g.label} <span class="prj-count">${sorted[g.status].length}</span></div>
+        <div class="pov-list">${sorted[g.status].map((p) => row(p, g.status)).join('')}</div>
+      </section>`).join('');
+
+    return `
+      <div class="prj-wrap">
+        <div class="prj-head">Projects</div>
+        ${groups || '<div class="prj-empty">No projects yet.</div>'}
+      </div>`.replace(/\n\s*/g, '');
+  }
+
+  function render() {
+    const body = $(Dialog.body());
+    const scroll = body.scrollTop();
+    body.empty();
+    Dialog.wiki(build());
+    body.scrollTop(scroll);
+
+    body.off('click.pov')
+      .on('click.pov', '[data-pov-start]', function (e) {
+        e.stopPropagation();
+        const id = this.getAttribute('data-pov-start');
+        if (setup.startProject(id)) {
+          Notification.show('Project started: ' + wikifyText(setup.getProjectById(id).title), { type: Notification.POSITIVE });
+          $('#cmd-projects').empty().wiki('<<include "CMD Projects">>');
+        }
+        render();
+      })
+      .on('click.pov', '[data-pov-open]', function (e) {
+        e.stopPropagation();
+        window.openProjectDialog(this.getAttribute('data-pov-open'));
+      });
+  }
+
+  window.openProjectOverview = function () {
+    Dialog.create('', 'glass-project-dialog');
+    render();
+    Dialog.open();
+  };
+})();
+<</script>>
+
+<style>
+.pov-group {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.pov-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.pov-row {
+  display: flex;
+  align-items: flex-start;
+  gap: .9rem;
+  padding: .9rem 1rem;
+  background-color: #EBDDC50d;
+  border: 1px solid #EBDDC51f;
+  border-radius: 1rem;
+}
+
+.pov-row.pov-active {
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+.pov-row.pov-active:hover {
+  background-color: #EBDDC51a;
+  border-color: #EBDDC540;
+}
+
+.pov-row.pov-available {
+  background-color: #1cd88d0d;
+  border-color: #1cd88d40;
+}
+
+.pov-row.pov-locked,
+.pov-row.pov-cooldown,
+.pov-row.pov-done {
+  background-color: transparent;
+}
+
+.pov-row.pov-locked .pov-main,
+.pov-row.pov-locked .prj-avatar,
+.pov-row.pov-done .prj-avatar {
+  opacity: .6;
+}
+
+.pov-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pov-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .3rem .5rem;
+}
+
+.pov-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.pov-type,
+.pov-badge {
+  padding: .1rem .55rem;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid #EBDDC540;
+  color: #EBDDC5;
+  white-space: nowrap;
+}
+
+.pov-type {
+  border-color: transparent;
+  background: #EBDDC51a;
+}
+
+.pov-badge.active    { color: #EAAF4C; border-color: #EAAF4C60; background: #EAAF4C14; }
+.pov-badge.available { color: #1cd88d; border-color: #1cd88d60; background: #1cd88d14; }
+.pov-badge.locked    { color: #ff6479; border-color: #DB354C60; background: #DB354C14; }
+.pov-badge.cooldown,
+.pov-badge.done      { opacity: .7; }
+
+.pov-client {
+  margin-top: .15rem;
+  font-size: .78rem;
+  opacity: .6;
+}
+
+.pov-desc {
+  margin-top: .45rem;
+  font-size: .85rem;
+  line-height: 1.45;
+  opacity: .85;
+}
+
+.pov-progress {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-top: .6rem;
+}
+
+.pov-progress .prj-bar-track {
+  flex: 1;
+}
+
+.pov-pct {
+  font-size: .78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.pov-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem 1rem;
+  margin-top: .5rem;
+}
+
+.pov-note {
+  font-size: .75rem;
+  opacity: .65;
+}
+
+.pov-note.good { color: #1cd88d; opacity: 1; }
+.pov-note.warn { color: #DBAF35; opacity: 1; }
+.pov-note.bad  { color: #ff6479; opacity: 1; }
+
+.pov-unlock {
+  margin: .5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .78rem;
+}
+
+.pov-unlock li {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  color: #ff9aa9;
+}
+
+.pov-unlock li.met {
+  color: #1cd88d;
+}
+
+.pov-check {
+  width: 1rem;
+  text-align: center;
+  font-weight: 800;
+}
+
+.pov-side {
+  flex: 0 0 8.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .1rem;
+  text-align: right;
+}
+
+.pov-money {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #EAAF4C;
+}
+
+.pov-sub {
+  font-size: .72rem;
+  opacity: .6;
+}
+
+.pov-side .prj-pill-btn {
+  margin-top: .5rem;
+}
+
+.prj-pill-btn.pov-start {
+  color: #1cd88d;
+  border-color: #1cd88d80;
+  background-color: #1cd88d14;
+}
+
+.prj-pill-btn.pov-start:hover {
+  color: #10241a;
+  background-color: #1cd88d;
+}
+</style>

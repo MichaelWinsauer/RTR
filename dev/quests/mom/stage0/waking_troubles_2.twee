@@ -1,0 +1,56 @@
+:: Waking Troubles 2 [event mom_quest] {"position":"3025,950","size":"100,100"}
+<<silently>>
+<<SetLocation "Bedroom">>
+<<CheckLocation>>
+<</silently>>
+
+The door clicks shut behind us. $mom.callName moves a hoodie off the edge of my bed, folds it without thinking, and sits down. I sit next to her. On the desk the prototype is already waiting, and while she's busy looking disappointed at a plate I forgot to bring downstairs, I reach over and switch it on. <<UseQuestDevice $mom>>
+
+<<Video "images/characters/player/prototype/on.mp4" "" "" 500>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Thanks for coming up. I didn't really want to talk about this in the hallway." },
+{ who: $mom, text: "Of course, honey. You look a little worn out. Is it the company?" },
+{ who: $player, text: "Sort of. It's the mornings, mostly. I wake up and my head's already going a hundred miles an hour. Clients, bugs, money. By the time I'm out of bed I'm exhausted." },
+{ who: $mom, text: "Oh, I know that feeling. That's the worst way to start a day." },
+{ who: $player, text: "The alarm doesn't help either. It goes off and it's like someone's yelling at me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She pats my knee twice, the way she used to when I was sick and pretending I wasn't. The prototype hums along on the desk, quieter than the fan in my laptop. I watch her think. I don't say anything. I don't need to.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What if I woke you up? Gently, I mean. A knock, a 'good morning', no alarm screaming at you." },
+{ who: $player, text: "You'd do that? You've got your own mornings, $mom.callName. I don't want to be one more thing on your list." },
+{ who: $mom, text: "Please, you're not a thing on a list. And I'm up anyway. I could even bring you a coffee. Black with a little milk, right?" },
+{ who: $player, text: "You remember how I take it?" },
+{ who: $mom, text: "Honey, I've been making you coffee since you were old enough to steal mine." },
+{ who: $player, text: "Okay. Yeah. If you're really offering... that would honestly help a lot." },
+{ who: $mom, text: "Then it's settled. What time? Seven?" },
+{ who: $player, text: "Seven thirty? Seven feels a little cruel." },
+{ who: $mom, text: "Seven thirty. I'll set my alarm a bit earlier and have it ready. And if you want breakfast too, don't push your luck." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs at her own joke, and I lean in and hug her. She hugs back the way she always does, both arms, a little too tight, her chin on my shoulder. She's warm and soft against me, and she smells like her perfume and the coffee she had this afternoon. When she starts to pull back, I don't, and after a moment she settles in again. She doesn't seem to mind.
+
+When she pulls back she's already reaching for her phone.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Right, I really have to call Karen back before she files a missing person report. <<if $time.current.value == 0>>See you at breakfast?<<elseif $time.current.value == 4>>Dinner's in an hour, okay?<<else>>And don't stay up too late, okay?<</if>>" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She leaves the door open a crack on her way out, and a moment later I hear her work voice start up again down the hall. I switch the prototype off. Coffee in bed every morning, delivered by her, at a time I picked. It's a small thing. It's also the first habit I've built into her day on purpose.
+/*<<set $mom.flags.wakeUp = true>>*/
+<<ProfileLog $mom "Slow and Steady" "She offered to wake me up every morning at seven thirty, with a cup of coffee, the way I like it.">>
+<<NextQuest $mom>>
+<<ReturnFromEvent>>
+
+

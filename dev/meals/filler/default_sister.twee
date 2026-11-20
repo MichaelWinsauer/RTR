@@ -1,0 +1,20 @@
+:: Default Meal Sister [activity meal] {"position":"1600,2100"}
+/*
+{
+        id: "default_sister",
+        passage: "Default Meal Sister",
+        isActive: true,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: false,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: false,
+        lastSeen: -1,
+        present: ["sister"],
+        requirements: [
+        ],
+        set: [
+        ]
+}
+*/
+Default Meal $sister.callName

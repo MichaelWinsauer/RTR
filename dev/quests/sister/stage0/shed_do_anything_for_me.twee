@@ -1,0 +1,57 @@
+:: She'd Do Anything For Me [event sister_quest] {"position":"3150,1775","size":"100,100"}
+I knock on $sister.callName's door. The hallway is so quiet I can hear the bathroom fan still running from somebody's shower. After a second her voice comes through the wood.
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "It's open! Unless you're $mom.callName with more laundry, in which case I'm asleep." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+I push the door open. The fairy lights around her mirror are on, and she's sitting cross-legged on the bed in leggings and an oversized hoodie, surrounded by notes that look like they exploded out of a binder. When she sees it's me, her whole face changes. She actually smiles, the real one, the one I mostly remember from when we were kids.
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh, it's you! Good. I was literally just thinking about you. Don't let that go to your head." },
+{ who: $player, text: "Too late. How are you feeling after the party? Still floating?" },
+{ who: $sister, text: "Still floating. I keep pulling up the grade on my phone like it might change if I stop looking. B plus! Me! In calculus!" },
+{ text: "She sweeps a pile of notes off the mattress with her forearm and pats the empty spot." },
+{ who: $sister, text: "Sit. I've been rehearsing a whole speech and you're going to listen to it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+I sit on the edge of the bed. She pulls her knees up and hugs them, and for a moment she just looks at me, like she's trying to match the person in front of her with the one she thought she knew.
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Speech. So, I've been thinking since the party. About the test, and about you. I always had you filed under 'my nerdy $sister.playerRelation who's busy fighting his own stuff.' And then I fell apart and you just... showed up. Every time." },
+{ who: $player, text: "I'm glad it helped. You did the hard part, though." },
+{ who: $sister, text: "Yeah, yeah, you keep saying that. It's very humble and very annoying." },
+{ text: "She reaches over and squeezes my arm, and then she doesn't take her hand back. Her thumb moves once across my sleeve before she notices what it's doing." },
+{ who: $sister, text: "So here's the thing. I want to pay you back. Not with a mug that says 'world's best tutor.' Something real. For you, and for $mom.callName too." },
+{ who: $player, text: "You don't have to do anything. We're family." },
+{ who: $sister, text: "That's exactly why I want to. Money's tight, right? $mom.callName pretends she isn't doing math at the kitchen table every night, but I've seen the bills. You've got the diner and your office, and your company isn't exactly raining cash yet." },
+{ text: "I nod slowly and let her keep going. She's already halfway to where I want her." },
+{ who: $player, text: "Yeah, it's been rough. The diner barely covers my share, and $mom.callName's paycheck is mostly gone before it lands, between the house and your tuition." },
+{ who: $sister, text: "Okay, ouch, but fair. So. What if I got a part-time job? At the diner, with you. I could waitress. I've seen how you carry four plates, how hard can it be?" },
+{ who: $player, text: "Harder than it looks. You'd smell like fryer oil for the rest of your life." },
+{ who: $sister, text: "I'll buy a nicer perfume. With my waitress money. See? It pays for itself." },
+{ text: "She's grinning, but there's something stubborn under it. She's decided, and she wants me to see that she's decided." },
+{ who: $player, text: "That would actually help a lot. And there's something else you could do. You're good at more than you give yourself credit for. You could tutor other students at college. Charge a decent rate and you'd make more per hour than I do mopping floors." },
+{ who: $sister, text: "Tutoring? Me? Okay, I mean... I'm good at business comm, and apparently I'm good at calculus now, which is wild. I could put up flyers. Post in the college group. Fine. Both. Diner and tutoring." },
+{ text: "She grabs my hand and gives it a quick, hard squeeze, like we've just shaken on a business deal." },
+{ who: $sister, text: "I'll talk to $manager.callName tomorrow, and I'm making the flyers tonight. Bright pink. Nobody ignores bright pink." },
+{ who: $player, text: "You're really serious about this." },
+{ who: $sister, text: "Completely. You carried me through that test. Now I get to carry a little bit of this. Let me." },
+{ text: "She leans in and hugs me, her chin hooked over my shoulder for a long moment. When she pulls back her eyes are bright, and she's already reaching for her phone." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's already googling flyer templates and reading me the worst ones out loud, the ones with clip-art owls and fonts that look like ransom notes. In between she plans her week out loud: which days she could take shifts, which classes people are failing, how much she could charge without sounding greedy. I sit there and listen and laugh in the right places. Two weeks ago she couldn't look at a calculus problem without wanting to cry. Now she's volunteering to wait tables in the place I hate most, because I helped her. She hasn't asked once what I'll do with the help.
+
+<<UpdateStat "+" "SisterRelation" 5>>
+<<UpdateStat "+" "SisterCorruption" 2>>
+<<set $sister.flags.isTutoring to true>>
+<<ProfileLog $sister "Pulling Her Weight" "She's going to waitress at the diner and tutor other students at college to bring some extra money into the family. Her idea, mostly.">>
+<<set setup.getMealById("sister_diner_tutor").isActive to true>>
+<<NextQuest $sister>>
+<<ReturnFromEvent>>
+
+

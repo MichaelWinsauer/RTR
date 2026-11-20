@@ -1,0 +1,119 @@
+:: Define Misc [system] {"position":"250,150","size":"100,100"}
+/*delete!*/
+<<set $path to "file:///E:/Daten/Development/Rise%20to%20Ruin/">>
+/*<<set $path to "">>*/
+<<set $debug to true>>
+<<set $debugLocation to "">>
+/*/delete!*/
+
+/* time played in milliseconds, counted by the Playtime section of StoryScript */
+<<set $playtime to 0>>
+
+<<set $autosaveEvery to 10>>
+<<set $lastAutosaveTurn to 0>>
+/* once-per-action guards of "Action Update" (project work) and the morale warning, see ProgressProjects */
+<<set $lastProgressKey to -1>>
+<<set $lowMoraleNoticeKey to -1>>
+
+<<set $preEventLocation to {}>>
+
+<<set $displayInformation to 0>>
+
+<<set $diner to {
+	name: "The Diner",
+    pay: 40,
+    exp: 0,
+}>>
+
+<<set $mealType to "breakfast">>
+
+<<set $cctv to {
+	currentId: 13,
+    view: "mom",            /* Who the camera shows when mom and sister are in the same room */
+    returnPassage: "Company Stage 1 Desk",
+    cameras: {},            /* <location sysName>: dayCount it was placed. Only these get a CCTV button (Define Items) */
+    pending: [],            /* { place, who }: she has a camera and hides it the next time she is there */
+}>>
+
+<<set $rent to 2000>>
+<<set $debtMissed to false>>
+
+/* The weekly rent ==============================================================
+   $rentDueDay   the dayCount of the Monday the next rent is due (day 0 is a Monday, the first rent is due a week in).
+                 Paying, or telling him I am short, moves it on by 7 days (setup.settleRent)
+   $debtMissed   true after I told him I was short once: next time it is all or Game Over ($player.debt holds
+                 what I still owe from that week)
+
+   How the week goes:
+     Rent day before the evening   I can pay at his place (Landlord Apartment, "Landlord Pay Rent").
+                                   He is a little friendlier when I bring it to him myself
+     Rent day from the evening on  he comes for it ("Rent Due", $events[0]) as soon as I am at home or at the office.
+                                   If I dodge him that night, he catches me there the next day
+   Paying at his place stays possible as long as the rent is open, also once it is overdue.
+
+   setup.rentOwed()      what he wants right now: this week plus anything left from last week
+   setup.rentFunds()     the money I can pay with: my wallet in Stage 0, the company account from Stage 1 on
+   setup.rentIsDue()     the rent can be paid now (rent day or later, and not settled yet)
+   setup.rentIsOverdue() the rent day evening has come and it is still open: the Rent Due event may start
+   setup.rentDaysLeft()  days until the rent day (0 = today, negative = overdue)
+   setup.settleRent()    the rent of this week is dealt with (paid or deferred): the next one is due a week later.
+                         Paying itself is the <<PayRent>> widget (Widgets) */
+<<set $rentDueDay to 7>>
+
+<<set setup.rentOwed = () => {
+    const v = State.variables;
+    return (Number(v.company.finances.expenses.rent) || 0) + (Number(v.player.debt) || 0);
+}>>
+
+<<set setup.rentFunds = () => {
+    const v = State.variables;
+    return v.company.stage == 0 ? v.player.money : v.company.finances.money;
+}>>
+
+<<set setup.rentIsDue = () => State.variables.date.dayCount >= State.variables.rentDueDay>>
+
+<<set setup.rentIsOverdue = () => {
+    const v = State.variables;
+    return v.date.dayCount > v.rentDueDay || (v.date.dayCount === v.rentDueDay && v.time.current.value >= 4);
+}>>
+
+<<set setup.rentDaysLeft = () => State.variables.rentDueDay - State.variables.date.dayCount>>
+
+<<set setup.settleRent = () => {
+    State.variables.rentDueDay += 7;
+}>>
+
+<<set $statInfluence = {
+	lustBase: 0.05,
+    lustScaling: 1.5,
+    lustFlatGrowth: 3,
+    lustFromCorruption: 0.5,
+    lustFromResistance: -1.5,
+    /* every night resistance drops by resistanceBase + relation * resistanceFromRelation + corruption * resistanceFromCorruption
+       (about 7 a night at relation 60 and corruption 50), so a push with the device lingers for a day or two */
+    resistanceBase: 2,
+    resistanceFromRelation: 0.05,
+    resistanceFromCorruption: 0.05,
+    /* <<UseQuestDevice>> raises the resistance of the target by the device impact of the quest times this (impact 5: +10) */
+    resistancePerImpact: 2,
+    /* each corruption stage counts like this many extra points of corruption in the daily lust and resistance drift (Daily Update)
+       and in the chances below (setup.corruptionEffective, Define NPCs), so a stage-up, which puts the
+       bar back to 0, raises lust growth and lowers resistance a little for good */
+    corruptionPerStage: 25,
+    
+    /* chance of the bed masturbation events (mom: $events[3], sister: $events[4]), set in PassageReady from her stats */
+    chanceBase: 25,
+  	chanceLust: 0.25,
+  	chanceCorr: 0.30,
+  	chanceRes:  0.25
+
+}>>
+
+<<set $companyLocationIdReference = 10>>
+<<ShowInformationPanel 0>>
+<<set $displayInformation = 0>>
+<<set $previousDisplayInformation = 0>>
+<<set $bossTalkedOnDay to 99999999>>
+<<set $interactionCharacter to "mom">>
+
+

@@ -1,0 +1,1154 @@
+:: Define Interactions [system] {"position":"750,150","size":"100,100"}
+/* ==========================================================================
+   Everything the player can do with Mom or Sister on the "NPC Interaction" screen.
+
+   $interactions.actions: every entry is one card on that screen
+     id        unique key (also used for the once-per-day log)
+     group     id of one of $interactions.groups
+     text      button text
+     hidden    true = never shown (not implemented yet)
+     hideWhen  hides the card while her flags match, e.g. { isFollowing: true }
+     who       optional list of the NPCs it is offered to, e.g. ["mom"] (default: both)
+     requires  optional TwineScript condition, e.g. "setup.questDone('mom_nightVisit')": the card stays hidden
+               until it is true (story unlocks; for stat thresholds use needs/max, which show a greyed-out card)
+     private   true = locked while anybody else is around: the other one of mom/sister in the same place, or the
+               staff while I am in the office during work hours (setup.isOfficeWorkTime, Define Events)
+     camera    location sysName from setup.cameraSpots (Define Items): asks her to hide a camera there.
+               Only shown while the player has a camera and that spot has neither a camera nor a pending
+               request. On success the camera goes to her (setup.requestCamera) and she hides it the next
+               time she is there.
+     lockWhen  greys the card out while the player's flags match: { playerFlags: { ... }, reason: "..." }
+     cost      action points it uses
+     money     optional money cost
+     once      true = only once per day per person
+     needs     minimum stats        { relation: 20, lust: 10 }
+     max       maximum stats        { resistance: 40 }
+     blocked   activities during which it is not possible (activity ids or bases, see Define Activities)
+     only      optional list of activities it is limited to (ids or bases)
+     effect    stat changes on success
+     fail      stat changes on failure
+     chance    optional chance to succeed in percent:
+               base + sum(stat * weight) + sum(maxOfStat * weight), cut off at min (default 0) and max (default 100)
+               { base: 30, min: 10, max: 90, stats: { relation: 0.5 }, maxStats: { resistance: 1 } }
+     passage   optional passage name, the action then leads to a full scene
+               {npc} = "Mom" / "Sister", {activityId} = the id of what she is doing right now
+               While that passage doesn't exist or is still empty, the card is greyed out ("Not while she's ...")
+     setFlags  the action does the whole thing itself: { npc: { flag: value }, player: { flag: value } }
+     displayInformation / reload   only used together with setFlags
+     scenes    short generated scene, one random entry is shown { mom: { success: [...], fail: [...] }, sister: { ... } }
+               fail is optional (success is used then)
+               scene   { narration: "...", msgs: [ { who: "player" | "npc", text: "..." }, { text: "narration line" } ], only: [activity ids] }
+               {activity} in any text = what she is doing right now, as the player reads it ("watching TV")
+
+   Stat keys are the stat names of an NPC: relation, corruption, lust, resistance.
+   In needs/max, corruption is her total over all stages (setup.corruptionTotal, Define NPCs): 40 is "40 in
+   Stage 0" and stays met after a stage-up, "40 in Stage 1" is 140. In chance formulas it is
+   setup.corruptionEffective (the bar plus a bonus per stage).
+   ========================================================================== */
+/* activities during which she can't be talked to at all; bring_coffee and internship_overview are tasks (her coffee
+   round at the office, the overview meeting with me), not moments for a chat */
+<<set _busy to ["sleeping", "showering", "peeing", "bring_coffee", "internship_overview"]>>
+<<set $interactions to {
+
+	/* An action stays hidden while she is still too far from its requirements: when the stat points she is
+	   missing (all "needs" added up, whichever stat) are more than this percentage of the stat points the action
+	   requires in total. Closer than that, it shows up greyed out with its requirement. Change the number to taste:
+	   0 = hidden until every requirement is met, 100 = always visible. */
+	hideIfMissingPercent: 50,
+
+	statLabels: { relation: "Relation", corruption: "Corruption", lust: "Lust", resistance: "Resistance" },
+
+	groups: [
+		{ id: "social", label: "Social" },
+		{ id: "flirt", label: "Flirt & tease" },
+		{ id: "intimate", label: "Intimate" },
+		{ id: "other", label: "Other" }
+	],
+
+	actions: [
+
+		/* ———————————————————— Social ———————————————————— */
+		{
+			id: "talk", group: "social", text: "Chat with her", cost: 2,
+			/* the talk scenes are named after her activity id: "Mom watching_tv", "Sister studying", ...
+			   Mom showering/peeing are the walk-in scenes of the bathroom event, so the busy activities stay blocked */
+			blocked: _busy,
+			passage: "{npc} {activityId}"
+		},
+		{
+			id: "askDay", group: "social", text: "Ask about her day", cost: 2, once: true,
+			blocked: _busy,
+			effect: { relation: 2 },
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I pull up a chair and ask how she's holding up.",
+							msgs: [
+								{ who: "player", text: "How was your day? Really." },
+								{ who: "npc", text: "Long. My feet hurt and the paperwork never ends. But it's fine." },
+								{ who: "player", text: "It doesn't sound fine." },
+								{ who: "npc", text: "It's fine now. Thank you for asking, honey." }
+							]
+						},
+						{
+							narration: "I sit down next to her and give her my full attention.",
+							msgs: [
+								{ who: "player", text: "Anything on your mind lately?" },
+								{ who: "npc", text: "Money, mostly. Bills. And you two, of course. I worry." },
+								{ who: "player", text: "You don't have to worry about me." },
+								{ who: "npc", text: "That's not how being a $mom.relation works." }
+								]
+							},
+							{
+								narration: "I find her in a quiet moment and ask how she's really doing.",
+								msgs: [
+									{ who: "player", text: "Hey. How are you holding up?" },
+									{ who: "npc", text: "Tired, honey. But hearing you ask makes it a little better." },
+									{ who: "player", text: "You work too much." },
+									{ who: "npc", text: "Someone has to. Now come here and sit with me a minute." }
+								]
+							},
+							{
+								narration: "I sit across from her while she's {activity} and ask about her day.",
+								msgs: [
+									{ who: "player", text: "Tell me something good that happened today." },
+									{ who: "npc", text: "Something good? Hmm. Your $sister.relation did the dishes without me asking." },
+									{ who: "player", text: "That's a miracle." },
+									{ who: "npc", text: "I know. Mark it on the calendar. And thank you for asking, honey." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I ask her how things are going while she keeps doing what she's doing.",
+							msgs: [
+								{ who: "player", text: "How was your day?" },
+								{ who: "npc", text: "Annoying. A professor assigned three things for the same week. Who does that?" },
+								{ who: "player", text: "Sounds rough." },
+								{ who: "npc", text: "It is. Anyway. Thanks for asking, I guess." }
+							]
+						},
+						{
+							narration: "I sit down nearby and ask her what's going on in her life.",
+							msgs: [
+								{ who: "player", text: "So what's new with you?" },
+								{ who: "npc", text: "You're being suspiciously nice." },
+								{ who: "player", text: "I'm just curious." },
+								{ who: "npc", text: "Okay. Well, there's this girl in my class who..." },
+								{ text: "She talks for a few minutes. I listen, nod in the right places, and she seems to enjoy having someone to talk to." }
+								]
+							},
+							{
+								narration: "I lean against the wall near her and ask how her day went.",
+								msgs: [
+									{ who: "player", text: "Survived the day?" },
+									{ who: "npc", text: "Barely. Group projects are the worst." },
+									{ who: "player", text: "Let me guess, you're doing all of it." },
+									{ who: "npc", text: "Obviously. Thanks for noticing, though." }
+								]
+							},
+							{
+								narration: "I ask about her day, and for once she actually stops what she's doing to answer.",
+								msgs: [
+									{ who: "player", text: "So how's life treating you lately?" },
+									{ who: "npc", text: "Weirdly okay. I think I aced that test." },
+									{ who: "player", text: "Of course you did." },
+									{ who: "npc", text: "Don't jinx it! But thanks. It's nice when you ask." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "compliment", group: "social", text: "Compliment her", cost: 2, once: true,
+			blocked: _busy,
+			effect: { relation: 2 },
+			fail: { resistance: 10 },
+			chance: { base: -5, stats: { resistance: -1 }, maxStats: { resistance: 1 } },
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I wait until she looks up from {activity} and tell her she looks great today.",
+							msgs: [
+								{ who: "player", text: "You look really good today, you know that?" },
+								{ who: "npc", text: "Oh, stop it. I haven't even done my hair." },
+								{ who: "player", text: "It looks great anyway." },
+								{ who: "npc", text: "You're sweet. Don't think I don't know you're after something." }
+							]
+						},
+						{
+							narration: "I lean in the doorway and watch her for a moment before I speak.",
+							msgs: [
+								{ who: "player", text: "I don't say it enough, but you're amazing. Everything you do for this family." },
+								{ who: "npc", text: "Where is this coming from?" },
+								{ who: "player", text: "Nowhere. I just wanted you to know." },
+								{ who: "npc", text: "Well. Thank you, honey. That meant a lot." }
+								]
+							},
+							{
+								narration: "I catch her eye and tell her something I've been meaning to say.",
+								msgs: [
+									{ who: "player", text: "That color looks great on you." },
+									{ who: "npc", text: "This old thing? It's been in my closet forever." },
+									{ who: "player", text: "Then it's about time you wore it more." },
+									{ who: "npc", text: "Flatterer. ...Thank you, sweetheart." }
+								]
+							},
+							{
+								narration: "I stop beside her and speak softly.",
+								msgs: [
+									{ who: "player", text: "You're a lot stronger than you give yourself credit for." },
+									{ who: "npc", text: "Strong? Some days I feel like I'm barely keeping up." },
+									{ who: "player", text: "That's what strong looks like." },
+									{ who: "npc", text: "Oh, come here. You're going to make me tear up." }
+							]
+						}
+					],
+					fail: [
+						{
+							narration: "I wait until she looks up from {activity} and tell her she looks great today.",
+							msgs: [
+								{ who: "player", text: "You look really good today, you know that?" },
+								{ who: "npc", text: "What do you want now, $player.name?" },
+								{ who: "player", text: "What? Nothing, I just thought to give you a quick compliment." },
+								{ who: "npc", text: "You're after something... Don't try to fool me." }
+							]
+						},
+						{
+							narration: "I lean in the doorway and watch her for a moment before I speak.",
+							msgs: [
+								{ who: "player", text: "I don't say it enough, but you're amazing. Everything you do for this family." },
+								{ who: "npc", text: "I don't feel like this is genuine?" },
+								{ who: "player", text: "What do you mean?!" },
+								{ who: "npc", text: "I don't have the time for this now." }
+								]
+							},
+							{
+								narration: "I tell her she looks good, but it comes out like an afterthought.",
+								msgs: [
+									{ who: "player", text: "Looking good, $mom.callName." },
+									{ who: "npc", text: "You didn't even look up when you said that." },
+									{ who: "player", text: "I meant it!" },
+									{ who: "npc", text: "Sure you did, honey. Say it with a little more conviction next time." }
+								]
+							},
+							{
+								narration: "I try to compliment her, but she's clearly in no mood.",
+								msgs: [
+									{ who: "player", text: "You're really good at all this, you know." },
+									{ who: "npc", text: "Good at what? Cleaning up after everyone?" },
+									{ who: "player", text: "That's not what I meant." },
+									{ who: "npc", text: "Not now, please. I'm tired." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I wait until she looks up from {activity} and tell her she looks good today.",
+							msgs: [
+								{ who: "player", text: "Nice outfit. Is that new?" },
+								{ who: "npc", text: "Is that a compliment or are you broke and need something?" },
+								{ who: "player", text: "Can't it be both?" },
+								{ who: "npc", text: "Fine. Thanks. It's from last month, but I'll take it." }
+							]
+						},
+						{
+							narration: "I wait for a break in what she's doing and tell her something nice.",
+							msgs: [
+								{ who: "player", text: "You've been working really hard lately. I noticed." },
+								{ who: "npc", text: "Okay, who are you and what did you do with my $sister.playerRelation?" },
+								{ who: "player", text: "Just saying." },
+								{ who: "npc", text: "Hm. Thanks. Don't make it weird." }
+								]
+							},
+							{
+								narration: "I stop next to her and look at her for a moment.",
+								msgs: [
+									{ who: "player", text: "Your hair looks good like that." },
+									{ who: "npc", text: "Seriously? I just threw it up." },
+									{ who: "player", text: "Then you're just annoyingly good at everything." },
+									{ who: "npc", text: "Okay, that's the weirdest compliment ever, but I'll accept it." }
+								]
+							},
+							{
+								narration: "I wait until she looks up from {activity}.",
+								msgs: [
+									{ who: "player", text: "You're actually pretty smart, you know." },
+									{ who: "npc", text: "Actually pretty? Gee, thanks." },
+									{ who: "player", text: "Don't ruin it. I meant it." },
+									{ who: "npc", text: "...Fine. That was nice. Don't let it go to your head." }
+							]
+						}
+					],
+					fail: [
+						{
+							narration: "I wait until she looks up from {activity} and tell her she looks good today.",
+							msgs: [
+								{ who: "player", text: "Nice outfit. Is that new?" },
+								{ who: "npc", text: "Is that a compliment or are you broke and need something?" },
+								{ who: "player", text: "Can't it be both?" },
+								{ who: "npc", text: "Stop, you're weirding me out..." }
+							]
+						},
+						{
+							narration: "I wait for a break in what she's doing and tell her something nice.",
+							msgs: [
+								{ who: "player", text: "You've been working really hard lately. I noticed." },
+								{ who: "npc", text: "Okay? What are you suggesting?" },
+								{ who: "player", text: "Just saying." },
+								{ who: "npc", text: "Yeah, whatever..." }
+								]
+							},
+							{
+								narration: "I stop next to her and look at her for a moment.",
+								msgs: [
+									{ who: "player", text: "Your hair looks good like that." },
+									{ who: "npc", text: "Did you lose a bet?" },
+									{ who: "player", text: "No! It's a compliment." },
+									{ who: "npc", text: "Then it's a weird one. Bye." }
+								]
+							},
+							{
+								narration: "I wait until she looks up from {activity}.",
+								msgs: [
+									{ who: "player", text: "You're actually pretty smart, you know." },
+									{ who: "npc", text: "Actually pretty? Wow." },
+									{ who: "player", text: "That came out wrong." },
+									{ who: "npc", text: "Yeah, it did. Try again never." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "treat", group: "social", text: "Get her a treat", cost: 1, once: true, money: 35,
+			blocked: _busy,
+			effect: { relation: 4 },
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I pick up a few things she likes and put them in front of her.",
+							msgs: [
+								{ who: "player", text: "I got you something." },
+								{ who: "npc", text: "You didn't have to spend money on me. You're always short." },
+								{ who: "player", text: "It's not much. Just take it." },
+								{ who: "npc", text: "Thank you. Really. That was thoughtful." }
+								]
+							},
+							{
+								narration: "I set a cup of coffee next to her, just the way she likes it.",
+								msgs: [
+									{ who: "player", text: "Fresh coffee. Two sugars, a bit of milk." },
+									{ who: "npc", text: "You remembered how I take it?" },
+									{ who: "player", text: "Of course I did." },
+									{ who: "npc", text: "Thank you, honey. You have no idea how much I needed this." }
+								]
+							},
+							{
+								narration: "I bring her a small box from the bakery.",
+								msgs: [
+									{ who: "player", text: "Don't ask what it cost. Just eat." },
+									{ who: "npc", text: "Honey, we can't really afford..." },
+									{ who: "player", text: "It's one pastry, $mom.callName." },
+									{ who: "npc", text: "Then I'm going to enjoy every bite. Thank you." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I drop a small bag next to her.",
+							msgs: [
+								{ who: "player", text: "Here. Your favorite." },
+								{ who: "npc", text: "Wait, you remembered? What do you want?" },
+								{ who: "player", text: "Nothing. Just enjoy it." },
+								{ who: "npc", text: "Okay, now I'm suspicious. But also thanks. Seriously." }
+								]
+							},
+							{
+								narration: "I toss a chocolate bar onto her lap.",
+								msgs: [
+									{ who: "player", text: "Catch." },
+									{ who: "npc", text: "Ooh, the good chocolate. What did you break?" },
+									{ who: "player", text: "Nothing! Can't I just be nice?" },
+									{ who: "npc", text: "You can. You just never are. Thanks, though." }
+								]
+							},
+							{
+								narration: "I put her favorite drink down next to her.",
+								msgs: [
+									{ who: "player", text: "Thought you could use this." },
+									{ who: "npc", text: "Is this a bribe?" },
+									{ who: "player", text: "It's a gift." },
+									{ who: "npc", text: "Gifts are better when they're a bribe. Thanks, dummy." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "help", group: "social", text: "Help her out", cost: 3, once: true,
+			only: ["cooking", "doing_chores", "studying"],
+			effect: { relation: 3 },
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I roll up my sleeves and join her. We work side by side for a while.",
+							msgs: [
+								{ who: "player", text: "Give me something to do. I'm not just going to stand here." },
+								{ who: "npc", text: "Well, if you insist. Take this one." },
+								{ who: "player", text: "Like this?" },
+								{ who: "npc", text: "Perfect. See? You're good at this when you try." }
+								]
+							},
+							{
+								narration: "I step up beside her and take over part of what she's doing without being asked.",
+								msgs: [
+									{ who: "player", text: "You look like you could use a second pair of hands." },
+									{ who: "npc", text: "You don't have to do that." },
+									{ who: "player", text: "I know. Move over." },
+									{ who: "npc", text: "Okay, okay. Thank you. It's nice having you here." }
+								]
+							},
+							{
+								narration: "I ask what needs doing and get started before she can protest.",
+								msgs: [
+									{ who: "player", text: "Tell me what to do and I'll do it." },
+									{ who: "npc", text: "You've never offered this before. Are you feeling alright?" },
+									{ who: "player", text: "$mom.callName." },
+									{ who: "npc", text: "Alright, alright. Start with that one. And thank you, honey." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I pull up a chair next to her and take over part of the job.",
+							msgs: [
+								{ who: "player", text: "Give me half. I'll handle it." },
+								{ who: "npc", text: "Why are you being so weird?" },
+								{ who: "player", text: "I'm being helpful." },
+								{ who: "npc", text: "Same thing, apparently. ...Thanks. Really." }
+							]
+						},
+						{
+							narration: "I take something off her pile without asking.",
+							msgs: [
+								{ who: "player", text: "I've got this one. Don't argue." },
+								{ who: "npc", text: "I wasn't going to. I'm just surprised." },
+								{ who: "player", text: "Don't get used to it." },
+								{ who: "npc", text: "Oh, I won't. But thanks, seriously." }
+							]
+						},
+						{
+							only: ["studying"],
+							narration: "I sit down next to her and help with the notes for a while.",
+							msgs: [
+								{ who: "player", text: "Need a hand?" },
+								{ who: "npc", text: "Wow. Voluntarily? Who are you?" },
+								{ who: "player", text: "Do you want help or not?" },
+								{ who: "npc", text: "Yes. Fine. Thanks. This actually goes faster with two people." }
+							]
+						},
+						{
+							only: ["cooking", "doing_chores"],
+							narration: "I sit down next to her and help with the work for a while.",
+							msgs: [
+								{ who: "player", text: "Need a hand?" },
+								{ who: "npc", text: "Wow. Voluntarily? Who are you?" },
+								{ who: "player", text: "Do you want help or not?" },
+								{ who: "npc", text: "Yes. Fine. Thanks. This actually goes faster with two people." }
+							]
+						}
+					]
+				}
+			}
+		},
+
+		/* ———————————————————— Flirt & tease ———————————————————— */
+		{
+			id: "flirt", group: "flirt", text: "Flirt with her", cost: 2, once: true,
+			needs: { relation: 20, corruption: 5 },
+			blocked: _busy,
+			effect: { lust: 3, corruption: 1, relation: 1 },
+			fail: { relation: -3, resistance: 10 },
+			chance: { base: 30, min: 10, max: 90, stats: { relation: 0.5, lust: 0.5, resistance: -0.7 } },
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I let my voice drop a little and hold her gaze until she's the one who looks away.",
+							msgs: [
+								{ who: "player", text: "You know, you don't look like anyone's $mom.relation when you smile like that." },
+								{ who: "npc", text: "$player.name! You can't say things like that." },
+								{ who: "player", text: "It's only the truth." },
+								{ text: "She laughs and looks away, but she's blushing, and she doesn't tell me to stop." }
+								]
+							},
+							{
+								narration: "I step into her space and let a slow smile show.",
+								msgs: [
+									{ who: "player", text: "Has anyone told you lately how beautiful you are?" },
+									{ who: "npc", text: "Only you, apparently. And you shouldn't." },
+									{ who: "player", text: "Why not? It's true." },
+									{ text: "She shakes her head, but the corner of her mouth twitches upward." }
+								]
+							},
+							{
+								narration: "I take my chance when she turns to look at me.",
+								msgs: [
+									{ who: "player", text: "That perfume... it suits you." },
+									{ who: "npc", text: "You noticed? I hardly ever wear it." },
+									{ who: "player", text: "I notice everything about you." },
+									{ text: "She goes quiet for a second, and when she answers, her voice is softer than usual." }
+							]
+						}
+					],
+					fail: [
+						{
+							narration: "I try a smooth line. It lands badly.",
+							msgs: [
+								{ who: "player", text: "You know, you're the most beautiful woman in this house." },
+								{ who: "npc", text: "In this house? There are three of us, honey. And I'm your $mom.relation." },
+								{ who: "player", text: "I was joking." },
+								{ who: "npc", text: "Let's keep it that way." }
+								]
+							},
+							{
+								narration: "I try to sound casual and say something much too personal.",
+								msgs: [
+									{ who: "player", text: "You've still got it, you know. Whatever makes people look twice." },
+									{ who: "npc", text: "Excuse me? Watch it, young man." },
+									{ who: "player", text: "I just meant..." },
+									{ who: "npc", text: "I know what you meant. Don't." }
+								]
+							},
+							{
+								narration: "I wink at her. It goes about as well as it sounds.",
+								msgs: [
+									{ who: "player", text: "Looking good, gorgeous." },
+									{ who: "npc", text: "Did you just call your $mom.relation gorgeous?" },
+									{ who: "player", text: "Maybe?" },
+									{ who: "npc", text: "Out. Now. Before I pretend I never heard that." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I lean on the edge of her desk, close enough that she has to look at me.",
+							msgs: [
+								{ who: "player", text: "You know, you're kind of annoying when you're this pretty." },
+								{ who: "npc", text: "Excuse me? Is this a compliment?" },
+								{ who: "player", text: "It's a complaint. I can't concentrate." },
+								{ text: "She rolls her eyes, but I catch a small smile before she turns away." }
+								]
+							},
+							{
+								narration: "I catch her looking at me and hold her gaze.",
+								msgs: [
+									{ who: "player", text: "You keep staring. Can't help yourself?" },
+									{ who: "npc", text: "I was spacing out. Don't flatter yourself." },
+									{ who: "player", text: "Sure you were." },
+									{ text: "She turns away, but I notice the pink creeping up her neck." }
+								]
+							},
+							{
+								narration: "I lean down next to her until our shoulders touch.",
+								msgs: [
+									{ who: "player", text: "You smell nice. New shampoo?" },
+									{ who: "npc", text: "Y-yeah. How would you even notice that?" },
+									{ who: "player", text: "I pay attention to you." },
+									{ text: "She doesn't pull away, and for a moment neither of us says anything." }
+							]
+						}
+					],
+					fail: [
+						{
+							narration: "I try to be smooth. She isn't buying it.",
+							msgs: [
+								{ who: "player", text: "You know, if you weren't my $sister.relation..." },
+								{ who: "npc", text: "Ew. Stop. Whatever that was, stop." },
+								{ who: "player", text: "Just kidding." },
+								{ who: "npc", text: "Sure you were. Go away." }
+								]
+							},
+							{
+								narration: "I try to hold her gaze. She just frowns at me.",
+								msgs: [
+									{ who: "player", text: "You keep staring. Can't help yourself?" },
+									{ who: "npc", text: "Staring? At you? Please." },
+									{ who: "player", text: "Come on." },
+									{ who: "npc", text: "Go bother someone else." }
+								]
+							},
+							{
+								narration: "I lean down next to her and speak low.",
+								msgs: [
+									{ who: "player", text: "You smell nice. New shampoo?" },
+									{ who: "npc", text: "Why are you sniffing me? Gross." },
+									{ who: "player", text: "I just..." },
+									{ who: "npc", text: "Back up. Seriously." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "tease", group: "flirt", text: "Tease her", cost: 1, once: true,
+			needs: { relation: 35, corruption: 10 },
+			blocked: _busy,
+			effect: { lust: 4, corruption: 2, resistance: -1 },
+			fail: { relation: -20 },
+			chance: { base: 25, min: 10, max: 90, stats: { relation: 0.4, lust: 0.6, corruption: 0.4, resistance: -0.8 } },
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I step close behind her and speak low, just next to her ear.",
+							msgs: [
+								{ who: "player", text: "Careful. If you keep ignoring me, I'll have to find a way to get your attention." },
+								{ who: "npc", text: "Oh? And how would you do that?" },
+								{ who: "player", text: "I'll think of something." },
+								{ text: "She doesn't turn around, but I see her fingers tighten on whatever she's holding." }
+								]
+							},
+							{
+								narration: "I lean against the counter next to her and smirk.",
+								msgs: [
+									{ who: "player", text: "You blush really easily, you know that?" },
+									{ who: "npc", text: "I do not." },
+									{ who: "player", text: "Your face says otherwise." },
+									{ text: "She pretends to be busy, but she doesn't tell me to leave." }
+								]
+							},
+							{
+								narration: "I brush past her slowly, close enough that she notices.",
+								msgs: [
+									{ who: "player", text: "Oops. Didn't see you there." },
+									{ who: "npc", text: "Sure you didn't." },
+									{ who: "player", text: "Maybe I just wanted your attention." },
+									{ text: "She exhales slowly and says nothing, but she doesn't move away either." }
+							]
+						}
+					],
+					fail: [
+						{
+							narration: "I try to tease her. She turns around and gives me a look.",
+							msgs: [
+								{ who: "player", text: "You never relax, do you? Maybe I should help with that." },
+								{ who: "npc", text: "$player.name. I'm your $mom.relation. That's enough." },
+								{ who: "player", text: "Okay. Sorry." },
+								{ who: "npc", text: "Go do something useful." }
+								]
+							},
+							{
+								narration: "I smirk and make a joke at her expense. It lands badly.",
+								msgs: [
+									{ who: "player", text: "You blush really easily, you know that?" },
+									{ who: "npc", text: "I do not. And that's not appropriate." },
+									{ who: "player", text: "I was just..." },
+									{ who: "npc", text: "Enough. I mean it." }
+								]
+							},
+							{
+								narration: "I brush past her in the doorway, close enough that our arms touch. She steps away.",
+								msgs: [
+									{ who: "player", text: "Oops. Didn't see you there." },
+									{ who: "npc", text: "Watch where you're going, please." },
+									{ who: "player", text: "Sorry." },
+									{ who: "npc", text: "I'm not in the mood for games." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I tug lightly on her sleeve until she turns around.",
+							msgs: [
+								{ who: "player", text: "Come on, you can't keep pretending you don't like the attention." },
+								{ who: "npc", text: "Who said I don't?" },
+								{ who: "player", text: "So you do?" },
+								{ text: "She smirks and goes back to what she was doing, but she's still smiling when I leave." }
+								]
+							},
+							{
+								narration: "I flick her ear lightly when she isn't looking.",
+								msgs: [
+									{ who: "player", text: "You're awfully jumpy for someone who's unbothered." },
+									{ who: "npc", text: "Hey! Stop it." },
+									{ who: "player", text: "Make me." },
+									{ text: "She glares, but there's a grin she can't quite hide." }
+								]
+							},
+							{
+								narration: "I sit down next to her, a little too close.",
+								msgs: [
+									{ who: "player", text: "Admit it, you like it when I mess with you." },
+									{ who: "npc", text: "In your dreams." },
+									{ who: "player", text: "So I'm in your dreams?" },
+									{ text: "She swats at me, but she's laughing." }
+							]
+						}
+					],
+					fail: [
+						{
+							narration: "I push it too far. She isn't amused.",
+							msgs: [
+								{ who: "player", text: "Come on, loosen up. I know you like it." },
+								{ who: "npc", text: "What? No. That's gross. Don't be weird." },
+								{ who: "player", text: "Okay, okay." },
+								{ who: "npc", text: "Seriously. Stop." }
+								]
+							},
+							{
+								narration: "I flick her ear. She does not find it funny.",
+								msgs: [
+									{ who: "player", text: "You're awfully jumpy for someone who's unbothered." },
+									{ who: "npc", text: "OW. What is wrong with you?" },
+									{ who: "player", text: "It was a joke." },
+									{ who: "npc", text: "It wasn't funny. Leave me alone." }
+								]
+							},
+							{
+								narration: "I sit down too close and tease her about it. She shoves me away.",
+								msgs: [
+									{ who: "player", text: "Admit it, you like it when I mess with you." },
+									{ who: "npc", text: "Eww, no. Get away from me." },
+									{ who: "player", text: "Relax." },
+									{ who: "npc", text: "I said get away!" }
+							]
+						}
+					]
+				}
+			}
+		},
+
+		/* ———————————————————— Intimate ———————————————————— */
+		{
+			id: "kiss", group: "intimate", text: "Kiss her", cost: 1, once: true,
+			needs: { relation: 60, lust: 40, corruption: 30 },
+			max: { resistance: 40 },
+			blocked: _busy.concat(["working"]),
+			effect: { lust: 5, corruption: 3, relation: 2, resistance: -2 },
+			passage: "{npc} Kiss"
+		},
+		{
+			/* unlocked by the quest A Knock at Night (mom_nightVisit). The scene changes with the place and with
+			   how often she has done it ($mom.flags.handjobs), and applies the effects itself */
+			id: "handjob", group: "intimate", text: "Ask her to take care of you", cost: 2, once: true,
+			who: ["mom"],
+			requires: "setup.questDone('mom_nightVisit')",
+			private: true,
+			needs: { lust: 30 },
+			max: { resistance: 50 },
+			blocked: _busy.concat(["working", "working_boss", "cooking", "cleaning_kitchen"]),
+			effect: { corruption: 2, lust: 3, relation: 1, resistance: -1 },
+			passage: "{npc} Handjob"
+		},
+
+		/* ———————————————————— Other ———————————————————— */
+		{
+			id: "follow", group: "other", text: "Follow me", cost: 0,
+			hideWhen: { isFollowing: true },
+			lockWhen: { playerFlags: { isSomeoneFollowing: true }, reason: "Someone is already following you." },
+			setFlags: { npc: { isFollowing: true }, player: { isSomeoneFollowing: true } },
+			displayInformation: 3,
+			reload: true
+		},
+		{
+			id: "stopFollow", group: "other", text: "Stop following me", cost: 0,
+			hideWhen: { isFollowing: false },
+			setFlags: { npc: { isFollowing: false }, player: { isSomeoneFollowing: false } },
+			displayInformation: 0,
+			reload: true
+		},
+		{
+			id: "useValenx", group: "other", text: "Use $company.prototype.name on her", cost: 0,
+			hidden: true   /* not implemented yet */
+		},
+
+		/* Cameras: who may hide one where, and how corrupted she has to be, comes from setup.cameraSpots */
+		{
+			id: "cameraMomsWork", group: "other", text: "Hide a camera at $boss.callName's office", cost: 1,
+			camera: "momswork", who: setup.cameraSpots.momswork.by,
+			needs: { corruption: setup.cameraSpots.momswork.corruption },
+			blocked: _busy,
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I wait until we're alone, then set the camera on the table between us. It's about the size of a thumbnail, and she leans back from it a little, like it's a spider she isn't sure is dead.",
+							msgs: [
+								{ who: "player", text: "Next time you're over at $boss.callName's, I need this in his office. Somewhere it can see his desk and the chair across from it." },
+								{ who: "npc", text: "The chair across from... honey, that's where I sit." },
+								{ who: "player", text: "That's where everybody sits when he wants something from them. If he ever tries to wriggle out of our contract, it'll happen in that chair." },
+								{ text: "All true. It's also the chair she sits in three afternoons a week, with his door shut and nobody from home anywhere near her. I'd like to see how she holds herself in it." },
+								{ who: "npc", text: "I don't know, sweetie. If he ever found it..." },
+								{ who: "npc", text: "Then again, it would be nice to know someone's keeping an eye on things. He isn't always... careful, when it's just the two of us." },
+								{ who: "player", text: "Then let me be the someone." },
+								{ text: "She tucks it into her purse, between her lipstick and a pack of tissues, and zips the pocket shut. Then she checks the zipper again." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "cameraCollege", group: "other", text: "Hide a camera at the college", cost: 1,
+			camera: "college", who: setup.cameraSpots.college.by,
+			needs: { corruption: setup.cameraSpots.college.corruption },
+			blocked: _busy,
+			scenes: {
+				sister: {
+					success: [
+						{
+							narration: "I slide the camera over to her. She picks it up and squints at it like a bug she isn't sure is dead.",
+							msgs: [
+								{ who: "npc", text: "Is this a camera? Oh my god. Is this a spy camera?" },
+								{ who: "player", text: "Put it in the hallway outside $prof.callName's office. Up high, facing that bench where you always wait for him." },
+								{ who: "npc", text: "How do you even know where I wait for him?" },
+								{ who: "player", text: "You complain about it every time you come home. It wobbles, it's freezing, it smells like old coffee..." },
+								{ who: "npc", text: "Okay, it IS a terrible bench. But why there?" },
+								{ who: "player", text: "Your grades jumped a lot this semester, and professors talk. If he starts wondering why, that hallway is where he'll do it." },
+								{ text: "That's the version she can live with. The other version is twenty minutes on that bench, twice a week, her legs crossed and her phone in her hand, while she's sure nobody she knows can see her." },
+								{ who: "npc", text: "So you want me to bug my own college. Cool. Totally normal $sister.playerRelation stuff." },
+								{ who: "npc", text: "Fine. But if campus security drags me off, you're paying my bail." },
+								{ text: "She drops it into her bag and pats the outside twice, like she wants to make sure it can't crawl out." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "cameraDiner", group: "other", text: "Hide a camera at $diner.name", cost: 1,
+			camera: "diner", who: setup.cameraSpots.diner.by,
+			needs: { corruption: setup.cameraSpots.diner.corruption },
+			blocked: _busy,
+			scenes: {
+				sister: {
+					success: [
+						{
+							narration: "I set the camera down next to her phone. She looks at it, then at me, then at it again, chewing the inside of her cheek.",
+							msgs: [
+								{ who: "npc", text: "Please tell me that's a really tiny phone charger." },
+								{ who: "player", text: "Next shift, put it up on the pie shelf behind the counter. Pointed at the floor, so it gets the booths and the register." },
+								{ who: "npc", text: "The pie shelf hasn't had an actual pie on it since I started. Nobody's ever going to look up there." },
+								{ who: "npc", text: "Wait, why do you even care? You hated that place." },
+								{ who: "player", text: "$manager.callName is a client now. I want to see how he runs things when he thinks nobody's checking. Who he yells at, who he lets slide." },
+								{ who: "npc", text: "Me, mostly. And the fry guy. Mostly me." },
+								{ who: "player", text: "Then I'll get to see that too." },
+								{ text: "She laughs, because she thinks it's about $manager.callName. I'm thinking about the booths by the window, and the guys who sit in them for an hour over one coffee because she's the one who keeps refilling it." },
+								{ who: "npc", text: "So I'm spying on my boss... for my other boss. Who is also my $sister.playerRelation. Cool, cool. Very normal family business." },
+								{ who: "npc", text: "Fine. But if he catches me, I'm telling him it's a smoke detector." },
+								{ text: "She zips it into the little front pocket of her backpack, where she keeps her name tag and roughly forty loose straws." }
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			id: "cameraLandlord", group: "other", text: "Hide a camera at $landlord.callName's place", cost: 1,
+			camera: "landlordapartment", who: setup.cameraSpots.landlordapartment.by,
+			needs: { corruption: setup.cameraSpots.landlordapartment.corruption },
+			blocked: _busy,
+			scenes: {
+				mom: {
+					success: [
+						{
+							narration: "I turn the camera over in my fingers until she notices it.",
+							msgs: [
+								{ who: "player", text: "When you go over to $landlord.callName's this week, put this in his living room. Up high, where it can see the couch." },
+								{ who: "npc", text: "The couch? Sweetheart, I don't even like sitting on his couch." },
+								{ who: "player", text: "I know. But that's where he does his talking, and our rent hangs on whatever comes out of his mouth. If he ever tries to change the deal, I want it on record." },
+								{ who: "npc", text: "You make him sound dangerous. He's just... a little handsy. And very old." },
+								{ text: "She says 'handsy' lightly, the way you'd mention it might rain later. I'd like to know what that word covers, exactly, and how long she sits there before she remembers to get up." },
+								{ who: "player", text: "Then it'll be a very boring recording." },
+								{ who: "npc", text: "Fine. But if he catches me, you're the one explaining it to him." },
+								{ text: "She holds out her hand for it, and doesn't quite look at me while she does." }
+							]
+						}
+					]
+				},
+				sister: {
+					success: [
+						{
+							narration: "I hold the camera up between two fingers.",
+							msgs: [
+								{ who: "player", text: "Next time you help $landlord.callName out, hide this in his living room. He always ends up dragging you in there, right?" },
+								{ who: "npc", text: "Ew. Yes. He calls it 'taking a break'. The break is me standing there while he tells me about his knee surgery. Again." },
+								{ who: "player", text: "Then that's where it goes. If he ever gets weird about the rent deal, I want to see it." },
+								{ who: "npc", text: "Oh, he's already weird. Just not about the rent." },
+								{ text: "I laugh, because she wants me to. Then I tell her to make sure it can see the whole room." },
+								{ who: "npc", text: "Fine. But I'm pointing it away from his recliner. I've seen enough of that recliner for one lifetime." },
+								{ who: "player", text: "Whole room. Recliner included." },
+								{ who: "npc", text: "You're so weird. You know that, right?" },
+								{ text: "She takes it and slips it into her back pocket, holding it with two fingertips the whole way, as if the idea itself is a little sticky." }
+							]
+						}
+					]
+				}
+			}
+		}
+	]
+}>>
+
+/* Talk scene variants ==========================================================
+   The talk scenes ("Chat with her", passages "{npc} {activityId}") pick one of several variants. A passage builds
+   the list of variants that fit right now (some need a story step or a corruption stage) and lets this pick one,
+   never the one it showed last time when there is another.
+   $talkScenes                      { passage name: the variant shown last }
+   setup.pickTalkScene(key, list)   one entry of list (numbers), remembered under key */
+<<set $talkScenes to {}>>
+<<set setup.pickTalkScene = (key, list) => {
+    const v = State.variables;
+    const fresh = list.filter((n) => n !== v.talkScenes[key]);
+    const pick = (fresh.length ? fresh : list).random();
+    v.talkScenes[key] = pick;
+    return pick;
+}>>
+<<script>>
+(function () {
+	'use strict';
+
+	function data() { return State.variables.interactions; }
+
+	function def(id) {
+		return data().actions.filter(function (a) { return a.id === id; })[0];
+	}
+
+	function log(npc) {
+		if (!npc.interactionLog) { npc.interactionLog = {}; }
+		return npc.interactionLog;
+	}
+
+	/* money comes from the wallet in stage 0 and from the company account afterwards (same as the rent) */
+	function funds() {
+		var v = State.variables;
+		return v.company.stage === 0 ? v.player.money : v.company.finances.money;
+	}
+	function pay(amount) {
+		var v = State.variables;
+		if (v.company.stage === 0) { v.player.money -= amount; } else { v.company.finances.money -= amount; }
+	}
+
+	/* true when every flag of the object has the given value */
+	function flagsMatch(flags, wanted) {
+		return Object.keys(wanted || {}).every(function (k) { return !!flags[k] === wanted[k]; });
+	}
+
+	/* {npc}, {activity} and {activityId} in passage names and scene texts */
+	function fill(text, npc) {
+		return String(text)
+			.replace(/\{npc\}/g, npc.sysName === 'mom' ? 'Mom' : 'Sister')
+			.replace(/\{activityId\}/g, npc.activity || '')
+			.replace(/\{activity\}/g, setup.activityText(npc, npc.activity));
+	}
+
+	/* true when the scene passage of an action exists and has text: a missing or still empty one (a placeholder
+	   for an activity nobody has written a scene for yet) would be a dead end, so the card is greyed out instead */
+	function hasScene(name) {
+		return Story.has(name) && Story.get(name).text.trim() !== '';
+	}
+
+	/* her value of a stat for the needs/max checks: corruption counts as the total over all her stages
+	   (stage * 100 + bar, "Corruption stages" in Define NPCs), so a stage-up never locks an action again */
+	function needValue(npc, k) {
+		return k === 'corruption' ? setup.corruptionTotal(npc) : npc.stats[k];
+	}
+
+	/* how a needed value reads on a locked card ("Corruption 40 (stage 1)") */
+	function needText(k, value) {
+		return k === 'corruption' ? setup.corruptionNeedText(value) : String(value);
+	}
+
+	/* her value of a stat inside a chance formula: corruption with the per-stage bonus (setup.corruptionEffective) */
+	function chanceValue(npc, k) {
+		return k === 'corruption' ? setup.corruptionEffective(npc) : npc.stats[k];
+	}
+
+	/* chance to succeed in percent, see the description at the top */
+	function chanceOf(chance, npc) {
+		var v = chance.base || 0;
+		Object.keys(chance.stats || {}).forEach(function (k) { v += chanceValue(npc, k) * chance.stats[k]; });
+		Object.keys(chance.maxStats || {}).forEach(function (k) { v += npc.stats.max[k] * chance.maxStats[k]; });
+		return Math.max(chance.min || 0, Math.min(chance.max === undefined ? 100 : chance.max, v));
+	}
+
+	/* one random scene that fits the situation, with the speakers and placeholders filled in */
+	function buildScene(action, npc, success) {
+		var set = (action.scenes || {})[npc.sysName];
+		if (!set) { return { narration: '', msgs: [] }; }
+		var pool = (success ? set.success : (set.fail || set.success)) || [];
+		pool = pool.filter(function (s) { return !s.only || setup.activityIs(npc, npc.activity, s.only); });
+		if (!pool.length) { return { narration: '', msgs: [] }; }
+
+		var scene = either(pool);
+		var speakers = { player: State.variables.player, npc: npc };
+		return {
+			narration: scene.narration ? fill(scene.narration, npc) : '',
+			msgs: scene.msgs.map(function (m) {
+				var msg = { text: fill(m.text, npc) };
+				if (m.who) { msg.who = speakers[m.who]; }
+				return msg;
+			})
+		};
+	}
+
+	/* null when nobody else is around (action.private), otherwise who is */
+	function privacyIssue(npc) {
+		var v = State.variables;
+		var other = ['mom', 'sister'].filter(function (k) { return k !== npc.sysName; })
+			.map(function (k) { return v[k]; })
+			.filter(function (o) { return o && o.location && setup.sameLocation(o.location, v.player.location); })[0];
+		if (other) { return 'Not with ' + other.callName + ' right here.'; }
+		if (setup.isOfficeWorkTime() && setup.sameLocation(v.player.location, setup.getLocationBySysName('companystage1'))) {
+			return 'Not with the whole office around.';
+		}
+		return null;
+	}
+
+	/* an action with "requires" stays hidden until its TwineScript condition is true */
+	function unlocked(action) {
+		if (!action.requires) { return true; }
+		try { return !!Scripting.evalTwineScript(action.requires); }
+		catch (e) { console.error('Interaction "' + action.id + '": requires failed: ' + e.message); return false; }
+	}
+
+	/* null when the action is possible right now, otherwise a short reason for the greyed-out card */
+	setup.interactionLockReason = function (npc, action) {
+		var labels = data().statLabels;
+		if (action.once && log(npc)[action.id] === State.variables.date.dayCount) { return 'Already done today.'; }
+		if (action.blocked && setup.activityIs(npc, npc.activity, action.blocked)) { return 'Not while she\'s ' + setup.activityText(npc, npc.activity) + '.'; }
+		if (action.only && !setup.activityIs(npc, npc.activity, action.only)) { return "It's not the right moment..."; }
+		if (action.passage && !hasScene(fill(action.passage, npc))) { return 'Not while she\'s ' + setup.activityText(npc, npc.activity) + '.'; }
+		if (action.lockWhen && flagsMatch(State.variables.player.flags, action.lockWhen.playerFlags)) { return action.lockWhen.reason; }
+		if (action.private) {
+			var company = privacyIssue(npc);
+			if (company) { return company; }
+		}
+
+		var needs = [];
+		Object.keys(action.needs || {}).forEach(function (k) {
+			if (needValue(npc, k) < action.needs[k]) { needs.push(labels[k] + ' ' + needText(k, action.needs[k])); }
+		});
+		Object.keys(action.max || {}).forEach(function (k) {
+			if (needValue(npc, k) > action.max[k]) { needs.push(labels[k] + ' ' + needText(k, action.max[k]) + ' or lower'); }
+		});
+		if (needs.length) { return 'Needs ' + needs.join(', ') + '.'; }
+
+		if (action.money && funds() < action.money) { return 'Costs $' + action.money + '.'; }
+		return null;
+	};
+
+	/* short line under the title of a card: what it costs and what it changes */
+	setup.describeInteraction = function (action) {
+		var labels = data().statLabels;
+		var parts = action.cost ? [action.cost + (action.cost === 1 ? ' action' : ' actions')] : [];
+		if (action.money) { parts.push('$' + action.money); }
+		if (action.camera) { parts.push('1 camera (' + setup.itemCount('camera') + ' owned)'); }
+		Object.keys(action.effect || {}).forEach(function (k) {
+			parts.push((action.effect[k] > 0 ? '+' : '−') + labels[k]);
+		});
+		return parts.join(' · ');
+	};
+
+	/* true while the stat points she is missing are more than hideIfMissingPercent of what the action requires (the card stays hidden) */
+	setup.interactionTooFarAway = function (npc, action) {
+		var required = 0, missing = 0;
+		Object.keys(action.needs || {}).forEach(function (k) {
+			required += action.needs[k];
+			missing += Math.max(0, action.needs[k] - needValue(npc, k));
+		});
+		return required > 0 && (missing / required) * 100 > data().hideIfMissingPercent;
+	};
+
+	/* every action for this person with the reason it is locked (null = available) */
+	setup.getInteractionOptions = function (npc) {
+		return data().actions
+			.filter(function (action) { return !action.hidden && !(action.hideWhen && flagsMatch(npc.flags, action.hideWhen)); })
+			.filter(function (action) { return !action.who || action.who.includes(npc.sysName); })
+			.filter(unlocked)
+			.filter(function (action) {
+				return !action.camera || (setup.itemCount('camera') > 0 && !setup.hasCamera(action.camera) && !setup.cameraPending(action.camera));
+			})
+			.filter(function (action) { return !setup.interactionTooFarAway(npc, action); })
+			.map(function (action) {
+				return {
+					action: action,
+					text: action.text,
+					reason: setup.interactionLockReason(npc, action)
+				};
+			});
+	};
+
+	/* Runs an action: pays, logs, rolls success. Returns what the screen has to show and apply. */
+	setup.performInteraction = function (id, key) {
+		var v = State.variables;
+		var npc = v[key];
+		var action = def(id);
+		if (!action || !unlocked(action) || setup.interactionLockReason(npc, action)) { return null; }
+
+		if (action.money) { pay(action.money); }
+		if (action.once) { log(npc)[action.id] = v.date.dayCount; }
+
+		var result = { cost: action.cost, passage: null, handled: false, narration: '', msgs: [], deltas: [], success: true };
+		var changes = action.effect || {};
+
+		if (action.chance) {
+			result.success = Math.random() * 100 < chanceOf(action.chance, npc);
+			if (!result.success) { changes = action.fail || {}; }
+		}
+
+		Object.keys(changes).forEach(function (stat) {
+			result.deltas.push([key + stat, changes[stat] > 0 ? '+' : '-', Math.abs(changes[stat])]);
+		});
+
+		if (action.camera) { setup.requestCamera(key, action.camera); }
+
+		if (action.setFlags) {
+			result.handled = true;
+			Object.assign(npc.flags, action.setFlags.npc);
+			Object.assign(v.player.flags, action.setFlags.player);
+			if (action.displayInformation !== undefined) { v.displayInformation = action.displayInformation; }
+			if (action.reload) {
+				/* after the click has finished: replaying the passage right here would clear the temporary variables of the running link */
+				setTimeout(function () { Engine.play(State.active.title, null, 'back'); }, 0);
+			}
+		} else if (action.passage) {
+			result.passage = fill(action.passage, npc);
+		} else if (action.scenes) {
+			var scene = buildScene(action, npc, result.success);
+			result.narration = scene.narration;
+			result.msgs = scene.msgs;
+		}
+		return result;
+	};
+
+	/* one line about how she seems right now, from her energy and morale */
+	setup.npcMood = function (npc) {
+		if (npc.stats.energy < 30) { return 'She looks exhausted.'; }
+		if (npc.stats.morale < 30) { return 'She seems down.'; }
+		if (npc.stats.energy > 80 && npc.stats.morale > 80) { return 'She seems to be in a good mood.'; }
+		return '';
+	};
+})();
+<</script>>

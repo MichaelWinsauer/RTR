@@ -1,0 +1,27 @@
+:: Help Npc Interaction [nobr] {"position":"300,4875"}
+<p>When $mom.callName or $sister.callName is in the same place as you, the location says so: "... is <b>here</b>, watching TV". Click <b>here</b> to open the <b>interaction screen</b> with her. At the office you can also call her to your desk from the <a href="#" data-help="Help Company Actions">dashboard</a>.</p>
+
+<h3>The screen</h3>
+<p>At the top you see what she is doing right now and, if it shows, how she seems: exhausted, down, or in a good mood. Below that are the cards of everything you can do with her, sorted into groups:</p>
+<dl class="help-stats">
+	<dt>Social</dt><dd>Talking, small favours, time together. The safe way to build <b>Relation</b>.</dd>
+	<dt>Flirt &amp; tease</dt><dd>Pushing things a little further. These can go wrong.</dd>
+	<dt>Intimate</dt><dd>Only for when she is ready for it.</dd>
+	<dt>Other</dt><dd>Practical things, like asking her to follow you.</dd>
+</dl>
+<p><b>Leave</b> at the top right takes you back to where you are.</p>
+
+<h3>The cards</h3>
+<ul>
+	<li>Under its name each card says what it costs (actions, sometimes money) and which of her stats it changes when it works.</li>
+	<li>A <b>greyed-out</b> card says why you can't use it right now: she has to have a certain Relation or Corruption, her Resistance is too high, she is busy with something that doesn't allow it, it isn't something to do with other people around, you already did it today, or you can't afford it.</li>
+	<li>Many cards work <b>once a day</b> per person. Repeating the same compliment five times in a row wouldn't impress anybody either.</li>
+	<li>Some cards can <b>fail</b>. Her stats decide how likely they work: Relation and Lust help, Resistance works against you. A failure can cost you Relation or raise her Resistance.</li>
+	<li>Cards you are still far away from stay hidden. They show up, greyed out, once you are getting close, and some only appear when the story gets there.</li>
+	<li>What happens depends on what she is doing. Talking to her while she cooks is a different conversation than while she's watching TV.</li>
+</ul>
+
+<h3>Follow me</h3>
+<p>Asking her to follow you is free. She then goes wherever you go, and the location shows that she is following you. Only one person can follow you at a time. Ask her to stop on the same screen.</p>
+
+<div class="help-note">Time passes while you talk, so she may be off doing something else afterwards. If she leaves in the middle of it, you are sent back.</div>

@@ -1,0 +1,235 @@
+:: Mom showering [interaction event] {"position":"850,2100","size":"100,100"}
+/* Walk-in from the bathroom event (Mom Bathroom, "Enter"): I open the door while she is in the shower.
+   The version depends on how far her line has come, not on raw stat numbers:
+   early  before No stimulus (mom_controlSession): she is startled, covers up and sends me out (Resistance up, Relation down)
+   seen   after No stimulus: she has sat naked in front of me once, so she lets me stay and talks, flustered
+   close  from her first corruption stage on (The Briefing): she knows why I came in and lets it be charged.
+          Some lines change once she has come to my room at night (mom_nightVisit).
+   Three scenes per tier; $lastMomShower keeps the same one from playing twice in a row. */
+<<silently>>
+<<set _path to "images/characters/mom/events/bathroom/">>
+<</silently>>
+<<RandomImage _path 3 ".webp" "" 300>>
+<<silently>>
+<<if $mom.corruptionStage >= 1>>
+	<<set _tier = "close">>
+<<elseif setup.questDone("mom_controlSession")>>
+	<<set _tier = "seen">>
+<<else>>
+	<<set _tier = "early">>
+<</if>>
+<<set _pick = random(1, 3)>>
+<<if $lastMomShower && $lastMomShower.tier === _tier && $lastMomShower.pick === _pick>>
+	<<set _pick = 1 + (_pick % 3)>>
+<</if>>
+<<set $lastMomShower = { tier: _tier, pick: _pick }>>
+<<set _nightVisitDone = setup.questDone("mom_nightVisit")>>
+<</silently>>
+<<switch _tier>>
+<<case "early">>
+	<<switch _pick>>
+	<<case 1>>
+	Steam rolls out the moment I open the door. Behind the frosted curtain with the seashells on it, the one $sister.callName has been campaigning against for years, $mom.callName is a pale blur with her arms up, rinsing her hair and humming something off-key.
+
+	Then she sees the shape of me through the plastic, and the humming stops.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Hello? $sister.callName?" },
+	{ who: $player, text: "It's me. Sorry, I thought..." },
+	{ who: $mom, text: "Out! Sweetheart, out, I'm... out, please!" },
+	{ text: "She yanks the curtain tight against the wall, so hard that two of the rings pop off the rod and skitter across the floor. She swears under her breath, which she never does." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I go. Through the door I hear the water shut off, and then her voice, talking to herself, saying she's buying a lock tomorrow. She has said that before. The rings are still on the bathroom floor that evening, and she steps around them.
+
+	<<case 2>>
+	The door opens without a sound. $mom.callName is standing under the spray with her back to me and her face tipped up into the water, and for a moment she has no idea I'm there. Wet hair down her back, the curve of her shoulders, her eyes closed. Then she turns to reach for the shampoo.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Oh my god." },
+	{ text: "She grabs the first thing in reach, which turns out to be a loofah, and holds it in front of herself. It doesn't help much. Her other arm comes up across her chest." },
+	{ who: $mom, text: "Honey! What are you... turn around! Turn around right now!" },
+	{ who: $player, text: "I'm turning." },
+	{ who: $mom, text: "And close the door. From the other side!" },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I close it from the other side. Out in the hallway I listen to her turn the water off, then on again, then off, like she can't decide whether she's finished or whether she needs to start over.
+
+	<<case 3>>
+	The bathroom is one big cloud. I can barely see the mirror, and I can only just make out $mom.callName with one foot up on the edge of the tub, shaving her leg with the focus of somebody defusing a bomb.
+
+	She doesn't look up right away. Then she does.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Don't you dare say a word." },
+	{ who: $player, text: "I didn't..." },
+	{ who: $mom, text: "Out. I'm holding a razor, $player.name. I'm not saying I'd use it." },
+	{ text: "She says it in her calmest voice, which is a lot worse than shouting. She has the curtain bunched against herself with her free hand, and her knuckles are white." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I back out and shut the door. Later she asks me how my day was in exactly that same calm voice, and doesn't wait for the answer.
+	<</switch>>
+	<<UpdateStat "+" "Corruption" 3>>
+	<<UpdateStat "+" "MomLust" 15>>
+	<<UpdateStat "+" "MomCorruption" 3>>
+	<<UpdateStat "+" "MomResistance" 25>>
+	<<UpdateStat "-" "MomRelation" 5>>
+
+<<case "seen">>
+	<<switch _pick>>
+	<<case 1>>
+	She's under the water when I come in, and she sees me right away through the gap in the curtain. She doesn't scream. She lets out a breath that's about half a laugh.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Sweetie. You could have waited five minutes." },
+	{ who: $player, text: "I could have." },
+	{ who: $mom, text: "...But you didn't. No. Well." },
+	{ text: "She doesn't pull the curtain shut. She turns back to the water, which leaves me her back, her shoulders and two very red ears, and goes on rinsing her hair as though I'm the radio." },
+	{ who: $mom, text: "Since you're here, you can tell me what $brian.name meant this morning. Something about a capacitor. I nodded along, but I didn't understand one word." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	So I lean on the sink and explain capacitors to my $mom.relation while she showers. She asks two good questions and one terrible one. Each time she has to turn around for the conditioner, she hesitates, and then she turns anyway.
+
+	<<case 2>>
+	She's just shutting the water off when I come in. Her hand is already out past the curtain, feeling for the towel on the hook, and it stops in midair.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "...Could you hand me that? Since you're standing right there." },
+	{ text: "I take the towel off the hook and hold it out. Not quite far enough. She'd have to step out to reach it, and she knows I know that." },
+	{ who: $mom, text: "Honey." },
+	{ who: $player, text: "It's right here." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She stands behind the half-open curtain for a moment, dripping, making up her mind. Then she pushes it aside, steps out onto the mat and takes the towel from me, and wraps it around herself without hurrying, because hurrying would mean admitting something.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Thank you. I'm going to get dressed now. You can stay if you're going to brush your teeth. Are you going to brush your teeth?" },
+	{ who: $player, text: "Sure." },
+	{ text: "I brush my teeth. She dries her hair next to me, our elbows bumping, and neither of us says anything about the mirror." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	<<case 3>>
+	The curtain hangs half open, because the rod has been crooked for weeks. She sees me and goes still under the water, with shampoo foaming in her hair.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Is this another one of your tests? Are you going to ask me for a number?" },
+	{ who: $player, text: "Do you want me to?" },
+	{ who: $mom, text: "No! No. Goodness. Don't." },
+	{ text: "She doesn't close the curtain, though. She tips her head back under the spray to rinse, eyes shut, and I watch the color climb from her collarbones all the way up to her cheeks." },
+	{ who: $mom, text: "It's silly, isn't it. I changed your diapers. And after that night in your room... it's silly to make a fuss now." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She says it to convince herself, and it mostly works. When she opens her eyes I'm still there, and she gives me a small, flustered smile and goes back to her hair.
+	<</switch>>
+	<<UpdateStat "+" "Corruption" 3>>
+	<<UpdateStat "+" "MomLust" 10>>
+	<<UpdateStat "+" "MomCorruption" 3>>
+	<<UpdateStat "-" "MomResistance" 5>>
+
+<<case "close">>
+	<<switch _pick>>
+	<<case 1>>
+	She hears the door and doesn't turn around.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Lock it. I know it doesn't work. Lock it anyway." },
+	{ text: "I turn the lock that hasn't locked in years. She laughs into the water." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She takes her time. She knows exactly where I'm standing. She turns toward me to rinse and away to reach for the soap, and every so often she looks over her shoulder to check that I'm still watching. I am.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Your $sister.relation would die if she knew about this." },
+	{ who: $player, text: "She doesn't." },
+	{ who: $mom, text: "No. She doesn't." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	<<if _nightVisitDone>>
+	She shuts off the water and holds her hand out for the towel without looking. When I give it to her, she catches my wrist for a moment. "If it gets bad later," she says, "you know where I am."
+	<<else>>
+	She shuts off the water and stays where she is, dripping, before she reaches for the towel, and lets me look. "That's enough now," she says softly. I'm not sure which one of us she's telling.
+	<</if>>
+
+	<<case 2>>
+	She sees me come in and, instead of saying anything, holds out the sponge.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Since you're here. I can never reach the middle of my back." },
+	{ text: "I take it. She turns around and gathers her wet hair over one shoulder, and stands very still while I wash her back, from her shoulder blades down. Somewhere around halfway her breathing changes. Neither of us mentions it." },
+	{ who: $mom, text: "That's... thank you, sweetie. That's plenty." },
+	{ text: "She takes the sponge back without turning around." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	<<if _nightVisitDone>>
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "You're all wound up again, aren't you. I can tell from your hands." },
+	{ who: $player, text: "Is it that obvious?" },
+	{ who: $mom, text: "To me it is. Go on, honey. Later. Come and find me later." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+	<<else>>
+	She waits for me to leave before she turns around. I take my time about leaving.
+	<</if>>
+
+	<<case 3>>
+	She's under the spray with her eyes shut when I come in, and she knows it's me without opening them.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "I know your footsteps. You walk like your $dad.relation did." },
+	{ who: $mom, text: "Stay. Talk to me. I've had a horrible day." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I sit on the closed lid of the toilet, and she tells me about it with the curtain wide open: $boss.callName's hand on the small of her back in the elevator, his joke about her blouse, the way she smiled and said nothing because that's her job now. She tells it facing me, rinsing her hair, and she watches my face the whole time to see what it does to me.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $player, text: "And then?" },
+	{ who: $mom, text: "And then I came home and wanted a shower. And then you walked in." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She turns off the water and stays right where she is, dripping, waiting to see whether I'll hand her the towel. I don't hurry.<<if _nightVisitDone>> "You're angry," she says, when I finally do. "Not at me, I know. Don't bring it to the dinner table, honey. Bring it to me."<</if>>
+	<</switch>>
+	<<UpdateStat "+" "Corruption" 5>>
+	<<UpdateStat "+" "MomLust" 18>>
+	<<UpdateStat "+" "MomCorruption" 5>>
+	<<UpdateStat "-" "MomResistance" 10>>
+<</switch>>
+<<AdvanceTime>>
+<<ReturnFromEvent "Leave" >>

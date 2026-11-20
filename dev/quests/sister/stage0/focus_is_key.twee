@@ -1,0 +1,55 @@
+:: Focus Is Key [event sister_quest] {"position":"3025,1900","size":"100,100"}
+I find $sister.callName on the living room couch, surrounded. She's moved her entire study operation downstairs: textbooks fanned out across the coffee table, a bag of chips folded shut with a hair tie, a highlighter that lost its cap at some point and has been quietly drying out ever since. She's cross-legged in leggings and that giant hoodie again, her hair piled into a bun that has mostly given up, laptop balanced on her knees with a calculus problem glowing on the screen.
+
+She looks wrecked. Her eyes are red at the rims, like she's been staring at the same numbers since lunch, and she barely glances up when I drop into the armchair across from her. The prototype is already in my pocket.
+
+<<silently>>
+<<set _msgs = [
+    { who: $sister, text: "Hey." },
+    { who: $player, text: "You've been down here all day. How's it going?" },
+    { who: $sister, text: "Great. Amazing. I've solved the same problem four times and gotten four different answers. One of them was a letter." },
+    { who: $player, text: "That's actually kind of impressive." },
+    { who: $sister, text: "Thank you. I'm thinking about switching my major to crying." },
+    { who: $player, text: "You were getting it the other night. This is just a bad day. And the guy writing your tests isn't making it any easier." },
+    { who: $sister, text: "Maybe. I don't know. I'm just so wound up all the time. Like my whole head is clenched. I can't even sleep properly." },
+    { who: $player, text: "That's kind of what I wanted to talk to you about. The prototype helped you calm down during the demo, right? I could set it up to help you really unwind. Get rid of the stress, so you can focus again." },
+    { who: $sister, text: "I mean... it did feel nice. But what do you mean, 'really unwind'?" },
+    { who: $player, text: "Nothing weird. Sometimes the fastest way to get rid of all that tension is to let your body deal with it. You know. Take care of yourself." },
+    { text: "It takes her a second. Then her eyes go wide, her cheeks go pink, and she glances toward the hallway like $mom.callName might be standing right there." },
+    { who: $sister, text: "Are you... are you telling me to masturbate? You? My little $sister.playerRelation?" },
+    { who: $player, text: "I'm telling you stress builds up and it has to go somewhere. Not with me around, obviously. You'd take it upstairs, I'd stay right here. The prototype just makes it easier to let go. You'd sleep better and think clearer. It works." },
+    { who: $sister, text: "Oh my god. This is the most awkward conversation we have ever had, and I once walked in on you crying at a dog food commercial." },
+    { who: $player, text: "The dog was old and it was his last walk. Do you trust me or not? The demo helped. Studying with it helped. I'm trying to get you through this class, not make things weird." },
+    { who: $sister, text: "It's already weird." },
+    { who: $player, text: "A little weird. But you said yourself you're freaking out. What if this is the thing that fixes it?" },
+    { text: "She looks down at her hands for a long time. When she looks up again she's still pink, but she isn't saying no." },
+    { who: $sister, text: "...Fine. But you stay down here. And we never, ever talk about this again. Not as a joke, not when we're old. Never." },
+    { who: $player, text: "Deal. I won't even go upstairs." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the prototype out, turn the dial to a setting I don't bother naming, and hold it out to her. <<UseQuestDevice $sister 0>> Her hand stops halfway, fingers hovering over it, and then she takes it.
+
+<<silently>>
+<<set _msgs = [
+    { who: $player, text: "Put it on your nightstand and switch it on. Then relax and don't overthink it. I'll grab it back tomorrow." },
+    { who: $sister, text: "Yeah. Okay. Thanks, I guess. This better work, or I'm telling $mom.callName you're a creep." },
+    { text: "She hugs her books to her chest and heads upstairs without looking back. I listen to her footsteps, then her door, then nothing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<linkreplace "Leave her alone for now">>
+I lean back in the armchair and look at the ceiling. Somewhere above me a floorboard creaks, then goes still. <<DevicePulse 2>> I find the cap of her highlighter under the coffee table and push it back on, so it doesn't dry out. She thinks this is about a math test, and for tonight I'm happy to let her keep thinking that.
+
+<<UpdateStat "+" "SisterCorruption" 5>>
+<<ProfileLog $sister "Unwinding" "I talked her into letting $company.prototype.name help her 'unwind'. From now on she'll relieve her stress herself, and every time she does, she'll think of who suggested it.">>
+<<NextQuest $sister>>
+<<ReturnFromEvent>>
+<<script>>
+Notification.show(State.variables.sister.name + " will start masturbating from now on!", {type: Notification.INFORMATION});
+Notification.show("The college is now unlocked!", {type: Notification.INFORMATION});
+<</script>>
+<</linkreplace>>
+
+

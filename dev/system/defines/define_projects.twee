@@ -1,0 +1,382 @@
+:: Define Projects [system] {"position":"1125,0","size":"100,100"}
+/* Projects ====================================================================
+   $company.projects: every job the company can take on, story ones and repeatable ones. The CMD Projects
+   panel lists the active ones; the Project Overview dialog (the arrow in that panel) lists all of them.
+   Every project is started by the player in the overview, never by the story: mails, quests and other
+   projects only unlock them (setup.unlockProject).
+
+   id               string, project_<client>_<what>. Look a project up with setup.getProjectById(id)
+   title            may contain variables
+   description      one or two sentences for the overview, may contain variables
+   type             "story": done once, the story waits for it. "repeatable": can be taken on again after
+                    it was finished (after cooldown days)
+   unlocked         false: a future project. The overview hides it and it can not start, so nothing gets
+                    spoiled. The story reveals it with setup.unlockProject(id): in a quest set (best place),
+                    a mail answer eval or the onComplete of another project. Leave it out for projects the
+                    player can start from the beginning
+   unlock           optional TwineScript strings, all have to be true before it can start. Only for projects
+                    the player already knows about: the overview shows them as Locked with this list
+   unlockText       the same conditions, readable, in the same order
+   cooldown         repeatable only, days after finishing before it can be started again (default 0)
+   duration         days until it is due, counted from the start
+   task             id of the task that belongs to it (Define Tasks), shown in the project window.
+                    onStart activates it
+   revenue          paid every night while it is active
+   reward           paid once on completion (shrinks when late, see "Project logic" below). 0 for an in-house
+                    project nobody pays for
+   outcome          what an in-house project (reward 0) gives instead, shown where the reward would be
+   requirements     work needed per skill category. 0 means the skill is not needed
+   client           copy of the client NPC (read the live one through State.variables[client.sysName]).
+                    Leave it out for an in-house project
+   location         copy of the location it happens at
+
+   Set while playing: active, startedAtDay, due, completed (the last run is finished), completedAtDay,
+   timesCompleted, assigned (employee copies), progress. */
+<<set $company.projects to [
+	{
+    	id: "project_boss_prototype",
+    	title: "New $company.prototype.name Prototype",
+        description: "$boss.callName wants a $company.prototype.name unit of his own for his firm, built from scratch. $mom.callName works on site as his consultant while we build it.",
+        type: "story",
+        unlocked: false, /* confirming the order mail of the boss unlocks it */
+        duration: 21,
+        active: false,
+        task: "task_mom_client_consultant",
+        onStart: [],
+        revenue: 250,
+        reward: 25000,
+        /* the support project is unlocked by the handover (quest mom_briefing), not by finishing this */
+        onComplete: [],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 200, hardware: 225, analysis: 100, testing: 215, consulting: 300, management: 75, hr: 0, sales: 0, marketing: 0,
+		},
+        client: $boss,
+        location: $locations[12],
+    },
+    {
+    	id: "project_diner_analysis",
+    	title: "Diner Analysis",
+        description: "$manager.callName wants a full report on how to squeeze more money out of $diner.name, with $company.prototype.name data gathered on site.",
+        type: "story",
+        unlocked: false, /* confirming the diner mail unlocks it */
+        duration: 14,
+        active: false,
+        task: "task_sister_diner_shift",
+        onStart: [],
+        revenue: 150,
+        reward: 10000,
+        onComplete: [],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 0, hardware: 0, analysis: 250, testing: 0, consulting: 150, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        client: $manager,
+        location: $locations[8],
+    },
+    {
+    	id: "project_boss_support",
+    	title: "Support for $boss.callName",
+        description: "A week of upkeep on $boss.callName's unit: recalibrations, patches, and someone on site to answer his questions. $mom.callName stays his consultant for it.",
+        type: "repeatable",
+        unlocked: false, /* the handover of the prototype unlocks it: the set of the quest mom_briefing */
+        cooldown: 0,
+        duration: 7,
+        active: false,
+        task: "task_mom_client_consultant",
+        onStart: [],
+        revenue: 40,
+        reward: 5000,
+        onComplete: [],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 60, hardware: 40, analysis: 0, testing: 60, consulting: 120, management: 20, hr: 0, sales: 0, marketing: 0,
+		},
+        client: $boss,
+        location: $locations[12],
+    },
+    {
+    	id: "project_company_official",
+    	title: "The Official $company.prototype.name",
+        description: "Turn the unit we built for $boss.callName into something a stranger can order online. Fewer parts, firmware nobody can fiddle with, and a product sheet a CFO quietly nods along to. Nobody pays us for this one, but it decides whether anybody pays us after.",
+        type: "story",
+        unlocked: false, /* unlocked by the set of the quest main_officialProductMeeting */
+        duration: 12,
+        active: false,
+        task: null,
+        onStart: [],
+        revenue: 0,
+        reward: 0,
+        outcome: "Ready to sell",
+        onComplete: [
+            () => State.variables.company.devices.valenxOfficial.owned = true,
+        ],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 180, hardware: 200, analysis: 120, testing: 120, consulting: 0, management: 0, hr: 0, sales: 40, marketing: 0,
+		},
+        location: $locations[13],
+    },
+]>>
+
+/* Project logic ===============================================================
+   <<StartProject ID>> sets project.due to a $date.dayCount. A project never fails: as soon as every
+   requirement above zero is met it completes (setup.checkProjects runs on every action update) and
+   pays its reward into the company account.
+
+   Finishing late costs money instead: every day past the deadline takes latePenalty of the full
+   reward away, down to minRewardFactor of it. Both can be overridden per project above:
+       latePenalty: 0.05,       5% of the reward per overdue day
+       minRewardFactor: 0.25,   never pays less than 25%
+
+   onComplete functions still run on completion (they receive the project); don't pay the reward there.
+
+   Company stats (Define Company): a repeatable client project pays its reward x
+   setup.reputationRewardFactor(p) (0.8 + reputation / 250). A client project finished on time gives
+   +3 Reputation, and every overdue day of one costs 1 Reputation (checkProjectDeadlines). Any project
+   finished on time gives +2 company Morale, a late one costs 2.
+
+   setup.getProjectDaysLeft(p)      > 0 days until the deadline, 0 due today, < 0 overdue
+   setup.getProjectDeadlineText(p)  "3 days left" / "Due today" / "2 days overdue"
+   setup.getProjectReward(p)        what the client would pay if it were finished right now (running projects)
+   setup.getProjectBaseReward(p)    what it pays when finished on time, with the reputation factor (overview)
+   setup.checkProjects()            completes every finished project (Action Update)
+   setup.checkProjectDeadlines()    the day-before and first-overdue-day warnings, Reputation for every
+                                    overdue day (Daily Update)
+
+   Lookup and starting:
+   setup.getProjectById(id)         the live project with that id
+   setup.projectDone(id)            true once that project was finished at least once
+   setup.projectUnlockState(p)      [{ text, met }] for each unlock condition
+   setup.projectCooldownLeft(p)     days until a finished repeatable project can start again (0 = now)
+   setup.projectStatus(p)           "active" | "available" (the player can start it) | "locked" |
+                                    "cooldown" | "done" | "hidden" (not unlocked by the story yet, the
+                                    overview leaves it out)
+   setup.unlockProject(id)          reveals a project with unlocked: false and tells the player about it
+   setup.startProject(id)           starts it: deadline, onStart, its task. A repeatable one starts from
+                                    zero progress. false when it can not start right now */
+<<set setup.projectDefaults = {
+    latePenalty: 0.05,
+    minRewardFactor: 0.25,
+    cooldown: 0,
+}>>
+
+<<set setup.getProjectById = (id) => {
+    const project = State.variables.company.projects.find((p) => p.id === id);
+    if (!project) { console.error('setup.getProjectById: there is no project with the id "' + id + '"'); }
+    return project;
+}>>
+
+<<set setup.projectDone = (id) => {
+    const project = setup.getProjectById(id);
+    return !!project && (Number(project.timesCompleted) || 0) > 0;
+}>>
+
+<<set setup.projectUnlockState = (project) => {
+    const conditions = project.unlock || [];
+    const texts = project.unlockText || [];
+    return conditions.map((condition, i) => {
+        let met = false;
+        try { met = !!Scripting.evalTwineScript(condition); }
+        catch (e) { console.error('Project "' + project.id + '": unlock condition failed: ' + condition, e); }
+        return { text: texts[i] || condition, met: met };
+    });
+}>>
+
+<<set setup.projectCooldownLeft = (project) => {
+    if (!project.completed || project.type !== "repeatable") { return 0; }
+    const ready = (Number(project.completedAtDay) || 0) + setup.getProjectSetting(project, "cooldown");
+    return Math.max(0, ready - State.variables.date.dayCount);
+}>>
+
+<<set setup.unlockProject = (id) => {
+    const project = setup.getProjectById(id);
+    if (!project || project.unlocked !== false) { return; }
+    project.unlocked = true;
+    Notification.show("New project: " + wikifyText(project.title) + ". It's waiting in the project overview.", { type: Notification.INFORMATION });
+}>>
+
+<<set setup.projectStatus = (project) => {
+    if (project.active) { return "active"; }
+    if (project.unlocked === false) { return "hidden"; }
+    if (project.type !== "repeatable" && project.completed) { return "done"; }
+    if (!setup.projectUnlockState(project).every((c) => c.met)) { return "locked"; }
+    if (setup.projectCooldownLeft(project) > 0) { return "cooldown"; }
+    return "available";
+}>>
+
+<<set setup.startProject = (id) => {
+    const v = State.variables;
+    const project = setup.getProjectById(id);
+    if (!project || project.active || project.unlocked === false) { return false; }
+    if (project.type !== "repeatable" && project.completed) { return false; }
+    if (!setup.projectUnlockState(project).every((c) => c.met) || setup.projectCooldownLeft(project) > 0) { return false; }
+
+    /* a repeatable project starts over from zero */
+    Object.keys(project.progress || {}).forEach((cat) => { project.progress[cat] = 0; });
+    project.assigned = [];
+    project.completed = false;
+    project.active = true;
+    project.startedAtDay = v.date.dayCount;
+    /* due is a dayCount, compare it with setup.getProjectDaysLeft, never with $date.today (the weekday) */
+    project.due = v.date.dayCount + project.duration;
+
+    if (project.task) {
+        const task = setup.getTaskById(project.task);
+        if (task) { task.active = true; }
+    }
+    (project.onStart || []).forEach((fn) => {
+        if (typeof fn === "function") { fn(project); }
+    });
+    return true;
+}>>
+
+<<set setup.getProjectSetting = (project, key) => {
+    return typeof project[key] === "number" ? project[key] : setup.projectDefaults[key];
+}>>
+
+<<set setup.getProjectDaysLeft = (project) => {
+    return (Number(project.due) || 0) - State.variables.date.dayCount;
+}>>
+
+<<set setup.getProjectDaysOverdue = (project) => {
+    return Math.max(0, -setup.getProjectDaysLeft(project));
+}>>
+
+<<set setup.getProjectDeadlineText = (project) => {
+    const left = setup.getProjectDaysLeft(project);
+    if (left > 0) { return left + (left === 1 ? " day left" : " days left"); }
+    if (left === 0) { return "Due today"; }
+    return -left + (left === -1 ? " day overdue" : " days overdue");
+}>>
+
+<<set setup.getProjectRewardFactor = (project) => {
+    const penalty = setup.getProjectSetting(project, "latePenalty");
+    const floor = setup.getProjectSetting(project, "minRewardFactor");
+    return Math.max(floor, 1 - penalty * setup.getProjectDaysOverdue(project)) * setup.reputationRewardFactor(project);
+}>>
+
+<<set setup.getProjectBaseReward = (project) => {
+    return Math.round((Number(project.reward) || 0) * setup.reputationRewardFactor(project));
+}>>
+
+<<set setup.getProjectReward = (project) => {
+    return Math.round((Number(project.reward) || 0) * setup.getProjectRewardFactor(project));
+}>>
+
+<<set setup.isProjectDone = (project) => {
+    const requirements = project.requirements || {};
+    const progress = project.progress || {};
+    return Object.keys(requirements)
+        .filter((cat) => Number(requirements[cat]) > 0)
+        .every((cat) => (Number(progress[cat]) || 0) >= Number(requirements[cat]));
+}>>
+
+<<set setup.completeProject = (project) => {
+    const v = State.variables;
+    const overdue = setup.getProjectDaysOverdue(project);
+    const payout = setup.getProjectReward(project);
+
+    project.active = false;
+    project.completed = true;
+    project.completedAtDay = v.date.dayCount;
+    project.timesCompleted = (Number(project.timesCompleted) || 0) + 1;
+    project.daysOverdue = overdue;
+    project.paidReward = payout;
+
+    v.company.finances.money += payout;
+    v.company.finances.income.projects = (Number(v.company.finances.income.projects) || 0) + payout;
+
+    /* free the team, their work is no longer split with this project */
+    (project.assigned || []).forEach((emp) => {
+        const npc = v[emp.sysName];
+        if (npc) { npc.assignedProjectCount = Math.max(0, (npc.assignedProjectCount || 0) - 1); }
+    });
+    project.assigned = [];
+
+    (project.onComplete || []).forEach((fn) => {
+        if (typeof fn === "function") { fn(project); }
+    });
+
+    /* company stats (Define Company): clients remember a job done on time, the office feels a late one */
+    const tuning = setup.companyStatTuning;
+    if (overdue === 0) {
+        if (Number(project.reward) > 0) { setup.changeCompanyStat("reputation", tuning.onTimeReputation); }
+        setup.changeCompanyStat("morale", tuning.onTimeMorale);
+    } else {
+        setup.changeCompanyStat("morale", -tuning.lateMorale);
+    }
+
+    const title = wikifyText(project.title);
+    const money = "$" + payout.toLocaleString("en-US");
+    const late = overdue + (overdue === 1 ? " day" : " days") + " late";
+    if (!project.reward) {
+        /* in-house, nobody pays */
+        Notification.show(overdue > 0 ? title + " finished " + late + "." : title + " is finished!", { type: overdue > 0 ? Notification.WARN : Notification.POSITIVE });
+    } else if (overdue > 0) {
+        Notification.show(title + " finished " + late + ". The client paid " + money + ".", { type: Notification.WARN });
+    } else {
+        Notification.show(title + " is finished! The client paid " + money + ".", { type: Notification.POSITIVE });
+    }
+}>>
+
+<<set setup.checkProjects = () => {
+    const projects = (State.variables.company && State.variables.company.projects) || [];
+    let changed = false;
+
+    projects.forEach((project) => {
+        if (!project || project.active !== true) { return; }
+        if (setup.isProjectDone(project)) {
+            setup.completeProject(project);
+            changed = true;
+        }
+    });
+
+    if (changed && $("#cmd-projects").length) {
+        $("#cmd-projects").empty().wiki('<<include "CMD Projects">>');
+    }
+}>>
+
+<<set setup.checkProjectDeadlines = () => {
+    const projects = (State.variables.company && State.variables.company.projects) || [];
+
+    projects.forEach((project) => {
+        if (!project || project.active !== true) { return; }
+        const left = setup.getProjectDaysLeft(project);
+        const title = wikifyText(project.title);
+
+        if (left === 1) {
+            Notification.show(title + " is due tomorrow.", { type: Notification.WARN });
+        } else if (left === -1) {
+            const penalty = Math.round(setup.getProjectSetting(project, "latePenalty") * 100);
+            const shrinks = project.reward ? " Its reward now shrinks by " + penalty + "% and the company loses Reputation every day until it's finished." : "";
+            Notification.show(title + " is overdue." + shrinks, { type: Notification.NEGATIVE });
+        }
+        /* every overdue day of a client project costs Reputation (Define Company) */
+        if (left < 0 && Number(project.reward) > 0) {
+            setup.changeCompanyStat("reputation", -setup.companyStatTuning.lateReputationPerDay);
+        }
+    });
+}>>
+
+

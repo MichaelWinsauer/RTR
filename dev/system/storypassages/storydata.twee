@@ -1,0 +1,24 @@
+:: StoryData [system] {"position":"125,300"}
+{
+  "ifid": "31C407CF-4BBC-4BCB-ADC8-DA65FFA668A0",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Main Menu",
+  "tag-colors": {
+    "system": "blue",
+    "activity": "green",
+    "meal": "purple",
+    "interaction": "orange",
+    "hide_sidebar": "red",
+    "sister_quest": "orange",
+    "scene": "red",
+    "location": "yellow",
+    "event": "purple",
+    "main_quest": "green",
+    "mom_quest": "yellow",
+    "micro_event": "yellow"
+  },
+  "zoom": 0.6
+}
+
+

@@ -1,0 +1,37 @@
+:: Help Company Cameras [nobr] {"position":"575,4625"}
+<p>At the top right of the dashboard are the <b>camera buttons</b> and, next to them, the <b>camera picture</b>. There is one button for every camera you have hidden. Until you hide the first one, the panel says how to get started and the picture shows "No signal".</p>
+
+<h3>Getting cameras</h3>
+<ul>
+	<li>Buy them at the <b>Shop</b> in the Residential Area. It sells them once the company has moved into the bigger office (Stage 1). A camera costs <b>$<<= setup.items.camera.price>></b>, it comes out of the company account, and buying takes no time.</li>
+	<li>Every camera can be hidden once. The Shop shows how many you are carrying, and it stops selling them once you have one for every spot, counting the cameras already hidden or handed over.</li>
+</ul>
+
+<h3>Hiding them yourself</h3>
+<p>Go to the room and choose <b>Hide a camera here</b>. It costs <b>one action</b>, and nobody may see you do it: while $mom.callName or $sister.callName is in the room or following you, the option is locked.</p>
+<<set _hccSpots to Object.keys(setup.cameraSpots)>>
+<div class="help-values">
+	<<for _hccKey range _hccSpots>><<if setup.cameraSpots[_hccKey].by === "player">><span><<= setup.getLocationBySysName(_hccKey).name>></span><</if>><</for>>
+</div>
+
+<h3>Having them hidden for you</h3>
+<p>Some places are out of your reach. Ask on the <a href="#" data-help="Help Npc Interaction">interaction screen</a> (group <b>Other</b>, one action). The option only appears while you carry a camera, and she has to be corrupted enough to agree:</p>
+<div class="help-values">
+	<<for _hccKey range _hccSpots>><<set _hccSpot to setup.cameraSpots[_hccKey]>><<if _hccSpot.by !== "player">><span><<= setup.getLocationBySysName(_hccKey).name>>: <<= _hccSpot.by.map(function (k) { return State.variables[k].callName; }).join(" or ")>>, Corruption <<= setup.corruptionNeedText(_hccSpot.corruption)>></span><</if>><</for>>
+</div>
+<p>She takes the camera with her and hides it the next time she is there, for example during a task. You get a notification when it's done, and the button appears on the dashboard. Until then, the camera panel lists the request.</p>
+
+<h3>Using them</h3>
+<ul>
+	<li>Click a button to switch to that camera. The picture changes at once and the button is highlighted.</li>
+	<li>If $mom.callName or $sister.callName is in that room right now, her round portrait appears on its button, so you can see at a glance who is where.</li>
+	<li>Switching costs no time and no action, and the dashboard remembers the last camera you chose.</li>
+</ul>
+
+<h3>The picture</h3>
+<ul>
+	<li>If somebody is in the room, you see a <b>moving picture</b>.</li>
+	<li>If the room is empty, you see a <b>still image</b> of the room.</li>
+	<li>At night the picture gets a darker tint.</li>
+</ul>
+<p>In the <b>Settings</b> you can switch the animated noise, the camera overlay and the black background on or off. If the picture stays empty, check that images are switched on there.</p>

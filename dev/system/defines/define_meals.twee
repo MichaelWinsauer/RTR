@@ -1,0 +1,353 @@
+:: Define Meals [system] {"position":"1125,150"}
+
+<<set $meals to [
+    {
+        id: "default",                                  // id for referencing. Unique
+        passage: "Default Meal",                        // Passage to include.
+        isActive: true,                                   // Should this meal be considered to display?
+        mealType: ["breakfast", "lunch", "dinner"],     // When can this be shown? Breakfast, Lunch or Dinner? Multiple allowed, but should be cared for when writing the scene
+        isImportant: false,                             // is it an important Scene? E.g. after a quest. 
+        dayType: ["weekday", "weekend"],                // show on weekdays or weekend (or both)
+        cooldown: 0,                                    // how soon it can show up again
+        once: false,                                    // boolean if should show only once
+        lastSeen: -1,
+        present: ["mom", "sister"],                     // if empty, ignore
+        requirements: [                                 // List of functions that all have to be true in order for the meal to play. Checked before picking this meal
+        //    () => State.variables.date.dayCount >= 0,   
+        ],
+        set: [                                          // List of functions that will be set after finishing this meal. E.g. Statupdates or something.
+        //    () => State.variables.date.dayCount >= 0,
+        ]
+    }, {
+        id: "sister_exam_passed",
+        passage: "Meal Sister Exam Passed",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("sister_exam_passed").isActive = false,
+        ]
+    }, {
+        id: "default_sister",                       
+        passage: "Default Meal Sister",             
+        isActive: true,                             
+        mealType: ["breakfast", "lunch", "dinner"], 
+        isImportant: false,                         
+        dayType: ["weekday", "weekend"],            
+        cooldown: 0,                                
+        once: false,   
+        lastSeen: -1,                             
+        present: ["sister"],                 
+        requirements: [
+        ],
+        set: [
+        ]
+    }, {
+        id: "default_mom",                       
+        passage: "Default Meal Mom",             
+        isActive: true,                             
+        mealType: ["breakfast", "lunch", "dinner"], 
+        isImportant: false,                         
+        dayType: ["weekday", "weekend"],            
+        cooldown: 0,                                
+        once: false,     
+        lastSeen: -1,                           
+        present: ["mom"],                 
+        requirements: [
+        ],
+        set: [
+        ]
+    }, {
+        id: "welcome_home",
+        passage: "Meal Welcome Home",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("welcome_home").isActive = false,
+        ]
+    }, {
+        id: "prototype_test_run_effect",
+        passage: "Meal Prototype Test Run Effect",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("prototype_test_run_effect").isActive = false,
+        ]
+    }, {
+        id: "more_time_needed",
+        passage: "Meal More Time Needed",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("more_time_needed").isActive = false,
+        ]
+    }, {
+        id: "landlord_help_awkward",
+        passage: "Meal Landlord Help Awkward",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("landlord_help_awkward").isActive = false,
+        ]
+    }, {
+        id: "mom_has_it_tough",
+        passage: "Meal Mom Has It Tough",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("mom_has_it_tough").isActive = false,
+        ]
+    }, {
+        id: "mom_has_it_tough_again",
+        passage: "Meal Mom Has It Tough Again",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("mom_has_it_tough_again").isActive = false,
+        ]
+    }, {
+        id: "false_sympathie",
+        passage: "Meal False Sympathie",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("false_sympathie").isActive = false,
+        ]
+    }, {
+        id: "class_project",
+        passage: "Meal Class Project",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("class_project").isActive = false,
+        ]
+    }, {
+        id: "struggling_student",
+        passage: "Meal Struggling Student",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("struggling_student").isActive = false,
+        ]
+    }, {
+        id: "party_animal",
+        passage: "Meal Party Animal",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("party_animal").isActive = false,
+        ]
+    }, {
+        id: "sister_diner_tutor",
+        passage: "Meal Sister Diner Tutor",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("sister_diner_tutor").isActive = false,
+        ]
+    }, {
+        id: "sister_internship",
+        passage: "Meal Sister Internship",
+        isActive: false,
+        mealType: ["breakfast", "lunch", "dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [   
+        ],
+        set: [
+            () => setup.getMealById("sister_internship").isActive = false,
+        ]
+    },
+]>>
+
+
+/* Meal Logic */
+
+<<set setup.getMealById = (id) => {
+    let result = null;
+    State.variables.meals.forEach((meal) => {
+        if(meal.id == id) {
+            result = meal;
+        }
+    });
+    return result;
+}>>
+
+<<set setup.getImportantMeals = () => {
+    let result = [];
+    State.variables.meals.forEach((meal) => {
+        if(meal.isImportant) {
+            result.push(meal);
+        }
+    });
+    return result;
+}>>
+
+<<set setup.getActiveMeals = () => {
+    let result = [];
+    State.variables.meals.forEach((meal) => {
+        if(meal.isActive) {
+            result.push(meal);
+        }
+    });
+    return result;
+}>>
+
+<<set setup.isMealEligible = (meal) => {
+    const dayTypeToday = State.variables.date.today.value < 5 ? "weekday" : "weekend";
+
+    if (!meal.dayType.includes(dayTypeToday)) return false;
+    if (!meal.mealType.includes(State.variables.mealType)) return false;
+    if (meal.lastSeen >= 0 && meal.lastSeen + meal.cooldown > State.variables.date.dayCount) return false;
+    if (meal.once && meal.lastSeen >= 0) return false;
+
+    // everyone listed in 'present' must be home
+    if (!meal.present.every(who => State.variables[who].flags.isHome)) return false;
+
+    // everyone at home must be listed in 'present'
+    if ([State.variables.mom.sysName, State.variables.sister.sysName].some(who => State.variables[who].flags.isHome && !meal.present.includes(who))) return false;
+
+    return meal.requirements.every(req => req());
+}>>
+
+<<set setup.pickMeal = () => {
+    let meals = setup.getImportantMeals().filter(meal => meal.isActive && setup.isMealEligible(meal));
+    
+    if (meals.length == 0) {
+        meals = setup.getActiveMeals().filter(setup.isMealEligible);
+    }
+    
+    if (meals.length == 0) {
+        return setup.getMealById("default");
+    }
+
+    return meals[random(0, meals.length - 1)];
+}>>
+
+/* Meal reminders ==============================================================
+   setup.getPendingMealTypes([types])  the meal types ("breakfast", "lunch", "dinner") at which an active
+                                       important meal can still play today. Checks the day type, "once"/cooldown
+                                       and requirements, not who is home (that changes during the day).
+                                       Lunch only happens on weekends (Lunch micro event), so it's skipped on weekdays.
+   setup.formatMealList(types)         ["breakfast", "dinner"] -> "breakfast and dinner"
+   Used by the Daily Update reminder and the "... is ready!" alerts in PassageReady. */
+<<set setup.getPendingMealTypes = (types) => {
+    const v = State.variables;
+    const weekend = v.date.today.value >= 5;
+    const dayTypeToday = weekend ? "weekend" : "weekday";
+    const candidates = (types || ["breakfast", "lunch", "dinner"]).filter((type) => type !== "lunch" || weekend);
+
+    const pending = setup.getImportantMeals().filter((meal) => {
+        if (!meal.isActive) { return false; }
+        if (!meal.dayType.includes(dayTypeToday)) { return false; }
+        if (meal.once && meal.lastSeen >= 0) { return false; }
+        if (meal.lastSeen >= 0 && meal.lastSeen + meal.cooldown > v.date.dayCount) { return false; }
+        return meal.requirements.every((req) => req());
+    });
+
+    return candidates.filter((type) => pending.some((meal) => meal.mealType.includes(type)));
+}>>
+
+<<set setup.formatMealList = (types) => {
+    if (types.length <= 1) { return types.join(""); }
+    return types.slice(0, -1).join(", ") + " and " + types[types.length - 1];
+}>>

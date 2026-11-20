@@ -1,0 +1,143 @@
+:: Official Product Meeting [event main_quest] {"position":"3700,500"}
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+The second payment comes in a little after nine. I've had the finance panel open since I sat down, so I get to watch the number jump, and I'll admit I refresh it once more just to watch it happen again. $boss.callName paid for his unit, $manager.callName paid for his analysis, and for the first time since I signed the LLC papers, the company account holds more than $sister.callName spends on iced coffee in a year.
+
+Two signed contracts, and somehow I'm not celebrating. I scroll back through both contracts while my own coffee goes cold. One client is the man who used to yell at $mom.callName in front of the whole sixth floor. The other is the man who once made me wipe the same table three times because he didn't like my face. I didn't win either of them with a website or a cold call. I won them because I knew exactly where they were soft, and because I had $company.prototype.name in my pocket while I pushed.
+
+That trick worked twice, and I'd be lying if I said I didn't enjoy it both times. But at this rate I'll run out of people who were mean to me long before I run out of rent.
+
+What I need is something a stranger can buy off a website because a friend at some other company won't shut up about it. And I already have it. /* the handover (The Briefing, The Handover) can come before or after this meeting */<<if setup.questDone("mom_briefing")>>It's sitting in a corner on the sixth floor right now, glowing a soft blue and making $boss.callName feel like a genius every afternoon.<<else>>It's sitting in a padded case under $brian.name's desk right now, finished and paid for, waiting for $mom.callName to carry it up to the sixth floor, where it'll glow a soft blue and make $boss.callName feel like a genius every afternoon.<</if>> It's the gentle build, the one where I decided how high the dial goes.
+
+I type a message into the team chat before I can talk myself into waiting another week.
+
+<<linkreplace "Call everyone into the meeting room">>
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+$ethan.name turns up first, carrying a grocery store sheet cake like it's a newborn. Someone at the bakery has piped CONGRADULATIONS across it in bright blue icing, and he swears that's on them and not on him, which nobody in the room believes. $brian.name follows with his laptop balanced on one forearm, still typing. $darius.name has opened a fresh notebook, and I'm starting to suspect he buys them in bulk. $mom.callName shows up with paper plates and napkins she must have had stashed somewhere, because of course she did, and $sister.callName drops into the chair next to $darius.name with so little subtlety that $mom.callName gives her a long look across the table.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Before anyone says anything boring: cake. We shipped two projects and nobody died. In this economy, that's basically an IPO." },
+{ who: $brian, text: "Technically the second unit almost died. The, uh, the voltage regulator. I fixed it." },
+{ who: $ethan, text: "And that's why we keep you around, buddy." },
+{ text: "$brian.name pushes his glasses up and becomes very interested in the cake." },
+{ who: $player, text: "$mom.callName, you've spent more time with the client than any of us. How's $boss.callName treating his new toy?" },
+{ who: $mom, text: "Oh, he loves it, honey. He shows it to everybody who walks past his office. He calls it his 'secret weapon'. Last Thursday he had three people from accounting in there just to watch the little light blink." },
+{ who: $sister, text: "Wow. A man showing off his gadget to coworkers. Groundbreaking stuff." },
+{ who: $mom, text: "Sweetie." },
+{ who: $sister, text: "What? I'm being supportive!" },
+{ text: "$mom.callName smooths her napkin flat on the table and keeps going, a little quieter." },
+{ who: $mom, text: "He's nicer to me now, actually. Nicer than he ever was when I worked for him. On Monday he asked me if I wanted a coffee. I don't think that man has made a cup of coffee in his entire life." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I could tell her why that is. I cut myself a slice of cake instead and nod at $darius.name.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "The diner's wrapped up as well. $manager.callName read the whole report, which honestly surprised me. He argued with every single recommendation and then said he'd try all of them." },
+{ who: $sister, text: "He already did one! He moved the pie case right next to the register, and now everybody buys pie. And he walks around like it was his idea." },
+{ who: $darius, text: "It was on page four." },
+{ who: $sister, text: "I know! I told him that!" },
+{ text: "She's still laughing at her own outrage after everyone else has stopped, and $darius.name smiles down at his notebook. $mom.callName's long look gets longer." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Get to the point">>
+I let them have their cake for a while. Then I wait until $ethan.name is halfway through his second slice and set my fork down on the plate, and it's funny how quickly a room goes quiet once it's figured out who pays everyone.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So. Two clients, two happy customers, and enough money in the account that I stopped checking it every hour. I'm down to every two hours now." },
+{ who: $ethan, text: "That's growth." },
+{ who: $player, text: "Here's the problem, though. Both of those clients came to us because we already knew them. $mom.callName worked for one, I worked for the other. That's not how you grow a company. I'm running out of people who used to be mean to me." },
+{ who: $sister, text: "Give it time. You're super annoying, you'll make more." },
+{ text: "Even $brian.name laughs at that, a short surprised snort into his sleeve." },
+{ who: $player, text: "What we need is a product. One version, the same specs every time, a price on it and a box nice enough that people want to leave it out on their desk. Something a company we've never even heard of can find, order and plug in without me showing up in person to charm them." },
+{ who: $darius, text: "Which version?" },
+{ text: "He asks before anyone else has even caught up. Of course he does." },
+{ who: $player, text: "The one we built for $boss.callName. It's tested, it's stable, and the client is already bragging about it for free. We clean it up, make it cheaper to build and call it the official $company.prototype.name." },
+{ who: $darius, text: "That unit runs at maybe a third of what you showed us on our first day. I went through the logs. If what we're selling is the effect, why would we sell the weaker one?" },
+{ text: "It's a good question. It's also exactly the question I hoped nobody would ask, coming from exactly the person I expected to ask it. The honest answer is that I'm not handing anyone a dial that goes as high as mine. So I give him the other honest answer." },
+{ who: $player, text: "Because a weak one gets bought and a strong one gets sued. Picture some regional manager who finds the settings and cranks it all the way up before a budget meeting. Somebody walks out of there feeling strange, calls a lawyer, and we're finished. Gentle sells. Gentle is the one you can put in a brochure." },
+{ who: $darius, text: "...So the cap is a liability decision." },
+{ who: $player, text: "The cap is a sleeping-at-night decision." },
+{ text: "He nods slowly and writes something down. I can't read it upside down, and I do try." },
+{ who: $ethan, text: "I'm with the boss on this one. Nobody ever got fired for buying the safe, boring option. That's like half of IT right there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName has been turning her coffee cup in slow quarter circles on the table. She does it until she notices me watching, and then she stops.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey, who's going to buy it, though? Selling something to a stranger is a lot different from selling it to someone who already knows you." },
+{ who: $player, text: "That's where you come in." },
+{ who: $mom, text: "Me?" },
+{ who: $player, text: "You spent years in that tower being nice to people who didn't deserve it. You know half the managers in there by their first names, and $boss.callName has been walking our ad around the sixth floor for weeks." },
+{ who: $mom, text: "Well, I... I suppose I could make a few calls. I still have everyone's numbers. Linda from HR always said if I ever needed anything, anything at all..." },
+{ text: "She trails off and frowns at the cup." },
+{ who: $mom, text: "She probably didn't mean something like this. But she did say anything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hand out the work">>
+I go around the table. $brian.name gets the hardware, again. The unit we sent $boss.callName has four hand-soldered boards and one wire that he refers to, with real affection, as 'the bad wire', and none of that is going to survive a production run.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "So, uh. Fewer parts. Off-the-shelf where I can get away with it. And a, a housing that doesn't look like I made it in my garage." },
+{ who: $player, text: "Did you make it in your garage?" },
+{ who: $brian, text: "...Partially." },
+{ who: $player, text: "$ethan.name, the software. Same firmware, but locked down. No hidden menus, no debug mode, no way for some bored IT guy to change anything I don't want changed. The client gets an app with a nice big on button and a few pretty graphs." },
+{ who: $ethan, text: "So you want me to take out all the fun stuff. Got it. I'll make it so boring nobody even bothers trying to hack it." },
+{ who: $player, text: "$darius.name, everything we collected at the diner and at $boss.callName's office goes into a product sheet. I want something a CFO reads and just quietly nods along to." },
+{ who: $darius, text: "Real numbers?" },
+{ who: $player, text: "Real numbers. Presented nicely." },
+{ text: "He almost smiles. I'm not sure I like that better than a frown." },
+{ who: $player, text: "$mom.callName, the client list. Everybody you know who runs an office, a team, a front desk, anything with stressed people in it." },
+{ who: $mom, text: "That's... a lot of people, sweetheart." },
+{ who: $player, text: "Then we're in the right business." },
+{ who: $sister, text: "And me? Please say marketing. I have a great eye for fonts." },
+{ who: $player, text: "You get social media and the website." },
+{ who: $sister, text: "Yes! Okay, okay, then we need a name. $company.prototype.name Lite. $company.prototype.name Zen. Ooh, wait. $company.prototype.name Vibes." },
+{ who: $player, text: "It's $company.prototype.name. The official one." },
+{ who: $sister, text: "Ugh, you're so corporate. Fine. 'Official'. I'll make it sound sexy anyway." },
+{ who: $brian, text: "Please don't make the hardware sound sexy." },
+{ who: $sister, text: "$brian.name. I'm going to make your circuit boards sound so sexy." },
+{ text: "$brian.name goes red all the way up to his ears and starts typing again, very fast, at nothing in particular." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Chairs roll back and the meeting falls apart into three smaller ones. $ethan.name and $brian.name are already arguing about whether a charging port counts as a design choice, $mom.callName is scrolling through her contacts with her lips moving, and $darius.name tucks his notebook under his arm and holds the door for her.
+
+$sister.callName is the last one out. She stops in the doorway with one hand on the frame.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hey. You were kind of good at that. The whole boss thing." },
+{ who: $player, text: "Kind of?" },
+{ who: $sister, text: "Don't push it." },
+{ text: "She taps the frame twice, like she's about to add something else. Then she's gone, and the door swings half shut behind her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+All that's left of the cake is ULATIONS and a plastic knife. Out in the main room, behind the vent, the real $company.prototype.name hums along at a setting nobody who just walked out of here has ever seen on a screen.
+
+I pull the laptop over and start the product spec. Most of it writes itself: dimensions, power draw, the exact shade of blue for the light, which I spend an embarrassing twenty minutes on. When I get to the line for maximum output I sit with the cursor blinking for a while. Then I type in a number a little lower than the one on $boss.callName's unit, and I save the file.
+
+<<UpdateStat "+" "Reputation" 5>>
+<<UpdateStat "+" "Morale" 5>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "+" "SisterRelation" 2>>
+<<ProfileLog $mom "Calling in Favors" "She agreed to go through every contact from her old job and pitch them the official $company.prototype.name. She told herself Linda from HR would have wanted her to call.">>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

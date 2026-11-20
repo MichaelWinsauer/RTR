@@ -1,0 +1,21 @@
+:: Help Meals [nobr] {"position":"175,4875"}
+<p>The family eats together in the <b>Kitchen</b>, and you're welcome to join them:</p>
+<div class="help-values">
+	<span>Breakfast: <<= $timeSlots[$microEvents[0].conditions.whenTime[0]].text>></span>
+	<span>Lunch: <<= $timeSlots[$microEvents[1].conditions.whenTime[0]].text>>, weekends only</span>
+	<span>Dinner: <<= $timeSlots[$microEvents[2].conditions.whenTime[0]].text>></span>
+</div>
+<p>Go to the kitchen at that time and click <b>Join them</b>. A meal takes <b>1 action</b>, and you can join each meal once a day. Who sits at the table depends on who is home, and the conversation changes with it. Meals are a cheap way to spend time with the family, and a good one often raises someone's Relation.</p>
+
+<h3>Meals you shouldn't miss</h3>
+<p>After some moments in the story, the next meal is a special one: the family talks about what just happened. These meals only happen once. The game reminds you about them:</p>
+<ul>
+	<li>When a new day starts, a notice tells you at which meals to eat with your family today.</li>
+	<li>"Breakfast is ready! You should eat with your family." when the meal is ready (if meal notifications are on in the <b>Settings</b>).</li>
+	<li>The <b>Wait for ...</b> <a href="#" data-help="Help Time And Actions">quick link</a> lights up.</li>
+</ul>
+<p>Skipping one doesn't lock you out of anything for good: it waits for the next meal it fits.</p>
+
+<h3>Eating alone</h3>
+<p>The kitchen always has the fridge for a snack, and at meal times when there is no family meal you can throw something together yourself. Cooking takes two actions and keeps nobody company.</p>
+<div class="help-note">The meal notifications are off by default. Turn them on in the Settings if you keep forgetting to eat.</div>

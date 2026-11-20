@@ -1,0 +1,17 @@
+:: Profile Recollection [nobr] {"position":"2775,1050","size":"100,100"}
+<h4 class="pf-label">Memories</h4>
+<<if _p.memories.length == 0>>
+	<p class="pf-empty">Nothing recorded yet.</p>
+<<else>>
+<ul class="pf-memories">
+	<<for _memory range _p.memories.slice().reverse()>>
+		<li>
+			<div class="pf-mem-head">
+				<b><<= wikifyText(_memory.title)>></b>
+				<span>Day <<= _memory.when>></span>
+			</div>
+			<p><<= wikifyText(_memory.text)>></p>
+		</li>
+	<</for>>
+</ul>
+<</if>>

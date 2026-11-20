@@ -1,0 +1,809 @@
+:: CMD Schedule [nobr] {"position":"2100,3225","size":"100,200"}
+<<CalculateFinances>>
+<<script>>
+/* Which cells are free comes from her routine (setup.isTaskRow), what a locked cell shows from today's
+   plan (setup.getPlan). Tasks are not written into the plan: Define Schedule lays them on top. */
+
+/* Scheduled tasks ==========================================================================
+   window.placeTask(task, startRow, saveToState)   checks the slot, stores the entry, draws it
+   window.renderTaskElement(entry [, isNew])        draws one $activeTasks entry as a block in the grid
+   window.removeScheduledTask(sysName, entryId)     takes an entry off the schedule and redraws
+   window.getTaskBlockState(entry, live)            "now" | "done" | "missed" | "rest" | "low" | "past" | ""
+                                                    ("rest": a task with a cooldown that rests today, Define Tasks)
+
+   A block shows the title, the place, the energy cost, the revenue, whether I have to be there
+   and the state of today's run. Its layout depends on its height (st-rows-1, -2, -3 for 3+). */
+/* On weekends nobody works, so the grid shows the plan for Monday instead (cells, tasks and placing all use
+   Monday's routine), with a note above it. Otherwise all cells would be locked and the planned tasks would vanish.
+   window.schedulePlanDay()   the weekday whose routine the grid shows: today, or Monday (0) on weekends */
+window.schedulePlanDay = function () {
+    const today = State.variables.date.today.value;
+    return today < 5 ? today : 0;
+};
+
+window.placeTask = function (task, startRow, saveToState) {
+    const character = task.who;
+    const apCost = task.apCost;
+    const grid = document.getElementById("cmd-schedule-grid");
+    if (!grid) return console.error("Grid missing.");
+    const schedule = State.variables.activeTasks[character.sysName] || [];
+    const endRow = startRow + apCost;
+    for (let r = startRow; r < endRow; r++) {
+        if (!setup.isTaskRow(character.sysName, r, window.schedulePlanDay())) {
+            alert("This time slot is locked and cannot be assigned a task!");
+            return;
+        }
+    }
+
+    if (endRow > State.variables.timeSlots.length * State.variables.time.actions.max) {
+        alert("This task doesn't fit in the available time!");
+        return;
+    }
+
+    for (const existing of schedule) {
+        if (startRow < existing.endRow && endRow > existing.startRow) {
+            alert("This time slot is already occupied by another task!");
+            return;
+        }
+    }
+
+    const newTaskEntry = {
+        id: Date.now() + Math.random(),
+        task: task,
+        startRow: startRow,
+        endRow: endRow
+    };
+
+    if (saveToState) {
+        State.variables.activeTasks[character.sysName].push(newTaskEntry);
+    }
+    window.renderTaskElement(newTaskEntry, true);
+    if (saveToState && window.cmdRefreshActions) window.cmdRefreshActions();   /* "Work until ..." card */
+    if (saveToState && window.cmdRefreshHeader) window.cmdRefreshHeader();     /* "Next up" task items */
+};
+
+window.removeScheduledTask = function (sysName, entryId) {
+    State.variables.activeTasks[sysName] = State.variables.activeTasks[sysName].filter(t => t.id !== entryId);
+    $("#cmd-schedule").empty().wiki('<<include "CMD Schedule">>');
+    if (window.cmdRefreshHeader) window.cmdRefreshHeader();   /* "Next up" task items */
+    if (window.cmdRefreshActions) window.cmdRefreshActions();   /* "Work until ..." card */
+};
+
+window.getTaskBlockState = function (entry, live) {
+    const v = State.variables;
+    const day = v.date.dayCount;
+    const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+    if (v.date.today.value >= 5) return "monday";
+    if (entry.missedDay === day) return "missed";
+    if (setup.taskRestsToday(live)) return "rest";
+    if (entry.inProgress && row >= entry.startRow && row < entry.endRow) return "now";
+    if (row >= entry.endRow) {
+        return (live.lastCompletedAt === day && day > 0) ? "done" : "past";
+    }
+    /* it starts as soon as she has the base cost (checkTaskProgression), so only less than that is low */
+    if (v[live.who.sysName].stats.energy < (Number(live.baseEnergyCost) || 0)) return "low";
+    return "";
+};
+
+window.renderTaskElement = function (taskEntry, isNew) {
+    const v = State.variables;
+    const grid = document.getElementById("cmd-schedule-grid");
+    if (!grid) return;
+    const task = taskEntry.task;
+    const live = setup.getLiveTask(task) || task;
+    const sysName = task.who.sysName;
+    const rows = taskEntry.endRow - taskEntry.startRow;
+    for (let r = taskEntry.startRow; r < taskEntry.endRow; r++) {
+        if (!setup.isTaskRow(sysName, r, window.schedulePlanDay())) {
+            console.warn("Skipping invalid saved task that overlaps a locked slot");
+            return;
+        }
+    }
+
+    /* the block covers these rows, so their empty cells go */
+    for (let r = taskEntry.startRow; r < taskEntry.endRow; r++) {
+        const cell = grid.querySelector(`[data-row="${r}"][data-character="${sysName === "mom" ? "Mom" : "Sister"}"]`);
+        if (cell) cell.parentNode.removeChild(cell);
+    }
+
+    const state = window.getTaskBlockState(taskEntry, live);
+    const withMe = setup.isTaskWithPlayer(task);
+    const title = wikifyText(live.title);
+    const place = v.locations[live.location.id] ? wikifyText(v.locations[live.location.id].name) : "";
+    /* the real cost: base plus her morale surcharge (setup.taskEnergyCost, Define Tasks) */
+    const energy = setup.taskEnergyCost(live);
+    const revenue = Number(live.revenue) || 0;
+    const badges = { now: "Now", done: "Done", missed: "Missed", rest: "Rests today", low: "Low energy" };
+
+    const el = document.createElement("div");
+    el.className = "cmd-schedule-task st-rows-" + Math.min(rows, 3)
+        + (state ? " st-" + state : "") + (withMe ? " st-with-me" : "") + (isNew ? " st-new" : "");
+    el.style.gridColumn = sysName === "mom" ? "1" : "2";
+    el.style.gridRowStart = taskEntry.startRow + 1;
+    el.style.gridRowEnd = "span " + rows;
+    el.dataset.row = taskEntry.startRow;
+    el.title = [title, place, rows + (rows === 1 ? " action" : " actions"), energy + " energy",
+        revenue > 0 ? "+$" + revenue : "", withMe ? "with me" : "",
+        state === "rest" ? "rests today, " + setup.taskRestText(live) : setup.taskCooldownText(live)].filter(Boolean).join(" · ");
+
+    const bg = document.createElement("div");
+    bg.className = "st-bg";
+    bg.style.backgroundImage = "url('" + v.path + live.location.img + "')";
+    el.appendChild(bg);
+
+    const body = document.createElement("div");
+    body.className = "st-body";
+
+    const head = document.createElement("div");
+    head.className = "st-head";
+    const titleEl = document.createElement("span");
+    titleEl.className = "st-title";
+    titleEl.textContent = title;
+    head.appendChild(titleEl);
+    const badgeText = badges[state] || (withMe ? "With me" : "");
+    if (badgeText) {
+        const badge = document.createElement("span");
+        badge.className = "st-badge st-badge-" + (badges[state] ? state : "me");
+        badge.textContent = badgeText;
+        /*head.appendChild(badge);*/
+    }
+    body.appendChild(head);
+
+    const info = document.createElement("div");
+    info.className = "st-info";
+    const placeEl = document.createElement("span");
+    placeEl.className = "st-place";
+    placeEl.textContent = place;
+    info.appendChild(placeEl);
+    const meta = document.createElement("span");
+    meta.className = "st-meta";
+    meta.innerHTML = (state === "rest"
+            ? `<span class="st-rest">Rests today</span>`
+            : `<span class="st-energy">${energy} energy</span>`)
+        + (revenue > 0 ? `<span class="st-money">+$${revenue}</span>` : "");
+    info.appendChild(meta);
+    body.appendChild(info);
+    el.appendChild(body);
+
+    /* who she does it with, on blocks tall enough for a face */
+    if (task.npc && task.npc.sysName && rows >= 3) {
+        const avatar = document.createElement("img");
+        avatar.className = "st-avatar";
+        avatar.alt = "";
+        avatar.src = v.path + "images/characters/portraits/" + task.npc.sysName + ".jpg";
+        avatar.onerror = function () { this.style.display = "none"; };
+        el.appendChild(avatar);
+    }
+
+    if (state === "now") {
+        const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+        const progress = document.createElement("div");
+        progress.className = "st-progress";
+        progress.style.setProperty("--st-progress", Math.round((row - taskEntry.startRow) / rows * 100) + "%");
+        /* el.appendChild(progress); */
+    }
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "st-remove";
+    removeBtn.title = "Take it off the schedule";
+    removeBtn.setAttribute("aria-label", "Take " + title + " off the schedule");
+    removeBtn.textContent = "×";
+    removeBtn.onclick = function (ev) {
+        ev.stopPropagation();
+        window.removeScheduledTask(sysName, taskEntry.id);
+    };
+    el.appendChild(removeBtn);
+
+    grid.appendChild(el);
+};
+
+window.setup = window.setup || {};
+setup.renderScheduler = function () {
+    const grid = document.getElementById("cmd-schedule-grid");
+    if (!grid) {
+        console.warn("Scheduler grid not found");
+        return;
+    }
+
+	grid.innerHTML = "";
+    const timeSlots = State.variables.timeSlots;
+    const maxAP = State.variables.time.actions.max;
+
+    for (let i = 0; i < timeSlots.length; i++) {
+       for (let j = 0; j < maxAP; j++) {
+            const rowIndex = i * maxAP + j;
+            const isMomCellLocked = !setup.isTaskRow("mom", rowIndex, window.schedulePlanDay());
+
+            const momCell = document.createElement("div");
+            momCell.className = (isMomCellLocked ? "cmd-schedule-action-locked" : "cmd-schedule-action");
+            momCell.dataset.timeslot = timeSlots[i].text;
+            momCell.dataset.ap = j + 1;
+            momCell.dataset.row = rowIndex;
+            momCell.dataset.character = "Mom";
+
+			if (!isMomCellLocked) {
+                momCell.onclick = () => window.displayTaskSelectionDialog(State.variables.mom, rowIndex);
+            }
+            
+            if (j === maxAP - 1) momCell.style.marginBottom = "2px";
+            
+            if (isMomCellLocked) {
+                const lockedLabel = document.createElement("div");
+                lockedLabel.className = "locked-label";
+                lockedLabel.textContent = window.scheduleCellLabel("mom", rowIndex);
+                momCell.appendChild(lockedLabel);
+            }
+            grid.appendChild(momCell);
+            
+            const isSisterCellLocked = !setup.isTaskRow("sister", rowIndex, window.schedulePlanDay());
+            const sisCell = document.createElement("div");
+            sisCell.className = (isSisterCellLocked ? " cmd-schedule-action-locked" : "cmd-schedule-action");
+            sisCell.dataset.timeslot = timeSlots[i].text;
+            sisCell.dataset.ap = j + 1;
+            sisCell.dataset.row = rowIndex;
+            sisCell.dataset.character = "Sister";
+
+            if (!isSisterCellLocked) {
+                sisCell.onclick = () => window.displayTaskSelectionDialog(State.variables.sister, rowIndex);
+            }
+            
+            if (j === maxAP - 1) sisCell.style.marginBottom = "2px";
+
+            if (isSisterCellLocked) {
+                const lockedLabel = document.createElement("div");
+                lockedLabel.className = "locked-label";
+                lockedLabel.textContent = window.scheduleCellLabel("sister", rowIndex);
+                sisCell.appendChild(lockedLabel);
+            }
+            grid.appendChild(sisCell);
+        }
+    }
+    
+    if (State.variables.activeTasks.mom) {
+        State.variables.activeTasks.mom.forEach(t => window.renderTaskElement(t));
+    }
+    
+    if (State.variables.activeTasks.sister) {
+        State.variables.activeTasks.sister.forEach(t => window.renderTaskElement(t));
+    }
+
+    window.updateCurrentTimeLine();
+};
+
+/* ====================== Task picker ======================================================
+   Clicking a free cell opens a compact list of her unlocked tasks for that action.
+   window.getTaskPlacementIssue(task, startRow, character)   null if it fits there, otherwise the reason
+   window.canPlaceTask(task, startRow, character)            true if it fits
+   window.displayTaskSelectionDialog(character, startRow)    the dialog
+   Rows that fit come first; the others stay visible, dimmed, with the reason. Low energy only warns:
+   tasks repeat every weekday, so a tired day today doesn't stop the plan. */
+/* "Kitchen cooking": where today's plan has her in that row */
+window.scheduleCellLabel = function (sysName, row) {
+    /* today's plan says nothing about Monday */
+    if (State.variables.date.today.value >= 5) return "";
+    const cell = setup.getPlan(sysName).rows[row];
+    const loc = cell && setup.getLocationBySysName(cell.location);
+    if (!loc) return "";
+    return wikifyText(loc.name) + " " + setup.activityText(sysName, cell.activity);
+};
+
+window.scheduleRowLabel = function (row) {
+    const maxAP = State.variables.time.actions.max;
+    const slot = State.variables.timeSlots[Math.floor(row / maxAP)];
+    return (slot ? slot.text : "?") + " " + (row % maxAP + 1);
+};
+
+window.getTaskPlacementIssue = function (task, startRow, character) {
+    const v = State.variables;
+    const maxAP = v.time.actions.max;
+    const timeslot = Math.floor(startRow / maxAP);
+    if (!task.startTime.includes(timeslot)) {
+        return "Only starts in the " + task.startTime.map(t => v.timeSlots[t].text).join(", ");
+    }
+
+    const endRow = startRow + task.apCost;
+    if (endRow > v.timeSlots.length * maxAP) return "Runs past the end of the day";
+
+    for (let r = startRow; r < endRow; r++) {
+        if (!setup.isTaskRow(character.sysName, r, window.schedulePlanDay())) {
+            const busy = window.scheduleCellLabel(character.sysName, r);
+            return "She's busy at " + window.scheduleRowLabel(r) + (busy ? " (" + busy + ")" : "");
+        }
+    }
+
+    for (const existing of (v.activeTasks[character.sysName] || [])) {
+        if (startRow < existing.endRow && endRow > existing.startRow) {
+            return "Overlaps " + wikifyText(existing.task.title);
+        }
+    }
+
+    /* Tasks with me can't overlap across both columns: I can only be in one scene at a time */
+    if (setup.isTaskWithPlayer(task)) {
+        const other = character.sysName === "mom" ? "sister" : "mom";
+        for (const existing of (v.activeTasks[other] || [])) {
+            if (setup.isTaskWithPlayer(existing.task) && startRow < existing.endRow && endRow > existing.startRow) {
+                return "I'm with " + v[other].callName + " then (" + wikifyText(existing.task.title) + ")";
+            }
+        }
+    }
+    return null;
+};
+
+window.canPlaceTask = function (task, startRow, character) {
+    return window.getTaskPlacementIssue(task, startRow, character) === null;
+};
+
+window.displayTaskSelectionDialog = function (character, selectedStart) {
+    const v = State.variables;
+    const npc = v[character.sysName];
+    const tasks = v.tasks
+        .filter(task => task.active && task.who.sysName === character.sysName)
+        .map(task => ({ task: task, issue: window.getTaskPlacementIssue(task, selectedStart, character) }));
+    /* the ones that fit, grouped by where they happen */
+    const placeOf = t => wikifyText(v.locations[t.task.location.id].name);
+    const fits = tasks.filter(t => !t.issue).sort((a, b) => placeOf(a).localeCompare(placeOf(b)));
+    const blocked = tasks.filter(t => t.issue);
+
+    Dialog.setup("Plan a task for " + npc.callName, "task-picker");
+
+    const wrap = document.createElement("div");
+    wrap.className = "tp";
+
+    const energy = Math.round(npc.stats.energy);
+    wrap.innerHTML = `
+        <div class="tp-kicker">${window.scheduleRowLabel(selectedStart)}</div>
+        <div class="tp-head">
+            <img class="tp-head-avatar" src="${v.path}images/characters/portraits/${npc.sysName}.jpg" alt="">
+            <div class="tp-head-text">
+                <div class="tp-title">What should ${npc.callName} do?</div>
+                <div class="tp-sub">
+                    <span class="tp-sub-energy">Energy ${energy}/${npc.stats.max.energy}</span>
+                </div>
+            </div>
+        </div>`;
+
+    const list = document.createElement("div");
+    list.className = "tp-list";
+    fits.forEach(t => list.appendChild(window.displaySingleTask(t.task, selectedStart, null)));
+    if (blocked.length) {
+        const divider = document.createElement("div");
+        divider.className = "tp-divider";
+        divider.textContent = "Not possible here";
+        list.appendChild(divider);
+        blocked.forEach(t => list.appendChild(window.displaySingleTask(t.task, selectedStart, t.issue)));
+    }
+    if (!tasks.length) {
+        const empty = document.createElement("div");
+        empty.className = "tp-empty";
+        empty.textContent = npc.callName + " has no tasks unlocked yet.";
+        list.appendChild(empty);
+    }
+    wrap.appendChild(list);
+
+    Dialog.append(wrap);
+    Dialog.open();
+};
+
+/* One row of the picker: picture of the place with the portrait of who she does it with; title and badges,
+   the place on its own line, then the description (or why it can't go here); on the right the pay, the
+   length and the energy it costs. issue = why it can't go here, or null */
+window.displaySingleTask = function (task, selectedStart, issue) {
+    const v = State.variables;
+    const live = setup.getLiveTask(task);
+    const npc = v[task.who.sysName];
+    const lowEnergy = npc.stats.energy < (Number(task.baseEnergyCost) || 0);
+    const withMe = setup.isTaskWithPlayer(task);
+
+    const row = document.createElement(issue ? "div" : "button");
+    if (!issue) row.type = "button";
+    row.className = "tp-row" + (issue ? " tp-row-blocked" : "") + (withMe ? " tp-row-me" : "");
+
+    const place = wikifyText(v.locations[task.location.id].name);
+
+    let meText = "";
+    if (withMe) {
+        const where = (live.withPlayer.where && live.withPlayer.where.length) ? live.withPlayer.where : [ live.location.id ];
+        meText = "I have to be at " + where.map(id => wikifyText(v.locations[id].name)).join(" or ") + " when it starts";
+    }
+
+    const badges = [];
+    if (withMe) badges.push(`<span class="tp-badge tp-badge-me" title="${meText}">With me</span>`);
+    const cooldownText = setup.taskCooldownText(task);
+    if (cooldownText) badges.push(`<span class="tp-badge" title="On the days in between it rests, and she follows her routine instead.">${cooldownText}</span>`);
+    if (lowEnergy && !issue) badges.push(`<span class="tp-badge tp-badge-warn" title="She has less energy than it costs. It won't start until she has enough.">Low energy</span>`);
+
+    row.innerHTML = `
+        <span class="tp-thumb" style="background-image: url('${v.path + task.location.img}')">
+            <img class="tp-npc" src="${v.path}images/characters/portraits/${task.npc.sysName}.jpg" alt="" onerror="this.remove()">
+        </span>
+        <span class="tp-main">
+            <span class="tp-line">
+                <span class="tp-name">${wikifyText(task.title)}</span>
+                ${badges.join("")}
+            </span>
+            <span class="tp-place">${place}</span>
+            ${issue ? `<span class="tp-issue">${issue}</span>`
+                : (task.description ? `<span class="tp-desc">${wikifyHTML(task.description)}</span>` : (withMe ? `<span class="tp-desc">${meText}</span>` : ""))}
+        </span>
+        <span class="tp-side">
+            ${task.revenue > 0 ? `<span class="tp-money">+$${task.revenue}</span>` : `<span class="tp-money tp-money-none">no pay</span>`}
+            <span class="tp-cost">${task.apCost} ${task.apCost === 1 ? "action" : "actions"}</span>
+            <span class="tp-cost${lowEnergy && !issue ? " tp-cost-warn" : ""}" title="${task.baseEnergyCost} plus ${setup.taskEnergyCost(task, npc) - (Number(task.baseEnergyCost) || 0)} for her missing morale">${setup.taskEnergyCost(task, npc)} energy</span>
+        </span>`;
+
+    if (!issue) {
+        row.onclick = () => {
+            Dialog.close();
+            window.placeTask(task, selectedStart, true);
+        };
+    }
+    return row;
+};
+
+window.updateCurrentTimeLine = function () {
+    setTimeout(() => {
+        const grid = document.getElementById("cmd-schedule-grid");
+        if (!grid) return;
+        /* the weekend grid shows Monday, so there is no "now" on it */
+        if (State.variables.date.today.value >= 5) {
+            grid.classList.remove("has-time-line");
+            return;
+        }
+        const timeSlots = State.variables.timeSlots;
+        const maxAP = State.variables.time.actions.max;
+        const currentSlotText = State.variables.time.current.text;
+        const actionsSpent = State.variables.time.actions.max - State.variables.time.actions.left;
+        const currentSlotIndex = timeSlots.findIndex(slot => slot.text === currentSlotText);
+        if (currentSlotIndex === -1) {
+            grid.classList.remove("has-time-line");
+            return;
+        }
+        const currentGlobalRow = currentSlotIndex * maxAP + actionsSpent;
+        const gridRect = grid.getBoundingClientRect();
+        const totalRows = timeSlots.length * maxAP;
+        const rowHeight = gridRect.height / totalRows;
+        const lineTop = (currentGlobalRow * rowHeight) + (rowHeight / 2);
+        grid.style.setProperty('--time-line-top', lineTop + 'px');
+        grid.classList.add("has-time-line");
+    }, 120);
+};
+<</script>>
+
+<<if $date.today.value >= 5>><div class="cmd-schedule-weekend">Weekend: nobody works today. This is the plan for Monday.</div><</if>>
+<div id="cmd-schedule-grid" class="cmd-schedule-grid"></div>
+
+<<run setTimeout(() => setup.renderScheduler(), 100)>>
+
+<style>
+/* the note above the grid on weekends (window.schedulePlanDay) */
+/* laid over the top of the grid: taking up space would push the rows out of line with the time labels */
+.cmd-schedule-weekend {
+  position: absolute;
+  top: .4rem;
+  left: .5rem;
+  right: .5rem;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(34, 34, 46, .85);
+  padding: .3rem .6rem;
+  font-size: .7rem;
+  color: #EBDDC5;
+  border: 1px dashed #EBDDC540;
+  border-radius: .4rem;
+  text-align: center;
+}
+.cmd-schedule-task.st-monday { opacity: .7; }
+
+/* ====================== Task picker (displayTaskSelectionDialog) ====================== */
+/* frame like the task offer dialog: no SugarCube title bar, a round close button in the corner */
+#ui-dialog:has(#ui-dialog-body.task-picker) {
+  width: 46rem;
+  max-width: 94vw;
+  top: 8vh;
+}
+
+#ui-dialog:has(#ui-dialog-body.task-picker) #ui-dialog-titlebar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  width: 1.9rem;
+  height: 1.9rem;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+}
+
+#ui-dialog:has(#ui-dialog-body.task-picker) #ui-dialog-title {
+  display: none;
+}
+
+#ui-dialog:has(#ui-dialog-body.task-picker) #ui-dialog-close {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  font-size: .75rem;
+  color: #EBDDC5;
+  border: 1px solid #EBDDC535;
+  border-radius: 50%;
+  background-color: #EBDDC510;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+#ui-dialog:has(#ui-dialog-body.task-picker) #ui-dialog-close:hover {
+  background-color: #EBDDC530;
+  border-color: #EBDDC5;
+}
+
+#ui-dialog-body.task-picker {
+  height: auto !important;
+  max-height: 84vh;
+  padding: 1.3rem 1.4rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  font-family: "Manrope", sans-serif;
+  color: #EBDDC5;
+  background-color: rgba(34, 34, 46, .78);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+}
+
+.tp {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  min-height: 0;
+  text-align: left;
+}
+
+.tp-kicker {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding-right: 2.6rem;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #EAAF4C;
+}
+
+.tp-kicker::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #EBDDC540, transparent);
+}
+
+.tp-head {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+
+.tp-head-avatar {
+  width: 2.8rem;
+  height: 2.8rem;
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 2px solid #EBDDC5 !important;
+  border-radius: 50%;
+}
+
+.tp-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tp-sub {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-top: .2rem;
+  font-size: .78rem;
+}
+
+.tp-sub > span:first-child { opacity: .65; }
+
+.tp-sub-energy {
+  padding: .05rem .5rem;
+  font-size: .7rem;
+  font-weight: 700;
+  border: 1px solid #EBDDC530;
+  border-radius: 999px;
+  opacity: .8;
+}
+
+.tp-list {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  min-height: 0;
+  max-height: 62vh;
+  margin-right: -.4rem;
+  padding-right: .4rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(235, 221, 197, .3) transparent;
+}
+
+/* a row: [picture + who] [title, badges / place / description] [pay / actions / energy] */
+.tp-row {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr auto;
+  align-items: center;
+  gap: .9rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: .45rem .8rem .45rem .45rem;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: #EBDDC50a;
+  border: 1px solid #EBDDC51f;
+  border-radius: .7rem;
+  cursor: pointer;
+  transition: background-color .12s ease, border-color .12s ease, transform .12s ease;
+}
+
+.tp-row:hover, .tp-row:focus-visible {
+  background: #EBDDC51a;
+  border-color: #EBDDC566;
+  outline: none;
+  transform: translateX(2px);
+}
+
+.tp-row-blocked {
+  cursor: default;
+  opacity: .5;
+}
+
+.tp-row-blocked:hover {
+  background: #EBDDC50a;
+  border-color: #EBDDC51f;
+  transform: none;
+}
+
+.tp-row-blocked .tp-thumb { filter: grayscale(1); }
+
+.tp-thumb {
+  position: relative;
+  display: block;
+  width: 5.2rem;
+  height: 3.4rem;
+  background-size: cover;
+  background-position: center;
+  border-radius: .45rem;
+}
+
+.tp-npc {
+  position: absolute;
+  right: -.35rem;
+  bottom: -.35rem;
+  width: 1.65rem;
+  height: 1.65rem;
+  object-fit: cover;
+  border: 2px solid #2a2a36 !important;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #EBDDC5;
+}
+
+.tp-main {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  min-width: 0;
+}
+
+.tp-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.tp-name {
+  font-size: .98rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.tp-badge {
+  padding: .05rem .45rem;
+  font-size: .55rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid #EBDDC540;
+  border-radius: 999px;
+}
+
+.tp-badge-me { color: #EAAF4C; border-color: #EAAF4C80; }
+.tp-badge-warn { color: #ff6479; border-color: #ff647980; }
+
+.tp-place {
+  font-size: .76rem;
+  opacity: .7;
+}
+
+/* a little air between the place and the description */
+.tp-place + .tp-desc, .tp-place + .tp-issue { margin-top: .35rem; }
+
+.tp-desc, .tp-issue {
+  font-size: .72rem;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tp-desc { opacity: .55; }
+.tp-desc b { opacity: 1; }
+.tp-issue { color: #ff6479; }
+
+.tp-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .1rem;
+  white-space: nowrap;
+}
+
+.tp-money {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1cd88d;
+}
+
+.tp-money-none {
+  font-size: .72rem;
+  font-weight: 600;
+  color: #EBDDC5;
+  opacity: .4;
+}
+
+.tp-cost {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .5;
+}
+
+.tp-cost-warn {
+  color: #ff6479;
+  opacity: 1;
+}
+
+.tp-divider {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin: .5rem 0 .1rem;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  opacity: .5;
+}
+
+.tp-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #EBDDC530;
+}
+
+.tp-empty {
+  padding: 1.2rem;
+  font-size: .85rem;
+  text-align: center;
+  opacity: .6;
+}
+</style>
+
+

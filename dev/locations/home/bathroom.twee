@@ -1,0 +1,17 @@
+:: Bathroom [location] {"position":"400,1550","size":"100,100"}
+<<CheckLocation>>
+
+The bathroom is spotless, the way a hotel bathroom is spotless. There's a pale stone vanity with a big mirror above it and a small plant on the counter doing its best to pass for personality. A framed print of a seashell hangs by the door, and the floor is that old-school mosaic, white with little black dots that I counted more than once as a kid.
+
+If I need a reset, I can step under the rain shower and [[let the hot water clear my head|Activity Shower]]. And if nature calls, the toilet is right there to [[take a minute and be done with it|Activity Toilet]].
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Hallway]]
+</div>
+<</nobr>>
+
+

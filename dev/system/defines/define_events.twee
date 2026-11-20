@@ -1,0 +1,1164 @@
+:: Define Events [system] {"position":"750,0","size":"100,100"}
+<<set $currentEvent to 0>>
+
+<<set $events to [   
+	{
+    	/* The landlord comes for the rent: from the evening of rent day on, as soon as I am at home or at the office
+           (the rent passages and helpers are explained under The weekly rent in Define Misc). When it starts is
+           decided by $rentDueDay alone, so it is always active and has no cooldown. It returns to where it found me */
+    	id: 0,
+        passage: "Rent Due",
+        returnPassage: "Bedroom",
+        where: ["Bedroom", "Hallway", "Living Room", "Kitchen", "Mom Room", "Sister Room", "Company", setup.getLocationBySysName("companystage1").passage, setup.getLocationBySysName("companystage1desk").passage, setup.getLocationBySysName("companystage1meeting").passage],
+        whenTime: [ 0, 1, 2, 3, 4, 5, 6 ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6 ],
+        requirements: [ "setup.rentIsOverdue()" ],
+        chance: 100,
+        cooldown: 0,
+        once: false,
+        active: true,
+        finished: false,
+        completedAtDay: 0,
+    },
+    {
+    	id: 1,
+        passage: "Mom Bathroom",
+        returnPassage: "Hallway",
+        where: ["Bathroom"],
+        whenTime: [ 0, 1, 2, 3, 4, 5, 6 ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6 ],
+        /* only when her plan has her in the bathroom right now (Define Schedule), then always */
+        requirements: [ "setup.npcIsAt('mom', 'bathroom')" ],
+        chance: 100,
+        cooldown: 0,
+        once: false,
+        active: true,
+        finished: false,
+        completedAtDay: 0,
+    },
+    {
+    	id: 2,
+        passage: "Sister Bathroom",
+        returnPassage: "Hallway",
+        where: ["Bathroom"],
+        whenTime: [ 0, 1, 2, 3, 4, 5, 6 ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6 ],
+        /* only when her plan has her in the bathroom right now (Define Schedule), then always */
+        requirements: [ "setup.npcIsAt('sister', 'bathroom')" ],
+        chance: 100,
+        cooldown: 0,
+        once: false,
+        active: true,
+        finished: false,
+        completedAtDay: 0,
+    },            
+    {
+    	id: 3,
+        passage: "Mom Bed Masturbation",
+        returnPassage: "Hallway",
+        where: [ "Mom Room" ],
+        whenTime: [ 5, ],
+        whenDay: [ 0, 1, 4, 5, 6],
+        chance: 25,
+        cooldown: 0,
+        once: false,
+        active: false,
+        finished: false,
+        completedAtDay: 0,
+    },            
+    {
+    	id: 4,
+        passage: "Sister Bed Masturbation",
+        returnPassage: "Hallway",
+        where: [ "Sister Room" ],
+        whenTime: [ 4, 5, ],
+        whenDay: [ 0, 1, 2, 3, 4, 5, 6],
+        /* she has to be in her room; the chance is set from her stats in PassageReady, like $events[3] */
+        requirements: [ "setup.npcIsAt('sister', 'sisterroom')" ],
+        chance: 10,
+        cooldown: 0,
+        once: false,
+        active: false,
+        finished: false,
+        completedAtDay: 0,
+    },
+]>>
+
+<<set $microEventActive = false>>
+
+/* Micro-event fields:
+   where        location names or sysNames where it can happen ("Kitchen", "My Desk")
+   chance       percent per check, rolled each time a passage of that place renders
+   oncePerDay   at most once a day
+   apCooldown   actions that must pass (on the same day) before it can happen again
+   dayCooldown  optional: days that must pass before it can happen again (2 = not tomorrow, the day after at the
+                earliest). For everyday moments that would wear thin if they came back every day
+   lastSeenDay / lastSeenAP   dayCount and action row (slot * 3 + action) it last happened
+   visitor      optional: makes it a desk visitor instead of an inline event, see "Desk visitors" below
+
+   Micro-event conditions:
+   whenTime  slots 0 Early Morning, 1 Morning, 2 Noon, 3 Afternoon, 4 Evening, 5 Night, 6 Late Night (empty = any time)
+   eval      list of functions, all must return true. Day-of-week (today.value 0-4 = Mon-Fri, 5-6 = weekend) and the
+             NPC's presence (isHome / location.name) are checked here, always against the live State.variables.
+   npc       "mom" / "sister" (a key, not a copy of the character), null if the event does not belong to one */
+<<set $microEvents to [
+    {
+        id: 0,
+        passage: "Breakfast Include",
+        where: [ "Kitchen" ],
+        conditions: {
+            npc: "",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1 ],
+            eval: [],
+        },
+        chance: 100,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0
+    },    
+    {
+        id: 1,
+        passage: "Lunch Include",
+        where: [ "Kitchen" ],
+        conditions: {
+            npc: "",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 3 ],
+            eval: [ () => State.variables.date.today.value >= 5 ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0
+    },        
+    {
+        id: 2,
+        passage: "Dinner Include",
+        where: [ "Kitchen" ],
+        conditions: {
+            npc: "",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 4 ],
+            eval: [],
+        },
+        chance: 100,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0
+    },
+    {
+        id: 3,
+        passage: "Mom Passing Hallway",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3, 4, 5 ],
+            eval: [ () => State.variables.mom.flags.isHome == true ],
+        },
+        chance: 10,
+        oncePerDay: false,
+        apCooldown: 9,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 4,
+        passage: "Sister Passing Hallway",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3, 4, 5 ],
+            eval: [ () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 10,
+        oncePerDay: false,
+        apCooldown: 9,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 5,
+        passage: "Sister Hallway Forgot",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1 ],
+            eval: [ () => State.variables.time.actions.left == 1, () => State.variables.date.today.value <= 4, () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 70,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 6,
+        passage: "Mom Bedroom Clothes",
+        where: [ "Bedroom" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => State.variables.mom.flags.isHome == true ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 7,
+        passage: "Sister Bedroom Borrow",
+        where: [ "Bedroom" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3, 4 ],
+            eval: [ () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 15,
+        oncePerDay: false,
+        apCooldown: 12,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 8,
+        passage: "Sister Sleepy Hallway",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 0 ],
+            eval: [ () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 9,
+        passage: "Sister Phone Living Room",
+        where: [ "Living Room" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3, 4 ],
+            eval: [ () => State.variables.sister.location.name == "Living Room" ],
+        },
+        chance: 18,
+        oncePerDay: false,
+        apCooldown: 10,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 10,
+        passage: "Mom Phone Living Room",
+        where: [ "Living Room" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3, 4 ],
+            eval: [ () => State.variables.mom.location.name == "Living Room" ],
+        },
+        chance: 16,
+        oncePerDay: false,
+        apCooldown: 10,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 11,
+        passage: "Sister Hallway Bump",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3, 4, 5 ],
+            eval: [ () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 14,
+        oncePerDay: false,
+        apCooldown: 8,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 12,
+        passage: "Sister Kitchen Snack",
+        where: [ "Kitchen" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3, 4, 5 ],
+            eval: [ () => State.variables.sister.location.name == "Kitchen" ],
+        },
+        chance: 20,
+        oncePerDay: false,
+        apCooldown: 7,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 13,
+        passage: "Mom Kitchen Wine",
+        where: [ "Kitchen" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 4, 5 ],
+            eval: [ () => State.variables.mom.location.name == "Kitchen" ],
+        },
+        chance: 14,
+        oncePerDay: false,
+        apCooldown: 12,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 14,
+        passage: "Sister Going Shower",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3, 4 ],
+            eval: [ () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 15,
+        oncePerDay: false,
+        apCooldown: 9,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 15,
+        passage: "Mom Going Shower",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 3, 4 ],
+            eval: [ () => State.variables.mom.flags.isHome == true ],
+        },
+        chance: 14,
+        oncePerDay: false,
+        apCooldown: 9,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 16,
+        passage: "Mom Living Room Stretch",
+        where: [ "Living Room" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 4 ],
+            eval: [ () => State.variables.mom.location.name == "Living Room" ],
+        },
+        chance: 12,
+        oncePerDay: false,
+        apCooldown: 12,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 17,
+        passage: "Sister Living Room Stretch",
+        where: [ "Living Room" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3, 4 ],
+            eval: [ () => State.variables.sister.location.name == "Living Room", () => State.variables.date.today.value >= 5 || State.variables.time.current.value >= 2 ],
+        },
+        chance: 14,
+        oncePerDay: false,
+        apCooldown: 12,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 18,
+        passage: "Doorbell Delivery",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3, 4, 5 ],
+            eval: [ () => State.variables.mom.flags.isHome == true || State.variables.sister.flags.isHome == true ],
+        },
+        chance: 6,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 19,
+        passage: "Mom Brushing Teeth",
+        where: [ "Bathroom" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 0, 1, 5, 6 ],
+            eval: [ () => State.variables.mom.flags.isHome == true ],
+        },
+        chance: 40,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 20,
+        passage: "Sister Brushing Teeth",
+        where: [ "Bathroom" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 0, 1, 5, 6 ],
+            eval: [ () => State.variables.sister.flags.isHome == true ],
+        },
+        chance: 40,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    /* Desk visitors (see "Desk visitors" below) ============================== */
+    {
+        id: 21,
+        passage: "Sister Desk Coffee",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "sister",
+            teaser: "$sister.callName is perched on the edge of my desk with two coffees and the face she makes when she wants something.",
+            decline: "I told $sister.callName I was busy. She drank both coffees on the way back to her desk.",
+        },
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => State.variables.date.today.value < 5, () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 30,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 22,
+        passage: "Ethan Desk Visit",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "ethan",
+            teaser: "$ethan.name is hovering next to my desk with his laptop under one arm, grinning like he either fixed something or broke it.",
+            decline: "I waved $ethan.name off. He did a little salute and went back to his desk.",
+        },
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.isOfficeWorkTime(), () => State.variables.company.employees.some((e) => e.sysName === "ethan") ],
+        },
+        chance: 25,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    /* Her excuses to be near me (see "Her excuses to be near me" below) ===== */
+    {
+        id: 23,
+        passage: "Sister Desk Signature",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "sister",
+            teaser: "$sister.callName is standing next to my desk, holding one sheet of paper with both hands like a waiter with a very small tray.",
+            decline: "I told $sister.callName to leave it on my desk. She took it back with her instead.",
+        },
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterSeeksExcuses(), () => State.variables.date.today.value < 5, () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 35,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 24,
+        passage: "Sister Desk Question",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "sister",
+            teaser: "$sister.callName is rolling her chair across the office toward my desk. One of the wheels squeaks the whole way, so the entire room gets to watch.",
+            decline: "I told $sister.callName I was in the middle of something. She rolled her chair back to her desk, a lot slower than she came.",
+        },
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterSeeksExcuses(), () => State.variables.date.today.value < 5, () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 35,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 25,
+        passage: "Sister Desk Late",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "sister",
+            teaser: "Everyone else went home a while ago. $sister.callName didn't, and she's doing a very good job of not noticing.",
+            decline: "I sent $sister.callName home. She said she'd just finish one more thing, and then, for once, she actually went.",
+        },
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 4 ],
+            eval: [ () => setup.sisterSeeksExcuses(), () => State.variables.date.today.value < 5, () => setup.sisterWorkedHereToday(), () => !setup.npcIsAt("mom", "companystage1") ],
+        },
+        chance: 50,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 26,
+        passage: "Sister Office New Spot",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterSeeksExcuses(), () => !State.variables.sister.flags.movedDesk, () => State.variables.date.today.value < 5, () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 60,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 27,
+        passage: "Sister Office Coffee",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterSeeksExcuses(), () => State.variables.date.today.value < 5, () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 30,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    /* Her rounds through the office (see "Her rounds" below) ================= */
+    {
+        id: 28,
+        passage: "Sister Office Coffee Round",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterMakesRounds() ],
+        },
+        chance: 25,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 29,
+        passage: "Sister Office Brian",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterMakesRounds("brian") ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 30,
+        passage: "Sister Office Ethan",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterMakesRounds("ethan") ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 31,
+        passage: "Sister Office Darius",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.sisterMakesRounds("darius") ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    /* A normal workday (see "A normal workday" below) ========================= */
+    {
+        id: 32,
+        passage: "Mom Desk Lunch",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "mom",
+            teaser: "$mom.callName is standing next to my desk with the lunch bag from home in both hands, the one with the broken zipper.",
+            decline: "I told $mom.callName I'd eat later. She left the blue container on the corner of my desk anyway, with a fork balanced on the lid.",
+        },
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2 ],
+            eval: [ () => setup.momWorksHere() ],
+        },
+        chance: 30,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 33,
+        passage: "Mom Desk Calendar",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "mom",
+            teaser: "$mom.callName is waiting at my desk with her tablet pressed to her chest and the smile she gets right before she reorganizes somebody's life.",
+            decline: "I told $mom.callName to send it to me. She did, with three exclamation marks and a smiley, which is how I know she's a little hurt.",
+        },
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.momWorksHere() ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        dayCooldown: 5,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 34,
+        passage: "Mom Desk Boss Call",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "mom",
+            teaser: "$mom.callName is coming toward my desk holding her phone away from her body, the way you'd carry something that might still bite.",
+            decline: "I waved $mom.callName off. She took the call in the meeting room, with the door shut.",
+        },
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.momWorksHere(), () => setup.getTaskById("task_mom_client_consultant").count > 0 ],
+        },
+        chance: 18,
+        oncePerDay: true,
+        dayCooldown: 6,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 35,
+        passage: "Brian Desk Vent",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "brian",
+            teaser: "$brian.name is hovering a few feet from my desk with a multimeter in one hand. He's looking at the ceiling, not at me.",
+            decline: "I told $brian.name I was busy. He nodded at the carpet and went back to his corner, and twice that afternoon I caught him looking up at the vent.",
+        },
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.officeWorkday("brian"), () => State.variables.company.vent.level > 0, () => !State.variables.flags.brianAskedAboutVent ],
+        },
+        chance: 15,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 36,
+        passage: "Darius Desk Numbers",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "darius",
+            teaser: "$darius.name is standing at my desk with a single printout and the look of a man who has one very precise question.",
+            decline: "I told $darius.name I'd look at it later. He left the printout face down on my desk, squared neatly to the edge.",
+        },
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.officeWorkday("darius"), () => State.variables.date.dayCount >= setup.getQuestById("main_tooMuchWork").doneDay + 7, () => !State.variables.flags.dariusAskedAboutNumbers ],
+        },
+        chance: 15,
+        oncePerDay: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 37,
+        passage: "Sister Desk Flashcards",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "sister",
+            teaser: "$sister.callName is fanning a stack of index cards at me from across the desk, like the world's worst poker player.",
+            decline: "I told $sister.callName I was busy. She quizzed $brian.name instead. He got every single one right and looked miserable about it.",
+        },
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.officeWorkday("brian"), () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 25,
+        oncePerDay: true,
+        dayCooldown: 4,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 38,
+        passage: "Mom Office Plants",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.momWorksHere() ],
+        },
+        chance: 15,
+        oncePerDay: true,
+        dayCooldown: 6,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 39,
+        passage: "Mom Office Staff",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.momWorksHere() ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        dayCooldown: 4,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 40,
+        passage: "Mom Office Vent",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.momWorksHere(), () => State.variables.company.vent.level > 0 ],
+        },
+        chance: 12,
+        oncePerDay: true,
+        dayCooldown: 7,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 41,
+        passage: "Mom Office Blouse",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.momWorksHere(), () => setup.questDone("mom_briefing") ],
+        },
+        chance: 18,
+        oncePerDay: true,
+        dayCooldown: 5,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 42,
+        passage: "Sister Office Printer",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.officeWorkday("brian"), () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 15,
+        oncePerDay: true,
+        dayCooldown: 5,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 43,
+        passage: "Sister Office Mom",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.momWorksHere(), () => setup.npcIsAt("sister", "companystage1") ],
+        },
+        chance: 18,
+        oncePerDay: true,
+        dayCooldown: 5,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 44,
+        passage: "Staff Office Argument",
+        where: [ "companystage1" ],
+        conditions: {
+            npc: null,
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.officeWorkday("ethan"), () => setup.officeWorkday("brian"), () => setup.officeWorkday("darius") ],
+        },
+        chance: 15,
+        oncePerDay: true,
+        dayCooldown: 6,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+]>>
+
+/* A normal workday ===========================================================
+   Stage 1: small moments at the office while the staff is in (micro events 32 to 44): desk visitors from $mom, the
+   staff and $sister, and inline moments in the main room. They are everyday things, so most of them come back only
+   every few days (dayCooldown), and several change with her corruption stage or how far her quest line is. Two of
+   them happen once ($flags.brianAskedAboutVent, $flags.dariusAskedAboutNumbers, set in their passages, so a visit
+   that was waved off can come back).
+   setup.officeWorkday([who])   after Too Much Work, a weekday during work hours (and, with a sysName, that
+                                employee works here)
+   setup.momWorksHere()         a workday, and she is at my office at her own desk (activity working, so not in
+                                the middle of a task with me) */
+<<set setup.officeWorkday = (who) => {
+    const v = State.variables;
+    if (!setup.questDone("main_tooMuchWork") || !setup.isOfficeWorkTime()) { return false; }
+    return !who || v.company.employees.some((e) => e.sysName === who);
+}>>
+
+<<set setup.momWorksHere = () => {
+    return setup.officeWorkday() && setup.npcIsAt("mom", "companystage1") && setup.npcNow("mom").activity === "working";
+}>>
+
+/* Her rounds =================================================================
+   Stage 1, sister line: after Mostly Done (sister_mostlyDone) she is at the office from Noon on, and I told her to
+   spend that time with the staff: talk to them, keep them company, bring everyone coffee. Micro events 28 to 31 show
+   it in the main room while the staff is in (a coffee round, and one visit each to $brian, $ethan and $darius).
+   They change the company Morale a little, and some of them let me call her back to my side.
+   setup.sisterMakesRounds([who])   true when she is at the office during work hours after Mostly Done (and, with
+                                    a sysName, that employee works here) */
+<<set setup.sisterMakesRounds = (who) => {
+    const v = State.variables;
+    if (!setup.questDone("sister_mostlyDone") || !setup.isOfficeWorkTime()) { return false; }
+    if (!setup.npcIsAt("sister", "companystage1")) { return false; }
+    return !who || v.company.employees.some((e) => e.sysName === who);
+}>>
+
+/* Her excuses to be near me ===================================================
+   Stage 1, sister line: from sister_waitSupportiveSister until sister_itMakesADifference is done she keeps finding
+   reasons to be around me at the office (micro events 23 to 27: three desk visitors, two inline events in the main
+   room). Each one that plays out counts in $sister.flags.officeExcuses, and sister_waitSupportiveSister waits for
+   a few of them (its check in Define Quests), so the next scene never comes before the player has seen her doing it.
+   setup.sisterSeeksExcuses()      true while that stretch of her line runs
+   setup.sisterWorkedHereToday()   her plan had her at my office at the end of the afternoon (the late visit) */
+<<set setup.sisterSeeksExcuses = () => {
+    return setup.questReached("sister_waitSupportiveSister") && !setup.questDone("sister_itMakesADifference");
+}>>
+
+<<set setup.sisterWorkedHereToday = () => {
+    const here = setup.npcAt("sister", 11);
+    return !!here.location && setup.sameLocation(here.location, setup.getLocationBySysName("companystage1"));
+}>>
+
+/* Micro event lookup ==========================================================
+   setup.pickMicroEvent([kind])   the micro event that happens now where I am, or null. Collects every event in
+                                  $microEvents that passes its checks, then rolls them: chance 100 first (the meals),
+                                  the rest in random order, so an event late in the list gets the same odds as an
+                                  early one. The first hit wins and gets lastSeenDay/lastSeenAP. kind "inline"
+                                  (default) only takes events without a visitor
+                                  block (<<CheckMicroEvent>> in location passages), "visitor" only those with one
+                                  (setup.updateDeskVisitor). Nothing happens before the intro is done.
+   setup.isOfficeWorkTime()       a weekday and the current action lies in $company.workHours: the staff is in */
+<<set setup.pickMicroEvent = (kind) => {
+    const v = State.variables;
+    if (!v.flags.introDone) { return null; }
+    const wantVisitor = kind === "visitor";
+    const here = v.player.location || {};
+    const slot = v.time.current.value;
+    const day = v.date.dayCount;
+    const row = setup.scheduleCurrentRow();
+    const candidates = [];
+    for (const ev of v.microEvents) {
+        if (!ev.active || !!ev.visitor !== wantVisitor) { continue; }
+        if (!ev.where.includes(here.name) && !ev.where.includes(here.sysName)) { continue; }
+        if (ev.oncePerDay && ev.lastSeenDay === day) { continue; }
+        if (ev.dayCooldown > 0 && day - ev.lastSeenDay < ev.dayCooldown) { continue; }
+        if (ev.apCooldown > 0 && ev.lastSeenDay === day && row - ev.lastSeenAP < ev.apCooldown) { continue; }
+        const c = ev.conditions || {};
+        if (c.whenTime && c.whenTime.length > 0 && !c.whenTime.includes(slot)) { continue; }
+        const npc = c.npc ? v[c.npc] : null;
+        if (npc) {
+            if (c.npcLocation && c.npcLocation.length > 0 && !c.npcLocation.includes((npc.location || {}).name)) { continue; }
+            if (c.npcPreviousLocation && c.npcPreviousLocation.length > 0 && !c.npcPreviousLocation.includes((npc.previousLocation || {}).name)) { continue; }
+        }
+        if ((c.eval || []).some((fn) => !fn())) { continue; }
+        candidates.push(ev);
+    }
+    const sure = candidates.filter((ev) => ev.chance >= 100);
+    const rolled = candidates.filter((ev) => ev.chance < 100).shuffle();
+    for (const ev of sure.concat(rolled)) {
+        if (random(1, 100) > ev.chance) { continue; }
+        ev.lastSeenDay = day;
+        ev.lastSeenAP = row;
+        return ev;
+    }
+    return null;
+}>>
+
+<<set setup.isOfficeWorkTime = () => {
+    const v = State.variables;
+    return v.date.today.value < 5 && v.company.workHours[setup.scheduleCurrentRow()] === true;
+}>>
+
+/* Scenes ======================================================================
+   setup.inScene()   true while a full scene is on screen: an event, a quest scene or a task scene (passage tags
+                     event, scene, task_scene). The sidebar links that would leave it (her profile, her location,
+                     the prototype chips) are switched off then, and the closed-location bounce waits. */
+<<set setup.inScene = () => tags().includesAny("event", "scene", "task_scene")>>
+
+/* Desk visitors ===============================================================
+   My Desk shows the dashboard instead of a location image, so a micro event has no image to replace there.
+   Micro events with a visitor block show up as a card in the CMD header instead ("CMD Visitor"):
+       visitor: {
+           who:      "sister",   sysName of whoever comes by: the portrait (images/characters/portraits/<who>.jpg)
+                                 and the name on the card and in the drawer
+           teaser:   "...",      one or two lines for the card, may contain variables
+           decline:  "...",      optional notification for "Not now"
+       }
+   "Talk" opens a drawer on the right side of the dashboard and includes the event passage there. It is written like
+   any other micro event passage (Chat, <<replace>> choices, UpdateStat), costs no action and must not <<goto>> the
+   desk. Closing the drawer renders the desk again, so the dashboard shows what changed.
+   The card only stays for the action it came up in: working on, or leaving the desk, lets the visit pass without
+   any effect. "Not now" does the same, with the decline notification.
+   Desk visitors are rolled once per action (rendering the desk again in the same action, after a dialog or the
+   profile, keeps the card and never rolls twice) and at most once every setup.deskVisitorCooldown actions.
+
+   $deskVisitor           null, or { id, at } while a card is up (at: setup.absoluteAction() it came up in)
+   $deskVisitorRolledAt   the action of the last roll
+   $deskVisitorLastAt     the action the last visitor came up in
+
+   setup.deskVisitorCooldown        actions between two visitors
+   setup.absoluteAction()           one number per action over the whole game (dayCount * 21 + row)
+   setup.updateDeskVisitor()        the desk passage, on every render: drops an old card, rolls a new one
+   setup.deskVisitor()              { event, npc, name } of the card that is up now, or null
+   setup.takeDeskVisitor()          "Talk": the same, and the card is used up
+   setup.dismissDeskVisitor()       "Not now": removes the card and shows the decline notification */
+<<set $deskVisitor to null>>
+<<set $deskVisitorRolledAt to -1>>
+<<set $deskVisitorLastAt to -999>>
+
+<<set setup.deskVisitorCooldown to 6>>
+
+<<set setup.absoluteAction = () => {
+    const v = State.variables;
+    return v.date.dayCount * v.timeSlots.length * v.time.actions.max + setup.scheduleCurrentRow();
+}>>
+
+<<set setup.updateDeskVisitor = () => {
+    const v = State.variables;
+    const now = setup.absoluteAction();
+    if (v.deskVisitor && v.deskVisitor.at !== now) { v.deskVisitor = null; }
+    if (v.deskVisitorRolledAt === now) { return; }
+    v.deskVisitorRolledAt = now;
+    if (v.deskVisitor || now - v.deskVisitorLastAt < setup.deskVisitorCooldown) { return; }
+    const ev = setup.pickMicroEvent("visitor");
+    if (!ev) { return; }
+    v.deskVisitor = { id: ev.id, at: now };
+    v.deskVisitorLastAt = now;
+}>>
+
+<<set setup.deskVisitor = () => {
+    const v = State.variables;
+    if (!v.deskVisitor || v.deskVisitor.at !== setup.absoluteAction()) { return null; }
+    const ev = v.microEvents.find((e) => e.id === v.deskVisitor.id);
+    if (!ev || !ev.visitor) { return null; }
+    const npc = v[ev.visitor.who] || null;
+    return { event: ev, npc: npc, name: npc ? (npc.callName || npc.name) : "" };
+}>>
+
+<<set setup.takeDeskVisitor = () => {
+    const info = setup.deskVisitor();
+    State.variables.deskVisitor = null;
+    return info;
+}>>
+
+<<set setup.dismissDeskVisitor = () => {
+    const info = setup.takeDeskVisitor();
+    if (info && info.event.visitor.decline) {
+        Notification.show(wikifyText(info.event.visitor.decline), { type: Notification.INFORMATION });
+    }
+}>>

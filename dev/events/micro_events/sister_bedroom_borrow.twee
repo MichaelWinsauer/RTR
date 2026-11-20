@@ -1,0 +1,60 @@
+:: Sister Bedroom Borrow [micro_event event nobr] {"position":"1050,2900","size":"100,100"}
+/* Borrow request. Lending can leave her owing you a favour ($sister.flags.favorsOwed, one open favour at a time). */
+<<silently>>
+<<set _item to either("phone charger", "headphones", "black hoodie", "car keys")>>
+<<set _msgs to [
+	{ who: $sister, text: ("Hey, little $sister.callPlayerShort. Can I borrow your " + _item + "? I can't find mine.") }
+]>>
+<</silently>>
+<p>$sister.callName leans around my door frame without knocking.</p>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Lend it">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Sure. Bring it back in one piece." },
+					{ who: $sister, text: "I always do. Mostly." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<UpdateStat "+" "SisterRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<if $sister.flags.favorsOwed>>
+			<span style="opacity: .5;">Lend it, and she owes you one (she already owes you a favor)</span>
+		<<else>>
+			<<link "Lend it, and she owes you one">>
+				<<replace "#choice1">>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "You can borrow it. But you owe me one." },
+						{ who: $sister, text: "Fine. One favor. Don't make it weird." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<<set $sister.flags.favorsOwed to true>>
+					<<UpdateStat "+" "SisterRelation" 1>>
+				<</replace>>
+			<</link>>
+		<</if>>
+	</div>
+	<div>
+		<<link "Say no">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Sorry, I need it." },
+					{ who: $sister, text: "Wow. Okay. Cold." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "-" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

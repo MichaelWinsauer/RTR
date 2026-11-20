@@ -1,0 +1,80 @@
+:: Activity Shower [activity] {"position":"900,1800","size":"100,100"}
+/* My own shower (Bathroom: "let the hot water clear my head"). Spends the rest of the time slot, no effects.
+   The thoughts depend on where the story is: Stage 0 (broke, the diner, the prototype) or Stage 1 (the company, the staff),
+   plus a few that only open up after certain quests. Nothing sexual early on; from The Briefing (mom_briefing) and
+   Conflicting Feelings (sister_conflictingFeelings) on, the thoughts may go there, kept implied. */
+<<silently>>
+<<set _pool = ["quiet"]>>
+<<if $company.stage >= 1>>
+	<<run _pool.push("payroll", "office", "darius")>>
+<<else>>
+	<<run _pool.push("bills", "cafe", "prototype")>>
+<</if>>
+<<if setup.questDone("mom_controlSession")>><<run _pool.push("control")>><</if>>
+<<if setup.questDone("sister_conflictingFeelings")>><<run _pool.push("kiss")>><</if>>
+<<if setup.questDone("mom_briefing")>><<run _pool.push("briefing")>><</if>>
+<<if setup.questDone("mom_nightVisit")>><<run _pool.push("nightVisit")>><</if>>
+<<set _showerScene = _pool.random()>>
+<</silently>>
+I turn the water up as hot as it'll go and stand under it until the mirror disappears.
+
+<<switch _showerScene>>
+<<case "quiet">>
+For ten minutes nobody needs anything from me. No mail, no questions, nobody knocking. I lean my forehead against the tiles and let the water drum on the back of my neck, and I think about absolutely nothing, which is harder than it sounds and the best thing I've done all day.
+
+<<case "bills">>
+The water pressure in this house is better than anything I had in my old apartment, which is part of why I'm back here and also part of why I hate being back here. $mom.callName pays for it. She pays for the house, $sister.callName's tuition and the cereal I eat at two in the morning, and she has never once mentioned it, which is somehow worse.
+
+I run the numbers under the spray. The server bill, the parts for the next board, what's left from the diner. They come out the same every time I run them, and I keep running them anyway, like the shampoo might change something.
+
+<<case "cafe">>
+I rewrite that last call with the café chain for maybe the hundredth time. In this version I don't apologize. In this version I already know which of their regional managers is about to be promoted, and who can't stand whom, and who actually makes the decision while the others nod. I walk out with a two-year renewal.
+
+The real call ended with "we're going in a different direction" and a guy named Todd thanking me for my passion. I still think about Todd more than I think about most people I've met.
+
+<<case "prototype">>
+Halfway through rinsing out the shampoo, I figure out why the heart-rate readings keep drifting. It's the window. The afternoon sun hits the sensor at an angle and the whole baseline creeps. I stand there with my eyes shut and soap running into them, repeating it under my breath so I don't lose it before I find a pen.
+
+I'm going to write it on my arm if I have to. I've done it before.
+
+<<case "payroll">>
+Three salaries go out on Friday, four if you count $mom.callName's, and she'd tell me not to. Plus rent, plus $landlord.callName's little arrangement, plus the parts $brian.name keeps ordering with the cheerful certainty of a man who has never once looked at the account balance.
+
+A year ago I was counting quarters for the laundromat. Now there are people whose rent depends on me, and the strange part isn't that I'm nervous about it. The strange part is that I'm not.
+
+<<case "office">>
+I think about the office while the water runs. About how quiet it got this week. $brian.name has stopped complaining about the coffee. $darius.name stayed until eight on Tuesday and seemed surprised when he looked at the clock. $ethan.name laughs at everything now, even my jokes.
+
+Up in the ceiling the vent unit hums along at whatever I set it to, and none of them have ever looked up at it. People don't. That's the beauty of a ceiling.
+
+<<case "darius">>
+I rehearse answers for $darius.name. He asked me two questions today that I answered well and one that I answered fast, and he noticed the difference. He didn't say anything. He just wrote something down in that little notebook with the elastic band.
+
+So now I'm standing in the shower practicing a casual, offhand explanation of sensor drift, out loud, to a bottle of conditioner. The conditioner seems convinced. That's one of us.
+
+<<case "control">>
+I keep seeing her hands on the waistband of her panties, and hearing her say "not these" like it was a reasonable negotiation. Then the column on the far right of that sheet: five with her clothes on, seven without them, and nine once she'd seen what it was doing to me.
+
+I haven't figured out yet what that nine means. I turn the water a little colder and don't try very hard.
+
+<<case "kiss">>
+I think about $sister.callName standing over my chair that night with her sleeves balled up in her fists, giving herself one last chance to bail. Her nose bumped mine. Then she straightened up so fast she nearly took my lamp with her. We've had breakfast together a dozen times since. She passes me the orange juice. She doesn't look at me while she does it.
+
+I let myself think about it for a while longer, with the water running and the door shut. Then the water starts going lukewarm, and I'm done anyway.
+
+<<case "briefing">>
+The meeting room. That champagne silk with nothing under it, and her face when she decided, all on her own, that it was going to be "just this once." The way she glanced at the glass door first, and the way she said it, like she used to say "just one more episode."
+
+I don't rush it. I keep the water hot and let myself remember all of it, every detail, in order. Afterwards I rinse off the tiles and stand there a little out of breath, with the fan roaring above me.
+
+<<case "nightVisit">>
+"Whenever it gets bad, you come and find me." She said it with her back to me, in the doorway, as if she was giving me directions to the pharmacy.
+
+It isn't bad right now. I think about that for a while, under the water. It doesn't have to be bad. She'll never ask me how bad it is, and I'm never going to tell her.
+<</switch>>
+
+I towel off and wipe a hole in the fogged mirror. Same face as always, a little pinker.
+
+<<link "Finish" "Bathroom">>
+    <<AdvanceTime>>
+<</link>>

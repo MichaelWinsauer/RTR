@@ -1,0 +1,73 @@
+:: Class Project [event sister_quest] {"position":"3025,1400","size":"100,100"}
+The only light in my room comes from the monitor and the little standby LED on the prototype, blinking at me like it's bored. I've been staring at the same block of $company.prototype.name's code for an hour, and the house has gone so quiet I can hear the AC ticking somewhere in the walls. Being back in my old room still feels like wearing a jacket I outgrew years ago, but at least nothing in here smells like fryer oil. Then someone knocks.
+
+<<linkreplace "Tell her to come in">>
+$sister.callName leans in around the door before I've actually said it, ponytail swinging, one hand still on the knob like she wants the option of a quick getaway. Tight jeans, a cropped top, and the same easy confidence that carried her through high school while I ate my lunch in the computer lab. Some things don't change. Others apparently do, because she knocked.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Knock knock. Are you busy, or is this one of those 'I'm busy' situations where you're watching soldering videos?" },
+{ who: $player, text: "Actually busy, for once. Since when do you knock?" },
+{ who: $sister, text: "Since I opened your door last week and walked straight into a cable. I'm still traumatized. How's the diner, by the way? Still employee of the month?" },
+{ who: $player, text: "Every month. The manager says nobody mops with as much hatred as I do." },
+{ text: "She laughs, then picks at the edge of her nail polish instead of coming in properly. For her, that's practically a confession." },
+{ who: $player, text: "Okay. What do you want?" },
+{ who: $sister, text: "Wow. Rude. Accurate, but rude." },
+{ who: $sister, text: "So... $mom.callName told me about your thingy. $company.prototype.name? She said it can tell what kind of mood a room is in, which honestly sounds like witchcraft. And I kind of have a presentation coming up." },
+{ who: $player, text: "A presentation." },
+{ who: $sister, text: "Business communication. We have to pitch a product to the class, show how it works, make everybody want one. Half of them are doing phone cases. One guy is doing a water bottle. A water bottle, little $sister.callPlayerShort." },
+{ who: $player, text: "And you want to show up with mine." },
+{ who: $sister, text: "I want to show up with something that isn't a water bottle. Could you demo it for me? Pretty please? I'll owe you. Like, a small owe. Not a kidney." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I lean back in my chair and make her watch me think about it. She came to me, she asked nicely, and she has no idea what's sitting on my desk. I'd be an idiot to say no.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Fine. Sit down before you change your mind about knocking." },
+{ who: $sister, text: "Yes! You're the best. Mostly. On a good day." },
+{ text: "She drops onto the edge of my bed and crosses her legs, phone already out for notes. I set the prototype on the desk between us and turn it toward her." },
+{ who: $player, text: "Easiest way to explain it is to run it on you. It reads you, your pulse, how fidgety you are, and then it tries to take the edge off. You okay with that?" },
+{ who: $sister, text: "Is it going to zap me?" },
+{ who: $player, text: "No zapping. Probably." },
+{ who: $sister, text: "Very reassuring. Go for it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I thumb the dial past the setting I'd use for a real demo and stop where I want it. The hum is so low it's mostly a feeling in the desk. <<UseQuestDevice $sister>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh. Okay, that's weird. It's kind of... tingly? Like when your foot falls asleep, but nice." },
+{ who: $player, text: "That's it reading you. Give it a minute." },
+{ text: "Her shoulders come down. She stops bouncing her foot. When she looks up at me again, it's the look she usually saves for people she actually likes." },
+{ who: $sister, text: "Huh. I feel really good, actually. Like after a long shower. You built this? In here?" },
+{ who: $player, text: "In here. Between diner shifts." },
+{ who: $sister, text: "Okay, I take back at least forty percent of the nerd jokes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We spend the next half hour on the kind of explanation that fits on a slide: sensors, dwell time, how a room feels when people want to stay and how it feels when they want to leave. I leave out everything that matters. She types it all into her phone with the tip of her tongue between her teeth, asks a few surprisingly good questions, and doesn't make a single joke at my expense.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "This is so much better than a water bottle. Thank you. Seriously. You're kind of a genius, you know that?" },
+{ who: $player, text: "I've been telling people for years." },
+{ who: $sister, text: "Yeah, well. Now somebody's listening." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She ruffles my hair on her way out, something she hasn't done since we were kids, and I let her. Once the door is shut, I switch the prototype off and write down exactly where I had the dial.
+
+<<UpdateStat "+" "SisterRelation" 5>>
+<<set setup.getMealById("class_project").isActive to true>>
+<<NextQuest $sister>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+
+

@@ -1,0 +1,10 @@
+:: Information Caption [system nobr] {"position":"1800,325","size":"200,200"}
+<<if $displayInformation == 0>>
+	<<include "Quests Caption">>
+<<elseif $displayInformation == 1>>
+	<<include "Activities Caption">>
+<<elseif $displayInformation == 3>>
+	<<include "Following Caption">>
+<</if>>
+
+

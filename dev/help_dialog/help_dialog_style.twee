@@ -1,0 +1,146 @@
+:: Help Dialog Style [stylesheet] {"position":"300,4125"}
+/* Help dialog (see "Help Dialog Script") and the "?" tray button */
+
+/* the "?" tray button: text instead of an icon glyph */
+#ui-bar-tray .tray-icon-btn .help-q,
+.tray-icon-btn .help-q {
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* dialog frame: wide, same look as the settings dialog */
+#ui-dialog:has(#ui-dialog-body.help-dialog) {
+  width: 64rem;
+  max-width: 94vw;
+}
+#ui-dialog:has(#ui-dialog-body.help-dialog) #ui-dialog-titlebar { padding: .6rem 0 .4rem; }
+#ui-dialog:has(#ui-dialog-body.help-dialog) #ui-dialog-title {
+  padding-left: 1.4rem;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: var(--accent);
+}
+#ui-dialog:has(#ui-dialog-body.help-dialog) #ui-dialog-close {
+  height: 100%;
+  width: 3.2em;
+  font-size: 100%;
+  color: #EBDDC5aa;
+  border: none;
+  border-radius: 0 2em 0 0;
+}
+#ui-dialog:has(#ui-dialog-body.help-dialog) #ui-dialog-close:hover { color: var(--accent); }
+#ui-dialog-body.help-dialog { padding: 0; overflow: hidden; }
+
+/* two columns: themes on the left, the page on the right */
+.help {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  height: min(36rem, 72vh);
+  text-align: left;
+  font-family: "Manrope", sans-serif;
+  color: var(--accent);
+}
+
+.help-nav {
+  overflow-y: auto;
+  padding: .5rem .6rem 1rem;
+  border-right: 1px solid var(--card-border);
+  background: rgba(235,221,197,.04);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(235,221,197,.3) transparent;
+}
+.help-group + .help-group { margin-top: .2rem; }
+.help-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: .55em .7em;
+  border: none;
+  border-radius: .5em;
+  background: transparent;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #EAAF4C;
+  cursor: pointer;
+}
+.help-group-head::after { content: "\25B8"; opacity: .6; transition: transform .15s; }
+.help-group.open .help-group-head::after { transform: rotate(90deg); }
+.help-group-head:hover { background: rgba(235,221,197,.06); }
+
+.help-links { display: none; flex-direction: column; gap: .1rem; padding: .1rem 0 .5rem .5rem; }
+.help-group.open .help-links { display: flex; }
+.help-link {
+  padding: .4em .8em;
+  border: none;
+  border-radius: .5em;
+  background: transparent;
+  font: inherit;
+  font-size: .9rem;
+  text-align: left;
+  color: rgba(235,221,197,.8);
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.help-link:hover { background: rgba(235,221,197,.1); color: #fff; }
+.help-link.active { background: rgba(234,175,76,.16); color: #fff; }
+
+.help-page {
+  overflow-y: auto;
+  padding: 1rem 1.6rem 1.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(235,221,197,.3) transparent;
+}
+.help-page .help-title {
+  margin: 0 0 .9rem;
+  padding: 0;
+  border: none !important;
+  background: transparent !important;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--accent);
+}
+
+/* page content */
+.help-body { font-size: .95rem; line-height: 1.6; color: rgba(235,221,197,.92); }
+.help-body p { margin: 0 0 .85em; }
+.help-body ul { margin: 0 0 .9em; padding-left: 1.2em; }
+.help-body li { margin-bottom: .3em; }
+.help-body b { color: #fff; }
+.help-body a[data-help] { color: #EAAF4C; font-weight: 600; text-decoration: none; border-bottom: 1px dotted rgba(234,175,76,.6); cursor: pointer; }
+.help-body a[data-help]:hover { color: #fff; }
+.help-note {
+  margin: 1em 0 .85em;
+  padding: .6em .9em;
+  border: 1px solid rgba(234,175,76,.3);
+  border-radius: .5em;
+  background: rgba(234,175,76,.08);
+  font-size: .9em;
+}
+.help-stats { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: .55rem 1rem; margin: 0 0 1em; }
+.help-stats dt { font-weight: 700; color: #fff; }
+.help-stats dd { margin: 0; }
+.help-values { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1em; }
+.help-values span { padding: .15em .7em; border: 1px solid var(--card-border); border-radius: 999px; background: var(--card-bg); font-size: .85em; }
+
+.help-table { width: 100%; margin: 0 0 1em; border-collapse: collapse; font-size: .85em; }
+.help-table th, .help-table td { padding: .4em .6em; border-bottom: 1px solid var(--card-border); text-align: left; vertical-align: top; }
+.help-table th { font-size: .78em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #EAAF4C; background: transparent; border-top: none; }
+.help-table td:first-child { font-weight: 700; color: #fff; }
+/* a small marker inside a table cell or a line ("With me") */
+.help-pill { display: inline-block; margin-left: .3em; padding: 0 .5em; border: 1px solid rgba(234,175,76,.5); border-radius: 999px; color: #EAAF4C; font-size: .75em; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; vertical-align: middle; }
+.help-empty { opacity: .7; font-style: italic; }
+
+@media (max-width: 760px) {
+  .help { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); height: min(38rem, 78vh); }
+  .help-nav { max-height: 9rem; border-right: none; border-bottom: 1px solid var(--card-border); }
+}

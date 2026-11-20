@@ -1,0 +1,22 @@
+:: Location Caption [system nobr] {"position":"1800,125","size":"100,100"}
+/* Rent chip: what the landlord will ask for (rent + unpaid debt) and how long until rent day ($rentDueDay,
+   "The weekly rent" in Define Misc). It moves on to next week once the rent was paid or put off. */
+<<set _sbLeft to setup.rentDaysLeft()>>
+<<set _sbOwed to setup.rentOwed()>>
+
+<<if $company.stage == 0>>
+	<div class="sb-label">Money</div>
+	<div class="sb-money-val">$<<= $player.money>></div>
+<<else>>
+	/* later stages: company funds instead of the personal wallet (the old "CMD Finances" summary is still disabled) */
+	<div class="sb-label">Company funds</div>
+	<div class="sb-money-val">$<<= $company.finances.money>></div>
+<</if>>
+<<if $date.dayCount > 0>>
+	<div @class="'sb-rent' + (_sbLeft <= 1 || $debtMissed ? ' urgent' : '')">
+		<div class="sb-rent-amount">Rent $<<= _sbOwed>></div>
+		/* <<if $player.debt > 0>><div class="sb-rent-late">incl. $<<= $player.debt>> unpaid</div><</if>> */
+		<div class="sb-rent-due"><<if _sbLeft < 0>>Overdue<<else>>Due <b><<= $date.days[$rentDueDay % 7].text>></b> - <<if _sbLeft == 0>>today<<elseif _sbLeft == 1>>tomorrow<<else>>in <<= _sbLeft>> days<</if>><</if>></div>
+	</div>
+<</if>>
+

@@ -1,0 +1,56 @@
+:: Too Much Work [event main_quest] {"position":"3700,125"}
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+I asked $mom.callName and $sister.callName to meet me in the meeting room after lunch, and they beat me there. $mom.callName has both hands wrapped around a mug of coffee that's probably gone lukewarm by now. $sister.callName is curled sideways in her chair with one knee pulled up, thumb flicking through something on her phone that is clearly more interesting than me. They both look up when the door clicks shut.
+
+I don't sit down. I set the laptop on the table, pull the three mails up next to each other and swivel the screen around so they can see.
+
+<<linkreplace "Walk them through the mails">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So. Three mails came in this week, and I need you both actually paying attention for this. $sister.callName, that includes the phone." },
+{ who: $sister, text: "I'm listening! I can listen and scroll at the same time. It's called multitasking." },
+{ text: "She puts it face down on the table anyway. I tap the first mail." },
+{ who: $player, text: "$landlord.callName signed off on the new rent. Which is great, but you both remember the catch. It only stays that low as long as you two keep dropping by to keep him company. Once a week, minimum." },
+{ who: $sister, text: "Ugh. Right. I'd done such a good job of repressing that." },
+{ who: $player, text: "Well, un-repress it. That little arrangement is the only reason we're sitting in a real office and not around the kitchen table." },
+{ text: "$mom.callName suddenly finds her coffee very interesting. She nods into the mug without a word, so I move on." },
+{ who: $player, text: "Number two. $boss.callName wants a $company.prototype.name of his own. A whole new unit, built from nothing, and he'd like it in two to three weeks, thank you very much. Oh, and he asked for you, $mom.callName. On-site, as a consultant." },
+{ who: $mom, text: "At my old office? With... him?" },
+{ who: $player, text: "With him, yes. But on my payroll this time. You'd be walking in there as the expert he's paying good money for, not as the woman who fetches his coffee." },
+{ who: $mom, text: "...Well. When you put it like that." },
+{ who: $player, text: "And last but not least, $manager.callName. $sister.callName's shifts at the diner start this week, like we promised him. On top of that he wants to know why his place isn't making more money, so he's asking for a full analysis, with the prototype running on-site to collect the data." },
+{ who: $sister, text: "Fantastic. Back to refilling coffee for truckers who call me 'sweetheart'." },
+{ who: $player, text: "You'll be refilling coffee for truckers while being the only person in that diner who knows what's really going on. Think of it as undercover work." },
+{ text: "She rolls her eyes, but the corner of her mouth gives her away." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let it sink in">>
+Nobody says anything for a while. The air conditioning hums above us. Then $mom.callName sets her mug down, very carefully, the way she always does right before she says something I won't like.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey... a brand-new prototype in three weeks? It took you years to build the first one." },
+{ who: $sister, text: "And who's doing the analysis part? Because if you're looking at me, please don't. I lost a fight with the college printer last week." },
+{ who: $mom, text: "I can handle the paperwork, sit in on meetings, keep everything organized. But circuits and programming... I wouldn't even know where to start." },
+{ who: $player, text: "I know, and I'm not expecting you to. But I can't solder the hardware, write the software, crunch the numbers and keep two clients smiling all at once either. Not unless someone figures out how to clone me." },
+{ who: $mom, text: "So what, you turn one of them down?" },
+{ who: $player, text: "Nope. We hire." },
+{ who: $mom, text: "Hire? Sweetheart, that's wages. Every single week. Are you sure we can even..." },
+{ who: $player, text: "I ran the numbers last night. Twice. $mom.callName, I'm not asking what you think about it. I'm telling you so it doesn't catch you off guard." },
+{ text: "She opens her mouth, thinks better of it and closes it again. A moment later she gives me a small nod." },
+{ who: $mom, text: "All right. If you're sure." },
+{ who: $player, text: "I'm sure. Someone for the software, someone for the hardware and someone who genuinely enjoys spreadsheets. Interviews start tomorrow." },
+{ who: $sister, text: "Oh, listen to you. 'Interviews start tomorrow.' Should I start calling you sir?" },
+{ who: $player, text: "Wouldn't hurt." },
+{ text: "She snorts. $mom.callName doesn't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I snap the laptop shut, and it surprises me a little how good that feels. A week ago I was lying on my back under a desk with a screwdriver between my teeth, swearing at cable ties. Now I'm about to have people on my payroll. Real people, who'll come in every morning and sit in this office, right underneath that vent, eight hours a day.
+
+[[Start the interviews|Too Much Work 2]]
+<</linkreplace>>
+<</linkreplace>>

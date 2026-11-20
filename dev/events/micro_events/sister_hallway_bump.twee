@@ -1,0 +1,67 @@
+:: Sister Hallway Bump [micro_event event nobr] {"position":"1550,2900","size":"100,100"}
+/* Slapstick: she is carrying something, you nearly collide. Catch it, help, or joke. */
+<<silently>>
+<<set _item to either("a stack of textbooks", "a basket of laundry", "a pizza box", "three coffees in a cardboard tray")>>
+<<set _msgs to [
+	{ who: $sister, text: "Whoa! Watch it!" }
+]>>
+<</silently>>
+<p>I turn the corner and almost walk straight into $sister.callName. She's carrying <<= _item>> and has no free hand to stop me.</p>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Catch it">>
+			<<replace "#choice1">>
+				<<if random(1, 100) <= 60>>
+					<<silently>>
+					<<set _msgs to [
+						{ text: "I get one hand under it just in time." },
+						{ who: $sister, text: "Reflexes. Nice. Who are you and what did you do with my clumsy $sister.playerRelation?" }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<br>
+					<<UpdateStat "+" "SisterRelation" 2>>
+				<<else>>
+					<<silently>>
+					<<set _msgs to [
+						{ text: "I miss completely and everything hits the floor." },
+						{ who: $sister, text: "Great. Now we both get to clean that up." },
+						{ who: $player, text: "You walked into me." },
+						{ who: $sister, text: "In my own hallway!" }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Help her carry it">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Here, let me take half." },
+					{ who: $sister, text: "Thanks. That was the least you could do." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Make a joke about it">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "You walk like someone who wants to get yelled at." },
+					{ who: $sister, text: "Says the guy who walks like a zombie." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

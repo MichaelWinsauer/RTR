@@ -1,0 +1,78 @@
+:: First Boss Confrontation [event mom_quest] {"position":"3150,1075","size":"100,100"}
+The glass doors slide open for me again, and the lobby greets me with the same marble floor and the same expensive lighting that makes everyone look like they belong here, which somehow never quite works on me. The receptionist recognizes me this time and doesn't bother standing up.
+
+<<silently>>
+<<set _msgs to [
+{ who: "Receptionist", text: "Back again? Floor 6, you know the way." },
+{ who: $player, text: "Thanks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The elevator has mirrors on three walls, so I get to ride up with three chubby guys in hoodies who all look like they took a wrong turn somewhere. I stop looking at them and think about $mom.callName instead, and how flushed she was the last time I left her desk.
+
+<<linkreplace "Step out on floor 6">>
+The doors open on floor 6 and the noise rolls in: keyboards, phones, someone laughing too loudly at the coffee machine. It takes me about two seconds to find $mom.callName. She's sitting at her desk, shoulders up around her ears, and $boss.callName is standing over her like a cloud that hasn't decided where to rain yet.
+
+<<Video "images/characters/mom/events/first boss confrontation/boss_yelling.mp4" "" "" 500>>
+
+He's red in the face and stabbing a finger at her monitor, and half the floor has suddenly found something fascinating on their own screens.
+<<silently>>
+<<set _msgs to [
+{ who: $boss, text: "Incompetent! Fix this now or start packing your desk!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName just nods. Her hair falls forward over her face, which I think is the point. I've seen her tired plenty of times, and sad a few, but I've never watched her fold herself up this small.
+
+What bothers me most is that it isn't me doing it.
+
+He storms off to his corner office and slams the door hard enough to rattle the glass. $mom.callName wipes under her eyes with the side of her finger, careful not to smudge anything, and goes back to typing. I don't go to her. I go after him instead, knock once, and walk in before he can answer.
+
+The office is all city view and leather, and it smells like someone emptied a bottle of cologne into the air conditioning. He looks up from his desk like I'm a delivery he didn't order.
+
+<<silently>>
+<<set _msgs to [
+{ who: $boss, text: "Who the hell are you?" },
+{ who: $player, text: "I'm $mom.name's $mom.playerRelation. I saw what you just did out there, and it's going to stop." },
+{ who: $boss, text: "Her kid? Oh, that's adorable. Get out before I call security. I don't do family drama." },
+{ who: $player, text: "I'll leave when you back off. Talk to her like that one more time and you're going to regret it." },
+{ text: "I slide $company.prototype.name out of my pocket, thumb it on and turn the dial toward agreeable. Toward quiet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<UseQuestDevice $mom>>
+<<set _msgs to [
+{ who: $boss, text: "What is that, a toy? Kid, you've got some nerve walking in here with a toy." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Instead of the usual low hum, the little screen flashes red and an error blinks up at me: //Influence resistance high//. The device whirs for a second, like it's really trying, and then gives up. <<DevicePulse "off" "3s">>
+
+<<Video "images/characters/player/prototype/error.mp4" "" "" 500>>
+
+He watches all of this with growing amusement, then leans back in his chair and laughs.
+
+<<silently>>
+<<set _msgs to [
+{ who: $boss, text: "Cute gadget. No idea what it's supposed to do, but I like the guts, kid. Most people can't look me in the eye, and here you are threatening me with a calculator." },
+{ who: $boss, text: "Just remember that everything has consequences. Especially for someone with a $mom.relation like yours. She keeps the office... interesting. If you catch my drift." },
+{ text: "He finishes it off with a wink. I keep my hands flat against my jeans, because I'm not sure what they'd do otherwise." },
+{ who: $player, text: "Leave her alone." },
+{ who: $boss, text: "We'll see. Now scram, I've got actual work to do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I put the prototype away and walk out. My face burns all the way down to the lobby, but somewhere under the anger I'm almost pleased. He laughed at me. People who laugh at you don't watch you very closely.
+
+That error bugs me, though. It has never refused anyone before. Either he's built different or I've been calibrating it wrong, and I'd like to know which before I set foot on floor 6 again.
+
+<<UpdateStat "+" "Corruption" 3>>
+
+<<NextQuest $mom>>
+<<ReturnFromEvent>>
+<</linkreplace>>

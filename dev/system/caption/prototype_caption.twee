@@ -1,0 +1,47 @@
+:: Prototype Caption [system nobr] {"position":"1900,150","size":"100,100"}
+/* The Stage 0 prototype in the sidebar (included by StoryCaption while $company.stage == 0). Styles: .sb-proto in StoryCaption.
+   Kept small on purpose: heading + charge, a thin bar, the target chips (they start the calibration minigame) with the charge
+   button, and one line of details. Calibrating and charging only work at a desk (bedroom or office). */
+<<set _pr to $company.prototype>>
+<<set _pCharge to Math.clamp(Math.round(_pr.charge / _pr.maxCharge * 100), 0, 100)>>
+<<set _pTone to "var(--accent)">>
+<<set _pStab to Math.clamp(Math.round(_pr.progress), 0, 100)>>
+<<set _pStabWord to (_pStab >= 100 ? "Stable" : (_pStab >= 70 ? "Mostly stable" : (_pStab >= 40 ? "Glitchy" : "Very unstable")))>>
+<<set _pDesk to (["Bedroom", "Company"].includes($player.location.passage) && !setup.inScene())>>
+<<set _pCal to (_pr.calibrationQuality > 0)>>
+<<set _pAgo to $date.dayCount - _pr.lastUsedAtDay>>
+<<set _pCost to (_pr.chargePerAction || 20)>>
+
+<div class="sb-proto-head">
+	<span class="sb-label"><<= _pr.name>></span>
+	<span class="sb-proto-charge" @style="'--tone:' + _pTone"><<= _pCharge>>%</span>
+</div>
+
+<div class="sb-bar" @style="'--p:' + _pCharge + '%; --tone:' + _pTone"><div class="sb-fill"></div></div>
+<br>
+<div class="sb-proto-controls">
+	<<for _pK range _pr.calibrationPresets>>
+		<<set _pLabel to setup.presetLabel(_pK)>>
+		<<set _pOn to (_pCal && _pK == _pr.calibration)>>
+		<<capture _pK>>
+			<<if _pDesk>>
+				<span @class="'sb-proto-chip' + (_pOn ? ' on' : '')" @title="'Calibrate for ' + _pLabel"><<link _pLabel>><<set $activePrototype to "prototype">><<set $calibrationPreset to _pK>><<set $calibrationReturn to passage()>><<goto "CalibrateDevice">><</link>></span>
+			<<else>>
+				<span @class="'sb-proto-chip off' + (_pOn ? ' on' : '')" title="Available in my Bedroom or Office"><<= _pLabel>></span>
+			<</if>>
+		<</capture>>
+	<</for>>
+	<<if _pDesk && _pr.charge < _pr.maxCharge>>
+		<span class="sb-proto-btn" title="Charge it"><<link "Charge Prototype">><<set $chargeReturn to passage()>><<goto "Activity Charge Prototype">><</link>></span>
+	<<elseif _pr.charge >= _pr.maxCharge>>
+		<span class="sb-proto-btn off" title="Fully charged">Full</span>
+	<<else>>
+		<span class="sb-proto-btn off" title="Available in my Bedroom or Office">Charge Prototype</span>
+	<</if>>
+</div>
+
+<div class="sb-proto-meta">
+	<<if _pCal>><<= setup.presetLabel(_pr.calibration)>> <<= _pr.calibrationQuality>>%<<else>>Not calibrated<</if>>
+	<<if _pr.lastUsedOnWho>>· Last: <<= setup.presetLabel(_pr.lastUsedOnWho)>><<if _pAgo <= 0>> today<<elseif _pAgo == 1>> yesterday<<else>> <<= _pAgo>>d ago<</if>><</if>>
+	<div style="flex: auto; text-align: end;"><<= _pStabWord>></div>
+</div>

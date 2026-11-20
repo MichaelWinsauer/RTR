@@ -1,0 +1,22 @@
+:: Residential Area [location] {"position":"2400,1325","size":"100,100"}
+<<CheckLocation>>
+<<silent>>
+  <<set _locations to [setup.getLocationBySysName("hallway"), $locations[$companyLocationIdReference], setup.getLocationBySysName("diner"), setup.getLocationBySysName("shop"),]>>
+  <<if $mom.flags.workUnlocked == true>><<run _locations.push(setup.getLocationBySysName("momswork"))>><</if>>
+  <<if $sister.flags.collegeUnlocked == true>><<run _locations.push(setup.getLocationBySysName("college"))>><</if>>
+  <<run _locations.push(setup.getLocationBySysName("landlordapartment"))>>
+<</silent>>
+The street out front is ordinary in the best way: broad, lined with trees and still damp from the last passing shower. The wet asphalt reflects the clouds like a dull mirror, and the air smells of rain and dust, a mix that has always calmed me down. Older pickups and sedans hug the curb, and the red stop sign on the corner leans into the view like it's posing for the neighborhood. Farther out, low hills fold into each other and make the roofs look small. It's quiet enough to hear a screen door slap shut two houses over, and somebody's mower starting up way too late in the day.
+<<CheckNPCLocation>>
+<<LocationLinks _locations>>
+
+/* <<nobr>>
+    <div class="navigation-link">
+		[[Home|Hallway]]
+    </div>
+    <<CheckLocationLink $companyLocationIdReference "My Office" "It's too late to work...">>
+    <<CheckLocationLink "Diner">>
+    <<CheckLocationLink "Shop">>
+    <<if $mom.flags.workUnlocked == true>><<CheckLocationLink "12" "$mom.callName's Work">><</if>>
+    <<if $sister.flags.collegeUnlocked == true>><<CheckLocationLink "College">><</if>>
+<</nobr>> */

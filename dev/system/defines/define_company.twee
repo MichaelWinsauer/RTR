@@ -1,0 +1,635 @@
+:: Define Company [system] {"position":"125,150","size":"100,100"}
+<<set $company to {
+	name: 'ValTec Co.',
+    numberOfEmployees: 0,
+    stage: 0,
+}>>
+
+<<set $company.employees to [
+
+]>>
+
+/* The company stats (0-100). What each one does and where it comes from: "Company stats" at the end of this
+   passage. Efficiency and Morale start in the middle, where they change nothing. */
+<<set $company.stats to {
+	reputation: 0,
+    efficiency: 50,
+    suspicion: 0,
+    morale: 50,
+}>>
+
+/* The full-strength unit hidden behind the ceiling vent of the Stage 1 office (Finishing Renovations).
+   level is an index into setup.ventLevels, switched in the CMD device strip. 1 = the 18% baseline it was
+   installed with. */
+<<set $company.vent to {
+	level: 1,
+}>>
+
+<<set $company.stats.max to {
+	reputation: 100,
+    efficiency: 100,
+    suspicion: 100,
+    morale: 100,
+}>>
+
+<<set $company.stats.min to {
+	reputation: 0,
+    efficiency: 0,
+    suspicion: 0,
+    morale: 0,
+}>>
+
+/* expenses and income are the current weekly/daily figures for the CMD Finances header (CalculateFinances).
+   spentToday adds up what actually left the account today (rent, wages); the Daily Update pushes it into
+   history.expenses for the chart and starts again at 0. */
+<<set $company.finances to {
+	money: 0,
+    spentToday: 0,
+    expenses: {
+    	rent: $rent,
+        wages: 0,
+        utensils: 0,
+        tax: 0,
+        equipment: 0,
+        utilities: 0,
+        extra: 0,
+    },
+    income: {
+    	projects: 0,
+        revenue: 0,
+        tasks: 0,
+        subscriptions: 0,
+        sales: 0,
+        services: 0,
+        investments: 0,
+        rent: 0,
+        extra: 0,
+    },
+    history: {
+    	expenses: [
+        
+        ],
+        income: [
+        
+        ]
+    }
+}>>
+
+<<set $company.prototype to {
+	name: 'Valenx',
+    progress: 0,
+    maxProgress: 40,
+    charge: 0,
+    maxCharge: 100,
+    rechargePerDay: 10,     /* charge it regains by itself every night */
+    chargePerAction: 20,    /* charge per action spent on "Activity Charge Prototype" */
+    calibration: "mom",
+    calibrationQuality: 0,
+    calibratedAtDay: -1,
+    calibrationPresets: [
+        "mom",
+        "sister",
+        "general",
+    ],
+    lastUsedAtDay: -1,
+    lastUsedOnWho: "",
+}>>
+
+/* The workbench (Stage 0) =========================================================
+   "Prototype Workbench" is the hands-on work on the prototype at the Company office: a minigame session made of one
+   job from each group (a hardware job, a software job and a test), every job scored from 0 to 1. The average score
+   decides the progress, and a session where every job is clean adds a bonus. "Prototype Workbench Result" applies it.
+   setup.workbench               tuning: maxGain (progress of a perfect session), flawlessAt and flawlessBonus,
+                                 actions (what a session costs), tierAt (progress where the jobs get harder) and
+                                 groups (the job ids per group; the jobs themselves live in the minigame passage)
+   setup.workbenchTier()         0 rough, 1 working, 2 final build: how hard the jobs are, from the progress
+   setup.workbenchGain(scores)   { score, base, bonus, gain } for a list of job scores (0 to 1) */
+<<set setup.workbench to {
+    maxGain: 8,
+    flawlessAt: 0.9,
+    flawlessBonus: 2,
+    actions: 2,
+    tierAt: [40, 70],
+    groups: {
+        hardware: ["wiring", "solder"],
+        software: ["debug", "flash"],
+        test: ["logic", "stress"],
+    },
+}>>
+<<set setup.workbenchTier = () => {
+    const p = Number(State.variables.company.prototype.progress) || 0;
+    const at = setup.workbench.tierAt;
+    return p >= at[1] ? 2 : (p >= at[0] ? 1 : 0);
+}>>
+<<set setup.workbenchGain = (scores) => {
+    const w = setup.workbench;
+    const list = (scores || []).map((s) => Math.max(0, Math.min(1, Number(s) || 0)));
+    const score = list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
+    const base = Math.round(score * w.maxGain);
+    const bonus = (list.length && list.every((s) => s >= w.flawlessAt)) ? w.flawlessBonus : 0;
+    return { score: score, base: base, bonus: bonus, gain: base + bonus };
+}>>
+
+/* Charge a quest scene costs, by its impact (1 = a small nudge ... 5 = the scene rests on the device).
+   Quests set it with device: { target, impact } in "Define Quests". */
+<<set $company.impactCost to [0, 10, 15, 25, 35, 50, 60, 65, 75, 85, 100]>>
+
+/* Wages =========================================================================
+   Every employee (staff and family, $company.employees) earns wage per day and is paid for the whole week on
+   Monday morning, from the company account (the Daily Update of a Monday calls it). The account may go below 0.
+   setup.weeklyWages()   what this week costs: the sum of wage * 7 (the live NPCs, the list holds copies)
+   setup.payWages()      pays it, counts it in spentToday (the finance chart) and shows a notification */
+<<set setup.weeklyWages = () => {
+    const v = State.variables;
+    return v.company.employees.reduce((sum, e) => sum + (Number((v[e.sysName] || e).wage) || 0) * 7, 0);
+}>>
+<<set setup.payWages = () => {
+    const v = State.variables;
+    const total = setup.weeklyWages();
+    if (total <= 0) { return 0; }
+    v.company.finances.money -= total;
+    v.company.finances.spentToday = (v.company.finances.spentToday || 0) + total;
+    Notification.show("Wages paid: $" + total + " for this week.", { type: Notification.NEGATIVE });
+    return total;
+}>>
+
+/* Charging the Stage 1 devices =====================================================
+   Like the Stage 0 prototype (Activity Charge Prototype): plugging a device in at My Desk takes my time. Every
+   action adds setup.deviceChargePerAction %, on top of the +15% each owned device regains overnight (Daily Update).
+   The CMD device dialog offers one action, or as many as it takes to fill it (window.chargeDevice, CMD Other).
+   setup.chargeActionsToFull(device)   actions it takes to fill it from where it is now */
+<<set setup.deviceChargePerAction to 20>>
+<<set setup.chargeActionsToFull = (device) => {
+    const missing = Math.max(0, (Number(device.maxCharge) || 100) - (Number(device.charge) || 0));
+    return Math.ceil(missing / setup.deviceChargePerAction);
+}>>
+
+/* The device I carry around at home ==============================================
+   setup.homeDevice()   the device the home micro events use: the Stage 0 prototype ($company.prototype, the
+                        same charge the quests spend) until Stage 1, then the full-strength valenx */
+<<set setup.homeDevice = () => {
+    const v = State.variables;
+    return v.company.stage === 0 ? v.company.prototype : v.company.devices.valenx;
+}>>
+
+<<set $company.devices to {
+	valenx: {
+    	name: $company.prototype.name,
+        description: "The original prototype I built. Nobody else knows what it can really do.",
+    	charge: 100,
+        maxCharge: 100,
+        calibration: "mom",
+        calibrationQuality: 0,
+        calibratedAtDay: -1,
+        calibrationPresets: [
+        	"mom",
+            "sister",
+            "low",
+            "high",
+        ],
+        lastUsedAtDay: -1,
+        lastUsedOnWho: "",
+        design: `<svg viewBox="0 0 200 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+              <rect x="30" y="12" width="140" height="216" rx="6" ry="6" fill="#EBDDC5" fill-opacity="0.06" 
+              		stroke="#EBDDC5" stroke-width="6"></rect>
+              <rect x="170" y="45" width="18" height="120" rx="4" ry="4" fill="#EBDDC5" fill-opacity="0.08" 
+              		stroke="#EBDDC5" stroke-width="4"></rect>
+              <rect x="45" y="35" width="95" height="75" rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" 
+              		opacity="0.6"></rect>
+			  <rect x="45" y="125" width="95" height="6" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"></rect>
+              <rect x="45" y="138" width="95" height="6" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"></rect>
+              
+              <circle fill="#EBDDC5" opacity="0.4" x="30" y="175" cy="160" r="7" cx="50"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" y="175" cy="180" r="7" x="15" cx="50"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" y="175" r="7" x="15" cy="160" cx="70"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" y="175" r="7" x="15" cy="160" cx="90"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" y="175" cy="180" r="7" x="15" cx="70"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" y="175" cy="180" r="7" x="15" cx="90"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" x="15" cx="120" r="15" y="160" cy="170"></circle>
+            </svg>`,
+        owned: true,
+    },
+    valenxOfficial: {
+    	name: $company.prototype.name + " Official",
+        description: "The weaker, marketable device sold to clients.",
+    	charge: 100,
+        maxCharge: 100,
+        calibration: "low",
+        calibrationQuality: 0,
+        calibratedAtDay: -1,
+        calibrationPresets: [
+            "low",
+            "high",
+        ],
+        lastUsedAtDay: 0,
+        lastUsedOnWho: "boss",
+        design: `<svg viewBox="0 0 200 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+              <rect rx="6" ry="6" fill="#EBDDC5" fill-opacity="0.06" stroke="#EBDDC5" stroke-width="6" width="210"
+              		height="175" x="0" y="30"></rect>
+              <rect width="18" height="120" rx="4" ry="4" fill="#EBDDC5" fill-opacity="0.08" stroke="#EBDDC5" 
+              		stroke-width="4" x="210" y="60"></rect>
+              <rect rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6" y="50" height="90" 
+              		x="30" width="150"></rect>
+			  <rect width="95" height="6" rx="2" ry="2" fill="#EBDDC5" opacity="0.4" x="30" y="155"></rect>
+              <rect width="95" height="6" rx="2" ry="2" fill="#EBDDC5" opacity="0.4" x="30" y="175"></rect>
+              <circle fill="#EBDDC5" opacity="0.4" x="30" y="175" cx="150" cy="160" r="7"></circle>
+              <circle fill="#EBDDC5" opacity="0.4" x="30" y="175" cx="150" cy="180" r="7"></circle>
+            </svg>`,
+        owned: false,
+    },
+    valenxVeil: {
+    	name: $company.prototype.name + " Veil",
+        description: "A weaker device, capable of influencing an area instead of a single person.",
+    	charge: 100,
+        maxCharge: 100,
+        calibration: "wide",
+        calibrationQuality: 0,
+        calibratedAtDay: -1,
+        calibrationPresets: [
+            "wide",
+            "small",
+        ],
+        lastUsedAtDay: 0,
+        lastUsedOnWho: "boss",
+        design: `<svg viewBox="0 0 200 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+              <rect rx="6" ry="6" fill="#EBDDC5" fill-opacity="0.06" stroke="#EBDDC5" stroke-width="6" x="0" 
+              		width="200" height="70" y="160"></rect>
+              <rect height="90" fill="#EBDDC5" stroke="#EBDDC5" stroke-width="5" x="25" rx="0" ry="0" y="70" 
+              		width="2"></rect>
+              <rect height="90" fill="#EBDDC5" stroke="#EBDDC5" stroke-width="5" rx="0" ry="0" y="70" width="2" 
+              		x="175"></rect>
+              <rect x="40" width="80" rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6" 
+              		y="175" height="40"></rect>
+              <rect rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6" height="1" y="180" 
+              		x="135" width="35"></rect>
+              <rect rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6" height="1" x="135" 
+              		width="35" y="190"></rect>
+              <rect rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6" height="1" x="135" 
+              		width="35" y="200"></rect>
+              <rect rx="4" ry="4" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6" height="1" x="135" 
+              		width="35" y="210"></rect>
+            </svg>`,
+        owned: false,
+    },    
+    valenxCatalyst: {
+    	name: $company.prototype.name + " Catalyst",
+        description: "A device that amplifies a dormant desire or character trait. Cannot create new desires from nothing.",
+    	charge: 100,
+        maxCharge: 100,
+        calibration: "mom",
+        calibrationQuality: 0,
+        calibratedAtDay: -1,
+        calibrationPresets: [
+            "mom",
+            "sister",
+        ],
+        lastUsedAtDay: 0,
+        lastUsedOnWho: "boss",
+        design: `<svg viewBox="0 0 200 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+              <rect x="22" y="12" width="156" height="216" rx="6" ry="6" 
+                    fill="#EBDDC5" fill-opacity="0.06" stroke="#EBDDC5" stroke-width="6"/>
+              <rect width="25" height="90" rx="4" ry="4" fill="#EBDDC5"
+              		fill-opacity="0.08" stroke="#EBDDC5" y="35" stroke-width="6" x="153"></rect>
+              <rect x="38" y="40" width="95" height="70" rx="4" ry="4" 
+                    fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6"/>
+              <rect x="38" y="125" width="75" height="50" rx="4" ry="4" 
+                    fill="none" stroke="#EBDDC5" stroke-width="4" opacity="0.55"/>
+              <rect x="160" y="50" width="12" height="8" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"/>
+              <rect x="160" y="65" width="12" height="8" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"/>
+            </svg>`,
+        owned: false,
+    },
+}>>
+
+<<set $company.workHours to [
+    /*Early Morning*/
+    false,
+    false,
+    false,
+
+    /*Morning*/
+    false,
+    true,
+    true,
+
+    /*Noon*/
+    true,
+    true,
+    true,
+
+    /*Afternoon*/
+    true,
+    true,
+    true,
+
+    /*Evening*/
+    false,
+    false,
+    false,
+
+    /*Night*/       
+    false,
+    false,
+    false,
+
+    /*Late Night*/ 
+    false,
+    false,
+    false,  
+]>>
+
+
+/* Company stats ===============================================================
+   $company.stats, 0-100. They only do something from $company.stage 1 on (setup.companyStatsActive);
+   Stage 0 hides them. Each stat has one job:
+
+   efficiency   How fast the staff turn their skills into project work: ProgressProjects multiplies their
+                work by setup.efficiencyFactor() = 0.5 + efficiency / 100 (x0.5 at 0, x1 at 50, x1.5 at 100).
+                My own Work button and the tasks of mom and sister are manual work and stay flat.
+                Every night it moves toward setup.efficiencyTarget(), up by tuning.efficiencyRise and down by
+                tuning.efficiencyFall points. The target is the sum of setup.efficiencySources, so a one-off
+                boost fades again while the things in that list last.
+                Now:   the vent unit level (35 / 50 / 65 / 80), low company Morale (below 40 it pulls the
+                       target down), Secretary Work (+2 each time, a boost that fades).
+                Later: office upgrades, the Veil in the office, quest bonuses: add them to efficiencySources
+                       (lasting) or call setup.changeCompanyStat("efficiency", n) (one-off).
+   reputation   Pay and unlocks. Repeatable client projects pay reward x setup.reputationRewardFactor(p)
+                = 0.8 + reputation / 250 (x0.8 at 0, x1.2 at 100); story projects keep their reward. New projects
+                and mails can ask for it in their unlock conditions ("$company.stats.reputation >= 25").
+                +3 for a client project finished on time, -1 for every day a client project is overdue,
+                plus story beats (the official product meeting). It never drifts.
+   morale       The climate in the office. Every employee keeps an own morale for their own exhaustion;
+                this one decides how fast they get it back and how fast work eats it:
+                overnight recovery setup.moraleRecovery() = 5 + morale / 5 (+5 to +25, +15 at 50),
+                work drain tuning.moraleDrainPerAction per action of project work x setup.moraleDrainFactor()
+                = (1.5 - morale / 100) x the drain of the vent level. Their work is scaled by their own morale
+                (50% at 0, 100% at full), so on Low they keep going at about 85%, Medium gets more done at
+                about 70% morale, and High is a crunch: the most work for a week or so, then they run dry.
+                +2 per Coffee Break, +2 for a project finished on time, -2 for one finished late,
+                plus story beats. Moves 5 points toward 50 every week.
+   suspicion    Inactive until Stage 2 (setup.suspicionActive): it stays 0, the sidebar and the CMD hide it and
+                UpdateStat / changeCompanyStat ignore it. Planned for Stage 2: device use on clients, turning
+                the vent unit up, risky tasks; a lawyer and clean projects bring it down; thresholds that fire
+                events (a letter, an inspection, a raid) through $events requirements.
+
+   The vent unit: setup.ventLevels, one entry per dial position, switched in the CMD device strip. It costs
+   no charge (it runs on the building power). A higher level costs morale instead: drain multiplies the
+   morale the staff lose while they work, so High gets more done per action but wears them out faster.
+
+   Helpers:
+   setup.companyStatsActive()        true from Stage 1 on
+   setup.suspicionActive()           true from Stage 2 on
+   setup.changeCompanyStat(key, n)   adds n (may be negative) to $company.stats[key], clamped, without a
+                                     printed line (UpdateStat prints one). Ignores suspicion while inactive
+   setup.ventLevel()                 the setup.ventLevels entry the unit is set to
+   setup.setVentLevel(i)             switches the unit, refreshes the CMD stats panel
+   setup.ventDesign                  its SVG for the CMD (CMD Other: card and openVentDialog)
+   setup.efficiencyTarget()          where efficiency is heading, 0-100
+   setup.efficiencyBreakdown()       [{ label, value }] of the sources that are not 0, for the UI
+   setup.efficiencyFactor()          the multiplier on staff work
+   setup.moraleRecovery()            employee morale won back overnight
+   setup.moraleDrainFactor()         the multiplier on the morale work costs
+   setup.reputationRewardFactor(p)   the multiplier on the reward of project p
+   setup.companyStatsDaily()         efficiency drift (Daily Update)
+   setup.companyStatsWeekly()        morale drift (Weekly Update) */
+<<set setup.companyStatTuning to {
+    efficiencyRise: 6,
+    /* morale an employee spends per action of project work, before setup.moraleDrainFactor (ProgressProjects) */
+    moraleDrainPerAction: 1.8,
+    efficiencyFall: 2,
+    lowMoraleFrom: 40,
+    moraleBaseline: 50,
+    moraleWeeklyDrift: 5,
+    onTimeReputation: 3,
+    lateReputationPerDay: 1,
+    onTimeMorale: 2,
+    lateMorale: 2,
+}>>
+
+<<set setup.ventLevels to [
+    { name: "Off", output: 0, efficiency: 35, drain: 0.8,
+      text: "Switched off. Everyone works at their own pace, which is slower than I'd like, but nobody wears out either." },
+    { name: "Low", output: 18, efficiency: 50, drain: 1,
+      text: "The 18% baseline I set it to on day one. It keeps the room warm and focused, and nobody would ever think to blame the ceiling." },
+    { name: "Medium", output: 35, efficiency: 65, drain: 1.25,
+      text: "A real push. The team gets a lot more done and goes home more tired than they can explain." },
+    { name: "High", output: 60, efficiency: 80, drain: 1.6,
+      text: "Everybody works like the deadline was yesterday. It burns through their morale fast, so it's for a crunch week, not for every day." },
+]>>
+
+/* drawing of the vent unit for the CMD device strip and its dialog (same frame as the device designs above) */
+<<set setup.ventDesign to `<svg viewBox="0 0 200 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+      <rect x="20" y="40" width="160" height="160" rx="8" ry="8" fill="#EBDDC5" fill-opacity="0.06"
+            stroke="#EBDDC5" stroke-width="6"></rect>
+      <rect x="42" y="64" width="116" height="8" rx="3" ry="3" fill="#EBDDC5" opacity="0.45"></rect>
+      <rect x="42" y="88" width="116" height="8" rx="3" ry="3" fill="#EBDDC5" opacity="0.45"></rect>
+      <rect x="42" y="112" width="116" height="8" rx="3" ry="3" fill="#EBDDC5" opacity="0.45"></rect>
+      <rect x="42" y="136" width="116" height="8" rx="3" ry="3" fill="#EBDDC5" opacity="0.45"></rect>
+      <rect x="42" y="160" width="116" height="8" rx="3" ry="3" fill="#EBDDC5" opacity="0.45"></rect>
+      <circle cx="34" cy="54" r="4" fill="#EBDDC5" opacity="0.4"></circle>
+      <circle cx="166" cy="54" r="4" fill="#EBDDC5" opacity="0.4"></circle>
+      <circle cx="34" cy="186" r="4" fill="#EBDDC5" opacity="0.4"></circle>
+      <circle cx="166" cy="186" r="4" fill="#EBDDC5" opacity="0.4"></circle>
+      <circle cx="100" cy="186" r="4" fill="#5CC8E8" opacity="0.9"></circle>
+    </svg>`>>
+
+<<set setup.efficiencySources to [
+    { label: "Vent unit", value: () => setup.ventLevel().efficiency },
+    { label: "Low morale", value: () => {
+        const morale = State.variables.company.stats.morale;
+        const from = setup.companyStatTuning.lowMoraleFrom;
+        return morale < from ? -Math.round((from - morale) / 2) : 0;
+    } },
+]>>
+
+<<set setup.companyStatsActive = () => State.variables.company.stage >= 1>>
+
+<<set setup.suspicionActive = () => State.variables.company.stage >= 2>>
+
+<<set setup.changeCompanyStat = (key, amount) => {
+    const stats = State.variables.company.stats;
+    if (!(key in stats)) { console.error('setup.changeCompanyStat: there is no company stat "' + key + '"'); return; }
+    if (key === "suspicion" && !setup.suspicionActive()) { return; }
+    stats[key] = Math.clamp((Number(stats[key]) || 0) + Number(amount), stats.min[key], stats.max[key]);
+}>>
+
+<<set setup.ventLevel = () => {
+    const level = Number(State.variables.company.vent.level) || 0;
+    return setup.ventLevels[Math.clamp(level, 0, setup.ventLevels.length - 1)];
+}>>
+
+<<set setup.setVentLevel = (level) => {
+    State.variables.company.vent.level = Math.clamp(Number(level) || 0, 0, setup.ventLevels.length - 1);
+    if ($("#cmd-stats").length) {
+        $("#cmd-stats").empty().wiki('<<include "CMD Stats">>');
+    }
+}>>
+
+<<set setup.efficiencyBreakdown = () => {
+    return setup.efficiencySources
+        .map((source) => ({ label: source.label, value: Math.round(Number(source.value()) || 0) }))
+        .filter((entry) => entry.value !== 0);
+}>>
+
+<<set setup.efficiencyTarget = () => {
+    const stats = State.variables.company.stats;
+    const sum = setup.efficiencyBreakdown().reduce((total, entry) => total + entry.value, 0);
+    return Math.clamp(sum, stats.min.efficiency, stats.max.efficiency);
+}>>
+
+<<set setup.efficiencyFactor = () => {
+    if (!setup.companyStatsActive()) { return 1; }
+    return 0.5 + State.variables.company.stats.efficiency / 100;
+}>>
+
+<<set setup.moraleRecovery = () => {
+    if (!setup.companyStatsActive()) { return 15; }
+    return Math.round(5 + State.variables.company.stats.morale / 5);
+}>>
+
+<<set setup.moraleDrainFactor = () => {
+    if (!setup.companyStatsActive()) { return 1; }
+    return (1.5 - State.variables.company.stats.morale / 100) * setup.ventLevel().drain;
+}>>
+
+<<set setup.reputationRewardFactor = (project) => {
+    if (!project || project.type !== "repeatable" || !(Number(project.reward) > 0)) { return 1; }
+    return 0.8 + State.variables.company.stats.reputation / 250;
+}>>
+
+<<set setup.companyStatsDaily = () => {
+    if (!setup.companyStatsActive()) { return; }
+    const stats = State.variables.company.stats;
+    const tuning = setup.companyStatTuning;
+    const target = setup.efficiencyTarget();
+    if (stats.efficiency < target) {
+        stats.efficiency = Math.min(target, stats.efficiency + tuning.efficiencyRise);
+    } else if (stats.efficiency > target) {
+        stats.efficiency = Math.max(target, stats.efficiency - tuning.efficiencyFall);
+    }
+}>>
+
+<<set setup.companyStatsWeekly = () => {
+    if (!setup.companyStatsActive()) { return; }
+    const stats = State.variables.company.stats;
+    const tuning = setup.companyStatTuning;
+    const gap = tuning.moraleBaseline - stats.morale;
+    stats.morale += Math.sign(gap) * Math.min(Math.abs(gap), tuning.moraleWeeklyDrift);
+}>>
+
+/* The device pulse ============================================================
+   A heartbeat glow over the whole screen while the device is running. It is purely visual: it lives in the
+   page, not in the game state, it is not saved, and it never catches clicks (pointer-events: none).
+   setup.devicePulse(power [, opts])   power 0-10, the same scale as a quest device impact. Returns the new power.
+                                       A string with a sign ("+2", "-1") turns the dial from where it is now.
+                                       0, false or "off" switches it off (it fades out).
+       opts.keep    true: keep it running across passage changes until it is switched off (multi-part scenes).
+                    Without it, the pulse fades out on the next passage change. Once kept, later calls without
+                    keep stay kept; keep: false drops it again.
+       opts.color   "#rrggbb" for this pulse (kept by later "+1" calls), default setup.devicePulseStyle.color
+       opts.fade    fade in/out time in ms, default setup.devicePulseStyle.fade
+       opts.delay   ms to wait before the change happens (a device that sputters out a few seconds after it
+                    was switched on). A passage change or any other call in the meantime cancels it.
+   setup.devicePulsePower()            the power right now (0 while it is off)
+   The widget is <<DevicePulse>> ("Quest Widgets"), and <<UseQuestDevice>> starts it with the quest impact.
+   The look is the CSS of #device-pulse in StoryStylesheet. The player can switch it off in the settings
+   (showDevicePulse); the power is still tracked then, so switching it back on mid-scene shows it again. */
+<<set setup.devicePulseStyle to {
+    color: "#ff6479",   /* the default glow color */
+    fade: 900,          /* ms to fade in and out */
+    slowest: 3.2,       /* seconds per heartbeat at power 1 */
+    fastest: 0.85,      /* seconds per heartbeat at power 10 */
+}>>
+
+<<set setup.devicePulsePower = () => {
+    const el = document.getElementById("device-pulse");
+    return el ? Number(el.dataset.power) || 0 : 0;
+}>>
+
+<<set setup.devicePulse = (power, opts) => {
+    const options = opts || {};
+    const style = setup.devicePulseStyle;
+    const current = setup.devicePulsePower();
+    const fade = options.fade !== undefined ? Number(options.fade) : style.fade;
+    let el = document.getElementById("device-pulse");
+
+    /* A delayed change waits, then runs as a normal call. A passage change, or any call in the meantime, cancels it */
+    clearTimeout(Number(document.body.dataset.dpDelay));
+    jQuery(document).off(":passagestart.devicePulseDelay");
+    if (Number(options.delay) > 0) {
+        const later = Object.assign({}, options, { delay: 0 });
+        document.body.dataset.dpDelay = setTimeout(() => setup.devicePulse(power, later), Number(options.delay));
+        jQuery(document).one(":passagestart.devicePulseDelay", () => clearTimeout(Number(document.body.dataset.dpDelay)));
+        return current;
+    }
+
+    /* Work out the new power: absolute number, relative string, or off */
+    const raw = power === undefined || power === null || power === false ? "off" : String(power).trim().toLowerCase();
+    let power10;
+    if (raw === "off") {
+        power10 = 0;
+    } else if (typeof power === "string" && (raw[0] === "+" || raw[0] === "-")) {
+        power10 = current + Number(raw);
+    } else {
+        power10 = Number(raw);
+    }
+    if (!Number.isFinite(power10)) {
+        console.error('setup.devicePulse: "' + power + '" is no power, use 0-10, "+1"/"-1" or "off"');
+        return current;
+    }
+    power10 = Math.max(0, Math.min(10, power10));
+
+    jQuery(document).off(":passagestart.devicePulse");
+
+    /* Off: fade out, then remove the layer (unless it was switched on again in the meantime) */
+    if (power10 <= 0) {
+        if (el) {
+            el.dataset.power = 0;
+            el.dataset.keep = "";
+            el.style.setProperty("--dp-fade", fade + "ms");
+            el.classList.remove("dp-on");
+            clearTimeout(Number(el.dataset.timer));
+            el.dataset.timer = setTimeout(() => {
+                if (!el.classList.contains("dp-on")) { el.remove(); }
+            }, fade + 50);
+        }
+        return 0;
+    }
+
+    if (!el) {
+        el = document.createElement("div");
+        el.id = "device-pulse";
+        el.setAttribute("aria-hidden", "true");
+        el.innerHTML = '<div class="dp-glow"></div><div class="dp-flash"></div>';
+        document.body.appendChild(el);
+        void el.offsetWidth;  /* start from opacity 0, so the fade-in runs */
+    }
+    clearTimeout(Number(el.dataset.timer));
+
+    const hex = String(options.color || el.dataset.color || style.color).replace("#", "");
+    const full = hex.length === 3 ? hex.split("").map((c) => c + c).join("") : hex.slice(0, 6);
+    const rgb = [0, 2, 4].map((i) => parseInt(full.substr(i, 2), 16) || 0).join(", ");
+    const p = power10 / 10;
+    const period = Math.max(style.fastest, style.slowest - (style.slowest - style.fastest) * (power10 - 1) / 9);
+
+    el.dataset.power = power10;
+    el.dataset.color = "#" + full;
+    if (options.keep === true) { el.dataset.keep = "1"; }
+    if (options.keep === false) { el.dataset.keep = ""; }
+
+    el.style.setProperty("--dp-fade", fade + "ms");
+    el.style.setProperty("--dp-rgb", rgb);
+    el.style.setProperty("--dp-alpha", (0.2 + 0.5 * p).toFixed(3));
+    el.style.setProperty("--dp-inner", (62 - 27 * p).toFixed(1));
+    el.style.setProperty("--dp-flash", (p <= 0.5 ? 0 : (p - 0.5) * 0.12).toFixed(3));
+    el.style.setProperty("--dp-period", period.toFixed(2) + "s");
+    el.classList.toggle("dp-on", settings.showDevicePulse !== false);
+
+    if (!el.dataset.keep) {
+        jQuery(document).one(":passagestart.devicePulse", () => setup.devicePulse(0));
+    }
+    return power10;
+}>>
+
+/* Loading a save never keeps a pulse from the game that was running before */
+<<run Save.onLoad.add(() => setup.devicePulse(0, { fade: 0 }))>>

@@ -1,0 +1,17 @@
+:: Sister Room [location] {"position":"150,1425","size":"100,100"}
+<<CheckLocation>>
+
+$sister.callName's room is all warm glow and soft edges. String lights zigzag across the wall like little constellations, holding up Polaroids and ticket stubs that map out her last few years. The bed sits on a simple wooden frame, made, more or less, and piled with oversized pillows in muted peach and gray, with a small, very loved teddy bear wedged against the headboard. Shelves climb the left wall: paperbacks, a couple of plants that are surviving against the odds, a jar of pens and little souvenirs that only make sense to her. A narrow desk is pushed up against the window, and her denim jacket hangs over the back of the chair like she meant to grab it on her way out and forgot. It smells faintly of vanilla and clean laundry.
+
+If she catches me in here, I'll never hear the end of it. Better to leave everything exactly how she left it and slip back out.
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Hallway]]
+</div>
+<</nobr>>
+
+

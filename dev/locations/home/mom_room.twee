@@ -1,0 +1,17 @@
+:: Mom Room [location] {"position":"400,1425","size":"100,100"}
+<<CheckLocation>>
+
+I stop in the doorway to $mom.callName's room, and the first thing I notice is how calm it is in here. Light pours through the tall windows and makes the pale walls look almost weightless. The bed is made with military neatness: a gray upholstered headboard, layered linen and a row of deep blue pillows that look like she measured the gaps between them. A woven bench stands at the foot of the bed, on a soft rug in the same cool colors as the bedding. It smells faintly of clean cotton and the detergent she's sworn by for as long as I can remember.
+
+Even the hairbrush on her nightstand is lined up with the edge. She'd notice if I moved anything, so I don't. If I actually need her, I should go find her in the <<link $mom.location.name $mom.location.name>><</link>>.
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Hallway]]
+</div>
+<</nobr>>
+
+

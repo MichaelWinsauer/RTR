@@ -1,0 +1,8 @@
+:: Company Stage 2 [location] {"position":"2550,2375","size":"100,100"}
+<<CheckLocation>>
+
+<<CheckNPCLocation>>
+
+[[Return|Residential Area]]
+
+

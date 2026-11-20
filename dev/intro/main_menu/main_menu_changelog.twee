@@ -1,0 +1,21 @@
+:: Main Menu Changelog [system] {"position":"0,550"}
+/*
+	Content of the "Changelog" panel on the main menu. Plain HTML / SugarCube markup.
+	Newest release on top. One block per release:
+	<section class="mm-release">
+		<div class="mm-release-head"><span class="mm-release-ver">v0.0.0</span><span class="mm-release-date">YYYY-MM-DD</span></div>
+		<ul><li>Change</li></ul>
+	</section>
+*/
+<section class="mm-release">
+	<div class="mm-release-head">
+        <span class="mm-release-ver">v0.1.0</span>
+        <span class="mm-release-date">2026-10-27</span>
+    </div>
+	<ul>
+		<li>Initial Release</li>
+		<li>Added Stage 0 & Stage 1</li>
+		<li>Over 50 sexual explicit scenes with over 300 videos</li>
+        <li>200k+ Words</li>
+	</ul>
+</section>

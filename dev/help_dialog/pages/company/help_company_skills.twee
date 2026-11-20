@@ -1,0 +1,36 @@
+:: Help Company Skills [nobr] {"position":"575,4375"}
+/* The skill table lists $company.employees from the live state (setup.helpEmployees, Help Dialog Script) */
+<p>Everyone who works for you has nine <b>skills</b>: software, hardware, analysis, testing, consulting, management, HR, sales and marketing. How good someone is at each decides how much they add to a project.</p>
+
+<<set _hcsStaff to setup.helpEmployees()>>
+<<set _hcsSkills to ["software", "hardware", "analysis", "testing", "consulting", "management", "hr", "sales", "marketing"]>>
+<<set _hcsLabels to { software: "Software", hardware: "Hardware", analysis: "Analysis", testing: "Testing", consulting: "Consulting", management: "Management", hr: "HR", sales: "Sales", marketing: "Marketing" }>>
+<<if _hcsStaff.length > 0>>
+<table class="help-table">
+	<tr><th>Skill</th><<for _hcsPerson range _hcsStaff>><th><<= _hcsPerson.callName>></th><</for>></tr>
+	<<for _hcsSkill range _hcsSkills>>
+	<tr><td><<= _hcsLabels[_hcsSkill]>></td><<for _hcsPerson range _hcsStaff>><td><<= (_hcsPerson.skills && _hcsPerson.skills[_hcsSkill]) || 0>></td><</for>></tr>
+	<</for>>
+</table>
+<<else>>
+<p class="help-empty">Nobody works for the company yet.</p>
+<</if>>
+
+<h3>How employees move a project forward</h3>
+<ul>
+	<li>It only happens on <b>weekdays during work hours</b> (the 8 work actions, see <a href="#" data-help="Help Company Header">the header</a>), and only for projects the person is <a href="#" data-help="Help Company Projects">assigned</a> to.</li>
+	<li>With every action, each skill adds <b>skill ÷ 10</b> to the matching requirement of the project. A consulting skill of 10 adds 1 point per action to a consulting requirement. Skills the project doesn't need add nothing.</li>
+	<li>Someone on several projects <b>splits</b> their work between them.</li>
+	<li>The work depends on <b>morale</b>: at full morale they work at full speed, and the lower it gets, the slower they are, down to half speed when it is nearly empty. At 0 they do nothing until they have rested.</li>
+	<li>It is also multiplied by the company's <a href="#" data-help="Help Company Stats">Efficiency</a>: ×1 at 50, ×0.5 at 0, ×1.5 at 100.</li>
+	<li>A requirement never goes past what it needs.</li>
+</ul>
+
+<h3>Morale</h3>
+<ul>
+	<li>Every action of project work costs about <b>2 morale</b> (on the Low vent, at company Morale 50), split over their projects, so a full work day costs about 14 and a night's rest gives it back. How much depends on the company's <a href="#" data-help="Help Company Stats">Morale</a> (low company Morale makes work cost more) and on the level of the <a href="#" data-help="Help Company Devices">vent unit</a> (Medium and High cost more).</li>
+	<li>When someone's morale drops to 33 or less, a warning appears once a day: <b>Employee Morale is low!</b></li>
+	<li>Every night everyone recovers morale: <b><<= setup.moraleRecovery()>></b> right now (5 at company Morale 0, 15 at 50, 25 at 100).</li>
+	<li>Low morale also makes the <a href="#" data-help="Help Company Tasks">tasks</a> of $mom.callName and $sister.callName cost more energy.</li>
+</ul>
+<div class="help-note">Your own Work button adds +1 to every requirement and doesn't use morale.</div>

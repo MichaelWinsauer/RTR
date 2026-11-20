@@ -1,0 +1,1195 @@
+:: StoryScript [script system] {"position":"250,300"}
+if (!window.Chart) {
+  var script = document.createElement("script");
+  script.src = "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js";
+  script.onload = function() { console.log("Chart.js is ready"); };
+  document.head.appendChild(script);
+}
+
+/* Loaded here instead of an @import in StoryStylesheet: Tweego merges all stylesheet passages
+   into one <style>, and an @import that isn't at the very top of it gets ignored. */
+if (!document.getElementById("font-manrope")) {
+  var font = document.createElement("link");
+  font.id = "font-manrope";
+  font.rel = "stylesheet";
+  font.href = "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap";
+  document.head.appendChild(font);
+}
+
+//Settings ============================================================
+Config.history.maxStates = 5;
+Config.saves.maxAutoSaves = 1;
+Config.saves.autosave = function () {
+    return State.turns > 0 && (State.turns % 10 === 0);
+};
+
+/* Playtime ==============================================================
+   $playtime (Define Misc) is the time played in milliseconds.
+   - A 1 s ticker counts real time into a pending amount, but only while the tab is visible, the
+     player touched mouse/keyboard/touch in the last PLAYTIME_IDLE_MS, and the game is past the Main Menu.
+   - :passageinit runs before SugarCube creates the new history moment, so adding the pending
+     time there puts it into the state that gets saved.
+   - A save only holds the state from the start of its passage, so Config.saves.metadata stores the
+     exact total at the moment of saving (metadata.playtime), and Save.onLoad writes it back into
+     the loaded moment. The saves dialog and the main menu read metadata.playtime for their label.
+   setup.playtimeNow()            current total in ms
+   setup.formatPlaytime(ms)       "01:34:52" (hours keep growing past 99) */
+var PLAYTIME_IDLE_MS = 5 * 60 * 1000;
+var playtimePending = 0;
+var playtimeLastTick = Date.now();
+var playtimeLastInput = Date.now();
+
+setup.playtimeNow = function () {
+	return (Number(State.variables.playtime) || 0) + playtimePending;
+};
+
+setup.formatPlaytime = function (ms) {
+	var total = Math.max(0, Math.floor((Number(ms) || 0) / 1000));
+	var pad = function (n) { return n < 10 ? "0" + n : String(n); };
+	return pad(Math.floor(total / 3600)) + ":" + pad(Math.floor(total / 60) % 60) + ":" + pad(total % 60);
+};
+
+$(document).on("mousemove mousedown keydown wheel touchstart", function () {
+	playtimeLastInput = Date.now();
+});
+
+setInterval(function () {
+	var now = Date.now();
+	/* a throttled or sleeping tab can deliver one huge gap, never count more than 2 s per tick */
+	var delta = Math.min(now - playtimeLastTick, 2000);
+	playtimeLastTick = now;
+	if (document.visibilityState !== "visible") { return; }
+	if (now - playtimeLastInput > PLAYTIME_IDLE_MS) { return; }
+	if (State.passage === "" || State.passage === "Main Menu") { return; }
+	playtimePending += delta;
+}, 1000);
+
+$(document).on(":passageinit", function () {
+	if (playtimePending > 0) {
+		State.variables.playtime = (Number(State.variables.playtime) || 0) + playtimePending;
+		playtimePending = 0;
+	}
+});
+
+Config.saves.metadata = function () {
+	return { playtime: Math.floor(setup.playtimeNow()) };
+};
+
+Save.onLoad.add(function (save) {
+	/* time spent before loading belongs to the other game */
+	playtimePending = 0;
+	var moment = save.state.history[save.state.index];
+	if (moment && save.metadata && typeof save.metadata.playtime === "number") {
+		moment.variables.playtime = save.metadata.playtime;
+	}
+});
+
+/* Shows the playtime under each save in the saves dialog. SugarCube rebuilds the list after
+   every save/delete without reopening the dialog, so a MutationObserver on the dialog body
+   catches the rebuilds. The row only names its kind and number in the datestamp line
+   ("Auto 1  -  date" / "Slot 3  -  date"), which is how a row is matched to its save. */
+var addPlaytimeToSaves = function () {
+	var body = Dialog.body();
+	if (!body.classList.contains("saves")) { return; }
+	var autoLabel = L10n.get("savesTextBrowserAuto");
+	var slotLabel = L10n.get("savesTextBrowserSlot");
+	var infos = { auto: {}, slot: {} };
+	Save.browser.auto.entries().forEach(function (e) { infos.auto[e.index] = e.info; });
+	Save.browser.slot.entries().forEach(function (e) { infos.slot[e.index] = e.info; });
+	$(body).find("#saves-list .datestamp").each(function () {
+		if ($(this).siblings(".playtime").length) { return; }
+		/* SugarCube puts a no-break space between the label and the number */
+		var match = /^(.+?)\s(\d+)(\s|$)/.exec($(this).text());
+		if (!match) { return; }
+		var kind = match[1] === autoLabel ? "auto" : match[1] === slotLabel ? "slot" : null;
+		var info = kind && infos[kind][Number(match[2]) - 1];
+		if (!info || !info.metadata || typeof info.metadata.playtime !== "number") { return; }
+		$('<div class="details playtime"></div>')
+			.text("Playtime " + setup.formatPlaytime(info.metadata.playtime))
+			.insertAfter(this);
+	});
+};
+var savesObserver = null;
+$(document).on(":dialogopened", function () {
+	if (!savesObserver) {
+		savesObserver = new MutationObserver(addPlaytimeToSaves);
+		savesObserver.observe(Dialog.body(), { childList: true });
+	}
+	addPlaytimeToSaves();
+});
+
+var imageHandler = function() {
+	State.variables.settings.showImages = settings.showImages;
+}
+
+var switchToActivities = function() {
+	State.variables.settings.switchToActivities = settings.switchToActivities;
+}
+
+var switchToActivitiesInsteadOfLocations = function() {
+	State.variables.settings.switchToActivities = settings.switchToActivitiesInsteadOfLocations;
+}
+
+var mealNotificationsHandler = function() {
+	State.variables.settings.showMealNotifications = settings.showMealNotifications;
+}
+
+var skipMinigamesHandler = function() {
+	State.variables.settings.skipMinigames = settings.skipMinigames;
+}
+
+var cctvEffectHandler = function() {
+	State.variables.settings.showCCTVEffect = settings.showCCTVEffect;
+}
+
+var cctvOverlayHandler = function() {
+	State.variables.settings.showCCTVOverlay = settings.showCCTVOverlay;
+}
+
+var cctvBackgroundHandler = function() {
+	State.variables.settings.showCCTVBackground = settings.showCCTVBackground;
+}
+
+Setting.addHeader("Gameplay");
+Setting.addToggle("showImages", {
+	label: "Display images in this game?",
+  	default: true,
+  	onChange: imageHandler
+});
+Setting.addToggle("switchToActivitiesInsteadOfLocations", {
+	label: "Display Activities of NPCs when meeting them?",
+  	default: true,
+  	onChange: switchToActivitiesInsteadOfLocations
+});
+Setting.addToggle("switchToActivities", {
+	label: "Automatically switch to \"Activities\" in the sidebar when meeting a NPC?",
+  	default: false,
+  	onChange: switchToActivities
+});
+Setting.addToggle("showMealNotifications", {
+	label: "Show a notification when a meal with the family is ready?",
+  	default: false,
+  	onChange: mealNotificationsHandler
+});
+Setting.addToggle("showDevicePulse", {
+	label: "Show a pulsing glow on the screen while the device is running?",
+  	default: true,
+  	onChange: function () {
+		// Refresh a running pulse: hides it, or shows it again at the power it has now
+		if (setup.devicePulse) { setup.devicePulse(setup.devicePulsePower()); }
+	}
+});
+Setting.addToggle("skipMinigames", {
+	label: "Skip Minigames?",
+  	default: false,
+  	onChange: skipMinigamesHandler
+});
+Setting.addHeader("CCTV Settings");
+Setting.addToggle("showCCTVEffect", {
+	label: "Display animated noise over CCTV Videos?",
+  	default: true,
+  	onChange: cctvEffectHandler
+});
+Setting.addToggle("showCCTVOverlay", {
+	label: "Display a camera overlay over CCTV Videos?",
+  	default: true,
+  	onChange: cctvOverlayHandler
+});
+Setting.addToggle("showCCTVBackground", {
+	label: "Display a black background to the CCTV Videos?",
+  	default: true,
+  	onChange: cctvBackgroundHandler
+});
+
+/* ———————————— Audio Settings ———————————— */
+(function () {
+  function applyMute() {
+    try { SimpleAudio.mute(!settings.enableSound); } catch (e) {}
+  }
+
+  function applyVolumes() {
+    // Volumes still get stored even while muted, so unmuting restores them
+    try { SimpleAudio.volume((settings.volMaster ?? 80) / 100); } catch (e) {}
+    try { SimpleAudio.select(':music').volume((settings.volMusic ?? 15) / 100); } catch (e) {}
+    try { SimpleAudio.select(':ambience').volume((settings.volAmbience ?? 65) / 100); } catch (e) {}
+    try { SimpleAudio.select(':sfx').volume((settings.volSfx ?? 50) / 100); } catch (e) {}
+  }
+
+  Setting.addHeader('Audio');
+
+  // Sound toggle (default ON)
+  Setting.addToggle('enableSound', {
+    label: 'Enable sound',
+    default: true,
+    onChange: applyMute
+  });
+
+  const add = (name, label, def) => {
+    Setting.addRange(name, {
+      label, min: 0, max: 100, step: 1,
+      default: def,
+      onChange: applyVolumes
+    });
+  };
+
+  add('volMaster',   'Master volume',   80);
+  add('volMusic',    'Music volume',    15);
+  add('volAmbience', 'Ambience volume', 65);
+  add('volSfx', 	 'Sound effects volume', 50);
+
+  // Slider fill: expose the value as --fill (0–1) so the stylesheet can draw the progress
+  function updateFill(el) {
+    var min = parseFloat(el.min) || 0;
+    var max = parseFloat(el.max);
+    if (isNaN(max)) { max = 100; }
+    var p = max > min ? (parseFloat(el.value) - min) / (max - min) : 0;
+    el.style.setProperty('--fill', Math.min(1, Math.max(0, p)));
+  }
+
+  $(document).on('input change', '#ui-dialog-body.settings input[type=range]', function () {
+    updateFill(this);
+  });
+
+  $(document).on(':dialogopened', function () {
+    $('#ui-dialog-body.settings input[type=range]').each(function () { updateFill(this); });
+  });
+
+  // Ensure the default mute is applied before your audio macro ever plays
+  $(document).one(':storyready', function () {
+    if (typeof settings.enableSound === 'undefined') { settings.enableSound = true; }
+    applyMute();
+    applyVolumes();
+  });
+})();
+
+/* ———————————— Init Settings for new Games ————————————
+   Runs before every passage, not just the first one: $settings is part of the saved state, so a Load or a step
+   Back would bring back the values from that moment while the real settings stay as they are. Copying them
+   again on every passage keeps the two in sync. */
+
+$(document).on(':passageinit', function () {
+    // Default values if they don't exist yet (new game or first load)
+    if (typeof settings.showImages === 'undefined')          settings.showImages = true;
+    if (typeof settings.switchToActivitiesInsteadOfLocations === 'undefined')  settings.switchToActivitiesInsteadOfLocations = true;
+  	if (typeof settings.switchToActivities === 'undefined')  settings.switchToActivities = false;
+    if (typeof settings.showMealNotifications === 'undefined') settings.showMealNotifications = true;
+    if (typeof settings.skipMinigames === 'undefined') settings.skipMinigames = true;
+    if (typeof settings.showCCTVEffect === 'undefined')      settings.showCCTVEffect = true;
+    if (typeof settings.showCCTVOverlay === 'undefined')     settings.showCCTVOverlay = true;
+    if (typeof settings.showCCTVBackground === 'undefined')  settings.showCCTVBackground = true;
+    
+    // Audio defaults (your code already has some, but make sure)
+    if (typeof settings.enableSound === 'undefined')         settings.enableSound = true;
+    if (typeof settings.volMaster === 'undefined')           settings.volMaster = 80;
+    if (typeof settings.volMusic === 'undefined')            settings.volMusic = 15;
+    if (typeof settings.volAmbience === 'undefined')         settings.volAmbience = 65;
+  	if (typeof settings.volSfx === 'undefined') 			       settings.volSfx = 50;
+
+    // Now copy them into State.variables so your widgets can read them easily
+    State.variables.settings = State.variables.settings || {};
+    State.variables.settings.showImages = settings.showImages;
+    State.variables.settings.switchToActivities = settings.switchToActivities;
+    State.variables.settings.showMealNotifications = settings.showMealNotifications;
+    State.variables.settings.skipMinigames = settings.skipMinigames;
+  	State.variables.settings.switchToActivitiesInsteadOfLocations = settings.switchToActivitiesInsteadOfLocations;
+    State.variables.settings.showCCTVEffect = settings.showCCTVEffect;
+    State.variables.settings.showCCTVOverlay = settings.showCCTVOverlay;
+    State.variables.settings.showCCTVBackground = settings.showCCTVBackground;
+    // No need for audio here unless your widgets check them too
+});
+
+/* ———————————— Audio Macro ———————————— */
+
+(function () {
+  function _isNight(S) {
+    if (S.time && S.time.current && typeof S.time.current.value === 'number') {
+      return S.time.current.value >= 5;
+    }
+    var h = null;
+    if (S.time && typeof S.time.hour === 'number') { h = S.time.hour; }
+    else if (S.time && typeof S.time.h === 'number') { h = S.time.h; }
+    return (typeof h === 'number') ? (h < 6 || h >= 20) : false;
+  }
+
+  function _playAudioImpl() {
+    var S = State.variables;
+
+    // Passages that play their own audio (the Main Menu) are tagged no_location_audio
+    if (tags().includes('no_location_audio')) { return; }
+
+    var loc = S.player.location;
+    if (!loc || !loc.audio) { return; }
+
+    if (!S.audio) { 
+      S.audio = { 
+        now: { 
+          music: null, 
+          ambience: null 
+        }, 
+        override: { 
+          music: null, 
+          ambience: null 
+        } 
+      }; 
+    }
+
+    var wantMusic = (S.audio.override && S.audio.override.music)
+      ? S.audio.override.music
+      : (loc.audio.music || null);
+    var wantAmbience = (S.audio.override && S.audio.override.ambience)
+      ? S.audio.override.ambience
+      : (loc.audio.ambience[ _isNight(S) ? 'night' : 'day' ] || null);
+
+    var currentId = S.audio.now ? S.audio.now.music : null;
+    var currentAmbienceId = S.audio.now ? S.audio.now.ambience : null;
+    var mVol = (typeof settings !== 'undefined' && settings.volMusic != null ? settings.volMusic : 70) / 100  / 2;
+    var aVol = (typeof settings !== 'undefined' && settings.volAmbience != null ? settings.volAmbience : 70) / 100  / 2;
+    var XFADE_SEC = 0.0;
+
+    // Music
+    if (wantMusic && currentId !== wantMusic) {
+      if (currentId) {
+        (function (oldId, simpleAudio) {
+          setTimeout(function () { 
+            try {
+            	simpleAudio.select(oldId).stop();
+            } catch(e) {
+            	console.log(e); 
+            }
+
+          }, Math.floor(XFADE_SEC * 1000) + 50);
+        })(currentId, SimpleAudio);
+      }
+      try {
+      	SimpleAudio.select(wantMusic).volume(mVol).loop(true).play(); 
+      } catch(e) {
+       	console.log(e); 
+      }
+
+      S.audio.now.music = wantMusic;
+    } else if (wantMusic && currentId === wantMusic) {
+      try {
+      	SimpleAudio.select(wantMusic).volume(mVol).loop(true).play(); 
+      } catch(e) {
+       	console.log(e); 
+      }
+    }
+    
+    //Ambience
+    if (wantAmbience && currentAmbienceId !== wantAmbience) {
+      if (currentAmbienceId) {
+        (function (oldId, simpleAudio) {
+          setTimeout(function () { 
+            try {
+            	simpleAudio.select(oldId).stop();
+            } catch(e) {
+            	console.log(e); 
+            }
+
+          }, Math.floor(XFADE_SEC * 1000) + 50);
+        })(currentAmbienceId, SimpleAudio);
+      }
+      try {
+      	SimpleAudio.select(wantAmbience).volume(aVol).loop(true).play(); 
+      } catch(e) {
+       	console.log(e); 
+      }
+
+      S.audio.now.ambience = wantAmbience;
+    } else if (wantAmbience && currentAmbienceId === wantAmbience) {
+      try {
+      	SimpleAudio.select(wantAmbience).volume(aVol).loop(true).play(); 
+      } catch(e) {
+       	console.log(e); 
+      }
+    }
+  }
+
+  Macro.add('PlayAudio', { handler: function () { _playAudioImpl(); } });
+})();
+
+
+/* —— Chat Macro ——
+   Usage: <<Chat _msgs>>
+*/
+
+(function () {
+  Macro.add("Chat", {
+    handler() {
+      if (!this.args.length || !Array.isArray(this.args[0])) {
+        return this.error("<<Chat>> needs an array of messages as the first argument.");
+      }
+
+      var msgs  = this.args[0] || [];
+      var opts  = this.args[1] || {};
+      var sv    = State.variables || {};
+
+      var theme = String((opts.theme || sv.chatTheme || "light")).toLowerCase();
+      var me    = (opts.hasOwnProperty("me") ? opts.me : (sv.me != null ? sv.me : sv.player || null));
+      var avatars = Object.assign({}, sv.chatAvatars || {}, opts.avatars || {});
+
+      // Root and list
+      var root = document.createElement("div");
+      root.className = "chat chat--bare " + (theme === "dark" ? "chat--dark" : "chat--light");
+      var list = document.createElement("div");
+      list.className = "chat__messages";
+      root.appendChild(list);
+
+      function isMe(who, msg) {
+        if (msg && msg.me === true) return true;
+        if (!who || me == null) return false;
+        if (who === me) return true;
+
+        var wn = (typeof who === "object") ? (who.id || who.name) : String(who);
+        var mn = (typeof me  === "object") ? (me.id  || me.name ) : String(me);
+        return wn && mn && wn === mn;
+      }
+
+      function addNarration(text) {
+        var row  = document.createElement("div");
+        row.className = "chat__msg chat__msg--narr";
+        var desc = document.createElement("div");
+        desc.className = "chat__desc";
+        new Wikifier(desc, text || "");
+        row.appendChild(desc);
+        list.appendChild(row);
+      }
+
+      function addMessage(m) {
+        var who     = m.who;
+        var whoName = (typeof who === "object")
+          ? (who.name || who.id || "Unknown")
+          : (who != null ? String(who) : "Unknown");
+
+        var right = isMe(who, m) || m.side === "right" || m.right === true;
+
+        var row = document.createElement("div");
+        row.className = "chat__msg " + (right ? "chat__msg--right" : "chat__msg--left");
+
+        // Avatar
+        var base = sv.path ? sv.path : "";
+        var guessPortrait = (typeof who === "object")
+          ? base + "images/characters/portraits/" + (who.sysName || whoName) + ".jpg"
+          : null;
+        var avatarUrl = m.avatar || guessPortrait || avatars[whoName] || null;
+
+        var avatar = document.createElement("div");
+        avatar.className = "chat__avatar" + (avatarUrl ? "" : " chat__avatar--spacer");
+        if (avatarUrl) {
+          var img = document.createElement("img");
+          img.src = avatarUrl; img.alt = whoName; img.loading = "lazy";
+          avatar.appendChild(img);
+        }
+
+        // Bubble
+        var bubble = document.createElement("div");
+        bubble.className = "chat__bubble " + (right ? "chat__bubble--right" : "chat__bubble--left");
+
+        if (m.name !== false) {
+          var nameEl = document.createElement("div");
+          nameEl.className = "chat__name";
+          nameEl.textContent = m.label || whoName;
+          bubble.appendChild(nameEl);
+        }
+
+        var textEl = document.createElement("div");
+        textEl.className = "chat__text";
+        new Wikifier(textEl, m.text || "");
+        bubble.appendChild(textEl);
+
+        // Order matters for sizing on the right side
+        if (right) { row.appendChild(bubble); row.appendChild(avatar); }
+        else       { row.appendChild(avatar); row.appendChild(bubble); }
+
+        list.appendChild(row);
+      }
+
+      // Render
+      for (var i = 0; i < msgs.length; i++) {
+        var m = msgs[i] || {};
+        if (m.who == null) addNarration(m.text);
+        else               addMessage(m);
+      }
+
+      this.output.appendChild(root);
+      requestAnimationFrame(function () { list.scrollTop = list.scrollHeight; });
+    }
+  });
+})();
+
+/*
+#######################################################################
+*/
+
+window.capitalize = function(val) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+window.wikifyText = function(text, keepHTML = false) {
+    if (!text || typeof text !== "string") return text || "";
+    
+    const $container = $("<div>").wiki(text);
+    
+    if (keepHTML) {
+        return $container.html().trim();
+    } else {
+        return $container.text().trim();
+    }
+};
+
+window.wikifyHTML = function(text) {
+    return window.wikifyText(text, true);
+};
+
+/* ==== Stat definitions ===================================================
+   path / label / goodIncrease / min / max / currency / text: what UpdateStat changes and how it reports it.
+   active   optional function: while it returns false the stat is switched off and UpdateStat does nothing
+            (Suspicion until Stage 2, see "Company stats" in Define Company)
+   maxPath  optional: a path to a max that changes during the game, used when there is no fixed max
+            (the cap on my own corruption, $player.stats.max.corruption, raised by the story)
+   capText  optional: the line UpdateStat prints instead of "+0" when the stat is already at its max
+            (the corruption bar of mom/sister: full means she is ready for her next stage, Define NPCs) */
+setup.statDefs = {
+  money:      { path: 'player.money',              label: 'Money',      goodIncrease: true,  currency: '$' },
+  corruption: { path: 'player.stats.corruption',   label: 'Corruption', goodIncrease: true,  min: 0, maxPath: 'player.stats.max.corruption', capText: "Corruption can't go any higher for now." },
+  reputation: { path: 'company.stats.reputation',  label: 'Reputation', goodIncrease: true,  min: 0, max: 100 },
+  efficiency: { path: 'company.stats.efficiency',  label: 'Efficiency', goodIncrease: true,  min: 0, max: 100 },
+  suspicion:  { path: 'company.stats.suspicion',   label: 'Suspicion',  goodIncrease: false, min: 0, max: 100, active: () => setup.suspicionActive() },
+  morale:     { path: 'company.stats.morale',      label: 'Morale',     goodIncrease: true,  min: 0, max: 100 },
+  prototype:  { path: 'company.prototype.progress',label: 'Prototype',  goodIncrease: true,  min: 0, maxPath: 'company.prototype.maxProgress', text: "Progress of $company.prototype.name", capText: "$company.prototype.name won't get any further until I know what it needs to do next." },
+  momrelation:{ path: 'mom.stats.relation',		   label: 'MomRelation',goodIncrease: true,  min: 0, max: 100, text: "$mom.name's Relation" },
+  momcorruption:{ path: 'mom.stats.corruption',    label: 'MomCorruption',goodIncrease: true,  min: 0, max: 100, text: "$mom.name's Corruption", capText: "$mom.callName is ready for more." },
+  momresistance:{ path: 'mom.stats.resistance',	   label: 'MomResistance',goodIncrease: false, min: 0, max: 100, text: "$mom.name's Resistance" },
+  momlust:	  { path: 'mom.stats.lust',		  	   label: 'MomLust',	goodIncrease: true,  min: 0, max: 100, text: "$mom.name's Lust" },
+  sisterrelation:{ path: 'sister.stats.relation',  label: 'SisterRelation',goodIncrease: true,  min: 0, max: 100, text: "$sister.name's Relation" },
+  sistercorruption:{ path: 'sister.stats.corruption',label: 'SisterCorruption',goodIncrease: true,  min: 0, max: 100, text: "$sister.name's Corruption", capText: "$sister.callName is ready for more." },
+  sisterresistance:{ path: 'sister.stats.resistance',label: 'SisterResistance',goodIncrease: false, min: 0, max: 100, text: "$sister.name's Resistance" },
+  sisterlust:	  { path: 'sister.stats.lust',	   label: 'SisterLust',	goodIncrease: true,  min: 0, max: 100, text: "$sister.name's Lust" },
+};
+
+/* Helpers to read/write v.* via string paths */
+setup._getByPath = (root, path) => path.split('.').reduce((o, k) => (o ? o[k] : undefined), root);
+setup._setByPath = (root, path, value) => {
+  const keys = path.split('.');
+  const last = keys.pop();
+  const obj = keys.reduce((o, k) => o[k], root);
+  obj[last] = value;
+};
+
+/* ==== <<UpdateStat "+"|"−" key amount>> ================================== */
+Macro.add('UpdateStat', {
+  handler () {
+    const [opRaw, keyRaw, amtRaw] = this.args;
+    const op = String(opRaw);
+    const key = String(keyRaw).toLowerCase();
+    const def = setup.statDefs[key];
+    if (!(op === '+' || op === '-')) return this.error('First argument must be "+" or "-".');
+    if (!def) return this.error(`Unknown stat "${keyRaw}".`);
+    const amount = Number(amtRaw);
+    if (!Number.isFinite(amount) || amount < 0) return this.error('Amount must be a positive number.');
+    /* a stat that is switched off right now (Suspicion before Stage 2) neither changes nor shows a line */
+    if (typeof def.active === 'function' && !def.active()) return;
+
+    const v = State.variables;
+    const delta = op === '+' ? amount : -amount;
+    const cur = Number(setup._getByPath(v, def.path)) || 0;
+    let next = cur + delta;
+    if (typeof def.min === 'number') next = Math.max(def.min, next);
+    const max = typeof def.max === 'number' ? def.max : (def.maxPath ? Number(setup._getByPath(v, def.maxPath)) : NaN);
+    if (Number.isFinite(max)) next = Math.min(max, next);
+    setup._setByPath(v, def.path, next);
+
+    /* already full: one quiet line instead of "increased by 1" (her corruption bar waits for a milestone) */
+    if (def.capText && delta > 0 && next === cur) {
+      $(this.output).wiki(`<span class="statupdate">${def.capText}</span>`);
+      State.temporary.statNotifications = State.temporary.statNotifications || [];
+      State.temporary.statNotifications.push({ msg: Wikifier.wikifyEval(def.capText).textContent, type: Notification.INFORMATION });
+      return;
+    }
+
+    /* Message prep */
+    const increased = delta > 0;
+    const positive = (increased && def.goodIncrease) || (!increased && !def.goodIncrease);
+    const cls = positive ? 'green' : 'red';
+    const verb = increased ? 'increased' : 'decreased';
+    const shownAmt = (def.currency || '') + Math.abs(delta);
+    const text = def.text || def.label;
+
+    /* Show inline text (optional – keep for immediate feedback) */
+    $(this.output).wiki(
+      `<span class="${cls} statupdate">${text} has ${verb} by ${shownAmt}.</span>`
+    );
+
+    /* Queue notification silently */
+    let type = positive ? Notification.POSITIVE : Notification.NEGATIVE;
+    let msg = Wikifier.wikifyEval(`${text} has ${verb} by ${shownAmt}.`).textContent;
+
+    /* Add to temp queue instead of showing immediately */
+    State.temporary.statNotifications = State.temporary.statNotifications || [];
+    State.temporary.statNotifications.push({ msg, type });
+  }
+});
+
+/*
+#######################################################################
+*/
+
+$(document).one(':storyready', function () {
+  const $tray    = $('#ui-bar-tray');
+  const $history = $('#ui-bar-history');
+
+  // Make a small group container so we can style/position as a block
+  const $group = $('<div/>', { id: 'custom-tray-buttons', class: 'tray-icons' });
+
+  // Helpers
+  const mkBtn = (label, iconEntity, onClick) => {
+    return $('<button/>', {
+      class: 'tray-icon-btn',
+      'aria-label': label,
+      title: label
+    })
+    .append($('<span/>', { class: 'sc-ic', html: iconEntity }))
+    .on('click', onClick);
+  };
+
+  // Icons use SugarCube’s built-in icon font (sc-icons)
+  const $saveBtn     = mkBtn('Saves',    '&#xf0c7;', () => UI.saves());     // floppy-disk
+  const $restartBtn  = mkBtn('Restart',  '&#xf2f1;', () => UI.restart());   // rotate/sync
+  const $settingsBtn = mkBtn('Settings', '&#xf013;', () => UI.settings());  // gear
+
+  /* "?" opens the help dialog (dev/help_dialog) */
+  const $helpBtn = $('<button/>', { class: 'tray-icon-btn', 'aria-label': 'Help', title: 'Help' })
+    .append($('<span/>', { class: 'help-q', text: '?' }))
+    .on('click', () => window.displayHelpDialog());
+
+  $group.append($saveBtn, $restartBtn, $settingsBtn, $helpBtn);
+
+  // Place our group before the history buttons (next to the stow toggle)
+  if ($history.length) {
+    $history.after($group);
+  } else {
+    $tray.append($group);
+  }
+});
+
+/*
+#######################################################################
+*/
+
+
+class Notification {
+  static notificationQueue = [];
+  static POSITIVE = "positive";
+  static NEGATIVE = "negative";
+  static QUEST = "quest";
+  static INFORMATION = "info";
+  static WARN = "warn";
+
+  constructor(text, settings = {}) {
+    this.text = text;
+    if(Wikifier != undefined) {
+    	this.text = Wikifier.wikifyEval(this.text).textContent;
+    }
+    const defaults = {
+      type: Notification.POSITIVE,
+      duration: 10000,
+    };
+    this.settings = { ...defaults, ...settings };
+
+    this.id = Date.now().toString(36) + Math.random().toString(36).substring(2);
+  }
+
+  static show(text, settings = {}) {
+    const notification = new Notification(text, settings);
+    notification.element = Notification.createElement(notification);
+    Notification.pushNotification(notification);
+  }
+
+  static createElement(notification) {
+    const notificationElement = document.createElement("div");
+    notificationElement.classList.add("ntfct");
+    notificationElement.id = notification.id;
+    
+    const wrapperElement = document.createElement("div");
+    wrapperElement.classList.add("ntfct-wrapper");
+
+    const iconWrapperElement = document.createElement("div");
+    iconWrapperElement.classList.add("ntfct-icon");
+
+    const iconElement = document.createElement("div");
+
+    const contentElement = document.createElement("div");
+    contentElement.classList.add("ntfct-content");
+    contentElement.innerText = notification.text;
+
+    const timeBarElement = document.createElement("div");
+    timeBarElement.classList.add("ntfct-bar");
+    timeBarElement.id = notification.id + "_bar";
+
+    const closeElement = document.createElement("div");
+    closeElement.classList.add("ntfct-close");
+    closeElement.addEventListener("click", function() {
+      Notification.removeNotification(notification);
+    });
+
+    closeElement.innerText = "X";
+    
+    let path = "./";
+    
+    if(State.variables.path != "") {
+      path = State.variables.path;
+    }
+    
+    path += "images/misc/";
+
+    switch (notification.settings.type) {
+      case Notification.POSITIVE:
+      notificationElement.classList.add("positive-border");
+      iconWrapperElement.classList.add("positive-color");
+      iconElement.style.background = "url(" + path + "positive.svg)";
+        iconElement.style.backgroundSize = "contain";
+      timeBarElement.classList.add("positive-color");
+      break;
+
+      case Notification.NEGATIVE:
+      notificationElement.classList.add("negative-border");
+      iconWrapperElement.classList.add("negative-color");
+      iconElement.style.background = "url(" + path + "negative.svg)";
+        iconElement.style.backgroundSize = "contain";
+      timeBarElement.classList.add("negative-color");
+      break;
+
+      case Notification.QUEST:
+      notificationElement.classList.add("quest-border");
+      iconWrapperElement.classList.add("quest-color");
+      iconElement.style.background = "url(" + path + "quest.svg)";
+      iconElement.style.backgroundSize = "contain";
+      timeBarElement.classList.add("quest-color");
+      break;
+
+      case Notification.INFORMATION:
+      notificationElement.classList.add("info-border");
+      iconWrapperElement.classList.add("info-color");
+      iconElement.style.background = "url(" + path + "info.svg)";
+        iconElement.style.backgroundSize = "contain";
+      timeBarElement.classList.add("info-color");
+      break;
+        
+      case Notification.WARN:
+      notificationElement.classList.add("warn-border");
+      iconWrapperElement.classList.add("warn-color");
+      iconElement.style.background = "url(" + path + "warn.svg)";
+        iconElement.style.backgroundSize = "contain";
+      timeBarElement.classList.add("warn-color");
+      break;
+    }
+
+    iconWrapperElement.appendChild(iconElement);
+    wrapperElement.appendChild(iconWrapperElement);
+    wrapperElement.appendChild(contentElement);
+    notificationElement.appendChild(timeBarElement);
+    notificationElement.appendChild(wrapperElement);
+    notificationElement.appendChild(closeElement);
+
+    return notificationElement;
+  }
+
+  static pushNotification(notification) {
+    Notification.notificationQueue.unshift(notification);
+    notification.element.style.top = '3vh !important';
+    document.body.appendChild(notification.element);
+
+    notification.element.style.right = document.body.clientWidth + (notification.element.offsetWidth / 5) + "px";
+
+    requestAnimationFrame(() => {
+      notification.element.style.right = '2vw';
+      notification.element.style.opacity = 1;
+    });
+
+    Notification.positionNotifications();
+
+    let delta = 100;
+    let barInterval = setInterval(function() {
+      delta += 100;
+      let width = notification.settings.duration - delta; 
+      notification.element.children[0].style.width = width / notification.settings.duration * 100 + "%";
+    }, 100);
+
+    setTimeout(function() {      
+      Notification.removeNotification(notification)
+      clearInterval(barInterval);
+    }, notification.settings.duration);
+  }
+
+  static positionNotifications() {
+    let currentTop = 20;
+
+    Notification.notificationQueue.forEach((n) => {
+      if (n.element && document.body.contains(n.element)) {
+        n.element.style.top = currentTop + "px";
+        currentTop += n.element.offsetHeight + 20;
+      }
+    });
+  }
+
+  static removeNotification(notification) {
+    const index = Notification.notificationQueue.indexOf(notification);
+    if (index > -1) {
+      Notification.notificationQueue.splice(index, 1);
+    }
+
+    if (notification.element && notification.element.parentNode) {
+      notification.element.parentNode.removeChild(notification.element);
+    }
+
+    Notification.positionNotifications();
+  }
+}
+
+window.Notification = Notification;
+
+setup.initVisibilityNotificationHandler = function () {
+  const triggers = document.querySelectorAll(".statupdate:not([data-ntf-handled])");
+  if (triggers.length === 0) return;
+
+  triggers.forEach(trigger => {
+    trigger.dataset.ntfHandled = "true";
+
+    const observer = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+
+      const queue = (State.temporary.statNotifications || []).splice(0);
+      queue.forEach((n, i) => {
+        setTimeout(() => {
+          if (typeof Notification !== "undefined" && Notification.show) {
+            Notification.show(n.msg, { type: n.type });
+          }
+        }, i * 120);
+      });
+
+      observer.disconnect();
+    }, { threshold: 0.01 });
+
+    observer.observe(trigger);
+
+    setTimeout(() => {
+      const rect = trigger.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const queue = (State.temporary.statNotifications || []).splice(0);
+        queue.forEach((n, i) => {
+          setTimeout(() => {
+            if (typeof Notification !== "undefined" && Notification.show) {
+              Notification.show(n.msg, { type: n.type });
+            }
+          }, i * 120);
+        });
+        observer.disconnect();
+      }
+    }, 80);
+  });
+};
+
+$(document).on(':passagerender', setup.initVisibilityNotificationHandler);
+
+$(document).on("click keyup", () => {
+  setTimeout(setup.initVisibilityNotificationHandler, 80);
+});
+
+/*
+================================ Kept Scroll Positions: ==============================================
+   Scroll boxes in setup.keptScroll keep their position when the passage reloads, or when their panel is
+   redrawn with <<replace>> (call setup.restoreScroll() right after the replace).
+   The positions are UI only (setup.scrollMemory), so they are not saved and start at the top after a load.
+   scroll does not bubble, so one capturing listener on the document records every listed box.
+*/
+
+setup.keptScroll = ['.quests-wrapper', '#cctv-control-panel'];
+setup.scrollMemory = {};
+
+document.addEventListener('scroll', function (e) {
+  const el = e.target;
+  if (!(el instanceof Element)) return;
+  setup.keptScroll.forEach(function (sel) {
+    if (el.matches(sel)) setup.scrollMemory[sel] = el.scrollTop;
+  });
+}, true);
+
+setup.restoreScroll = function () {
+  setup.keptScroll.forEach(function (sel) {
+    const el = document.querySelector(sel);
+    if (el && setup.scrollMemory[sel] != null) el.scrollTop = setup.scrollMemory[sel];
+  });
+};
+
+$(document).on(':passagerender', function () {
+  setTimeout(setup.restoreScroll, 0);
+});
+
+/*
+============================== Hover & Click Sound Effect =============================================
+*/
+(function () {
+    $(document).one(':storyready', function () {
+        $(document).on("mouseenter", "a, button, .link-internal, .link-external, .cmd-actions-action, .cmd-management-employee-card, .cmd-projects-project-wrapper, .cmd-inbox-mail, .cmd-schedule-action", function () {
+          	if (settings.volSfx == 0) return;
+            var volume = (typeof settings !== 'undefined' && settings.volSfx != null ? settings.volSfx : 50) / 100  / 2;
+          	SimpleAudio.select("effect-hover").volume(volume).loop(false).play();
+        });
+
+        $(document).on("click", "a, button, .link-internal, .link-external, .cmd-actions-action, .cmd-management-employee-card, .cmd-projects-project-wrapper, .cmd-inbox-mail, .cmd-schedule-action", function () {
+          	if (settings.volSfx == 0) return;
+          	var volume = (typeof settings !== 'undefined' && settings.volSfx != null ? settings.volSfx : 50) / 100  / 2;
+            SimpleAudio.select("effect-click").volume(volume).loop(false).play();
+        });
+    });
+})();
+
+/*
+============================== Task Progression Check ==================================================
+completeTaskEntry(sysName, entry) pays a finished $activeTasks entry out: revenue, her energy, count,
+onComplete, stages. checkTaskProgression calls it when an entry reaches its endRow;
+setup.completeTaskSceneEntry (Define Tasks) when a scene ends with no action left to spend.
+*/
+window.completeTaskEntry = function (sysName, taskEntry) {
+    const task = taskEntry.task;
+    const npc = State.variables[sysName];
+
+    State.variables.company.finances.money += (task.revenue || 0);
+    State.variables.company.finances.income.tasks += (task.revenue || 0);
+
+    /* base cost plus the surcharge for missing morale (setup.taskEnergyCost, Define Tasks) */
+    let energy = npc.stats.energy - setup.taskEnergyCost(task, npc);
+
+    State.variables[sysName].stats.energy = Math.clamp(
+        energy,
+        npc.stats.min.energy,
+        npc.stats.max.energy
+    );
+
+    task.count = (task.count || 0) + 1;
+    task.lastCompletedAt = State.variables.date.dayCount;
+
+    /* taskEntry.task is a copy, so mirror the progress onto the real task in $tasks */
+    const liveTask = setup.getTaskById(task.id);
+    if (liveTask && liveTask !== task) {
+        liveTask.count = (liveTask.count || 0) + 1;
+        liveTask.lastCompletedAt = State.variables.date.dayCount;
+    }
+
+    taskEntry.inProgress = false;
+
+    if (task.onComplete && typeof task.onComplete.forEach === "function") {
+        task.onComplete.forEach(func => func());
+    }
+
+    /* a new stage changes the activity: setup.npcAt reads it from the task, nothing to copy */
+    setup.checkTaskStage(task.id);
+};
+
+window.checkTaskProgression = function () {
+    const currentGlobalRow = 
+        State.variables.time.current.value * State.variables.time.actions.max +
+        (State.variables.time.actions.max - State.variables.time.actions.left);
+
+    const dayType = State.variables.date.today.value < 5 ? "weekday" : "weekend";
+    let refreshScheduler = false;
+
+    if (dayType === "weekend") return;
+
+    /* once per action: <<UseAction>> runs it for every action, the Daily Update a second time for the first one */
+    const checkKey = State.variables.date.dayCount * 21 + currentGlobalRow;
+    if (State.variables.lastCheckedGlobalRow === checkKey) {
+        return;
+    }
+    State.variables.lastCheckedGlobalRow = checkKey;
+
+    const characters = ["mom", "sister"];
+
+    characters.forEach(sysName => {
+        const activeTasks = State.variables.activeTasks[sysName] || [];
+        let hasActiveTaskThisTick = false;
+
+        for (let i = activeTasks.length - 1; i >= 0; i--) {
+            const taskEntry = activeTasks[i];
+            const task = taskEntry.task;
+
+            if (currentGlobalRow === taskEntry.endRow && taskEntry.inProgress) {
+                /* tasks with the player only finish when he took part (see "Tasks with the player" in Define Tasks) */
+                const allowed = setup.allowTaskCompletion(taskEntry);
+                if (allowed === "wait") {
+                    /* he may be walking over right now; CheckTaskScene decides once he has arrived */
+                    refreshScheduler = true;
+                    continue;
+                }
+                if (!allowed) {
+                    taskEntry.inProgress = false;
+                    refreshScheduler = true;
+                    continue;
+                }
+
+                window.completeTaskEntry(sysName, taskEntry);
+                refreshScheduler = true;
+            }
+        }
+
+        for (let i = 0; i < activeTasks.length; i++) {
+            const taskEntry = activeTasks[i];
+            const task = taskEntry.task;
+
+            /* a task with a cooldown rests on some days (see "Task cooldown" in Define Tasks) */
+            if (currentGlobalRow === taskEntry.startRow
+                && !setup.taskRestsToday(task)
+                && State.variables[sysName].stats.energy >= (task.baseEnergyCost || 0)) {
+
+                taskEntry.inProgress = true;
+                refreshScheduler = true;
+            }
+        }
+
+        for (let i = 0; i < activeTasks.length; i++) {
+            const taskEntry = activeTasks[i];
+            if (taskEntry.inProgress && 
+                currentGlobalRow >= taskEntry.startRow && 
+                currentGlobalRow < taskEntry.endRow) {
+                
+                hasActiveTaskThisTick = true;
+                break;
+            }
+        }
+
+        State.variables[sysName].flags.taskInProgress = hasActiveTaskThisTick;
+        if (!hasActiveTaskThisTick && 
+            setup.isTaskRow(sysName, currentGlobalRow)) {
+            
+            const updatedEnergy = State.variables[sysName].stats.energy + 5;
+            State.variables[sysName].stats.energy = Math.min(
+                updatedEnergy, 
+                State.variables[sysName].stats.max.energy
+            );
+        }
+    });
+
+    if (refreshScheduler && State.passage === "Company Stage 1 Desk") {
+        $("#cmd-schedule").empty().wiki('<<include "CMD Schedule">>');
+    }
+};
+
+/*
+============================== Task Stages ==================================================
+A task can have an optional "stages" array. Each stage replaces the task's activity (an activity id
+from Define Activities, and with it the pictures and the CCTV clip) and can name a passage the CCTV
+arrow leads to:
+
+    stage: 0,
+    stages: [
+        { activity: "helping_landlord0", passage: "CCTV Mom Landlord 0" },
+        {
+            activity: "helping_landlord1",
+            passage: "CCTV Mom Landlord 1",
+            requirements: [ () => setup.corruptionTotal("mom") >= 30 ],
+            requirementsText: [ "$mom.callName needs 30 corruption" ],
+            minCount: 3,     // times the task has to be finished on the previous stage
+        },
+    ],
+
+Every time the task is finished, the next stage is checked and unlocked when all its requirements
+pass. Story code can also force a stage with <<run setup.setTaskStage("task_mom_help_landlord", STAGE)>>.
+*/
+/* Tasks have string ids ("task_mom_test_session"), never use their index in $tasks */
+setup.getTaskById = function (id) {
+    return (State.variables.tasks || []).find(t => t.id === id);
+};
+
+/* The real task from $tasks (activeTasks only hold copies), falling back to the given copy */
+setup.getLiveTask = function (task) {
+    return (task && setup.getTaskById(task.id)) || task;
+};
+
+setup.getTaskStage = function (task) {
+    const live = setup.getLiveTask(task);
+    if (!live || !Array.isArray(live.stages) || live.stages.length === 0) return null;
+    const index = Math.clamp(live.stage || 0, 0, live.stages.length - 1);
+    return live.stages[index];
+};
+
+/* The activity id of the task's current stage (or of the task itself) */
+setup.getTaskActivity = function (task) {
+    const live = setup.getLiveTask(task);
+    if (!live) return undefined;
+    const stage = setup.getTaskStage(live);
+    return (stage && stage.activity) || live.activity;
+};
+
+setup.getTaskPassage = function (task) {
+    const live = setup.getLiveTask(task);
+    if (!live) return undefined;
+    const stage = setup.getTaskStage(live);
+    return (stage && stage.passage) || live.passage;
+};
+
+/* Unlocks the next stage of a task if its requirements pass. Returns true if the stage changed. */
+setup.checkTaskStage = function (id) {
+    const live = setup.getTaskById(id);
+    if (!live || !Array.isArray(live.stages)) return false;
+
+    const current = live.stage || 0;
+    const next = live.stages[current + 1];
+    if (!next) return false;
+
+    const countOnStage = (live.count || 0) - (live.stageStartCount || 0);
+    if (next.minCount && countOnStage < next.minCount) return false;
+    if ((next.requirements || []).some(req => !req())) return false;
+
+    setup.setTaskStage(id, current + 1);
+    return true;
+};
+
+setup.setTaskStage = function (id, stage) {
+    const live = setup.getTaskById(id);
+    if (!live || !Array.isArray(live.stages)) return;
+    live.stage = Math.clamp(stage, 0, live.stages.length - 1);
+    live.stageStartCount = live.count || 0;
+};
+
+/*
+============================== CCTV ==================================================
+Works out what the camera at $cctv.currentId shows:
+    null                      -> nobody there, show the empty room
+    { npc, both, media, ... } -> clip of the character in view ($cctv.view picks one if both are there)
+
+The clip is one of the activity's "cctv" files (images/characters/<sysName>/tasks/<file>), the same
+one for the whole action; activities without any fall back to their "media" files (Define Activities).
+The arrow passage is the task stage's passage, or the activity's cctvPassage when no task runs.
+*/
+setup.getCCTVSubject = function () {
+    const sv = State.variables;
+    const present = ["mom", "sister"].filter(sysName =>
+        sv[sysName].location && setup.sameLocation(sv[sysName].location, sv.cctv.currentId));
+    if (present.length === 0) return null;
+
+    const sysName = present.includes(sv.cctv.view) ? sv.cctv.view : present[0];
+    const npc = sv[sysName];
+    const row = sv.time.current.actionSlot;
+    const isWeekday = sv.date.today.value < 5;
+
+    const entry = isWeekday ? (sv.activeTasks[sysName] || []).find(e =>
+        e.inProgress && row >= e.startRow && row < e.endRow) : undefined;
+
+    const activityId = entry ? setup.getTaskActivity(entry.task) : npc.activity;
+    const activity = setup.getActivity(sysName, activityId);
+    /* a task with the player is a scene he is in, not something to watch on the camera */
+    let passage = (entry && !setup.isTaskWithPlayer(entry.task)) ? setup.getTaskPassage(entry.task) : undefined;
+    if (!passage && activity) passage = activity.cctvPassage;
+
+    return {
+        sysName: sysName,
+        npc: npc,
+        both: present.length > 1,
+        activity: activity,
+        activityId: activityId,
+        task: entry ? setup.getLiveTask(entry.task) : undefined,
+        passage: (passage && Story.has(passage)) ? passage : undefined,
+        media: setup.activityMedia(sysName, activityId, "cctv"),
+    };
+};
+

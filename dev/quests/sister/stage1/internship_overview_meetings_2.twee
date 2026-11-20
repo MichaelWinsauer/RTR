@@ -1,0 +1,85 @@
+:: Internship Overview Meetings 2 [event sister_quest scene] {"position":"3400,1325","size":"100,100"}
+/* Quest "Internship Overview Meetings" (sister_internshipOverviewRequest), part 2 of 2, after "Internship Overview
+   Meetings". The first meeting: I explain how the company works while she writes it down, then the journal asks how she
+   feels about her role, and she admits she is happy to spend so much time with me. We put the meetings in the calendar.
+   Advances the quest; its set unlocks the task Internship Overview (task_sister_internship_overview, every other day). */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+Last time she sat across the table from me. This time she pulls out the chair right next to mine, opens the journal to a clean page and uncaps her pen with the face of somebody about to take down a ransom demand.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Write this down. A client sends a mail. The mail turns into a project. The project gets split into pieces, and the pieces go to whoever can do them." },
+{ who: $sister, text: "Slower. My hand is very junior." },
+{ who: $player, text: "The pieces turn into hours, the hours turn into a finished project, and the finished project turns into money. Minus wages. Minus rent. Minus your coffee." },
+{ who: $sister, text: "The coffee is a team investment." },
+{ text: "She writes it all down anyway, with the tip of her tongue between her teeth, and draws little arrows from one step to the next. Under the last arrow she draws a dollar sign, and then, after thinking about it, a much smaller dollar sign next to it, labeled 'my share'." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Ask what's left">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay, that's processes. That's like, a whole page of processes. There's just one more part." },
+{ text: "She flips to the back of the journal, where the college has glued in a printed form. Most of it is boxes. One box is much bigger than the others." },
+{ who: $sister, text: "'Personal reflection: How do you feel about your role within the organization?' I left it empty. It's the worst one." },
+{ who: $player, text: "So how do you feel?" },
+{ who: $sister, text: "Underpaid." },
+{ who: $player, text: "Honestly." },
+{ who: $sister, text: "Overcaffeinated?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't say anything. I just wait, and she clicks her pen, and clicks it again, and then puts it down on the table as if it was the pen's fault.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "It's weird. Working for you. Everybody at college asks me what it's like, and I say it's fine, it's a startup, it's chaos, and they nod like that's the whole answer." },
+{ who: $player, text: "And it isn't." },
+{ who: $sister, text: "I used to cut your hair with the kitchen scissors. You had a bowl cut for an entire summer because of me. And now you sign my hours and you tell me I'm doing a good job, and I go home and I think about it all night like it's..." },
+{ text: "She stops. Her cheeks go red from the bottom up, slowly, like somebody filling a glass." },
+{ who: $sister, text: "Like it's a really big deal. Professionally." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her finish">>
+<<Video "images/characters/sister/events/internship_overview_meetings/reflection.mp4" "" "" 500>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I'm happy. Okay? I'm really happy here. I like spending this much time with you. I didn't think I would like it this much." },
+{ text: "She picks the pen back up and points it at the empty box, a little helplessly." },
+{ who: $sister, text: "And I don't know how to write that down, because 'I really like my boss' sounds like the first page of a lawsuit." },
+{ who: $player, text: "Write that you find the work fulfilling and that you'd like to take on more responsibility." },
+{ text: "She writes it, word for word, and reads it back to herself with her lips moving." },
+{ who: $sister, text: "Oh, that's so much better. You're scary good at lying." },
+{ who: $player, text: "It's called reflecting." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take out my phone, open the shared calendar and book the meeting room for the afternoon, every other day. She leans over my arm to watch me type the title, so close I can smell the coffee she didn't bring.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Internship Overview. With capital letters. That's so official." },
+{ who: $player, text: "It's on everyone's calendar now. If you skip it, $mom.callName will ask why." },
+{ who: $sister, text: "I'm not going to skip it." },
+{ text: "She says it fast, before I've quite finished, and then looks down at the journal as if it had said it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She leaves with the journal pressed flat against her chest. Back at her desk she opens it again and starts writing, and for the first time in two days she doesn't curl her arm around the page.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "SisterLust" 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<ProfileLog $sister "Internship Overview" "Her college wants an internship journal, and she asked me for regular meetings to fill it. Every other afternoon in the meeting room, booked under her name. In the first one she admitted she's really happy spending so much time with me, and I helped her phrase it so it sounds professional.">>
+<<NextQuest $sister>>
+<<run Notification.show("New task for " + $sister.callName + ": Internship Overview", { type: Notification.INFORMATION })>>
+<<ReturnFromEvent "Back to my desk">>
+<</linkreplace>>
+<</linkreplace>>

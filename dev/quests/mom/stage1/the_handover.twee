@@ -1,0 +1,133 @@
+:: The Handover [event mom_quest] {"position":"3700,1075"}
+/* Quest "The Briefing" (mom_briefing), part 2 of 2, after "The Briefing". The handover of the prototype on the sixth floor
+   of the tower. She does everything she was briefed to do, in the outfit, and her old boss gets his hands on her three times:
+   the hello, the demo, the signature. He's so pleased that he signs on for maintenance and consulting, with her as his
+   consultant. Finishing the quest unlocks the repeatable project "Support for $boss.callName" (its set in Define Quests). */
+<<silent>><<SetBackground $locations[12].img>><</silent>>
+$brian.name drives. He has both hands on the wheel at ten and two the whole way, like he's taking his test again, and he keeps his eyes on the road with a dedication that would get him a medal from any driving school in the state. $mom.callName sits in the passenger seat with the checklist on her lap. Every time the van goes over a pothole, $brian.name's ears turn a little redder.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Do you want me to turn the AC down, $brian.name? You look warm." },
+{ who: $brian, text: "No. Uh. No, it's, uh, it's good. The AC. Good AC." },
+{ text: "He hasn't looked to his right once since she got in. I don't think he's going to look to his right for the rest of the year." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Go up to the sixth floor">>
+The receptionist in the lobby is the same one as last time, and she looks up this time. She looks up and stays up.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Receptionist", text: "Floor 6? He's expecting you. He's been expecting you all morning, actually, he called down twice." },
+{ who: $mom, text: "That sounds like him." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The elevator has the same mirror as last time. The last time it showed me a guy in his only decent jacket, trying to look like he did this kind of thing every day. Today it shows me a better jacket, $brian.name behind a case on a hand truck, and $mom.callName in champagne silk, holding her checklist flat against her chest. Somewhere between the second and the third floor she lowers it to her side. Nobody told her to.
+
+When the doors open on six, the floor goes quiet in a ripple, desk by desk, from the elevator to the corner office. Somebody's potted plant is still standing on her old desk.
+
+<<linkreplace "Walk into his office">>
+$boss.callName doesn't get up when we come in. He leans back first and takes his time, from her shoes up, and only then does he get up, buttoning his jacket over his stomach.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Good morning, $boss.callName. We're very pleased to bring you your unit." },
+{ who: $boss, text: "Well, well. Look who dressed up for me." },
+{ text: "He comes around the desk and gives her a hug she didn't ask for. He talks to me over her shoulder the whole time, about the traffic and the parking garage, and when he finally lets go, his hand takes the long way down her back and stops on her ass, flat, as if it's been there before and knows the way." },
+{ who: $boss, text: "Working for the kid suits you, sweetheart. You never looked like this when you worked for me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs. It's his first joke, and she laughs at it, the way we practiced. She doesn't step back, either. She turns slightly toward me and lets his hand slide off by itself.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "Kid. You look like you haven't slept since the contract." },
+{ who: $player, text: "I slept fine." },
+{ who: $boss, text: "Sure you did. Let's see what my twenty-five grand bought me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let $brian.name set it up">>
+$brian.name sets up the unit on the credenza under the window. He explains the calibration in a long, flat sentence that he delivers entirely to the power cable, and nobody follows it, and nobody needs to. When the blue light comes on, $boss.callName says 'huh' the way people say it when they've paid a lot of money and want to feel that it was worth it.
+
+$mom.callName runs the demo from the tablet, just like I told her: she sits beside him, never across, and she points at the screen so he has to lean in to see it. He leans in. Then he decides he can see it better from behind her chair, and comes around, and puts both hands on her hips to steady himself, as if the floor might move.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So this here is the... the room overview. It shows you how your people are feeling, in real time, and then..." },
+{ who: $boss, text: "Mm-hm. Go on." },
+{ text: "His thumbs move. Not much. Enough for her to stop in the middle of the word 'calibration' and start it over again from the beginning." },
+{ who: $mom, text: "...And then it gently adjusts the room. Calmer, more focused. Whatever you need it to be." },
+{ who: $boss, text: "Whatever I need it to be. I like the sound of that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Across the room $brian.name drops a screwdriver. He picks it up and drops it again. He's looking at the credenza so hard he might be trying to see through it.
+
+She glances at me once over $boss.callName's shoulder. I give her nothing, so she turns back to the tablet and keeps going, a little slower, with his hands where they are. Somewhere in the second half of the demo she stops stumbling. By the end she's laughing at things he says that aren't jokes either.
+
+<<linkreplace "Talk about the money">>
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "Okay, kid. It works, I'll give you that. Now tell me what happens when it stops working." },
+{ who: $player, text: "It won't stop working. But it needs looking after. Recalibration, updates, somebody on site who knows how to read it." },
+{ who: $boss, text: "Somebody on site." },
+{ text: "He doesn't look at me when he says it. He looks at her." },
+{ text: "She looks at me, exactly like we practiced, and that's when I settle on the price." },
+{ who: $player, text: "Five thousand a week, plus her time. She stays your consultant." },
+{ who: $boss, text: "Five thousand. For a box with a light on it." },
+{ who: $player, text: "For a box that does what the light says. And for her." },
+{ who: $boss, text: "Ha. Okay. Okay, kid, that's fair. Done. Same arrangement as before, she keeps coming over. Every week." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName has the contract ready on the tablet before he's finished the sentence. She leans over the desk to show him where to sign, and he signs one-handed, because the other hand is on the back of her thigh, right under the hem of the skirt I bought. I can see the small dark spot from where I'm standing. He's a lot closer to it than I am, and he doesn't notice it, because he's not looking at the skirt.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "You've got yourself a real asset here, kid." },
+{ who: $player, text: "I know." },
+{ who: $boss, text: "Do you? Because I had her for years, and I never once got her to dress like that." },
+{ text: "He laughs. $mom.callName laughs with him. Mine is the only face in the room that doesn't move, and he notices that, and for the first time all morning he takes his hand away by himself." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Go back down">>
+In the elevator $brian.name stands as far into the corner as the hand truck allows and reads the inspection certificate on the wall with great interest. $mom.callName watches the numbers count down. Somewhere around three she lets out a breath, long and slow, and then she checks herself in the mirror, pulls the silk straight across her chest, and finds out it doesn't help.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Did I do all right?" },
+{ who: $player, text: "You did exactly what I told you." },
+{ who: $mom, text: "He grabbed me, honey. Three times. I counted." },
+{ who: $player, text: "And he signed." },
+{ text: "She thinks about that until the doors open. Then she nods, the same small, stiff nod she gave me in the meeting room this morning, and steps out ahead of me." },
+{ who: $mom, text: "He did sign. Didn't he." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On the way out she tells the receptionist to have a lovely day. The receptionist watches her all the way to the revolving door, and $mom.callName lets her.
+
+<<AdvanceTime>>
+<<UpdateStat "+" "Corruption" 2>>
+<<UpdateStat "+" "MomCorruption" 5>>
+<<UpdateStat "+" "Reputation" 5>>
+<<ProfileLog $mom "The Handover" "She handed over the prototype on her old floor, in the silk blouse I picked and nothing under it. Her old boss had his hands on her three times, and she laughed every time, the way I briefed her. He signed on for weekly maintenance, as long as she keeps coming over as his consultant.">>
+<<NextQuest $mom>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,0 +1,157 @@
+:: Sidebar Widgets [nobr system widget] {"position":"2800,150"}
+/* Widgets for the left sidebar (StoryCaption). Styles: the "sidebar" block in StoryStylesheet (.sb-*).
+   Temporary variables are prefixed with _sb so they cannot clash with the passages that call these widgets. */
+
+/* Usage: =====================================================================
+	<<SbMeter LABEL VALUE MAX [TONE]>>
+	TONE picks the colour (see [data-tone] in the stylesheet): progress, corruption, reputation, efficiency, morale, suspicion
+*/
+<<widget "SbMeter">>
+	<<set _sbValue to Number($args[1])>>
+	<<set _sbMax   to Number($args[2])>>
+	<<set _sbTone  to $args[3] || "">>
+	<<set _sbPct   to (_sbMax > 0) ? Math.clamp(Math.round(_sbValue / _sbMax * 100), 0, 100) : 0>>
+	<div class="sb-meter" @data-tone="_sbTone" @style="'--p:' + _sbPct + '%'">
+		<div class="sb-meter-head">
+			<span><<= $args[0]>></span>
+			<b><<= _sbValue>><span class="sb-meter-max">/<<= _sbMax>></span></b>
+		</div>
+		<div class="sb-bar"><div class="sb-fill"></div></div>
+	</div>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<SbNpc $npc "sysName">>
+	One card per person: portrait (ring turns crimson with corruption), name -> profile, a pill with
+	her corruption stage (amber once the bar is full and she is ready for the next one, see "Corruption
+	stages" in Define NPCs), where they are and what they do, and their stats. To show different stats
+	at a certain stage, change the _sbStats list below.
+*/
+<<widget "SbNpc">>
+	<<set _sbNpc  to $args[0]>>
+	<<set _sbKey  to $args[1]>>
+	/* the ring follows the bar plus the per-stage bonus, so it does not go pale again after a stage-up */
+	<<set _sbCorr to Math.clamp(setup.corruptionEffective(_sbNpc) / _sbNpc.stats.max.corruption, 0, 1)>>
+	<<set _sbReady to setup.corruptionReady(_sbNpc)>>
+	<<set _sbStageName to setup.corruptionStageName(_sbNpc)>>
+	<<set _sbNext to setup.corruptionStageInfo(_sbNpc, setup.corruptionStage(_sbNpc) + 1)>>
+	<<set _sbStageTip to "Corruption stage " + setup.corruptionStage(_sbNpc) + ": " + _sbStageName>>
+	<<if _sbReady>>
+		<<set _sbStageTip += ". Ready for the next stage">>
+		<<if _sbNext.milestone>>
+			<<set _sbStageTip += " (" + wikifyText(setup.getQuestById(_sbNext.milestone).title) + ")">>
+		<</if>>
+	<</if>>
+	<<set _sbHere to setup.sameLocation($player.location, _sbNpc.location)>>
+	<<set _sbName to _sbNpc.name + " " + _sbNpc.surname>>
+	<<set _sbStats to [["Relation", "relation"], ["Corruption", "corruption"], ["Lust", "lust"], ["Resistance", "resistance"]]>>
+
+	<div class="sb-npc" @data-npc="_sbKey" @style="'--corr:' + _sbCorr.toFixed(3)">
+		<div class="sb-npc-head">
+			/* <img class="sb-avatar" @src="$path + 'images/characters/portraits/' + _sbKey + '.jpg'" alt=""> */
+			<div class="sb-avatar">
+				<<Image 'images/characters/portraits/' _sbKey '.jpg' '' '' "false">>
+			</div>
+			<div class="sb-npc-id">
+				<div class="sb-npc-name">
+					/* no links during a scene: they would leave it (setup.inScene, Define Events) */
+					<<if setup.inScene()>>
+						<span><<= _sbName>></span>
+					<<else>>
+						<<capture _sbKey>>
+							<<link _sbName>><<set $profileNpc to _sbKey>><<set $returnFromProfile to passage()>><<goto "Profile">><</link>>
+						<</capture>>
+					<</if>>
+					<<if _sbStageName>>
+						<span @class="'sb-pill sb-corr-stage' + (_sbReady ? ' ready' : '')" @title="_sbStageTip"><<= _sbStageName>></span>
+					<</if>>
+				</div>
+				<div class="sb-npc-where">
+					<<if setup.inScene()>><span><<= _sbNpc.location.name>></span><<else>><<link _sbNpc.location.name _sbNpc.location.passage>><</link>><</if>>
+					<span class="sb-npc-act"><<= setup.activityText(_sbNpc, _sbNpc.activity)>></span>
+				</div>
+			</div>
+		</div>
+		<div class="sb-stats">
+			<<for _sbI = 0; _sbI < _sbStats.length; _sbI++>>
+				<<set _sbSv to _sbNpc.stats[_sbStats[_sbI][1]]>>
+				<<set _sbSm to _sbNpc.stats.max[_sbStats[_sbI][1]]>>
+				<div @class="'sb-stat' + (_sbStats[_sbI][1] == 'corruption' && _sbReady ? ' ready' : '')" @data-tone="_sbStats[_sbI][1]" @style="'--p:' + Math.clamp(Math.round(_sbSv / _sbSm * 100), 0, 100) + '%'">
+					<span class="sb-stat-l"><<= _sbStats[_sbI][0]>></span>
+					<div class="sb-bar"><div class="sb-fill"></div></div>
+					<span class="sb-stat-v"><<= _sbSv>></span>
+				</div>
+			<</for>>
+		</div>
+	</div>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<SbQuest QUEST "sysName">>
+	One quest as a card: who it belongs to, title, task, a quiet where/when line, and a requirements checklist.
+	While its requirements are not met (the device does not count), the card only shows a stand-in title
+	and task and the checklist: no device pills, no place, day or time ("Locked quests" in Define Quests).
+*/
+<<widget "SbQuest">>
+	<<set _sbQ to $args[0]>>
+	<<set _sbLine to $args[1]>>
+	<<set _questClass = "sb-quest">>
+	<<if setup.getEligibleQuests().includes(_sbQ)>>
+		<<set _questClass = "sb-quest quest-eligible">>
+	<</if>>
+	<<if _sbQ and _sbQ.active == true>>
+		<<set _sbShow to setup.questDisplay(_sbQ)>>
+		<<if _sbShow.locked>><<set _questClass += " locked">><</if>>
+		<div @class="_questClass" @data-line="_sbLine">
+			/* <img class="sb-avatar sm" @src="$path + 'images/characters/portraits/' + _sbLine + '.jpg'" alt=""> */
+			<div class="sb-avatar sm">
+				<<Image 'images/characters/portraits/' _sbLine '.jpg' '' '' "false">>
+			</div>
+			<div class="sb-quest-main">
+				<div class="sb-quest-head">
+					<div class="sb-quest-title"><<= _sbShow.title>></div>
+					<<if _sbQ.device and !_sbShow.locked>>
+						<<set _sbDev to setup.questDevice(_sbQ.device)>>
+						<<set _sbDevWho to setup.presetLabel(_sbQ.device.target)>>
+						<<set _sbDevName to _sbDev.dev ? _sbDev.dev.name : $company.prototype.name>>
+						<div class="sb-pills">
+							<span @class="'sb-pill ' + (_sbDev.calOk ? 'ok' : 'no')" @title="_sbDevName + ' calibrated for ' + _sbDevWho + (_sbQ.device.minQuality ? ' (' + _sbQ.device.minQuality + '%+)' : '') + (_sbDev.calOk ? '' : ' - now: ' + (_sbDev.dev and _sbDev.dev.calibrationQuality > 0 ? setup.presetLabel(_sbDev.dev.calibration) + ' ' + _sbDev.dev.calibrationQuality + '%' : 'not calibrated'))">◎ <<= _sbDevWho>></span>
+							<span @class="'sb-pill ' + (_sbDev.chargeOk ? 'ok' : 'no')" @title="_sbDevName + ' needs ' + _sbDev.cost + '% charge - now: ' + (_sbDev.dev ? _sbDev.dev.charge : 0) + '%'">ϟ  <<= _sbDev.cost>>%</span>
+						</div>
+					<</if>>
+				</div>
+				<div class="sb-quest-task"><<= _sbShow.task>></div>
+
+				<<set _sbAllDays  to (!_sbQ.whenDay  || _sbQ.whenDay.length  == 0 || _sbQ.whenDay.length  >= $date.days.length)>>
+				<<set _sbAllTimes to (!_sbQ.whenTime || _sbQ.whenTime.length == 0 || _sbQ.whenTime.length >= $timeSlots.length)>>
+				
+				<<set _sbWhere to (_sbQ.where && _sbQ.where.length) ? _sbQ.where.map(function (loc) { return (typeof loc === "object") ? loc.name : loc; }).join(", ") : "">>
+				<<set _sbHere to !!(_sbQ.where && _sbQ.where.some(function (loc) { return ((typeof loc === "object") ? loc.passage : loc) == $locations[$player.location.id].passage; }))>>
+				
+				<<set _sbDayText  to _sbAllDays  ? "" : setup.formatRuns(_sbQ.whenDay,  $date.days.map(function (d) { return d.text.slice(0, 3); }))>>
+				<<set _sbTimeText to _sbAllTimes ? "" : setup.formatRuns(_sbQ.whenTime, $timeSlots.map(function (t) { return t.text; }))>>
+				
+				<<set _sbDayNow  to !!(_sbQ.whenDay  && _sbQ.whenDay.includes($date.today.value))>>
+				<<set _sbTimeNow to !!(_sbQ.whenTime && _sbQ.whenTime.includes($time.current.value))>>
+				
+				<<if !_sbShow.locked and (_sbWhere != "" or _sbDayText != "" or _sbTimeText != "")>>
+					<div class="sb-meta">
+						<<if _sbWhere != "">><span @class="'sb-m' + (_sbHere ? ' ok' : '')"><<= _sbWhere>></span><</if>>
+						<<if _sbDayText != "">><span @class="'sb-m' + (_sbDayNow ? ' ok' : '')"><<= _sbDayText>></span><</if>>
+						<<if _sbTimeText != "">><span @class="'sb-m' + (_sbTimeNow ? ' ok' : '')"><<= _sbTimeText>></span><</if>>
+					</div>
+				<</if>>
+				<<if _sbQ.requirements and _sbQ.requirementsText>>
+					<div class="sb-reqs">
+						<<for _sbR = 0; _sbR < _sbQ.requirementsText.length; _sbR++>>
+							<<silently>>
+								<<set _sbOk to Scripting.evalTwineScript(_sbQ.requirements[_sbR])>>
+							<</silently>>
+							<div @class="'sb-req ' + (_sbOk ? 'ok' : 'no')"><<= setup.questRequirementText(_sbQ, _sbR)>></div>
+						<</for>>
+					</div>
+				<</if>>
+			</div>
+		</div>
+	<</if>>
+<</widget>>

@@ -1,0 +1,131 @@
+:: Task Mom Massage 0 [task_scene] {"position":"1900,3925"}
+/* Scene of the task "Private Attention" (task_mom_private_attention), stage 0. Played every time the task starts while I'm in the meeting room.
+   Unlocked by the quest "Being a CEO is hard..." (mom_ceoStruggles). Effects are in the task's onComplete.
+   Stage 0: still a favor between family. I keep working, she talks the whole time and hands me the office gossip without
+   noticing that she's reporting. Only the vent unit's office baseline runs, I don't touch my phone. At the end she wraps her
+   arms around my neck from behind and stays there with her eyes closed, and covers it with a remark about my hair.
+   Videos (images/characters/mom/tasks/), in this order:
+     massage_0_1  wide shot, I type on the laptop, she stands behind the chair and starts on my shoulders
+     massage_0_0  close, she talks while she works and leans her head down to mine
+     massage_0_2  close, my neck, her cheek ends up in my hair
+     massage_0_3  she bends down and wraps her arms around my neck, one hand under my jaw, eyes closed */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ms0Task to setup.getTaskById("task_mom_private_attention")>>
+	<<set _ms0First to (_ms0Task.count || 0) === (_ms0Task.stageStartCount || 0)>>
+	<<set _ms0 to random(0, 2)>>
+<</silent>>
+I've carried my laptop into the meeting room to get some peace from the office, and I'm halfway through <<= either("a mail from $boss.callName's office that uses the word 'herein' eleven times", "$darius.name's weekly report, which has more footnotes than some novels", "$brian.name's parts list, which has a line that just says 'misc (important)' and costs four hundred dollars")>> when the door opens behind me and closes again, very quietly.
+
+<<if _ms0First>>
+$mom.callName stays by the door with her hand still on the handle, as if she isn't sure the appointment was real and half expects someone to jump out and tell her it was a joke.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I wasn't sure you meant it. The calendar thing." },
+{ who: $player, text: "I put it in myself. Of course I meant it." },
+{ who: $mom, text: "Well, I changed the name. It said 'massage', sweetie, anybody could have seen that. Now it says 'ergonomics check'. I didn't know what else to call it." },
+{ who: $player, text: "That's perfect." },
+{ text: "It really is. Nobody in this office is ever going to ask a single question about an ergonomics check." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+$mom.callName doesn't knock anymore. She comes in already pushing the sleeves of her cardigan up to her elbows, the way she does before she starts on the dishes, and says hello to the back of my head.
+<</if>>
+
+<<linkreplace "Keep typing">>
+<<Video "images/characters/mom/tasks/massage_0_1.mp4" "" "" 600>>
+
+I don't stop, and she doesn't ask me to. She steps in behind the chair and rests both hands flat on my shoulders for a moment, like she's testing bathwater. Then her thumbs start to move. Every so often she leans over to look at my screen, squints at it and gives up. In all these years she has never once read anything over my shoulder that she understood, and she has never once stopped trying.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You're doing it again." },
+{ who: $player, text: "Doing what?" },
+{ who: $mom, text: "The question mark. Shoulders up by your ears. Honestly, honey, you feel like a coat hanger." },
+{ who: $player, text: "I'm working." },
+{ who: $mom, text: "You can work sitting up straight. Millions of people manage it every day." },
+{ text: "I sit up straight. She makes a small, satisfied noise and digs her thumbs in under my shoulder blades, which I'm fairly sure is meant as my reward." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her talk">>
+<<Video "images/characters/mom/tasks/massage_0_0.mp4" "" "" 600>>
+
+Once her hands have something to do, her mouth goes along with them. When I was little she cut my hair in the kitchen and talked through the whole forty minutes, about the neighbors, the price of gas, a woman at church whose name she could never remember. Today it's the office.
+
+<<silently>>
+<<if _ms0 == 0>>
+<<set _msgs = [
+{ who: $mom, text: "$darius.name asked me what perfume I wear. Today, at the coffee machine. For his girlfriend, he said." },
+{ who: $player, text: "Does he have a girlfriend?" },
+{ who: $mom, text: "That's what I thought! I didn't say it, of course. I just thought it very loudly." },
+{ who: $mom, text: "I told him it's from the drugstore, which it is. He looked so disappointed, sweetie, you should have seen his face." },
+{ text: "$darius.name asks careful questions about everything in this office. I suppose it was only a matter of time before he got around to her." },
+]>>
+<<elseif _ms0 == 1>>
+<<set _msgs = [
+{ who: $mom, text: "Do you know where $brian.name eats his lunch? In the stairwell. Between the second and the third floor. Every single day." },
+{ who: $player, text: "Maybe he likes the stairwell." },
+{ who: $mom, text: "Nobody likes a stairwell, honey. I asked him if he wanted to eat with me, and he said 'uh, no, thank you', and then he said 'uh, sorry', and then he walked into the door." },
+{ who: $mom, text: "I'm going to bring him a sandwich tomorrow. Don't tell him." },
+{ text: "I won't. I also won't tell her that he walks into doors every time she talks to him, and that it has nothing to do with sandwiches." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: "I counted the mugs on $ethan.name's windowsill this morning. Seven. There's something growing in the blue one, sweetie. I think it has roots." },
+{ who: $player, text: "Leave it. It might be a science project." },
+{ who: $mom, text: "It's a health hazard, is what it is. I'm going to put a note on it." },
+{ who: $player, text: "Nobody reads your notes." },
+{ who: $mom, text: "Nobody reads my notes. I know." },
+{ text: "She sighs like that's the great tragedy of her working life and presses a little harder, as if my shoulders are the ones ignoring her notes." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+She moves on to the next thing without a pause, and the one after that. Who comes in late, who takes long lunches, who complained about the air conditioning and who complained about the people who complained about it. She has no idea she's giving me a report. She thinks we're chatting. Ten minutes of this tells me more about my own company than a week of meetings, and all I have to do is grunt now and then.
+
+<<linkreplace "Close your eyes">>
+<<Video "images/characters/mom/tasks/massage_0_2.mp4" "" "" 600>>
+
+Her fingers move up into my neck and slow down. She works in small circles, one side and then the other, very thorough, the way she kneads dough when there's something on her mind. Bit by bit she bends closer, until I can feel her breath stirring my hair and then her cheek resting against the side of my head. Her hair falls forward over my shoulder. She has stopped talking, which for her is an event.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You used to fall asleep like this. When you had a fever. You'd lie with your head in my lap, and I'd do your neck until you were out." },
+{ who: $player, text: "I don't remember that." },
+{ who: $mom, text: "You were six. You called it 'the squeezing'. 'Do the squeezing', you'd say, and you wouldn't let me stop." },
+{ who: $player, text: "So I've always been a good negotiator." },
+{ text: "She laughs into my hair. I feel it more than I hear it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+My hands are still on the keyboard, and I'm still typing, but I've stopped reading what I type. The vent unit runs above us at the same setting it runs at all day, for the whole floor, for $ethan.name and the coffee machine and everybody else. I haven't touched my phone. I wanted to see what she does with nothing but that, and this is it.
+
+<<linkreplace "Let her finish">>
+<<Video "images/characters/mom/tasks/massage_0_3.mp4" "" "" 600>>
+
+She doesn't finish, exactly. She bends down and wraps both arms around my neck from behind, crossed over my chest, and one hand comes up to rest under my jaw, warm and light, the way you'd hold a cat that might decide to jump. Her cheek is pressed against my hair. When I glance sideways I can see that her eyes are closed.
+
+I keep typing. I want to know whether she'll let go if I do, and she doesn't. She breathes in, slowly, through her nose, right against my hair. Then she seems to hear herself doing it, and she straightens up so fast that the chair rocks.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You need a haircut. That's all. I was just looking at your hair." },
+{ who: $player, text: "With your eyes closed?" },
+{ who: $mom, text: "...Same time tomorrow, sweetie. It's in the calendar." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She tugs her cardigan straight, checks the office through the glass in the door and walks back to her desk at a perfectly normal speed. <<= either("Halfway there she touches her own cheek, quickly, the way you'd check whether an iron is still hot.", "When she sits down, she doesn't touch her keyboard for a good minute.", "She stops at $ethan.name's windowsill on the way, picks up the blue mug and carries it to the kitchen at arm's length, as if that's what she came out of the meeting room to do.")>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

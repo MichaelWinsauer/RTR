@@ -1,0 +1,143 @@
+:: Quest Widgets [nobr system widget] {"position":"2675,0","size":"100,100"}
+/* Usage: =====================================================================
+	<<NextQuest $player [ShowNotification]>>
+	Finishes the line's current quest and moves on to the quest in its "next" field.
+*/
+<<widget "NextQuest">>
+	<<set _nqLine to $args[0]>>
+	<<set _done to setup.getCurrentQuest(_nqLine)>>
+
+	<<if !_done or !_done.next>>
+		<<run console.warn('NextQuest: "' + _nqLine.quest + '" is the last quest of ' + _nqLine.sysName + "'s line, there is nothing to move on to")>>
+	<<else>>
+		/*Apply the finished quest's "set" expressions*/
+		<<if _done.set>>
+			<<for _nqS = 0; _nqS < _done.set.length; _nqS++>>
+				<<run Scripting.evalTwineScript(_done.set[_nqS])>>
+			<</for>>
+		<</if>>
+
+		<<set _done.active to false>>
+		<<set _done.done to true>>
+		<<set _done.doneDay to $date.dayCount>>
+		<<set _nqLine.quest to _done.next>>
+		<<run setup.activateQuest(_nqLine.quest)>>
+
+		/*Make sure, that all finished quests & connected events are inactive*/
+		<<for _nqI = 0; _nqI < _nqLine.quests.length; _nqI++>>
+			<<set _nqQ to _nqLine.quests[_nqI]>>
+			<<if _nqQ.done and $events[_nqQ.eventId] != undefined>>
+				<<run _nqQ.active = false>>
+				<<run $events[_nqQ.eventId].active = false>>
+				<<run $events[_nqQ.eventId].finished = true>>
+			<</if>>
+		<</for>>
+
+		/* "New main quest!" / "New quest for Mr. Walsh!" (setup.questLineLabel). Hidden quests stay quiet */
+		<<if $args[1] != "false" and !setup.getCurrentQuest(_nqLine).hidden>>
+			<<set _nqLabel to setup.questLineLabel(_nqLine.sysName)>>
+			<<run Notification.show(_nqLabel ? "New quest for " + wikifyText(_nqLabel) + "!" : "New main quest!", { type: Notification.QUEST })>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<SkipToQuest $player "main_breakthrough" [ShowNotification]>>
+	Calls <<NextQuest>> until the line is on the given quest, so every skipped quest's "set" still runs.
+*/
+<<widget "SkipToQuest">>
+	<<set _stqLine to $args[0]>>
+	<<set _stqTarget to $args[1]>>
+
+	<<if setup.getQuestLine(_stqTarget) !== _stqLine>>
+		<<run console.error('SkipToQuest: "' + _stqTarget + '" is not a quest of ' + _stqLine.sysName + "'s line")>>
+	<<else>>
+		<<for _stqGuard = 0; _stqLine.quest != _stqTarget and _stqGuard < _stqLine.quests.length; _stqGuard++>>
+			<<NextQuest _stqLine $args[2]>>
+		<</for>>
+		<<if _stqLine.quest != _stqTarget>>
+			<<run console.error('SkipToQuest: could not reach "' + _stqTarget + '", the line stopped at "' + _stqLine.quest + '"')>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CheckActiveQuestForCompletion $player>>
+*/
+<<widget "CheckActiveQuestForCompletion">>
+	<<set _questLine = $args[0]>>
+	<<set _quest  	 = setup.getCurrentQuest(_questLine)>>
+
+	<<if _quest and _quest.active and _quest.check>>
+		<<set _ok = !!Scripting.evalTwineScript(_quest.check)>>
+		<<if _ok>><<NextQuest _questLine>><</if>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<UseQuestDevice $mom [power] ["keep"]>>
+	Put it where the scene switches the device on. Spends the charge of the active quest's
+	"device" field (once per quest), and sets _vxQuality (the calibration quality) for text variants.
+	It also starts the screen pulse (<<DevicePulse>>) with the quest's impact, or with power if given
+	(a number 0-10, "+1"/"-1", or 0 for no pulse). Turn the dial later in the scene with <<DevicePulse "+2">>.
+	"keep" keeps the pulse over passage changes (multi-part scenes) until <<DevicePulse "off">>.
+*/
+<<widget "UseQuestDevice">>
+	<<set _uqdQuest to setup.getCurrentQuest($args[0])>>
+	<<if _uqdQuest and _uqdQuest.device>>
+		<<set _uqdState to setup.questDevice(_uqdQuest.device)>>
+		<<set _uqdDevice to _uqdState.dev>>
+		<<if !_uqdQuest.deviceUsed>>
+			<<set _uqdDevice.charge to Math.max(0, _uqdDevice.charge - _uqdState.cost)>>
+			<<set _uqdDevice.lastUsedAtDay to $date.dayCount>>
+			<<set _uqdDevice.lastUsedOnWho to _uqdQuest.device.target>>
+			<<set _uqdQuest.deviceUsed to true>>
+			/* using the device on her raises her resistance by impact * $statInfluence.resistancePerImpact (once per quest).
+			   A toast instead of an UpdateStat line, because the widget usually sits in the middle of a sentence. */
+			<<if ["mom", "sister"].includes(_uqdQuest.device.target)>>
+				<<set _uqdNpc to State.variables[_uqdQuest.device.target]>>
+				<<set _uqdRes to Math.min(_uqdNpc.stats.max.resistance - _uqdNpc.stats.resistance, _uqdQuest.device.impact * $statInfluence.resistancePerImpact)>>
+				<<if _uqdRes > 0>>
+					<<set _uqdNpc.stats.resistance += _uqdRes>>
+					<<run Notification.show(_uqdNpc.name + "'s Resistance has increased by " + _uqdRes + ".", { type: Notification.NEGATIVE })>>
+				<</if>>
+			<</if>>
+		<</if>>
+		<<set _vxQuality to _uqdDevice.calibrationQuality>>
+		<<set _uqdPower to _uqdQuest.device.impact>>
+		<<set _uqdKeep to false>>
+		<<for _uqdI = 1; _uqdI < $args.length; _uqdI++>>
+			<<if $args[_uqdI] == "keep">>
+				<<set _uqdKeep to true>>
+			<<else>>
+				<<set _uqdPower to $args[_uqdI]>>
+			<</if>>
+		<</for>>
+		<<run setup.devicePulse(_uqdPower, { keep: _uqdKeep })>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<DevicePulse power ["keep"] ["#rrggbb"] ["3s"]>>
+	A heartbeat glow over the whole screen while the device runs (setup.devicePulse in "Define Company").
+	It never blocks clicks. power: 0-10, the same scale as a quest device impact (stronger and faster as it rises).
+	A quoted "+2"/"-1" turns the dial from where it is now; 0 or "off" switches it off.
+	It fades out on the next passage change. "keep" keeps it running across passages until <<DevicePulse "off">>.
+	"3s" waits that many seconds before the change, e.g. <<DevicePulse "off" "3s">> for a device that sputters out.
+		<<DevicePulse 3>> ... <<DevicePulse "+2">> ... <<DevicePulse "off">>
+*/
+<<widget "DevicePulse">>
+	<<set _dpOpts to {}>>
+	<<for _dpI = 1; _dpI < $args.length; _dpI++>>
+		<<if $args[_dpI] == "keep">>
+			<<set _dpOpts.keep to true>>
+		<<elseif String($args[_dpI]).startsWith("#")>>
+			<<set _dpOpts.color to $args[_dpI]>>
+		<<elseif /^[0-9.]+s$/.test(String($args[_dpI]))>>
+			<<set _dpOpts.delay to parseFloat($args[_dpI]) * 1000>>
+		<</if>>
+	<</for>>
+	<<run setup.devicePulse($args[0], _dpOpts)>>
+<</widget>>
+
+

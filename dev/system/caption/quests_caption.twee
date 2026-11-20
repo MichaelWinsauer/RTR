@@ -1,0 +1,10 @@
+:: Quests Caption [system nobr] {"position":"2000,325","size":"100,100"}
+/* One card per quest line (setup.questLines in Define Quests), in that order. Hidden quests get no card. */
+<<set _qcShown to setup.questLines.filter((key) => { const q = setup.getCurrentQuest(State.variables[key]); return q && q.active && !q.hidden; })>>
+<div class="sb-quests">
+	<<for _qcKey range _qcShown>>
+		<<SbQuest `setup.getCurrentQuest(State.variables[_qcKey])` _qcKey>>
+	<</for>>
+	<<if _qcShown.length == 0>><div class="sb-empty">No active quests.</div><</if>>
+</div>
+

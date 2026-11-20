@@ -1,0 +1,29 @@
+:: Sister Kiss [interaction] {"position":"500,2400","size":"100,100"}
+/* Intimate scene, reached from the "Kiss her" card of the NPC Interaction screen.
+   The card's requirements and its once-per-day limit live in define_interactions.twee.
+   Short placeholder: expand it however you like, the stat changes below are what the card promises. */
+<<DisplayActivity $sister 500>>
+She sees me coming and tilts her head, half amused and half wary, like she's waiting to see how far I'll actually go. I stop an arm's length away. She doesn't tell me to leave.
+
+<<silently>>
+<<set _msgs = [
+  { who: $sister, text: "You're staring." },
+  { who: $player, text: "Yeah." },
+  { who: $sister, text: "Are you going to say something or just keep doing that?" },
+  { text: "I close the last of the distance instead. She goes still for a second, then kisses me back, quick and a little clumsy, like she's daring herself." },
+  { who: $sister, text: "Okay. Wow. That was... okay." },
+  { who: $player, text: "Just okay?" },
+  { who: $sister, text: "Don't push it. And don't tell anyone." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns away fast, but not fast enough to hide the grin. I leave her pretending nothing happened.
+
+<<UpdateStat "+" "SisterLust" 5>>
+<<UpdateStat "+" "SisterCorruption" 3>>
+<<UpdateStat "+" "SisterRelation" 2>>
+<<UpdateStat "-" "SisterResistance" 2>>
+
+<div class="navigation-link"><<link "Continue" "NPC Interaction">><</link>></div>
+

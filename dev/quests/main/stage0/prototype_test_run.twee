@@ -1,0 +1,19 @@
+:: Prototype Test-Run [event main_quest] {"position":"3025,375","size":"100,100"}
+Steam beads on the range hood and the pan hisses on low heat. $mom.callName is pushing onions around with a wooden spoon, and I'm hovering next to her with two plates I was supposed to put on the table a minute ago.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$mom.callName, got a minute? Could we talk in my room? It's kind of important." },
+{ who: $mom, text: "Of course, honey. Are you okay? You look tired. I can make you some tea once these are done." },
+{ who: $player, text: "I'm fine, really. It's actually about you. Two minutes, I promise." },
+{ who: $mom, text: "About me? Well, now I'm curious. Let me get this off the heat before it burns." },
+{ who: $player, text: "Thanks." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns off the burner, slides the pan to the back of the stove and dries her hands on a dish towel. I set the plates down and lead the way upstairs. She follows me without another question, still holding the towel.
+
+[[Close the door|Prototype Test-Run 2]]
+
+

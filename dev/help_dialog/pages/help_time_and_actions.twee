@@ -1,0 +1,16 @@
+:: Help Time And Actions [nobr] {"position":"175,4375"}
+<p>Every day is split into <b>seven time slots</b>:</p>
+<div class="help-values"><<for _slot range $timeSlots>><span><<= _slot.text>></span><</for>></div>
+<p>Each slot has <b><<= $time.actions.max>> actions</b>. They are the diamonds at the top of the sidebar: a filled diamond is an action you still have, an empty one is spent. Most activities cost one or more actions. When none are left, the next slot begins.</p>
+<p>The time of day and the day of the week matter a lot. They decide where <b>$mom.callName and $sister.callName</b> are, which places are open, and which scenes can start. If something you expect isn't happening, try another slot or another day.</p>
+<div class="help-note">The small bar under the diamonds shows how far through the day you are.</div>
+
+<h3>Quick links</h3>
+<p>Below the people in the sidebar, a few shortcuts show up when they would save you a walk. They only appear on places, never during a scene. If one costs time, the link says how many actions.</p>
+<ul>
+	<li><b>Go to work</b>: once the company has its own office, on weekdays until the work day is over. It takes you straight to your desk and costs nothing. It also tells you when your next appointment at the office is, and lights up when someone is already waiting for you.</li>
+	<li><b>Wait for breakfast / lunch / dinner</b>: at home, waits until the next <a href="#" data-help="Help Meals">meal</a> and takes you to the kitchen. It costs the actions until then, or nothing if the meal is ready now. It lights up when the meal is one you shouldn't miss.</li>
+	<li><b>Go to bed</b>: at Night and Late Night, from anywhere. It costs nothing extra, because sleeping ends the day anyway.</li>
+	<li><b>Go home</b>: from anywhere outside the house, straight to your bedroom, for free.</li>
+	<li><b>Wait</b>: spends <b>1 action</b> and you stay where you are.</li>
+</ul>

@@ -1,0 +1,31 @@
+:: Diner Test-Run [event main_quest] {"position":"3275,0","size":"100,100"}
+I get to $diner.name a good half hour before my shift. The neon sign in the window is already buzzing away against a grey morning sky, and the parking lot holds exactly two cars, both belonging to regulars who look like they might have slept in them. I clock in, tie on my apron and go straight to the back, where $manager.callName is hunched over the breakfast specials with his first coffee of the day.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Morning. We're still on for today, right?" },
+{ who: $manager, text: "Unfortunately. One shift. You keep your little gadget quiet and out of sight, and the second a customer so much as looks at you funny, it's over." },
+{ who: $player, text: "Nobody's going to look at me funny. It'll be set up before the rush, and you won't even know it's on." },
+{ who: $manager, text: "That's what the last guy said about the new fryer." },
+{ text: "He takes a long sip of coffee without looking up from the sheet." },
+{ who: $manager, text: "And your $sister.relation starts this weekend. That's the part of this deal I actually care about." },
+{ who: $player, text: "She'll be here whenever you need her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He grunts something that might be a goodbye and waves me out. The main floor is still half asleep, coffee dripping into the pot, the fryer warming up with a smell that will be in my hair until tomorrow. I pick the end of the counter, where you can see most of the booths without anyone noticing you're looking, and tuck $company.prototype.name behind a stack of laminated menus. A flick of the switch, and it settles into its low hum. Funny how that sound used to make me nervous. <<UseQuestDevice $player "keep">>
+
+I go over the settings one last time. Keep people relaxed, keep them in their seats a little longer, and give them a gentle push toward the bigger plate when they're on the fence anyway. Nothing that would make anyone look twice. Just enough that the receipts can do the talking for me.
+
+Then I do what I always do here. I wipe tables that are already clean, top up sugar dispensers that are already full, and pretend my pulse isn't doing something stupid every time the door swings open.
+
+<<linkreplace "Wait for the breakfast rush to start">>
+The first customers trickle in around six, coats still zipped, eyes still half shut. I pour coffee and take orders like it's any other morning, but my gaze keeps drifting back to the stack of menus at the end of the counter, where nothing at all seems to be happening.
+
+Okay. Let's see what you can do.
+
+<<set $sister.flags.worksAtDiner to true>>
+[[Continue|Diner Test-Run 2]]
+<</linkreplace>>
+
+

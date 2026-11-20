@@ -1,0 +1,163 @@
+:: Help Dialog Script [script] {"position":"175,4125"}
+/* Help / tutorial dialog. Opened with the "?" button next to the other tray buttons (sidebar and company dashboard).
+   Left: the themes and their links, read from the passage "Help Index". Right: the chosen page, a normal passage
+   (so it may use macros and $variables, e.g. live numbers). Pages can link to each other with
+       <a href="#" data-help="Passage Name">text</a>
+   Files: dev/help_dialog/ (index, pages, style, this script).
+
+   Pages must not spoil what is still to come: no names of scenes, quests, tasks, devices or mails the player
+   hasn't seen yet. Lists of game content (tasks, devices, employees, mails) are built from the live state with
+   the helpers below, so a page only ever shows what is already unlocked, and its numbers are never out of date. */
+window.helpLastPage = window.helpLastPage || null;
+
+/* Help page helpers =============================================================
+   setup.helpSlotRange(slots)    [1, 2, 3, 4] -> "Morning to Evening", [2, 4] -> "Noon, Evening"
+   setup.helpFreeRows(who)       the cells of the CMD schedule she can be given tasks in, on a weekday (today, or
+                                 Monday on weekends): "Morning (from the 2nd action) to Afternoon", or ""
+   setup.helpTasks()             the unlocked tasks (task.active) for the task table: { title, sysName, who, place, takes,
+                                 starts, pays, energy, withMe, description }. title, place and description may
+                                 contain variables, so print them with <<= >>
+   setup.helpEmployees()         the live NPC objects of $company.employees (the list itself holds copies) */
+setup.helpSlotRange = function (slots) {
+  var names = State.variables.timeSlots;
+  var list = (slots || []).slice().sort(function (a, b) { return a - b; });
+  if (!list.length) return "";
+  var contiguous = list.every(function (s, i) { return i === 0 || s === list[i - 1] + 1; });
+  if (list.length === 1) return names[list[0]].text;
+  if (contiguous) return names[list[0]].text + " to " + names[list[list.length - 1]].text;
+  return list.map(function (s) { return names[s].text; }).join(", ");
+};
+
+setup.helpFreeRows = function (who) {
+  var v = State.variables;
+  var max = v.time.actions.max;
+  var day = v.date.today.value < 5 ? v.date.today.value : 0;
+  var ordinal = ["1st", "2nd", "3rd"];
+  var ranges = [];
+  for (var row = 0; row < v.timeSlots.length * max; row++) {
+    if (!setup.isTaskRow(who, row, day)) continue;
+    var last = ranges[ranges.length - 1];
+    if (last && last.to === row - 1) last.to = row;
+    else ranges.push({ from: row, to: row });
+  }
+  return ranges.map(function (r) {
+    var fromSlot = v.timeSlots[Math.floor(r.from / max)].text;
+    var toSlot = v.timeSlots[Math.floor(r.to / max)].text;
+    var from = r.from % max === 0 ? fromSlot : fromSlot + " (from the " + ordinal[r.from % max] + " action)";
+    var to = r.to % max === max - 1 ? toSlot : toSlot + " (up to the " + ordinal[r.to % max] + " action)";
+    return from === to ? from : from + " to " + to;
+  }).join(", ");
+};
+
+setup.helpTasks = function () {
+  var v = State.variables;
+  return v.tasks
+    .filter(function (t) { return t.active; })
+    .map(function (t) {
+      var who = v[t.who.sysName];
+      var loc = v.locations[t.location.id];
+      return {
+        title: t.title,
+        sysName: t.who.sysName,
+        who: who ? who.callName : "",
+        place: loc ? loc.name : "",
+        takes: t.apCost,
+        starts: setup.helpSlotRange(t.startTime),
+        pays: Number(t.revenue) || 0,
+        energy: Number(t.baseEnergyCost) || 0,
+        withMe: setup.isTaskWithPlayer(t),
+        description: t.description || ""
+      };
+    })
+    .sort(function (a, b) { return a.sysName === b.sysName ? 0 : (a.sysName < b.sysName ? -1 : 1); });
+};
+
+setup.helpEmployees = function () {
+  var v = State.variables;
+  return v.company.employees.map(function (e) { return v[e.sysName] || e; });
+};
+
+window.parseHelpIndex = function () {
+  const groups = [];
+  if (!Story.has("Help Index")) return groups;
+  Story.get("Help Index").text.split(/\r?\n/).forEach(function (line) {
+    let m;
+    if ((m = /^#\s+(.+?)\s*$/.exec(line))) {
+      groups.push({ title: m[1], pages: [] });
+    } else if (groups.length && (m = /^-\s+(.+?)\s*\|\s*(.+?)\s*$/.exec(line))) {
+      groups[groups.length - 1].pages.push({ title: m[1], passage: m[2] });
+    }
+  });
+  return groups.filter(function (g) { return g.pages.length > 0; });
+};
+
+window.displayHelpDialog = function (startPassage) {
+  const groups = window.parseHelpIndex();
+
+  Dialog.create("Help", "help-dialog");
+
+  const root = document.createElement("div");
+  root.className = "help";
+  const nav = document.createElement("nav");
+  nav.className = "help-nav";
+  const page = document.createElement("article");
+  page.className = "help-page";
+  root.append(nav, page);
+
+  const links = {};   /* passage name -> { button, group, title } */
+  groups.forEach(function (g) {
+    const group = document.createElement("div");
+    group.className = "help-group";
+    const head = document.createElement("button");
+    head.type = "button";
+    head.className = "help-group-head";
+    head.textContent = g.title;
+    head.addEventListener("click", function () { group.classList.toggle("open"); });
+    const list = document.createElement("div");
+    list.className = "help-links";
+    g.pages.forEach(function (p) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "help-link";
+      button.textContent = p.title;
+      button.addEventListener("click", function () { show(p.passage); });
+      list.append(button);
+      links[p.passage] = { button: button, group: group, title: p.title };
+    });
+    group.append(head, list);
+    nav.append(group);
+  });
+
+  function show(passage) {
+    window.helpLastPage = passage;
+    Object.keys(links).forEach(function (k) { links[k].button.classList.remove("active"); });
+    const entry = links[passage];
+    if (entry) {
+      entry.button.classList.add("active");
+      entry.group.classList.add("open");
+    }
+    const title = document.createElement("h2");
+    title.className = "help-title";
+    title.textContent = entry ? entry.title : passage;
+    const body = document.createElement("div");
+    body.className = "help-body";
+    body.innerHTML = Story.has(passage) ? window.wikifyHTML(Story.get(passage).processText()) : "<p>This page is missing.</p>";
+    page.replaceChildren(title, body);
+    page.scrollTop = 0;
+  }
+
+  /* links between pages */
+  page.addEventListener("click", function (e) {
+    const a = e.target.closest("[data-help]");
+    if (!a) return;
+    e.preventDefault();
+    show(a.getAttribute("data-help"));
+  });
+
+  Dialog.body().append(root);
+  Dialog.open();
+
+  const first = groups.length ? groups[0].pages[0].passage : null;
+  const wanted = [startPassage, window.helpLastPage, first].find(function (p) { return p && Story.has(p); });
+  if (wanted) show(wanted);
+};

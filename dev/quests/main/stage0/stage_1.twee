@@ -1,0 +1,99 @@
+:: Stage 1 [event main_quest] {"position":"3400,250","size":"100,100"}
+<<silent>><<SetBackground "images/locations/companystage0.jpg">><</silent>>
+I stand in my old office for the last time. It's a box with one window and one radiator, and since I moved back home it has been the closest thing I've had to a real workplace. There isn't much to pack: the laptop, a few notebooks, the little whiteboard covered in arrows only I understand, and the padded case with $company.prototype.name inside. Everything fits into three boxes with room to spare, which says a lot about this place.
+
+The paint is still peeling above the desk. I almost gave up in this room more than once. I also finished the thing in here that's going to make all of that worth it, the idea I first scribbled into a school notebook and never managed to let go of. I tape the last box shut and give the room one more look. I expected to feel nostalgic. Mostly I feel like I'm sneaking out before it notices.
+
+<<linkreplace "Grab the keys and head to the landlord">>
+<<silent>><<SetBackground $locations[19].img>><</silent>>
+I take the keys to the old office and climb the stairs to his door. Mildew and cheap cologne, same as always. I knock twice.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "It's open!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Same stacks of paper, same dusty lamp, same scowl. $landlord.callName looks up at me like I'm a leak he'd been hoping would fix itself.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "What now, kid? Rent's not due yet." },
+{ who: $player, text: "I'm here to swap keys. The old office for the new one. And I brought the ten thousand." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hand over the money and keys">>
+I set the envelope on his desk and slide the old keys over next to it. He licks his thumb and counts every bill, twice, then sweeps the keys into a drawer with a grunt.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Ten grand. All there. Well, would you look at that. The third floor's yours, kid." },
+{ who: $landlord, text: "And don't you forget our other arrangement. Your $mom.relation and your $sister.relation, next week. Like you promised." },
+{ who: $player, text: "They'll be there. We'll keep our end." },
+{ who: $landlord, text: "You'd better. Come on, then. I'll show you around before I change my mind." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+
+He heaves himself out of the chair with a groan and leads me up one more flight. The hallway up here is a little cleaner, or maybe just better lit. He unlocks the door at the end, shoves it open with his shoulder and waves me in ahead of him.
+
+<<linkreplace "Check out the new office">>
+<<silent>><<SetBackground "images/characters/player/stage_1/main_room.jpg">><</silent>>
+
+The main room is easily three times the size of my old office. Light wood floors, plain white walls, and a big window that actually lets the sun in instead of just showing me the building across the street. A radiator sits under it, ticking quietly. I'm already counting desks in my head. Four, easily. Six, if people don't mind getting to know each other.
+
+<<Image "images/characters/player/stage_1/main_room.jpg" "" "" 500>>
+
+$landlord.callName waves a hand at all of it like he's shooing a fly.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Main room. Big enough for your little desks or whatever it is you do. Don't scratch my floor." },
+{ who: $player, text: "It's perfect." },
+{ who: $landlord, text: "It's a room, kid. Don't get emotional on me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Check the second room">>
+<<silent>><<SetBackground "images/characters/player/stage_1/meeting_room.jpg">><</silent>>
+The second room is smaller, with one wall painted a deep blue that somebody must have thought was a great idea once. Put a table, a few chairs and a screen in here, and it's a meeting room.
+<<Image "images/characters/player/stage_1/meeting_room.jpg" "" "" 500>>
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "This one's got the blue wall. Use it for meetings or whatever. Just don't turn it into a kid's playroom." },
+{ who: $player, text: "It'll make a great meeting room. Thanks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He jerks his chin at a narrow door in the back.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Bathroom's back there. It's tiny. You clog it, you pay for the plumber." },
+{ who: $player, text: "Noted." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wait for him to leave">>
+<<silent>><<SetBackground "images/characters/player/stage_1/main_room.jpg">><</silent>>
+He lingers in the doorway for a moment, glancing down the hallway like he's still hoping someone else might come up the stairs. When nobody does, he grunts and shuffles off without another word. I'm pretty sure he's disappointed that $mom.callName and $sister.callName didn't come along.
+
+Then it's just me and a lot of empty floor. The sun has crept across the boards while he was talking. I walk to the middle of the room and turn in a slow circle. Desks over there, a whiteboard on that wall, and somewhere, something small and quiet tucked away where nobody will ever think to look.
+
+First, though, I need furniture.
+
+<<NextQuest $player>>
+<<UpdateStat "-" "Money" 10000>>
+
+<div class="navigation-link">
+	[[Get to work...|Stage 1 Follow Up]]
+</div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

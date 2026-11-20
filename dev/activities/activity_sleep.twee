@@ -1,0 +1,83 @@
+:: Activity Sleep [activity] {"position":"150,1800","size":"100,100"}
+/* Going to bed. One night in three brings a dream (+1 Corruption).
+   Early dreams are about failure, the house and the company. The numbered dreams (1 to 10) have an image each
+   (images/characters/player/activities/sleep/<n>.webp) and are sexual, kept implied: 1, 3, 6, 8 are about $mom and
+   only come after The Briefing (mom_briefing); 2, 4, 5, 7, 9, 10 are about $sister and only come after
+   Conflicting Feelings (sister_conflictingFeelings). */
+<<silently>>
+	<<set _spicy to random(1, 3)>>
+	<<set _dreams = ["pitch", "house"]>>
+	<<if $company.stage >= 1>>
+		<<run _dreams.push("office")>>
+	<<else>>
+		<<run _dreams.push("diner")>>
+	<</if>>
+	<<if setup.questDone("mom_briefing")>><<run _dreams.push(1, 3, 6, 8)>><</if>>
+	<<if setup.questDone("sister_conflictingFeelings")>><<run _dreams.push(2, 4, 5, 7, 9, 10)>><</if>>
+	<<set _sleepScene to _dreams.random()>>
+<</silently>>
+I kick off my shoes and fall into the same narrow bed I've had since I was twelve. The glow-in-the-dark stars I never got around to peeling off the ceiling are still up there, fainter every year. Somewhere around the twentieth one, I'm gone.
+
+<<if _spicy == 1>>
+<<if typeof _sleepScene === "number">><<Image "images/characters/player/activities/sleep/" _sleepScene ".webp" "" 400 "" "dream">><</if>>
+<<switch _sleepScene>>
+<<case "pitch">>
+I'm pitching $company.prototype.name in a conference room the size of a stadium, and every seat is taken. I click to the next slide. It's my senior yearbook photo, the one where I'm half cut off at the edge of the frame, and the whole stadium laughs. I click again. Same photo, except now a little more of me is missing. I keep clicking, and they keep laughing, until all that's left of me in the picture is an elbow.
+<<case "house">>
+The house is for sale. There's a sign on the lawn and strangers wandering through the kitchen with paper cups of coffee, opening our cupboards. $mom.callName is wrapping plates in newspaper, one by one, very carefully, and $sister.callName is sitting on a moving box with her headphones on. I go out to the lawn to see who's selling.
+
+It's my name on the sign. Underneath, in smaller letters, somebody has written SOLD, and in the dream that makes perfect sense to me.
+<<case "diner">>
+I'm mopping the floor at $diner.name, and the floor doesn't end. Every time I look up, the counter is a little farther away, and $manager.callName is sitting on a stool at the far end of it, eating a slice of pie and watching me. "Missed a spot, founder," he calls every few minutes, and every time I look, he's right. The pie never gets any smaller.
+<<case "office">>
+I'm in the office after hours, and every light is off except mine. Everybody is still there, though, at their desks, working in silence: $ethan.name, $brian.name, $darius.name, and $mom.callName over by the printer. I clear my throat, and every head turns toward me at exactly the same moment, smiling. Then they turn back. Above us the vent hums, lower and lower, until I realize it's my own breathing.
+<<case 1>>
+The office is dark except for the desk lamp, and there are contracts everywhere, more than I've ever had, stacked on the desk and the chair and the floor. $mom.callName is kneeling in front of my chair in the navy blazer she used to wear to her old job, and every time I sign a page she's there, a little lower, a little closer, her hair loose under my hand. She hums something. It sounds like approval. I sign the last one, and the lamp goes out.
+<<case 2>>
+An empty office floor at night and a copier thumping away in the corner. $sister.callName is bent over it with her skirt hiked up, laughing at something, and every page that slides out has a new client logo on it. She looks back at me over her shoulder, eyes glassy with that soft light the device gives off, and says, "Print the future, $sister.callPlayerShort." Then she reaches back, pulls me closer by my tie, and the copier jams, and neither of us cares.
+<<case 3>>
+Sunset through the boardroom blinds, orange stripes across the table. The investor is a man with no face, just a very expensive watch, and $mom.callName is leaning across the polished wood toward him in a dress I picked out for her. I'm standing behind her with my hand flat on the small of her back. She's doing exactly what I told her to do, and his pen is moving over the term sheet, and I can feel every breath she takes through my palm. When he signs, she straightens up, smooths her dress and looks back at me to see if she did well.
+<<case 4>>
+The server room, freezing cold, every monitor full of scrolling code. $sister.callName is in my lap in the swivel chair, in one of her old tank tops, her arms around my neck, and every time she moves, another module compiles. "Compile me," she says into my ear. She's trying not to laugh, and so am I, and the progress bar on the screen behind her crawls toward a hundred percent.
+<<case 5>>
+A private conference room that smells like leather. $sister.callName is wearing glasses she doesn't own and kneeling on the carpet beside my chair, the quarterly charts in one hand and the other on my thigh. She keeps losing her place in the numbers. "Profit margins look delicious," she says, completely deadpan. Then she sets the charts aside, and I stop paying attention to the trend line.
+<<case 6>>
+An executive washroom, all marble and gold taps, the mirror white with steam. I have $mom.callName backed against the counter in a red skirt I've never seen her wear, and she's watching us in the mirror instead of looking at me. "Close it," she whispers. "Close the deal, sweetheart. Make them beg." I don't know which deal. In the dream it doesn't matter. The steam crawls back over the mirror and takes the rest with it.
+<<case 7>>
+Morning light on the bathroom tiles at home. $sister.callName is leaning over the sink in a thin white dress, doing her mascara, and she catches my eye in the mirror and doesn't look away. "Wake the company up right," she says, which doesn't mean anything at all, and leans back against me. The mascara wand rolls into the sink.
+<<case 8>>
+A hotel suite high above a skyline I don't recognize. Champagne sweating in a bucket, a signed term sheet on the nightstand. $mom.callName comes in from the balcony in a black dress, kicks off her heels and sinks down onto the carpet in front of me, slowly, like she's been looking forward to this all evening. "We got it," she says, eyes on mine. "You got it, honey. Let me say thank you." The city lights below smear into fireworks.
+<<case 9>>
+A glass desk, and a conference call droning out of the speaker, somebody from accounting going on about the third quarter. $sister.callName is under the desk on her hands and knees with papers rustling around her, and I can see her through the glass, which seems to be the whole point. When the call ends she climbs out, straightens her skirt and wipes the corner of her mouth with her thumb. "Morale protocol executed," she says, and winks, and picks up the next stack of contracts.
+<<case 10>>
+Dusk in a corner office, the city going violet far below. $sister.callName stands at the window in one of my white shirts, a black tie hanging loose around her neck. She turns, pulls the knot free and wraps the tie once around her hand. "Tie this alliance tight," she says, and it's so bad that I laugh, and she laughs too. Then she sinks to her knees on the carpet, still smiling, and the city goes dark around us.
+<</switch>>
+
+<<if [1, 3, 6, 8].includes(_sleepScene)>>
+I wake up tangled in the sheets, hot and out of breath, with the dream already sliding away and the important part of it still very much there. Down the hall, $mom.callName's alarm starts beeping.
+<<elseif typeof _sleepScene === "number">>
+I wake up tangled in the sheets with my heart going and the dream running off me like water. Through the wall I can hear $sister.callName's alarm, and her slapping at it, and missing.
+<<else>>
+I wake up once in the dark with my heart going, and it takes me a minute to sort out which parts were real. Then I roll over, and the next time I open my eyes it's light out.
+<</if>>
+
+<<UpdateStat "+" "Corruption" 1>>
+<<elseif $company.stage >= 1>>
+I sleep straight through. No dreams, or none that stick, and when I open my eyes the day is already lining itself up in my head: who's in at nine, which client is waiting on what, and what I need from whom.
+<<else>>
+I sleep like a rock. No dreams, or none that stick. When I wake up, the light is coming in sideways through the curtains and the whole house smells like coffee.
+<</if>>
+
+/* Sleeping spends every action left today, one by one (UseAction), so the rest of the day still happens: tasks start
+   and end, the staff works, missed tasks count. The last one runs AdvanceDay and leaves me at Early Morning. */
+<<set _sleepActions to $time.actions.left + ($timeSlots.length - 1 - $time.current.value) * $time.actions.max>>
+<<if $mom.flags.wakeUp == true>>
+  <<link "$mom.callName enters the room with a hot coffee in hand..." "Morning Wakeup">>
+      <<UseAction _sleepActions>>
+  <</link>>
+<<else>>
+  <<link "Wake up" "Bedroom">>
+      <<UseAction _sleepActions>>
+      <<AdvanceTime>>
+  <</link>>
+<</if>>

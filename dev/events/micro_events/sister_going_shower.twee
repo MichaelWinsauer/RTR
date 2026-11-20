@@ -1,0 +1,64 @@
+:: Sister Going Shower [micro_event event nobr] {"position":"1050,3025","size":"100,100"}
+/* Insult teasing: she complains about the player hanging around the hallway. A pool of remarks, a few replies. */
+<<silently>>
+<<set _remark to either(
+	"Why are you always hovering out here? Pervert.",
+	"If you're going to stand there, at least pretend to be useful.",
+	"Stop looking at me like you're plotting something. It's creepy.",
+	"You know the hallway isn't a spectator sport, right? Weirdo."
+)>>
+<<set _msgs to [
+	{ who: $sister, text: "Out of the way, little $sister.callPlayerShort. I need the bathroom before my plans." },
+	{ who: $sister, text: _remark }
+]>>
+<</silently>>
+<p>$sister.callName comes out of her room with a towel over one shoulder and a bottle of shampoo in her hand, heading straight for the bathroom.</p>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Tease her back">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Relax. You're not that interesting." },
+					{ who: $sister, text: "Wow. Hilarious. Get out of my way." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<if $sister.stats.relation >= 20>>
+					<<UpdateStat "+" "SisterRelation" 1>>
+				<<else>>
+					<<UpdateStat "-" "SisterRelation" 1>>
+				<</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Brush it off">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Just passing through." },
+					{ who: $sister, text: "Sure you are. Sure." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Apologize and step aside">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Sorry. Go ahead." },
+					{ who: $sister, text: "Thank you. Was that so hard?" }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

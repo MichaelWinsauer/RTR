@@ -1,0 +1,216 @@
+:: The Briefing [event mom_quest scene] {"position":"3700,950"}
+/* Quest "The Briefing" (mom_briefing), part 1 of 2. Her first corruption milestone: stage 0 to 1 (setup.corruptionStages, Define NPCs).
+   The morning of the handover of the prototype for her old boss. She's anxious about facing him on the floor where he used to
+   humiliate her. I calm her with the device, brief her on what to say and how to act, and put her in the outfit I bought, without
+   a bra. Then I turn the one dial I've never used on her, and she starts to feel how wound up I am. She sees what the outfit does
+   to me (the second time, after Control Session), and she decides on her own to take care of it, "just this once".
+   The stage-up happens at the end of this part. Part 2 is "The Handover", which advances the quest. */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+It's twenty past seven, and the office is still asleep. The others won't be in until nine, except for $brian.name, who's downstairs loading the case into the van. Judging by the noises coming up the stairwell, the case is winning.
+
+$boss.callName's unit is finished. It's sitting in a padded case that cost more than my first car would have, if I'd ever had a first car, and all that's left is to hand it over: at ten, on the sixth floor of the tower where $mom.callName used to work, in front of $boss.callName and whoever he decides to show off to.
+
+$mom.callName has been in the meeting room since seven. She's printed out the handover checklist, gone over it with a highlighter in three colors, and she's halfway through a second pass with a fourth.
+
+<<linkreplace "Sit down with her">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Morning, honey. I printed the checklist again. The other one had a coffee ring on it, and I can't walk in there with a coffee ring. He'd make a whole thing about it." },
+{ who: $player, text: "You're not giving him the checklist." },
+{ who: $mom, text: "I know, I know. I'm just holding it. It's nice to have something to hold." },
+{ text: "She squares the pages against the table until the edges line up perfectly. Then she does it again, because apparently they didn't." },
+{ who: $mom, text: "He used to stand behind my chair while I typed. Did I ever tell you that? He'd just stand there, reading over my shoulder and breathing. For whole minutes." },
+{ who: $mom, text: "But that's fine. It's a handover. People do handovers every day, it's not... it's fine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's been out at his building for this project more often than I'd like to count, and every time she came home from there she cleaned the kitchen until midnight. Today she's going back as the face of my company. I need her calm, and I need her in there for more than her checklist.
+
+The white box is on the shelf by the window, where it lives between sessions. I put it on the table between us.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh. Are we doing a session? Now?" },
+{ who: $player, text: "Just the light. You get through the questions better with it on." },
+{ who: $mom, text: "That's true. I do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Switch it on">>
+The blue light comes on, and her shoulders drop half an inch before I've done anything at all. Then, under the table, I do something, and they come down the rest of the way. <<UseQuestDevice $mom 3>> She lets the checklist go. It's the first time since I sat down that she hasn't been touching it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "We walk in. What do you say?" },
+{ who: $mom, text: "Good morning, $boss.callName. We're so excited to finally..." },
+{ who: $player, text: "You're never excited in front of him. You're pleased." },
+{ who: $mom, text: "Pleased. Good morning, $boss.callName, we're very pleased to finally..." },
+{ who: $player, text: "Slower. You're not apologizing for being there." },
+{ who: $mom, text: "...Good morning, $boss.callName. We're very pleased to bring you your unit." },
+{ who: $player, text: "Better." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We go through the rest of it the way we go through $darius.name's questions: me reading, her answering, the light keeping time. She sits next to him at the table, never across from it, because across from it is where he puts people he's about to yell at. She laughs at his first joke whether or not it's a joke. She doesn't explain the technical parts; that's $brian.name's job, and the less she understands, the more she can smile. And when he gets to the money, she looks at me and nowhere else.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "And if he gets... you know. Handsy. He gets handsy, honey. He always did." },
+{ who: $player, text: "Then he gets handsy." },
+{ text: "She waits for the rest of the sentence. There isn't any." },
+{ who: $player, text: "If he's in a good mood today, he'll sign up for support on top of the unit. Whatever keeps him in a good mood until he signs is part of the job." },
+{ who: $mom, text: "Part of the job." },
+{ text: "She says it to the light, testing how it sounds. Then once more, quieter, as if she's filing it somewhere." },
+{ who: $mom, text: "Well. I've had worse jobs. I've had worse jobs with him, actually." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hand her the bag">>
+Under my chair there's a garment bag from a boutique downtown whose name I can't pronounce. I paid for what's in it out of the budget line $darius.name calls 'misc. hardware'.
+
+She unzips it like it might be a surprise party. Inside is a blouse the color of champagne, silk, so thin it's barely there, and a black skirt that's shorter and a lot tighter than anything she owns.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, that's pretty. Is that for me? Sweetie, where on earth would I wear that?" },
+{ who: $player, text: "On the sixth floor. At ten." },
+{ who: $mom, text: "To the handover? Honey, I can't wear this to a handover. This is something $sister.callName would wear to one of her parties." },
+{ who: $player, text: "He likes to look. Let him. A man who's busy looking doesn't read the small print." },
+{ text: "She laughs. It doesn't quite land, so she holds the blouse up against herself instead and looks down at it." },
+{ who: $mom, text: "I'd need a different bra. This one will show right through, you can see everything through this." },
+{ who: $player, text: "No bra." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The light on the box pulses, slow and steady. She looks at it as if it was the box that said it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "...No bra." },
+{ who: $player, text: "Change here. Nobody's in yet." },
+{ who: $mom, text: "Here? Could you at least turn arou..." },
+{ text: "She stops in the middle of the word. We both know where she was standing the last time she took her clothes off for me, and that I didn't turn around then either." },
+{ who: $mom, text: "Never mind. It's not like you haven't... never mind." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns half away from me, which is a compromise with nobody but herself. Her work blouse comes off and gets folded, the bra comes off and gets folded on top of it, and for a second she stands there with the silk held against her chest like a towel at the beach. Then she puts it on. The skirt takes some wriggling, and a hop, and a very quiet word I've never heard her use.
+
+When she turns back around, she's tugging at the hem with both hands, as if she could make it longer by wanting to.
+
+The silk does exactly what I paid for. It lies against her like water, and the cool of the meeting room has made very sure that nobody will be able to miss that she isn't wearing anything underneath.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "How do I look? No, don't answer that. How bad is it?" },
+{ who: $player, text: "Turn around." },
+{ text: "She does it slowly, with her arms out a little from her sides, the way she used to model a new coat for us in the hallway." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Turn the dial">>
+While her back is to me I find the one slider on my phone I've never used on her. It doesn't make her calmer, and it doesn't make her want anything. It just points everything she usually notices about other people at me, and turns it up. I slide it all the way to the top and wait. <<DevicePulse 5>>
+
+It takes about as long as it takes her to finish turning around. She stops tugging at the skirt. She looks at me, properly, and her face changes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey. Look at you." },
+{ who: $player, text: "What?" },
+{ who: $mom, text: "You're wound tighter than a drum. Your jaw. You're doing that thing with your jaw your $dad.relation used to do the night before his quarterly reviews." },
+{ who: $player, text: "It's a big morning." },
+{ who: $mom, text: "It's your big morning. And I've been sitting here going on and on about me and that man, while you're the one carrying all of it. The whole company. Those three boys and their salaries. Me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She comes around the table without deciding to. Her hands find my shoulders on their own; they know the way from my desk by now. Her thumbs go into the knot at the base of my neck, and she makes a small, unhappy sound at how hard it is.
+
+Then she looks down.
+
+It's the second time she's seen it. The first time, in my room, she looked at the wall so fast her hair swung. This time she doesn't look away. Her thumbs stop moving.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh." },
+{ who: $mom, text: "Is that... is that the blouse?" },
+{ who: $player, text: "It's been like that since you took the other one off." },
+{ text: "She doesn't say anything for a while. Her hands stay on my shoulders. She chews the inside of her lip, which is what she does when she's working something out and doesn't want anybody to watch her do it." },
+{ who: $mom, text: "You can't walk in there like that. Not in front of him. That man notices everything that's none of his business." },
+{ who: $mom, text: "And you're so tense, sweetie. You'll say something wrong in there and then you'll blame yourself for a week, I know you, I know exactly how you get." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She glances at the glass door. The office behind it is empty and gray. Downstairs, $brian.name drops something heavy and tells it what he thinks of it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Let me take care of it. Just this once. Just so you can breathe." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says 'just this once' the way she used to say 'just one more episode'.
+
+<<linkreplace "Let her">>
+I don't help her. I lean back in the chair and let her find the button of my pants by herself.
+
+She sinks down onto her knees beside the chair, in the skirt that was never made for kneeling, and it rides up so far that she gives up on it. Her fingers are cold on the zipper. She fumbles it, says sorry to it under her breath, and gets it on the second try, and then I'm in her hand and her hand isn't cold anymore.
+
+She's careful at first. She's careful with everything she hasn't done before: slow, a little stiff at the wrist, her eyes on my face the whole time to check whether she's doing it right. The light on the box pulses behind her, and under the table I keep my thumb on the slider and leave it exactly where it is.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is this all right? Tell me if I'm..." },
+{ who: $player, text: "Faster." },
+{ text: "She does it. Of course she does. She's had ten sessions of doing what I say in this room, and her hand knows it before she does." },
+{ who: $mom, text: "Breathe, honey. You're holding your breath again." },
+{ text: "I'm not, but she believes it, and she leans in closer to tell me. The silk falls forward when she does. From here there's nothing it's hiding at all, and she either doesn't know or doesn't care anymore, and I watch her decide, very clearly, not to know." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She talks the whole time, low and soft, the voice she uses on the phone when a client is about to walk. It's going to be fine. He's just a man in a big chair. I've done so well, I've done so much, I'm allowed to let go for a minute. Her free hand rests flat on my thigh, steadying herself, and the rhythm of the other one gets surer and surer until it isn't careful at all.
+
+When I come, she catches most of it in her palm and stays exactly where she is, a little out of breath herself, holding her palm very still and level, the way you carry a cup of coffee somebody filled to the brim.
+
+<<linkreplace "Afterwards">>
+She gets up before I've done my pants back up. There's a box of tissues on the table that $darius.name keeps there for allergy season; she uses four of them, folds them into a neat square, and drops them into the wastebasket under the table, then pulls the next tissue halfway out of the box so the box looks the way it did before.
+
+Then she smooths the skirt down over her thighs, and the silk flat over her stomach, and looks at the clock on the wall.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Twenty to nine. We have time for a coffee before we go." },
+{ who: $player, text: "We do." },
+{ who: $mom, text: "Honey... that was just for this morning. Because of the handover. You understand that." },
+{ who: $player, text: "Of course." },
+{ text: "She nods, satisfied, as if we've agreed on something. We haven't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's a small dark spot on the hem of her skirt, low on the left side. She doesn't see it. I don't mention it.
+
+When she picks up her checklist, her hands aren't shaking anymore. They were shaking all morning.
+
+<<AdvanceCorruptionStage $mom "The morning of the handover I put her in a silk blouse with no bra. When she saw what it did to me, she got on her knees in the meeting room and took care of it with her hand. Just this once, she said, because of the handover.">>
+<<UpdateStat "+" "Corruption" 3>>
+<<UpdateStat "+" "MomLust" 8>>
+<<ProfileMemory $mom "Just this once" "She came to the briefing with a checklist highlighted in four colors. She left it with her hands steady, after she'd knelt beside my chair in the skirt I bought her and told me to breathe.">>
+
+[[Drive to the tower|The Handover]]
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,0 +1,106 @@
+:: Diner Work Day [activity] {"position":"2650,1550","size":"100,100"}
+<<RandomVideo "images/characters/player/activities/diner/" 7 ".webm">>
+<<silently>>
+<<SetLocation "Diner">>
+<<CheckLocation>>
+
+/* The rest of the day behind the counter, until the evening (the time jump and the pay are below the text).
+   As in Diner Work Shift, the picks depend on the story: before the diner test run (main_dinerTestRun),
+   after it ($manager is a client), and Stage 1 (I run a company and still pick up the odd day here). */
+<<set _pool = ["phases", "closing", "regulars"]>>
+<<if $company.stage >= 1>>
+	<<run _pool.push("ceoDay")>>
+<<elseif setup.questDone("main_dinerTestRun")>>
+	<<run _pool.push("clientDay")>>
+<<else>>
+	<<run _pool.push("double", "notebook")>>
+<</if>>
+<<set _dayScene = _pool.random()>>
+<</silently>>
+<<switch _dayScene>>
+<<case "phases">>
+A whole day at $diner.name goes in phases, like grief. In the first one I'm fine. I'm fast, I'm polite, I remember who wanted oat milk. In the second my feet start talking to me, and around three in the afternoon I enter the third phase, where I'm no longer a person who works at a diner, I'm part of the diner, like the jukebox, or the stain on booth four that's shaped like a horse.
+
+By the time the evening crowd thins out, I've hit the fourth phase, which is a strange, floaty calm. Nobody has ever written a self-help book about the fourth phase. Somebody should.
+
+<<case "closing">>
+I'm there all day, right up to the last customer, a man in a tracksuit who orders a single slice of pie at closing time and eats it one bite every two minutes, like he's being paid by the hour. I'm the one being paid by the hour. I stack every chair around him.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Leave him. He does this every week." },
+{ who: $player, text: "Every week?" },
+{ who: $manager, text: "His wife does book club on Thursdays. Let the man have his pie, kid." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+So I let the man have his pie. It's the most human thing I've ever seen $manager.callName do, and I spend the rest of the evening trying to figure out what he wants in return.
+
+<<case "regulars">>
+By the end of the day I know more about the regulars than about anyone in my own family. The retired mailman whose knee predicts rain. The nurse who only ever orders soup and always says she shouldn't. The two old guys at the counter who have been arguing about the same baseball trade since before I was born, and who, I'm almost sure, both secretly agree.
+
+None of them know a thing about me, and none of them ask. I refill their cups, I remember their orders, and I watch what makes each of them smile, out of habit, for later.
+
+<<case "double">>
+$manager.callName gives me the double with a grin, the kind of grin a man wears when he's been looking forward to something.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Big day today, founder. All the way to close. Think of it as a growth opportunity." },
+{ who: $player, text: "Very generous." },
+{ who: $manager, text: "That's me. Mentor of the year." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He rides me for the whole shift. The fries are too slow, the coffee is too cold, the napkin holders are "an embarrassment to this establishment." Around six I catch him telling the grill cook something with his eyes on me, and they both laugh. I smile at them over a tray of milkshakes. I'm getting very good at smiling at $manager.callName.
+
+<<case "notebook">>
+I keep a notebook in my apron, the little kind for orders, and on the back pages, where nobody looks, I've started writing other things down. Which tables tip better when the music is slower. How long people stay when the heat's turned up two degrees. Which of the waitresses $manager.callName lets go home early, and what she says to him first.
+
+By closing time I've filled four pages. The orders on the front are all correct too, every one of them, because nobody ever wonders what the waiter who gets the orders right is writing on the back.
+
+<<case "clientDay">>
+A whole day on the floor, with the little box humming away behind the menus and $manager.callName walking past it four times an hour, every time pretending not to look at it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Busy today. Busier than usual for a weekday. That your gadget?" },
+{ who: $player, text: "Could be the weather." },
+{ who: $manager, text: "Don't be smart with me, kid. I'm asking because I want to know whether to order more pie." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell him to order more pie. He does, and it sells out by eight, and he stands at the register at closing with the receipts in his hand, counting them twice, looking at me like he isn't sure who works for whom anymore.
+
+<<case "ceoDay">>
+I tell my staff I'm out meeting a client, which is technically true. I spend the whole day at $diner.name in an apron, refilling coffee for the client in question.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "I gotta ask. Don't you have a whole company to run?" },
+{ who: $player, text: "It runs itself, mostly." },
+{ who: $manager, text: "Huh. Must be nice. This place doesn't run itself. This place runs me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He says it like a joke, and then he stands there behind the counter rubbing his neck and looking at the room, at the full booths, at the box behind the menus, for so long that a customer has to wave at him twice. I take the order for him. He doesn't notice that either.
+<</switch>>
+
+<<set _delta to (4 - $time.current.value) * 3 + $time.actions.left>>
+<<set $diner.exp += _delta>>
+<<if $diner.exp >= 50>>
+	On my way out $manager.callName stops me at the door and tells me, like every word costs him money, that I'm getting a raise. Ten bucks more.
+	<<set $diner.exp to 0>>
+    <<set $diner.pay += 10>>
+<</if>>
+<<set $time.current to $timeSlots[5]>>
+<<set $time.actions.left to $time.actions.max>>
+<<set _moneyToAdd = $diner.pay * _delta>>
+
+<<UpdateStat "+" "Money" _moneyToAdd>>
+
+[[Finish up|Diner]]

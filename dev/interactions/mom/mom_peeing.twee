@@ -1,0 +1,224 @@
+:: Mom peeing [interaction event] {"position":"725,2350","size":"100,100"}
+/* Walk-in from the bathroom event (Mom Bathroom, "Enter"): I open the door while she is on the toilet.
+   The version depends on how far her line has come, not on raw stat numbers:
+   early  before No stimulus (mom_controlSession): she is startled, covers up and sends me out
+   seen   after No stimulus: she has sat naked in front of me once, so she lets me stay and talks, flustered
+   close  from her first corruption stage on (The Briefing): she knows why I came in and lets it be charged.
+          Some lines change once she has come to my room at night (mom_nightVisit).
+   Three scenes per tier; $lastMomPee keeps the same one from playing twice in a row. */
+<<silently>>
+<<set _path to "images/characters/mom/events/peeing/">>
+<</silently>>
+<<RandomImage _path 1 ".webp" "" 300>>
+<<silently>>
+<<if $mom.corruptionStage >= 1>>
+	<<set _tier = "close">>
+<<elseif setup.questDone("mom_controlSession")>>
+	<<set _tier = "seen">>
+<<else>>
+	<<set _tier = "early">>
+<</if>>
+<<set _pick = random(1, 3)>>
+<<if $lastMomPee && $lastMomPee.tier === _tier && $lastMomPee.pick === _pick>>
+	<<set _pick = 1 + (_pick % 3)>>
+<</if>>
+<<set $lastMomPee = { tier: _tier, pick: _pick }>>
+<<set _nightVisitDone = setup.questDone("mom_nightVisit")>>
+<</silently>>
+<<switch _tier>>
+<<case "early">>
+	<<switch _pick>>
+	<<case 1>>
+	I knock on my way in, which is to say my knuckles hit the door at about the same moment I push it open.
+
+	$mom.callName is on the toilet with her skirt bunched in her lap and a catalog open on her knees. For a second neither of us moves. Then the catalog comes up like a riot shield.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Out! Honey, out, out, out!" },
+	{ who: $player, text: "Sorry. I didn't hear anything." },
+	{ who: $mom, text: "You didn't hear... the door was closed! A closed door means somebody's in here. We've been having this conversation since you were four!" },
+	{ text: "I back out and pull the door shut. Through the wood I hear her let out a long breath, then the flush, then the tap, running and running." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	When she comes out she can't quite look at me. She says the lock has been sticking since spring and she's going to call somebody about it this week. I nod. Nobody in this house has called anybody about that lock in six years.
+
+	<<case 2>>
+	The lock hasn't caught properly since I was in middle school, and she's never once remembered that. She's reaching for the paper when I walk in, and she moves faster than I'd have thought possible: one arm flat across her lap, the other pointing at the door like it's the emergency exit on a plane.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "$player.name. Door." },
+	{ who: $player, text: "I'm going." },
+	{ who: $mom, text: "Then go faster, sweetie!" },
+	{ text: "I go. She waits until the door clicks shut before she says anything else, and what she says, muffled, is 'knock next time.' Then, after a moment: 'Please.'" },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	Afterwards she acts as if it never happened, which in this family is how you apologize, and also how you accept one. For the rest of the week she props the laundry basket against the bathroom door every time she goes in.
+
+	<<case 3>>
+	$mom.callName is on the toilet with her phone pinned between her ear and her shoulder, saying "Yes, I'll hold" to somebody in a voice that has clearly been holding for twenty minutes. She sees me. Her free hand slaps over the phone, as if the insurance company could see through it.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Are you kidding me? Out!" },
+	{ text: "She hisses it, so the hold music doesn't hear." },
+	{ who: $player, text: "I just need my charger." },
+	{ who: $mom, text: "Your charger can wait. Honey. Out." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I take the charger off the sink anyway on my way out. She makes a sound I haven't heard from her since I put a baseball through the kitchen window, and a second later, through the door, I hear her come back on the line, bright and polite. "Yes, hi! Still here!" She's always been good at that.
+	<</switch>>
+	<<UpdateStat "+" "Corruption" 1>>
+	<<UpdateStat "+" "MomLust" 3>>
+	<<UpdateStat "+" "MomCorruption" 1>>
+	<<UpdateStat "+" "MomResistance" 2>>
+
+<<case "seen">>
+	<<switch _pick>>
+	<<case 1>>
+	I open the door, and she's on the toilet with her skirt around her knees, reading the back of the shampoo bottle like it's a paperback. She looks up. Her hand starts toward her lap, stops halfway, and settles on her knee instead.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Oh. It's you." },
+	{ who: $player, text: "It's me." },
+	{ who: $mom, text: "Well, come in or go out, honey, the draft's terrible with the door open." },
+	{ text: "I come in and lean against the sink. She goes back to the shampoo bottle. Her ears have gone pink." },
+	{ who: $mom, text: "You know, a year ago I would have thrown this at you." },
+	{ who: $player, text: "And now?" },
+	{ who: $mom, text: "Now I'm reading it. It says it adds volume. I have my doubts." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	When she's done she asks me to turn around, just for a second, and I do. I can hear her laughing at herself under her breath while she straightens her skirt. On her way past she squeezes my arm, the way she does when we pass each other in the hallway at the office.
+
+	<<case 2>>
+	She's on the toilet with her planner open on her knees, because of course she is, ticking something off with the pen she keeps clipped to the cover.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Honey, I'm... I'm a little busy in here." },
+	{ who: $player, text: "I can see that. I'll wait." },
+	{ text: "She meant outside. She can tell I didn't, and she doesn't say anything about it." },
+	{ who: $mom, text: "Did you look at Thursday? You have $darius.name at ten, and then that call with... I wrote it down somewhere." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She flips a page with one hand and keeps the other flat on her thigh, holding her skirt where it is. It's the only thing she bothers to cover. She doesn't ask me to leave, so I stay, and she reads me my whole week from the toilet, her voice getting a little quicker with every appointment, until she runs out of week.
+
+	<<case 3>>
+	She hears the door and doesn't jump. That's new. She shuts her eyes for a moment, like somebody counting to three, and opens them again.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "We really need to fix that lock." },
+	{ who: $player, text: "Do we?" },
+	{ who: $mom, text: "Don't. Don't do the thing with your voice." },
+	{ text: "I stay in the doorway. She tugs her robe down over her knees, which doesn't cover much of anything, then gives up and folds her hands in her lap." },
+	{ who: $mom, text: "You've seen... well. You've seen all of it, haven't you. I suppose there's no point shrieking now. I'd only feel silly." },
+	{ who: $player, text: "You'd feel silly." },
+	{ who: $mom, text: "Very. Hand me the towel, sweetie, and then look at the ceiling. Humor me." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I hand her the towel and look at the ceiling. There's a water stain up there shaped a lot like Ohio. I study it while she finishes and flushes and runs the tap, and when I look down again she's smoothing her robe with both hands and very carefully not looking at me.
+	<</switch>>
+	<<UpdateStat "+" "Corruption" 3>>
+	<<UpdateStat "+" "MomLust" 6>>
+	<<UpdateStat "+" "MomCorruption" 3>>
+	<<UpdateStat "-" "MomResistance" 4>>
+
+<<case "close">>
+	<<switch _pick>>
+	<<case 1>>
+	She looks up when I come in and doesn't say a word. She just watches me shut the door behind me and turn the lock, the one that doesn't work, and that gets a small smile out of her despite herself.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "That thing hasn't locked since you were in middle school." },
+	{ who: $player, text: "Then I'll stand in front of it." },
+	{ who: $mom, text: "My own bodyguard." },
+	{ text: "She doesn't hurry for me. She sits with her chin up a little and lets me look, and when she reaches for the paper she does it slowly, without turning away." },
+	{ who: $mom, text: "Is this what you came in for, honey? To keep me company?" },
+	{ who: $player, text: "I came in to see you." },
+	{ who: $mom, text: "Well. You've seen me." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She stands and pulls her skirt down with her eyes on mine in the mirror. Then she washes her hands, dries them, and on her way out she touches my cheek with the backs of her fingers, the way she used to check me for a fever.<<if _nightVisitDone>> "You're warm," she says. "We'll see about that later."<</if>>
+
+	<<case 2>>
+	I open the door, and she doesn't jump, doesn't cover up, doesn't even put her phone down. She glances at me over the top of it.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "You could knock, you know." },
+	{ who: $player, text: "I could." },
+	{ who: $mom, text: "But then I'd say wait, and you'd have to wait, and you've never liked waiting. I know." },
+	{ text: "She sets the phone face down on the edge of the sink. Her robe has fallen open over her knees, and she leaves it that way." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	<<if _nightVisitDone>>
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Is it bad today? You've got that look." },
+	{ who: $player, text: "Maybe a little." },
+	{ who: $mom, text: "Then come and find me tonight. Not in here, honey, not like... tonight. You know where." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She says it to the tiles, perfectly matter-of-fact, the way she'd remind me about the dentist. Then she asks me to pass her the paper, and I do, and I don't turn around, and she doesn't ask me to.
+	<<else>>
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "You've been looking at me like that ever since the handover, you know. At the office. At dinner." },
+	{ who: $player, text: "Like what?" },
+	{ who: $mom, text: "Like that." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	She doesn't tell me to stop. She asks me to pass her the paper, and I do, and I don't turn around, and she doesn't ask me to.
+	<</if>>
+
+	<<case 3>>
+	She's on the toilet when I walk in, and the first thing she does is laugh, quick and embarrassed, with her hand over her mouth.
+
+	<<silently>>
+	<<set _msgs = [
+	{ who: $mom, text: "Of course. Of course it's you. Who else would it be." },
+	{ who: $mom, text: "Well, come in, don't hover. And shut the door, your $sister.relation could walk past." },
+	{ text: "So that's the one rule left, apparently: nobody else gets to see. Me sitting in here with her is fine." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+
+	I sit on the edge of the tub. She crosses her ankles, very primly, which is funny all things considered, and tells me about her day at $boss.callName's office: the coffee machine on the sixth floor that still doesn't work, the meeting that should have been an email, the way he looked at her blouse in the elevator. She watches my face while she tells that last part, to see what it does to me.
+
+	<<if _nightVisitDone>>
+	When she's done she stands up right in front of me, close enough that her knees brush mine, and fixes my collar with both hands. "Don't make that face at dinner," she says quietly. "Save it for me."
+	<<else>>
+	When she's done she makes a little circling motion with one finger. I turn around. I can hear her smiling about it.
+	<</if>>
+	<</switch>>
+	<<UpdateStat "+" "Corruption" 5>>
+	<<UpdateStat "+" "MomLust" 12>>
+	<<UpdateStat "+" "MomCorruption" 5>>
+	<<UpdateStat "-" "MomResistance" 8>>
+<</switch>>
+<<AdvanceTime>>
+<<ReturnFromEvent "Leave" >>

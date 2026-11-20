@@ -1,0 +1,77 @@
+:: Mom Desk Boss Call [micro_event event nobr] {"position":"1300,3275","size":"100,100"}
+/* Desk visitor (micro event 34, "A normal workday" in Define Events): $boss calls her and wants her at his office
+   after hours. After her first Client Consultant shift. Shown in the CMD drawer, so no action is spent and there is
+   no exit link. I can take the call, or let her say no to him herself. */
+<p>$mom.callName holds the phone out to me across the desk with her thumb over the microphone. The call timer on the screen is still running. 2:14. 2:15.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "It's $boss.callName. He wants me to come by tonight, after hours, to 'go over the settings'. Just the two of us. He says it's more efficient that way." },
+	{ text: "She does the quotation marks with her eyebrows, because both hands are busy with the phone." },
+	{ who: $player, text: "And what do you want?" },
+	{ who: $mom, text: "I want to not go. Obviously. But he's a client, honey, and he's paying for my hours over there, and if I say no he'll find some way to make it..." },
+	{ text: "From the phone, small and tinny, comes a voice asking whether she's still there. She flinches, very slightly, the way she used to when her keys hit the bowl in the hallway after one of his days." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="mom-boss-call-choice">
+	<div>
+		<<link "Take the call">>
+			<<replace "#mom-boss-call-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I take the phone out of her hand and lean back in my chair." },
+					{ who: $player, text: "$boss.callName. What can I do for you?" },
+					{ who: $boss, text: "Kid. I asked for your $mom.relation." },
+					{ who: $player, text: "And you got me. The settings walkthrough is Thursday at ten, at your office, with your IT guy in the room. She'll bring slides. You'll love the slides." },
+					{ who: $boss, text: "I don't need slides. I need..." },
+					{ who: $player, text: "Thursday at ten. I'll put it in the calendar." },
+					{ text: "There's a long breath on the other end, the kind a man takes when he's deciding whether a fight is worth the minutes it would cost him." },
+					{ who: $boss, text: "...Fine. Thursday." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>I hand the phone back. She holds it in both hands for a moment and looks at the black screen as if he might still be inside it.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $mom, text: "You didn't have to do that, sweetie." },
+					{ who: $player, text: "I know." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>$boss.callName can have her on Thursdays, under fluorescent lights, with a sign-in sheet at reception. Her evenings go through me.</p>
+				<<UpdateStat "+" "MomRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Let her handle it">>
+			<<replace "#mom-boss-call-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "You know him better than I do. Handle it." },
+					{ text: "She looks at the phone, then at me, and for a second I think she's going to hand it over anyway. Then she takes her thumb off the microphone, and her voice changes into the bright, firm one she uses for delivery drivers who are about to leave a package in the rain." },
+					{ who: $mom, text: "$boss.callName? Sorry about that, I was just checking with my boss. Tonight won't work. We can do Thursday morning at your office, and I'll bring someone from the technical side." },
+					{ text: "Whatever he says next goes on for a while. She listens, nodding at nobody." },
+					{ who: $mom, text: "No. Thursday." },
+					{ text: "More talking. She examines her nails." },
+					{ who: $mom, text: "Thursday, $boss.callName. Have a nice evening." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She hangs up and stares at the phone. Her hand is shaking a little. Then she laughs, one short surprised burst, and covers her mouth with her fingers.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $mom, text: "I said no to him. Honey, I said no to him twice." },
+					{ who: $player, text: "I heard." },
+					{ who: $mom, text: "Twice!" },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She walks back to her desk like she's just won something. I let her keep it. Not that long ago she sat in a parking garage every morning working up the nerve to take the elevator to his floor, and she didn't get this brave on her own. She doesn't need to know that.</p>
+				<<UpdateStat "+" "MomRelation" 1>>
+				<<UpdateStat "+" "Reputation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

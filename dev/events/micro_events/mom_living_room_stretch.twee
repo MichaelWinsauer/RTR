@@ -1,0 +1,76 @@
+:: Mom Living Room Stretch [micro_event event nobr] {"position":"1300,3025","size":"100,100"}
+/* Shared activity: she stretches her back after a day at the desk. Ask, help, or just leave her to it. */
+<<set _vx to setup.homeDevice()>>
+<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
+<<set _vxCost to 10 + 10 * _vxLevel>>
+<p>$mom.callName is on a yoga mat in the middle of the living room, twisting her back with a grimace.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "Hi, sweetheart. Just trying to loosen up after a long day at the desk. My back is killing me." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Ask about her back">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Is it bad?" },
+					{ who: $mom, text: "Nine hours in a chair every day. The doctor says stretch more. I say someone should massage my shoulders, but who has the time or the money?" },
+					{ who: $player, text: "Maybe I could help sometime." },
+					{ who: $mom, text: "You're sweet. We'll see." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Help her stretch">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Here, give me your hands." },
+					{ text: "I pull her up gently into a long standing stretch. She lets out a breath she seems to have been holding all day." },
+					{ who: $mom, text: "Oh, that's so much better. Thank you, honey." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "MomRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<if _vxLevel > 0>>
+		<div>
+			<<if _vx.lastUsedAtDay == $date.dayCount>>
+				<span style="opacity: .5;">Use the prototype (already used today)</span>
+			<<elseif _vx.charge < _vxCost>>
+				<span style="opacity: .5;">Use the prototype (not enough charge)</span>
+			<<else>>
+				<<link "Use the prototype while she stretches">>
+					<<replace "#choice1">>
+						<<set _vx.charge -= _vxCost>>
+						<<set _vx.lastUsedAtDay to $date.dayCount>>
+						<<set _vx.lastUsedOnWho to "mom">>
+						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
+							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
+							<p>She stops and looks at me. "Why do I feel so strange all of a sudden?" she says, rolling up the mat. "I think I'll lie down for a bit."</p>
+							<<UpdateStat "-" "MomRelation" 3>>
+							<<UpdateStat "+" "MomResistance" 4>>
+						<<else>>
+							<<set _gain to 1 + _vxLevel>>
+							<<set _lustGain to 4 + 4 * _vxLevel>>
+							<p>I turn the prototype on low and sit on the couch. <<DevicePulse _vxLevel>> She holds the stretch long after the timer on her phone has beeped, her cheeks a little flushed, and smiles at me without quite knowing why.</p>
+							<<UpdateStat "-" "MomRelation" 1>>
+							<<UpdateStat "+" "MomCorruption" _gain>>
+							<<UpdateStat "+" "MomLust" _lustGain>>
+						<</if>>
+					<</replace>>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
+</div>

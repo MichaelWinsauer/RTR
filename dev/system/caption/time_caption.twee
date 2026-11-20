@@ -1,0 +1,13 @@
+:: Time Caption [system nobr] {"position":"1800,25","size":"100,100"}
+<div class="sb-day"><<= $date.today.text>></div>
+<div class="sb-period"><<= $time.current.text>></div>
+
+<div class="sb-actions" @title="$time.actions.left + ' of ' + $time.actions.max + ' actions left'">
+  <<for _sbI = 0; _sbI < $time.actions.left; _sbI++>><span class="sb-dia"></span><</for>>
+  <<for _sbI = 0; _sbI < $time.actions.max - $time.actions.left; _sbI++>><span class="sb-dia spent"></span><</for>>
+</div>
+
+<div class="sb-timeline">
+  <<for _sbI = 0; _sbI < $timeSlots.length; _sbI++>><span @class="'sb-seg' + (_sbI < $time.current.value ? ' past' : (_sbI == $time.current.value ? ' now' : ''))"></span><</for>>
+</div>
+

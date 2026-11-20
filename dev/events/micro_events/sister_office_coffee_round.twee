@@ -1,0 +1,22 @@
+:: Sister Office Coffee Round [micro_event event nobr] {"position":"2550,2900","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 28, "Her rounds" in Define Events): after Mostly Done she
+   brings everyone coffee, and she knows how each of them takes it. Mine comes first, as she promised. */
+<<Media "images/characters/sister/activities/bringing_coffee_0.mp4" 400>>
+<p>$sister.callName comes out of the kitchenette with a tray of mugs held out in front of her like it's a birthday cake, and she stops by me first. My mug has a tiny flamingo drawn on the side in ballpoint pen. She doesn't say anything about it, and neither do I.</p>
+<p>Then she does the rounds, and she says every order out loud as she sets it down, like a waitress who's proud of her memory.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Black, no sugar, for $darius.name, because he hates joy." },
+	{ who: $darius, text: "I prefer to think I respect the bean." },
+	{ who: $sister, text: "Hot chocolate for $brian.name, because coffee makes his hands shake, and he holds a three-hundred-degree pen for a living." },
+	{ who: $brian, text: "Uh. Thanks. That's... yeah. That's correct." },
+	{ who: $sister, text: "And oat milk for $ethan.name. Don't worry, I won't tell anyone. It's very embarrassing for you." },
+	{ who: $ethan, text: "This is the best thing that's happened to me all week, and I found five dollars in a jacket on Monday." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<if setup.npcIsAt("mom", "companystage1")>>
+<p>The last mug on the tray has a spoon still standing up in it, thick with honey, and she carries that one over to $mom.callName's desk with both hands. $mom.callName squeezes her wrist when she sets it down.</p>
+<</if>>
+<p>For a few minutes the whole office sounds different: chairs swiveling, somebody laughing, $ethan.name doing a terrible impression of a coffee commercial. Then the keyboards start up again, a little faster than before.</p>
+<<UpdateStat "+" "Morale" 1>>

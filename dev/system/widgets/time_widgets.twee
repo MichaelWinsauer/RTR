@@ -1,0 +1,62 @@
+:: Time Widgets [nobr system widget] {"position":"2550,150","size":"100,100"}
+/* Usage: =====================================================================
+	<<UseAction [NUMBER OF ACTIONS]>>
+	Spends actions one at a time. After each one the clock moves on (next time slot when the slot is
+	used up, next day after Late Night) and "Action Update" runs for that action, so tasks start and
+	end on their own actions and the staff work once per action, however many actions are spent at once.
+*/
+<<widget "UseAction">>
+    <<set _uaCount to ($args[0] != undefined ? Math.max(0, Math.floor(Number($args[0]) || 0)) : 1)>>
+    <<for _uaI = 0; _uaI < _uaCount; _uaI++>>
+        <<if $time.actions.left > 1>>
+            <<set $time.actions.left -= 1>>
+        <<elseif $time.current.value < $timeSlots.length - 1>>
+            <<set $time.current to clone($timeSlots[$time.current.value + 1])>>
+            <<set $time.actions.left to $time.actions.max>>
+        <<else>>
+            /* Late Night is over: AdvanceDay sets Early Morning of the next day and runs the Daily Update */
+            <<AdvanceDay>>
+        <</if>>
+        <<set $time.current.actionSlot to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+        <<include "Action Update">>
+    <</for>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<AdvanceTime>>
+	Spends the rest of the current time slot (every action that is left in it, see UseAction).
+*/
+<<widget "AdvanceTime">>
+	<<UseAction $time.actions.left>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<AdvanceTimeTo TimeSlotNumber>>
+*/
+<<widget "AdvanceTimeTo">>
+	/* count first: the condition would otherwise shrink while the time moves on */
+	<<set _attSlots to $args[0] - $time.current.value>>
+	<<for _attI = 0; _attI < _attSlots; _attI++>>
+    	<<AdvanceTime>>
+    <</for>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<AdvanceDay>>
+*/
+<<widget "AdvanceDay">>
+	<<set $date.dayCount++>>
+    <<set $time.actions.left to $time.actions.max>>
+    <<set $time.current to clone($timeSlots[0])>>
+    
+	<<if $date.today.value < $date.days.length - 1>>
+    	<<set $date.today to $date.days[$date.today.value + 1]>>
+        <<include "Daily Update">>
+    <<elseif $date.today.value == $date.days.length - 1>>
+    	<<set $date.today to $date.days[0]>>
+        <<include "Daily Update">>
+        <<include "Weekly Update">>
+    <</if>>
+<</widget>>
+
+

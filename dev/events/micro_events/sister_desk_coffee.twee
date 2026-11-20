@@ -1,0 +1,77 @@
+:: Sister Desk Coffee [micro_event event nobr] {"position":"1800,2900","size":"100,100"}
+/* Desk visitor (micro event 21, "Desk visitors" in Define Events): she brings me a coffee because she wants something,
+   this time to sit in on the next client call. Shown in the CMD drawer, so no action is spent and there is no exit link.
+   The third choice needs her at 40 corruption: she pays a "deposit", but only after checking who can see us. */
+<p>$sister.callName puts one of the coffees down on my desk, right on top of the page I was reading, and keeps the other one pressed to her chest like a hostage.</p>
+<<Media "images/characters/sister/activities/bringing_coffee_0.mp4" 300>>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Okay. Before you say no..." },
+	{ who: $player, text: "I haven't said anything." },
+	{ who: $sister, text: "You're making the no face. You're making it right now. It's very subtle, you do a thing with your left eyebrow." },
+	{ text: "I put my eyebrow back where it belongs. She takes that as permission." },
+	{ who: $sister, text: "I want to sit in on the next client call. I'll be quiet. I'll be furniture. Very professional furniture, the expensive kind." },
+	{ who: $player, text: "Why?" },
+	{ who: $sister, text: "Because I've watched $darius.name do spreadsheets for two weeks and I still don't know what he actually does. Also, I brought you coffee, which is basically a contract. I'm pretty sure that holds up in court." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="desk-coffee-choice">
+	<div>
+		<<link "Let her sit in">>
+			<<replace "#desk-coffee-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Fine. You sit in the corner and you don't laugh at anybody's tie." },
+					{ who: $sister, text: "Yes! I mean... thank you. I will be so quiet. You won't even know I'm a person." },
+					{ text: "She lets the second coffee go too, which I'm fairly sure was never part of the plan, and backs away from my desk doing a small victory dance that she clearly thinks nobody else in the office can see." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Make her earn it">>
+			<<replace "#desk-coffee-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "You can sit in if you take the minutes. Every word. Typed up and in my inbox the same day." },
+					{ who: $sister, text: "That's not sitting in, that's homework." },
+					{ who: $player, text: "That's the job. And next time the coffee is black." },
+					{ who: $sister, text: "You drink it with three sugars. You've had three sugars since you were twelve." },
+					{ who: $player, text: "Not at work." },
+					{ text: "She snorts, takes a sip of my coffee to make a point, makes a face at how sweet it is, and puts it back down in front of me." },
+					{ who: $sister, text: "Fine. Minutes. But I'm using a really unprofessional font." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<if setup.corruptionTotal("sister") >= 40>>
+		<div>
+			<<link "Ask what else is in it for me">>
+				<<replace "#desk-coffee-choice">>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "And what do I get? Besides the coffee." },
+						{ text: "She opens her mouth for a joke, and for once there isn't one. Instead she glances over her shoulder at the office, at $darius.name's back and $brian.name's headphones, the way people look both ways before they cross against a red light." },
+						{ text: "She leans down as if she wants to point at something on my screen, and kisses me at the corner of my mouth. It's quick, and it's very deliberate." },
+						{ who: $sister, text: "That's the deposit." },
+						{ who: $player, text: "And the rest?" },
+						{ who: $sister, text: "Depends how the call goes, doesn't it?" },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<p>She walks back to her desk without looking back once, which takes more effort than walking normally. When she sits down, she pulls her hair over the side of her face that's turned toward me.</p>
+					<<UpdateStat "+" "SisterLust" 3>>
+					<<UpdateStat "+" "SisterCorruption" 1>>
+				<</replace>>
+			<</link>>
+		</div>
+	<</if>>
+</div>

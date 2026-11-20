@@ -1,0 +1,91 @@
+:: Task Mom Massage 3 [task_scene] {"position":"1900,4300"}
+/* Scene of the task "Private Attention", stage 3 (after 5 more massages, once she has reached corruption stage 1 in The Briefing).
+   Played every time the task starts while I'm in the meeting room. Effects are in the task's onComplete.
+   Stage 3: it's routine now, and she dresses for it, in an outfit she bought for this room and changes into at the office.
+   I don't hang up the phone for her anymore. The boss is on the line and asks about his consultant: her hands stop for one
+   second and then go on, harder. After the call she offers more, and I say later. I want her to go back to her desk
+   still waiting. (The real thing is the interaction "Ask her to take care of you".)
+   Video (images/characters/mom/tasks/): massage_3, I'm on the phone, leaning back, she works on my shoulders from behind. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ms3Task to setup.getTaskById("task_mom_private_attention")>>
+	<<set _ms3First to (_ms3Task.count || 0) === (_ms3Task.stageStartCount || 0)>>
+<</silent>>
+The phone in the middle of the meeting table rings five minutes before the ergonomics check, and of course it's $boss.callName. He's calling about <<= either("the color of the status light on his unit, which he says looks 'cheap'", "an invoice, which he has read, and which he would like to go through line by line", "a firmware update he didn't ask for and doesn't want, and which fixed the thing he complained about last week")>>, and he's in no hurry to get to the point.
+
+The door opens, and $mom.callName slips in and shuts it behind her without a sound.
+
+<<if _ms3First>>
+I've never seen the outfit before. A white sleeveless top, cut lower than anything she ever wore at her old job, a black and white checked skirt that fits her like it's been taken in, with a slit at the back, black stockings, and heels that click once on the floor before she remembers to walk softly. She wasn't wearing any of it at breakfast. She must have changed in the restroom, which means she brought it in a bag, which means she packed that bag at home this morning while I was sitting across the kitchen table from her.
+<<else>>
+She's in the outfit again, the white top and the checked skirt. She keeps it in a garment bag at the back of the supply closet and changes in the restroom before every appointment, and she thinks nobody knows about the garment bag. $brian.name walked into it on the second day and apologized to it.
+<</if>>
+
+I don't hang up. I just point at my shoulders.
+
+<<linkreplace "Lean back">>
+<<Video "images/characters/mom/tasks/massage_3.mp4" "" "" 600>>
+
+She takes her place behind my chair, and her hands settle on my shoulders as if they've been there all along. I lean back as far as the chair will let me, stretch my legs out under the table and let $boss.callName talk.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "...and I'm not saying it's your fault, kid. I'm saying it's your product and your name on the invoice, so draw your own conclusions." },
+{ who: $player, text: "I hear you. I'll have somebody look at it this week." },
+{ text: "Her thumbs work along the tops of my shoulders, slow and deep. She has learned to do it without making a sound, so the phone doesn't pick anything up. When he starts in on his second 'frankly', I throw my free hand up at the ceiling, and she has to bite her lip to keep from laughing." },
+{ who: $boss, text: "This week. Fine. And my consultant, she's still coming in Thursday?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her hands stop. It's only for a second, but they stop, and I can feel exactly where each of her fingers is while they wait.
+
+<<linkreplace "Answer him">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "She'll be there." },
+{ who: $boss, text: "Good. Tell her to wear the gray skirt again. The board liked the gray skirt." },
+{ who: $player, text: "I'll pass it on." },
+{ text: "Then her hands start moving again, exactly where they stopped, and a good deal harder than before, as if she's made up her mind about something and my shoulders get to hear about it first." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He goes back to his complaint. I stop listening somewhere around the third "frankly". $mom.callName bends down while he talks and works along my collarbones, close enough that her hair brushes my ear and I can smell her perfume, the new one, which isn't from her old life either. When I glance up, she's staring at the receiver in my hand, very still, like he could see her through it.
+
+<<linkreplace "Hang up">>
+It takes him another five minutes to run out of things to say. I put the receiver down, and the room goes very quiet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "The gray skirt." },
+{ who: $player, text: "You heard him." },
+{ who: $mom, text: "I heard him." },
+{ text: "She keeps working on my shoulders for a while without another word. Then she leans down and talks very softly, right next to my ear." },
+{ who: $mom, text: "Is this one better? Than the gray one?" },
+{ who: $player, text: "Much better." },
+{ who: $mom, text: "Good. Then he doesn't get to see this one." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it like a small private victory, and maybe to her it is. Her hands slide down from my shoulders, over my chest, and keep going until they lie flat on my stomach, just above my belt. There they wait.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Do you need anything else, sweetheart? While I'm here?" },
+{ who: $player, text: "Later." },
+{ who: $mom, text: "Later." },
+{ text: "She repeats it the way she'd repeat a phone number she has to remember, and takes her hands back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I could have said yes. That's exactly why I didn't. I want her back at her desk this afternoon, answering mails and waiting for me to remember.
+
+She tugs the hem of her skirt down half an inch at the door and walks out into the office with her chin up, heels clicking all the way to her desk this time. I stay where I am with my legs stretched out, pull a sticky note off the pad and write <i>gray skirt, Thu.</i> right under <i>call $boss.callName back, Fri.</i>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

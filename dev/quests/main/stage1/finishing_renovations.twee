@@ -1,0 +1,48 @@
+:: Finishing Renovations [event main_quest] {"position":"3700,0","size":"100,100"}
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+The last screw is the worst one. It was stripped long before I got here, and I'm on the second-highest step of a ladder that has a sticker on exactly that step telling me not to stand on it, arms over my head, pinning the vent grille to the ceiling with one wrist and swearing at it under my breath.
+
+Behind the slats, wedged into the duct on two strips of foam and more zip ties than any real engineer would sign off on, sits the ugliest thing I've ever built. It's the guts of my old test rig, the first board that ever actually worked, wired to a coil much too big for the neat little case the portable $company.prototype.name lives in. It doesn't need charging, because it runs off the building's power, and it doesn't need to look good, because nobody is ever going to see it. When I click the last connector into place, three blue LEDs wake up behind the grille and settle into a slow, lazy pulse.
+
+The screw finally bites. I climb down, fold up the ladder and look at my handiwork from the middle of the room. It's a vent. A slightly dusty one, with something faintly blue behind it if you know where to look, and in my experience nobody in an office ever looks at the ceiling.
+
+<<linkreplace "Walk through the main room">>
+A week ago this room was bare floorboards and a ticking radiator. Now there are five desks in two neat rows, each with a monitor, a wireless keyboard and a chair with actual lumbar support, which after assembling every single one of them myself I'm counting as a personal achievement. Two of those desks are for $mom.callName and $sister.callName. The other three don't belong to anybody yet.
+
+The rows aren't where they are by accident. I spent most of Tuesday walking the room in a grid with the readout open on my phone, putting little strips of tape on the floor, until I knew exactly how far the field reaches from that grille and where it starts to thin out. Every desk in the rows sits right in the middle of it. Mine is over by the window, in the one corner where the reading drops to almost nothing. I checked that spot twice.
+
+The control panel is already open on my second monitor. It's one dial with four positions: Off, Low, Medium and High. I drag it up to Medium just to watch the number climb and the LEDs above me speed up, then pull it back down again. What I've seen at home is clear enough. Turn it up far enough and people get an absurd amount done for a few days, and after that they drag themselves in looking like they've worked a week of night shifts, without the faintest idea why. That's hard to keep quiet in an office this small. So it stays on Low, at eighteen percent, where the room just feels like a nice place to work, and High can wait for the week before a deadline.
+
+<<linkreplace "Check the meeting room">>
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+The meeting room is still pretty barebones. There's the long table, six chairs I bought secondhand from a law firm that went under (one of them still has a sticky note under the seat that says "GARY'S, DO NOT TAKE"), and that deep blue wall somebody once thought was a great idea. There's no projector yet and nowhere to make coffee, so for now it will have to do. If anything, a client walking in here will see a hungry little startup that doesn't waste money on furniture, and I can live with that.
+
+I sit down at the head of the table and look at the chair across from me, where a client is going to sit one day and listen to me explain why he needs us. The duct from the main room runs right over the table. I stand under it for a minute with my phone in my hand and watch the reading. It's weaker in here, but it's there. On my way out I prop the door open with the trash can, and the number creeps up a little.
+
+<<linkreplace "Head back to my desk">>
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+Back at my desk by the window I finally sit down, and every muscle I used this week files its own complaint at the same time. Outside, the sun is going down behind the parking lot. I open the inbox. $landlord.callName's mail from the other day is still sitting there unanswered, the one about the new rent and about $mom.callName and $sister.callName dropping by every week, "dressed nice", in his words. Above it, two new ones came in while I was up on the ladder.
+
+<<linkreplace "Open the mails">>
+
+<<Mail $company.mails[1] "false">>
+<<Mail $company.mails[2] "false">>
+
+$boss.callName wants a $company.prototype.name of his own, brand new, in two to three weeks. And while we build it, he'd like $mom.callName on-site at his office as a consultant. He actually put that in writing, in a business mail, as if it were the most normal request in the world. I read that paragraph twice. He was always going to ask for her, and to be honest, I'd have been a little disappointed if he hadn't.
+
+$manager.callName's mail is shorter. He expects $sister.callName at the diner this week, as agreed, and on top of that he wants a full analysis of his place, with the prototype running on-site to collect the data. This is the man who once made me scrub the grill a second time because he didn't like the way I scrubbed it the first time. Now he'd like my professional opinion on his business. I am going to enjoy writing that report.
+
+I lean back and do the math in my head, and it doesn't come out in my favor. The boss's unit alone is more than I can build by myself in three weeks, the diner needs somebody who actually enjoys numbers, and there is only one of me. I already know what that means, and I already know $mom.callName is going to make her worried face about it. None of the three mails gets an answer tonight. I'm too tired to sound gracious, and $boss.callName in particular should get a reply that sounds very gracious.
+
+<<linkreplace "Lock up">>
+Before I go, I take the spare keys out of my drawer and walk two of them over to the desks right under the grille, one on each keyboard. $mom.callName and $sister.callName have been in and out all week, hauling boxes and complaining about the stairs, but tomorrow is the first time they'll have a desk of their own to sit at. I give it until Wednesday before $mom.callName puts a plant on hers. $sister.callName will have something sarcastic taped to her monitor by Thursday. Both desks sit dead center between the tape marks on the floor.
+
+At the door I switch off the lights. The room goes dark except for the orange glow of the street lamp and three tiny blue points in the ceiling, blinking slow and steady and perfectly visible from where I'm standing. I look at them for a while. Then I sigh, unfold the ladder one more time and go looking for the black electrical tape.
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

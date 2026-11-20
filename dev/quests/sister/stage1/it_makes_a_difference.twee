@@ -1,0 +1,38 @@
+:: It Makes A Difference [event sister_quest scene] {"position":"3700,1400"}
+/* Quest "It Makes A Difference" (sister_itMakesADifference), part 1 of 3. For a couple of weeks she has been finding excuses
+   to be near my desk (micro events 23 to 27, "Her excuses to be near me" in Define Events). One afternoon I walk over
+   to her desk and call her into the meeting room, and leave her to wonder what she did wrong on the way.
+   Part 2: It Makes A Difference Meeting. Part 3: It Makes A Difference Night, which advances the quest.
+   The quest needs a camera in her room (requirements in Define Quests), because part 3 is watched through it. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+For a couple of weeks now I've been keeping count. Her internship hours sheet has my signature on it more often than her college will ever bother to check. Her desk is a lot closer to mine than it was the week we moved in, and I never once asked her to move it. She brings me coffee I didn't order and questions she already knows the answers to, and on the evenings she stays late, she has a different reason every time.
+
+None of it has anything to do with the work. She thinks it does, or she's decided to think so, and that holds up fine as long as nobody says otherwise out loud. So far the little camera I tucked between the paperbacks on her shelf has shown me string lights, a lot of scrolling and nothing else. She's been giving me a lot of attention lately. I think it's time she got some back.
+
+She's at her desk with her headphones half on, one ear in and one ear out, typing with a pen clamped between her teeth. There's a small plastic flamingo on the end of it, bobbing every time she hits the space bar.
+
+<<linkreplace "Go over to her desk">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Got a minute?" },
+{ text: "She pulls the pen out of her mouth so fast she nearly flings the flamingo across the room." },
+{ who: $sister, text: "For you? I've got like six. What's up?" },
+{ who: $player, text: "Meeting room. Five minutes." },
+{ who: $sister, text: "Sure, let me just finish this... wait. The meeting room? The one with the door?" },
+{ who: $player, text: "That's usually how rooms work." },
+{ who: $sister, text: "Am I in trouble? Is this about the printer? Because I swear it was already making that noise when I got there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't answer. I head for the meeting room and leave her sitting there with the question, and I can feel her watching me the whole way across the office. Five minutes of her wondering what she did wrong will do more for the next part than anything I could say at her desk.
+
+She shows up in three. She's brought a notepad, which she's holding flat against her chest like a riot shield, and the flamingo pen.
+
+[[Go into the meeting room|It Makes A Difference 2]]
+<</linkreplace>>
+
+
+
+
+

@@ -1,0 +1,30 @@
+:: Prototype Breakthrough [event main_quest] {"position":"3150,0","size":"100,100"}
+I close my door harder than I mean to. The draft lifts a couple of printouts off the desk and skates them across the floor, and I just stand there with my back against the wood and my hand still on the handle, waiting for my pulse to come down to something reasonable.
+
+It worked. On a real person, two doors down the hall, in my own house. Getting $mom.callName to say yes in my room was the easy part; she says yes to most things if I ask nicely enough. Watching her actually go through with it hours later, alone, with nobody there to remind her, is something else entirely. I didn't think $company.prototype.name could do that yet. I'm not sure I ever really believed it could do that at all.
+
+I pick up the printouts, mostly to give my hands something to do, and put them back on the desk in the wrong order.
+
+Then the next thought shows up, the one I've been holding off since the hallway. If a few words and a half-finished box can do that to someone who loves me and has no reason on earth to suspect anything, what would the finished version do in a room full of strangers? My palms go damp just thinking about it, and I wipe them on my jeans. I'm going to have to be careful with this thing, more careful than I've ever been with anything, and I need to know exactly how it works before I point it at anyone outside this house.
+
+And it's nowhere near done. It's slow and buggy, half the code is held together by comments that say 'fix this later', and it still did that. Every hour I put into it from here on makes it better.
+
+For a year I've been the guy nobody writes back to. The café chain that dropped me, $manager.callName smirking at me across the fryer, $landlord.callName and his broom closet, a whole folder of emails that went nowhere. If this is real, none of that has to stay the way it is.
+
+There's one more thought I've been stepping around all evening, and tonight it won't let me. If it works on $mom.callName, it works on $sister.callName. I've had fantasies about both of them for years and never told a soul, and I always assumed that's where they'd stay, in my head, where they couldn't hurt anybody. Tonight, with the sound from her room still in my ears, I'm a lot less sure.
+
+I try to think about something else and end up thinking about an office. A real one, with clients and employees and a door that locks, and both of them in it: $mom.callName running the paperwork, $sister.callName at a desk across from mine. A reason to keep them close every single day, somewhere nobody asks questions. They'd work for me. Give it enough time and enough care, and they might start to need me, and do what I ask, and believe every bit of it was their own idea.
+
+I wait for that to bother me. After a minute or so I give up waiting.
+
+None of it happens in a closet, though. I need a bigger office, and nobody is going to rent me one on the strength of a prototype that's half finished. So the prototype comes first. I pull the printouts over, find a pen that works on the third try, and start making a list.
+
+<<ReturnFromEvent>>
+
+<<silently>>
+	<<ProfileLog $mom "The Start of Something" "She really did it, just like I told her to. I caught her in bed 'relieving some stress', and what a sight that was. I bet she'll keep at it. I should check on her again...">>
+	<<set setup.getMealById("prototype_test_run_effect").isActive to true>>
+	<<NextQuest $player>>
+<</silently>>
+
+

@@ -1,0 +1,37 @@
+:: Help Company Header [nobr] {"position":"700,4125"}
+<p>The bar at the top shows the company name and greets you by name and by the time of day:</p>
+<div class="help-values">
+	<span>Early Morning: You're up early</span><span>Morning: Good Morning</span><span>Noon: Hello</span><span>Afternoon: Good Afternoon</span><span>Evening: Good Evening</span><span>Night: It's getting late</span><span>Late Night: Still at it</span>
+</div>
+
+<h3>Next up</h3>
+<p>Under the greeting is a ticker with what deserves your attention, the most urgent first. If there is more than one item, click <b>Next up</b> to step through them. Click an item to jump to it: it highlights the panel it is about, or opens the device or quest it means. It can tell you about:</p>
+<ul>
+	<li>projects that are due within three days, due today or overdue, and projects that are almost done,</li>
+	<li>quests that are ready right now, or open later today,</li>
+	<li>devices that are running low on charge, and the vent unit while it is still on its highest level,</li>
+	<li>the next task of $mom.callName or $sister.callName to finish, or that nobody has a task during work hours,</li>
+	<li>unread mails.</li>
+</ul>
+<p>The last item is always the work day: when it starts, how many actions are left, or that it's over.</p>
+
+<h3>On the right</h3>
+<dl class="help-stats">
+	<dt>Quest flags</dt><dd>One flag for each story line with an active quest. Its colour shows where the quest stands: green (with a pulsing dot) when it is ready now, orange when it is the right time but something is missing, gold when it opens later, and a dashed, faded flag when it is waiting on something else. Hover a flag for the details, click it to open the full quest card.</dd>
+	<dt>Staff</dt><dd>The portraits of $mom.callName and $sister.callName. While one of them is in the office, her name and what she is doing appear next to it. A task somewhere else counts as away. Click a portrait to open her <a href="#" data-help="Help Npc Profiles">profile</a>.</dd>
+	<dt>X</dt><dd>Leaves your desk and takes you back to the office.</dd>
+</dl>
+
+<h3>Work hours</h3>
+<p>Work only happens on weekdays, and only during <b>eight actions</b> a day:</p>
+<div class="help-values"><span>2nd and 3rd action of Morning</span><span>All of Noon</span><span>All of Afternoon</span></div>
+<p>Outside those actions, and all weekend, your employees do nothing for your projects. See <a href="#" data-help="Help Company Skills">Skills and morale</a> for how they work.</p>
+
+<h3>Visitors</h3>
+<p>Now and then somebody stops by your desk: a card with their picture shows up in the middle of the header.</p>
+<ul>
+	<li><b>Talk</b> opens the conversation in a panel on the right. It costs no time, and the rest of the dashboard keeps working. <b>Back to work</b> (or Esc) closes it.</li>
+	<li><b>Not now</b> sends them away. Nothing bad happens.</li>
+	<li>The card only stays for the current action. If you keep working, the visit is gone.</li>
+	<li>At most one visitor comes by every few actions, and each kind of visit at most once a day. Some everyday visits only come back after a few days.</li>
+</ul>

@@ -1,0 +1,56 @@
+:: Help Company Projects [nobr] {"position":"700,4375"}
+<p>Projects are jobs for clients, and now and then one for the company itself. The panel on the right lists every <b>active</b> project as a card. The arrow in its head opens the <b>project overview</b>.</p>
+
+<h3>Story and repeatable projects</h3>
+<ul>
+	<li><b>Story</b> projects are done once, and the story waits for some of them. A <a href="#" data-help="Help Company Mails">mail</a> answer or a story event unlocks them, and you start them yourself in the overview.</li>
+	<li><b>Repeatable</b> projects are regular work for a client. You start them yourself in the overview once they are unlocked, and you can take them on again after finishing them. Each run starts from zero progress.</li>
+	<li><b>In-house</b> projects have no client. Nobody pays for them and running late costs nothing, but finishing one gives the company something new instead.</li>
+</ul>
+
+<h3>The overview</h3>
+<p>It lists every project the company has or knows about, grouped by status. New projects show up as the story goes on, with a notification when one is added.</p>
+<dl class="help-stats">
+	<dt>Active</dt><dd>Running right now, with progress, deadline and team. Click one to open its project window.</dd>
+	<dt>Ready to start</dt><dd>Projects you can take on yourself. <b>Start</b> begins it right away.</dd>
+	<dt>Locked</dt><dd>Not possible yet. The list shows what is still missing.</dd>
+	<dt>Finished</dt><dd>Done, with how late it was and what the client paid.</dd>
+</dl>
+
+<h3>The card</h3>
+<ul>
+	<li>A <b>doughnut</b> with the overall progress in percent.</li>
+	<li>The project's <b>title</b> and how many days are left, or how many days it is overdue (in red).</li>
+	<li>Round portraits of the employees <b>assigned</b> to it, or a dotted <b>+</b> if there are none.</li>
+</ul>
+
+<h3>The project window</h3>
+<p>Click a card to open it:</p>
+<dl class="help-stats">
+	<dt>Info</dt><dd>Days left, the client, the <b>daily revenue</b>, the completion reward, the special task and the place of the project.</dd>
+	<dt>Progress</dt><dd>One bar for each skill the project needs (any of the nine <a href="#" data-help="Help Company Skills">skills</a>). Skills it doesn't need aren't shown.</dd>
+	<dt>Assigned</dt><dd>Everyone working on it, each with an <b>x</b> to take them off. <b>Unassign all</b> removes everybody.</dd>
+	<dt>Assign</dt><dd>Everyone who is not on it yet, each with an <b>Assign</b> button. <b>Assign all</b> adds everybody.</dd>
+</dl>
+<p>Assigning is free and there is no limit. One person can be on several projects, but her work is then split between them (see <a href="#" data-help="Help Company Skills">Skills and morale</a>).</p>
+
+<h3>How a project moves forward</h3>
+<ul>
+	<li>Your own <a href="#" data-help="Help Company Actions">Work</a> button: +1 to every requirement.</li>
+	<li>Assigned <a href="#" data-help="Help Company Employees">employees</a> during work hours.</li>
+	<li>Some <a href="#" data-help="Help Company Tasks">tasks</a> of $mom.callName and $sister.callName, each time they finish (the task picker says which, and how much).</li>
+</ul>
+
+<h3>Finishing a project</h3>
+<p>A project is finished the moment every bar is full. The client pays the <b>completion reward</b> into the company account, the team is freed up and the card disappears.</p>
+
+<h3>Deadlines</h3>
+<p>Every project has a deadline, counted in days from the day you started it, weekends included. You get a warning the day before.</p>
+<p>A project never fails. If it runs late, the client simply pays less: the completion reward shrinks by <b>5% for every day</b> it is overdue, down to <b>25%</b> of the full amount. The project window shows what you would get right now.</p>
+<p>Being on time matters beyond the money: a client project finished on time raises the company's <a href="#" data-help="Help Company Stats">Reputation</a> by 3, and every overdue day of one costs 1. Any project finished on time lifts the company's Morale by 2, a late one lowers it by 2. Repeatable client projects pay between 80% and 120% of their reward, depending on your Reputation; the overview already shows the adjusted amount.</p>
+
+<h3>Money</h3>
+<p>Every active project pays its <b>daily revenue</b> into the company account every night, weekends included, whatever its progress.</p>
+
+<h3>The numbers</h3>
+<p>The overview shows how long each project runs, its daily revenue and its reward. Once a project is running, its project window shows how much work it needs in each skill.</p>

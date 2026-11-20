@@ -1,0 +1,47 @@
+:: Sister Hallway Forgot [micro_event event nobr] {"position":"1675,2775","size":"100,100"}
+/* Time pressure with a cost: she is late for class. Driving her takes your last action of the morning. */
+<<Video "images/characters/sister/events/hallway/late.mp4" "" "" 500>>
+<p>I step out of my room and nearly get run over by $sister.callName. She's hopping on one foot, shoving the other into a sneaker, bag half open and phone clamped between her teeth.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Move, little $sister.callPlayerShort! I'm so late for class!" }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Offer to drive her (costs an action)">>
+			<<replace "#choice1">>
+				<<UseAction>>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Calm down. I'll drive you." },
+					{ who: $sister, text: "Really? You'd do that? Okay, fine, but hurry!" },
+					{ text: "In the car she stares out the window with her knee bouncing." },
+					{ who: $player, text: "You never miss the first lecture. What's going on?" },
+					{ who: $sister, text: "Let's just say this semester isn't going great. Don't tell $mom.callName." },
+					{ who: $player, text: "My lips are sealed." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<UpdateStat "+" "SisterRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Tell her when the next bus is">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "The next bus is in ten minutes. If you run, you'll make it." },
+					{ who: $sister, text: "Ten minutes? You're a lifesaver!" }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She grabs her bag and sprints down the stairs.</p>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

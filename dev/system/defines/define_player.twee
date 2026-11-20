@@ -1,0 +1,51 @@
+:: Define Player [system] {"position":"125,0","size":"100,100"}
+<<set $player to {
+	name: "Michael",
+	surname: "Adams",
+	sysName: "player",
+	age: 19,
+	money: 250,
+	quest: null,
+    debt: 0,
+    sysColor: "#19141E",
+    inventory: {},          /* <item id>: count, see Define Items */
+}>>
+
+<<set $player.stats to {
+	corruption: 0,
+}>>
+
+<<set $player.stats.max to {
+	corruption: 40,
+}>>
+
+<<set $player.location to {
+    id: 0,
+    name: "Hallway",
+    sysName: "hallway",
+    img: "images/locations/hallway.jpg",
+    open: [0, 1, 2, 3, 4, 5, 6],
+    audio: {
+        music: "music-home",
+        ambience: { day: "ambience-home", night: "ambience-home-night" }
+    }
+}>>
+
+<<set $player.previousLocation to {
+    id: 0,
+    name: "Hallway",
+    sysName: "hallway",
+    img: "images/locations/hallway.jpg",
+    open: [0, 1, 2, 3, 4, 5, 6],
+    audio: {
+        music: "music-home",
+        ambience: { day: "ambience-home", night: "ambience-home-night" }
+    }
+}>>
+
+<<set $player.flags to {
+	hasMomClip: false,
+    isSomeoneFollowing: false,
+}>>
+
+

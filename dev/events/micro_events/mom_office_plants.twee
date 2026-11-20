@@ -1,0 +1,61 @@
+:: Mom Office Plants [micro_event event nobr] {"position":"1050,3400","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 38, "A normal workday" in Define Events): the first
+   time, she brings plants for the office. After that she, or the staff, are fussing over them, one of a few
+   variants. Counts in $mom.flags.officePlants. */
+<<set $mom.flags.officePlants += 1>>
+<div class="activity-image-wrapper" style="max-height: 400px">
+	<<DisplayActivity $mom>>
+</div>
+<<if $mom.flags.officePlants is 1>>
+	<p>There's a jungle in the main room. Technically it's three plants, but they're big ones, and $mom.callName is dragging the third across the carpet in a ceramic pot that has to weigh about as much as she does.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Don't help, don't help, I've got it... okay. Help a little." },
+		{ text: "I take one side. We walk it over to the corner by the window together, and she has me turn it three times until the good side faces the room. As far as I can tell it doesn't have a bad side. It's a fern." },
+		{ who: $mom, text: "This place needed something alive in it. Besides you boys." },
+		{ who: $ethan, text: "I resent that. I'm barely alive." },
+		{ who: $mom, text: "Which is exactly why you need a plant, $ethan.name." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+	<p>By the end of the day, every pot has a strip of masking tape on it with a name in her handwriting. The fern is called Gerald. Nobody asks why, and by Friday everybody calls it Gerald without thinking about it.</p>
+<<else>>
+	<<set _mopVariant to random(0, 2)>>
+	<<if _mopVariant is 0>>
+		<p>$mom.callName is making her rounds with a little brass watering can that I'm fairly sure she brought from home. She talks to each plant in the voice she uses on me when I've got a fever.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "There you go. Look at you, Gerald. Look at those new leaves, you show-off." },
+			{ who: $player, text: "You know it can't hear you." },
+			{ who: $mom, text: "You don't know that, honey. Nobody knows that. And it's working, isn't it?" },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>It is, annoyingly. In an office with one window and no real sunlight, the three of them look better than anything she ever managed to grow at home. She says it's the talking. I'm fairly sure the vent doesn't work on ferns, so maybe she's right.</p>
+	<<elseif _mopVariant is 1>>
+		<p>The smallest of $mom.callName's plants has moved. It used to sit on the windowsill. Now it's on $brian.name's desk, wedged in between the oscilloscope and a box of resistors, and it has its own little clip-on lamp.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "$brian.name, sweetie, did you take my pothos?" },
+			{ who: $brian, text: "Uh. It was. It was getting too much sun. Over there. Sorry. It's, uh, it's doing better now. I measured." },
+			{ who: $mom, text: "You measured my plant?" },
+			{ who: $brian, text: "Just the light. In lux. And the soil. A little." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>$mom.callName looks at the plant, then at $brian.name, who is turning a deep red and staring hard at a circuit board, and her face goes soft in a way I usually only see at home. She lets him keep it. The next morning there's a second pot on his desk, and a sticky note on it in her handwriting: <i>for your collection.</i></p>
+	<<else>>
+		<p>Gerald the fern is wearing a tiny paper party hat. Somebody has also given him googly eyes. $mom.callName is standing in front of him with her hands on her hips.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "$ethan.name." },
+			{ who: $ethan, text: "Why do you assume it was me?" },
+			{ who: $mom, text: "Because $darius.name would never, and $brian.name would have glued them on straight." },
+			{ who: $ethan, text: "...It's his birthday. Probably. Nobody knows when Gerald's birthday is. That's the tragedy." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>She tries to stay stern. It lasts about four seconds. Then she's laughing into her hand, and she leaves the hat on, and at lunch somebody puts a cupcake on the windowsill next to him with a single candle in it.</p>
+	<</if>>
+<</if>>
+<<UpdateStat "+" "Morale" 1>>

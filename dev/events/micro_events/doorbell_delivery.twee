@@ -1,0 +1,75 @@
+:: Doorbell Delivery [micro_event event nobr] {"position":"1550,3025","size":"100,100"}
+/* Mundane for now: the doorbell, a delivery, a short exchange at the door. Nothing is gained or spent.
+   Whoever is home answers; the reason for the delivery is picked at random. */
+<<silently>>
+<<if $mom.flags.isHome && $sister.flags.isHome>>
+	<<set _npc to either($mom, $sister)>>
+<<elseif $mom.flags.isHome>>
+	<<set _npc to $mom>>
+<<else>>
+	<<set _npc to $sister>>
+<</if>>
+<<set _reason to either(
+	"Package for $player.name $player.surname... again?",
+	"This one's for next door, but nobody's home. Mind taking it?",
+	"Flowers for the $player.surname house. Somebody's popular.",
+	"Is this number 14? ... No? Sorry, wrong street.",
+	"Sign here, please. And here. And one more time here.",
+	"I think I've got the wrong building. Was there a food order?"
+)>>
+<<set _reason to wikifyText(_reason)>>
+<</silently>>
+<p>I'm in the hallway when the doorbell rings. <<= _npc.callName>> is already on her way to the door.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: _npc, text: "I'll get it!" }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="choice1">
+	<div>
+		<<link "Let her get it">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: ("The delivery guy: \"" + _reason + "\"") },
+					{ who: _npc, text: "Thanks. Have a good one." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She signs, takes whatever it is, and closes the door.</p>
+				<<if _npc is $mom>><<UpdateStat "+" "MomRelation" 1>><<else>><<UpdateStat "+" "SisterRelation" 1>><</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Go to the door with her">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: ("The delivery guy: \"" + _reason + "\"") },
+					{ text: "The delivery guy: \"Same time next week, then?\"" },
+					{ who: _npc, text: "Let's hope not." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>He laughs and heads back to his van.</p>
+				<<if _npc is $mom>><<UpdateStat "+" "MomRelation" 1>><<else>><<UpdateStat "+" "SisterRelation" 1>><</if>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Stay out of it">>
+			<<replace "#choice1">>
+				<p>I stay where I am and listen to the muffled exchange. A minute later she comes back down the hall.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: _npc, text: "Nothing important. Some mix-up with the address." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

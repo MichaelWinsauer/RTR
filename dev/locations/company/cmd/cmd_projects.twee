@@ -1,0 +1,1026 @@
+:: CMD Projects [nobr] {"position":"2575,3250","size":"100,100"}
+<span style="display: flex; justify-content: space-between; border-bottom: 1px solid #EBDDC530;"><h3>Projects</h3> <<link "->">><<run window.openProjectOverview()>><</link>></span>
+
+<div class="cmd-projects-wrapper">
+    <<for _i = 0; _i < $company.projects.length; _i++>>
+        <<set _project to $company.projects[_i]>>
+        <<if _project.active == false>>
+        	<<continue>>
+        <</if>>
+        <<set _id to "project_" + _project.id>>
+        <<set _canvas to '<canvas id="' + _id + '"></canvas>'>>
+        <<capture _project>>
+        <div class="cmd-projects-project-wrapper" @data-project-id="_project.id">
+            <div class="cmd-projects-project-progress">
+                <<= _canvas >>
+            </div>
+            <div class="cmd-projects-project-content">
+                <div class="cmd-projects-project-content-wrapper">
+                    <div class="cmd-projects-project-content-title">
+                        <<= _project.title >>
+                    </div>
+                    <<set _dueClass to setup.getProjectDaysLeft(_project) < 0 ? "cmd-projects-project-content-due overdue" : "cmd-projects-project-content-due">>
+                    <div @class="_dueClass">
+                        <<= setup.getProjectDeadlineText(_project)>>
+                    </div>
+                </div>
+                <div class="cmd-projects-project-content-employees">
+                	<<if $company.projects[_i].assigned.length == 0>>
+                    	<div class="cmd-projects-project-content-employees-none">
+                        	+
+                        </div>
+                    <</if>>
+                    <<for _j = 0; _j < $company.projects[_i].assigned.length; _j++>>
+	                    <<set _path to "images/characters/portraits/" + _project.assigned[_j].sysName + ".jpg">>
+    
+    					<<set _div to '<div class="cmd-projects-project-content-employees-img" '>>
+                        <<set _div += 'style="transform: translateX(-' + 0.75 * _j + 'rem);">'>>
+                        <<set _div += '<<Media _path "" "" "false">>'>>
+                        <<set _div += '</div>'>>
+                        
+                        <<= _div>>                        
+                    <</for>>
+                </div>
+            </div>
+        </div>
+        <</capture>>
+    <</for>>
+</div>
+
+<<CalculateFinances>>
+
+/* the overview dialog behind the arrow in the head */
+<<include "CMD Project Overview">>
+
+<<script>>
+(function() {
+  setTimeout(() => {
+    const projects = State.variables.company && State.variables.company.projects ? State.variables.company.projects : [];
+    projects.forEach((project) => {
+      const canvasId = "project_" + project.id;
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
+      const categories = Object.keys(project.requirements);
+      let totalProg = 0;
+      let totalReq = 0;
+
+      categories.forEach(cat => {
+        if (project.requirements[cat] > 0) {
+          totalProg += Math.min(project.progress[cat] || 0, project.requirements[cat]);
+          totalReq += project.requirements[cat];
+        }
+      });
+
+      let percentage = totalReq > 0 ? Math.round(totalProg / totalReq * 100) : 0;
+      percentage = Math.max(0, Math.min(100, percentage));
+
+      if (canvas.chartInstance) canvas.chartInstance.destroy();
+
+      const ctx = canvas.getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [percentage, 100 - percentage],
+            backgroundColor: ['#EBDDC5', '#FFDFDF50'], 
+            borderWidth: 0,
+            borderJoinStyle: "round",
+            borderRadius: 9999,
+            spacing: 1,
+          }]
+        },
+        options: {      
+          responsive: true,
+          maintainAspectRatio: true,
+          cutout: '80%',        
+          rotation: -135,          
+          circumference: 270,
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false }
+          }
+        },
+        plugins: [{
+          id: 'centerText',
+          beforeDraw(chart) {
+            const { ctx, width, height } = chart;
+            ctx.save();
+            const fontSize = (height / 60).toFixed(2);
+            ctx.font = `100 ${fontSize}rem Manrope`;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#FFFFFF';
+            const textX = width / 2;
+            const textY = height / 2;
+            ctx.fillText(percentage + '%', textX, textY);
+            ctx.restore();
+          }
+        }]
+      });
+      canvas.chartInstance = chart;
+    });
+    
+    document.querySelectorAll('.cmd-projects-project-wrapper').forEach(wrapper => {
+      wrapper.addEventListener('click', function() {
+        window.openProjectDialog(this.getAttribute('data-project-id'));
+      });
+    });
+  }, 200);
+})();
+<</script>>
+
+<<script>>
+/* Project dialog: opened by clicking a project in the list above.
+   Assigning / unassigning re-renders the dialog in place and refreshes the project list behind it. */
+(function() {
+  const COLOR = { fg: '#EBDDC5', track: '#EBDDC51f' };
+  let chart = null;
+
+  const cap   = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const money = (n) => '$' + Number(n || 0).toLocaleString('en-US');
+  const pctOf = (v, max) => max > 0 ? Math.round(Math.min(Math.max(v / max, 0), 1) * 100) : 0;
+  const level = (p) => p >= 66 ? 'ok' : (p >= 34 ? 'mid' : 'low');
+  const portrait = (sysName) => `<<Media "images/characters/portraits/${sysName}.jpg" "" "" "false">>`;
+
+  const getProject = (id) => State.variables.company.projects.find(p => p.id === id);
+  /* the employee entries in projects/company are copies, skills and stats are read from the live NPC */
+  const live = (emp) => State.variables[emp.sysName] || emp;
+  const isAssigned = (project, sysName) => project.assigned.some(e => e.sysName === sysName);
+  /* every employee once, even if $company.employees holds someone twice */
+  const roster = () => (State.variables.company.employees || []).filter((e, i, all) => all.findIndex(x => x.sysName === e.sysName) === i);
+
+  /* the categories this project actually needs, with progress capped at the requirement */
+  function categories(project) {
+    return Object.keys(project.requirements)
+      .filter(cat => project.requirements[cat] > 0)
+      .map(cat => {
+        const need = project.requirements[cat];
+        const done = Math.min(Number(project.progress[cat]) || 0, need);
+        const team = project.assigned.reduce((sum, emp) => sum + (Number((live(emp).skills || {})[cat]) || 0), 0);
+        return { cat, need, done, team, pct: pctOf(done, need) };
+      });
+  }
+
+  /* ——— assignment ——— */
+  function assign(project, sysName) {
+    if (isAssigned(project, sysName)) return;
+    const emp = roster().find(e => e.sysName === sysName);
+    if (!emp) return;
+    project.assigned.push(emp);
+    const npc = State.variables[sysName];
+    if (npc) npc.assignedProjectCount = (npc.assignedProjectCount || 0) + 1;
+  }
+
+  function unassign(project, sysName) {
+    const index = project.assigned.findIndex(e => e.sysName === sysName);
+    if (index < 0) return;
+    project.assigned.splice(index, 1);
+    const npc = State.variables[sysName];
+    if (npc) npc.assignedProjectCount = Math.max(0, (npc.assignedProjectCount || 0) - 1);
+  }
+
+  function onAction(projectId, action, sysName) {
+    const project = getProject(projectId);
+    if (!project) return;
+    const employees = roster();
+
+    if (action === 'assign')         assign(project, sysName);
+    if (action === 'unassign')       unassign(project, sysName);
+    if (action === 'assign-all')     employees.forEach(e => assign(project, e.sysName));
+    if (action === 'unassign-all')   project.assigned.map(e => e.sysName).forEach(s => unassign(project, s));
+
+    render(projectId);
+    $("#cmd-projects").empty().wiki('<<include "CMD Projects">>');
+  }
+
+  /* ——— markup ——— */
+  function personRow(project, emp, assigned) {
+    const npc = live(emp);
+    const skills = Object.keys(project.requirements)
+      .filter(cat => project.requirements[cat] > 0 && (Number((npc.skills || {})[cat]) || 0) > 0)
+      .sort((a, b) => npc.skills[b] - npc.skills[a]);
+    const chips = skills.length
+      ? skills.map(cat => `<span class="prj-chip">${cap(cat)} <b>${npc.skills[cat]}</b></span>`).join('')
+      : `<span class="prj-chip off">No useful skills</span>`;
+
+    const notes = [];
+    const stats = npc.stats || {};
+    if (stats.max && stats.max.morale) {
+      const morale = pctOf(stats.morale, stats.max.morale);
+      if (stats.morale <= 0) notes.push(`<span class="prj-note low">Too exhausted to work</span>`);
+      else if (level(morale) !== 'ok') notes.push(`<span class="prj-note ${level(morale)}">Morale ${morale}%</span>`);
+    }
+    const shared = (npc.assignedProjectCount || 0) - (assigned ? 1 : 0);
+    if (shared > 0) notes.push(`<span class="prj-note">Also on ${shared} other project${shared > 1 ? 's' : ''}</span>`);
+
+    return `
+      <div class="prj-person">
+        <div class="prj-avatar sm">${portrait(emp.sysName)}</div>
+        <div class="prj-person-main">
+          <div class="prj-person-name">${npc.name || emp.sysName} <small>${npc.surname || ''}</small></div>
+          <div class="prj-chips">${chips}</div>
+          ${notes.length ? `<div class="prj-notes">${notes.join('')}</div>` : ''}
+        </div>
+        <button class="prj-btn ${assigned ? 'remove' : 'add'}" data-prj-act="${assigned ? 'unassign' : 'assign'}" data-sys="${emp.sysName}" title="${assigned ? 'Remove from' : 'Assign to'} this project">${assigned ? '&minus;' : '+'}</button>
+      </div>`;
+  }
+
+  function build(project) {
+    const v = State.variables;
+    const cats = categories(project);
+    const finished = cats.filter(c => c.done >= c.need).length;
+
+    const daysLeft = setup.getProjectDaysLeft(project);
+    const deadline = daysLeft < 3 ? 'low' : (daysLeft < 7 ? 'mid' : 'ok');
+    const deadlineText = setup.getProjectDeadlineText(project);
+
+    /* late projects pay less, show the shrunken reward next to the full one */
+    const reward = setup.getProjectReward(project);
+    const rewardText = reward < project.reward
+      ? `<span class="prj-reward-late">${money(project.reward)}</span> ${money(reward)}`
+      : money(reward);
+    const penalty = Math.round(setup.getProjectSetting(project, 'latePenalty') * 100);
+    const floor = Math.round(setup.getProjectSetting(project, 'minRewardFactor') * 100);
+
+    const client = project.client ? live(project.client) : null;
+    const location = project.location ? v.locations[project.location.id].name : '—';
+
+    const employees = roster();
+    const assigned  = project.assigned.map(e => employees.find(x => x.sysName === e.sysName) || e);
+    const available = employees.filter(e => !isAssigned(project, e.sysName));
+
+    const facts = [
+      ['Client', client ? `<span class="prj-client"><span class="prj-avatar xs">${portrait(client.sysName)}</span>${client.name} ${client.surname || ''}</span>` : 'In-house'],
+      ['Location', location],
+      ['Daily revenue', money(project.revenue)],
+      /* an in-house project (reward 0) shows its outcome instead, and lateness costs nothing */
+      ['On completion', project.reward ? rewardText : (project.outcome || '—')],
+      project.reward ? ['If late', `&minus;${penalty}% per day <small class="prj-fact-sub">(min. ${floor}%)</small>`] : null,
+      ['Team', assigned.length ? `${assigned.length} ${assigned.length === 1 ? 'person' : 'people'}` : 'Nobody yet'],
+    ].filter(Boolean).map(([k, val]) => `<div class="prj-fact"><span>${k}</span><b>${val}</b></div>`).join('');
+
+    /* project.task is the id of the task the project unlocks (Define Tasks) */
+    const pTask = project.task ? setup.getTaskById(project.task) : null;
+    const pTaskWho = pTask && pTask.who ? State.variables[pTask.who.sysName] : null;
+    const task = pTask ? `
+      <div class="prj-task">
+        <div class="prj-label">Special task</div>
+        <div class="prj-task-title">${wikifyText(pTask.title)}</div>
+        ${pTaskWho ? `<div class="prj-task-who">${pTaskWho.callName || pTaskWho.name}</div>` : ''}
+        ${pTask.description ? `<div class="prj-task-desc">${wikifyHTML(pTask.description)}</div>` : ''}
+      </div>` : '';
+
+    const bars = cats.map(c => {
+      let hint;
+      if (c.done >= c.need)                 hint = `<span class="prj-hint ok">Complete</span>`;
+      else if (project.assigned.length === 0) hint = `<span class="prj-hint">Nobody assigned</span>`;
+      else if (c.team === 0)                hint = `<span class="prj-hint low">Nobody on the team has this skill</span>`;
+      else                   hint = `<span class="prj-hint">Team skill <b>${c.team}</b></span>`;
+      return `
+        <div class="prj-bar ${c.done >= c.need ? 'is-done' : ''}">
+          <div class="prj-bar-head"><span>${cap(c.cat)}</span><span class="prj-bar-val">${Math.floor(c.done)}<small>/${c.need}</small></span></div>
+          <div class="prj-bar-track"><div class="prj-bar-fill" style="width:${c.pct}%"></div></div>
+          ${hint}
+        </div>`;
+    }).join('');
+
+    const assignedHtml = assigned.length
+      ? assigned.map(e => personRow(project, e, true)).join('')
+      : `<div class="prj-empty">Nobody is working on this project.</div>`;
+    const availableHtml = available.length
+      ? available.map(e => personRow(project, e, false)).join('')
+      : `<div class="prj-empty">${employees.length ? 'Everyone is on this project.' : 'No employees yet.'}</div>`;
+
+    return `
+      <div class="prj-wrap">
+        <div class="prj-head">Project file</div>
+        <div class="prj-dlg">
+
+          <aside class="prj-card prj-profile">
+            <div class="prj-gauge"><canvas id="prjOverall"></canvas></div>
+            <div class="prj-title">${project.title}</div>
+            <div class="prj-badge ${deadline}">${deadlineText}</div>
+            <div class="prj-facts">${facts}</div>
+            ${task}
+          </aside>
+
+          <section class="prj-main">
+            <div class="prj-card prj-span2">
+              <div class="prj-card-head">
+                <span class="prj-label">Progress</span>
+                <span class="prj-chip">${finished} of ${cats.length} complete</span>
+              </div>
+              <div class="prj-bars">${bars}</div>
+            </div>
+
+            <div class="prj-card">
+              <div class="prj-card-head">
+                <span class="prj-label">Assigned <span class="prj-count">${assigned.length}</span></span>
+                <button class="prj-pill-btn" data-prj-act="unassign-all" ${assigned.length ? '' : 'disabled'}>Unassign all</button>
+              </div>
+              <div class="prj-people">${assignedHtml}</div>
+            </div>
+
+            <div class="prj-card">
+              <div class="prj-card-head">
+                <span class="prj-label">Available <span class="prj-count">${available.length}</span></span>
+                <button class="prj-pill-btn" data-prj-act="assign-all" ${available.length ? '' : 'disabled'}>Assign all</button>
+              </div>
+              <div class="prj-people">${availableHtml}</div>
+            </div>
+          </section>
+
+        </div>
+      </div>`.replace(/\n\s*/g, '');
+  }
+
+  function gauge(canvasId, pct) {
+    return new Chart(document.getElementById(canvasId), {
+      type: 'doughnut',
+      data: { datasets: [{
+        data: [pct, 100 - pct],
+        backgroundColor: [COLOR.fg, COLOR.track],
+        borderWidth: 0,
+        borderRadius: 999,
+        cutout: '82%'
+      }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        rotation: -135,
+        circumference: 270,
+        animation: { duration: 700 },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      },
+      plugins: [{
+        id: 'centerText',
+        afterDraw(c) {
+          const a = c.chartArea;
+          const cx = (a.left + a.right) / 2, cy = (a.top + a.bottom) / 2;
+          const size = Math.min(a.right - a.left, a.bottom - a.top);
+          const ctx = c.ctx;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = `800 ${Math.round(size * 0.26)}px Manrope, sans-serif`;
+          ctx.fillText(pct + '%', cx, cy - size * 0.03);
+          ctx.fillStyle = '#EBDDC599';
+          ctx.font = `600 ${Math.round(size * 0.09)}px Manrope, sans-serif`;
+          ctx.fillText('DONE', cx, cy + size * 0.2);
+          ctx.restore();
+        }
+      }]
+    });
+  }
+
+  function render(projectId) {
+    const project = getProject(projectId);
+    if (!project) return;
+
+    const body = $(Dialog.body());
+    const scroll = body.scrollTop();
+    body.empty();
+    Dialog.wiki(build(project));
+    body.scrollTop(scroll);
+
+    /* every click on a button in the dialog goes through here (namespaced so re-renders don't stack handlers) */
+    body.off('click.prj').on('click.prj', '[data-prj-act]', function() {
+      if (this.disabled) return;
+      onAction(projectId, this.getAttribute('data-prj-act'), this.getAttribute('data-sys'));
+    });
+
+    const cats = categories(project);
+    const need = cats.reduce((s, c) => s + c.need, 0);
+    const done = cats.reduce((s, c) => s + c.done, 0);
+    if (chart) chart.destroy();
+    setTimeout(() => {
+      if (document.getElementById('prjOverall')) chart = gauge('prjOverall', pctOf(done, need));
+    }, 50);
+  }
+
+  window.openProjectDialog = function(projectId) {
+    if (!getProject(projectId)) return;
+    Dialog.create("", "glass-project-dialog");
+    render(projectId);
+    Dialog.open();
+  };
+})();
+<</script>>
+
+<style>
+.cmd-projects-wrapper {
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.cmd-projects-project-wrapper {
+  display: flex;
+  height: 4rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: .5rem;
+  margin: .25rem;
+  overflow: hidden;
+  transition: .1s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: .25rem;
+}
+
+.cmd-projects-project-wrapper:hover {
+	transform: translatex(.25rem);
+}
+
+.cmd-projects-project-progress {
+  height: 100%;
+  aspect-ratio: 1;
+  border-right: 1px solid #EBDDC550;
+  padding: 0 .25rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cmd-projects-project-progress canvas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cmd-projects-project-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: .1rem .3rem;
+  width: 100%;
+}
+
+.cmd-projects-project-content-wrapper {
+	display: flex;
+    width: 100%;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .25rem;
+}
+
+.cmd-projects-project-content-title {
+    font-weight: bold;
+    font-size: .85rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.cmd-projects-project-content-due {
+	font-weight: 100;
+    opacity: .8;
+    font-size: .6rem;
+    white-space: nowrap;
+}
+
+.cmd-projects-project-content-due.overdue {
+    color: #ff6479;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.cmd-projects-project-content-employees {
+  display: flex;
+  height: 2rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.cmd-projects-project-content-employees-img {
+  border-radius: 9999px;
+  height: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  box-shadow: 0 0 .2em 0.15em #00000030;
+}
+
+.cmd-projects-project-content-employees-none {
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 99999px;
+  border: 1px dotted var(--card-border);
+  background-color: var(--card-bg);
+  padding: .25rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ==========================================================================
+   Project dialog (same look as the employee dialog in "CMD Management")
+   ========================================================================== */
+#ui-dialog:has(#ui-dialog-body.glass-project-dialog) {
+  width: min(1100px, 94vw);
+  max-width: none;
+}
+
+/* title bar only carries the close button, floating in the top right corner */
+#ui-dialog:has(#ui-dialog-body.glass-project-dialog) #ui-dialog-titlebar {
+  position: absolute;
+  top: .8rem;
+  right: 1.1rem;
+  z-index: 3;
+  width: 2rem;
+  height: 2rem;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+}
+
+#ui-dialog:has(#ui-dialog-body.glass-project-dialog) #ui-dialog-title {
+  display: none;
+}
+
+#ui-dialog:has(#ui-dialog-body.glass-project-dialog) #ui-dialog-close {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  font-size: .8rem;
+  color: #EBDDC5;
+  border: 1px solid #EBDDC535;
+  border-radius: 50%;
+  background-color: #EBDDC510;
+}
+
+#ui-dialog:has(#ui-dialog-body.glass-project-dialog) #ui-dialog-close:hover {
+  background-color: #EBDDC530;
+  border-color: #EBDDC5;
+}
+
+#ui-dialog-body.glass-project-dialog {
+  width: auto;
+  height: auto !important;
+  max-height: 88vh;
+  padding: 1.1rem 1.4rem 1.4rem;
+  overflow: auto;
+  font-family: "Manrope", sans-serif;
+  color: #EBDDC5;
+  background-color: rgba(34, 34, 46, .6);
+  scrollbar-width: thin;
+}
+
+.prj-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+.prj-head {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding-right: 3rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #EAAF4C;
+}
+
+.prj-head::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #EBDDC540, transparent);
+}
+
+.prj-dlg {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: .9rem;
+}
+
+.prj-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.prj-span2 {
+  grid-column: 1 / -1;
+}
+
+.prj-card {
+  min-width: 0;
+  padding: 1rem 1.1rem;
+  background-color: #EBDDC50d;
+  border: 1px solid #EBDDC51f;
+  border-radius: 1rem;
+}
+
+.prj-label {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #EBDDC5;
+  opacity: .6;
+}
+
+.prj-count {
+  padding: 0 .45rem;
+  font-size: .68rem;
+  letter-spacing: 0;
+  color: #fff;
+  background: #EBDDC526;
+  border-radius: 999px;
+}
+
+.prj-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  min-height: 1.6rem;
+}
+
+/* ——— profile ——— */
+.prj-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.prj-gauge {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  margin-top: .2rem;
+}
+
+.prj-title {
+  margin-top: .4rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #EBDDC5;
+}
+
+.prj-badge {
+  margin-top: .6rem;
+  padding: .2rem .8rem;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.prj-badge.ok  { color: #EBDDC5; background: #EBDDC51a; border-color: #EBDDC540; }
+.prj-badge.mid { color: #DBAF35; background: #DBAF3518; border-color: #DBAF3550; }
+.prj-badge.low { color: #ff6479; background: #DB354C18; border-color: #DB354C60; }
+
+.prj-facts {
+  width: 100%;
+  margin: 1.1rem 0 0;
+  padding-top: .5rem;
+  border-top: 1px solid #EBDDC51f;
+}
+
+.prj-fact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .5rem 0;
+  font-size: .85rem;
+  border-bottom: 1px solid #EBDDC512;
+}
+
+.prj-fact:last-child {
+  border-bottom: none;
+}
+
+.prj-fact > span {
+  color: #EBDDC5;
+  opacity: .6;
+}
+
+.prj-fact > b {
+  font-weight: 700;
+  text-align: right;
+  color: #fff;
+}
+
+.prj-reward-late {
+  margin-right: .3rem;
+  font-weight: 500;
+  text-decoration: line-through;
+  opacity: .45;
+}
+
+.prj-fact-sub {
+  font-weight: 500;
+  opacity: .5;
+}
+
+.prj-client {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+.prj-task {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  padding: .8rem .9rem;
+  text-align: left;
+  border: 1px solid #EAAF4C40;
+  border-radius: .75rem;
+  background: #EAAF4C0d;
+}
+
+.prj-task .prj-label {
+  color: #EAAF4C;
+  opacity: .9;
+}
+
+.prj-task-title {
+  margin-top: .3rem;
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.prj-task-who {
+  font-size: .75rem;
+  opacity: .6;
+}
+
+.prj-task-desc {
+  margin-top: .4rem;
+  font-size: .78rem;
+  line-height: 1.4;
+  opacity: .85;
+}
+
+/* ——— avatars ——— */
+.prj-avatar {
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #EBDDC5;
+  background-color: #EBDDC51a;
+}
+
+.prj-avatar.sm { width: 2.6rem; height: 2.6rem; }
+.prj-avatar.xs { width: 1.5rem; height: 1.5rem; border-width: 1px; }
+
+.prj-avatar > *,
+.prj-avatar .media,
+.prj-avatar .media-wrapper,
+.prj-avatar img,
+.prj-avatar video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  border: none;
+  padding: 0;
+}
+
+/* ——— progress bars ——— */
+.prj-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem 1.4rem;
+  margin-top: .9rem;
+}
+
+.prj-bar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .8rem;
+  margin-bottom: .35rem;
+  font-size: .85rem;
+  color: #f0e9dc;
+}
+
+.prj-bar-val {
+  font-size: .8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.prj-bar-val small {
+  margin-left: .1rem;
+  font-weight: 500;
+  opacity: .5;
+}
+
+.prj-bar-track {
+  height: 6px;
+  overflow: hidden;
+  background-color: #EBDDC51f;
+  border-radius: 999px;
+}
+
+.prj-bar-fill {
+  height: 100%;
+  background-color: #EBDDC5;
+  border-radius: 999px;
+  box-shadow: 0 0 .6em #EBDDC570;
+  transition: width .5s ease;
+}
+
+.prj-bar.is-done .prj-bar-fill {
+  background-color: #1cd88d;
+  box-shadow: 0 0 .6em #1cd88d70;
+}
+
+.prj-hint {
+  display: block;
+  margin-top: .35rem;
+  font-size: .72rem;
+  color: #EBDDC5;
+  opacity: .55;
+}
+
+.prj-hint b { color: #fff; }
+.prj-hint.ok  { color: #1cd88d; opacity: .9; }
+.prj-hint.low { color: #ff6479; opacity: .9; }
+
+/* ——— people ——— */
+.prj-people {
+  display: flex;
+  flex-direction: column;
+  margin-top: .6rem;
+}
+
+.prj-person {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .6rem 0;
+  border-bottom: 1px solid #EBDDC512;
+}
+
+.prj-person:last-child {
+  border-bottom: none;
+}
+
+.prj-person-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.prj-person-name {
+  font-size: .92rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.prj-person-name small {
+  font-weight: 500;
+  opacity: .5;
+}
+
+.prj-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  margin-top: .3rem;
+}
+
+.prj-chip {
+  padding: .1rem .55rem;
+  font-size: .68rem;
+  font-weight: 600;
+  color: #EBDDC5;
+  background: #EBDDC51a;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.prj-chip b {
+  margin-left: .15rem;
+  color: #fff;
+}
+
+.prj-chip.off {
+  opacity: .5;
+}
+
+.prj-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem .7rem;
+  margin-top: .3rem;
+}
+
+.prj-note {
+  font-size: .7rem;
+  color: #EBDDC5;
+  opacity: .55;
+}
+
+.prj-note.mid { color: #DBAF35; opacity: 1; }
+.prj-note.low { color: #ff6479; opacity: 1; }
+
+.prj-empty {
+  padding: 1.2rem 0 .6rem;
+  font-size: .85rem;
+  text-align: center;
+  color: #EBDDC5;
+  opacity: .5;
+}
+
+/* ——— buttons ——— */
+.prj-btn {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.prj-btn.add {
+  color: #EBDDC5;
+  background-color: #EBDDC514;
+  border: 1px solid #EBDDC560;
+}
+
+.prj-btn.add:hover {
+  color: #1a1408;
+  background-color: #EBDDC5;
+  border-color: #EBDDC5;
+}
+
+.prj-btn.remove {
+  color: #ff6479;
+  background-color: transparent;
+  border: 1px solid #DB354C60;
+}
+
+.prj-btn.remove:hover {
+  color: #fff;
+  background-color: #DB354C;
+  border-color: #DB354C;
+}
+
+.prj-pill-btn {
+  padding: .3rem .8rem;
+  font-family: inherit;
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #EBDDC5;
+  background-color: #EBDDC510;
+  border: 1px solid #EBDDC540;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.prj-pill-btn:hover:not([disabled]) {
+  color: #1a1408;
+  background-color: #EBDDC5;
+}
+
+.prj-pill-btn[disabled] {
+  opacity: .35;
+  cursor: default;
+}
+
+/* ——— narrow screens ——— */
+@media (max-width: 860px) {
+  .prj-dlg,
+  .prj-main {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+

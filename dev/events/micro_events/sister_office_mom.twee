@@ -1,0 +1,57 @@
+:: Sister Office Mom [micro_event event nobr] {"position":"1675,3400","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 43, "A normal workday" in Define Events): $sister does
+   an impression of $mom's phone voice at her desk, and both of them want me on their side. */
+<div class="activity-image-wrapper" style="max-height: 400px">
+	<<DisplayActivity $mom>>
+</div>
+<p>$sister.callName is sitting on the corner of $mom.callName's desk, swinging one foot, holding an imaginary phone to her ear with her pinky stuck out.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $sister, text: "Good morning, $company.name, this is $mom.name speaking, how can I make your day just a little bit brighter?" },
+	{ who: $mom, text: "I do not sound like that." },
+	{ who: $sister, text: "You sound exactly like that. You sound like a flight attendant who believes in you." },
+	{ who: $mom, text: "$sister.name $sister.surname, get off my desk, you're sitting on the invoices." },
+	{ text: "$sister.callName doesn't get off the desk. She lifts herself up, slides the invoices out from under her and sits right back down on them, neatly stacked this time." },
+	{ who: $mom, text: "Sweetie, tell her. Tell her I don't sound like that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="sister-mom-choice">
+	<div>
+		<<link "Back up $mom.callName">>
+			<<replace "#sister-mom-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "She sounds like a professional. You sound like a parrot with a head cold." },
+					{ who: $sister, text: "Wow. Betrayed. In broad daylight. In front of the invoices." },
+					{ text: "$mom.callName doesn't say anything. She just picks up her pen and goes back to her work with a small, smug smile, the one she used to wear when she won an argument with $dad.callName without raising her voice." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>Then her phone rings. She picks it up, and in a voice as bright and warm as a hotel lobby, she says: "Good morning, $company.name, this is $mom.name speaking." $sister.callName mouths <i>flight attendant</i> at me over $mom.callName's head and slides off the desk before she can get swatted.</p>
+				<<UpdateStat "+" "MomRelation" 1>>
+				<<UpdateStat "+" "Morale" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Back up $sister.callName">>
+			<<replace "#sister-mom-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Sorry. You sound exactly like that." },
+					{ who: $mom, text: "Honey!" },
+					{ who: $sister, text: "Thank you! Finally, a witness." },
+					{ text: "$mom.callName swats at her with a folder. $sister.callName ducks it, slides off the desk, wraps both arms around $mom.callName's neck from behind and plants a loud kiss on the top of her head." },
+					{ who: $sister, text: "It's a compliment, $mom.callName. I'd buy anything from that voice. I'd buy a timeshare." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>$mom.callName tries to look offended and doesn't manage. When the phone rings a minute later, she lets it ring twice, clears her throat, and answers it a full octave lower than usual. $sister.callName has to leave the room.</p>
+				<<UpdateStat "+" "SisterRelation" 1>>
+				<<UpdateStat "+" "Morale" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

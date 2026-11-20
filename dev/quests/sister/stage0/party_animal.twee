@@ -1,0 +1,99 @@
+:: Party Animal [event sister_quest scene] {"position":"3150,1650","size":"100,100"}
+The house is completely quiet when I hear the front door open around 2 a.m. A loud giggle echoes down the hallway, followed by clumsy footsteps. I'm sitting on the stairs in the dark hallway, just waiting. I already knew she was going to celebrate hard tonight.
+
+A moment later $sister.callName stumbles into view, her long hair messy, cheeks flushed, eyes glassy and unfocused. She's clearly blackout drunk, swaying on her heels, a big stupid smile on her face.
+
+<<linkreplace "Watch her from the stairs">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh my god… $player.name! You're still up? Perfect!" },
+{ text: "She drops her bag on the floor and almost trips over it, laughing at herself." },
+{ who: $sister, text: "I had the best night ever! Everyone was cheering when I told them I passed! Shots for everyone!" },
+{ who: $player, text: "Sounds like you really celebrated." },
+{ who: $sister, text: "I did! But… but I kept thinking about you the whole time. You helped me so much. I need to thank you properly tonight." },
+{ text: "She grabs my hand with surprising strength and starts pulling me toward her room." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<linkreplace "Let her pull you into her room">>
+<<silent>>
+<<SetLocation "sisterroom">>
+<<CheckLocation>>
+<</silent>>
+She drags me down the hallway, giggling the whole way, and pushes her bedroom door open. The fairy lights are still on, casting a soft pink glow over everything. As soon as the door clicks shut behind us she turns around and looks at me with heavy, drunk eyes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I owe you everything, $player.name. Everything. You have no idea how much this means to me." },
+{ who: $player, text: "You don't owe me anything. You worked hard." },
+{ who: $sister, text: "No… I do. And I'm gonna show you right now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She reaches for the hem of her tight party top and slowly pulls it up over her head, revealing a black lace bra. She tosses the top aside and kicks off her heels, almost losing balance.
+
+<<linkreplace "Keep watching">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I wore this cute outfit tonight… but I want you to see everything. You deserve it." },
+{ text: "She reaches behind her back and unhooks her bra, letting it fall to the floor. Her perky breasts are on full display, nipples already hard from the cool air." },
+{ who: $sister, text: "See? This is all for you tonight." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<Media "images/characters/sister/events/party_animal/undress.mp4" "" "" "" "night">>
+She wiggles out of her short skirt next, then hooks her thumbs into her panties and slides them down her smooth legs, stepping out of them completely. She's now fully naked in front of me, swaying slightly, a drunk but very eager smile on her face.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I've been thinking about this all night… how I can thank you. Let me make you feel good, okay?" },
+{ text: "She steps closer, her hands reaching for my belt. She fumbles a little but manages to open it and pull my pants down just enough." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<Media "images/characters/sister/events/party_animal/handjob.mp4" "" "" "" "night">>
+She drops to her knees in front of me, looking up with glassy eyes. Her soft hand wraps around my cock and starts stroking slowly, then faster. She's breathing heavy, clearly turned on by her own drunken boldness.
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You're so hard already… that's because of me, right? I want to make you cum. I need to." },
+{ who: $player, text: "That's it… just like that." },
+{ text: "While she strokes me I quietly pull $company.prototype.name out of my pocket and activate it on the highest suggestibility setting. She's so drunk that it takes hold almost at once." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<UseQuestDevice $sister>>
+<<set _msgs = [
+{ who: $sister, text: "Mmm… I feel so weird but good… I can't stop thinking about you now. I need you so much…" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+Her hand moves faster, slick and eager. She leans in and kisses the tip a few times, moaning softly. The combination of alcohol and $company.prototype.name is working perfectly. Her eyes are half-lidded, completely lost in lust and gratitude.
+<<Media "images/characters/sister/events/party_animal/cum.mp4" "" "" "" "night">>
+I can't hold back anymore. With a low groan I cum hard, thick ropes landing across her chest and neck. She gasps, looking almost proud as she watches it happen.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh my god… that was so much… I did that for you." },
+{ text: "She stays on her knees for a moment, breathing hard, my cum still glistening on her skin. $company.prototype.name is still running, cementing the new feelings deep inside her." },
+{ who: $sister, text: "I can't stop thinking about you now… I need to keep making it up to you. Every day. Promise me I can, okay?" },
+{ who: $player, text: "Yeah… you can." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She slowly gets up, still wobbly, and collapses onto her bed with a happy, exhausted sigh. Her eyes are already closing as the alcohol and the new obsession take over.
+Before I go, I pull out my phone and snap a few pictures of her lying there, sprawled out under the fairy lights. A souvenir of tonight. I don't know yet what I'll do with them.
+<<set $sister.flags.photoTaken to true>>
+I quietly leave her room, closing the door behind me. She's going to wake up tomorrow already craving more of me, and she won't even understand why.
+
+<<UpdateStat "+" "SisterCorruption" 10>>
+<<UpdateStat "+" "SisterRelation" 8>>
+<<ProfileLog $sister "Making It Up to Me" "She came home drunk from her party and 'thanked' me in her room. With $company.prototype.name on its highest setting, she's hooked on me now and wants to keep making it up to me. Every day.">>
+<<set setup.getMealById("party_animal").isActive to true>>
+<<NextQuest $sister>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

@@ -1,0 +1,234 @@
+:: Sister doing_chores [interaction] {"position":"275,2350","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister doing chores in the kitchen or the living room.
+   _kitchen: she is in the kitchen (setup.npcIsAt), otherwise the living room.
+   1 (the dishes): kitchen only.
+   2 (couch treasure): living room only.
+   3 (the chore chart, a small choice): always.
+   4 (stress cleaning): kitchen only, before sister_sheMadeIt.
+   5 (my shirts): after sister_partyAnimal, before sister_conflictingFeelings. She wants to make it up to me and does not know why.
+   6 (the chair, +1 SisterLust): after sister_conflictingFeelings.
+   7 (the socks): after sister_internshipSeason. */
+<<silently>>
+<<set _kitchen to setup.npcIsAt("sister", "kitchen")>>
+<<set _variants to [3]>>
+<<if _kitchen>><<run _variants.push(1)>><<else>><<run _variants.push(2)>><</if>>
+<<if _kitchen && !setup.questDone("sister_sheMadeIt")>><<run _variants.push(4)>><</if>>
+<<if setup.questDone("sister_partyAnimal") && !setup.questDone("sister_conflictingFeelings")>><<run _variants.push(5)>><</if>>
+<<if setup.questDone("sister_conflictingFeelings")>><<run _variants.push(6)>><</if>>
+<<if setup.questDone("sister_internshipSeason")>><<run _variants.push(7)>><</if>>
+<<set _pick to setup.pickTalkScene("Sister doing_chores", _variants)>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* 1: The dishes (kitchen) */
+<<case 1>>
+$sister.callName is at the sink in yellow rubber gloves that go all the way up to her elbows. According to her, they're the only way she can touch other people's food. The radio is on, and she's singing along into the dish brush.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh, good. Grab a towel. You dry." },
+{ who: $player, text: "I was just passing through." },
+{ who: $sister, text: "Nobody passes through a kitchen. That's not a thing. Towel." },
+{ text: "I grab a towel. She has a system, and she explains it while she hands me the first glass." },
+{ who: $sister, text: "Glasses first, while the water's still clean. Then cutlery. Then plates. And then, at the very end, when all hope is gone... the pan." },
+{ who: $player, text: "What pan?" },
+{ text: "She points with her chin. On the stove sits my lasagna pan from Sunday, crusted at the corners and soaking in water that has turned a color I don't have a name for." },
+{ who: $sister, text: "The pan of shame. It's been soaking for three days. I think it's started soaking us back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Take on the pan">>
+I trade her the towel for the gloves. They're still warm inside and much too small for me. While I scrub, she leans against the counter and narrates in a hushed, very serious voice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And here we see the male, at last, facing the consequences of his own lasagna. It has taken him three days. The pan has grown strong in that time." },
+{ who: $player, text: "You could help." },
+{ who: $sister, text: "The narrator cannot interfere with nature. That's the first rule of narrating." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+When the pan is finally clean, she holds it up to the light like a sommelier and declares it acceptable. She hangs the gloves over the faucet to dry with the fingers pointing down, and tells me I'm welcome to pass through her kitchen anytime.
+<</linkreplace>>
+
+/* 2: Couch treasure (living room) */
+<<case 2>>
+The vacuum is roaring when I come in. $sister.callName is pushing it around the living room in her socks with one earbud in, bobbing her head to something only she can hear. She aims the nozzle at my feet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Feet up! Up, up, up." },
+{ text: "I drop onto the couch and lift my feet. She vacuums under them with a lot more care than the carpet needs, then switches the machine off, pulls the cushions off the couch next to me and starts digging in the gap with both hands." },
+{ who: $sister, text: "Okay, this is the best part. Couch treasure. Whatever I find, I keep. Finders keepers, it's in the Constitution." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The couch gives up a dollar thirty-five in change, two hair ties, the cap of a pen nobody owns anymore and a small green plastic dinosaur, which she holds up over her head like she's just won the lottery.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Rex! Oh my god! Do you remember Rex?" },
+{ who: $player, text: "I remember you flushing Rex." },
+{ who: $sister, text: "Allegedly. And look at him, he's clearly fine. He's been living in our couch for ten years. He's thriving. He has a whole life in there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She keeps the change and the hair ties. Rex she wipes off on her shirt and hands back to me, very formally, because he was mine first. Then she turns the vacuum back on and goes after the crumbs he was living with.
+
+/* 3: The chore chart */
+<<case 3>>
+$sister.callName has a pen between her teeth and the chore chart in her hands, the one $mom.callName printed out and stuck to the fridge with a magnet shaped like a lemon. She's taken it down to study it properly. When she hears me, she takes the pen out and turns around with the smile she uses on professors when an assignment is late.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Business proposal." },
+{ who: $player, text: "No." },
+{ who: $sister, text: "You haven't even heard it! It's a good one. You take the bathroom this week, and I take your trash. And I'll throw in the recycling." },
+{ who: $player, text: "The recycling's already yours." },
+{ who: $sister, text: "Is it? Says who? Says the chart? The chart is more of a suggestion." },
+{ who: $sister, text: "Plus one favor. Anything you want. Within reason. Within, like, $sister.relation reason." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<div id="sister-chores-chart">
+	<div>
+		<<link "Take the deal">>
+			<<replace "#sister-chores-chart">>
+				She presses the chart against the wall, crosses out her name next to BATHROOM, writes mine in instead and draws a little smiley face beside it, which I think is supposed to soften the blow. Then she holds out her hand to shake on it.
+
+				<<silently>>
+				<<set _msgs = [
+				{ who: $sister, text: "Pleasure doing business with you. So what's the favor? What do you want?" },
+				{ who: $player, text: "I'll let you know." },
+				{ who: $sister, text: "Ew. Why does that sound so ominous? Say it normal." },
+				{ who: $player, text: "I'll let you know." },
+				{ who: $sister, text: "That's the same! You said the exact same thing!" },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Hold her to the chart">>
+			<<replace "#sister-chores-chart">>
+				<<silently>>
+				<<set _msgs = [
+				{ who: $player, text: "The bathroom's yours. It says so right there." },
+				{ who: $sister, text: "Wow. A man of the chart. Okay. I see how it is." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+
+				She gets the bucket from under the sink and stomps upstairs with it. Ten minutes later I can hear her through the ceiling, singing very loudly over the running water. She's changed the words of the song so that it's about a $sister.playerRelation who betrayed his family over a toilet.
+			<</replace>>
+		<</link>>
+	</div>
+</div>
+
+/* 4: Stress cleaning (kitchen, before sister_sheMadeIt) */
+<<case 4>>
+Every cabinet in the kitchen is open. Everything that used to be in them is lined up on the counter in groups that make sense to somebody. $sister.callName is kneeling on a chair with her head inside the spice cabinet, wiping out the corners with a wet cloth.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "What happened in here?" },
+{ who: $sister, text: "Nothing happened. I'm cleaning. People clean." },
+{ who: $player, text: "You're cleaning the inside of a cabinet." },
+{ who: $sister, text: "Did you know we have three cumins? Three! One of them expired when I was in middle school. $mom.callName buys cumin like it's about to go extinct." },
+{ who: $player, text: "When's your calculus test?" },
+{ text: "She stops wiping." },
+{ who: $sister, text: "That's a very rude thing to ask somebody who's doing something nice for the family." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I help her put everything back. She wants the spices in alphabetical order, and I point out that nobody in this house cooks with anything past garlic. She does it alphabetically anyway. When the last jar is in, she stands there looking at the neat row, as if she's hoping a new letter might turn up and buy her another ten minutes.
+
+Then she sighs, throws the cloth into the sink and goes upstairs. A moment later I hear her desk chair scrape across the floor.
+
+/* 5: My shirts (after sister_partyAnimal, before sister_conflictingFeelings) */
+<<case 5>>
+$sister.callName is folding laundry on the <<if _kitchen>>kitchen table<<else>>couch<</if>>, which is normal. What isn't normal is the stack by her elbow. It's my shirts, folded into neat little rectangles with the sleeves tucked behind them, the way they do it in stores.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Are those mine?" },
+{ who: $sister, text: "They were in the basket. I'm being nice. It's a phase. Enjoy it while it lasts." },
+{ who: $player, text: "You've never folded my laundry in your life." },
+{ who: $sister, text: "Well, I'm folding it now. It's not a big deal. Do you want them in your room? I can take them up to your room." },
+{ text: "She's already lifting the stack. I tell her to leave them, and she puts them down again, but she keeps one hand flat on top of the pile." },
+{ who: $sister, text: "Is there anything else? That you need, I mean. I'm doing stuff anyway. I could make you a sandwich. Or iron something. Do we even own an iron?" },
+{ who: $player, text: "Get me a glass of water." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's on her feet before I've finished the sentence. She lets the tap run until the water's properly cold, the way I like it, which I don't remember ever telling her, and hands me the glass with both hands.
+
+I drink it while she watches me. When I give the glass back, she looks happier than I've seen her all week, and she can't have the faintest idea why. Then she sits back down and refolds the shirt on top of the stack, which was already perfect.
+
+/* 6: The chair (after sister_conflictingFeelings) */
+<<case 6>>
+$sister.callName is standing on a kitchen chair on her tiptoes, trying to wipe down the top of the <<if _kitchen>>cabinets<<else>>bookshelf<</if>>, where nobody has wiped in years. The chair is wobbling. She has a rag in one hand, and with two fingers of the other she's holding on to the edge.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Don't. I've got it. I'm very balanced." },
+{ text: "The chair rocks. I put my hands on her hips to steady her, and she goes completely still." },
+{ who: $sister, text: "Okay. That's... you can do that. That's a safety thing." },
+{ who: $player, text: "It's a safety thing." },
+{ text: "She goes back to wiping. Slowly. The same spot, over and over, long after it's clean." },
+{ who: $sister, text: "You can let go now. I'm fine." },
+{ text: "I don't let go, and she doesn't ask again." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Upstairs, a door opens, and $mom.callName's footsteps cross the landing. $sister.callName hops down so fast she nearly takes me with her, and she's rinsing the rag at the <<if _kitchen>>sink<<else>>kitchen sink<</if>> by the time $mom.callName calls down to ask if anyone has seen her reading glasses.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Nope! Haven't seen them!" },
+{ text: "Then, quietly, to the rag:" },
+{ who: $sister, text: "They're on her head. They're always on her head." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't look at me again while I'm there, but her face is still pink, and she's wringing out a rag that has been dry for a while.
+
+<<UpdateStat "+" "SisterLust" 1>>
+
+/* 7: The socks (after sister_internshipSeason) */
+<<case 7>>
+$sister.callName is sitting cross-legged in front of a laundry basket that's nothing but socks. There must be sixty of them. She's working through them with the grim face of a customs officer.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Sit. Match. Every sock in this house has lost its partner, and I'm running a support group." },
+{ who: $player, text: "I've been at work all day." },
+{ who: $sister, text: "So have I! I filed for five hours. $mom.callName says I have a real gift for filing. Of all the gifts. Some people get to sing." },
+{ who: $player, text: "It's a useful gift." },
+{ who: $sister, text: "It's the worst gift. It's the gift you get from a coworker who doesn't know your name. Here. This one's yours, it has a hole in it." },
+{ text: "She throws a sock at my face. It has a hole in the heel, and it's mine." },
+{ who: $sister, text: "Can interns get a raise? For domestic services?" },
+{ who: $player, text: "Interns don't get a raise. Interns get experience." },
+{ who: $sister, text: "I'm getting so much experience. I'm drowning in experience. Look at all this experience." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We match socks for twenty minutes. Eleven of them end up alone, and she lines them up along the arm of the <<if _kitchen>>chair<<else>>couch<</if>> and tells them it isn't their fault.
+
+<</switch>>
+
+<<UpdateStat "+" "SisterRelation" 1>>
+
+<div class="navigation-link"><<link "Leave her to it" $player.location.passage>><</link>></div>

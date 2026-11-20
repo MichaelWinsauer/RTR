@@ -1,0 +1,170 @@
+:: Mom Handjob [interaction] {"position":"975,2400","size":"100,100"}
+/* Intimate scene, reached from the "Ask her to take care of you" card of the NPC Interaction screen (id "handjob").
+   Unlocked by the quest A Knock at Night (mom_nightVisit); the card's requirements, privacy rule and once-per-day limit
+   live in define_interactions.twee. This passage applies the stat changes itself (like Mom Kiss).
+   The scene changes with the place (_hjPlace: her room, the living room, my room, the office, anywhere else) and with how
+   often she has done it ($mom.flags.handjobs): the first time after the night visit she still needs it to be "bad",
+   then it becomes routine, and from the sixth time on she offers before I ask.
+   Videos: images/characters/mom/interactions/handjob/<place>_<0-1>.mp4 */
+<<silent>>
+<<set _hjCount to $mom.flags.handjobs || 0>>
+<<set _hjTier to (_hjCount == 0 ? "first" : (_hjCount < 5 ? "routine" : "eager"))>>
+<<set _hjSys to $player.location.sysName>>
+<<if _hjSys == "momroom">><<set _hjPlace to "momroom">>
+<<elseif _hjSys == "livingroom">><<set _hjPlace to "livingroom">>
+<<elseif _hjSys == "bedroom">><<set _hjPlace to "bedroom">>
+<<elseif _hjSys == "companystage1meeting" and setup.isOfficeWorkTime()>><<set _hjPlace to "meeting">>
+<<elseif ["companystage1", "companystage1desk", "companystage1meeting"].includes(_hjSys)>><<set _hjPlace to "office">>
+<<else>><<set _hjPlace to "other">>
+<</if>>
+<</silent>>
+<<switch _hjPlace>>
+<<case "momroom">>
+Her bedroom door is half open. She's sitting on the end of her bed in the light from the nightstand, rubbing lotion into her hands one finger at a time, and she looks up when I lean in the doorway and close the door behind me.
+<<case "livingroom">>
+The TV is murmuring to itself about a kitchen renovation nobody asked for. $mom.callName is curled into her corner of the couch with her feet tucked under her, and when I sit down next to her she glances at the stairs before she looks at me.
+<<case "bedroom">>
+She's in my room, folding the laundry she says I'll never fold myself, which is true. When I close the door, she stops with one of my shirts held halfway to the pile.
+<<case "meeting">>
+The blinds in the meeting room are already down. On the other side of the door the office carries on without us: keyboards, the coffee machine, somebody on the phone with a supplier. $mom.callName has a folder with her, in case anyone asks, and she sets it on the table very squarely.
+<<case "office">>
+The office is dark apart from the strip of light over my desk. Everyone else went home a while ago. $mom.callName is still here, tidying files that don't need tidying, and she knows why she stayed as well as I do.
+<<default>>
+For once there's nobody else around. $mom.callName notices that at the same moment I do. She looks past me, both ways, the way you look before crossing a street.
+<</switch>>
+
+<<silently>>
+<<if _hjTier == "first">>
+	<<set _msgs = [
+	{ who: $player, text: "It's bad today." },
+	{ who: $mom, text: "Oh, honey. How bad?" },
+	{ who: $player, text: "Bad." },
+	{ text: "She closes her eyes for a second, and when she opens them again she's already decided. I can tell from the way she pushes her sleeves up." },
+	{ who: $mom, text: "Alright. Only because it's bad. Come here." },
+	]>>
+<<elseif _hjTier == "routine">>
+	<<set _msgs = [
+	{ who: $player, text: "I need you." },
+	{ who: $mom, text: either("Bad day?", "Is it that board meeting stuff again? You look like you swallowed a spreadsheet.", "I could tell when you came in. You had your shoulders up around your ears.") },
+	{ who: $player, text: "Bad day." },
+	{ who: $mom, text: either("Then let me take care of it. That's what I'm here for.", "Come here, sweetie. Let me make it better.", "Of course. Of course, honey. Come here.") },
+	]>>
+<<else>>
+	<<set _msgs = [
+	{ text: "I haven't said anything yet. She's already looking at me, the way she used to look at me over the breakfast table when she knew I hadn't done my homework." },
+	{ who: $mom, text: either("You've got that look again. Come here, I'll take care of it.", "You don't even have to ask anymore, sweetheart. You know that, right? Come here.", "Was it a long day? It was a long day. I can see it from here.") },
+	{ who: $player, text: "You always know." },
+	{ who: $mom, text: "Of course I know. I'm your $mom.relation." },
+	]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her take care of you">>
+<<Video `"images/characters/mom/interactions/handjob/" + _hjPlace + "_0.mp4"` "" "" 500>>
+
+<<switch _hjPlace>>
+<<case "momroom">>
+She pulls me down onto her bed next to her and does it the way she did it in mine, lying on her side with her head propped up on one hand, her hands still smelling of the lotion.
+<<case "livingroom">>
+She turns the TV down two notches, not off, and stays where she is. Her hand finds me under the blanket that lives on the back of the couch, and her eyes keep going to the stairs and back.
+<<case "bedroom">>
+She puts the shirt down very neatly on top of the pile, sits on the edge of my bed and pats the mattress next to her.
+<<case "meeting">>
+She pulls a chair around next to mine, sits down with her knees against my thigh and puts the folder on the table in front of us, open, as if we're going over it. Her hand goes under the table.
+<<case "office">>
+She wheels my chair back from the desk herself and kneels down beside it, on the carpet, where the light from the desk lamp doesn't quite reach.
+<<default>>
+She keeps her body between me and the door, as if that would hide anything, and slips her hand under my waistband without looking down.
+<</switch>>
+
+<<silently>>
+<<if _hjTier == "first">>
+	<<set _msgs = [
+	{ text: "She's slow about it, and very careful, and she keeps checking my face as if she's afraid of getting it wrong." },
+	{ who: $mom, text: "Tell me if it's not right. I want to do it right." },
+	{ who: $player, text: "It's right." },
+	{ who: $mom, text: "Good. Good. Just breathe for me." },
+	]>>
+<<elseif _hjTier == "routine">>
+	<<set _msgs = [
+	{ text: "She knows how I like it now. She doesn't ask anymore, she just does it, firm and steady, with that small crease between her eyebrows she gets when she concentrates on a recipe." },
+	{ who: $mom, text: either("There we go. Let it all out.", "Shh. You're alright. I've got you.", "You work so hard, honey. You deserve this.") },
+	{ text: either("Every so often she shifts on the spot, pressing her knees together, and pretends she didn't.", "Her breathing has gone short and quiet. She keeps it under control better than she did the first time, but not by much.", "She bites her lip at one point, hard, and lets it go before I can say anything about it.") },
+	]>>
+<<else>>
+	<<set _msgs = [
+	{ text: "She's good at it now, and she knows it. She takes her time on purpose, slows down whenever I get close and smiles to herself when I make a sound." },
+	{ who: $mom, text: either("Not yet. Let me take care of you properly.", "Look at me, sweetheart. There you are.", "Does that feel good? Tell me it feels good.") },
+	{ who: $player, text: "It feels good." },
+	{ who: $mom, text: "I know it does." },
+	{ text: "Her other hand has drifted down to her own lap. She holds it there, pressed flat, very still, and doesn't move it the whole time. The effort that takes is all over her face." },
+	]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let go">>
+<<Video `"images/characters/mom/interactions/handjob/" + _hjPlace + "_1.mp4"` "" "" 500>>
+
+She doesn't stop until I'm completely done. Then she cleans up, with the tissues from her pocket that she apparently carries now, very thoroughly, and straightens my clothes for me before she straightens her own.
+
+<<silently>>
+<<switch _hjPlace>>
+<<case "momroom">>
+	<<set _msgs = [
+	{ who: $mom, text: "Better?" },
+	{ who: $player, text: "Better." },
+	{ text: "She smooths her bedspread where we were lying, twice, until there isn't a single crease left in it." },
+	]>>
+<<case "livingroom">>
+	<<set _msgs = [
+	{ who: $mom, text: "Better?" },
+	{ who: $player, text: "Better." },
+	{ text: "She turns the TV back up to where it was, exactly two notches, and goes back to her show as if she never stopped watching. Ten minutes later she still hasn't laughed at any of it." },
+	]>>
+<<case "bedroom">>
+	<<set _msgs = [
+	{ who: $mom, text: "Better?" },
+	{ who: $player, text: "Better." },
+	{ text: "She picks my shirt back up and finishes folding it. Her hands are perfectly steady. She folds it a second time, anyway." },
+	]>>
+<<case "meeting">>
+	<<set _msgs = [
+	{ who: $mom, text: "Better?" },
+	{ who: $player, text: "Better." },
+	{ text: "She closes the folder, tucks it under her arm and opens the blinds again, all the way, before she opens the door. On her way back to her desk she stops to ask somebody whether they need anything from the printer." },
+	]>>
+<<case "office">>
+	<<set _msgs = [
+	{ who: $mom, text: "Better?" },
+	{ who: $player, text: "Better." },
+	{ text: "She gets up off the carpet, brushes off her knees, and puts my chair back where it was, lined up with the desk, before she goes to get her coat." },
+	{ who: $mom, text: "Don't stay much longer, honey. I'll keep your dinner warm." },
+	]>>
+<<default>>
+	<<set _msgs = [
+	{ who: $mom, text: "Better?" },
+	{ who: $player, text: "Better." },
+	{ text: "She glances at the door one more time, then pats my cheek, the way she used to after a haircut, and goes back to what she was doing." },
+	]>>
+<</switch>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _hjTier == "first">>
+On her way out she stops and tells me, quietly, that it's only for the bad days. I tell her of course. Neither of us brings up how she decides which days are bad.
+<<elseif _hjTier == "eager">>
+Before she goes she asks whether tomorrow is going to be a long day, too. She says it lightly, like she's asking about the weather.
+<</if>>
+
+<<set $mom.flags.handjobs to _hjCount + 1>>
+<<UpdateStat "+" "Corruption" 1>>
+<<UpdateStat "+" "MomCorruption" 2>>
+<<UpdateStat "+" "MomLust" 3>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "-" "MomResistance" 1>>
+
+<div class="navigation-link"><<link "Continue" "NPC Interaction">><</link>></div>
+<</linkreplace>>
+<</linkreplace>>

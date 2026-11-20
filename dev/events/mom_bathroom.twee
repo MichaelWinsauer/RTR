@@ -1,0 +1,31 @@
+:: Mom Bathroom [event] {"position":"225,2775","size":"100,100"}
+<<silently>>
+<<set _momActivity to (setup.npcNow("mom").activity == "showering" ? 2 : 3)>>
+<</silently>>
+<<Image "images/misc/closed_door.jpg">>
+As I was about to enter the Bathroom, I noticed that someone is in there. 
+<<if _momActivity == 2>>
+	I can hear $mom.callName taking a shower. Should I enter?
+    
+	<<nobr>>
+    <div class="navigation-link">
+		[[Enter|Mom showering]]
+    </div>
+    <div class="navigation-link">
+		<<ReturnFromEvent "Leave" >>
+    </div>
+    <</nobr>>
+<<else>>
+	I can hear $mom.callName sitting on the toilet. Should I enter?
+
+    <<nobr>>
+    <div class="navigation-link">
+		[[Enter|Mom peeing]]
+    </div>
+    <div class="navigation-link">
+		<<ReturnFromEvent "Leave" >>
+    </div>
+    <</nobr>>
+<</if>>
+
+

@@ -1,0 +1,39 @@
+:: Sister tutor_college [interaction] {"position":"650,2475","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $sister tutoring at college (Tutoring task, the students $prof
+   sends her). She has no time for me there, so these are short and change nothing. */
+<<silently>>
+<<set _pick to setup.pickTalkScene("Sister tutor_college", [1, 2])>>
+<</silently>>
+<<DisplayActivity $sister 500>>
+<<switch _pick>>
+
+/* ——— 1: Through the glass ——— */
+<<case 1>>
+She's in one of the little glass study rooms along the hallway, standing at a whiteboard covered in derivatives, with two freshmen hunched over their notes at the table. She sees me through the glass and points her marker at me like a weapon.
+
+Then she mouths something. It's either 'later' or 'leave', and either way, it's very firm.
+
+A freshman raises his hand to ask a question. She turns back to the board without another look at me, wipes half of it clean with the side of her fist, and starts again from the beginning, slower this time, in big round numbers that you could read from the parking lot.
+
+/* ——— 2: Between sessions ——— */
+<<case 2>>
+I catch her in the hallway between two sessions. She's leaning against a locker, eating a granola bar in big, angry bites, with a folder of worksheets under her arm.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I have exactly two minutes, and I'm spending them on this granola bar, sorry." },
+{ who: $player, text: "Busy day?" },
+{ who: $sister, text: "$prof.callName keeps sending me students. Every student he can't stand. Which is all of them, so I have a lot of students." },
+{ who: $player, text: "He must trust you." },
+{ who: $sister, text: "He trusts me to keep them out of his office hours. It's not the same thing." },
+{ text: "A door opens down the hall, and a nervous-looking guy with a backpack peeks out and waves at her. She sighs, crumples the wrapper and throws it at the trash can. It goes in." },
+{ who: $sister, text: "Did you see that? Nobody ever sees that. Okay. Bye." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's gone before I can say goodbye. Every student he can't stand, and every one of them comes out of that room a little better at calculus and a lot more in love with her.
+
+<</switch>>
+
+<div class="navigation-link"><<link "Leave her to it" $player.location.passage>><</link>></div>

@@ -1,0 +1,62 @@
+:: Meal Mom Has It Tough Again [activity meal] {"position":"1100,2225"}
+/*
+{
+        id: "mom_has_it_tough_again",
+        passage: "Meal Mom Has It Tough Again",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("mom_has_it_tough_again").isActive = false,
+        ]
+}
+   Activated by: "Mom Has It Tough Again" (mom_hasItToughAgain). Last night she cried in her room,
+   and with the prototype's help she agreed to dress the way her boss likes. This is the first morning.
+*/
+$sister.callName sees her first.
+
+I'm pouring orange juice, so I only hear it: a sharp intake of breath, then a cough, then the sound of someone trying very hard not to choke on cereal.
+
+/* IMAGE: images/meals/important/mom_has_it_tough_again.jpg | Mom in the kitchen doorway in a shorter skirt and a lower-cut blouse, purse on her arm, looking self-conscious. Sister mid-cough at the table, spoon frozen. */
+
+$mom.callName is standing in the doorway with her purse already on her arm. The skirt is shorter than anything I've seen her wear to work, and the blouse is the one with the neckline she always pins closed. Today there's no pin. She's holding her coat over one arm like she's thinking about putting it on and leaving it on all day.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Whoa. Okay. Good morning to you too." },
+{ who: $mom, text: "Is it too much? It's too much. I'll change." },
+{ who: $sister, text: "No! No, don't. It's... you look hot, honestly. I'm just confused. Is there a date? Is it a work date? Do we need to have a talk?" },
+{ who: $mom, text: "There's no date. It's a new... approach. At the office." },
+{ who: $sister, text: "A new approach." },
+{ who: $mom, text: "Somebody suggested that if I seem a bit more relaxed, a bit more... agreeable, maybe certain people will leave me alone." },
+{ text: "She doesn't look at me when she says somebody. She doesn't have to." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName looks at me, then back at $mom.callName, and I can see her deciding not to ask the next question. She's not stupid. She just doesn't have any of the pieces.
+
+$mom.callName sits down at the very edge of her chair, keeps tugging at the hem of the skirt and eats her toast standing up halfway through, like she might have to run. When she reaches for the coffee, the blouse shifts and she catches it with her free hand without even noticing she did it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You look great, $mom.callName. Really. He won't know what hit him." },
+{ who: $mom, text: "That's... kind of what I'm afraid of, honey." },
+{ who: $player, text: "It'll work. And if it doesn't, you can go back to the pin tomorrow." },
+{ who: $mom, text: "You're right. One day. I can do one day." },
+{ who: $sister, text: "Text me a picture of his face. For science." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes a deep breath at the front door, the way you do before you jump into cold water, and then she's gone. Through the kitchen window I watch her cross the driveway. She doesn't put the coat on.
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "+" "SisterRelation" 1>>

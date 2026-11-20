@@ -1,0 +1,101 @@
+:: Define Mails [system] {"position":"1000,150","size":"100,100"}
+<<set $company.mails to [
+	{
+     	id: 0,
+        title: "New Office Rent & Arrangement",
+        who: $landlord,
+        mailAddress: $landlord.mailAddress,
+        body: [
+         {who: $landlord, text: "Hey $player.name,\n\nJust confirming everything is official now that the ten thousand cleared and you have the keys to the third floor unit. Nice big space for your little company, right?\n\nAs we agreed, I'm lowering your weekly rent to $3750 starting next week. That's a solid discount, kid, but it only stays that low as long as your $mom.name and $sister.name keep coming by to \"help\" around the building like you promised.\n\nI expect at least one of them here next week, dressed nice, smiling, and ready to do whatever I need. Cleaning, errands, whatever comes up. You know exactly what I mean. Don't make me regret giving you this deal.\n\n$landlord.callName"}
+        ],
+        answerOptions: [
+            {
+                id: 0,
+                short: "Confirm Visits",
+                text: "$landlord.callName,\n\nThank you for confirming the new rent and the third floor office.\n\nI will make sure $mom.name and $sister.name start coming by next week to help out around the building exactly as we agreed.\n\nWe appreciate the arrangement.\n\nBest regards,\n$player.name $player.surname",
+                eval: [
+                	() => State.variables.rent = 3750,
+                	() => setup.getTaskById("task_mom_help_landlord").active = true,
+                    () => setup.getTaskById("task_sister_help_landlord").active = true,
+                ],
+            }
+        ],
+        read: false,
+        flagged: false,
+        answered: false,
+        active: true,
+    },
+    {
+    	id: 1,
+        title: "Prototype Order",
+        who: $boss,
+        mailAddress: $boss.mailAddress,
+        body: [
+        	{who: $boss, text: "Greetings Mr. $player.surname, \nFollowing our recent meeting, I am writing to confirm my interest in acquiring a dedicated version of your $company.prototype.name prototype for my firm. As you mentioned having only one unit currently, please proceed with building a new one. I can allow approximately 2 to 3 weeks for completion and delivery. \n\nGiven my past working relationship with your $mom.relation, I am confident that she'll be working here on-site as a consultant to keep me updated on our progress. The remaining order details are attatched. \n\nRegards, \n $boss.name $boss.surname"}
+        ],
+        answerOptions: [
+        	{
+                id: 0,
+                short: "Confirm Order",
+                text: "Dear $boss.name,\n\nThank you for your order. I confirm that I will build the new $company.prototype.name prototype and deliver it within the 2-3 week timeframe you gave me.\n\nI also appreciate you bringing my $mom.relation on as an on-site consultant to keep things moving smoothly.\n\nBest regards,\n$player.name $player.surname",
+                eval: [
+                	() => setup.unlockProject("project_boss_prototype"),
+				],
+            }
+        ],
+        read: false,
+        flagged: false,
+        answered: false,
+        active: true,
+    },
+    {
+    	id: 2,
+        title: "$diner.name Analysis",
+        who: $manager,
+        mailAddress: $manager.mailAddress,
+        body: [
+        	{who: $manager, text: "Hi $player.name, \nJust following up on our agreement. I expect your $sister.relation $sister.name to begin taking shifts at the diner starting this week. As discussed, she can work pretty much whenever. I'll get her up to speed at her first shift. \nAdditionally, I would like that detailed analysis of potential improvements to the diner using your $company.prototype.name prototype. Please conduct the necessary work on site, gather the data, and send me the full report as soon as it is ready. \nLooking forward to seeing the results. \n\nThanks, \n $manager.name $manager.surname"}
+        ],
+        answerOptions: [
+        	{
+                id: 0,
+                short: "Confirm Tasks",
+                text: "Hi $manager.name,\n\nThanks for the follow-up. I confirm that $sister.name will start her shifts at the diner this week. She'll reach out to you directly for the schedule.\n\nI will also begin the on-site analysis with the $company.prototype.name prototype right away and send you the full report as soon as it's complete.\n\nBest regards,\n$player.name $player.surname",
+                eval: [
+                	() => setup.unlockProject("project_diner_analysis"),
+				],
+            }
+        ],
+        read: false,
+        flagged: false,
+        answered: false,
+        active: true,
+    },
+    {
+    	id: 3,
+        title: "A Proposition",
+        who: $prof,
+        mailAddress: $prof.mailAddress,
+        /* sent by the quest prof_waitFirstProjects (Define Quests). Answering it moves his line on (prof_mail) and
+           fixes the day: he comes on the next Thursday afternoon after answeredDay (prof_researchProject) */
+        body: [
+        	{who: $prof, text: "Mr. $player.surname,\n\nI will be brief. I assume you are busy, and I certainly am.\n\nThere have been developments at the college that concern my department and, I suspect, your particular talents. You will remember our last conversation. I have not forgotten it either, nor what was promised at the end of it.\n\nI would prefer not to put the details in writing. Name a time and a place where we can speak privately. Not my office. The walls are thin, and the department secretaries are not discreet.\n\n$prof.name $prof.surname\nDepartment of Mathematics"}
+        ],
+        answerOptions: [
+        	{
+                id: 0,
+                short: "Agree to a meeting",
+                text: "Mr. $prof.surname,\n\nOf course I remember. Thursday afternoon works for me. Come by my office, the address is below. We'll have a meeting room to ourselves, and the walls there are a lot thicker.\n\nBest regards,\n$player.name $player.surname",
+                eval: [
+                    () => State.variables.company.mails[3].answeredDay = State.variables.date.dayCount,
+				],
+            }
+        ],
+        read: false,
+        flagged: false,
+        answered: false,
+        active: false,
+    },
+]>>
+
+

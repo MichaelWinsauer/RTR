@@ -1,0 +1,24 @@
+:: Calibrate valenxCatalyst [nobr] {"position":"800,750"}
+<div class="cal">
+	<div class="cal-head">
+		<div class="cal-id">
+			<div class="cal-device"><<= _proto.design>></div>
+			<div>
+				<div class="cal-title">$company.prototype.name Catalyst Calibration</div>
+				<div class="cal-sub"><span class="cal-tag"><<print _proto.name>></span><span class="cal-tag"><<print setup.presetLabel(_preset).toUpperCase()>></span></div>
+			</div>
+		</div>
+		<div class="cal-timer">
+			<div id="timer">35s</div>
+			<div class="cal-timer-label">Remaining</div>
+		</div>
+	</div>
+	<div class="cal-bar"><div id="timer-bar"></div></div>
+
+	<div class="cal-body" style="grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); grid-template-areas: 'screen';"></div>
+
+	<div class="cal-foot">
+		<div id="cal-status"></div>
+		<button id="submit-btn" class="submit-btn">Submit calibration</button>
+	</div>
+</div>

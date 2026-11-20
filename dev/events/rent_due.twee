@@ -1,0 +1,229 @@
+:: Rent Due [event nobr] {"position":"100,2775","size":"100,100"}
+/*
+	The landlord comes for the weekly rent ($events[0]): from the evening of rent day on, at home or at the office,
+	if I didn't bring it to his place first (Landlord Apartment). When and how much: "The weekly rent" in Define Misc.
+	  rent owed   = setup.rentOwed(): this week + $player.debt if last week was missed
+	  money used  = setup.rentFunds(): $player.money in stage 0, $company.finances.money from stage 1 on
+	  pay         = <<PayRent>> (Widgets)
+	  first miss  = the unpaid amount becomes $player.debt, $debtMissed = true (warning)
+	  second miss = Game Over
+	Both answers move the rent on to next week (setup.settleRent) and let the mom quest "Waiting..." advance
+	(its follow-up scene reads $debtMissed). The scene has a home and an office version (where he found me),
+	and the office one a Stage 0 and a Stage 1 flavour. It returns to where it found me.
+*/
+<<silently>>
+	<<SetBackground $player.location.img>>
+
+	<<set _rent  to $company.finances.expenses.rent>>
+	<<set _late  to $player.debt>>
+	<<set _due   to setup.rentOwed()>>
+	<<set _funds to setup.rentFunds()>>
+	<<set _short to Math.max(0, _due - _funds)>>
+	<<set _final to $debtMissed>>
+	<<set _home  to $player.location.id <= 6>>
+	/* he didn't catch me on rent day itself and comes back the day after */
+	<<set _dayLate to $date.dayCount > $rentDueDay>>
+	<<set _back  to $player.location.passage>>
+<</silently>>
+<<if _home>>
+	The doorbell goes once, and before it has even finished, a fist hits the front door three times. I know that rhythm. Everybody who rents from him knows that rhythm.
+	<<if $mom.flags.isHome && !setup.sameLocation($mom.location, $player.location)>>
+		<br><br>
+		$mom.callName calls out from somewhere in the house, asking if we're expecting anyone. I tell her I've got it. She doesn't need to meet this one.
+	<</if>>
+<<elseif $company.stage == 0>>
+	I've barely got the laptop open when somebody bangs on the door. Three hard knocks, no pause in between. In a building this sad there's only one person who knocks like he owns the place, and that's because he does.
+<<else>>
+	Three hard knocks rattle the glass of the office door. I know who it is before I look up. He doesn't wait for anyone to let him in, either.
+<</if>>
+<<if _final>>
+	<br><br>
+	Last week I promised him I'd have all of it today.
+<</if>>
+<br><br>
+<<capture _rent, _late, _due, _funds, _short, _final, _home, _dayLate, _back>>
+<<linkreplace `(_home || $company.stage == 0) ? "Open the door" : "Face him"`>>
+<<silently>>
+<<set _amount to "$" + _due + (_late > 0 ? ". This week and the week you skipped." : ". Cash.")>>
+<<if _final>>
+	<<if _home>>
+		<<set _msgs = [
+			{ who: $landlord, text: "Well? Last week you stood right here on this mat and made me a promise, kid." },
+		]>>
+	<<else>>
+		<<set _msgs = [
+			{ who: $landlord, text: "Well? Last week you sat in that chair and made me a promise, kid." },
+		]>>
+	<</if>>
+	<<run _msgs.push(
+		{ who: $player,   text: "I know." },
+		{ who: $landlord, text: "$" + _due + ". Both weeks. Let's see it." }
+	)>>
+<<elseif _home>>
+	<<if _dayLate>>
+		<<set _msgs = [
+			{ who: $landlord, text: "There he is. I stood out here last night, you know. Rang twice. Funny how nobody was home." },
+		]>>
+	<<else>>
+		<<set _msgs = [
+			{ who: $landlord, text: "Evening, kid." },
+		]>>
+	<</if>>
+	<<run _msgs.push(
+		{ text: "He leans to one side to look past me into the hallway, taking in the staircase, the framed photos, the nice rug." },
+		{ who: $landlord, text: "Nice house. Real nice. Funny how there's money for a place like this, and my envelope still hasn't shown up." },
+		{ who: $player,   text: "The house isn't mine." },
+		{ who: $landlord, text: "No kidding. Neither's the office, and that's the one I'm here about. Rent day came around, and I didn't get a cent. So you either have it, or you have a story. I hate stories." }
+	)>>
+	<<if $company.stage > 0>>
+		<<run _msgs.push({ who: $landlord, text: "Your $mom.relation home? Tell her I said hi. Your $sister.relation too. I've been counting the days." })>>
+	<</if>>
+	<<run _msgs.push({ who: $landlord, text: _amount })>>
+<<elseif $company.stage == 0>>
+	<<set _msgs = [
+		{ who: $landlord, text: (_dayLate ? "Rent was yesterday, kid. You know what I got yesterday? Nothing." : "You know what I didn't get today, kid? Rent.") },
+		{ who: $player,   text: "I was going to come by." },
+		{ who: $landlord, text: "Sure you were. Everybody's always about to come by. Funny how I'm the one doing all the walking." },
+		{ text: "He sniffs the air and makes a face." },
+		{ who: $landlord, text: "Smells like a basement in here. Oh, wait. It is one. My basement." },
+		{ who: $landlord, text: _amount },
+	]>>
+<<else>>
+	<<set _msgs = [
+		{ who: $landlord, text: (_dayLate ? "Rent was yesterday, kid. I came by. You weren't here." : "Evening, kid. Working late? Good. Then you can tell me why my desk is empty.") },
+		{ text: "He looks around the office like he's pricing the furniture." },
+		{ who: $landlord, text: "Big windows. Fancy chairs. And not one dollar for the guy who owns the walls." },
+		{ who: $player,   text: "Mr. $landlord.surname, I was going to bring it up to you." },
+		{ who: $landlord, text: "Save it. And don't forget, that discount only lasts as long as your $mom.relation and your $sister.relation keep coming by. It doesn't mean you get to skip the rest." },
+		{ who: $landlord, text: _amount },
+	]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+<br><br>
+<<if _short == 0>>
+I have it. It hurts to hand it over, but I have it.
+<<else>>
+I have $<<= _funds>>. He wants $<<= _due>>.
+<</if>>
+<br><br>
+<span id="rent-choice">
+<<if _short == 0>>
+<<link "Pay him">>
+	<<replace "#rent-choice">>
+<<silently>>
+<<if _home>>
+	<<set _msgs = [
+		{ text: "I get the cash from my room and count it out into his hand right there on the doorstep. He counts it again, licking his thumb every few bills, while the neighbors' sprinkler ticks away behind him." },
+		{ who: $landlord, text: "Look at that. You can count." },
+	]>>
+<<else>>
+	<<set _msgs = [
+		{ text: "I count it out on the desk. He counts it again, licking his thumb every few bills, slow enough that I'm sure he's doing it on purpose." },
+		{ who: $landlord, text: "Look at that. You can count." },
+	]>>
+<</if>>
+<<if _late > 0>>
+	<<run _msgs.push({ who: $landlord, text: "Both weeks. Took you long enough." })>>
+<</if>>
+<<if _home>>
+	<<run _msgs.push(
+		{ who: $landlord, text: "Next time, bring it over before I have to come looking. My knees aren't what they used to be, and your street's got a hill." },
+		{ who: $player,   text: "Noted." }
+	)>>
+<<else>>
+	<<run _msgs.push(
+		{ who: $landlord, text: "Next week you bring it up to me. I shouldn't have to climb around my own building chasing my own money." },
+		{ who: $player,   text: "You'll have it before lunch." },
+		{ who: $landlord, text: "Uh huh. We'll see." }
+	)>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+<br><br>
+<<if _home>>
+He folds the bills into his jacket, takes one last long look past me into the house, and shuffles off down the driveway without saying goodbye.
+<<else>>
+He stuffs the money into his jacket and leaves without saying goodbye. The door stays open behind him. Of course it does.
+<</if>>
+<<if $company.stage == 0>> There goes most of what I made this week.<<else>> There goes another chunk of the company account.<</if>>
+<br><br>
+<<PayRent>>
+<<ReturnFromEvent "Continue" _back>>
+<<UseAction>>
+	<</replace>>
+<</link>>
+<br>
+<</if>>
+<<link "Tell him you're short">>
+	<<if setup.getQuestById("mom_waitRent").active == true>><<NextQuest $mom>><</if>>
+	<<replace "#rent-choice">>
+<<if !_final>>
+<<silently>>
+<<set _msgs = [
+	{ who: $player,   text: "I don't have all of it. I'm short this week." },
+	{ who: $landlord, text: "Short." },
+]>>
+<<if _home>>
+	<<run _msgs.push(
+		{ text: "He leans on the doorframe, and the doorframe creaks like it has an opinion about that too." },
+		{ who: $landlord, text: "You know how many people tell me that? Usually I just change the locks. Then you can run your little company from your $mom.relation's kitchen table." }
+	)>>
+<<else>>
+	<<run _msgs.push(
+		{ text: "He looks at me like I just told him a bad joke." },
+		{ who: $landlord, text: "You know how many people tell me that? Usually I just change the locks. Take a good look around, kid. Next week this could be somebody else's." }
+	)>>
+<</if>>
+<<run _msgs.push(
+	{ who: $player,   text: "One more week. I'll pay both weeks next Monday." },
+	{ who: $landlord, text: "Fine. One week. Next Monday it's $" + (_rent + _due) + ", all of it. If you're short again, you're out." },
+	{ who: $player,   text: "I'll have it." },
+	{ who: $landlord, text: "We'll see." }
+)>>
+<</silently>>
+<<Chat _msgs>>
+<br><br>
+He leaves. $<<= _rent + _due>> by next Monday. I'm going to need more than a few diner shifts.
+<br><br>
+<b class="red">Next week you owe $<<= _rent + _due>>. If you can't pay it in full, it's Game Over.</b>
+<<set $player.debt to _due>>
+<<set $debtMissed to true>>
+<<run setup.settleRent()>>
+<<ReturnFromEvent "Continue" _back>>
+<<UseAction>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+	{ who: $player,   text: "I don't have it." },
+	{ who: $landlord, text: "No. Of course you don't." },
+]>>
+<<if _home>>
+	<<run _msgs.push(
+		{ who: $landlord, text: "I'm changing the locks on that office first thing tomorrow. Drop the keys in my mailbox, or I'm billing you for the locksmith too." },
+		{ who: $player,   text: "Mr. $landlord.surname, please. Just a few more days." },
+		{ who: $landlord, text: "You had your extra week. Don't call me, kid." }
+	)>>
+<<else>>
+	<<run _msgs.push(
+		{ who: $landlord, text: "Keys." },
+		{ who: $player,   text: "Mr. $landlord.surname, please. Just a few more days." },
+		{ who: $landlord, text: "You had your extra week. Keys, kid. Now." }
+	)>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+<br><br>
+<<if _home>>
+He's halfway down the driveway before I think of anything to say, and by then there's nobody left to say it to.
+<<else>>
+There's nothing left to say. I hand him the keys.
+<</if>>
+<br><br>
+<div class="navigation-link"><<link "Continue">><<goto "Game Over">><</link>></div>
+<</if>>
+	<</replace>>
+<</link>>
+</span>
+<</linkreplace>>
+<</capture>>

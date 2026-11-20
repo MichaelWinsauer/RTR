@@ -1,0 +1,67 @@
+:: Activity TV [activity] {"position":"400,1800","size":"100,100"}
+/* Watching TV in the living room. Spends the rest of the time slot, no effects.
+   Stage 0 picks lean on being broke and passed over; Stage 1 picks on running the company. */
+<<silently>>
+<<set _pool = ["cooking", "infomercial", "crime", "octopus"]>>
+<<if $company.stage >= 1>>
+	<<run _pool.push("productivity", "supermarket")>>
+<<else>>
+	<<run _pool.push("wunderkind", "sitcom")>>
+<</if>>
+<<if setup.questDone("sister_conflictingFeelings")>><<run _pool.push("blanket")>><</if>>
+<<set _tvScene = _pool.random()>>
+<</silently>>
+I drop onto the couch and dig the remote out from between two cushions, where it always is, along with a hair tie and sixty cents.
+
+<<switch _tvScene>>
+<<case "cooking">>
+A cooking competition. A woman in a bandana is crying over a soufflé that collapsed, and three judges in very nice jackets take turns telling her exactly why, in detail, while the camera zooms in on her face.
+
+I watch the whole episode. I tell myself it's for the soufflé. It's mostly for the judges, who never raise their voices, never have to, and still get everybody in that kitchen to do whatever they want.
+
+<<case "infomercial">>
+An infomercial for a frying pan that nothing sticks to, not eggs, not cheese, not, according to the man in the apron, "even your regrets." He's a far better salesman than I have ever been. He never asks if you want the pan. He just keeps talking as if you already own it and he's helping you get the most out of it.
+
+I watch it twice when it loops, taking mental notes, mostly about his hands. I don't buy the pan. It's a near thing.
+
+<<case "crime">>
+A crime show. Two detectives in a dim office, a corkboard with red string, a guy who embezzled from his own charity. They catch him in the last ten minutes, and the way they catch him is that he couldn't stop bragging to his girlfriend.
+
+They always brag. Every single one of them, every episode. I'm halfway through the next one before I notice I've started taking it personally.
+
+<<case "octopus">>
+I wake up forty minutes later with a crick in my neck and a nature documentary on. Octopuses. Apparently they can change color to match whatever they're sitting on, and they're smart enough to open jars, and nobody really knows what they're thinking.
+
+I watch the rest of it with a lot more interest than I expected. When it ends I sit there a while with the remote on my stomach, listening to the house.
+
+<<case "wunderkind">>
+A morning show segment about a twenty-two-year-old whose app just sold for forty million. He's wearing a hoodie on purpose. The host asks him what his secret is, and he says "honestly, just grinding," and laughs.
+
+There's a man with his last name on the boards of two banks. They don't mention that. I looked it up during the commercial break, sitting here on my $mom.relation's couch, in my diner shirt.
+
+<<case "sitcom">>
+$sister.callName left it on her show, the sitcom with the family in the big yellow house. Somebody burns the turkey, somebody's boyfriend shows up at the wrong time, the laugh track loses its mind.
+
+The husband in it has a job and comes home for dinner every night. Of everything on the screen that's the part I find hardest to believe. I leave it on for another episode anyway, because the couch is warm and nobody has asked me for anything yet.
+
+<<case "productivity">>
+A business segment on the evening news. A consultant with very white teeth explains that the secret to a productive office is natural light, plants and "an open-door culture." A graphic shows a smiling worker next to a fern.
+
+We have a vent. I don't tell the consultant. I just sit there with my arms crossed and enjoy knowing something he doesn't.
+
+<<case "supermarket">>
+A documentary about how supermarkets get you to spend more. They pipe in the smell of fresh bread from a vent over the entrance. They slow the music down so you walk slower. They put the milk at the very back so you have to pass everything else to get it. A professor in a cardigan calls it "the invisible architecture of choice" and looks very pleased with himself.
+
+Bread smell and slow music. I almost feel sorry for them. I watch it to the end anyway, and I make a note on my phone about the music.
+
+<<case "blanket">>
+$sister.callName's blanket is still on the couch, the fluffy one with the stars, folded in the sloppy way that means she thinks she folded it. It smells like her strawberry shampoo.
+
+I pull it over my legs and flip through the channels without watching any of them. Before I get up I put it back where it was, folded properly this time, which she'll notice, and she'll know exactly who did it.
+<</switch>>
+
+At some point the TV asks me whether I'm still watching. Rude, but fair. I switch it off.
+
+<<link "Finish" "Living Room">>
+    <<AdvanceTime>>
+<</link>>

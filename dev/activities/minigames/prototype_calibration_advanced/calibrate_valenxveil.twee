@@ -1,0 +1,62 @@
+:: Calibrate valenxVeil [nobr] {"position":"700,750"}
+<div class="cal">
+	<div class="cal-head">
+		<div class="cal-id">
+			<div class="cal-device"><<= _proto.design>></div>
+			<div>
+				<div class="cal-title">$company.prototype.name Veil Calibration</div>
+				<div class="cal-sub"><span class="cal-tag"><<print _proto.name>></span><span class="cal-tag"><<print setup.presetLabel(_preset).toUpperCase()>></span></div>
+			</div>
+		</div>
+		<div class="cal-timer">
+			<div id="timer">35s</div>
+			<div class="cal-timer-label">Remaining</div>
+		</div>
+	</div>
+	<div class="cal-bar"><div id="timer-bar"></div></div>
+
+	<div class="cal-body is-wide">
+		<!-- SCREEN -->
+		<div class="cal-panel cal-screen">
+			<div class="cal-label"><span>Waveform match</span><span>Area calibration</span></div>
+			<div class="cal-wave"><canvas id="wave-canvas" width="640" height="240"></canvas></div>
+			<div class="cal-sliders">
+				<label class="cal-slider"><span class="cal-slider-top"><span>Freq</span><output></output></span><input type="range" id="freq" min="0.02" max="0.06" step="0.01" value="0.04"></label>
+				<label class="cal-slider"><span class="cal-slider-top"><span>Amp</span><output></output></span><input type="range" id="amp" min="20" max="80" step="10" value="50"></label>
+				<label class="cal-slider"><span class="cal-slider-top"><span>Phase</span><output></output></span><input type="range" id="phase" min="0" max="6" step="0.5" value="3"></label>
+			</div>
+		</div>
+
+		<!-- CODE: the four bars of the device -->
+		<div class="cal-panel cal-code">
+			<div class="cal-label"><span>Signal decode</span><span>Type to restore</span></div>
+			<div class="cal-signals">
+				<div class="cal-signal">
+					<div class="cal-signal-head"><span>Signal 1</span><span class="glitch-feedback">Corrupted</span></div>
+					<div class="glitch-text"></div>
+					<input type="text" class="glitch-input" placeholder="Type the exact phrase..." autocomplete="off" spellcheck="false">
+				</div>
+				<div class="cal-signal">
+					<div class="cal-signal-head"><span>Signal 2</span><span class="glitch-feedback">Corrupted</span></div>
+					<div class="glitch-text"></div>
+					<input type="text" class="glitch-input" placeholder="Type the exact phrase..." autocomplete="off" spellcheck="false">
+				</div>
+				<div class="cal-signal">
+					<div class="cal-signal-head"><span>Signal 3</span><span class="glitch-feedback">Corrupted</span></div>
+					<div class="glitch-text"></div>
+					<input type="text" class="glitch-input" placeholder="Type the exact phrase..." autocomplete="off" spellcheck="false">
+				</div>
+				<div class="cal-signal">
+					<div class="cal-signal-head"><span>Signal 4</span><span class="glitch-feedback">Corrupted</span></div>
+					<div class="glitch-text"></div>
+					<input type="text" class="glitch-input" placeholder="Type the exact phrase..." autocomplete="off" spellcheck="false">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="cal-foot">
+		<div id="cal-status"></div>
+		<button id="submit-btn" class="submit-btn">Submit calibration</button>
+	</div>
+</div>

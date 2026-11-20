@@ -1,0 +1,34 @@
+:: StoryMenu [system] {"position":"1575,25","size":"100,200"}
+<<silently>>
+<<script>>
+	$('#corruption').css('width', State.variables.player.stats.corruption / State.variables.player.stats.max.corruption * 100 + "%");
+    $('#prototype').css('width', State.variables.company.prototype.progress / State.variables.company.prototype.maxProgress * 100 + "%");
+	$('#reputation').css('width', State.variables.company.stats.reputation / State.variables.company.stats.max.reputation * 100 + "%");
+	$('#efficiency').css('width', State.variables.company.stats.efficiency / State.variables.company.stats.max.efficiency * 100 + "%");
+	$('#morale').css('width', State.variables.company.stats.morale / State.variables.company.stats.max.morale * 100 + "%");
+	$('#suspicion').css('width', State.variables.company.stats.suspicion / State.variables.company.stats.max.suspicion * 100 + "%");
+    
+    $('#mom-corruption').css('height', State.variables.mom.stats.corruption / State.variables.mom.stats.max.corruption * 100 + "%");
+    $('#mom-relation').css('height', State.variables.mom.stats.relation / State.variables.mom.stats.max.relation * 100 + "%");
+    $('#mom-lust').css('height', State.variables.mom.stats.lust / State.variables.mom.stats.max.lust * 100 + "%");
+    $('#mom-resistance').css('height', State.variables.mom.stats.resistance / State.variables.mom.stats.max.resistance * 100 + "%");
+       
+    $('#mom-corruption-profile').css('width', State.variables.mom.stats.corruption / State.variables.mom.stats.max.corruption * 100 + "%");
+    $('#mom-relation-profile').css('width', State.variables.mom.stats.relation / State.variables.mom.stats.max.relation * 100 + "%");
+	$('#mom-lust-profile').css('width', State.variables.mom.stats.lust / State.variables.mom.stats.max.lust * 100 + "%");
+	$('#mom-resistance-profile').css('width', State.variables.mom.stats.resistance / State.variables.mom.stats.max.resistance * 100 + "%");
+    
+    $('#sister-corruption').css('height', State.variables.sister.stats.corruption / State.variables.sister.stats.max.corruption * 100 + "%");
+    $('#sister-relation').css('height', State.variables.sister.stats.relation / State.variables.sister.stats.max.relation * 100 + "%");
+    $('#sister-lust').css('height', State.variables.sister.stats.lust / State.variables.sister.stats.max.lust * 100 + "%");
+    $('#sister-resistance').css('height', State.variables.sister.stats.resistance / State.variables.sister.stats.max.resistance * 100 + "%");
+    
+    $('#sister-corruption-profile').css('width', State.variables.sister.stats.corruption / State.variables.sister.stats.max.corruption * 100 + "%");
+    $('#sister-relation-profile').css('width', State.variables.sister.stats.relation / State.variables.sister.stats.max.relation * 100 + "%");
+	$('#sister-lust-profile').css('width', State.variables.sister.stats.lust / State.variables.sister.stats.max.lust * 100 + "%");
+	$('#sister-resistance-profile').css('width', State.variables.sister.stats.resistance / State.variables.sister.stats.max.resistance * 100 + "%");
+    
+<</script>>
+<</silently>>
+
+

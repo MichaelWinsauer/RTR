@@ -1,0 +1,65 @@
+:: Sister Bed Masturbation [event] {"position":"475,2775","size":"100,100"}
+/* $events[4], switched on by Focus Is Key (sister_focusIsKey), where I talked her into letting the prototype help
+   her "unwind". In the evening, while she is in her room; the chance rises with her lust (PassageReady).
+   It resets her lust, like the bed masturbation of $mom does.
+   First time: the full scene. After that: a short version. A line changes once she has kissed me (Conflicting Feelings).
+   $sister.flags.bedMasturbationSeen (Define NPCs) is set once the first one has been seen. No media yet
+   (images/characters/sister/events/bed masturbation/ would be the place). */
+<<if !$sister.flags.bedMasturbationSeen>>
+Her door isn't closed all the way. There's a strip of lamplight on the hallway carpet, and I'm about to step over it when I hear her breathe in, sharp, the way you do when you stub a toe. Except it isn't that. It comes again, slower, and then a sound that she tries to swallow and doesn't quite manage.
+
+<<linkreplace "Look through the gap">>
+$sister.callName is on her bed with the covers kicked down to her ankles and one arm thrown over her eyes. Her phone is face down on the pillow next to her, still playing something too quiet to make out. Her other hand is under the waistband of her sleep shorts, and she isn't thinking about calculus.
+
+I can't see the prototype from here. I'm not sure it matters anymore.
+
+I should walk on. I stay right where I am, one hand flat against the wall, and watch her chase it, lose it and find it again. Her knee comes up. Her breath catches on something that might be a word. When she finally gets there, she turns her face into the pillow so the sound doesn't carry, and then she just lies there, breathing hard, with her arm still over her eyes.
+
+<<if setup.questDone("sister_conflictingFeelings")>>
+For a while, nothing. Then, so quietly that I almost miss it, she says my name to the ceiling, the way you'd test whether ice is going to hold. She laughs at herself right after, embarrassed, alone in her room. I'm out of the doorway before she can lift her arm.
+<<else>>
+She laughs a little, breathless and embarrassed, alone in her own room. I'm out of the doorway before she can lift her arm.
+<</if>>
+
+Back in the hallway, I let out a breath very slowly. She thinks she did that for her exams. She thinks the stress needed somewhere to go, and her $sister.playerRelation was just being practical.
+
+<<UpdateStat "+" "Corruption" 2>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<if $sister.stats.lust > 0>><<UpdateStat "-" "SisterLust" $sister.stats.lust>><</if>>
+
+<<ReturnFromEvent "Leave before she notices">>
+
+<<silently>>
+	<<set $sister.flags.bedMasturbationSeen to true>>
+	<<UseAction>>
+<</silently>>
+<</linkreplace>>
+
+<<else>>
+<<set _opening to either(
+	"There's that strip of light under her door again, and the sound that goes with it.",
+	"Her music is on, but not loud enough. Not tonight.",
+	"Her lamp is still on at this hour, and her door is open a crack. It usually is, lately."
+)>>
+<<= _opening>>
+
+I know what's going on in there without looking, and I look anyway. Covers kicked down, arm over her eyes, her phone face down on the pillow so its light doesn't give her away.
+
+<<if setup.questDone("sister_conflictingFeelings") && random(0, 1) == 1>>
+She doesn't say my name this time. She bites down on it instead. I can see her do it.
+<<else>>
+It doesn't take her long anymore. She's had practice.
+<</if>>
+
+I'm gone before she comes back down to earth, and her door is exactly as open as I found it.
+
+<<UpdateStat "+" "Corruption" 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<if $sister.stats.lust > 0>><<UpdateStat "-" "SisterLust" $sister.stats.lust>><</if>>
+
+<<ReturnFromEvent "Leave quietly">>
+
+<<silently>>
+	<<UseAction>>
+<</silently>>
+<</if>>

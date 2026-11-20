@@ -1,0 +1,12 @@
+:: Following Caption [system nobr] {"position":"2100,425","size":"100,100"}
+<<if $player.flags.isSomeoneFollowing == false>>
+	Nobody is following you...
+<<else>>
+	<<if $mom.flags.isFollowing>>
+    	$mom.callName is following you.
+    <<else>>
+    	$sister.callName is following you.
+    <</if>>
+<</if>>
+
+

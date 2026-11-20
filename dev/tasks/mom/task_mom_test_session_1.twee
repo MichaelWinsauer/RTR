@@ -1,0 +1,158 @@
+:: Task Mom Test Session 1 [task_scene] {"position":"2025,4050"}
+/* Scene of the task "Test Session", stage 1 (sessions 4 to 6). Played every time the task starts while I'm in the meeting room.
+   Effects are in the task's onComplete, the amounts of this stage in its stage entry (Define Tasks).
+   Stage 1 is the body map: she shades in where she feels the warmth, and she has to say every mark out loud before she
+   makes it. The rules of stage 0 hold (numbers only, hands on the table, buttons only when I allow it) and two new ones
+   come in: the page stays face up, and after the session her blouse stays open until she's out of the office.
+   The marks creep lower. Nothing comes off, and I never touch her. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ts1Task to setup.getTaskById("task_mom_test_session")>>
+	<<set _ts1First to (_ts1Task.count || 0) === (_ts1Task.stageStartCount || 0)>>
+	<<set _ts1 to random(0, 2)>>
+<</silent>>
+<<if _ts1First>>
+I've added a page to the questionnaire. It's an outline of a person, front and back, the kind you see on first aid posters, and I printed it off a website for nursing students at two in the morning. $darius.name found it in the printer tray and asked what it was for. I told him body awareness. He said 'huh' and went back to his desk, and since then, whenever I walk past his desk, his eyes follow me all the way to the meeting room door.
+<<else>>
+I keep a stack of blank body maps in the drawer of the meeting room table. When I come in, $mom.callName has already taken tonight's out herself and written the date in the corner, in the round handwriting she uses for birthday cards.
+<</if>>
+
+<<= either(
+"She's put a soft gray cardigan on over her blouse. She doesn't announce that it's for the heating anymore. She just hangs it on the back of her chair before she sits down, where it'll be out of the way.",
+"The top button of her blouse is already undone when she walks in. She sees me notice it and starts to explain, and then she stops, because explaining is context.",
+"She's brought cookies from the bakery on the corner, two for her and one for me. She eats both of hers standing up, quickly, so her hands will be free when we start."
+)>>
+
+<<if _ts1First>>
+When I slide the new page across the table, she picks it up and turns it over, looking for the catch.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, this is new. Am I supposed to draw on him?" },
+{ who: $player, text: "On you. Wherever you feel something during the session, warmth, tingling, anything at all, you shade it in. And you tell me where, out loud, before you mark it." },
+{ who: $mom, text: "Out loud? Why do you need it out loud if it's right there on the paper?" },
+{ who: $player, text: "Because I asked for it out loud." },
+{ text: "She clicks her pen twice. For a second the pen drifts toward the outline's face, and I can see the smiley she's about to give it, the same one she used to draw at the bottom of my homework. Then she looks up at me and puts the pen down beside the page instead." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Same as last time. Every mark, out loud, before you make it." },
+{ who: $mom, text: either("Out loud. I know.", "I know, sweetie. I do remember.", "You don't have to tell me every time, you know.") },
+{ who: $player, text: either("Good.", "I'll stop telling you when I don't have to.", "I'll decide that.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Switch it on">>
+The blue light starts its slow pulse, and under the table I bring the real one up faster than I did in the first week. <<DevicePulse 3>> I don't have to start from zero anymore. Her body has learned the routine, even if she hasn't noticed that it has.
+
+Calm is an eight before I've touched a single slider. She rates her focus a seven, and then the rest of the sentence just sits there in the air between us, unsaid. Two weeks ago it would have been the woman at the dry cleaner's who called her 'ma'am' in a tone she didn't care for. Tonight it's a seven.
+
+Then we get to the map.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Anything yet?" },
+{ text: "She shades in both palms, very neatly, and puts a little scribble on each cheek." },
+{ who: $mom, text: "Hands. And my face. That's always my face, though." },
+{ who: $player, text: "Before you mark it. Not after." },
+{ who: $mom, text: "I just said it, honey." },
+{ who: $player, text: "You said it after. Again, the right way round." },
+{ text: "She blinks at me. Then she lays the pen down, picks it up again, and starts over in the voice she uses to read out recipes." },
+{ who: $mom, text: "Hands." },
+{ text: "She touches the pen to the palms she's already shaded." },
+{ who: $mom, text: "Face." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let it move">>
+I give the slider that isn't on $darius.name's sheet more than last time. <<DevicePulse "+2">> Then I read her question six, which is about sleep. She gives me a number of hours and nothing about her pillow, and the room goes quiet while it climbs.
+
+It takes about four minutes. Her pen starts moving again, slower now.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Neck." },
+{ text: "She shades it in." },
+{ who: $mom, text: "And here. Under the... the collarbones." },
+{ text: "The pen goes on down to the chest of the outline and stops there, hovering, a quarter inch off the paper." },
+{ who: $player, text: "Say it." },
+{ who: $mom, text: "Sweetie, you can see where it is." },
+{ who: $player, text: "Say it, then mark it." },
+{ who: $mom, text: "...My chest." },
+{ text: "She fills it in with small, careful circles, the way you'd sign something you haven't read." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her free hand has gone to the top of her blouse. It doesn't undo anything. It waits there, holding the button, and she looks at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "As many as you need." },
+{ text: "She needs three. The lace of her bra shows now, and the flush she's been marking on the paper shows too, the real one, going down under the lace." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She sets the tip of the pen on the outline just below the navel, long enough to leave a dot. Then she lifts it off the paper.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Where?" },
+{ who: $mom, text: "Nowhere. It's nothing. It's the chair, these chairs are terrible." },
+{ who: $player, text: "Mark it where it is." },
+{ text: "Her knees are pressed together under the table. One heel taps the chair leg, faster than the light." },
+{ who: $mom, text: "...Lower." },
+{ who: $player, text: "Then draw it lower." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She draws a line down from the dot. Then, quickly, before she can think about it, she turns the page face down and lays her hand flat on top of it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Face up." },
+{ who: $mom, text: "Honey..." },
+{ who: $player, text: "Face up, $mom.callName." },
+{ text: "She turns it back over. She leaves her hand beside it on the table, not on it, and she doesn't look down at it again." },
+{ who: $mom, text: "Is that... normal? For the test? Do other people get that?" },
+{ who: $player, text: "Don't ask me what's normal. Answer the sheet." },
+{ text: "She nods, slowly, like I've told her something reassuring." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wrap it up">>
+I switch off the box and bring the rest down slowly, the way you set down something heavy. <<DevicePulse "off">> It's a good minute before her hand stops pressing against the table.
+
+<<Media "images/characters/mom/tasks/test_session_1.webp" 500>>
+The first thing it does then is go to her blouse.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Leave it." },
+{ who: $mom, text: "Sweetheart, I have to walk out of here." },
+{ who: $player, text: "There's nobody out there. Do them up when you get to the stairs." },
+{ text: "Her fingers stay on the button a moment longer. Then they come down." },
+{ who: $mom, text: ["You're not going to show anybody that page, are you?", "Can I see the other ones sometime? From the other sessions?", "Did I color outside the lines?"][_ts1] },
+{ who: $player, text: ["It goes in my folder. Nobody touches my folder.", "No.", "A little."][_ts1] },
+{ who: $mom, text: ["Good. Good, that's... good.", "Just no? Okay. Okay, that's fair.", "Well. Don't tell my old teachers."][_ts1] },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She packs up her pens with her blouse hanging open and walks the length of the main room like that, past four empty desks and the dark monitors, with her clipboard held against her side. She doesn't hurry, and she doesn't look back at the glass. At the stairwell door she stops, does the three buttons up, and goes.
+
+When she's gone, I put the page in the folder with the others. Every page in there has a little more shading than the one before it, and a little lower down. <<if _ts1First>>On tonight's, that line below the navel is so short you could miss it if you weren't looking for it.<<else>>Tonight's line below the navel is longer than the last one, and she didn't need me to tell her twice where to put it.<</if>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

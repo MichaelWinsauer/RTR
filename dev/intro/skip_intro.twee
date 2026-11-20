@@ -1,0 +1,111 @@
+:: Skip Intro [nobr system] {"position":"275,550"}
+<<link "Accept Default & Skip Intro">>
+	/* trimmed first, so a field with only spaces in it counts as empty too (same as Character Configuration) */
+	<<set _ccOr to (value, fallback) => String(value || "").trim() || fallback>>
+	<<set $player.name = _ccOr($player.name, "Michael")>>
+	<<set $player.surname = _ccOr($player.surname, "Adams")>>
+
+	<<set $mom.name = _ccOr($mom.name, "Anna")>>
+	<<set $mom.surname = _ccOr($mom.surname, $player.surname)>>
+	<<set $mom.callName = _ccOr($mom.callName, "Mom")>>
+	<<set $mom.relation = _ccOr($mom.relation, "mother")>>
+	<<set $mom.playerRelation = _ccOr($mom.playerRelation, "son")>>
+
+	<<set $sister.name = _ccOr($sister.name, "Sophie")>>
+	<<set $sister.surname = _ccOr($sister.surname, $player.surname)>>
+	<<set $sister.callName = _ccOr($sister.callName, "Sister")>>
+	<<set $sister.relation = _ccOr($sister.relation, "sister")>>
+	<<set $sister.playerRelation = _ccOr($sister.playerRelation, "brother")>>
+
+	<<set $player.name = $player.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $player.surname = $player.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $mom.name = $mom.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $mom.surname = $mom.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $sister.name = $sister.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $sister.surname = $sister.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<run setup.syncNameFields()>>
+
+    <<set $locations[7].open to [0, 1, 2, 3, 4, 5, 6]>>
+    <<set $events[3].active to true>>
+    <<set $flags.introDone = true>>
+    <<SkipToQuest $player "main_breakthrough" "false">>
+    <<SkipToQuest $mom "mom_relation25" "false">>
+    <<set $company.prototype.progress to 40>>
+    <<set $mom.stats.relation to 10>>
+    <<for _i = 0; _i < $events.length; _i++>>
+    	<<if $events[_i].passage == "Stage 0 Plan" || $events[_i].passage == "Meet Sister">>
+        	<<set $events[_i].active to false>>
+            <<set $events[_i].finished to true>>
+        <</if>>
+    <</for>>
+    
+    <<goto "Hallway">>
+<</link>>
+<br>
+<<link "Accept Default & Skip to Chaper 1">>
+	<<set _ccOr to (value, fallback) => String(value || "").trim() || fallback>>
+	<<set $player.name = _ccOr($player.name, "Michael")>>
+	<<set $player.surname = _ccOr($player.surname, "Adams")>>
+
+	<<set $mom.name = _ccOr($mom.name, "Anna")>>
+	<<set $mom.surname = _ccOr($mom.surname, $player.surname)>>
+	<<set $mom.callName = _ccOr($mom.callName, "Mom")>>
+	<<set $mom.relation = _ccOr($mom.relation, "mother")>>
+	<<set $mom.playerRelation = _ccOr($mom.playerRelation, "son")>>
+
+	<<set $sister.name = _ccOr($sister.name, "Sophie")>>
+	<<set $sister.surname = _ccOr($sister.surname, $player.surname)>>
+	<<set $sister.callName = _ccOr($sister.callName, "Sister")>>
+	<<set $sister.relation = _ccOr($sister.relation, "sister")>>
+	<<set $sister.playerRelation = _ccOr($sister.playerRelation, "brother")>>
+
+	<<set $player.name = $player.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $player.surname = $player.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $mom.name = $mom.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $mom.surname = $mom.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $sister.name = $sister.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $sister.surname = $sister.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<run setup.syncNameFields()>>
+
+    <<set $locations[7].open to [0, 1, 2, 3, 4, 5, 6]>>
+    <<set $flags.introDone = true>>
+    
+    <<SkipToQuest $player "main_tooMuchWork" "false">>
+    <<SkipToQuest $mom "mom_waitMainStage1" "false">>
+    <<SkipToQuest $sister "sister_waitSupportiveSister" "false">>
+    
+    <<set $time.current to $timeSlots[1]>>
+    <<set $time.current.actionSlot = 3>>
+    
+    <<set $company.prototype.progress to 100>>
+    
+    <<set $mom.stats.relation to 50>>
+    <<set $mom.stats.corruption to 50>>
+    
+    <<set $sister.stats.relation to 50>>
+    <<set $sister.stats.corruption to 50>>
+    <<set $player.stats.corruption to 50>>
+    <<set $player.stats.max.corruption to 100>>
+    
+    <<set $companyLocationIdReference = 13>>
+    
+    <<set $mom.flags.workUnlocked = true>>
+    <<set $sister.flags.collegeUnlocked = true>>
+    <<set $sister.flags.photoTaken = true>>
+    
+    <<run $company.employees.push($mom)>>
+    <<run $company.employees.push($sister)>>
+    
+    <<set $company.stage to 1>>
+    <<set $company.finances.money += $player.money>>
+    <<set $player.money to 0>>
+    <<set $rent to 3750>>
+    <<set $locations[12].name to "$boss.callName's Company">>
+    
+    <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
+    <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
+    
+    <<goto "Hallway">>
+<</link>>
+
+

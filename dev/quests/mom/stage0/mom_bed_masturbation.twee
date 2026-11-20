@@ -1,0 +1,75 @@
+:: Mom Bed Masturbation [event mom_quest scene] {"position":"3025,700","size":"100,100"}
+/* First time: the full scene, behind a click. Every time after that: a short, routine version.
+   $mom.flags.bedMasturbationSeen is set once the scene has been seen (saves from before it existed count as not seen). */
+<<if !$mom.flags.bedMasturbationSeen>>
+I'm about to knock when I hear it through the door, quiet and steady, a sound I recognize right away and still don't quite believe. I turn the handle as slowly as it will go and ease the door open a crack. <<linkreplace "Look through the gap">>
+
+<<RandomVideo "images/characters/mom/events/bed masturbation/" 3 ".webm" 500>>
+
+$mom.callName is lying on her bed with the reading lamp on and her eyes shut, the covers kicked down to her knees and one hand out of sight under the hem of her nightgown. Her book is lying face down on the nightstand. She was probably going to read first. She has no idea I'm here, and I don't look away.
+
+I stay where I am and barely breathe. It doesn't take her long. At the end she turns her face into the pillow to keep quiet, and afterwards she lies there with one arm across her eyes, breathing like she just came up from underwater. There's a small, embarrassed smile under that arm. Whatever I said to her in my room, she's already forgotten it was my idea.
+
+When she starts to move I step back and ease the door shut an inch at a time, until the latch catches without a sound. Back in the dark hallway I notice my hands aren't steady, so I put them in my pockets.
+
+A few words in my room and a couple of turns of a dial, and $mom.callName did something she'd never have done on her own, and enjoyed it. I stay right where I am until the strip of lamplight under her door goes dark.
+
+<<UpdateStat "+" "Corruption" 3>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<if $mom.stats.lust > 0>><<UpdateStat "-" "MomLust" $mom.stats.lust>><</if>>
+
+<<ReturnFromEvent "Leave without getting noticed">>
+
+<<silently>>
+	<<set $mom.flags.bedMasturbationSeen to true>>
+	<<if setup.getQuestById("main_continueMom").active == true>>
+      <<NextQuest $mom>>
+      <<NextQuest $player>>
+    <</if>>
+    <<UseAction>>
+
+    <<if setup.questReached("mom_agreement2")>>
+    	<<set $player.flags.hasMomClip to true>>
+    <</if>>
+<</silently>>
+<</linkreplace>>
+
+<<else>>
+<<set _opening to either(
+	"I'm passing her door when I hear it again, the same quiet sound as last time.",
+	"Soft sounds drift out as I reach her door. She's relieving some stress again, just like I told her to.",
+	"I stop outside her room on my way past. I know that sound."
+)>>
+<<= _opening>>
+
+<<RandomVideo "images/characters/mom/events/bed masturbation/" 3 ".webm" 500>>
+
+I don't need to open the door all the way. I know what's going on in there, and almost to the minute how long it will take. The first time it hit me like a truck. These days it's closer to checking a clock.
+
+<<if random(0, 1) == 1>>
+I used to hold my breath. Now I lean on the frame and wait until she's done, and I honestly couldn't say whether I'm watching $mom.callName or just checking that the prototype is still holding.
+<<else>>
+She doesn't know I'm there. Her book is on the nightstand again, face down, still open at the same chapter it's been at all week.
+<</if>>
+
+When it's over I'm already stepping back. I close the door the way I've learned to, one inch at a time.
+
+<<UpdateStat "+" "Corruption" 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<if $mom.stats.lust > 0>><<UpdateStat "-" "MomLust" $mom.stats.lust>><</if>>
+
+<<ReturnFromEvent "Leave quietly">>
+
+<<silently>>
+	<<set $mom.flags.bedMasturbationSeen to true>>
+	<<if setup.getQuestById("main_continueMom").active == true>>
+      <<NextQuest $mom>>
+      <<NextQuest $player>>
+    <</if>>
+    <<UseAction>>
+
+    <<if setup.questReached("mom_agreement2")>>
+    	<<set $player.flags.hasMomClip to true>>
+    <</if>>
+<</silently>>
+<</if>>

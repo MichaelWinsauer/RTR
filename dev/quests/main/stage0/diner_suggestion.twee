@@ -1,0 +1,73 @@
+:: Diner Suggestion [event main_quest] {"position":"3150,500","size":"100,100"}
+The neon "Open" sign outside $diner.name buzzes like it always does, throwing its sickly yellow light over the cracked sidewalk. I push through the glass door and the smell hits me before the air conditioning does: grease, burnt coffee and fryer oil old enough to vote. It's mid-afternoon, the lunch crowd is gone and the dinner rush hasn't started, so the place is empty except for a couple of regulars nursing bottomless cups at the counter.
+
+I clock in at the back, tie on my apron and wait for a quiet moment. When $manager.callName disappears into his office, I follow him.
+
+<<linkreplace "Approach $manager.callName">>
+The office is barely bigger than a closet. Order pads and old invoices are stacked on every flat surface. $manager.callName sits in the middle of it with his sleeves rolled up, glaring at a pile of receipts like they owe him money.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey, got a minute?" },
+{ who: $manager, text: "If this is about switching shifts again, the answer's no. We're already short." },
+{ who: $player, text: "It's not about shifts. It's about something that could help the diner." },
+{ who: $manager, text: "Huh. That's a new one." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Explain the situation">>
+He leans back in his creaky chair and folds his arms, which is about as much attention as anyone ever gets from him.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You know that startup thing I've been working on? $company.prototype.name. It picks up how customers are feeling and nudges the room toward a better mood, so people stay longer and order more. Problem is, nobody wants to be the first one to test it." },
+{ who: $manager, text: "And you're coming to me because...?" },
+{ who: $player, text: "Because I work here and I know the place. I'd run the test during my own shift, completely free. If it doesn't work, I drop it and you never hear about it again. If it does, people stay longer and spend more, and they won't even notice why." },
+{ who: $manager, text: "Sounds like a fancy way of saying you want to play with a gadget in my diner. What if customers get weirded out?" },
+{ who: $player, text: "They won't. Nobody sees it. It sits behind the menus and hums. You won't have to think about it once." },
+{ who: $manager, text: "Kid, I think about everything that happens in this building. That's the job." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Sweeten the deal">>
+$manager.callName rubs his jaw, still unconvinced. Time for the card I've been holding back.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "There's something else. My $sister.relation is looking for a part-time job. She's reliable, she's great with people, and she already said she'd be happy to wait tables here. You'd get another pair of hands without having to train some stranger from scratch." },
+{ who: $manager, text: "Your $sister.relation? The one who comes in sometimes and steals your fries?" },
+{ who: $player, text: "That's her. She's serious about it, she wants to help out at home. Let me run the test, and she starts whenever you need her." },
+{ who: $manager, text: "Extra staff never hurts. Especially on weekends... You really think this toy of yours brings in money?" },
+{ who: $player, text: "I know it does. I've tested it on a small scale. Give me one shift. If it doesn't help, I drop it, and she still works here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let him think it over">>
+He stares at me for a long moment, tapping a pen against the desk. The kitchen leaks in through the door: plates clattering, the fryer hissing, somebody yelling that table four wants extra pickles. Finally he sighs like I've personally ruined his afternoon.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Alright. One shift. You run your thing during your next morning shift. The second a customer looks confused or complains, it's off. And your $sister.relation starts this weekend. No funny business." },
+{ who: $player, text: "Deal. You won't regret it." },
+{ who: $manager, text: "I regret most things, kid. Now get back out there before the dinner rush hits." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I step out of the office and tie my apron a little tighter. It's one shift in a greasy diner, nothing anyone would ever write an article about, but it's the first yes I've heard all week. And with $sister.callName starting here too, she'll be working three feet from the counter, where I can keep an eye on her.
+
+The grill hisses as the first early dinner orders come in. I grab the coffee pot and get back to work, already picking the spot where the prototype can see every booth.
+
+<<AdvanceTime>>
+<<UpdateStat "+" "Corruption" 3>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

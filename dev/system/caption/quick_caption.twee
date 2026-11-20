@@ -1,0 +1,42 @@
+:: Quick Caption [system nobr] {"position":"1800,625","size":"200,100"}
+/* Quick links: shortcuts that only show up when they save clicks (to work, the next meal, bed, home, wait).
+   What they are and when they show: Define Quick Links. Styles: StoryCaption ("quick links").
+   A click checks the link again (setup.prepareQuickLink), spends its actions one at a time and then goes on. */
+<<set _qlList to setup.getQuickLinks()>>
+<<if _qlList.length > 0>>
+<nav class="sb-quick">
+	<<for _qlI to 0; _qlI lt _qlList.length; _qlI++>>
+		<<set _qlItem to _qlList[_qlI]>>
+		<<capture _qlItem>>
+			<div @class="'sb-ql' + (_qlItem.important ? ' important' : '') + (_qlItem.minor ? ' minor' : '')">
+				<span class="sb-ql-label">
+					<<link _qlItem.label>>
+						<<set _qlRun to setup.prepareQuickLink(_qlItem.id)>>
+						<<if _qlRun>>
+							<<UseAction `_qlRun.cost`>>
+							<<goto `_qlRun.target`>>
+						<</if>>
+					<</link>>
+				</span>
+				<<if _qlItem.costText>><span class="sb-ql-cost"><<= _qlItem.costText>></span><</if>>
+				<<if _qlItem.hint>><span class="sb-ql-hint"><<= _qlItem.hint>></span><</if>>
+			</div>
+		<</capture>>
+	<</for>>
+</nav>
+<</if>>
+
+/* a click anywhere on a quick link clicks its link. Delegated and replaced on every render, so it is bound once */
+<<script>>
+$(document)
+	.off('click.sb-quick')
+	.on('click.sb-quick', '.sb-ql', function (e) {
+		if (!$(e.target).closest('a').length) {
+			const $link = $(this).find('a').first();
+			if ($link.length) {
+				e.preventDefault();
+				$link[0].click();
+			}
+		}
+	});
+<</script>>

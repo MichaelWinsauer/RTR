@@ -1,0 +1,24 @@
+:: Profile Schedule [nobr] {"position":"2650,1050","size":"100,100"}
+/* Today's plan of _npc (Define Schedule): a grid of one row per time slot and one column per action,
+   neighbouring actions that are the same merged into one cell. Tasks from the office schedule are marked,
+   the current action is highlighted and the ones already over are faded.
+   The grid always fills the panel and never scrolls: its rows share the height that is left (Profile Style),
+   and a cell that gets too flat puts place and activity on one line. */
+<<set _psSlots to setup.describePlan(_npc)>>
+<div class="pf-plan-head">
+	<span class="pf-plan-day"><<= $date.today.text>></span>
+	<span class="pf-plan-note">Where <<= _npc.callName>> is today. Tomorrow can look different.</span>
+</div>
+<div class="pf-plan" @style="'grid-template-rows: repeat(' + _psSlots.length + ', minmax(0, 1fr)); grid-template-columns: 6.5rem repeat(' + $time.actions.max + ', minmax(0, 1fr));'">
+	<<for _psSlot range _psSlots>>
+		<div @class="'pf-plan-time' + (_psSlot.now ? ' is-now' : '')"><<= _psSlot.text>></div>
+		<<for _psCell range _psSlot.cells>>
+			<div @style="'grid-column: span ' + _psCell.span" @title="_psCell.title" @class="'pf-plan-cell' + (_psCell.task ? ' is-task' : '') + (_psCell.now ? ' is-now' : '') + (_psCell.past ? ' is-past' : '')">
+				<div class="pf-plan-body">
+					<span class="pf-plan-place"><<= _psCell.place>></span>
+					<span class="pf-plan-doing"><<= _psCell.doing>><<if _psCell.task>><span class="pf-plan-badge">Task</span><</if>></span>
+				</div>
+			</div>
+		<</for>>
+	<</for>>
+</div>

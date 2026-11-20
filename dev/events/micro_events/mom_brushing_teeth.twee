@@ -1,0 +1,65 @@
+:: Mom Brushing Teeth [micro_event event nobr] {"position":"1675,3025","size":"100,100"}
+/* Shared bathroom, short and light: she is in a hurry and the sink is the only one. */
+<<silent>>
+<<set _rnd to either(0, 1, 2, 3, 4)>>
+<<set _vid1 to _rnd + "_1">>
+<</silent>>
+<<Video "images/characters/mom/events/brushing teeth/" _vid1 ".webm">>
+<p>I push the bathroom door open. $mom.callName is at the sink with a toothbrush in her mouth and one eye on the clock.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "Mmf. Hey, sweethar. Mm-mm mm mmnute, I'm running late." },
+	{ who: $player, text: "Sorry?" },
+	{ who: $mom, text: "(spits) I said give me one minute. I'm running late." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Squeeze in next to her and brush too">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I grab my toothbrush and wedge myself in beside her. We bump hips at the sink and both start laughing through the foam." },
+					{ who: $mom, text: "Ow, you're taking up the whole mirror!" },
+					{ who: $player, text: "There's plenty of room." },
+					{ who: $mom, text: "There is not." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<UpdateStat "+" "MomRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Wait in the hallway">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ text: "I step back and pull the door almost closed. She finishes in a rush and comes out with her hair still half done." },
+					{ who: $mom, text: "Thanks for waiting, honey." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Ask if she needs anything from the store">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Do you need anything from the store? I'm heading out later." },
+					{ who: $mom, text: "Coffee. And bread. Coffee costs a fortune now, I don't know how people do it." },
+					{ who: $player, text: "I'll get it." },
+					{ who: $mom, text: "Keep the receipt. Don't spend your money on us." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

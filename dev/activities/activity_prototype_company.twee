@@ -1,0 +1,9 @@
+:: Activity Prototype Company [activity] {"position":"2400,1550","size":"100,100"}
+<<Video "images/characters/player/activities/work/2.mp4" "" "" 700>>
+
+<<UpdateStat "+" "Prototype" 1>>
+
+[[Back|Company]]
+<<UseAction 2>>
+
+

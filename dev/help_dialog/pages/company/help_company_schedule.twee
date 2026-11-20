@@ -1,0 +1,45 @@
+:: Help Company Schedule [nobr] {"position":"575,4250"}
+<p>The tall panel on the left is the <b>weekly schedule</b>. It has two columns: <b>$mom.callName</b> on the left and <b>$sister.callName</b> on the right. Each time slot is split into three cells, one for each action. The names of the slots run down the left edge, and the current one is highlighted. A thin line marks where you are in the day right now.</p>
+
+<h3>Locked and free cells</h3>
+<p><b>Locked cells</b> can't be used. They show where that person is today and what she is doing at that time, for example "Kitchen cooking". Her free time isn't the same every day, so these labels can change from one day to the next. <b>Free cells</b> are empty and clickable.</p>
+<p>Which cells are free depends on her routine, and that changes as the story goes on.<<if $company.stage >= 1>> Right now:<</if>></p>
+<<set _hcsMomRows to ($company.stage >= 1 ? setup.helpFreeRows("mom") : "")>>
+<<set _hcsSisterRows to ($company.stage >= 1 ? setup.helpFreeRows("sister") : "")>>
+<dl class="help-stats">
+	<<if $company.stage >= 1>>
+	<dt>$mom.callName</dt><dd><<if _hcsMomRows != "">>Monday to Friday: <<= _hcsMomRows>>.<<else>>No free cells.<</if>></dd>
+	<dt>$sister.callName</dt><dd><<if _hcsSisterRows != "">>Monday to Friday: <<= _hcsSisterRows>>.<<else>>No free cells.<</if>></dd>
+	<</if>>
+	<dt>Weekend</dt><dd>Nobody works and tasks don't run. On Saturday and Sunday the schedule shows the plan for Monday, with a note above it, so you can still plan the week.</dd>
+</dl>
+
+<h3>Placing a task</h3>
+<ol>
+	<li>Click a free cell. A window opens with the <a href="#" data-help="Help Company Tasks">tasks</a> that person can do. Tasks that aren't unlocked yet are not listed.</li>
+	<li>Each row shows a picture of the place with who she does it with, the title, the place, a short description, and on the right what it pays, how many actions it takes and the energy it costs right now. Badges next to the title mark a task you have to be there for (<b>With me</b>), a task that needs a break between days (<b>Every other day</b>, ...) and <b>Low energy</b>.</li>
+	<li>The tasks that fit come first, sorted by place. The ones that don't are listed below <b>Not possible here</b>, greyed out, with the reason: the wrong time of day, an overlap with another task, a locked cell, or the end of the day.</li>
+	<li>Click a row and the task is placed. It fills as many cells as its duration.</li>
+</ol>
+<p><b>Low energy</b> means she has less energy than the task needs to start. You can still place it; it just won't start when its time comes if she is still too tired.</p>
+
+<h3>The tiles</h3>
+<p>A placed task is a tile with a picture of the place, its title, the place, the energy it costs and what it earns. Tiles of three actions or more also show who she does it with. Short tiles only have room for the title; hover over one to see the rest. The colour of the bar on the left edge and the look of the tile show today's state:</p>
+<ul>
+	<li><b>Cream bar</b>: planned.</li>
+	<li><b>Gold bar</b>: a task with you, where you have to be there when it starts.</li>
+	<li><b>Gold bar and gold frame</b> with a glow: under way right now.</li>
+	<li><b>Red bar</b> and a grey picture: she doesn't have enough energy, so it won't start.</li>
+	<li><b>Red bar</b>, faded and striped: a task with you that you weren't there for.</li>
+	<li><b>Green bar</b>, faded: finished today.</li>
+	<li>Faded and grey: its time has passed today without it finishing.</li>
+	<li>Faded with a dashed border and <b>Rests today</b>: a task that needs a break, and today is its day off.</li>
+</ul>
+<p>To take a task off the schedule, hover over its tile and click the <b>×</b> in the corner. There is no confirmation.</p>
+
+<h3>Good to know</h3>
+<ul>
+	<li>A task <b>repeats every weekday</b> until you remove it. You place it once.</li>
+	<li>If you place a task on a time that has already passed today, it first runs on the next weekday.</li>
+	<li>A task also moves the person: while it runs she is at the task's place instead of where she would otherwise be, and you will find her there. If it doesn't start (too little energy) or you miss a task with you, she goes about her day as usual.</li>
+</ul>

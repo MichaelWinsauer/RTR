@@ -1,0 +1,175 @@
+:: Define Items [system] {"position":"1000,150","size":"100,100"}
+/* Items, the inventory and the shop ===========================================
+   setup.items.<id> = { id, name, price, description [, available] [, max, used] }
+     Constants: everything the Shop sells. The Shop passage lists them in this order.
+     available   optional function: the Shop only lists the item while it returns true
+     max         optional function: the most he can ever need of it, in the inventory and in use together.
+                 Without it there is no limit
+     used        optional function, with max: how many he bought that have left the inventory (hung up, handed
+                 to someone). They still count against max
+     enoughText  optional, what the Shop shows instead of the Buy link at max (default "I have enough")
+   $player.inventory = { <id>: count }   what the player owns (Define Player). A missing key means 0.
+
+   setup.itemAvailable(id)      true when the Shop sells that item right now
+   setup.itemCount(id)          how many of that item the player has
+   setup.itemLeft(id)           how many more he can buy before he hits max (Infinity without one)
+   setup.addItem(id [, n])      gives him n (default 1)
+   setup.removeItem(id [, n])   takes n (default 1) away. false, and nothing changes, when he has fewer
+   setup.funds()                the money he can spend: his wallet in Stage 0, the company account later
+   setup.spend(amount)          takes the money from there
+   setup.buyItem(id)            pays the price and adds one. false when he can not afford it or has enough */
+<<set setup.items to {
+    camera: {
+        id: "camera",
+        name: "Mini camera",
+        price: 250,
+        description: "Tiny wireless cameras I can use for my Dashboard.",
+        /* the feeds only show on the Stage 1 dashboard. Every other camera feature needs one in the inventory */
+        available: () => State.variables.company.stage >= 1,
+        /* one camera per spot, and the ones already hung up or handed to mom or sister count too */
+        max: () => Object.keys(setup.cameraSpots).length,
+        used: () => Object.keys(State.variables.cctv.cameras).length + State.variables.cctv.pending.length,
+    },
+}>>
+
+<<set setup.itemAvailable = (id) => {
+    const item = setup.items[id];
+    return !!item && (!item.available || item.available());
+}>>
+
+<<set setup.itemCount = (id) => {
+    return State.variables.player.inventory[id] || 0;
+}>>
+
+<<set setup.itemLeft = (id) => {
+    const item = setup.items[id];
+    if (!item || typeof item.max !== "function") { return Infinity; }
+    const used = typeof item.used === "function" ? item.used() : 0;
+    return Math.max(0, item.max() - setup.itemCount(id) - used);
+}>>
+
+<<set setup.addItem = (id, n) => {
+    const inv = State.variables.player.inventory;
+    inv[id] = (inv[id] || 0) + (n === undefined ? 1 : n);
+}>>
+
+<<set setup.removeItem = (id, n) => {
+    const amount = (n === undefined ? 1 : n);
+    if (setup.itemCount(id) < amount) { return false; }
+    State.variables.player.inventory[id] -= amount;
+    return true;
+}>>
+
+<<set setup.funds = () => {
+    const v = State.variables;
+    return v.company.stage === 0 ? v.player.money : v.company.finances.money;
+}>>
+
+<<set setup.spend = (amount) => {
+    const v = State.variables;
+    if (v.company.stage === 0) { v.player.money -= amount; } else { v.company.finances.money -= amount; }
+}>>
+
+<<set setup.buyItem = (id) => {
+    const item = setup.items[id];
+    if (!item || setup.funds() < item.price || setup.itemLeft(id) <= 0) { return false; }
+    setup.spend(item.price);
+    setup.addItem(id);
+    return true;
+}>>
+
+/* Cameras =====================================================================
+   A camera bought in the Shop (item "camera") can be hidden at one of the spots below. Only spots with a camera
+   get a button in the CCTV panel of the dashboard (CMD CCTV-Control).
+
+   setup.cameraSpots.<location sysName> = { by [, corruption] }   constants, in the order of the CCTV buttons
+     by          "player": he hides it himself, with the link from <<CameraSpot>> in that location passage.
+                 ["mom", ...]: he has to ask one of them on the NPC Interaction screen (the "camera" actions in
+                 Define Interactions). She takes the camera and hides it the next time she is there.
+     corruption  how corrupted she has to be before she agrees (read by those interaction actions), as a
+                 total over her corruption stages (setup.corruptionTotal, Define NPCs: 140 = stage 1, 40)
+
+   State ($cctv, Define Misc):
+     $cctv.cameras = { <sysName>: dayCount it was placed }
+     $cctv.pending = [ { place: sysName, who: "mom" } ]   she has the camera and hides it once she is there
+
+   setup.cameraPlaceKey(place)     sysName of a place given as sysName, location id or location object
+   setup.hasCamera(place)          true when a camera hangs there
+   setup.cameraPending(place)      the pending entry for that place, or undefined
+   setup.cameraLocationIds()       ids of every location with a camera, in setup.cameraSpots order
+   setup.placeCamera(place)        he hides one himself (takes it from the inventory). false without a camera
+   setup.requestCamera(who, place) she agrees to hide one: takes it from the inventory, adds a pending entry
+   setup.checkPendingCameras()     Action Update: hides each pending camera whose NPC is there now, with a notification
+   setup.cctvCurrentId()           $cctv.currentId, moved to the first camera when that spot has none. null = no cameras */
+<<set setup.cameraSpots to {
+    companystage1:        { by: "player" },
+    companystage1meeting: { by: "player" },
+    hallway:              { by: "player" },
+    livingroom:           { by: "player" },
+    kitchen:              { by: "player" },
+    momroom:              { by: "player" },
+    sisterroom:           { by: "player" },
+    bathroom:             { by: "player" },
+    bedroom:              { by: "player" },
+    momswork:             { by: ["mom"], corruption: 60 },
+    college:              { by: ["sister"], corruption: 60 },
+    diner:                { by: ["sister"], corruption: 60 },
+    landlordapartment:    { by: ["mom", "sister"], corruption: 75 },
+}>>
+
+<<set setup.cameraPlaceKey = (place) => {
+    if (typeof place === "number") {
+        const loc = State.variables.locations[place];
+        return loc ? loc.sysName : undefined;
+    }
+    if (place && typeof place === "object") { return place.sysName; }
+    return place;
+}>>
+
+<<set setup.hasCamera = (place) => {
+    return State.variables.cctv.cameras[setup.cameraPlaceKey(place)] !== undefined;
+}>>
+
+<<set setup.cameraPending = (place) => {
+    const key = setup.cameraPlaceKey(place);
+    return State.variables.cctv.pending.find((p) => p.place === key);
+}>>
+
+<<set setup.cameraLocationIds = () => {
+    return Object.keys(setup.cameraSpots)
+        .filter((key) => setup.hasCamera(key))
+        .map((key) => setup.getLocationBySysName(key).id);
+}>>
+
+<<set setup.placeCamera = (place) => {
+    const key = setup.cameraPlaceKey(place);
+    if (!setup.cameraSpots[key] || setup.hasCamera(key) || !setup.removeItem("camera")) { return false; }
+    State.variables.cctv.cameras[key] = State.variables.date.dayCount;
+    return true;
+}>>
+
+<<set setup.requestCamera = (who, place) => {
+    const key = setup.cameraPlaceKey(place);
+    if (!setup.cameraSpots[key] || setup.hasCamera(key) || setup.cameraPending(key) || !setup.removeItem("camera")) { return false; }
+    State.variables.cctv.pending.push({ place: key, who: who });
+    return true;
+}>>
+
+<<set setup.checkPendingCameras = () => {
+    const v = State.variables;
+    if (!v.cctv.pending.length) { return; }
+    v.cctv.pending = v.cctv.pending.filter((p) => {
+        if (!setup.npcIsAt(p.who, p.place)) { return true; }
+        v.cctv.cameras[p.place] = v.date.dayCount;
+        const where = wikifyText(setup.getLocationBySysName(p.place).name);
+        Notification.show(v[p.who].callName + " hid the camera at " + where + ". The feed is on the dashboard now.", { type: Notification.POSITIVE });
+        return false;
+    });
+}>>
+
+<<set setup.cctvCurrentId = () => {
+    const v = State.variables;
+    const ids = setup.cameraLocationIds();
+    if (!ids.includes(v.cctv.currentId)) { v.cctv.currentId = ids.length ? ids[0] : null; }
+    return v.cctv.currentId;
+}>>

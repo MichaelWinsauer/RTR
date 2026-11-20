@@ -1,0 +1,78 @@
+:: Define Time [system] {"position":"375,150","size":"100,100"}
+<<set $time to {
+
+}>>
+
+<<set $time.actions to {
+	left: 3,
+    max: 3,
+}>>
+
+<<set $time.current to {
+	value: 3,
+    text: "Afternoon",
+    actionSlot: 9,
+}>>
+
+<<set $timeSlots to []>>
+
+<<set $timeSlots[0] to {
+	value: 0,
+    text: "Early Morning",
+}>>
+
+<<set $timeSlots[1] to {
+	value: 1,
+    text: "Morning",
+}>>
+
+<<set $timeSlots[2] to {
+	value: 2,
+    text: "Noon",
+}>>
+
+<<set $timeSlots[3] to {
+	value: 3,
+    text: "Afternoon",
+}>>
+
+<<set $timeSlots[4] to {
+	value: 4,
+    text: "Evening",
+}>>
+
+<<set $timeSlots[5] to {
+	value: 5,
+    text: "Night",
+}>>
+
+<<set $timeSlots[6] to {
+	value: 6,
+    text: "Late Night",
+}>>
+
+/*Date & Days*/
+
+<<set $date = {
+	dayCount: 0,
+	dayString: "Monday",
+	date: 0,
+	dateString: ""
+}>>
+
+<<set $date.today to {
+	value: 0, 
+    text: "Monday",
+}>>
+
+<<set $date.days to [
+	{value: 0, text: "Monday"},
+    {value: 1, text: "Tuesday"},
+    {value: 2, text: "Wednesday"},
+	{value: 3, text: "Thursday"},
+    {value: 4, text: "Friday"},
+    {value: 5, text: "Saturday"},
+    {value: 6, text: "Sunday"},
+]>>
+
+

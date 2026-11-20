@@ -1,0 +1,142 @@
+:: Mom working [interaction] {"position":"600,2100","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $mom at her own desk in the Stage 1 office.
+   Variants 1 and 2 always; 3 needs all three staff in (setup.officeWorkday); 4 needs her first corruption stage (The Briefing)
+   and has a line that changes after A Knock at Night. */
+<<silently>>
+<<set _variants to [1, 2]>>
+<<if ["ethan", "brian", "darius"].every((k) => setup.officeWorkday(k))>><<run _variants.push(3)>><</if>>
+<<if $mom.corruptionStage >= 1>><<run _variants.push(4)>><</if>>
+<<set _pick to setup.pickTalkScene("Mom working", _variants)>>
+<</silently>>
+<<DisplayActivity $mom 500>>
+<<switch _pick>>
+
+/* ——— 1: On hold ——— */
+<<case 1>>
+$mom.callName has the desk phone clamped between her ear and her shoulder and both hands on the keyboard. Tinny hold music leaks out of the receiver, some panpipe version of a song I almost recognize. When she sees me, she rolls her eyes toward the phone and points her pen at the chair next to her desk.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Twenty-two minutes. I've been on hold with their accounting department for twenty-two minutes, sweetie. I think they're hoping I'll die of old age." },
+{ who: $player, text: "Hang up and call back tomorrow." },
+{ who: $mom, text: "And lose my place in line? Absolutely not. I'm fourth. I've been fourth for ten minutes, but I'm fourth." },
+{ text: "She pulls a folder across the desk and flips it open without looking, and the invoice she wants is right there on the first page." },
+{ who: $mom, text: "They paid March twice and April not at all. Which, honestly, I almost respect. It's creative." },
+{ who: $player, text: "So tell them to keep the extra as credit." },
+{ who: $mom, text: "That's exactly what I'm going to do. Nicely, though. They have to think it was their idea." },
+{ text: "The panpipes stop mid-note. She sits up, and her voice changes completely, bright and warm, like somebody opened a window in a stuffy room." },
+{ who: $mom, text: "Hi! Yes, hi, thank you so much for picking up. No, no, please, I know exactly how it is..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I stay and watch her work. Inside a minute she has the woman on the other end laughing, and by the time she hangs up, the client has thanked her for the chance to fix their own mistake. She writes 'credit, May' on a sticky note, slaps it on the folder and turns to me like a kid who just aced a spelling test.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Did you see that? Did you hear her? She said I was a lifesaver." },
+{ who: $player, text: "I heard." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+What I don't say is that I'm already making a list of the people I'd like her to call next, and what I'd like her to say to them.
+
+/* ——— 2: The two screens ——— */
+<<case 2>>
+She has the company bank account open on one monitor and a spreadsheet on the other, and her lips are moving as she adds up a column that the spreadsheet has already added up for her. She jumps when I pull the chair over.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh! Honey. I was just... checking." },
+{ who: $player, text: "Checking what?" },
+{ who: $mom, text: "That the numbers on this screen and the numbers on that screen are still friends." },
+{ text: "They are. She knows they are. She checks anyway, every morning, and apparently every afternoon too." },
+{ who: $mom, text: "It's just a lot of money going out, sweetheart. The rent, the equipment, all of it. When it was only my paycheck, I knew where every single dollar went. Now I look at these and I get a little dizzy." },
+{ who: $player, text: "Because you're staring at the outgoing column. Look at the other one for a change." },
+{ who: $mom, text: "I know there's money coming in. I know. I just..." },
+{ text: "She smooths a sticky note flat against the desk with her thumb, though it was flat already." },
+{ who: $mom, text: "You'd tell me, wouldn't you? If it got bad. Before it got bad." },
+{ who: $player, text: "It won't get bad. And if it ever looks like it might, you'll know first, because you'll be the one who spots it. That's why you're sitting at this desk and nobody else is." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That works better on her than any number on either screen. Her shoulders come down an inch. She closes the bank tab, opens it again right away, and this time she laughs at herself.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "One more look and then I stop. Promise." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She won't stop. But she has stopped looking at me as if I might drive us all off a cliff, and for now, that's the part I need.
+
+/* ——— 3: Team lunch (staff in) ——— */
+<<case 3>>
+$mom.callName is going from desk to desk with a notepad, and it takes me a second to understand that she's taking lunch orders. Nobody asked her to. She gets to me last, as if I'm dessert.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "The Thai place on the corner delivers, sweetie. I'm putting you down for the green curry unless you stop me." },
+{ who: $player, text: "Since when do we do team lunch?" },
+{ who: $mom, text: "Since $brian.name told me he had a granola bar for breakfast and another one for lunch. And I can hear $ethan.name's stomach from my desk." },
+{ who: $ethan, text: "That's slander. That was the printer." },
+{ who: $mom, text: "The printer doesn't growl at eleven-thirty every day, honey." },
+{ text: "She turns the notepad around for me. There's a name next to every order, and some of them have little notes in her neat, slanted handwriting. '$darius.name: no peanuts, don't make a thing of it.' '$brian.name: asked for the default. Gave him pad thai.'" },
+{ who: $brian, text: "Uh. Pad thai is fine. It's a, uh, it's a reasonable default." },
+{ who: $darius, text: "Quick question. Who's paying for this?" },
+{ who: $mom, text: "Well, the company is. Isn't it, honey?" },
+{ text: "Every head in the room turns toward me at once." },
+{ who: $player, text: "The company is." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$ethan.name starts a slow clap in his corner, and $brian.name joins in a little late and stops before anybody else does. $mom.callName beams at me as if I've done something generous, writes 'curry' next to my name and goes off to call it in.
+
+It costs me about a hundred dollars. I watch them all lean back in their chairs, a bit happier and a bit more settled, and with nobody in any hurry to go out for lunch, they'll be sitting right under that vent for the whole of it. Cheap, all things considered.
+
+<<UpdateStat "+" "Morale" 1>>
+
+/* ——— 4: Behind her chair (after The Briefing) ——— */
+<<case 4>>
+I come up behind her chair instead of sitting down. She knows it's me without turning around. Her typing slows, then stops in the middle of a word.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Hi, honey." },
+{ text: "She says it to the screen." },
+{ who: $player, text: "What are you working on?" },
+{ who: $mom, text: "The schedule for $boss.callName's office. Next week. I'm trying to..." },
+{ text: "I've rested one hand on the back of her chair, nowhere near her, and she's sitting up very straight, the way people sit in job interviews." },
+{ who: $mom, text: "I'm trying to put my days over there on Tuesday and Thursday. So they're not back to back. It's easier with a day in between." },
+{ who: $player, text: "Easier how?" },
+{ who: $mom, text: "Just easier, sweetheart. To get back to... normal." },
+{ text: "She reaches for her mug. It's empty. She holds on to it anyway." },
+{ who: $player, text: "Put them wherever you like. You're the one who has to be there." },
+{ who: $mom, text: "Thank you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if setup.questDone("mom_nightVisit")>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Will you be home at a normal time tonight? I was going to make the chicken. The lemon one." },
+{ text: "She asks the spreadsheet, not me, and the tips of her ears have gone pink. I tell her I'll see. She nods as if that were an answer and starts typing again, much faster than before and with a lot more typos." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+When I take my hand off her chair, her shoulders drop so fast that it's almost funny. She starts typing again. Three words in, she has to go back and fix all three of them.
+<</if>>
+
+<<UpdateStat "+" "MomLust" 1>>
+
+<</switch>>
+
+<<UpdateStat "+" "MomRelation" 1>>
+
+<div class="navigation-link"><<link "Let her get back to work" $player.location.passage>><</link>></div>

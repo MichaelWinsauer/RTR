@@ -1,0 +1,59 @@
+:: Darius Desk Numbers [micro_event event nobr] {"position":"1550,3275","size":"100,100"}
+/* Desk visitor (micro event 36, "A normal workday" in Define Events): $darius ran the numbers on our own office,
+   and they are too good. A week after Too Much Work, once ($flags.dariusAskedAboutNumbers). Shown in the CMD drawer,
+   so no action is spent and there is no exit link. */
+<<set $flags.dariusAskedAboutNumbers to true>>
+<p>$darius.name puts the printout down in front of me and turns it so it faces the right way. One chart, two lines. One of them is labeled <i>benchmark</i>. The other one isn't labeled at all, and it sits a long way above the first.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $darius, text: "Do you have five minutes? It's about us, not a client." },
+	{ who: $player, text: "Go ahead." },
+	{ who: $darius, text: "I've been tracking our own output. Closed tickets, finished hardware revisions, report turnaround. Compared to teams of our size and funding, we're thirty-eight percent above where we should be. I checked the benchmark three different ways." },
+	{ who: $player, text: "So we're good." },
+	{ who: $darius, text: "We're anomalous. That's not the same thing. Nobody has called in sick. Nobody is ever late. $ethan.name closed more tickets this month than in his entire last job. He told me that himself, and he seemed slightly alarmed by it." },
+	{ who: $darius, text: "I'd like to run a proper study. Hours, desk positions, light, air quality, who sits near whom. If it's reproducible, it's worth more than anything in our pipeline." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<p>Air quality. He puts it in the middle of the list with no particular weight on it, and I take a second to look at his face and check whether he meant to.</p>
+<br>
+<div id="darius-numbers-choice">
+	<div>
+		<<link "Credit the team">>
+			<<replace "#darius-numbers-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "It's the team. Small company, everybody owns their work, and nobody gets to hide in meetings. Write that down." },
+					{ who: $darius, text: "That's a culture explanation. Culture explanations are what people give when they haven't measured anything." },
+					{ who: $player, text: "Then measure something a client is paying for." },
+					{ text: "He smiles slightly. He knows what a no sounds like, even when it's dressed up." },
+					{ who: $darius, text: "Understood." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>He picks up the printout and goes back to his desk. He doesn't throw it away. I watch him slide it into the leather folder he carries home every evening, between two client reports, very neatly.</p>
+				<<UpdateStat "+" "Efficiency" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Make it a sales slide">>
+			<<replace "#darius-numbers-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Make it a slide. Thirty-eight percent more output. Clients love a number they can repeat at dinner." },
+					{ who: $darius, text: "That's not what the data says, though. The data says our team produces more. We don't use our own product in here." },
+					{ who: $player, text: "We're the pilot site. Have been since we moved in." },
+					{ text: "He goes very still for a moment, the way he does when a column doesn't add up and he's working out which cell lied to him." },
+					{ who: $darius, text: "Then I'd want the logs." },
+					{ who: $player, text: "You'll get a summary." },
+					{ who: $darius, text: "A summary." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>He says it the way other people say 'sure you did'. Two days later the slide shows up in our client deck anyway, clean and convincing, with a footnote in very small type that reads <i>internal pilot, n = 1</i>.</p>
+				<<UpdateStat "+" "Reputation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+:: StoryInit [system] {"position":"0,25","size":"100,200"}
+<<include "Define Player">>
+<<include "Define Locations">>
+<<include "Define NPCs">>
+<<include "Define Profiles">>
+<<include "Define Time">>
+<<include "Define Settings">>
+<<include "Define Misc">>
+<<include "Define Company">>
+<<include "Define Items">>
+<<include "Define Calibration">>
+<<include "Define Mails">>
+<<include "Define Interactions">>
+<<include "Define Flags">>
+<<include "Define Events">>
+<<include "Define Quests">>
+<<include "Define Activities">>
+<<include "Define Schedule">>
+<<include "Define Audio">>
+<<include "Define Tasks">>
+<<include "Define Projects">>
+<<include "Define Meals">>
+<<include "Define Quick Links">>
+
+

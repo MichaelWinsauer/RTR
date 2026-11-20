@@ -1,0 +1,9 @@
+:: College Hallway [location] {"position":"1950,1550","size":"100,100"}
+<<CheckLocation>>
+The hallway smells like floor wax and burnt vending machine coffee. Dented blue lockers line one wall, the floor is red, blue and white tiles in a pattern somebody once thought was fun, and the notice board is three flyers deep, topped by a roommate wanted "for real this time". Further down, outside the faculty offices, there's a wobbly wooden bench that's somehow always free. $prof.callName's name plate is the only polished one, and I'd bet money he does it himself.
+
+<<CheckNPCLocation>>
+
+[[Go back out|College]]
+
+

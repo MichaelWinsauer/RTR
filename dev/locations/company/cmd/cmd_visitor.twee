@@ -1,0 +1,316 @@
+:: CMD Visitor [nobr] {"position":"2475,2900","size":"100,100"}
+/* The desk visitor card in the CMD header, and the drawer its "Talk" button opens.
+   Data and rules: "Desk visitors" in Define Events. The card shows while setup.deskVisitor() has one for this action.
+   "Talk" uses the card up and includes the event passage in a drawer on the right side of the dashboard. The drawer
+   doesn't block the dashboard; closing it ("Back to work", its X or Escape) renders the desk again, so the stats
+   and the header show what the visit changed. "Not now" removes the card with the event's decline notification. */
+<<silent>><<set _cvInfo to setup.deskVisitor()>><</silent>>
+<<if _cvInfo>>
+<div class="cmd-visitor" role="status">
+	<span class="cmd-visitor-avatar" @style="'background-image:url(' + $path + 'images/characters/portraits/' + _cvInfo.event.visitor.who + '.jpg)'"></span>
+	<div class="cmd-visitor-text">
+		<span class="cmd-visitor-name"><<= _cvInfo.name>></span>
+		<span class="cmd-visitor-teaser"><<= _cvInfo.event.visitor.teaser>></span>
+	</div>
+	<div class="cmd-visitor-actions">
+		<button type="button" class="cmd-visitor-talk">Talk</button>
+		<button type="button" class="cmd-visitor-later">Not now</button>
+	</div>
+</div>
+<</if>>
+
+<<script>>
+window.cmdVisitorOpen = function () {
+	var info = setup.takeDeskVisitor();
+	$('.cmd-visitor').remove();
+	if (!info) return;
+
+	var $dash = $('#Company-Management-Dashboard');
+	$dash.children('.cmd-visitor-drawer').remove();
+	var portrait = State.variables.path + 'images/characters/portraits/' + info.event.visitor.who + '.jpg';
+
+	var $drawer = $('<aside class="cmd-visitor-drawer"></aside>').attr('aria-label', info.name);
+	var $head = $('<header class="cmd-visitor-drawer-head"></header>')
+		.append($('<span class="cmd-visitor-avatar"></span>').css('background-image', 'url("' + portrait + '")'))
+		.append($('<div class="cmd-visitor-drawer-title"></div>')
+			.append($('<span class="cmd-visitor-drawer-name"></span>').text(info.name))
+			.append('<span class="cmd-visitor-drawer-sub">At my desk</span>'))
+		.append('<button type="button" class="cmd-visitor-drawer-close" aria-label="Back to work" title="Back to work">' +
+			'<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>');
+	var $body = $('<div class="cmd-visitor-drawer-body"></div>');
+	var $foot = $('<footer class="cmd-visitor-drawer-foot"><button type="button" class="cmd-visitor-done">Back to work</button></footer>');
+
+	$drawer.append($head, $body, $foot).appendTo($dash);
+	$body.wiki('<<include "' + info.event.passage + '">>');
+	requestAnimationFrame(function () { $drawer.addClass('open'); });
+};
+
+window.cmdVisitorClose = function () {
+	var $drawer = $('.cmd-visitor-drawer');
+	if (!$drawer.length || $drawer.hasClass('closing')) return;
+	$drawer.addClass('closing').removeClass('open');
+	setTimeout(function () { Engine.play(State.passage); }, 280);
+};
+
+$(document).off('click.cmd-visitor')
+	.on('click.cmd-visitor', '.cmd-visitor-talk', function () { window.cmdVisitorOpen(); })
+	.on('click.cmd-visitor', '.cmd-visitor-later', function () {
+		setup.dismissDeskVisitor();
+		var $card = $('.cmd-visitor').addClass('leaving');
+		setTimeout(function () { $card.remove(); }, 260);
+	})
+	.on('click.cmd-visitor', '.cmd-visitor-drawer-close, .cmd-visitor-done', function () { window.cmdVisitorClose(); });
+
+/* A choice replaces its container further down the drawer, so scroll to where the new text starts. The container
+   is looked up on mousedown: by the time the click bubbles up, the link is already replaced and detached. */
+$(document).off('mousedown.cmd-visitor-scroll').on('mousedown.cmd-visitor-scroll', '.cmd-visitor-drawer-body a', function () {
+	var body = $(this).closest('.cmd-visitor-drawer-body')[0];
+	var target = $(this).closest('.cmd-visitor-drawer-body [id]')[0];
+	if (!body || !target) return;
+	$(document).off('click.cmd-visitor-scroll').one('click.cmd-visitor-scroll', function () {
+		setTimeout(function () {
+			if (!document.body.contains(target)) return;
+			var offset = target.getBoundingClientRect().top - body.getBoundingClientRect().top - 12;
+			body.scrollTo({ top: body.scrollTop + offset, behavior: 'smooth' });
+		}, 50);
+	});
+});
+
+$(document).off('keydown.cmd-visitor').on('keydown.cmd-visitor', function (ev) {
+	if (ev.key === 'Escape' && $('.cmd-visitor-drawer.open').length && !Dialog.isOpen()) window.cmdVisitorClose();
+});
+<</script>>
+
+<style>
+/* ---- Card in the header ---- */
+.cmd-visitor {
+	display: flex;
+	flex: 0 1 24rem;
+	align-items: center;
+	gap: .8rem;
+	min-width: 0;
+	padding: .55rem .6rem .55rem .55rem;
+	text-align: left;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 1rem;
+	animation: cmd-visitor-in .45s cubic-bezier(.2, .8, .2, 1);
+	transition: opacity .25s ease, transform .25s ease;
+}
+
+.cmd-visitor.leaving {
+	opacity: 0;
+	transform: translateY(-6px);
+}
+
+@keyframes cmd-visitor-in {
+	from { opacity: 0; transform: translateY(-8px) scale(.98); }
+}
+
+.cmd-visitor-avatar {
+	position: relative;
+	flex-shrink: 0;
+	width: 2.8rem;
+	height: 2.8rem;
+	background-position: center top;
+	background-size: cover;
+	border: 1px solid var(--card-border);
+	border-radius: 50%;
+}
+
+/* a soft ring that keeps pulsing while somebody is waiting */
+.cmd-visitor .cmd-visitor-avatar::after {
+	content: "";
+	position: absolute;
+	inset: -3px;
+	border: 2px solid var(--accent);
+	border-radius: 50%;
+	animation: cmd-visitor-pulse 2.4s ease-out infinite;
+	pointer-events: none;
+}
+
+@keyframes cmd-visitor-pulse {
+	0%   { opacity: .8; transform: scale(1); }
+	70%  { opacity: 0;  transform: scale(1.35); }
+	100% { opacity: 0;  transform: scale(1.35); }
+}
+
+.cmd-visitor-text {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-width: 0;
+	gap: .1rem;
+}
+
+.cmd-visitor-name {
+	font-size: .6rem;
+	font-weight: 600;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--accent);
+}
+
+.cmd-visitor-teaser {
+	display: -webkit-box;
+	overflow: hidden;
+	font-size: .78rem;
+	line-height: 1.3;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.cmd-visitor-actions {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	gap: .3rem;
+}
+
+.cmd-visitor-actions button,
+.cmd-visitor-done {
+	appearance: none;
+	margin: 0;
+	padding: .3rem .9rem;
+	font: inherit;
+	font-size: .75rem;
+	font-weight: 600;
+	white-space: nowrap;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.cmd-visitor-talk, .cmd-visitor-done {
+    color: #FFF;
+    background: var(--accent-transparent);
+    border: 1px solid var(--accent-transparent);
+}
+
+.cmd-visitor-talk:hover,
+.cmd-visitor-done:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--main-bg-deep);
+}
+
+.cmd-visitor-later {
+	color: inherit;
+	background: transparent;
+	border: 1px solid var(--card-border);
+	opacity: .75;
+}
+
+.cmd-visitor-later:hover {
+	background: var(--card-bg);
+	border-color: var(--accent-transparent);
+	opacity: 1;
+}
+
+/* ---- Drawer ---- */
+.cmd-visitor-drawer {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	bottom: 1em;
+	z-index: 20;
+	display: flex;
+	flex-direction: column;
+	width: min(36%, 34rem);
+	text-align: left;
+	font-weight: 400;
+	background: var(--main-bg-deep);
+	border: 1px solid var(--card-border);
+	border-radius: .9em;
+	box-shadow: 0 0px 70px var(--main-bg-deep);
+	backdrop-filter: blur(10px);
+	opacity: 0;
+	transform: translateX(calc(100% + 2em));
+	transition: transform .32s cubic-bezier(.2, .8, .2, 1), opacity .25s ease;
+}
+
+.cmd-visitor-drawer.open {
+	opacity: 1;
+	transform: none;
+}
+
+.cmd-visitor-drawer-head {
+	display: flex;
+	align-items: center;
+	gap: .8rem;
+	padding: .9rem 1rem;
+	border-bottom: 1px solid var(--card-border);
+}
+
+.cmd-visitor-drawer-title {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.cmd-visitor-drawer-name {
+	font-size: 1.15rem;
+	font-weight: 600;
+}
+
+.cmd-visitor-drawer-sub {
+	font-size: .6rem;
+	font-weight: 600;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	opacity: .5;
+}
+
+.cmd-visitor-drawer-close {
+	appearance: none;
+	flex-shrink: 0;
+	width: 2.2rem;
+	height: 2.2rem;
+	margin: 0;
+	padding: .6rem;
+	color: #ebddc5;
+	background: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: .6rem;
+	cursor: pointer;
+	transition: background .15s ease, border-color .15s ease;
+}
+
+.cmd-visitor-drawer-close:hover {
+	background: var(--link-bg);
+	border-color: var(--accent-transparent);
+}
+
+.cmd-visitor-drawer-close svg {
+	display: block;
+}
+
+.cmd-visitor-drawer-body {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	padding: 1rem 1.1rem;
+	font-size: .95rem;
+	line-height: 1.5;
+}
+
+
+.cmd-visitor-drawer-body video,
+.cmd-visitor-drawer-body img {
+	max-width: 100%;
+	height: auto;
+}
+
+.cmd-visitor-drawer-body #media-output {
+  height: auto !important;
+  margin-bottom: 1rem;
+}
+
+
+.cmd-visitor-drawer-foot {
+	display: flex;
+	justify-content: flex-end;
+	padding: .75rem 1rem;
+	border-top: 1px solid var(--card-border);
+}
+</style>

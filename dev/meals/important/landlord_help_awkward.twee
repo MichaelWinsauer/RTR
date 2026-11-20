@@ -1,0 +1,76 @@
+:: Meal Landlord Help Awkward [activity meal] {"position":"1850,2100"}
+/*
+{
+        id: "landlord_help_awkward",
+        passage: "Meal Landlord Help Awkward",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("landlord_help_awkward").isActive = false,
+        ]
+}
+   Activated by: "Family Landlord Help 2" (main_familyLandlordHelp). The dinner after we went to
+   $landlord.callName together and promised him their weekly "help" for the third floor office.
+*/
+Nobody has changed.
+
+That's the first thing I notice. $mom.callName is still in the silk blouse, $sister.callName is still in the short skirt, and both of them have kicked their heels off under the table, but neither went upstairs to put on something normal. As if changing would mean admitting why they dressed up in the first place.
+
+/* IMAGE: images/meals/important/landlord_help_awkward.jpg | A quiet dinner table. Mom and Sister still in their dressed-up outfits, heels kicked off underneath. Nobody talking. A pot of soup in the middle, the TV on mute in the background. */
+
+$mom.callName made soup. It's the soup she makes when somebody is sick.
+
+The spoons are loud. The fridge hums. The TV in the living room is on mute, a weatherman pointing at a map with great enthusiasm and no sound. $mom.callName salts her soup, tastes it, and salts it again. Then a third time.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is it too salty?" },
+{ who: $player, text: "It's good." },
+{ who: $sister, text: "It's good." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's very salty.
+
+Nobody says his name. Nobody says anything about the way he looked at them, or about the word friendly, or about next week. $sister.callName tears a piece of bread into smaller and smaller pieces until it's basically crumbs. $mom.callName asks me twice whether I want more soup, and I say no both times, and the second time she ladles some into my bowl anyway.
+
+Then $sister.callName puts her spoon down.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "His office smelled like a cologne factory exploded inside a bigger cologne factory." },
+{ who: $mom, text: "$sister.callName." },
+{ who: $sister, text: "I'm just saying. I can still smell it. It's in my hair, $mom.callName. I'm going to smell like him until Tuesday." },
+{ text: "$mom.callName presses her lips together very hard. Her shoulders start to shake. For one terrible second I think she's about to cry. Then she snorts into her napkin." },
+{ who: $mom, text: "He had a toothpick. Did you see the toothpick? Behind his ear. For later." },
+{ who: $sister, text: "For later!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They laugh until $sister.callName has tears in her eyes and $mom.callName has to put her head down on the table. It's a little too loud, the kind of laughing people do so they don't have to say anything, and when it stops the kitchen is very quiet again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "We're not talking about it at dinner. Agreed?" },
+{ who: $sister, text: "Agreed." },
+{ who: $mom, text: "We did it for the family. That's all there is to it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it to $sister.callName, but she's looking at me. I nod. The office is mine now, and they're both still sitting here in the clothes they wore for him, finishing their soup.
+
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>

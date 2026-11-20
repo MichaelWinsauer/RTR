@@ -1,0 +1,274 @@
+:: Mom relaxing [interaction] {"position":"725,2100","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $mom resting in her bedroom.
+   Variants 1 (crossword), 2 (sheet mask) and 3 (the sock basket, mostly narration) always.
+   4 while she still works for $boss (Stage 0, before False Sympathy). 5 after she lost that job (Stage 0, after
+   False Sympathy: she has said yes to working for me, but there is no office for her yet). 6 from Stage 1 on.
+   7 after No stimulus (mom_controlSession). 8 after her first corruption stage (The Briefing), with an ending that
+   changes after A Knock at Night (mom_nightVisit). 7 and 8 only when $sister is not in the room. 8 gives +1 MomLust. */
+<<silently>>
+<<set _mrSisHere to setup.npcIsAt("sister", $player.location.sysName)>>
+<<set _variants to [1, 2, 3]>>
+<<if $company.stage == 0 && !setup.questDone("mom_falseSympathy")>><<run _variants.push(4)>><</if>>
+<<if $company.stage == 0 && setup.questDone("mom_falseSympathy")>><<run _variants.push(5)>><</if>>
+<<if $company.stage >= 1>><<run _variants.push(6)>><</if>>
+<<if setup.questDone("mom_controlSession") && !_mrSisHere>><<run _variants.push(7)>><</if>>
+<<if $mom.corruptionStage >= 1 && !_mrSisHere>><<run _variants.push(8)>><</if>>
+<<set _pick to setup.pickTalkScene("Mom relaxing", _variants)>>
+<</silently>>
+<<DisplayActivity $mom 500>>
+<<switch _pick>>
+
+/* ——— 1: The crossword ——— */
+<<case 1>>
+$mom.callName is propped up against her headboard with the newspaper folded into a tight square and a pen in her mouth. She does the crossword in pen. She once told me pencil is for people who expect to be wrong, and then she spent twenty minutes trying to scratch out a seven-letter word with the side of a coin.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, good. Sit. Eight letters, 'when connections matter more than effort'." },
+{ who: $player, text: "Nepotism." },
+{ text: "She counts the boxes with the tip of the pen. It fits. She gives me a look over the top of her reading glasses." },
+{ who: $mom, text: "That was very fast, honey." },
+{ who: $player, text: "I've thought about it a lot." },
+{ who: $mom, text: "Well, don't. It's bad for your face. You get a little line, right here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She taps the spot between her own eyebrows and writes NEPOTISM into the boxes in neat capitals. Then she reads me the next clue, and the one after that. I get most of them. She gets the ones about old movie stars and flowers, and she pretends she knew the others all along and was only testing me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Three letters. 'Greek letter'." },
+{ who: $player, text: "Could be a few." },
+{ who: $mom, text: "Then pick one. I'm committing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I say 'rho'. She writes it in. It's wrong, and we find out four clues later, and she looks at the ruined corner of the grid and then at me as if I did it on purpose. I offer her a coin.
+
+/* ——— 2: The sheet mask ——— */
+<<case 2>>
+There's a ghost lying on $mom.callName's bed. It's wearing her pajamas and has a white paper face with holes cut out for the eyes and mouth, and it lifts one hand off the quilt and waves at me without moving anything else.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don' make me laugh. If I laugh, it slides." },
+{ who: $player, text: "What is that?" },
+{ who: $mom, text: "Hyaluronic. Something. I found a whole box in $sister.callName's bathroom drawer. She won' miss one." },
+{ who: $player, text: "She counts them." },
+{ who: $mom, text: "She does not count them." },
+{ text: "A pause. The mask frowns, as much as a mask can." },
+{ who: $mom, text: "Does she count them?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her $sister.callName keeps a list on her phone, which isn't true, and the mask starts shaking. She presses both hands flat over it to keep it in place and laughs through her nose with her whole body, little squeaks coming out of the mouth hole. It slides anyway. One corner peels off her cheek and flops over her ear, and that only makes it worse.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Out. Get out. You're ruining my skin, I paid nothing for this." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On my way out, I hear her peel the rest of it off, and a minute later, very quietly, a drawer opening in the bathroom. She's putting a fresh one back in the box.
+
+/* ——— 3: The sock basket (mostly narration) ——— */
+<<case 3>>
+The laundry basket is on her bed, tipped over, and $mom.callName is sitting cross-legged in front of a pile of socks, pairing them by a system I've never understood. As far as I can tell, it has nothing to do with color or size. She holds each one up to the light for a second, as if it might tell her something.
+
+I sit down on the other side of the pile without being asked. She hands me a sock without looking up, which is how I know I'm allowed to help. I find its partner. She takes them both, says 'no', and pulls them apart again.
+
+We do it like that for a while. She tells me about the woman at the bank who has started calling her by her first name, which she hasn't decided how she feels about, and about a podcast she listened to in the car about a man who walked across the whole country backward. I mostly listen. Every so often I hold up a sock and she nods or doesn't.
+
+When we're done there's a neat row of balled-up pairs along the edge of the quilt and a small pile of orphans. Most of the orphans go in the trash. One doesn't: a gray wool one with a red heel, much bigger than anything she or $sister.callName would wear. It's been in the orphan pile every laundry day since $dad.callName left. She smooths it flat, folds it once and puts it back at the bottom of the empty basket, where it will wait for next week.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't say anything." },
+{ who: $player, text: "I wasn't going to." },
+{ who: $mom, text: "I know, sweetie. That's why I let you help." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* ——— 4: Garamond (Stage 0, she still works for him) ——— */
+<<case 4>>
+She's lying on top of the covers in her work clothes with her shoes kicked off on the rug, a bag of frozen peas balanced on her right wrist. The TV in the corner is on with the sound off. She isn't watching it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Peas?" },
+{ who: $mom, text: "My wrist hurts. I typed all day. I retyped all day, actually, which is worse, because you already know how it ends." },
+{ who: $player, text: "Retyped what?" },
+{ who: $mom, text: "Everything I typed last week. $boss.callName wants all the client letters in the new template. The new template is the old template with his photo at the top." },
+{ text: "She lifts the peas off her wrist, looks at the red mark underneath and puts them back." },
+{ who: $mom, text: "He stood behind my chair the whole afternoon, honey. Just stood there. Every time I made a typo, he breathed." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I sit down on the end of the bed. She moves her feet over to make room, and I ask her about the office. Who sits where. Which door is his. Whether he takes his lunch at his desk or goes out. She answers between little sighs, with her eyes shut, glad that somebody wants to hear about her day, and it doesn't cross her mind to ask why I'm suddenly so interested in the floor plan of her office.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You're sweet to ask. Your $sister.relation just says 'quit' and goes back to her phone." },
+{ who: $player, text: "She's not wrong." },
+{ who: $mom, text: "She's twenty, honey. Twenty-year-olds are never wrong. It's their whole thing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The peas have gone soft. I take them down to the freezer and bring her the other bag, the corn, and she says that's the nicest thing anybody has done for her all week. She's probably right.
+
+/* ——— 5: Homework (Stage 0, after False Sympathy) ——— */
+<<case 5>>
+It's the middle of the day and she's in bed with her laptop on a pillow, a notepad on her knee and a video paused on the screen. A man in a black turtleneck is frozen mid-gesture in front of a whiteboard. The title underneath says SENSORS AND SIGNALS FOR BEGINNERS (PART 3 OF 11).
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't laugh at me." },
+{ who: $player, text: "I'm not laughing. Part three?" },
+{ who: $mom, text: "I'm your first employee, sweetie. I can't be your first employee and not know what you make. What if somebody asks me at a party?" },
+{ who: $player, text: "You don't go to parties." },
+{ who: $mom, text: "What if I start?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns the notepad toward me. She's taken notes the way she takes everything: headings, underlinings, a little box around the word SIGNAL with an arrow pointing at the word NOISE and a question mark next to it.
+
+<<linkreplace "Explain it to her">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So what does it actually do? Your box. In one sentence. Pretend I'm a client." },
+{ who: $player, text: "It reads a room. Light, sound, movement, how many people in it are paying attention." },
+{ who: $mom, text: "Reads a room. Like a good waitress." },
+{ who: $player, text: "Exactly like a good waitress." },
+{ text: "She writes it down word for word, 'reads a room (like a waitress)', and underlines it twice, and looks very pleased with herself." },
+{ who: $mom, text: "That's not so hard. I don't know why the turtleneck man needs eleven parts for that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Every word of it is true. I watch her close the video and drag the other eight parts into the trash, one at a time, and I don't stop her. It'll be easier on both of us if the turtleneck man stays at part three.
+<</linkreplace>>
+
+/* ——— 6: Next week (Stage 1) ——— */
+<<case 6>>
+Her planner is open on the quilt in front of her, and next to it there's a pencil case that I'm fairly sure used to belong to $sister.callName in middle school. It's full of highlighters. $mom.callName is color-coding next week, and from the look of it, she's on her fourth color and starting to run out of meanings.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Green is clients. Yellow is the office. Pink is $boss.callName's building. And orange is..." },
+{ text: "She squints at the orange." },
+{ who: $mom, text: "I don't remember what orange is. I think orange is 'feelings'." },
+{ who: $player, text: "You put feelings in your planner?" },
+{ who: $mom, text: "Birthdays, honey. Orange is birthdays. Everybody at the office has one, and I'm not having anybody find out on the day." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's an orange mark on the twelfth of next month with $ethan.name's name next to it, and a little drawing of a cake. Further down there's an orange mark with a question mark.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "That's $brian.name. I asked him when his birthday is, and he said he doesn't celebrate it. He said it like I'd asked for his blood type." },
+{ who: $player, text: "So leave it." },
+{ who: $mom, text: "I'm going to find out from his file. You won't mind if I look in his file, will you? It's for a cake." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her she can look at any file she likes. She beams and writes FILE in orange next to the question mark. Then she flips back to this week and holds the planner out at arm's length, all four colors, the way she used to look at our report cards on the fridge.
+
+/* ——— 7: Leave the door open (after No stimulus) ——— */
+<<case 7>>
+She's reading on top of the covers with her legs stretched out and a cup of tea going cold on the nightstand. When I sit down on the edge of her bed, the frame creaks under me, a loud, dry creak, and she stops breathing for a second at the sound. Then she pretends she didn't.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Hi, honey." },
+{ text: "She draws her knees up, slowly, and pulls the corner of the quilt over them. Her book stays open in her lap. She hasn't turned a page since I came in." },
+{ who: $mom, text: "Could you leave the door open? It gets stuffy in here." },
+{ who: $player, text: "It's already open." },
+{ who: $mom, text: "Oh. So it is. Good." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+So we talk with the door open. About the gutters, which need doing, and about a show she wants me to watch with her, and about the new neighbors, who have a dog that barks only at the mailman and only on Thursdays. She has a lot to say about the dog. Her voice is perfectly normal. Her hand, the one on the quilt, keeps smoothing the same fold flat over and over, right above her knee.
+
+When I get up, the bed creaks again, and she flinches again, and this time she can't pretend she didn't, so she laughs instead.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "This old bed. I should get that fixed." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's been saying that about the bed for six years. Halfway down the hall, I hear her get up after all and close the door, very quietly, the way you close a door on somebody who's asleep.
+
+/* ——— 8: Red (after The Briefing, ending changes after A Knock at Night) ——— */
+<<case 8>>
+She's sitting on her bed with one foot up on a folded towel, painting her toenails. There are three little bottles lined up on the nightstand: a pale pink, a paler pink and a pink so pale it might just be clear.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Perfect timing. Pick one. I can never decide, I always end up with the middle one." },
+{ who: $player, text: "None of those." },
+{ who: $mom, text: "Well, those are the colors I have, sweetie." },
+{ who: $player, text: "There's a red one in the bathroom. In the cabinet, behind the almond oil." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if setup.questDone("mom_nightVisit")>>Her brush stops halfway to her toe. She knows exactly which bottle I mean. I can see her thinking about that shelf, and about the other bottle on it, and whether I meant anything by naming it.<<else>>Her brush stops halfway to her toe. She knows exactly which bottle I mean. It has been standing in that cabinet for two years, and as far as I know, nobody has ever opened it.<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "That's... that's $sister.callName's. That red isn't really a color for a woman my age, honey." },
+{ who: $player, text: "Get it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She gets it. She caps the pale pink, goes to the bathroom in her bare feet, walking on her heels so the wet toe doesn't touch the floor, and comes back with the red. She sits down again and paints them with great care, one after the other, tongue between her teeth, with me watching from her desk chair. She does a very neat job. She always does.
+
+<<if setup.questDone("mom_nightVisit")>>
+When she's done, she stretches her leg out on the quilt to let them dry and flexes her toes, and then she looks up at me instead of at her feet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well? Is it... do you like them?" },
+{ who: $player, text: "I like them." },
+{ who: $mom, text: "Good. Then I'll keep them like that." },
+{ text: "She says it as if we've agreed on something practical, like a grocery list. She leaves her leg where it is, stretched out toward my chair, until the polish is dry and for a while after." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+When she's done, she looks down at her feet for a while and wiggles her toes once, experimentally, as if she's checking they still work. Then she tucks them under the quilt.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'll take it off tomorrow. Before work. Nobody needs to see that at the office." },
+{ who: $player, text: "Nobody will. You wear closed shoes." },
+{ who: $mom, text: "...That's true. I do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't take it off. I check the next morning, by the front door, before she steps into her shoes.
+<</if>>
+
+<<UpdateStat "+" "MomLust" 1>>
+
+<</switch>>
+
+<<UpdateStat "+" "MomRelation" 1>>
+
+<div class="navigation-link"><<link "Let her rest" $player.location.passage>><</link>></div>

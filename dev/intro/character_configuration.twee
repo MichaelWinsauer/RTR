@@ -1,0 +1,110 @@
+:: Character Configuration [hide_sidebar] {"position":"175,550","size":"100,100"}
+<<nobr>>
+/* A surname that is still the same as mine starts empty, so its field shows "Same as yours" and follows
+   my surname if I change it. (The defaults all start as the same surname, Define NPCs.) */
+<<if $mom.surname == $player.surname>><<set $mom.surname to "">><</if>>
+<<if $sister.surname == $player.surname>><<set $sister.surname to "">><</if>>
+<div class="cc-page">
+
+<div class="cc-header">
+	/* <div class="cc-title">Character Setup</div> */
+	<div class="cc-subtitle">Before we start, set up names and how people refer to each other.</div>
+	<div class="cc-skip"><<include "Skip Intro">></div>
+</div>
+
+<div class="cc-card cc-player">
+	<div class="cc-card-head">
+		<img class="cc-avatar" @src="$path + 'images/characters/portraits/player.jpg'" alt="You">
+		<div>
+			<div class="cc-card-tag">You</div>
+			<div class="cc-card-question">What's your name?</div>
+		</div>
+	</div>
+	<div class="cc-row">
+		<label class="cc-field" data-ph="Michael"><span class="cc-label">First name</span><<textbox "$player.name" $player.name>></label>
+		<label class="cc-field" data-ph="Adams"><span class="cc-label">Surname</span><<textbox "$player.surname" $player.surname>></label>
+	</div>
+</div>
+
+<div class="cc-grid">
+
+	<div class="cc-card">
+		<div class="cc-card-head">
+			<img class="cc-avatar" @src="$path + 'images/characters/portraits/mom.jpg'" alt="Mom">
+			<div>
+				<div class="cc-card-tag">Mom</div>
+				<div class="cc-card-question">Who is she?</div>
+			</div>
+		</div>
+		<div class="cc-row">
+			<label class="cc-field" data-ph="Anna"><span class="cc-label">First name</span><<textbox "$mom.name" $mom.name>></label>
+			<label class="cc-field" data-ph="Same as yours"><span class="cc-label">Surname</span><<textbox "$mom.surname" $mom.surname>></label>
+		</div>
+		<label class="cc-field" data-ph="Mom"><span class="cc-label">What do you call her?</span><<textbox "$mom.callName" $mom.callName>></label>
+		<label class="cc-field" data-ph="mother"><span class="cc-label">What is she to you?</span><<textbox "$mom.relation" $mom.relation>></label>
+		<label class="cc-field" data-ph="son"><span class="cc-label">What are you to her?</span><<textbox "$mom.playerRelation" $mom.playerRelation>></label>
+	</div>
+
+	<div class="cc-card">
+		<div class="cc-card-head">
+			<img class="cc-avatar" @src="$path + 'images/characters/portraits/sister.jpg'" alt="Sister">
+			<div>
+				<div class="cc-card-tag">Sister</div>
+				<div class="cc-card-question">Who is she?</div>
+			</div>
+		</div>
+		<div class="cc-row">
+			<label class="cc-field" data-ph="Sophie"><span class="cc-label">First name</span><<textbox "$sister.name" $sister.name>></label>
+			<label class="cc-field" data-ph="Same as yours"><span class="cc-label">Surname</span><<textbox "$sister.surname" $sister.surname>></label>
+		</div>
+		<label class="cc-field" data-ph="Sister"><span class="cc-label">What do you call her?</span><<textbox "$sister.callName" $sister.callName>></label>
+		<label class="cc-field" data-ph="sister"><span class="cc-label">What is she to you?</span><<textbox "$sister.relation" $sister.relation>></label>
+		<label class="cc-field" data-ph="brother"><span class="cc-label">What are you to her?</span><<textbox "$sister.playerRelation" $sister.playerRelation>></label>
+	</div>
+
+</div>
+
+<div class="cc-hint">Leave a field empty to use the suggested value shown in it.</div>
+
+<div class="navigation-link">
+<<link "Continue">>
+	/* Trim and fallback: trimmed first, so a field with only spaces in it counts as empty too */
+	<<set _ccOr to (value, fallback) => String(value || "").trim() || fallback>>
+	<<set $player.name = _ccOr($player.name, "Michael")>>
+	<<set $player.surname = _ccOr($player.surname, "Adams")>>
+
+	<<set $mom.name = _ccOr($mom.name, "Anna")>>
+	<<set $mom.surname = _ccOr($mom.surname, $player.surname)>>
+	<<set $mom.callName = _ccOr($mom.callName, "Mom")>>
+	<<set $mom.relation = _ccOr($mom.relation, "mother")>>
+	<<set $mom.playerRelation = _ccOr($mom.playerRelation, "son")>>
+
+	<<set $sister.name = _ccOr($sister.name, "Sophie")>>
+	<<set $sister.surname = _ccOr($sister.surname, $player.surname)>>
+	<<set $sister.callName = _ccOr($sister.callName, "Sister")>>
+	<<set $sister.relation = _ccOr($sister.relation, "sister")>>
+	<<set $sister.playerRelation = _ccOr($sister.playerRelation, "brother")>>
+
+	/* Simple capitalization */
+	<<set $player.name = $player.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $player.surname = $player.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $mom.name = $mom.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $mom.surname = $mom.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $sister.name = $sister.name.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<set $sister.surname = $sister.surname.replace(/\b\w/g, function(c){return c.toUpperCase();})>>
+	<<run setup.syncNameFields()>>
+
+	<<goto "Introduction">>
+<</link>>
+[[Back|Disclaimer]]
+</div>
+
+</div>
+<</nobr>>
+<<done>>
+	<<script>>
+		$('.cc-field[data-ph] input').each(function () {
+			$(this).attr('placeholder', $(this).closest('.cc-field').attr('data-ph'));
+		});
+	<</script>>
+<</done>>

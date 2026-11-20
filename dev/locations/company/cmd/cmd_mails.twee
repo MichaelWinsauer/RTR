@@ -1,0 +1,136 @@
+:: CMD Mails [nobr] {"position":"2225,3375","size":"200,100"}
+<div class="cmd-inbox">
+<<set _mails to $company.mails.slice().reverse().filter((mail) => { return mail.active == true })>>
+<<for _i = 0; _i < _mails.length; _i++>>
+    <<set _mail to _mails[_i]>>
+    <div class="cmd-inbox-mail" @data-id="_mail.id">
+        <div class="cmd-inbox-mail-read-icon-wrapper">
+        	<div class="cmd-inbox-mail-read">
+                <<if !_mail.read>>⬤<</if>>
+            </div>
+            <div class="cmd-inbox-mail-icon">
+                <<Image "images/characters/portraits/" _mail.who.sysName ".jpg" "" "" "false">>
+            </div>
+        </div>
+        <div class="cmd-inbox-mail-title-body-wrapper">
+            <div class="cmd-inbox-mail-title">
+                <<=_mail.title>>
+            </div>
+            <div class="cmd-inbox-mail-body">
+                <<=_mail.body[0].text.replace(/[\n\r]+/g, " ").trim()>>
+            </div>
+        </div>
+        <div class="cmd-inbox-mail-flag">
+            <<if _mail.flagged>>✦<<else>>✧<</if>>
+        </div>
+    </div>
+<</for>>
+</div>
+
+<<script>>
+/* === OPEN MAIL + INSTANT READ UPDATE ===
+   Namespaced and switched off first: this script runs on every redraw of the panel, and a plain .on() would add
+   one more handler each time (one click opening the mail several times). */
+$(document).off('click.cmdMail').on('click.cmdMail', '.cmd-inbox-mail', function () {
+    const $row = $(this);
+    const id = parseInt($row.data('id'));
+    const mail = State.variables.company.mails.find(m => m.id === id);
+    
+    if (!mail) return;
+
+    /* Mark as read + remove the dot IMMEDIATELY */
+    if (!mail.read) {
+        mail.read = true;
+        $row.find('.cmd-inbox-mail-read').html('');   /* instant visual update */
+        if (window.cmdRefreshHeader) window.cmdRefreshHeader();   /* "Next up" unread count */
+    }
+
+    State.temporary.selectedMail = mail;
+
+    /* Open the dialog */
+    Dialog.setup("", "mail-dialog");
+    const content = `<<Mail _selectedMail>>`;
+    
+    Dialog.append(function () {
+        $(this).wiki(content);
+    });
+    Dialog.open();
+});
+
+/* === TOGGLE FLAG / STAR === */
+$(document).off('click.cmdMailFlag').on('click.cmdMailFlag', '.cmd-inbox-mail-flag', function (e) {
+    e.stopImmediatePropagation();
+
+    const $row = $(this).closest('.cmd-inbox-mail');
+    const id = parseInt($row.data('id'));
+    const mail = State.variables.company.mails.find(m => m.id === id);
+    
+    if (!mail) return;
+
+    mail.flagged = !mail.flagged;
+    $(this).html(mail.flagged ? '✦' : '✧');
+});
+
+/* === HANDLE MAIL REPLY SELECTION === */
+window.handleMailReply = function(mailId, optionId) {
+    const mail = State.variables.company.mails.find(m => m.id === mailId);
+    if (!mail) return;
+
+    const option = mail.answerOptions.find(opt => opt.id === optionId);
+    if (!option) return;
+
+    /* Add player reply to body */
+    mail.body.push({
+        who: { sysName: "player" },
+        text: option.text
+    });
+
+    mail.answered = true;
+
+    /* Run the eval you added (function or array of functions) */
+    if (option.eval) {
+        try {
+            if (typeof option.eval === "function") {
+                option.eval();
+            } else if (Array.isArray(option.eval)) {
+                option.eval.forEach(fn => {
+                    if (typeof fn === "function") fn();
+                });
+            }
+        } catch (e) {
+            console.error("Error running mail eval:", e);
+        }
+    }
+
+    /* Remove ALL answer options permanently */
+    mail.answerOptions = [];
+
+    /* Refresh the dialog so the reply appears and options disappear */
+    Dialog.close();
+    State.temporary.selectedMail = mail;
+
+    Dialog.setup("", "mail-dialog");
+    const content = `<<Mail _selectedMail>>`;
+    Dialog.append(function () {
+        $(this).wiki(content);
+    });
+    Dialog.open();
+};
+<</script>>
+
+<style>
+#ui-dialog-body.mail-dialog {
+  background-color: transparent;
+  border: none;
+  backdrop-filter: none;
+  width: 135% !important;
+  transform: translateX(-13.5%);
+}
+
+#ui-dialog-body.mail-dialog.ui-close {
+  transform: translateY(3em);
+  z-index: 999;
+}
+</style>
+
+

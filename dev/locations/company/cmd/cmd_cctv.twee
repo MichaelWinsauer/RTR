@@ -1,0 +1,67 @@
+:: CMD CCTV [nobr] {"position":"2475,3025","size":"200,200"}
+/* No camera anywhere yet (Define Items): no feed, just a dead screen */
+<<set _cctvNoCamera to (setup.cctvCurrentId() === null)>>
+<<set _cctvTarget to (_cctvNoCamera ? null : setup.getCCTVSubject())>>
+<span style="display: flex; justify-content: space-between; align-items: center;">
+  <h3>Surveillance Camera</h3>
+  /*Mom and sister in the same room: switch whose clip is shown*/
+  <<if _cctvTarget and _cctvTarget.both>>
+    <span class="cctv-view-toggle">
+      <<for _cctvSys range ["mom", "sister"]>>
+        <<set _cctvName to State.variables[_cctvSys].callName>>
+        <<set _cctvClass to "cctv-view-toggle-button">>
+        <<if _cctvTarget.sysName == _cctvSys>>
+          <<set _cctvClass += " cctv-view-toggle-button-active">>
+        <</if>>
+        <<capture _cctvSys>>
+          <span @class="_cctvClass">
+            <<link _cctvName>>
+              <<set $cctv.view to _cctvSys>>
+              <<replace "#cctv-display">><<include "CMD CCTV">><</replace>>
+            <</link>>
+          </span>
+        <</capture>>
+      <</for>>
+    </span>
+  <</if>>
+  /*Arrow leads to the scene of the clip currently shown*/
+  <<if _cctvTarget and _cctvTarget.passage>>
+    <<set _cctvPassage to _cctvTarget.passage>>
+    <<capture _cctvPassage>>
+      <span class="cctv-arrow-enabled"><<link "->">>
+        <<set $cctv.returnPassage to passage()>>
+        <<goto _cctvPassage>>
+      <</link>></span>
+    <</capture>>
+  <</if>>
+</span>
+<div class="cctv-wrapper" id="cctv-feed">
+  <<if _cctvNoCamera>>
+    <div class="cctv-frame cctv-no-signal" style="background-color: #151515FF;">
+        <span>No signal</span>
+    </div>
+  <<elseif $settings.showCCTVBackground == true>>
+    <div class="cctv-frame" style="background-color: #151515FF;">
+        <<DisplayCurrentCCTV>>
+    </div>
+  <<else>>
+    <div class="cctv-frame">
+        <<DisplayCurrentCCTV>>
+    </div>
+  <</if>>
+</div>
+
+<style>
+.cctv-no-signal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cctv-no-signal span {
+  font-size: .8rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  opacity: .35;
+}
+</style>

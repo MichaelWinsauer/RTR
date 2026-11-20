@@ -1,0 +1,28 @@
+:: Kitchen [location] {"position":"150,1550","size":"100,100"}
+<<CheckLocation>>
+<<silently>>
+<<set _meal = "a weird hour">>
+<<switch $time.current.value>>
+	<<case 0>><<set _meal = "breakfast">>
+	<<case 2>><<set _meal = "lunch">>
+	<<case 4>><<set _meal = "dinner">>
+<</switch>>
+<</silently>>
+
+The kitchen is bright and orderly: white shaker cabinets, glossy subway tile, and dark counters that wrap into a tidy U. The stainless hood hums quietly above the stove; glass-front uppers show off neatly stacked dishes, and the big spring faucet over the sink looks like it means business. A bowl of fruit and a couple of potted herbs sit where the light hits best. It smells like lemon cleaner and coffee that was made not too long ago.
+
+If I'm hungry, I can [[raid the fridge|Activity Fridge]].<<if _meal != "a weird hour" && !$microEventActive>> It's about time for _meal, too, so I could [[throw something together|Activity Cook]].<</if>>
+
+/* breakfast, lunch and dinner (micro events 0-2) show who is at the table themselves */
+<<if !($microEventActive && [0, 1, 2].includes($currentMicroEvent))>>
+	<<CheckNPCLocation>>
+<</if>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Hallway]]
+</div>
+<</nobr>>
+
+

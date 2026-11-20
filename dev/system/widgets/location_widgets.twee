@@ -1,0 +1,212 @@
+:: Location Widgets [nobr system widget] {"position":"2550,0","size":"100,100"}
+/* Usage: =====================================================================
+	<<SetLocation PASSAGE_OR_PLACE>>
+	Moves the player when the argument names a location: its passage ("College Hallway"), its sysName
+	("sisterroom") or its plain name ("My Desk"). PassageReady calls it with passage() on every passage.
+	Moving is decided by id, not by name: names differ from the passage ("College's Hallway", "$mom.callName's
+	Room"), and comparing those made every visit count as a move from that place to itself, so
+	$player.previousLocation pointed at the same place and the closed-location bounce reloaded it forever.
+*/
+<<widget "SetLocation">>
+	<<set _slArg to String(_args[0])>>
+	<<set _slLoc to $locations.find((l) => l.passage == _slArg)
+		|| $locations.find((l) => l.sysName == _slArg.toLowerCase().replaceAll(" ", ""))
+		|| $locations.find((l) => l.name == _slArg)>>
+	<<if _slLoc && _slLoc.id != $player.location.id>>
+		<<set $player.previousLocation to $player.location>>
+		<<set $player.location to _slLoc>>
+		<<set $player.flags.isHome to ($player.location.id <= 6)>>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CheckLocation ["Blackscreen" | "NoMicroEvents"]>>
+	Background, micro events and the location/activity image. Both arguments skip the micro events: My Desk
+	passes "NoMicroEvents" because it has desk visitors instead (Define Events).
+*/
+<<widget "CheckLocation">>
+		/*SET BACKGROUND IMAGE*/
+        <<SetBackground $player.location.img>>
+		<<set _overlay to "">>
+		<<if $time.current.value == 5 || $time.current.value == 6>>
+          <<set _overlay to "night">>
+        <</if>>
+        
+		/*Prevent Microevents when Blackscreen is displayed.*/
+		<<if $args[0] != "Blackscreen" && $args[0] != "NoMicroEvents">>
+	        <<CheckMicroEvent>>
+        <</if>>
+        
+        <<if $microEventActive == false>>
+        
+          /*SET LOCATION IMAGE*/
+          <<if setup.sameLocation($player.location, $mom.location)>>
+              <div class="activity-image-wrapper" style="max-height: 400px">
+                  <<DisplayActivity $mom>>
+              </div>
+          <<elseif setup.sameLocation($player.location, $sister.location)>>
+              <div class="activity-image-wrapper" style="max-height: 400px">
+                  <<DisplayActivity $sister>>
+              </div>
+          <<else>>
+              <div style="display: flex; justify-content: center">
+                  <<Image $player.location.img "" "" 700 "" "" _overlay>>
+              </div>
+          <</if>>
+          
+          
+        <</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CheckNPCLocation>>
+*/
+<<widget "CheckNPCLocation">>
+	<<if setup.sameLocation($player.location, $mom.location)>>
+        <<if !$mom.flags.isFollowing>>
+         	$mom.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> <<= setup.activityText("mom", $mom.activity)>>.
+    	<<else>>
+         	$mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
+        <</if>>
+         
+    <<elseif $mom.flags.isFollowing>>
+    	$mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
+    <</if>>
+    
+    <<if setup.sameLocation($player.location, $sister.location)>>
+        <<if !$sister.flags.isFollowing>>
+        	$sister.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> <<= setup.activityText("sister", $sister.activity)>>.
+    	<<else>>
+         	$sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
+        <</if>>
+         
+    <<elseif $sister.flags.isFollowing>>
+    	$sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
+    <</if>>
+    
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CheckLocationLink NAME/ID [TEXT] [CLOSEDTEXT]>>
+*/
+<<widget "CheckLocationLink">>
+	<<set _loc = null>>
+	<<for _i = 0; _i < $locations.length; _i++>>
+		<<if $locations[_i].name == $args[0] || $locations[_i].id == $args[0]>>
+			<<set _loc = $locations[_i]>>
+			<<set _text = ($args[1] !== undefined ? $args[1] : _loc.name)>>
+
+			/* Capture the values actually used in the link body */
+			<<capture _loc _text>>
+				<<if _loc.open.includes($time.current.value)>>
+					<div class="navigation-link">
+                    	<<link _text>>
+                        	<<goto _loc.passage>>
+                            <<UseAction>>
+                        <</link>>
+                    </div>
+				<<else>>
+                    <div class="navigation-link">
+                        <<linkreplace _text>>
+                            <<if $args[2] != undefined>>
+                               <div><<= $args[2]>></div>
+                            <<else>>
+                                <div><<= _loc.name>> is closed</div>
+                            <</if>>
+                        <</linkreplace>>
+                    </div>
+				<</if>>
+			<</capture>>
+			<<break>>
+		<</if>>
+	<</for>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<CameraSpot>>
+	For the location passages of setup.cameraSpots that the player covers himself (by: "player", Define Items):
+	offers to hide one of his cameras here, for one action. Shows nothing when a camera hangs here already or he
+	has none. Nobody may see him do it, so it is locked while $mom or $sister is in the room or following him.
+*/
+<<widget "CameraSpot">>
+	<<set _csSpot to setup.cameraSpots[$player.location.sysName]>>
+	<<if _csSpot and _csSpot.by == "player" and !setup.hasCamera($player.location.sysName) and setup.itemCount("camera") > 0>>
+		<<set _csWatcher to [$mom, $sister].find(function (npc) { return npc.flags.isFollowing || setup.sameLocation(npc.location, State.variables.player.location); })>>
+		<div class="navigation-link">
+			<<if _csWatcher>>
+				<span class="camera-spot-locked">I can't hide a camera here while _csWatcher.callName is watching me.</span>
+			<<else>>
+				<<link "Hide a camera here">>
+					<<run setup.placeCamera($player.location.sysName)>>
+					<<run Notification.show("Camera hidden in " + wikifyText($player.location.name) + ". The feed is on the dashboard now.", { type: Notification.POSITIVE })>>
+					<<UseAction>>
+					<<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<LocationLinks _locations>>
+	One image tile per location. A location that is closed right now (its "open" time slots don't include the
+	current one) is greyed out, can't be clicked and says when it opens again.
+*/
+<<widget "LocationLinks">>
+
+    <<set _night to "">>
+    <<if $time.current.value == 5 || $time.current.value == 6>>
+        <<set _night to "night">>
+    <</if>>
+    <<set _llNow to $time.current.value>>
+    <div class="locations-wrapper">
+
+        <<for _j = 0; _j < $args[0].length; _j++>>
+            <<set _loc = $args[0][_j]>>
+            <<set _quests to setup.getEligibleQuests()>>
+            <<set _hintClass to "location-image">>
+
+            /* closed: the next slot it opens (later today, or the first one tomorrow) */
+            <<set _llOpen to _loc.open.includes(_llNow)>>
+            <<set _llOpensText to "">>
+            <<if !_llOpen and _loc.open.length > 0>>
+                <<set _llNext to _loc.open.find(function (t) { return t > _llNow; })>>
+                <<if _llNext === undefined>><<set _llNext to Math.min.apply(null, _loc.open)>><</if>>
+                <<set _llOpensText to "until " + $timeSlots[_llNext].text>>
+            <</if>>
+
+            <<capture _loc _llOpen _llOpensText>>
+                <<for _q = 0; _q < _quests.length; _q++>>
+                    <<if _quests[_q].where.some(function (place) { return ((typeof place === "object") ? place.passage : place) == _loc.passage; })>>
+                        <<set _hintClass to "location-image quest-hint">>
+                    <</if>>
+                <</for>>
+                <<set _output to '<img src="' + $path + _loc.img + '">'>>
+
+                <<capture _output _hintClass>>
+                    <a @class="'location-link' + (_llOpen ? '' : ' closed')" data-passage="_loc.passage" @tabindex="_llOpen ? 0 : -1" @aria-disabled="_llOpen ? 'false' : 'true'">
+                        <<if !_llOpen>>
+                            <div class="location-closed">Closed<<if _llOpensText>> <span><<= _llOpensText>></span><</if>></div>
+                        <</if>>
+                        <div @class="_hintClass">
+                            <<Media _loc.img "" "" "false" _night>>
+                        </div>
+                        <div class="location-name accent"><<print _loc.name>></div>
+                        <<if $mom.location.name == _loc.name>>
+                            <div class="location-avatar" style="position: absolute; right: 1.5em; top: .5em;">
+                                <<Image "images/characters/portraits/mom.jpg" "" "" "" "" "false">>
+                            </div>
+                        <</if>>
+                        <<if $sister.location.name == _loc.name>>
+                            <div class="location-avatar" style="position: absolute; right: .5em; top: .5em;">
+                                <<Image "images/characters/portraits/sister.jpg" "" "" "" "" "false">>
+                            </div>
+                        <</if>>
+                    </a>
+                <</capture>>
+            <</capture>>
+        <</for>>
+    </div>
+<</widget>>
+
+

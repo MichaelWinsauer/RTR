@@ -1,0 +1,165 @@
+:: Mom getting_dressed [interaction] {"position":"850,2475","size":"100,100"}
+/* Talk scene ("Chat with her", Define Interactions): $mom in her room in the morning, getting dressed.
+   Variants 1 (zip me up) and 2 (which blouse) always; both change once she has undressed for me in No stimulus
+   (mom_controlSession), 2 again after The Briefing (her first corruption stage).
+   3 only while she still works for $boss (Stage 0, before False Sympathy), 4 after she lost that job (Stage 0). */
+<<silently>>
+<<set _mgdFired to setup.questDone("mom_falseSympathy")>>
+<<set _mgdBared to setup.questDone("mom_controlSession")>>
+<<set _variants to [1, 2]>>
+<<if $company.stage == 0 && !_mgdFired>><<run _variants.push(3)>><</if>>
+<<if $company.stage == 0 && _mgdFired>><<run _variants.push(4)>><</if>>
+<<set _pick to setup.pickTalkScene("Mom getting_dressed", _variants)>>
+<</silently>>
+<<DisplayActivity $mom 500>>
+<<switch _pick>>
+
+/* ——— 1: Zip me up ——— */
+<<case 1>>
+Her door is half open. I knock on the frame and step in at the same time, which, as she has told me roughly a thousand times, is not how knocking works.
+
+<<if !_mgdBared>>
+She's standing in front of the mirror in a navy dress that's only half on. The zipper at the back is open all the way down, and when she sees me in the mirror, she claps a hand to her chest to hold the front in place.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey! Knocking means you wait for an answer." },
+{ who: $player, text: "I'll remember that next time." },
+{ who: $mom, text: "You've been saying that since you were six." },
+{ text: "She sighs at me in the mirror. Then she turns around and shows me her back, the open zipper, a strip of skin and the band of a beige bra." },
+{ who: $mom, text: "Well, since you're here. Make yourself useful. My arms don't bend that way anymore." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pull the zipper up slowly, because it catches on the fabric halfway if you don't. Her skin is warm under my knuckles. She holds her hair out of the way with one hand and talks the whole time, about the weather, about the dentist appointment she keeps moving, about how I should wear a jacket, and she doesn't stop until the hook at the top is closed.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Thank you, sweetie. What would I do without you?" },
+{ who: $player, text: "Wear a lot of cardigans, probably." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+She's standing in front of the mirror in her bra and a slip, holding a navy dress up against herself. When she sees me in the mirror, her hand moves toward the robe on the bed, out of habit, and stops halfway there.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh. Morning, honey." },
+{ text: "She leaves the robe where it is. She steps into the dress instead, pulls it up over her hips and turns her back to me, all without looking at me once." },
+{ who: $mom, text: "Can you get the zipper? It's silly to be shy about it now. After... well. It's just silly." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it like she's been practicing the sentence in her head, and maybe she has. I take my time with the zipper. She holds her hair up with one hand and doesn't say anything about the dentist or the weather or jackets. She doesn't say anything at all, until the hook at the top clicks shut and she lets her hair fall.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There. Thank you." },
+{ text: "In the mirror, her cheeks are pink. She smooths the front of the dress with both hands, then smooths it again, before she turns around." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+/* ——— 2: Which blouse ——— */
+<<case 2>>
+She has two blouses laid out on the bed side by side, a white one with a high collar and a blue one with a softer neckline, and she's frowning at them with her hands on her hips, as if one of them owes her money.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Perfect timing. Which one?" },
+{ who: $player, text: "For what?" },
+{ who: $mom, text: "For looking like a grown woman who has her life together, sweetie. Which one?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $mom.corruptionStage >= 1>>
+I point at the blue one. She looks at it, and then at me, and I can see her draft the sentence about it being 'a bit much for the office' and delete it again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "The blue one. Okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't ask me to leave. She turns her back to me, unbuttons the shirt she slept in and drops it on the bed, and puts the blue one on right there. When she turns around, she does up the buttons from the bottom, and she stops one button lower than she would have a month ago. Then she looks at me in the mirror, to see if that's right.
+
+I nod. She smooths it flat with both hands and picks up her bag.
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The blue one." },
+{ who: $mom, text: "Really? I always think it makes me look like I'm trying too hard." },
+{ who: $player, text: "It makes you look like you're not hiding." },
+{ who: $mom, text: "I'm not hiding! I'm wearing a cardigan over it, that's completely different." },
+{ text: "She holds the blue one up against herself in the mirror and turns a little to the left and a little to the right. Then she puts it on the bed again and picks up the white one." },
+{ who: $mom, text: "Tomorrow. I'll wear the blue one tomorrow." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She won't. But she hangs the blue one on the outside of the closet door instead of putting it away, and I count that as progress.
+<</if>>
+
+/* ——— 3: Before work (Stage 0, she still works for him) ——— */
+<<case 3>>
+She's sitting on the edge of the bed with one stocking on and the other bunched up in her hands, and she isn't putting it on. She's just looking at it. Her work blouse is buttoned all the way to the top. On the nightstand, her phone lights up with a mail, and she turns it face down without reading it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You okay?" },
+{ who: $mom, text: "Hm? Oh! Yes, honey, I'm fine. Just slow this morning." },
+{ text: "She pulls the stocking on, very carefully, as if it might tear." },
+{ who: $mom, text: "He wants the quarterly numbers by noon. He told me yesterday at six. At six, sweetie, when everyone else was already in the parking lot." },
+{ who: $player, text: "So tell him it can't be done by noon." },
+{ who: $mom, text: "It can be done by noon. That's the problem. If I tell him it can't, I'm lazy, and if I do it, he'll want the next thing by ten." },
+{ text: "She laughs, and it doesn't sound like her laugh at all." },
+{ who: $mom, text: "Don't look at me like that. It's a job. Everybody's boss is a little..." },
+{ who: $player, text: "A little what?" },
+{ who: $mom, text: "A little bit of a boss. Hand me my shoes, please?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I hand her the shoes. She puts them on and stands up and looks in the mirror, and I watch her face put itself back together, one piece at a time, until it's the face she wears at the office. It takes about four seconds. She's had a lot of practice.
+
+/* ——— 4: Dressed for the kitchen table (Stage 0, after she lost her job and started working for me) ——— */
+<<case 4>>
+She's fully dressed: blouse, skirt, the earrings, a little makeup. She's even put her work shoes on. For a moment I think she has somewhere to be, until I remember that her new office is our kitchen table, and her boss is standing in her doorway in sweatpants.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't laugh." },
+{ who: $player, text: "I'm not laughing." },
+{ who: $mom, text: "For years I got up at six and put on a skirt. I woke up this morning and just... did it. My body hasn't heard the news." },
+{ text: "She picks up a lipstick, looks at it and puts it back down." },
+{ who: $mom, text: "And it's a job, isn't it? A real one. You said so. I'm not going to answer your mails in my bathrobe like some... retiree." },
+{ who: $player, text: "Nobody can see you through the mails." },
+{ who: $mom, text: "I can see me. Besides, you're paying me. Sort of. When there's money." },
+{ who: $player, text: "There'll be money. Let me worry about that part." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at me in the mirror for a while, like she's trying to work out when I got old enough to say that. Then she reaches back and squeezes my hand where it's resting on her shoulder.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You're a good $mom.playerRelation. I don't say it enough." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's nice, being thanked for it. I squeeze her hand back and tell her the job sites can wait until after breakfast.
+
+<</switch>>
+
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _pick == 1 && _mgdBared>><<UpdateStat "+" "MomLust" 1>><</if>>
+
+<div class="navigation-link"><<link "Let her finish getting ready" $player.location.passage>><</link>></div>

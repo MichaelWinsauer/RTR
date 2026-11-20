@@ -1,0 +1,17 @@
+:: Activity Charge Prototype [activity nobr] {"position":"2525,1800","size":"100,100"}
+/* Spend an action to charge the Stage 0 prototype faster than its slow nightly recharge.
+   Started from the prototype card in the sidebar (only in the bedroom and the office); $chargeReturn is where to go back to. */
+<<set _gain to ($company.prototype.chargePerAction || 20)>>
+<<set $company.prototype.charge to Math.min($company.prototype.maxCharge, $company.prototype.charge + _gain)>>
+
+<<if $player.location.passage == "Company">>
+	<p>I clear a corner of the desk and plug the prototype into the wall next to the laptop. A cable, a power strip and some patience. The little status light goes from red to amber.</p>
+<<else>>
+	<p>I dig the charger out of the nightstand drawer and plug the prototype in beside the bed. It hums, ticks a few times and settles down while it drinks power.</p>
+<</if>>
+
+<div class="navigation-link">
+	<<set _back to $player.location.passage>>
+	<<link "Unplug it" _back>><</link>>
+</div>
+<<AdvanceTime>>

@@ -1,0 +1,76 @@
+:: Mom Desk Lunch [micro_event event nobr] {"position":"1050,3275","size":"100,100"}
+/* Desk visitor (micro event 32, "A normal workday" in Define Events): she brings me lunch from home, because she
+   knows I skipped breakfast. Shown in the CMD drawer, so no action is spent and there is no exit link.
+   The third choice waits for A Knock at Night: she feeds me at my desk, with the staff a few feet away. */
+<p>$mom.callName sets the lunch bag down next to my keyboard and unzips it as far as the broken zipper will go, which is about halfway. The blue container comes out first. Then a fork wrapped in a paper napkin, then a second napkin, because in her opinion one has never been enough for me.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "You didn't have breakfast. And don't tell me you did, honey, I counted the eggs." },
+	{ who: $player, text: "You counted the eggs." },
+	{ who: $mom, text: "There were six this morning and there are still six. That's not snooping, sweetie, it's math." },
+	{ text: "She peels the lid off. It's the lasagna again, and she's given me the corner piece, the crispy one she used to save for me when I was little, swearing nobody else had asked for it." },
+	{ who: $player, text: "I've got a call in twenty minutes." },
+	{ who: $mom, text: "Then you've got nineteen minutes to eat. That's plenty. I've watched you finish a whole pizza between our driveway and the first stop sign." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="mom-lunch-choice">
+	<div>
+		<<link "Eat with her">>
+			<<replace "#mom-lunch-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Pull up a chair, then." },
+					{ text: "There's a second container in the bag, a smaller one, and she has a chair pulled around to my side of the desk before I've finished the sentence. She had obviously planned on that part too." },
+					{ who: $mom, text: "Did you know $brian.name eats the same granola bar every day? The same flavor. I offered him some soup once and he looked at me like I'd offered him a kidney." },
+					{ who: $player, text: "He's shy." },
+					{ who: $mom, text: "He's hungry, is what he is. I'm working on him." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>For twenty minutes she talks about nothing in particular: the cleaning crew, the neighbor's new fence, a recipe she saw that uses a whole head of garlic, which she says like it's a dare. She doesn't check her phone once. When my call comes in, she gathers up both containers, brushes a crumb off my desk into her palm and squeezes my shoulder on her way back to her own.</p>
+				<<UpdateStat "+" "MomRelation" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Eat while you work">>
+			<<replace "#mom-lunch-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Leave it here. I'll eat while I go through these." },
+					{ who: $mom, text: "You'll let it go cold and then you'll eat half of it and throw the rest away." },
+					{ who: $player, text: "I'll eat all of it." },
+					{ who: $mom, text: "Mm-hm." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She doesn't leave. She stands there with her hands folded in front of her until I've actually put a forkful in my mouth, then nods once, like a nurse ticking something off a chart, and goes back to her desk. When I glance over a while later, she's eating her own lunch at her keyboard, one-handed, exactly the way I'm eating mine.</p>
+				<<UpdateStat "+" "Efficiency" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<if setup.questDone("mom_nightVisit")>>
+		<div>
+			<<link "Tell her your hands are busy">>
+				<<replace "#mom-lunch-choice">>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "My hands are busy." },
+						{ text: "I keep typing. She looks at my hands, then at the fork, then over her shoulder at the office. $ethan.name has his headphones on. $darius.name has his back to us." },
+						{ who: $mom, text: "Honey, I'm not going to... you're a grown man. Here, in front of..." },
+						{ text: "She doesn't finish, because she's already cutting off a corner with the side of the fork. She cups her free hand under it to catch the sauce and holds it up to my mouth." },
+						{ who: $mom, text: "There. You're impossible, you know that?" },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<p>Her cheeks are pink by the second bite. By the fourth she has stopped checking over her shoulder. I chew slowly and keep working, and she keeps holding out the fork, bite after bite, without being asked, until the container is empty and she's scraping the last of the sauce together for me.</p>
+					<p>A few weeks ago she'd have laughed at me and put the fork in my hand.</p>
+					<<UpdateStat "+" "MomCorruption" 1>>
+					<<UpdateStat "+" "MomLust" 1>>
+				<</replace>>
+			<</link>>
+		</div>
+	<</if>>
+</div>

@@ -1,0 +1,276 @@
+:: Define Locations [system] {"position":"375,0","size":"100,100"}
+/* Optional field "area": the id of the location this one counts as when people meet. My Desk (14) is part
+   of the Stage 1 office (13): someone in the office is also "here" at my desk and the other way round.
+   Compare two locations with setup.sameLocation(a, b), never with location.id == location.id. */
+<<set $locations to [
+	{
+        id: 0,
+        name: "Hallway",
+        sysName: "hallway",
+        passage: "Hallway",
+        img: "images/locations/hallway.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+	}, {
+        id: 1,
+        name: "Bedroom",
+        sysName: "bedroom",
+        passage: "Bedroom",
+        img: "images/locations/bedroom.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+    }, {
+        id: 2,
+        name: "Living Room",
+        sysName: "livingroom",
+        passage: "Living Room",
+        img: "images/locations/livingroom.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+    }, {
+        id: 3,
+        name: "Kitchen",
+        sysName: "kitchen",
+        passage: "Kitchen",
+        img: "images/locations/kitchen.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+	}, {
+        id: 4,
+        name: "Bathroom",
+        sysName: "bathroom",
+        passage: "Bathroom",
+        img: "images/locations/bathroom.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+    }, {
+        id: 5,
+        name: "$mom.callName's Room",
+        sysName: "momroom",
+        passage: "Mom Room",
+        img: "images/locations/momroom.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+    }, {
+        id: 6,
+        name: "$sister.callName's Room",
+        sysName: "sisterroom",
+        passage: "Sister Room",
+        img: "images/locations/sisterroom.jpg",
+        open: [0, 1, 2, 3, 4, 5, 6],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+    }, {
+        id: 7,
+        name: "Residential Area",
+        sysName: "residentialarea",
+        passage: "Residential Area",
+        img: "images/locations/residentialarea.jpg",
+        open: [],
+        audio: {
+          music: "music-residential-area",
+          ambience: { day: "ambience-residential-area", night: "ambience-residential-area-night" }
+        }
+    }, {
+        id: 8,
+        name: "Diner",
+        sysName: "diner",
+        passage: "Diner",
+        img: "images/locations/diner.jpg",
+        open: [1, 2, 3, 4],
+        audio: {
+          music: "music-diner",
+          ambience: { day: "ambience-diner", night: "ambience-diner-night" }
+        }
+    }, {
+        id: 9,
+        name: "Shop",
+        sysName: "shop",
+        passage: "Shop",
+        img: "images/locations/shop.jpg",
+        open: [1, 2, 3, 4],
+        audio: {
+          music: "music-shop",
+          ambience: { day: "ambience-shop", night: "ambience-shop-night" }
+        }
+    }, {
+        id: 10,
+        name: "Company",
+        sysName: "company",
+        passage: "Company",
+        img: "images/locations/companystage0.jpg",
+        open: [0, 1, 2, 3, 4, 5],
+        audio: {
+          music: "music-company",
+          ambience: { day: "ambience-company", night: "ambience-company-night" }
+        }
+    },
+    {
+        id: 11,
+        name: "College",
+        sysName: "college",
+        passage: "College",
+        img: "images/locations/college.jpg",
+        open: [1, 2, 3, 4, 5],
+        audio: {
+          music: "music-college",
+          ambience: { day: "ambience-college", night: "ambience-college-night" }
+        }
+    },
+    {
+        id: 12,
+        name: "$boss.callName's Office",
+        sysName: "momswork",
+        passage: "Moms Work",
+        img: "images/locations/momwork.jpg",
+        open: [1, 2, 3],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },
+    {
+        id: 13,
+        name: "$company.name Office",
+        sysName: "companystage1",
+        passage: "Company Stage 1",
+        img: "images/locations/companystage1.jpg",
+        open: [0, 1, 2, 3, 4, 5],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },
+    {
+        id: 14,
+        name: "My Desk",
+        sysName: "companystage1desk",
+        passage: "Company Stage 1 Desk",
+        area: 13, /* counts as the office (see the top of this passage) */
+        img: "images/locations/companystage1desk.jpg",
+        open: [0, 1, 2, 3, 4, 5],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },
+    {
+        id: 15,
+        name: "Meeting Room",
+        sysName: "companystage1meeting",
+        passage: "Company Stage 1 Meeting",
+        img: "images/locations/companystage1meeting.jpg",
+        open: [0, 1, 2, 3, 4, 5],
+        audio: {
+          music: "music-momwork",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },
+    {
+        id: 16,
+        name: "$company.name Office",
+        sysName: "companystage2",
+        passage: "Company Stage 2",
+        img: "images/locations/companystage2.jpg",
+        open: [0, 1, 2, 3, 4, 5],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },    
+    {
+        id: 17,
+        name: "College's Hallway",
+        sysName: "collegehallway",
+        passage: "College Hallway",
+        img: "images/locations/collegehallway.jpg",
+        open: [1, 2, 3, 4, 5],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },   
+    {
+        id: 18,
+        name: "College's Backside",
+        sysName: "collegebackside",
+        passage: "College Backside",
+        img: "images/locations/collegebackside.jpg",
+        open: [1, 2, 3, 4, 5],
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-momwork", night: "ambience-momwork-night" }
+        }
+    },       
+    {
+        id: 19,
+        name: "$landlord.callName's Place",
+        sysName: "landlordapartment",
+        passage: "Landlord Apartment",
+        img: "images/locations/landlordapartment.jpg",
+        open: [ 1, 2, 3, 4, 5 ], /* from the morning on, so the rent can be brought to him on rent day (Define Misc) */
+        audio: {
+          music: "music-home",
+          ambience: { day: "ambience-home", night: "ambience-home-night" }
+        }
+    },
+]>>
+
+
+/* where the closed-location bounce (PassageReady) sends me when a place closes while I'm there. Without one it
+   goes back to the previous location, which can be closed as well (College and its hallway close together). */
+<<set $locations[8].locationToReturnTo to $locations[7]>>
+<<set $locations[9].locationToReturnTo to $locations[7]>>
+<<set $locations[10].locationToReturnTo to $locations[7]>>
+<<set $locations[11].locationToReturnTo to $locations[7]>>
+<<set $locations[17].locationToReturnTo to $locations[7]>>
+<<set $locations[18].locationToReturnTo to $locations[7]>>
+<<set $locations[12].locationToReturnTo to $locations[7]>>
+<<set $locations[13].locationToReturnTo to $locations[7]>>
+<<set $locations[14].locationToReturnTo to $locations[7]>>
+<<set $locations[15].locationToReturnTo to $locations[7]>>
+<<set $locations[16].locationToReturnTo to $locations[7]>>
+<<set $locations[19].locationToReturnTo to $locations[7]>>
+
+<<set setup.getLocationBySysName = (name) => {
+  let result = null;
+  State.variables.locations.forEach((location) => {
+    if(location.sysName == name) {
+      result = location;
+    }
+  });
+
+  return result;
+}>>
+
+/* setup.sameLocation(a, b)   are a and b (location objects or ids) the same place? Locations with the same
+                              "area" count as one: My Desk and the Stage 1 office */
+<<set setup.sameLocation = (a, b) => {
+    const areaOf = (loc) => {
+        const location = (typeof loc === "object" && loc !== null) ? loc : State.variables.locations[loc];
+        if (!location) { return undefined; }
+        return (location.area !== undefined) ? location.area : location.id;
+    };
+    const areaA = areaOf(a);
+    return areaA !== undefined && areaA === areaOf(b);
+}>>

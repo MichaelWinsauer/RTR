@@ -1,0 +1,57 @@
+sugarcube-2:
+
+  macros:
+
+    # Defined via Macro.add() in StoryScript
+    PlayAudio: {}
+    Chat: {}
+    UpdateStat: {}
+
+    # Defined via <<widget>> in dev/system/widgets
+    AdvanceDay: {}
+    AdvanceTime: {}
+    AdvanceTimeTo: {}
+    CCTVButton: {}
+    CacheAudio: {}
+    CameraSpot: {}
+    CalculateFinances: {}
+    Capitalize: {}
+    CheckActiveQuestForCompletion: {}
+    CheckForEvent: {}
+    CheckLocation: {}
+    CheckLocationLink: {}
+    CheckMicroEvent: {}
+    CheckNPCLocation: {}
+    ConsoleLog: {}
+    DisplayActivity: {}
+    DisplayCurrentCCTV: {}
+    DisplayStatHorizontal: {}
+    GenerateEventsForQuests: {}
+    Image: {}
+    LocationLinks: {}
+    Mail: {}
+    Media: {}
+    NextQuest: {}
+    PayRent: {}
+    SkipToQuest: {}
+    ProfileLog: {}
+    ProfileMemory: {}
+    AdvanceCorruptionStage: {}
+    ProgressProjects: {}
+    RandomImage: {}
+    RandomVideo: {}
+    ReturnFromEvent: {}
+    SbMeter: {}
+    SbNpc: {}
+    SbQuest: {}
+    UseQuestDevice: {}
+    DevicePulse: {}
+    CheckTaskScene: {}
+    EndTaskScene: {}
+    SetBackground: {}
+    SetLocation: {}
+    ShowInformationPanel: {}
+    StartProject: {}
+    UseAction: {}
+    Video: {}
+    ReturnFromCCTV: {}

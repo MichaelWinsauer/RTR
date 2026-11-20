@@ -1,0 +1,10 @@
+:: Help Prototype Overview [nobr] {"position":"175,4500"}
+<p><b><<= $company.prototype.name>></b> is your prototype and the centre of the first part of the game. In Stage 0 you build it, keep it charged and <a href="#" data-help="Help Prototype Calibration">calibrate</a> it for the person you want to use it on.</p>
+<p>The <b>Prototype card</b> in the sidebar shows everything at a glance:</p>
+<ul>
+	<li><b>Charge</b>, as a percentage and a bar. <a href="#" data-help="Help Prototype Charge">More about charging</a>.</li>
+	<li><b>$mom.callName / $sister.callName / General</b>: who it is calibrated for (outlined) and how well. Click a name to calibrate it for them.</li>
+	<li>A line with the quality of the calibration, how <a href="#" data-help="Help Prototype Progress">stable</a> it is, and when and on whom it was last used.</li>
+</ul>
+<p>The card is only there in Stage 0. Once the company grows into Stage 1 the dashboard takes over.</p>
+<div class="help-note">Calibrating and charging only work at a <a href="#" data-help="Help Places Desks">desk</a>: your Bedroom or the Company office.</div>

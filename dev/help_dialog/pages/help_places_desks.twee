@@ -1,0 +1,9 @@
+:: Help Places Desks [nobr] {"position":"425,4750"}
+<p>Two places count as a <b>desk</b>: your <b>Bedroom</b> and the <b>Company</b> office. Whatever needs the prototype to be plugged in or opened up has to happen there:</p>
+<ul>
+	<li><a href="#" data-help="Help Prototype Calibration">Calibrating</a> the prototype for someone,</li>
+	<li><a href="#" data-help="Help Prototype Charge">charging</a> it,</li>
+	<li>working on it to raise its <a href="#" data-help="Help Prototype Progress">progress</a>.</li>
+</ul>
+<p>Anywhere else the buttons on the Prototype card are greyed out, and the card tells you it needs a desk.</p>
+<div class="help-note">The office is a small rented space. It is a place to work and leave, not a place to relax.</div>

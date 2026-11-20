@@ -1,0 +1,31 @@
+:: Meet Sister [event main_quest] {"position":"3025,0","size":"100,100"}
+<<silently>>
+<<set _msgs = [
+  { who: $sister, text: "There you are! Another minute and I was coming up to raid your room. Get over here." },
+  { who: $player, text: "Hi, $sister.callName. Did you miss me that much?" },
+  { who: $sister, text: "Obviously. It's been forever." },
+  { text: "She crosses the room before I can answer and wraps both arms around me. I hug her back." },
+  { who: $player, text: "It's good to see you." },
+  { who: $sister, text: "You too. So, how was the drive? Did the old car make it?" },
+  { who: $player, text: "Barely. It made it, and now there are boxes everywhere." },
+  { who: $sister, text: "I'll help you unpack later. Did you see what $mom.callName did to your room? Nothing! She kept all your nerdy stuff." },
+  { who: $player, text: "That's very $mom.callName. But no, I don't think I need help for now. It'll just take some time to settle back in, I guess." },
+  { who: $sister, text: "I'm not going to ask about the company. $mom.callName already did, and I heard how you answered." },
+  { who: $player, text: "...Thanks." },
+  { who: $sister, text: "But I'm glad you're back. The house was way too quiet without you." },
+  { who: $player, text: "I missed you too. It's strange being back, but I'm glad I am." },
+  { text: "That last part was a lie, but I wouldn't want to sound bitter the very first time we talk in person again." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I drop onto the couch. The faint hum from the kitchen, the same lamp, $sister.callName curled up beside me with her feet on the coffee table. She's $sister.age now, a bit more sure of herself than I remember, but it's the same grin she's had since we were kids. She brings up the car again, I tease her back, and it's easy the way it always was. For the first time since I started packing, my shoulders come down a little.
+
+<<ReturnFromEvent "Finish chatting and plan your next moves">>
+<<silently>>
+	<<NextQuest $player>>
+	<<UseAction>>
+  <<set setup.getMealById("welcome_home").isActive to true>>
+<</silently>>
+
+

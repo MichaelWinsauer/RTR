@@ -1,0 +1,73 @@
+:: Meal Sister Exam Passed [activity meal] {"position":"1100,2100"}
+/*
+{
+        id: "sister_exam_passed",
+        passage: "Meal Sister Exam Passed",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("sister_exam_passed").isActive = false,
+        ]
+}
+   Activated by: "She Made It" (sister_sheMadeIt). She passed the calculus test with a B+.
+   She thinks it was the tutoring. It was mostly my talk with $prof.callName.
+*/
+There's a cake on the table. A real one, from the bakery on the corner with the striped awning, and somebody has asked them to pipe B+ on it in blue icing, with a little star next to it. The star is slightly crooked. $mom.callName is visibly upset about the star.
+
+/* IMAGE: images/meals/important/sister_exam_passed.jpg | A bakery cake on the kitchen table with 'B+' piped in blue icing and a crooked star. Sister beaming, holding up her phone to photograph it. Mom fussing with candles. */
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I told them a star. A nice star. That's a starfish." },
+{ who: $sister, text: "It's perfect. Nobody touch it, I need a picture for my story." },
+{ who: $mom, text: "I'm just so proud of you, sweetie. I know how worried you were. Don't think I didn't notice." },
+{ who: $sister, text: "You noticed?" },
+{ who: $mom, text: "You stopped eating dessert. That's how I always know." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName takes about forty pictures of the cake from every angle, then a selfie with it, then one of $mom.callName and the cake, and finally one of me with my mouth full, which she refuses to delete.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So how did you do it? A few weeks ago you were ready to throw that book out the window." },
+{ who: $sister, text: "Honestly? Him." },
+{ text: "She points her fork at me. $mom.callName turns to look at me like I just walked in carrying a trophy." },
+{ who: $sister, text: "He sat with me for hours. He explained everything way better than my professor ever did. And the focus thing, with the gadget... I don't know, something just clicked." },
+{ who: $player, text: "She did all the work. I just pointed at the page." },
+{ who: $sister, text: "Shut up and accept the compliment. It's rare. Enjoy it." },
+{ who: $sister, text: "And it's weird, $mom.callName, but the professor was suddenly kind of nice? He even wrote much improved on the test. He used to look at me like I was a stain on his whiteboard. Now he keeps looking at me during class, like, a lot. It's a little creepy, actually." },
+{ who: $mom, text: "Well, maybe he finally sees how hard you're working." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I cut myself another slice of cake so my face has something to do. $prof.callName got his grade change, and he's already collecting on it. Sooner or later he's going to want the rest of what I promised him, too.
+
+<<if !setup.questDone("sister_partyAnimal")>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh, and I'm going out on Friday. Jenna's having people over. To celebrate. Me. I'm the reason." },
+{ who: $mom, text: "Home by midnight." },
+{ who: $sister, text: "One." },
+{ who: $mom, text: "Midnight, $sister.callName." },
+{ who: $sister, text: "Twelve-thirty and I'll text you twice." },
+{ text: "$mom.callName sighs the sigh of a woman who lost this negotiation years ago." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+$sister.callName goes a little quiet when $mom.callName brings up the party she had to celebrate, says it was fine, very fun, and gets very busy with the cake. She doesn't look in my direction once.
+<</if>>
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "MomRelation" 1>>

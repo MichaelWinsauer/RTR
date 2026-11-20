@@ -1,0 +1,80 @@
+:: Too Much Work 3 [event main_quest] {"position":"3700,375"}
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+By Monday morning the coffee is made, the chairs are lined up, and for the first time ever every seat at the meeting table is taken. $ethan.name is leaning back so far his chair creaks, like he's been working here for years. $brian.name has already found the power strip under the table and is studying the cable management with open disapproval. $darius.name sits up straight behind a brand-new notebook, pen already uncapped. $mom.callName has dug out a blouse and a pencil skirt I haven't seen since her old job, and $sister.callName, against all odds, left her phone in her bag.
+
+I take my place at the head of the table and wait for the chatter to die down.
+
+<<linkreplace "Introduce everyone">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Welcome to $company.name. I'll keep this short, because there's a lot to get through and I'd like you all to have something to complain about by lunch." },
+{ who: $player, text: "$ethan.name does software, $brian.name does hardware, and $darius.name does data and analysis. You've all met me already, so I'll skip my part." },
+{ who: $player, text: "This is $mom.name. Clients, paperwork, scheduling, basically everything that keeps this place from falling apart. If something needs organizing, she's your person." },
+{ who: $mom, text: "Hello, everyone. My door is always open. Well, I don't actually have a door. But my desk is always open." },
+{ who: $player, text: "And this is $sister.name, our intern. She'll be on-site at one of our clients most of the time, and helping out here whenever we need an extra pair of hands." },
+{ who: $sister, text: "Hi! I also know where the good snacks are hidden, so be nice to me." },
+{ who: $ethan, text: "Honestly? Most valuable person in the room." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Show them the prototype">>
+I take the small unit out of its case and set it down in the middle of the table. It's a matte black box, hardly bigger than a phone, with a single thin ring of soft blue light. Every head at the table tilts toward it.
+
+Before the meeting I locked it to the client profile, the gentlest setting it has. The real dial goes a lot further than that, but nobody in this room needs to know about that part. Not yet, anyway.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Everyone, meet $company.prototype.name. It picks up neural activity within a few meters and gently steers it toward a calmer, more focused state. Think of it as taking the edge off. People stress less, concentrate better, and generally have a nicer day at work." },
+{ who: $darius, text: "Steers it how, exactly?" },
+{ who: $player, text: "Easier to show you. Or, well, to let you feel it." },
+{ text: "I flick it on. The blue ring pulses once, then slows into a lazy rhythm. For a few seconds nothing happens at all. Then, bit by bit, the room loosens up and the first-day stiffness slides off everyone's shoulders. $brian.name lets go of the cable he's been twisting since he sat down, and $mom.callName lets out a long, slow breath and sinks back into her chair." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<DevicePulse 2>>
+<<set _msgs = [
+{ who: $brian, text: "Huh. Okay. That's... actually noticeable." },
+{ who: $sister, text: "It's like waking up from a really, really good nap." },
+{ who: $ethan, text: "Dude. Our old headset could barely tell if someone was awake. You really went all in, huh?" },
+{ who: $darius, text: "What's the baseline effect size? And is it consistent from person to person?" },
+{ who: $player, text: "Great question. Finding that out is literally what I'm paying you for." },
+{ who: $darius, text: "...Fair enough." },
+{ text: "He scribbles something in his notebook. I switch the unit off, and over the next minute the room slowly drifts back to normal. When I look around the table, all I see are impressed faces and a bit of healthy curiosity. If anyone's suspicious, they're hiding it very well." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Talk about the projects">>
+<<silently>>
+<<DevicePulse "off">>
+<<set _msgs = [
+{ who: $player, text: "Right, the actual work. We've got two projects. The first one is for $boss.callName, who ordered a $company.prototype.name of his own. A brand-new unit, built from scratch, and he wants it in his hands in two to three weeks." },
+{ who: $player, text: "$brian.name, the hardware is all yours. $ethan.name, you port the software over and make sure it doesn't crash every time someone sneezes. $darius.name, you help with testing and put together the reports the client actually gets to see." },
+{ who: $player, text: "And $mom.callName, you'll be on-site at $boss.callName's office as our consultant. Nobody knows him better than you do. Keep him happy, and keep me in the loop." },
+{ who: $mom, text: "I... yes. Yes, I can do that." },
+{ who: $player, text: "The second one is for $manager.callName and his diner. Long story short, he wants to make more money and he'd like us to tell him how. So we run the prototype there, collect the data and hand him a proper analysis." },
+{ who: $player, text: "$darius.name, that one's mostly on you. $sister.callName will be working shifts at the diner, so she's our person on the inside. Whatever you need from in there, just ask her." },
+{ who: $sister, text: "So basically I'm a spy who also brings people pancakes. Okay, that's way cooler than just being a waitress." },
+{ who: $darius, text: "Looking forward to working with you, then." },
+{ text: "$sister.callName turns a shade pinker than usual and suddenly gets very busy with her sleeve. Interesting." },
+{ who: $brian, text: "Two to three weeks for a whole new unit is, uh... tight." },
+{ who: $player, text: "It is tight. Which is exactly why I went and hired the best people I could find. Any other questions?" },
+{ text: "Nobody has any. $ethan.name grins and drums a little beat on the table." },
+{ who: $ethan, text: "Then I guess we'd better start building something, boss." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Chairs roll back, laptops snap open, and somebody asks for the wifi password for the third time. $mom.callName is the last one at the door. She glances back at me, and there's a look on her face I haven't seen in a long while. I think it might be pride. Then she follows the others out.
+
+I stay behind in the empty meeting room and look at the little black box sitting on the table. Two clients and three employees, plus a $mom.relation and a $sister.relation who have gotten very good at doing what I tell them. And holding it all together, a device that makes everything run a little smoother than anyone could ever explain.
+
+Not bad for a guy who, not so long ago, was crawling under desks with a screwdriver in his teeth.
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

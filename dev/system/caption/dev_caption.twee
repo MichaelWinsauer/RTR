@@ -1,0 +1,145 @@
+:: Dev Caption  [system nobr] {"position":"1800,625","size":"200,100"}
+<<if $debug == true>>
+<<nobr>>
+<div class="sb-dev">
+<span class="sb-dev-toggle"><<link "Dev tools">>
+	<<set $devOpen to !$devOpen>>
+	<<run $('#sb-dev-body').toggleClass('open', $devOpen)>>
+<</link>></span>
+<div id="sb-dev-body" @class="$devOpen ? 'sb-dev-body open' : 'sb-dev-body'">
+
+<div class="sb-dev-group"><span class="sb-dev-h">Time</span>
+<<link "UseAction">>
+	<<UseAction>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "AdvanceTime">>
+	<<AdvanceTime>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "AdvanceDay">>
+	<<AdvanceDay>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+<div class="sb-dev-group"><span class="sb-dev-h">Quests</span>
+<<link "Next Main Quest">>
+	<<NextQuest $player>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Next $mom.callName Quest">>
+	<<NextQuest $mom>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Next $sister.callName Quest">>
+	<<NextQuest $sister>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+<div class="sb-dev-group"><span class="sb-dev-h">Player</span>
+<<link "+5 Corruption">>
+	<<set $player.stats.corruption += 5>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "+5 Progress">>
+	<<set $company.prototype.progress += 5>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "+ $1000">>
+	<<if $company.stage == 0>>
+		<<set $player.money += 1000>>
+	<<else>>
+		<<set $company.finances.money += 1000>>
+	<</if>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+<div class="sb-dev-group"><span class="sb-dev-h">Device</span>
+<<link "Charge Full">>
+	<<set $company.prototype.charge = $company.prototype.maxCharge>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Cal. General">>
+	<<set $company.prototype.calibration = "general">>
+	<<set $company.prototype.calibrationQuality = 100>>
+	<<set $company.prototype.calibratedAtDay = $date.dayCount>>
+
+	<<set $company.devices.valenx.calibration = "general">>
+	<<set $company.devices.valenx.calibrationQuality = 100>>
+	<<set $company.devices.valenx.calibratedAtDay = $date.dayCount>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Cal. $mom.callName">>
+	<<set $company.prototype.calibration = "mom">>
+	<<set $company.prototype.calibrationQuality = 100>>
+	<<set $company.prototype.calibratedAtDay = $date.dayCount>>
+
+	<<set $company.devices.valenx.calibration = "mom">>
+	<<set $company.devices.valenx.calibrationQuality = 100>>
+	<<set $company.devices.valenx.calibratedAtDay = $date.dayCount>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Cal. $sister.callName">>
+	<<set $company.prototype.calibration = "sister">>
+	<<set $company.prototype.calibrationQuality = 100>>
+	<<set $company.prototype.calibratedAtDay = $date.dayCount>>
+
+	<<set $company.devices.valenx.calibration = "sister">>
+	<<set $company.devices.valenx.calibrationQuality = 100>>
+	<<set $company.devices.valenx.calibratedAtDay = $date.dayCount>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+<div class="sb-dev-group"><span class="sb-dev-h">$mom.callName</span>
+<<link "+5 $mom.callName Relation">>
+	<<set $mom.stats.relation += 5>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "+5 $mom.callName Corrupt.">>
+	<<set $mom.stats.corruption to Math.min($mom.stats.max.corruption, $mom.stats.corruption + 5)>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "+1 $mom.callName Corr. Stage">>
+	<<AdvanceCorruptionStage $mom "Skipped ahead with the debug menu.">>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+<div class="sb-dev-group"><span class="sb-dev-h">$sister.callName</span>
+<<link "+5 $sister.callName Relation">>
+	<<set $sister.stats.relation += 5>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "+5 $sister.callName Corrupt.">>
+	<<set $sister.stats.corruption to Math.min($sister.stats.max.corruption, $sister.stats.corruption + 5)>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "+1 $sister.callName Corr. Stage">>
+	<<AdvanceCorruptionStage $sister "Skipped ahead with the debug menu.">>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+<div class="sb-dev-group"><span class="sb-dev-h">Locations</span>
+<<textbox "$debugLocation" "">>
+<<link "go to Location">><<script>>if (State.variables.debugLocation != "") { Engine.play(State.variables.debugLocation, null, "back")}<</script>><</link>>
+<<link "Office">>
+	<<goto $locations[$companyLocationIdReference].passage>>
+    <<if $company.stage == 1>><<goto $locations[14].passage>><</if>>
+<</link>>
+<<link "Unlock CCTVs">>
+	/* hangs a camera at every spot directly: setup.placeCamera needs one in the inventory for each spot */
+	<<run Object.keys(setup.cameraSpots).forEach((key) => { if (!setup.hasCamera(key)) { $cctv.cameras[key] = $date.dayCount; } })>>
+	<<run $cctv.pending = []>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
+</div>
+</div>
+<</nobr>>
+<</if>>

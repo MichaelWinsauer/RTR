@@ -1,0 +1,21 @@
+:: Player Caption [system nobr] {"position":"1900,25","size":"100,200"}
+/* The meters change with the stage; add a new <<if>> block (or extend one) when a stage gets different information.
+   <<SbMeter LABEL VALUE MAX TONE>> */
+/* <div class="sb-stage-title">Stage <<= $company.stage>></div> */
+<div class="sb-meters">
+<<if $company.stage == 0>>
+	<<SbMeter "Prototype Progress" $company.prototype.progress $company.prototype.maxProgress "progress">>
+	<<SbMeter "Corruption" $player.stats.corruption $player.stats.max.corruption "corruption">>
+<</if>>
+<<if $company.stage == 1>>
+	<<SbMeter "Reputation" $company.stats.reputation $company.stats.max.reputation "reputation">>
+	<<SbMeter "Efficiency" $company.stats.efficiency $company.stats.max.efficiency "efficiency">>
+	<<SbMeter "Morale" $company.stats.morale $company.stats.max.morale "morale">>
+	/* Suspicion only exists from Stage 2 on (setup.suspicionActive, Define Company) */
+	<<if setup.suspicionActive()>>
+		<<SbMeter "Suspicion" $company.stats.suspicion $company.stats.max.suspicion "suspicion">>
+	<</if>>
+	<<SbMeter "Corruption" $player.stats.corruption $player.stats.max.corruption "corruption">>
+<</if>>
+</div>
+

@@ -1,0 +1,217 @@
+:: Define Quick Links [system] {"position":"1250,150","size":"100,100"}
+/* Quick links ==================================================================
+   Shortcuts in the sidebar ("Quick Caption") that only show up when they save the player pointless clicks:
+   the way to work in the morning, the next meal, bed at night, the way home. They are constants, the game state
+   holds nothing about them. They only show on location passages (tag "location") after the intro, so they never
+   cut into a scene, an activity or a dialog. My Desk hides the sidebar, the dashboard has its own cards there
+   (CMD Actions).
+
+   setup.quickLinks = [ {
+       id:        "go_work",          unique key, the sidebar passes it back on click
+       priority:  40,                 higher first. "wait" has 0 and always comes last
+       when:      (ctx) => bool,      show it right now?
+       label:     (ctx) => "...",     link text (build names from State.variables, never type one out)
+       hint:      (ctx) => "...",     optional second line
+       important: (ctx) => bool,      optional, highlights the link (accent border)
+       minor:     true,               optional, a smaller, quieter link
+       cost:      n or (ctx) => n,    actions to spend, one at a time with <<UseAction>> (0 = none)
+       target:    (ctx) => "Passage", where the player ends up after the actions are spent
+       before:    (ctx) => {},        optional, runs first (before any action is spent)
+   } ]
+
+   ctx (setup.quickLinkContext()) = { row, slot, weekday, here, atHome, atOffice, passage }
+       row       the current action slot of the day (0-20), slot the time slot (0-6)
+       here      the location object the player is at, atHome = in the house (ids 0-6)
+       atOffice  one of setup.officeLocations (Stage 0 office, Stage 1 rooms, Stage 2 office)
+
+   The cost follows the CMD card "Go Home": a trip between home and anywhere else costs one action, although
+   walking there through the location tiles costs nothing. Moving inside the house stays free.
+
+   Helpers:
+   setup.quickLinkContext()        the ctx above
+   setup.getQuickLinks()           the links to show now, sorted, each resolved to
+                                   { id, label, hint, important, minor, cost, costText }
+   setup.prepareQuickLink(id)      on click: checks "when" again, runs "before" and returns { cost, target },
+                                   or null when the link no longer applies. The caller spends the cost and goes
+   setup.quickLinkWorkTask()       setup.getNextTaskWithPlayer() if that task happens in the office, else null
+   setup.quickLinkWorkPlace()      where "Go to work" leads: My Desk in Stage 1 (the office of the current stage
+                                   otherwise), or the place of a task with me that is already waiting
+   setup.quickLinkNextMeal(ctx)    today's next meal that has not happened yet, { type, slot }, or null.
+                                   Reads the meal micro events (Define Events, ids 0-2) */
+
+<<set setup.officeLocations to [ "company", "companystage1", "companystage1desk", "companystage1meeting", "companystage2" ]>>
+
+<<set setup.quickLinkContext = () => {
+    const v = State.variables;
+    const here = v.player.location;
+    return {
+        row: v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left),
+        slot: v.time.current.value,
+        weekday: v.date.today.value < 5,
+        here: here,
+        atHome: here.id <= 6,
+        atOffice: setup.officeLocations.includes(here.sysName),
+        passage: State.passage,
+    };
+}>>
+
+<<set setup.quickLinkWorkTask = () => {
+    const next = setup.getNextTaskWithPlayer();
+    if (!next) { return null; }
+    const places = setup.getTaskPlaces(next.task);
+    const inOffice = places.some((id) => State.variables.locations[id] && setup.officeLocations.includes(State.variables.locations[id].sysName));
+    return inOffice ? next : null;
+}>>
+
+<<set setup.quickLinkWorkPlace = () => {
+    const v = State.variables;
+    const next = setup.quickLinkWorkTask();
+    if (next && next.waiting) { return setup.getTaskPlace(next.task); }
+    return v.company.stage === 1 ? setup.getLocationBySysName("companystage1desk") : v.locations[v.companyLocationIdReference];
+}>>
+
+/* Breakfast, lunch and dinner are the micro events 0, 1 and 2. Each one names its time slot (whenTime) and may have
+   extra conditions (lunch only on weekends). A meal that was already shown today (lastSeenDay) is over */
+<<set setup.quickLinkNextMeal = (ctx) => {
+    const v = State.variables;
+    const meals = [ { id: 0, type: "breakfast" }, { id: 1, type: "lunch" }, { id: 2, type: "dinner" } ];
+    for (const meal of meals) {
+        const event = v.microEvents[meal.id];
+        if (!event || !event.active || event.lastSeenDay === v.date.dayCount) { continue; }
+        const slot = event.conditions.whenTime[0];
+        if (slot < ctx.slot) { continue; }
+        if (!(event.conditions.eval || []).every((check) => check())) { continue; }
+        return { type: meal.type, slot: slot };
+    }
+    return null;
+}>>
+
+<<set setup.quickLinks to [
+    {
+        /* weekdays from Stage 1 on, until the work day is over, or later when a task with me waits in the office */
+        id: "go_work",
+        priority: 40,
+        when: (ctx) => {
+            const v = State.variables;
+            if (v.company.stage < 1 || !ctx.weekday || ctx.atOffice) { return false; }
+            const place = setup.quickLinkWorkPlace();
+            const slotAfter = Math.floor((ctx.row + 1) / v.time.actions.max);
+            if (!place || slotAfter >= v.timeSlots.length || !place.open.includes(slotAfter)) { return false; }
+            /* the trip takes one action, so on the last work action there would be nothing left to arrive for */
+            return ctx.row < v.company.workHours.lastIndexOf(true) || setup.quickLinkWorkTask() !== null;
+        },
+        label: () => "Go to work",
+        hint: () => {
+            const v = State.variables;
+            const next = setup.quickLinkWorkTask();
+            if (!next) { return ""; }
+            const npc = v[next.sysName];
+            if (next.waiting) { return npc.callName + " is already waiting for me"; }
+            return npc.callName + "'s " + next.task.title + " · " + v.timeSlots[Math.floor(next.entry.startRow / v.time.actions.max)].text;
+        },
+        important: () => {
+            const next = setup.quickLinkWorkTask();
+            return !!(next && next.waiting);
+        },
+        cost: 0,
+        target: () => setup.quickLinkWorkPlace().passage,
+    },
+    {
+        /* at home: wait until the next meal starts and sit down in the kitchen, or just walk over if it is ready now */
+        id: "meal",
+        priority: 30,
+        when: (ctx) => {
+            if (!ctx.atHome) { return false; }
+            const meal = setup.quickLinkNextMeal(ctx);
+            return !!meal && !(meal.slot === ctx.slot && ctx.here.sysName === "kitchen");
+        },
+        label: (ctx) => {
+            const meal = setup.quickLinkNextMeal(ctx);
+            return meal.slot === ctx.slot ? meal.type.toUpperFirst() + " is ready" : "Wait for " + meal.type;
+        },
+        hint: (ctx) => {
+            const meal = setup.quickLinkNextMeal(ctx);
+            return setup.getPendingMealTypes([meal.type]).length > 0 ? "I should eat with my family today." : "";
+        },
+        important: (ctx) => setup.getPendingMealTypes([setup.quickLinkNextMeal(ctx).type]).length > 0,
+        cost: (ctx) => {
+            const meal = setup.quickLinkNextMeal(ctx);
+            return Math.max(0, meal.slot * State.variables.time.actions.max - ctx.row);
+        },
+        target: () => "Kitchen",
+    },
+    {
+        /* Night and Late Night: straight into bed, from anywhere. No action is spent on the way: sleeping ends the
+           day anyway, and an action spent on the last one of Late Night would start the next day before the sleep */
+        id: "go_bed",
+        priority: 20,
+        when: (ctx) => ctx.slot >= 5,
+        label: (ctx) => ctx.atHome ? "Go to bed" : "Head home to bed",
+        cost: 0,
+        before: () => {
+            const v = State.variables;
+            const bed = setup.getLocationBySysName("bedroom");
+            if (v.player.location.sysName !== bed.sysName) {
+                v.player.previousLocation = v.player.location;
+                v.player.location = bed;
+                v.player.flags.isHome = true;
+            }
+        },
+        target: () => "Activity Sleep",
+    },
+    {
+        /* anywhere outside the house. The street out front has its own Home tile right there */
+        id: "back_home",
+        priority: 10,
+        when: (ctx) => !ctx.atHome && ctx.here.sysName !== "residentialarea",
+        label: () => "Go home",
+        cost: 0,
+        target: () => "Bedroom",
+    },
+    {
+        id: "wait",
+        priority: 0,
+        minor: true,
+        when: () => true,
+        label: () => "Wait",
+        cost: 1,
+        target: (ctx) => ctx.passage,
+    },
+]>>
+
+<<set setup.getQuickLinks = () => {
+    const v = State.variables;
+    if (!v.flags.introDone || !tags().includes("location")) { return []; }
+    const ctx = setup.quickLinkContext();
+    const value = (field) => (typeof field === "function" ? field(ctx) : field);
+    return setup.quickLinks
+        .filter((link) => link.when(ctx))
+        .sort((a, b) => b.priority - a.priority)
+        .map((link) => {
+            const cost = Math.max(0, Math.floor(Number(value(link.cost)) || 0));
+            return {
+                id: link.id,
+                label: value(link.label),
+                hint: link.hint ? value(link.hint) : "",
+                important: link.important ? !!value(link.important) : false,
+                minor: !!link.minor,
+                cost: cost,
+                costText: cost > 0 ? cost + (cost === 1 ? " action" : " actions") : "",
+            };
+        });
+}>>
+
+<<set setup.prepareQuickLink = (id) => {
+    const link = setup.quickLinks.find((entry) => entry.id === id);
+    if (!link || !State.variables.flags.introDone) { return null; }
+    const ctx = setup.quickLinkContext();
+    if (!link.when(ctx)) { return null; }
+    const cost = Math.max(0, Math.floor(Number(typeof link.cost === "function" ? link.cost(ctx) : link.cost) || 0));
+    const target = link.target(ctx);
+    if (!target || !Story.has(target)) {
+        console.error('setup.prepareQuickLink: the quick link "' + id + '" leads to "' + target + '", which is no passage');
+        return null;
+    }
+    if (link.before) { link.before(ctx); }
+    return { cost: cost, target: target };
+}>>

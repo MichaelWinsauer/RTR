@@ -1,0 +1,11 @@
+:: Help Prototype Calibration [nobr] {"position":"175,4625"}
+<p>A calibration tunes the prototype for one person. The card has three names:</p>
+<ul>
+	<li><b>$mom.callName</b></li>
+	<li><b>$sister.callName</b></li>
+	<li><b>General</b>: everyone else</li>
+</ul>
+<p>Click a name (at a <a href="#" data-help="Help Places Desks">desk</a>) to calibrate for them. This costs <b>one action</b> and starts the <a href="#" data-help="Help Prototype Minigame">calibration minigame</a>.</p>
+<p>If you finish with <b>80% or more</b>, the calibration is saved together with its quality, and that name is outlined on the card. Below 80% nothing changes. You can calibrate again whenever you like, for the same person to improve it or for someone else.</p>
+<p>It only holds <b>one</b> calibration at a time. A <a href="#" data-help="Help Quests">quest</a> that uses the prototype shows whom it has to be calibrated for in its <b>◎</b> pill, and the scene only starts once it is. Plan ahead when $mom.callName's and <<= $sister.name>>'s quests come one after another.</p>
+<div class="help-note">How hard it is depends on the person: someone who resists you more gives you less time, and their phrases change as they change.</div>

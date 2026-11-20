@@ -1,0 +1,815 @@
+:: Define Tasks [system] {"position":"1000,0","size":"100,100"}
+/* Tasks: jobs mom and sister do when they are scheduled (CMD Schedule).
+   id is a string, task_<who>_<what> ("task_mom_test_session"). Look a task up with setup.getTaskById(id)
+   and store the id, never the array index or the task object (state copies go stale). Stages are part of
+   the task itself (see "Task Stages" in the Story JavaScript), so the id has no stage number.
+   Optional cooldown: N (days) makes a task happen at most once every N days ("Task cooldown" below). */
+<<set $tasks to [
+	{
+    	id: "task_mom_secretary_work",
+    	who: $mom,
+        title: "Secretary Work",
+        description: "Boosts active projects progress by <b class='accent'>2</b> for each requirement, and company Efficiency by <b class='accent'>+2</b> while she keeps the office organised.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: true,
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $player,
+        activity: "working",
+        onComplete: [
+        	() => {
+            	State.variables.company.projects.forEach((p) => {
+                	if(p.active) {
+                        Object.keys(p.requirements).forEach((catagory) => {
+                            if(p.requirements[catagory] > 0) {
+                                p.progress[catagory] += 2;
+                            }
+                        });
+                    }
+                });
+                /* a one-off boost: it fades again toward the efficiency target (Define Company) */
+                setup.changeCompanyStat("efficiency", 2);
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+	{
+    	id: "task_sister_diner_shift",
+    	who: $sister,
+        title: "Diner Shift",
+        location: $locations[8], /*Diner*/
+        apCost: 2,
+        active: false,
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $manager,
+        activity: "working_diner",
+        revenue: 80,
+        baseEnergyCost: 10,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_client_consultant",
+    	who: $mom,
+        title: "Client Consultant",
+        description: "Adds <b class='accent'>+3</b> to the consulting requirement of $boss.callName's active projects.",
+        location: $locations[12],
+        apCost: 4,
+        startTime: [ 1, 2 ],
+        npc: $boss,
+        activity: "working_boss",
+        revenue: 100,
+        baseEnergyCost: 25,
+        count: 0,
+        lastCompletedAt: 0,
+        onComplete: [
+        	() => {
+                let projectBossPrototype = setup.getProjectById("project_boss_prototype");
+                if(projectBossPrototype.active) {
+                    Math.clamp(projectBossPrototype.progress.consulting += 3, 0, projectBossPrototype.requirements.consulting);
+                }    
+
+                let projectBossPrototypeRepeat = setup.getProjectById("project_boss_support");
+                if(projectBossPrototypeRepeat.active) {
+                    Math.clamp(projectBossPrototypeRepeat.progress.consulting += 3, 0, projectBossPrototypeRepeat.requirements.consulting);
+                }  
+            },
+        ],
+    },
+    {
+    	id: "task_mom_help_landlord",
+    	who: $mom,
+        title: "Helping $landlord.callName",
+        description: "$landlord.callName demands to be visited at least <b class='red'>once per week</b>!",
+        location: $locations[19],
+        active: false,
+        apCost: 3,
+        startTime: [ 3, 4 ],
+        npc: $landlord,
+        activity: "helping_landlord0",
+        stage: 0,
+        stages: [
+        	{ activity: "helping_landlord0", passage: "CCTV Mom Landlord 0" },
+            /* Next stage, unlocked after finishing the task 3 more times with enough corruption:
+            {
+            	activity: "helping_landlord1",
+                passage: "CCTV Mom Landlord 1",
+                minCount: 3,
+                requirements: [ () => setup.corruptionTotal("mom") >= 30 ],
+                requirementsText: [ "$mom.callName needs 30 corruption" ],
+            },
+            */
+        ],
+        onComplete: [
+        	() => State.variables.flags.visitedLandlordThisWeek = true,
+        ],
+        revenue: 0,
+        baseEnergyCost: 15,
+        count: 0,
+        lastCompletedAt: 0,
+    },    
+    {
+    	id: "task_sister_help_landlord",
+    	who: $sister,
+        title: "Helping $landlord.callName",
+        description: "$landlord.callName demands to be visited at least <b class='red'>once per week</b>!",
+        location: $locations[19], 
+        active: false,
+        apCost: 3,
+        startTime: [ 3, 4 ],
+        npc: $landlord,
+        activity: "helping_landlord0",
+        stage: 0,
+        stages: [
+        	{ activity: "helping_landlord0", passage: "CCTV Sister Landlord 0" },
+            /* Next stage, unlocked after finishing the task 3 more times with enough corruption:
+            {
+            	activity: "helping_landlord1",
+                passage: "CCTV Sister Landlord 1",
+                minCount: 3,
+                requirements: [ () => setup.corruptionTotal("sister") >= 30 ],
+                requirementsText: [ "$sister.callName needs 30 corruption" ],
+            },
+            */
+        ],
+        onComplete: [
+        	() => State.variables.flags.visitedLandlordThisWeek = true,
+        ],
+        revenue: 0,
+        baseEnergyCost: 15,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_tutoring_home",
+    	who: $sister,
+        title: "Tutoring",
+        location: $locations[2], /*Living Room*/
+        apCost: 2,
+        active: true,
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $player,
+        activity: "tutor_home",
+        revenue: 25,
+        baseEnergyCost: 10,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_tutoring_college",
+    	who: $sister,
+        title: "Tutoring",
+        location: $locations[11], /*College*/
+        apCost: 3,
+        active: false,
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $prof,
+        activity: "tutor_college",
+        revenue: 60,
+        baseEnergyCost: 10,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_private_attention",
+    	who: $mom,
+        title: "Massage",
+        description: "",
+        location: $locations[15], /*Meeting Room*/
+        apCost: 1,
+        active: false, /* unlocked by the quest "Being a CEO is hard..." (mom_ceoStruggles) */
+        startTime: [ 1, 2, 3 ],
+        npc: $player,
+        activity: "giving_massage0",
+        withPlayer: {
+            where: [ 15 ],
+            prompt: "$mom.callName slips into the meeting room and closes the door behind her, right on time for our 'ergonomics check'.",
+            accept: "Lean back",
+            decline: "Send her back to work",
+            summary: "$mom.callName slipped in behind my chair in the meeting room and worked the knots out of my shoulders while I read through my mails.",
+            waiting: "$mom.callName is waiting in the meeting room for our appointment, and I'm not. I should head over before she gives up on me.",
+            missed: "$mom.callName waited in the meeting room for our appointment, but I never showed up.",
+            declined: "I sent $mom.callName back to her desk. She went, but she took her time about it.",
+            missedCost: { relation: 1, morale: 3 },
+        },
+        stage: 0,
+        stages: [
+            { activity: "giving_massage0", passage: "Task Mom Massage 0" },
+            {
+                activity: "giving_massage1",
+                passage: "Task Mom Massage 1",
+                minCount: 5,
+                requirements: [ () => setup.corruptionTotal("mom") >= 40 ],
+                requirementsText: [ "$mom.callName needs 40 corruption" ],
+            },
+            {
+                activity: "giving_massage2",
+                passage: "Task Mom Massage 2",
+                minCount: 5,
+                requirements: [ () => setup.corruptionTotal("mom") >= 60 ],
+                requirementsText: [ "$mom.callName needs 60 corruption" ],
+            },
+            {
+                /* after The Briefing (mom_briefing), her first corruption stage */
+                activity: "giving_massage3",
+                passage: "Task Mom Massage 3",
+                minCount: 5,
+                requirements: [ () => setup.corruptionTotal("mom") >= 100 ],
+                requirementsText: [ "$mom.callName needs corruption stage 1" ],
+            },
+        ],
+        onComplete: [
+        	() => {
+            	const mom = State.variables.mom;
+                mom.stats.relation = Math.clamp(mom.stats.relation + 1, mom.stats.min.relation, mom.stats.max.relation);
+                mom.stats.lust = Math.clamp(mom.stats.lust + 2, mom.stats.min.lust, mom.stats.max.lust);
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_office_work",
+    	who: $sister,
+        title: "Work",
+        description: "Boosts active projects progress by <b class='accent'>1</b> for each requirement.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: true,
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $player,
+        activity: "working",
+        onComplete: [
+        	() => {
+            	State.variables.company.projects.forEach((p) => {
+                	if (!p.active) { return; }
+                    Object.keys(p.requirements).forEach((category) => {
+                        const need = Number(p.requirements[category]) || 0;
+                        if (need > 0) {
+                            p.progress[category] = Math.min(need, (Number(p.progress[category]) || 0) + 1);
+                        }
+                    });
+                });
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 10,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_coffee_break",
+    	who: $sister,
+        title: "Coffee Break",
+        description: "<b class='accent'>+3</b> morale for everyone else on the staff and <b class='accent'>+2</b> company Morale, but costs her <b class='red'>-10</b> morale",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: true,
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $player,
+        activity: "bring_coffee",
+        onComplete: [
+        	() => {
+            	const v = State.variables;
+                /* the employee entries are copies, so change the live NPCs. Morale, because staff energy never
+                   changes (their project work costs morale, Define Projects) */
+                v.company.employees.forEach((e) => {
+                    const npc = v[e.sysName];
+                    if (!npc || !npc.stats || e.sysName === "sister") { return; }
+                    npc.stats.morale = Math.clamp((Number(npc.stats.morale) || 0) + 3, npc.stats.min.morale, npc.stats.max.morale);
+                });
+
+                /* running around with a tray all afternoon wears her down */
+                v.sister.stats.morale = Math.clamp(v.sister.stats.morale - 10, v.sister.stats.min.morale, v.sister.stats.max.morale);
+
+                /* the office as a whole is in a better mood (company Morale, Define Company) */
+                setup.changeCompanyStat("morale", 2);
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_test_session",
+    	who: $mom,
+        title: "Test Session",
+        description: "Boosts the <b class='accent'>testing</b> progress of active projects by <b class='accent'>3</b>.",
+        location: $locations[15], /*Meeting Room*/
+        apCost: 3,
+        active: false, /* unlocked by the quest "Can you help me a little more?" (mom_testSessionRequest) */
+        startTime: [ 4 ],
+        npc: $player,
+        activity: "testing_prototype",
+        withPlayer: {
+            where: [ 15 ],
+            prompt: "$mom.callName is waiting in the meeting room with her questionnaire, ready for tonight's test session.",
+            accept: "Start the session",
+            decline: "Call it off",
+            summary: "I ran another test session with $mom.callName in the meeting room and filled in her questionnaire.",
+            waiting: "$mom.callName is setting up her questionnaire in the meeting room. If I want that test session, I'd better get over there.",
+            missed: "$mom.callName waited in the meeting room for our test session, but I never showed up.",
+            declined: "I called off tonight's test session. $mom.callName packed up her pen and went home early.",
+            missedCost: { relation: 1, morale: 2 },
+        },
+        /* every stage is a little dirtier than the last, so it also corrupts her more: corruption and lust are what
+           one session on that stage gives (read by onComplete). 10 sessions = 19 corruption, before the follow-up quest */
+        stage: 0,
+        stages: [
+            { activity: "testing_prototype", passage: "Task Mom Test Session 0", corruption: 1, lust: 2 },
+            { activity: "testing_prototype", passage: "Task Mom Test Session 1", corruption: 2, lust: 3, requirements: [ () => setup.getTaskById("task_mom_test_session").count > 2 ], },
+            { activity: "testing_prototype", passage: "Task Mom Test Session 2", corruption: 2, lust: 4, requirements: [ () => setup.getTaskById("task_mom_test_session").count > 5 ],  },
+            { activity: "testing_prototype", passage: "Task Mom Test Session 3", corruption: 3, lust: 5, requirements: [ () => setup.getTaskById("task_mom_test_session").count > 7 ],  },
+        ],
+        onComplete: [
+        	() => {
+            	const v = State.variables;
+            	const mom = v.mom;
+                /* the stage that was just played (onComplete runs before the next stage unlocks) */
+                const played = setup.getTaskStage(setup.getTaskById("task_mom_test_session")) || {};
+                mom.stats.corruption = Math.clamp(mom.stats.corruption + (played.corruption || 1), mom.stats.min.corruption, mom.stats.max.corruption);
+                mom.stats.lust = Math.clamp(mom.stats.lust + (played.lust || 2), mom.stats.min.lust, mom.stats.max.lust);
+                /* she is an untrained test subject, so the sessions count as testing for every project that needs it */
+                v.company.projects.forEach((p) => {
+                    if (p.active && !p.completed && p.requirements.testing > 0) {
+                        p.progress.testing += 3;
+                    }
+                });
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 15,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_internship_overview",
+    	who: $sister,
+        title: "Internship Overview",
+        description: "We go over her internship journal together. Raises her <b class='accent'>Relation</b> by 2 and her <b class='accent'>Lust</b> by 1. She only has new things to write down <b class='accent'>every other day</b>.",
+        location: $locations[15], /*Meeting Room*/
+        apCost: 2,
+        active: false, /* unlocked by the quest "Internship Overview Meetings" (sister_internshipOverviewRequest) */
+        startTime: [ 3 ],
+        cooldown: 2, /* every other day at most, see Task cooldown below */
+        npc: $player,
+        activity: "internship_overview",
+        withPlayer: {
+            where: [ 15 ],
+            prompt: "$sister.callName knocks on the open meeting room door with her internship journal under her arm and two pens, in case one of them gives up on her.",
+            accept: "Go over her journal",
+            decline: "Not today",
+            summary: "I went over the internship journal with $sister.callName in the meeting room. She wrote down everything I said, including the parts I meant as jokes.",
+            waiting: "$sister.callName is waiting in the meeting room with her internship journal. If I want our overview meeting, I should head over.",
+            missed: "$sister.callName sat in the meeting room with her journal for our overview meeting, and I never came.",
+            declined: "I told $sister.callName we'd skip the overview today. She said that was totally fine. Twice.",
+            missedCost: { relation: 1, morale: 2 },
+        },
+        stage: 0,
+        stages: [
+            { activity: "internship_overview", passage: "Task Sister Internship Overview 0" },
+        ],
+        onComplete: [
+        	() => {
+            	const sister = State.variables.sister;
+                sister.stats.relation = Math.clamp(sister.stats.relation + 2, sister.stats.min.relation, sister.stats.max.relation);
+                sister.stats.lust = Math.clamp(sister.stats.lust + 1, sister.stats.min.lust, sister.stats.max.lust);
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+]>>
+
+<<set $activeTasks to {
+    mom: [],
+    sister: []
+}>>
+
+/* Energy cost ===================================================================
+   A task costs her its baseEnergyCost, plus a surcharge for the morale she is missing: (max morale - morale) *
+   apCost / 10. So a 3-action task with base 15 costs her 30 at morale 50. It starts once she has the base
+   (checkTaskProgression, StoryScript) and is paid when it ends (completeTaskEntry).
+   setup.taskEnergyCost(task [, npc])   what it costs her right now (npc: her live object, default task.who) */
+<<set setup.taskEnergyCost = (task, npc) => {
+    const her = npc || State.variables[task.who.sysName];
+    const missingMorale = her.stats.max.morale - her.stats.morale;
+    return (Number(task.baseEnergyCost) || 0) + Math.round(missingMorale * (Number(task.apCost) || 0) / 10);
+}>>
+
+/* Tasks with the player =======================================================
+   A task with a "withPlayer" block is something mom/sister does WITH me (the massage in the meeting room, ...).
+   It is scheduled like any other task, but it only happens when I'm there, and only if I say yes.
+
+       withPlayer: {
+           where:    [ 13 ],   location ids where I have to be when it starts (default: the task's location).
+                               Locations of the same area count too: [ 13 ] (the office) includes My Desk
+           prompt:   "...",    the question in the dialog when she shows up
+           accept:   "...",    optional button text to start the scene (default "Let her")
+           decline:  "...",    optional button text to send her away (default "Not now")
+           summary:  "...",    notification when it finishes without its scene (Skip Work Day / Complete Task)
+           waiting:  "...",    optional notification when it starts and I'm not there yet: I still have that
+                               first action to get there (default: "<callName> is waiting for me at <place>.")
+           missed:   "...",    notification when I don't make it in time. It then doesn't happen at all,
+                               and she loses Relation and Morale for coming by for nothing (see below).
+           declined: "...",    notification when I send her away (same effect as missed; falls back to "missed")
+           missedCost: { relation: 1, morale: 3 },
+                               what a missed or declined task costs her PER ACTION of the task (apCost),
+                               so a long appointment I don't show up for hurts more than a quick one.
+                               A stat that is left out (or the whole field) costs nothing.
+       },
+       stages: [ { activity, passage: "Scene Passage" }, ... ]   the scene comes from the current stage
+                                                                (see "Task Stages" in the Story JavaScript)
+
+   How it runs, per scheduled entry and day:
+     1. checkTaskProgression starts it as usual (inProgress) when its first action comes and she has the energy.
+     2. PassageReady calls <<CheckTaskScene>> after SetLocation. As soon as I'm in "where" while it runs,
+        a dialog asks me (entry.offeredDay): accepting plays the stage passage (entry.sceneDay), declining
+        or closing the dialog counts the same as not being there.
+        Its first action is my time to get there: if I'm elsewhere when it starts, I only get the "waiting"
+        notification (entry.waitingDay). It is missed (entry.missedDay) once that action is over and I'm
+        still not there, so the walk over, which spends that action, arrives in time.
+        A one-action task ends with that same action, so checkTaskProgression doesn't decide it then:
+        allowTaskCompletion returns "wait" (entry.arrivalDay), and the next CheckTaskScene, where the walk
+        lands, offers the scene or counts it as missed.
+     3. The scene ends with <<EndTaskScene>>: it spends the task's remaining actions, so the task finishes
+        the normal way (onComplete, count, stages), and goes back to my location. If no action is left
+        (I walked in on a one-action task), setup.completeTaskSceneEntry() finishes it directly.
+     4. When it finishes without a scene (several actions spent at once, like Skip Work Day or Complete
+        Task, so no passage showed while it started), it still counts if I'm in "where" (summary
+        notification), otherwise it is missed. entry.doneDay stops it from finishing twice in one day.
+   $taskScene { sysName, taskId, entryId, passage } is set while a scene runs.
+
+   setup.isTaskWithPlayer(task)          true for a task with a withPlayer block
+   setup.isPlayerAtTask(task)            am I where the task needs me right now?
+   setup.checkTaskScenes()               PassageReady: { sysName, entryId } of a task to ask me about now, or null
+                                         (also handles missed ones)
+   setup.offerTaskScene(offer)           opens the dialog for that offer (after the passage has rendered)
+   setup.acceptTaskScene(offer)          plays the scene
+   setup.declineTaskScene(offer)         sends her away, like being somewhere else
+   setup.allowTaskCompletion(entry)      checkTaskProgression: may this entry finish now? true, false
+                                         or "wait" (keep it running until I've arrived somewhere)
+   setup.completeTaskSceneEntry()        EndTaskScene: finishes the scene's entry when no action is left
+   setup.notifyTaskWaiting(task)         the "she's waiting for me" notification (withPlayer.waiting or a default)
+   setup.getTaskMissedCost(task)         { relation, morale } she would lose if it is missed or declined
+   setup.missTaskWithPlayer(entry [, declined])
+                                         marks the entry missed for today, costs her Relation and Morale,
+                                         shows the notification
+   setup.getTaskSceneActionsLeft()       actions the running scene still has to spend */
+
+<<set setup.isTaskWithPlayer = (task) => {
+    const live = setup.getLiveTask(task);
+    return !!(live && live.withPlayer);
+}>>
+
+<<set setup.isPlayerAtTask = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live || !live.withPlayer) { return false; }
+    const where = (live.withPlayer.where && live.withPlayer.where.length) ? live.withPlayer.where : [ live.location.id ];
+    return where.some((id) => setup.sameLocation(id, State.variables.player.location));
+}>>
+
+<<set setup.getTaskMissedCost = (task) => {
+    const live = setup.getLiveTask(task);
+    const perAction = (live && live.withPlayer && live.withPlayer.missedCost) || {};
+    const actions = Math.max(1, Number(live && live.apCost) || 1);
+    return {
+        relation: (Number(perAction.relation) || 0) * actions,
+        morale: (Number(perAction.morale) || 0) * actions,
+    };
+}>>
+
+<<set setup.missTaskWithPlayer = (entry, declined) => {
+    const v = State.variables;
+    const live = setup.getLiveTask(entry.task);
+    entry.inProgress = false;
+    entry.missedDay = v.date.dayCount;
+    if (!live || !live.withPlayer) { return; }
+
+    /* she came by for nothing: her Relation drops, her Morale too, scaled by how long the appointment was */
+    const npc = v[live.who.sysName];
+    const costs = setup.getTaskMissedCost(live);
+    const lost = [];
+    if (npc && npc.stats) {
+        const statLabels = { relation: "Relation", morale: "Morale" };
+        Object.keys(statLabels).forEach((key) => {
+            const cost = costs[key];
+            if (cost <= 0 || typeof npc.stats[key] !== "number") { return; }
+            const min = (npc.stats.min && typeof npc.stats.min[key] === "number") ? npc.stats.min[key] : 0;
+            const before = npc.stats[key];
+            npc.stats[key] = Math.max(min, before - cost);
+            if (before !== npc.stats[key]) { lost.push("-" + (before - npc.stats[key]) + " " + statLabels[key]); }
+        });
+    }
+
+    const message = (declined && live.withPlayer.declined) || live.withPlayer.missed;
+    if (message) {
+        const text = wikifyText(message);
+        Notification.show(text, { type: Notification.NEGATIVE });
+    }
+}>>
+
+<<set setup.checkTaskScenes = () => {
+    const v = State.variables;
+    if (v.date.today.value > 4) { return null; }
+    const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+    const day = v.date.dayCount;
+
+    for (const sysName of ["mom", "sister"]) {
+        for (const entry of (v.activeTasks[sysName] || [])) {
+            if (!setup.isTaskWithPlayer(entry.task)) { continue; }
+            if (!entry.inProgress) { continue; }
+            if (entry.offeredDay === day || entry.sceneDay === day || entry.missedDay === day || entry.doneDay === day) { continue; }
+            /* a one-action task whose action is over: decided where my walk lands (see allowTaskCompletion) */
+            const arriving = entry.arrivalDay === day;
+            if (!arriving && (row < entry.startRow || row >= entry.endRow)) { continue; }
+
+            const live = setup.getLiveTask(entry.task);
+            const scene = setup.getTaskPassage(live);
+            if (!setup.isPlayerAtTask(live)) {
+                /* its first action is my time to get there */
+                if (!arriving && row === entry.startRow) {
+                    if (entry.waitingDay !== day) {
+                        entry.waitingDay = day;
+                        setup.notifyTaskWaiting(live);
+                    }
+                    continue;
+                }
+                setup.missTaskWithPlayer(entry);
+                continue;
+            }
+            if (!scene || !Story.has(scene)) {
+                console.error('setup.checkTaskScenes: task ' + live.id + ' has no scene passage "' + scene + '"');
+                continue;
+            }
+            entry.offeredDay = day;
+            return { sysName: sysName, entryId: entry.id };
+        }
+    }
+    return null;
+}>>
+
+<<set setup.findTaskEntry = (offer) => {
+    if (!offer) { return undefined; }
+    return (State.variables.activeTasks[offer.sysName] || []).find((e) => e.id === offer.entryId);
+}>>
+
+<<set setup.acceptTaskScene = (offer) => {
+    const v = State.variables;
+    const entry = setup.findTaskEntry(offer);
+    if (!entry) { return; }
+    const live = setup.getLiveTask(entry.task);
+    const scene = setup.getTaskPassage(live);
+    entry.sceneDay = v.date.dayCount;
+    v.taskScene = { sysName: offer.sysName, taskId: live.id, entryId: entry.id, passage: scene };
+    v.eventJustTriggered = true;
+    /* with a history entry, so tags() sees the scene (sidebar links and quick links are off) and a save keeps it */
+    Engine.play(scene);
+}>>
+
+<<set setup.declineTaskScene = (offer) => {
+    const entry = setup.findTaskEntry(offer);
+    if (!entry) { return; }
+    setup.missTaskWithPlayer(entry, true);
+    if ($("#cmd-schedule").length) { $("#cmd-schedule").empty().wiki('<<include "CMD Schedule">>'); }
+}>>
+
+/* The dialog. Closing it (X, Escape, clicking outside) is the same as declining, otherwise the task would
+   quietly count later through the "finishes without a scene" rule. */
+<<set setup.offerTaskScene = (offer) => {
+    setTimeout(() => {
+        const entry = setup.findTaskEntry(offer);
+        if (!entry) { return; }
+        const live = setup.getLiveTask(entry.task);
+        const wp = live.withPlayer;
+        const npc = State.variables[offer.sysName];
+        const v = State.variables;
+        const cost = setup.getTaskMissedCost(live);
+        const actions = Math.max(1, Number(live.apCost) || 1);
+        const place = v.locations[live.location.id] ? wikifyText(v.locations[live.location.id].name) : "";
+
+        let decided = false;
+        if (Dialog.isOpen()) { Dialog.close(); }
+        Dialog.setup(wikifyText(live.title), "task-offer");
+        Dialog.append(function () {
+            const card = $("<div class='tof'></div>");
+
+            /* kicker: the kind of moment, plus the time of day */
+            card.append($("<div class='tof-kicker'></div>").text("Appointment · " + v.time.current.text));
+
+            /* who + what: portrait (her initial underneath, for a missing image), title, facts */
+            const avatar = $("<div class='tof-avatar'></div>")
+                .append($("<span class='tof-initial'></span>").text(String(npc.callName || "?").charAt(0)));
+            $("<img alt=''>")
+                .attr("src", v.path + "images/characters/portraits/" + npc.sysName + ".jpg")
+                .on("error", function () { $(this).remove(); })
+                .appendTo(avatar);
+            const meta = $("<div class='tof-meta'></div>")
+                .append($("<span class='tof-chip'></span>").text(npc.callName))
+                .append(place ? $("<span class='tof-chip'></span>").text(place) : "")
+                .append($("<span class='tof-chip'></span>").text(actions + (actions === 1 ? " action" : " actions")));
+            const titles = $("<div class='tof-titles'></div>")
+                .append($("<div class='tof-title'></div>").text(wikifyText(live.title)))
+                .append(meta);
+            card.append($("<div class='tof-head'></div>").append(avatar, titles));
+
+            /* the moment itself */
+            card.append($("<p class='tof-prompt'></p>").wiki(wp.prompt || (npc.callName + " is here for our appointment.")));
+
+            /* what saying no costs */
+            if (cost.relation > 0 || cost.morale > 0) {
+                const consequence = $("<div class='tof-cost'></div>")
+                    .append($("<span class='tof-cost-label'></span>").text("If I send her away"));
+                if (cost.relation > 0) { consequence.append($("<span class='tof-cost-chip'></span>").text("−" + cost.relation + " Relation")); }
+                if (cost.morale > 0) { consequence.append($("<span class='tof-cost-chip'></span>").text("−" + cost.morale + " Morale")); }
+                card.append(consequence);
+            }
+
+            const declineButton = $("<button type='button' class='tof-btn tof-btn-ghost'></button>").wiki(wp.decline || "Not now");
+            const acceptButton = $("<button type='button' class='tof-btn tof-btn-primary'></button>").wiki(wp.accept || "Let her");
+            declineButton.on("click", () => { decided = true; Dialog.close(); setup.declineTaskScene(offer); });
+            acceptButton.on("click", () => { decided = true; Dialog.close(); setup.acceptTaskScene(offer); });
+            card.append($("<div class='tof-actions'></div>").append(declineButton, acceptButton));
+
+            $(this).append(card);
+        });
+        Dialog.open(null, () => { if (!decided) { decided = true; setup.declineTaskScene(offer); } });
+    }, 60);
+}>>
+
+<<set setup.allowTaskCompletion = (entry) => {
+    const v = State.variables;
+    const live = setup.getLiveTask(entry.task);
+    if (!live || !live.withPlayer) { return true; }
+
+    const day = v.date.dayCount;
+    if (entry.doneDay === day || entry.missedDay === day) { return false; }
+    if (entry.sceneDay !== day) {
+        if (!setup.isPlayerAtTask(live)) {
+            /* a one-action task ends with the action I may have spent walking over. My location only
+               changes in the next PassageReady, so let CheckTaskScene decide there instead */
+            const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+            if (entry.offeredDay !== day && entry.arrivalDay !== day
+                && row === entry.endRow && row === entry.startRow + 1) {
+                entry.arrivalDay = day;
+                return "wait";
+            }
+            setup.missTaskWithPlayer(entry);
+            return false;
+        }
+        if (live.withPlayer.summary) {
+            Notification.show(wikifyText(live.withPlayer.summary), { type: Notification.INFORMATION });
+        }
+    }
+    entry.doneDay = day;
+    return true;
+}>>
+
+<<set setup.notifyTaskWaiting = (task) => {
+    const v = State.variables;
+    const live = setup.getLiveTask(task);
+    if (!live || !live.withPlayer) { return; }
+    let text = live.withPlayer.waiting ? wikifyText(live.withPlayer.waiting) : "";
+    if (!text) {
+        const where = (live.withPlayer.where && live.withPlayer.where.length) ? live.withPlayer.where : [ live.location.id ];
+        const places = where.map((id) => wikifyText(v.locations[id].name)).join(" or ");
+        text = v[live.who.sysName].callName + " is waiting for me at " + places + ".";
+    }
+    Notification.show(text, { type: Notification.WARN });
+}>>
+
+<<set setup.completeTaskSceneEntry = () => {
+    const v = State.variables;
+    const scene = v.taskScene;
+    if (!scene) { return; }
+    const entry = (v.activeTasks[scene.sysName] || []).find((e) => e.id === scene.entryId);
+    if (!entry || !entry.inProgress) { return; }
+    if (setup.allowTaskCompletion(entry) === true) {
+        window.completeTaskEntry(scene.sysName, entry);
+    }
+}>>
+
+<<set setup.getTaskSceneActionsLeft = () => {
+    const v = State.variables;
+    const scene = v.taskScene;
+    if (!scene) { return 0; }
+    const entry = (v.activeTasks[scene.sysName] || []).find((e) => e.id === scene.entryId);
+    if (!entry) { return 0; }
+    const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+    return Math.max(0, entry.endRow - row);
+}>>
+
+
+/* Task cooldown ===============================================================
+   A task with cooldown: N (days) happens at most once every N days. Its entry stays in the schedule like any
+   other (the schedule repeats every weekday), but on a resting day it does not start: she follows her routine
+   in those rows instead, there is no scene, no pay, no energy cost and no missed penalty. The schedule block is
+   greyed out for the day ("rest" in CMD Schedule).
+   The rest is counted from lastCompletedAt with $date.dayCount, so weekends count too: cooldown 2 = every other
+   day (done Monday, rests Tuesday, again Wednesday). Only a finished run starts the rest; a missed or declined
+   one does not, so she comes back the next day.
+
+   setup.taskNextDay(task)      the dayCount from which on it can run again (0: any day)
+   setup.taskRestsToday(task)   true when it rests today (and did not already run today)
+   setup.taskRestText(task)     "again tomorrow" / "again in 2 days", for the schedule
+   setup.taskCooldownText(task) "Every other day" / "Every 3 days", or "" without a cooldown */
+<<set setup.taskNextDay = (task) => {
+    const live = setup.getLiveTask(task);
+    const cooldown = Number(live && live.cooldown) || 0;
+    if (cooldown <= 0 || !((Number(live.count) || 0) > 0)) { return 0; }
+    return (Number(live.lastCompletedAt) || 0) + cooldown;
+}>>
+
+<<set setup.taskRestsToday = (task) => {
+    const live = setup.getLiveTask(task);
+    const day = State.variables.date.dayCount;
+    return !!live && live.lastCompletedAt !== day && day < setup.taskNextDay(live);
+}>>
+
+<<set setup.taskRestText = (task) => {
+    const days = setup.taskNextDay(task) - State.variables.date.dayCount;
+    return days <= 1 ? "again tomorrow" : "again in " + days + " days";
+}>>
+
+<<set setup.taskCooldownText = (task) => {
+    const live = setup.getLiveTask(task);
+    const cooldown = Number(live && live.cooldown) || 0;
+    if (cooldown <= 1) { return ""; }
+    return cooldown === 2 ? "Every other day" : "Every " + cooldown + " days";
+}>>
+
+
+/* Running tasks ===============================================================
+   setup.getRunningTaskEnd()   the endRow of the scheduled task (mom or sister) that is running right now
+                               and ends first, or -1 when none runs. Used by the "Complete Task" button. */
+<<set setup.getRunningTaskEnd = () => {
+    const v = State.variables;
+    if (v.date.today.value > 4) { return -1; }
+    const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+    let end = -1;
+    for (const sysName of ["mom", "sister"]) {
+        for (const entry of (v.activeTasks[sysName] || [])) {
+            if (!entry.inProgress || row < entry.startRow || row >= entry.endRow) { continue; }
+            if (end === -1 || entry.endRow < end) { end = entry.endRow; }
+        }
+    }
+    return end;
+}>>
+
+
+/* The next task with me ===========================================================
+   setup.getTaskPlaces(task)          location ids where I have to be for a task with me (withPlayer.where,
+                                      or the task's own location)
+   setup.getTaskPlace(task)           the location to go to for it: where I am if that counts already, else My Desk
+                                      if that counts (it is part of the office area), else the first of its places
+   setup.getNextTaskWithPlayer()      today's next task with me that can still happen, or null:
+                                      { sysName, entry, task (the live task), waiting }
+                                      waiting = it started with this very action and I'm not there yet, so its
+                                      first action is my time to get there (see "Tasks with the player" above).
+                                      Otherwise it lies ahead (startRow later than now). Entries that were already
+                                      offered, played, missed or done today are skipped. Whether she has the energy
+                                      to start it is not known yet, so it is not checked.
+   Used by the CMD cards "Work until ..." / "Join ..." and the "Go to work" quick link (Define Quick Links). */
+<<set setup.getTaskPlaces = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live) { return []; }
+    return (live.withPlayer && live.withPlayer.where && live.withPlayer.where.length) ? live.withPlayer.where : [ live.location.id ];
+}>>
+
+<<set setup.getTaskPlace = (task) => {
+    const v = State.variables;
+    const places = setup.getTaskPlaces(task);
+    if (places.some((id) => setup.sameLocation(id, v.player.location))) { return v.player.location; }
+    const desk = setup.getLocationBySysName("companystage1desk");
+    if (desk && places.some((id) => setup.sameLocation(id, desk))) { return desk; }
+    return v.locations[places[0]] || null;
+}>>
+
+<<set setup.getNextTaskWithPlayer = () => {
+    const v = State.variables;
+    if (v.date.today.value > 4) { return null; }
+    const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
+    const day = v.date.dayCount;
+    let next = null;
+    for (const sysName of ["mom", "sister"]) {
+        for (const entry of (v.activeTasks[sysName] || [])) {
+            if (!setup.isTaskWithPlayer(entry.task)) { continue; }
+            if (entry.offeredDay === day || entry.sceneDay === day || entry.missedDay === day || entry.doneDay === day) { continue; }
+            if (setup.taskRestsToday(entry.task)) { continue; }
+            const waiting = !!entry.inProgress && row === entry.startRow && !setup.isPlayerAtTask(entry.task);
+            if (!waiting && row >= entry.startRow) { continue; }
+            if (next === null || entry.startRow < next.entry.startRow) {
+                next = { sysName: sysName, entry: entry, task: setup.getLiveTask(entry.task), waiting: waiting };
+            }
+        }
+    }
+    return next;
+}>>

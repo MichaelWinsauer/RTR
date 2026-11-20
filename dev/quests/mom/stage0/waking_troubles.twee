@@ -1,0 +1,30 @@
+:: Waking Troubles [event mom_quest] {"position":"3025,825","size":"100,100"}
+<<if $time.current.value == 0>>The house is still half asleep, the early light barely making it past the curtains,<<elseif $time.current.value == 4>>The last of the evening sun lies in long orange stripes across the floor,<<else>>Only one lamp is still on at this hour, leaving a small warm circle on the floor,<</if>> and I find $mom.callName pacing in front of it with her phone pressed to her ear. She's using her work voice, the polite one with an edge filed into it. Her free hand keeps drawing shapes in the air, as if whoever's on the other end could see the report she's describing.
+
+<<Video "images/characters/mom/events/waking troubles/phone_call.mp4" "" "" 500>>
+
+I lean against the doorframe and wait. She turns, sees me, and lifts one finger without breaking her sentence. From what I catch, a project is running late and somehow she's the one apologizing for it. <<if $time.current.value == 0>>The sun's barely up and work already has her on the phone.<<else>>It doesn't sound like this is her first call like this today.<</if>> The air smells of her perfume and <<if $time.current.value == 0>>fresh coffee<<else>>whatever was for dinner<</if>>, and every time she agrees to something she clearly doesn't agree with, her shoulders creep up another inch.
+
+We've been getting along better these past days. Small favors, longer talks in the kitchen, me actually listening when she tells me about her day. She's been softer with me because of it. Good. I'll need that in a minute.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey... got a minute? It's kind of important. In my room, maybe?" },
+{ text: "She covers the phone with her palm and gives me the look she used to give me when I interrupted her during tax season." },
+{ who: $mom, text: "Hold on a second, Karen, my $mom.playerRelation needs something. Yes, I'll have the numbers for you, don't worry. ...What is it, $player.name?" },
+{ who: $player, text: "It's about my mornings. Long story. I've got the prototype set up in my room, it'll make more sense there." },
+{ text: "Her eyes go from me to the phone and back, like she's weighing which one of us is more likely to sulk." },
+{ who: $mom, text: "Karen? I'm so sorry, I have to run. Family emergency. A small one. I'll call you right back, I promise." },
+{ who: $player, text: "Thanks. I owe you one." },
+{ who: $mom, text: "You owe me about four hundred by now, sweetie. But who's counting." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She hangs up, drops the phone into her cardigan pocket and follows me down the hallway. Her slippers scuff along behind me. Somewhere the dryer is thumping through its last cycle, and she sighs at it on the way past, like it's one more thing on a list that never gets shorter.
+
+At my door I step aside and let her go in first. My room is the usual mess of cables and half-open boxes, and she wrinkles her nose at it, but she goes in anyway.
+
+[[Follow her in|Waking Troubles 2]]
+
+

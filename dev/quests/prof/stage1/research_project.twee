@@ -1,0 +1,89 @@
+:: Research Project [event prof_quest scene] {"position":"3275,1450","size":"100,100"}
+/* Quest "The Proposition" (prof_researchProject), the first quest of the $prof line that is shown. He comes to the office on
+   the Thursday afternoon after I answered his mail. Pass rates are down, the dean is offering his department a fund, and he
+   heard that $sister tutors his students. I pitch a room-wide version of the device for his lecture hall, and he turns it
+   into a "research project" the college pays for. Until it is built, she tutors more, on campus too, and becomes the face
+   of the project. Its set unlocks her college tutoring task. Last time we met: Faking It (sister line, Stage 0). */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+$prof.callName arrives at twelve minutes past three, which he seems to consider early. He took the stairs, all three floors, because he doesn't trust elevators in buildings of this age, and he spends his first minute in the meeting room getting his breath back and the second one looking at everything: the glass wall, the whiteboard, the bowl of mints $mom.callName keeps filled for clients. He takes a mint, studies it and puts it back.
+
+<<silently>>
+<<set _msgs = [
+{ who: $prof, text: "So this is what you were building. I'll admit, I expected a garage." },
+{ who: $player, text: "You're not that far off. A few weeks ago it was a broom closet two floors down. Before that, my bedroom." },
+{ who: $prof, text: "Hm." },
+{ text: "He sits down at the head of the table without being asked and lays a leather folder in front of him. He doesn't open it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Ask what he wants">>
+<<silently>>
+<<set _msgs = [
+{ who: $prof, text: "I'll be direct, since you clearly have somewhere to be and so do I. Our pass rates are a disgrace. First-year calculus lost a third of its students this year, and of the ones who stayed, half couldn't calculate a tip." },
+{ who: $prof, text: "The dean has noticed. She has proposed, in her infinite wisdom, a little competition. Whichever department raises its graduation rate and, I quote, 'student engagement with independent study' by the end of next year receives a substantial discretionary fund. Its chair receives a great deal of gratitude." },
+{ who: $prof, text: "I intend to be that chair." },
+{ who: $player, text: "And you came to me because..." },
+{ who: $prof, text: "Because one of my sophomores, a boy who couldn't find a derivative with a map and a flashlight, passed his midterm with a B-minus. When I asked him how, he told me without any prompting. $sister.name $sister.surname. Tutoring, twice a week." },
+{ text: "He says her name the way you'd read a suspicious item off a receipt." },
+{ who: $prof, text: "Not long ago your $sister.relation was failing my class. Now she's teaching it. I have taught for eighteen years, Mr. $player.surname. I know a miracle when I see one, and in my experience they tend to have an explanation." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He leaves that hanging and waits. He remembers the conversation in his office well enough. What he doesn't remember is the hum, and I'd like to keep it that way.
+
+<<linkreplace "Make him an offer">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You don't need more tutors. You need a whole lecture hall that actually wants to learn." },
+{ who: $prof, text: "Don't we all." },
+{ who: $player, text: "Our product reads a room and settles it down. Calmer people, better focus. I can build a version for a lecture hall. Two hundred students instead of five people and a coffee machine, tuned for attention instead of comfort." },
+{ who: $prof, text: "You're proposing to install a gadget in my lecture hall." },
+{ who: $player, text: "I'm proposing a study. A lecture hall full of data, and a device that makes it easier to pay attention. Nobody ever got hurt paying attention." },
+{ who: $prof, text: "And what does this marvel cost?" },
+{ who: $player, text: "Time and money. A unit that covers a whole hall isn't something I solder together over a weekend. It's months of work and a lot of hardware." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He taps one finger on the leather folder while he thinks about it, slowly, like a metronome set for a funeral march. Then he opens it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $prof, text: "Then it isn't a purchase. It's research." },
+{ text: "He turns a form around so I can read it. A funding application, half filled in already, in very neat block capitals." },
+{ who: $prof, text: "The college has a budget line for pedagogical innovation that nobody has touched since somebody bought a smartboard none of us could switch on. An external research partner, a pilot study in my lecture hall, a grant for the equipment. The dean will sign anything with the word pilot in it." },
+{ who: $player, text: "And until it's built?" },
+{ who: $prof, text: "Until then, your $sister.relation tutors. More than she does now. On campus, in the library, and with the students I choose. I have a list." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He does have a list. It's in the folder, under the form, and a few of the names are underlined twice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $prof, text: "And she'll be the face of the thing. The students like her. God knows why, she's late to everything. But they line up to talk to her. If a pretty girl tells them the study group is the place to be, they'll go. If I tell them, they'll drop the course." },
+{ who: $prof, text: "She does dress rather... well these days. I assume that's still your doing." },
+{ who: $player, text: "I told you she would." },
+{ who: $prof, text: "You also told me there would be more. I trust that hasn't slipped your mind." },
+{ who: $player, text: "This is the start of it. Your numbers go up, you get your chair, and you get to watch her stand in front of your students twice a week. The rest comes once the unit is hanging in your hall." },
+{ text: "He looks at me over his glasses for a long moment. Then he closes the folder." },
+{ who: $prof, text: "Acceptable. Send me something with a letterhead. The dean is very fond of letterheads." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On his way out he takes the mint after all. I hear him on the stairs for a long time, one floor at a time, muttering at each landing.
+
+$sister.callName doesn't know yet that she's about to become the face of a research project. She's going to love it. It has the word research in it, and she can put it on her evaluation form.
+
+<<UpdateStat "+" "Corruption" 2>>
+<<UpdateStat "+" "Reputation" 3>>
+<<ProfileLog $sister "The Face of the Project" "Her old calculus professor wants her as the face of his research project at the college: more tutoring, on campus too, with the students he picks. She doesn't know yet. She'll say yes, she always does when it has something to do with me.">>
+<<NextQuest $prof>>
+<<run Notification.show("New task for " + $sister.callName + ": Tutoring at the college", { type: Notification.INFORMATION })>>
+<<ReturnFromEvent "Back to my desk">>
+<</linkreplace>>
+<</linkreplace>>

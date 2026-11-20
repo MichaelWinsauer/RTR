@@ -1,0 +1,19 @@
+:: Stage 0 Plan [event main_quest] {"position":"3025,125","size":"100,100"}
+I shut the door and lean against it for a second. My room is the one place in this house where nobody asks me how the company is doing, which makes it the best place to think. I want results, and wanting them isn't a plan. So, let's start working on one.
+
+Money first, because it always is. The diner is the only thing paying me right now, and it isn't paying much. Between the office and the equipment I'm out $<<=$company.finances.expenses.rent>> every week, a number I'd rather not stare at for too long. That means more shifts, more mopping, and more of my manager's little jokes. If things get really tight, maybe $mom.callName or $sister.callName can spot me. I'd hate asking, but I'd hate losing the office more.
+
+Which reminds me that I should stay on good terms with both of them. Being nice costs me nothing, and people who like you tend to say yes a lot more often.
+
+Now for the part I actually care about. $company.prototype.name was built to read rooms. If I'm right, it can do more than read them, and if I'm right about that, I'm holding something nobody else has. Proving it takes hours, though. I can grind away at the office, or, on days when even getting there feels like too much, dig through research on the laptop right here. For now the goal is simple: get the prototype to $company.prototype.maxProgress%. Once it's there, I might risk a first test.
+
+Beyond that, my list is pretty short. Mostly I need to survive the first few weeks back home without losing my mind.
+
+<<ReturnFromEvent>>
+<<UseAction>>
+
+<<silently>>
+<<NextQuest $player>>
+<</silently>>
+
+

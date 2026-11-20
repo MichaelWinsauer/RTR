@@ -1,0 +1,124 @@
+:: Landlord Apartment [location] {"position":"2525,1550","size":"100,100"}
+<<CheckLocation>>
+<<silent>>
+	/* rent day: bring it to him (Landlord Pay Rent) before he comes for it. See "The weekly rent" in Define Misc */
+	<<set _laDue to setup.rentIsDue()>>
+	<<set _laOwed to setup.rentOwed()>>
+	<<set _laFunds to setup.rentFunds()>>
+<</silent>>
+The stairs up to the second floor complain about every single step, and the higher I get, the thicker the cologne. His door still says "Manager" in flaking gold letters, in case anybody in the building forgot who they're paying. Behind it the TV is always on. Game shows in the afternoon, something with a lot of yelling at night.
+
+He calls it his office, and he also sleeps in it, so I guess it's an apartment too. It does both jobs badly. Invoices stacked halfway to the ceiling, a desk lamp that makes everything the color of old teeth, and in the corner an armchair that has slowly turned into the exact shape of him.
+
+<<nobr>>
+<<if _laDue>>
+	<<if _laFunds >= _laOwed>>
+		<<if setup.rentIsOverdue()>>
+I'm late, and he knows it. If I knock now, I'm walking in with $<<= _laOwed>> and no good excuse. That still beats having him find me first, so I could [[knock and pay up|Landlord Pay Rent]].
+		<<else>>
+It's rent day. He's going to come knocking for his $<<= _laOwed>> tonight either way. I might as well [[bring it to him myself|Landlord Pay Rent]] and spare us both the doorstep routine.
+		<</if>>
+	<<else>>
+I've got $<<= _laFunds>>. He wants $<<= _laOwed>>. There's no point knocking on that door with less than all of it. He'd just count it in front of me, slowly, and then tell me what I already know.
+	<</if>>
+<<else>>
+Rent isn't due until <<= $date.days[$rentDueDay % 7].text>>. Nobody in this building knocks on that door early, and I'm not about to be the first.
+<</if>>
+<</nobr>>
+
+<<CheckNPCLocation>>
+<<CameraSpot>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Back outside|Residential Area]]
+</div>
+<</nobr>>
+
+
+:: Landlord Pay Rent [scene] {"position":"2525,1675","size":"100,100"}
+<<silent>>
+	/* I bring the rent to him myself (Landlord Apartment). On time, before the evening of rent day, he is about as
+	   friendly as he gets. Late, he is the same old grouch. Paying is the PayRent widget (Widgets), one action */
+	<<SetBackground $locations[19].img>>
+	<<set _lpOwed to setup.rentOwed()>>
+	<<set _lpLate to setup.rentIsOverdue()>>
+	<<set _lpDayLate to $date.dayCount > $rentDueDay>>
+	<<set _lpBothWeeks to $player.debt > 0>>
+<</silent>>
+<<if !_lpLate>>
+I knock twice. The TV goes quiet, which has never happened before, and after a lot of grunting and one worrying thud, the door opens just far enough for his face to fill the gap.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Kid. It's Monday. You lost?" },
+{ who: $player, text: "Brought you the rent." },
+{ text: "He looks at the envelope, then at me, then back at the envelope, like one of us has to be a trick." },
+{ who: $landlord, text: "Huh. Somebody in this building can read a calendar." },
+{ who: $landlord, text: "Well, come in, then. Don't touch anything." },
+]>>
+<</silently>>
+<<else>>
+I knock twice. The TV doesn't get any quieter, but the door opens anyway, and he's already got his shoes on.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Oh, now he shows up. I was just about to come down and drag you out." },
+]>>
+<<if _lpDayLate>>
+	<<run _msgs.push({ who: $landlord, text: "Rent was yesterday, kid. Yesterday. I stood in front of your door like an idiot." })>>
+<</if>>
+<<run _msgs.push(
+	{ who: $player, text: "I've got all of it." },
+	{ who: $landlord, text: "You better. And you can hand it over right here. You don't get the comfy chair for showing up late." }
+)>>
+<</silently>>
+<</if>>
+<<Chat _msgs>>
+
+<<linkreplace "Hand him the envelope">>
+<<silently>>
+<<if !_lpLate>>
+	<<set _msgs = [
+	{ text: "He drops into the armchair with a groan that starts somewhere in his knees and counts the bills twice, licking his thumb every few. Some habits don't care whether you're on time." },
+	]>>
+	<<if _lpBothWeeks>>
+		<<run _msgs.push({ who: $landlord, text: "Last week's too. Well, well. Maybe you won't end up running that company out of your car after all." })>>
+	<</if>>
+	<<run _msgs.push(
+		{ who: $landlord, text: "You want a beer? Got one in the fridge that's only a little expired." },
+		{ who: $player, text: "I'll pass." },
+		{ who: $landlord, text: "Your loss. More for me." },
+		{ who: $landlord, text: "This, though. This I like. Every Monday I gotta haul myself over to you, I like you a little less. You bring it up here, I don't gotta move. Everybody's happy." },
+		{ who: $player, text: "Then I'll make a habit of it." },
+		{ who: $landlord, text: "Don't make promises, kid. Just do it." }
+	)>>
+	<<if $company.stage > 0>>
+		<<run _msgs.push(
+			{ who: $landlord, text: "And tell those two I'm looking forward to their next visit. Lot of dusty shelves in here. Low ones, mostly." },
+			{ text: "He grins at me over the money, and I grin right back. He thinks he got the better end of that deal. I let him think it." }
+		)>>
+	<</if>>
+<<else>>
+	<<set _msgs = [
+	{ text: "He counts it right there in the doorway, slowly, licking his thumb every few bills, so the whole hallway gets to watch." },
+	]>>
+	<<if _lpBothWeeks>>
+		<<run _msgs.push({ who: $landlord, text: "Both weeks. Took you long enough." })>>
+	<</if>>
+	<<run _msgs.push(
+		{ who: $landlord, text: "It's all there. Next week you bring it before I have to come looking, or I start charging you for the walk." },
+		{ who: $player, text: "Understood." }
+	)>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if !_lpLate>>
+He's already reaching for the remote by the time I close the door behind me. The game show comes back on at full volume. It's still the friendliest goodbye I've ever gotten from him.
+<<else>>
+The door shuts in my face before I've turned around. At least nobody had to come knocking.
+<</if>>
+
+<<PayRent>>
+<<UseAction>>
+<div class="navigation-link">[[Continue|Landlord Apartment]]</div>
+<</linkreplace>>

@@ -1,0 +1,159 @@
+:: PassageReady [system] {"position":"1575,275","size":"100,100"}
+<<if !$eventJustTriggered>>
+
+<<set _passage to passage()>>
+<<SetLocation _passage>>
+<<CheckForEvent _passage>>
+/* a task with me (the massage in the meeting room, ...) plays its scene now, or counts as missed if I'm elsewhere */
+<<if !$eventJustTriggered>><<CheckTaskScene>><</if>>
+
+<<PlayAudio>>
+
+/* Where mom and sister are now: today's plan, or the task that runs right now (Define Schedule) */
+<<set $time.current.actionSlot = $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
+<<run setup.updateNpcPositions()>>
+
+/* A place that is closed now sends me to its locationToReturnTo, or back where I came from. Only on the location
+   passage itself (an activity or a scene there finishes first), never when an event or task scene was just
+   triggered (the bounce would replace it), and never to the passage I'm on (that would reload it forever). */
+<<if !$eventJustTriggered && passage() == $player.location.passage && !$player.location.open.includes($time.current.value)>>
+	<<script>>
+		const v = State.variables;
+		const loc = v.player.location;
+		const dest = loc.locationToReturnTo ? loc.locationToReturnTo.passage : (v.player.previousLocation || {}).passage;
+		if (dest && dest !== State.passage) {
+			setTimeout(() => { if (State.passage === loc.passage) { Engine.play(dest); } }, 50);
+		}
+	<</script>>
+<</if>>
+
+<<if $mom.location.id < 7>>
+	<<set $mom.flags.isHome = true>>
+<<else>>
+	<<set $mom.flags.isHome = false>>
+<</if>>
+
+<<if $sister.location.id < 7>>
+	<<set $sister.flags.isHome = true>>
+<<else>>
+	<<set $sister.flags.isHome = false>>
+<</if>>
+
+/*Toggle back to Quest in sidebar.*/
+<<if $player.location.id > 6>>
+	<<ShowInformationPanel 0>>
+	<<set $displayInformation = 0>>
+<</if>>
+
+<<include "Check Event Requirements">>
+<<include "Check Quest Requirements">>
+
+/*Update Mom Masturbation Chance*/
+/*==============================*/
+/* probability between 0 and ~0.95 */
+<<set _chance = $statInfluence.chanceBase
+            + Math.round($statInfluence.chanceLust * $mom.stats.lust)
+            + Math.round($statInfluence.chanceCorr * setup.corruptionEffective("mom"))
+            - Math.round($statInfluence.chanceRes  * $mom.stats.resistance)>>
+<<set $events[3].chance to Math.min(100, Math.max(0, _chance))>>
+/* the same for the sister ($events[4]) */
+<<set _chance = $statInfluence.chanceBase
+            + Math.round($statInfluence.chanceLust * $sister.stats.lust)
+            + Math.round($statInfluence.chanceCorr * setup.corruptionEffective("sister"))
+            - Math.round($statInfluence.chanceRes  * $sister.stats.resistance)>>
+<<set $events[4].chance to Math.min(100, Math.max(0, _chance))>>
+
+/*Check if Sidebar should be hidden*/
+<<if tags().includes("hide_sidebar")>>
+	<<script>>
+    	document.getElementById("ui-bar").style.display = "none";
+        document.getElementById("story").style.marginLeft = "0";
+    <</script>>
+<<else>>
+	<<script>>
+    	document.getElementById("ui-bar").style.display = "inline";
+        document.getElementById("story").style.marginLeft = "";
+    <</script>>
+<</if>>
+
+
+/*
+Switch to the Activities Information Panel if someone is at the same location as the player
+*/
+<<if $settings.switchToActivities == true>>
+    <<if setup.sameLocation($player.location, $sister.location) or setup.sameLocation($player.location, $mom.location) && passage() == $player.location.passage>>
+        <<set $previousDisplayInformation to $displayInformation>>
+        <<ShowInformationPanel 1>>
+        <<set $displayInformation = 1>>
+    <<else>>
+        <<if $previousDisplayInformation != 1>>
+            <<set $displayInformation to $previousDisplayInformation>>
+            <<ShowInformationPanel $previousDisplayInformation>>
+        <</if>>
+    <</if>>
+<</if>>
+
+/* Meal Alerts (can be turned off in the settings; saves from before the setting existed count as on).
+   When an important meal is waiting at this meal, the alert says so (setup.getPendingMealTypes in Define Meals). */
+<<if $settings.showMealNotifications != false && !$eventJustTriggered>>
+	<<if        $time.current.value == 1 && 
+	            $microEvents[0].lastSeenDay != $date.dayCount &&
+	            $lastBreakfastAltert != $date.dayCount>>
+	    <<run Notification.show(setup.getPendingMealTypes(["breakfast"]).length > 0 ? "Breakfast is ready! You should eat with your family." : "Breakfast is ready!", {type: Notification.INFORMATION});>>
+	    <<set $lastBreakfastAltert to $date.dayCount>>
+	<<elseif    $time.current.value == 3 && 
+	            ($date.today.value == 5 || $date.today.value == 6) &&
+	            $microEvents[1].lastSeenDay != $date.dayCount &&
+	            $lastLunchAltert != $date.dayCount>>
+	    <<run Notification.show(setup.getPendingMealTypes(["lunch"]).length > 0 ? "Lunch is ready! You should eat with your family." : "Lunch is ready!", {type: Notification.INFORMATION});>>    
+	    <<set $lastLunchAltert to $date.dayCount>>
+	<<elseif    $time.current.value == 4 &&
+	            $microEvents[2].lastSeenDay != $date.dayCount &&
+	            $lastDinnerAltert != $date.dayCount>>
+	    <<run Notification.show(setup.getPendingMealTypes(["dinner"]).length > 0 ? "Dinner is ready! You should eat with your family." : "Dinner is ready!", {type: Notification.INFORMATION});>>
+	    <<set $lastDinnerAltert to $date.dayCount>>
+	<</if>>
+<</if>>
+
+
+
+
+
+
+
+
+
+
+
+<<else>>
+	<<set $eventJustTriggered to false>>
+<</if>>
+
+/*Always change the background color depending on time of day*/
+<<if $time.current.value == 5>>
+	<<script>>
+        document.body.classList.add("night");
+        document.body.classList.remove("late-night");
+        document.body.classList.remove("early-morning");
+    <</script>>
+<<elseif $time.current.value == 6>>
+	<<script>>
+    	document.body.classList.remove("night");
+        document.body.classList.add("late-night");
+        document.body.classList.remove("early-morning");
+    <</script>>
+<<elseif $time.current.value == 0>>
+	<<script>>
+    	document.body.classList.remove("night");
+        document.body.classList.remove("late-night");
+        document.body.classList.add("early-morning");
+    <</script>>
+<<else>>
+  <<script>>
+  	document.body.classList.remove("night");
+    document.body.classList.remove("late-night");
+    document.body.classList.remove("early-morning");
+  <</script>>
+<</if>>
+
+

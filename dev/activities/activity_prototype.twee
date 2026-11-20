@@ -1,0 +1,8 @@
+:: Activity Prototype [activity] {"position":"25,1800","size":"100,100"}
+<<RandomVideo "images/characters/player/activities/work/" 1 ".webm" 600 >>
+
+<<UpdateStat "+" "Prototype" 1>>
+<<link "Finish up" "Bedroom">><</link>>
+<<UseAction 2>>
+
+

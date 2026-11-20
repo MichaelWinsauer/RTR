@@ -1,0 +1,67 @@
+:: Mom Office Vent [micro_event event nobr] {"position":"1300,3400","size":"100,100"}
+/* Inline micro event in the Stage 1 main room (micro event 40, "A normal workday" in Define Events): she stops
+   right under the vent with her eyes closed, and likes the air. Only while the vent unit runs. Once she is past
+   her first corruption stage, the meeting room slips into what she says. */
+<div class="activity-image-wrapper" style="max-height: 400px">
+	<<DisplayActivity $mom>>
+</div>
+<p>$mom.callName is standing in the middle of the main room with a stack of folders in her arms, going nowhere. Her eyes are closed. She's right underneath the vent, and the air coming out of it lifts a few loose strands of hair off her forehead and lets them fall again.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $player, text: "Everything okay?" },
+	{ who: $mom, text: "Hm? Oh! Yes. Sorry, honey, I was just..." },
+	{ text: "She doesn't move, though. She doesn't even open her eyes." },
+	{ who: $mom, text: "Does it smell different in here to you? Not in a bad way. It's clean, like outside after it rains. I swear I think better right on this spot. Isn't that silly?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<br>
+<div id="mom-vent-choice">
+	<div>
+		<<link "Tell her it's the filters">>
+			<<replace "#mom-vent-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "It's the new filters. $landlord.callName finally had them changed." },
+					{ who: $mom, text: "Well, tell him thank you from me." },
+					{ text: "Then she remembers who she'd be thanking, and when, and in what way. Her nose wrinkles." },
+					{ who: $mom, text: "Actually, don't. I'll... I'll tell him myself." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She takes the folders to her desk. On her way, she slows down when she passes under the vent again, just slightly, like walking past a bakery.</p>
+				<<UpdateStat "+" "MomLust" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Tell her to stay as long as she likes">>
+			<<replace "#mom-vent-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Then stay there. Nobody's timing you." },
+					{ who: $mom, text: "Don't tease me, sweetie." },
+					{ who: $player, text: "I'm not." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>She laughs, and she stays. I go back to my desk and watch her from there. She stands under it with the folders pressed against her chest until they start to slip, and her shoulders come down a little further with every breath.</p>
+				<<if setup.corruptionStage("mom") >= 1>>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $mom, text: "I keep thinking about the meeting room." },
+						{ text: "She says it to nobody, eyes still closed. Then she hears herself, and they open." },
+						{ who: $mom, text: "The folders, I mean. They go in the meeting room. That's where they go." },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<p>She takes them to her own desk instead.</p>
+				<<else>>
+					<p>When she finally walks to her desk, she's humming. She doesn't seem to notice she's doing it.</p>
+				<</if>>
+				<<UpdateStat "+" "MomLust" 1>>
+				<<UpdateStat "+" "MomCorruption" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

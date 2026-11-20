@@ -1,0 +1,22 @@
+:: Help Company Overview [nobr] {"position":"575,4125"}
+<p>The <b>Company Management Dashboard</b> is the control room of your company. From one screen you plan the work of your family, run projects, watch the money, read your mail and keep an eye on the house.</p>
+
+<h3>How to get there</h3>
+<p>Walk to the <b>Residential Area</b> and pick the office tile, or use the <b>Go to work</b> <a href="#" data-help="Help Time And Actions">quick link</a> on weekdays. The office is open in every time slot except Late Night. Inside, go to <b>My Desk</b>: that is the dashboard. The big <b>X</b> in its header takes you back to the office.</p>
+
+<h3>The screen</h3>
+<dl class="help-stats">
+	<dt>Top</dt><dd>The <a href="#" data-help="Help Company Header">header</a>: a greeting, what is next up, your quests and where $mom.callName and $sister.callName are.</dd>
+	<dt>Top row</dt><dd>From the left: the <a href="#" data-help="Help Company Devices">devices</a> strip, the <a href="#" data-help="Help Company Finances">finances</a>, then the <a href="#" data-help="Help Company Cameras">camera</a> buttons and the camera picture.</dd>
+	<dt>Left</dt><dd>The tall <a href="#" data-help="Help Company Schedule">weekly schedule</a>, with the names of the time slots down its left edge.</dd>
+	<dt>Middle</dt><dd>The <a href="#" data-help="Help Company Stats">company stats</a>, with your <a href="#" data-help="Help Company Employees">employees</a> below them.</dd>
+	<dt>Right</dt><dd>Your <a href="#" data-help="Help Company Projects">projects</a>.</dd>
+	<dt>Bottom</dt><dd>Your <a href="#" data-help="Help Company Mails">mail</a> and the big <a href="#" data-help="Help Company Actions">action buttons</a>.</dd>
+</dl>
+
+<h3>The buttons above the dashboard</h3>
+<p>At the top left, outside the panel: back and forward, <b>Quests</b> (a list of your current quests), <b>Saves</b>, <b>Restart</b>, <b>Settings</b> and <b>Help</b>. None of them takes time.</p>
+
+<h3>What costs time</h3>
+<p>Looking at panels, opening cards, reading mail, switching cameras and calibrating a device are all free. Time only passes when you press an <a href="#" data-help="Help Company Actions">action button</a> or <a href="#" data-help="Help Company Devices">charge a device</a>. Each time it does, the whole dashboard refreshes.</p>
+<div class="help-note">Everything is explained page by page in this section. The last page, <a href="#" data-help="Help Company Daily Cycle">Every night</a>, lists what happens automatically when a day ends.</div>

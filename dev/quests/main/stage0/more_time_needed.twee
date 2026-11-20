@@ -1,0 +1,50 @@
+:: More Time Needed [event main_quest] {"position":"3150,125","size":"100,100"}
+I find $sister.callName on her bed, half watching reels, half arguing with a comment section. The prototype is in my hoodie pocket. I drop onto the arm of her reading chair like I'm only passing through.
+
+<<silently>>
+<<set _msgs = [
+  { who: $player,  text: "Hey, quick question. I'm a little short this week. Any chance you could spot me enough to cover the rest of the rent?" },
+  { who: $sister,  text: "I wish. I'm broke until Sunday. Just do a lap of chores and ask $mom.callName after. That always works." },
+  { who: $player,  text: "I would, but I'm buried today. If I burn two hours on dishes and vacuuming, I'm cooked for my deadline." },
+  { who: $sister,  text: "Yeah, but that's kind of the deal around here. Be useful, get goodwill." },
+  { text: "I wake the prototype with a thumb press. The little hum is barely there, like an AC you only notice when it stops. I keep my tone easy." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<UseQuestDevice $player>>
+<<set _msgs = [
+  { who: $player,  text: "Look, I'm not trying to dodge anything. I really need the time. You know I've been grinding on the prototype, and I just had a breakthrough. If I stop now, I lose the thread. And you love me, whether you admit it or not. We've always covered for each other when it mattered." },
+  { who: $sister,  text: "I mean... yeah, we look out for each other. I still don't have any cash, though." },
+  { who: $player,  text: "Then how about this. Could you do the house chores for me? Dishes, counters, recycling, a quick vacuum... so it all looks done when $mom.callName gets home. I'll leave a note with my name and some checkmarks. She'll relax, probably float me a little, and I keep my head above water." },
+  { who: $sister,  text: "So I do the chores and you take the credit?" },
+  { who: $player,  text: "I take the pressure off $mom.callName and finish what I need to finish. You're doing it because you actually care, and because it's us. Say yes!" },
+  { text: "I nudge the dial down a notch. Her shoulders unclench, and she's actually thinking about it instead of deflecting." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<silently>>
+<<DevicePulse "-1">>
+<<set _msgs = [
+  { who: $sister,  text: "You're so annoying when you're sincere, you know that? This is going to make me roll my eyes for a week." },
+  { who: $player,  text: "You can roll them while the dishwasher runs. Very efficient." },
+  { who: $sister,  text: "Fine. I'll do your chores. You write the list and sign it so $mom.callName sees it. If she hands you anything, great. If not, you still owe me a thank-you and zero gloating." },
+  { who: $player,  text: "Deal on the thank-you. No gloating. I really appreciate it." },
+  { who: $sister,  text: "I don't even know why I'm agreeing to this. Whatever, hand me the towel before I change my mind." }
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I stick the note on the fridge: Dishes ✔ Counters ✔ Recycling ✔ Vacuum ✔ ~$player.name.
+
+Water starts running in the kitchen, and the vacuum growls awake a minute later. When she walks past with the recycling bag, she gives me a look that's half confused about why she said yes and half a warning not to make this a habit.
+
+<<UpdateStat "+" "Corruption" 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<silently>>
+<<ProfileLog $sister "Taking Over the Chores" "With a little nudge from $company.prototype.name she agreed to do the house chores for me, so I have more time for the prototype.">>
+<<set setup.getMealById("more_time_needed").isActive to true>>
+<<NextQuest $player>>
+<</silently>>
+<<ReturnFromEvent>>
+<<UseAction>>

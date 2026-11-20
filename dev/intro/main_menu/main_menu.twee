@@ -1,0 +1,783 @@
+:: Main Menu [hide_sidebar system no_location_audio] {"position":"0,425","size":"100,100"}
+/*
+	MAIN MENU
+	Everything (content, CSS, markup, JS) lives in this passage.
+	The menu layer is added to <body> straight away (black), filled on :passagedisplay and torn down again on the next :passagestart.
+	Panel content lives in its own passages: "Main Menu Credits", "Main Menu Changelog", "Main Menu Gallery".
+	Edit the CFG block at the top of the script to change the version.
+*/
+<div id="mm-dev-source" hidden><<include "Skip Intro">></div>
+<div id="mm-src-credits" hidden><<include "Main Menu Credits">></div>
+<div id="mm-src-changelog" hidden><<include "Main Menu Changelog">></div>
+<div id="mm-src-gallery" hidden><<include "Main Menu Gallery">></div>
+<<script>>
+(function () {
+	'use strict';
+
+	/* ——————————————————————— Content ——————————————————————— */
+	var CFG = {
+		version: '0.1.0'
+	};
+
+	/* ——————————————————————— Styles ——————————————————————— */
+	var CSS = `
+	html.mm-lock, html.mm-lock body { overflow: hidden; }
+
+	.mm {
+		--gold: #EAAF4C;
+		--cream: #EBDDC5;
+		position: fixed; inset: 0; z-index: 900;
+		overflow: hidden;
+		background: #08080b;
+		color: var(--cream);
+		font-family: "Manrope", sans-serif;
+		font-weight: 400;
+		text-align: left;
+		user-select: none;
+	}
+	.mm-main, .mm-foot { transition: opacity .45s ease; }
+	.mm.is-leaving { pointer-events: none; }
+	.mm.is-leaving .mm-main, .mm.is-leaving .mm-foot { opacity: 0 !important; }
+	.mm *, .mm *::before, .mm *::after { box-sizing: border-box; }
+
+	/* ——— background: a golden signal (Valenx waves) that gets eaten by crimson tendrils (creeping influence) ———
+	   drawn on a canvas, see the "background" block in the script */
+	.mm-bg {
+		position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+		background: radial-gradient(110% 130% at 60% 70%, var(--main-bg) 0%, var(--main-bg) 55%, var(--card-bg) 100%);
+		opacity: 0; animation: mm-fade 1.4s .1s ease forwards;
+	}
+	.mm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; backdrop-filter: blur(5px); }
+	.mm-bg::after {
+		content: ''; position: absolute; inset: 0;
+		background: radial-gradient(ellipse at 55% 55%, rgba(114,24,36,0) 48%, rgba(114,24,36,.32) 100%);
+	}
+
+	/* ——— main column ——— */
+	.mm-main {
+		position: absolute; inset: 0 0 4.2rem 0;
+		display: flex; flex-direction: column; justify-content: center;
+		padding: 2rem clamp(1.5rem, 8vw, 8rem);
+		overflow-y: auto; overflow-x: hidden;
+	}
+
+	.mm-tagline {
+		margin: 0 0 clamp(1.6rem, 5vh, 3rem) .15em;
+		font-size: clamp(.68rem, 1.05vw, .92rem); font-weight: 300; letter-spacing: .4em; text-transform: uppercase;
+		color: rgba(235,221,197,.78);
+		opacity: 0; animation: mm-rise 1s .45s ease forwards;
+	}
+
+	.mm-title {
+		margin: 0 0 .9rem; padding: 0;
+		font-size: clamp(2.8rem, min(7.4vw, 13vh), 6.6rem);
+		font-weight: 800; line-height: 1; letter-spacing: .03em; text-transform: uppercase;
+		color: var(--cream);
+		opacity: 0; animation: mm-rise 1s .3s ease forwards;
+	}
+	.mm-to { font-weight: 300; color: rgba(235,221,197,.5); }
+	.mm-ruin {
+		position: relative; display: inline-block;
+		background: linear-gradient(100deg, var(--accent) 5%, #721824 100%);
+		-webkit-background-clip: text; background-clip: text;
+		color: transparent;
+		filter: drop-shadow(0 0 22px rgba(234,110,60,.3));
+	}
+	.mm-ruin::before, .mm-ruin::after {
+		content: attr(data-text);
+		position: absolute; inset: 0; pointer-events: none; opacity: 0;
+	}
+	.mm-ruin::before { color: #DB354C; animation: mm-glitch-a 8s 3.5s infinite steps(1); }
+	.mm-ruin::after  { color: var(--cream); animation: mm-glitch-b 8s 3.5s infinite steps(1); }
+	@keyframes mm-glitch-a {
+		0%, 92%, 100% { opacity: 0; }
+		93%   { opacity: .9; transform: translate(-.045em, 0); clip-path: inset(12% 0 62% 0); }
+		94.5% { opacity: .9; transform: translate(.05em, 0);   clip-path: inset(58% 0 18% 0); }
+		96%   { opacity: .9; transform: translate(-.02em, 0);  clip-path: inset(34% 0 44% 0); }
+		97.5% { opacity: 0; }
+	}
+	@keyframes mm-glitch-b {
+		0%, 93%, 100% { opacity: 0; }
+		94%   { opacity: .6; transform: translate(.04em, 0);  clip-path: inset(70% 0 8% 0); }
+		95.5% { opacity: .6; transform: translate(-.04em, 0); clip-path: inset(6% 0 76% 0); }
+		97%   { opacity: 0; }
+	}
+
+	@keyframes mm-fade { to { opacity: 1; } }
+	@keyframes mm-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+	/* ——— menu ——— */
+	.mm-menu { display: flex; flex-direction: column; width: min(440px, 100%); }
+
+	.mm .mm-item {
+		position: relative; overflow: hidden;
+		display: grid; grid-template-columns: 2.6rem 1fr auto; align-items: center;
+		width: 100%; margin: 0; padding: .95rem 1rem .95rem .2rem;
+		border: 0; border-bottom: 1px solid rgba(235,221,197,.12); border-radius: 0;
+		background: transparent;
+		color: var(--cream); font: inherit; text-align: left; cursor: pointer;
+		opacity: 0;
+		animation: mm-rise .7s ease forwards;
+		animation-delay: calc(.6s + var(--i) * .07s);
+	}
+	.mm .mm-item::before {
+		content: ''; position: absolute; inset: 0; z-index: 0;
+		background: linear-gradient(90deg, rgba(234,175,76,.2), rgba(234,175,76,0) 90%);
+		transform: scaleX(0); transform-origin: left;
+		transition: transform .4s cubic-bezier(.2,.8,.2,1);
+	}
+	.mm .mm-item::after {
+		content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; z-index: 1;
+		background: var(--gold);
+		transform: scaleY(0);
+		transition: transform .3s cubic-bezier(.2,.8,.2,1);
+	}
+	.mm .mm-item > * { position: relative; z-index: 1; }
+
+	.mm-num { font-size: .7rem; font-weight: 700; letter-spacing: .2em; color: var(--gold); opacity: .55; transition: opacity .3s; padding-left: .8rem; }
+	.mm-label {
+		font-size: 1.3rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+		transition: transform .35s cubic-bezier(.2,.8,.2,1), color .3s;
+	}
+	.mm-sub {
+		grid-column: 2 / 4; margin-top: .2rem;
+		max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+		font-size: .72rem; letter-spacing: .06em; color: rgba(235,221,197,.55);
+		transition: transform .35s cubic-bezier(.2,.8,.2,1);
+	}
+	.mm-arrow { width: 22px; height: 22px; color: var(--gold); opacity: 0; transform: translateX(-12px); transition: opacity .3s, transform .35s cubic-bezier(.2,.8,.2,1); }
+	.mm .mm-item:hover, .mm .mm-item:focus-visible { background: transparent; color: #fff; }
+	.mm .mm-item:focus { outline: none; }
+	.mm .mm-item:hover::before, .mm .mm-item:focus-visible::before { transform: scaleX(1); }
+	.mm .mm-item:hover::after,  .mm .mm-item:focus-visible::after  { transform: scaleY(1); }
+	.mm .mm-item:hover .mm-label, .mm .mm-item:focus-visible .mm-label { transform: translateX(.55rem); }
+	.mm .mm-item:hover .mm-sub,   .mm .mm-item:focus-visible .mm-sub   { transform: translateX(.55rem); }
+	.mm .mm-item:hover .mm-arrow, .mm .mm-item:focus-visible .mm-arrow { opacity: 1; transform: none; }
+	.mm .mm-item:hover .mm-num,   .mm .mm-item:focus-visible .mm-num   { opacity: 1; }
+	.mm .mm-item:active .mm-label { transform: translateX(.35rem); }
+
+	.mm .mm-item.is-primary { border-bottom-color: rgba(234,175,76,.45); }
+	.mm .mm-item.is-primary::before { transform: scaleX(.34); }
+	.mm .mm-item.is-primary:hover::before, .mm .mm-item.is-primary:focus-visible::before { transform: scaleX(1); }
+	.mm .mm-item.is-primary .mm-label { color: #fff; font-weight: 700; text-shadow: 0 0 26px rgba(234,175,76,.4); }
+	.mm .mm-item.is-primary .mm-sub { color: rgba(234,175,76,.85); }
+	.mm .mm-item.is-quiet .mm-label { color: rgba(235,221,197,.62); }
+	.mm .mm-item.is-quiet:hover .mm-label, .mm .mm-item.is-quiet:focus-visible .mm-label { color: #fff; }
+
+	/* ——— footer ——— */
+	.mm-foot {
+		position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+		display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+		padding: 1.1rem clamp(1.5rem, 8vw, 8rem) 1.3rem;
+		font-size: .7rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+		opacity: 0; animation: mm-rise .8s 1.1s ease forwards;
+	}
+	.mm-minor, .mm-meta { display: flex; align-items: center; gap: .3rem; }
+	.mm .mm-link {
+		display: inline-flex; align-items: center; gap: .55rem;
+		margin: 0; padding: .45rem .7rem; border: 0; border-radius: .3rem; background: transparent;
+		color: rgba(235,221,197,.6); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer;
+		transition: color .25s, background-color .25s;
+	}
+	.mm .mm-link svg { width: 15px; height: 15px; }
+	.mm .mm-link:hover, .mm .mm-link:focus-visible { background: rgba(235,221,197,.08); color: var(--gold); outline: none; }
+	.mm-minor .mm-link + .mm-link { position: relative; }
+	.mm-minor .mm-link + .mm-link::before { content: ''; position: absolute; left: -.2rem; top: 30%; bottom: 30%; width: 1px; background: rgba(235,221,197,.18); }
+	.mm-meta { color: rgba(235,221,197,.4); letter-spacing: .2em; gap: .9rem; position: relative; }
+	.mm-badge { padding: .15rem .45rem; border: 1px solid rgba(235,221,197,.3); border-radius: .25rem; font-size: .62rem; letter-spacing: .12em; }
+	.mm .mm-link.mm-devbtn { padding: .3rem .5rem; opacity: .35; font-size: .62rem; }
+	.mm .mm-link.mm-devbtn:hover { opacity: 1; }
+	.mm-devbox {
+		position: absolute; right: clamp(1.5rem, 8vw, 8rem); bottom: 3.6rem; z-index: 4;
+		display: none; flex-direction: column; min-width: 240px;
+		padding: .4rem; border: 1px solid rgba(235,221,197,.18); border-radius: .5rem;
+		background: rgba(18,18,28,.94); backdrop-filter: blur(10px); box-shadow: 0 16px 40px rgba(0,0,0,.5);
+		letter-spacing: .02em; text-transform: none; font-weight: 500;
+	}
+	.mm-devbox.open { display: flex; }
+	.mm-devbox a { display: block; padding: .55rem .8rem; border-radius: .3rem; color: var(--cream); font-size: .8rem; font-weight: 500; cursor: pointer; text-decoration: none; }
+	.mm-devbox a:hover { background: rgba(234,175,76,.15); color: #fff; }
+	.mm-devbox br { display: none; }
+
+	/* ——— panels (credits / changelog / gallery) ——— */
+	.mm-modal {
+		position: absolute; inset: 0; z-index: 10;
+		display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+		background: rgba(4,4,8,.62); backdrop-filter: blur(10px);
+		opacity: 0; pointer-events: none; transition: opacity .3s ease;
+	}
+	.mm-modal.open { opacity: 1; pointer-events: auto; }
+	.mm-panel {
+		display: flex; flex-direction: column;
+		width: min(680px, 100%); max-height: min(78vh, 720px);
+		border: 1px solid rgba(235,221,197,.16); border-radius: .8rem;
+		background: linear-gradient(180deg, rgba(42,42,58,.94), rgba(20,20,30,.97));
+		box-shadow: 0 30px 80px rgba(0,0,0,.6);
+		transform: translateY(16px) scale(.98);
+		transition: transform .4s cubic-bezier(.2,.8,.2,1);
+	}
+	.mm-modal.open .mm-panel { transform: none; }
+	.mm-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.3rem 1rem 1.5rem; border-bottom: 1px solid rgba(235,221,197,.12); }
+	.mm-panel-title { font-size: .8rem; font-weight: 700; letter-spacing: .38em; text-transform: uppercase; color: var(--gold); }
+	.mm .mm-close {
+		display: grid; place-items: center; width: 32px; height: 32px; margin: 0; padding: 0;
+		border: 1px solid rgba(235,221,197,.2); border-radius: 50%; background: transparent;
+		color: var(--cream); font-size: 1.1rem; line-height: 1; cursor: pointer; transition: background-color .2s, color .2s;
+	}
+	.mm .mm-close:hover, .mm .mm-close:focus-visible { background: rgba(235,221,197,.14); color: #fff; outline: none; }
+	.mm-panel-body { overflow-y: auto; padding: 1.5rem; user-select: text; scrollbar-width: thin; scrollbar-color: rgba(235,221,197,.3) transparent; }
+
+	.mm-panel-body br { display: none; }
+	.mm-credit + .mm-credit { margin-top: 1.5rem; }
+	.mm-credit-role { font-size: .68rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); opacity: .85; }
+	.mm-credit-name { margin-top: .35rem; font-size: 1.15rem; font-weight: 500; color: var(--cream); }
+
+	.mm-release + .mm-release { margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid rgba(235,221,197,.1); }
+	.mm-release-head { display: flex; align-items: baseline; gap: .9rem; margin-bottom: .8rem; }
+	.mm-release-ver { padding: .15rem .6rem; border-radius: 999px; background: rgba(234,175,76,.16); color: var(--gold); font-size: .85rem; font-weight: 700; letter-spacing: .06em; }
+	.mm-release-date { font-size: .78rem; color: rgba(235,221,197,.5); }
+	.mm-release ul { margin: 0; padding: 0; list-style: none; }
+	.mm-release li { position: relative; padding: .3rem 0 .3rem 1.2rem; font-size: .95rem; color: rgba(235,221,197,.88); }
+	.mm-release li::before { content: ''; position: absolute; left: .1rem; top: .85em; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+	.mm-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .8rem; }
+	.mm-tile {
+		position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden;
+		border: 1px solid rgba(235,221,197,.14); border-radius: .5rem; background: rgba(235,221,197,.04);
+	}
+	.mm-tile img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; object-fit: cover; }
+	.mm-tile figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: .5rem .6rem; background: linear-gradient(transparent, rgba(0,0,0,.75)); font-size: .75rem; font-weight: 600; }
+	.mm-tile.locked svg { width: 26px; height: 26px; color: rgba(235,221,197,.25); }
+	.mm-empty { margin-top: 1.2rem; text-align: center; font-size: .85rem; color: rgba(235,221,197,.55); }
+
+	/* ——— farewell ——— */
+	.mm-bye {
+		position: absolute; inset: 0; z-index: 20; display: none; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
+		background: #000; text-align: center; opacity: 0; transition: opacity .8s ease; cursor: pointer;
+	}
+	.mm-bye.show { display: flex; }
+	.mm-bye.in { opacity: 1; }
+	.mm-bye strong { font-size: 1.4rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--cream); }
+	.mm-bye span { font-size: .85rem; letter-spacing: .08em; color: rgba(235,221,197,.5); }
+
+	/* ——— small screens ——— */
+	@media (max-width: 760px) {
+		.mm-tagline { letter-spacing: .26em; }
+		.mm-label { font-size: 1.1rem; }
+		.mm-foot { justify-content: center; }
+		.mm-main { bottom: 6rem; }
+	}
+	@media (max-height: 760px) {
+		.mm .mm-item { padding-top: .7rem; padding-bottom: .7rem; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.mm, .mm * , .mm *::before, .mm *::after { animation-duration: .01s !important; animation-delay: 0s !important; transition-duration: .01s !important; }
+	}
+	`;
+
+	/* ——————————————————————— Helpers ——————————————————————— */
+	var ICON = {
+		arrow:   '<svg class="mm-arrow" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+		credits: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.7-6-3.3-6 3.3 1.3-6.7-5-4.7 6.8-.8z"/></svg>',
+		changes: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+		gallery: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 9"/></svg>',
+		lock:    '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
+	};
+
+	function esc(s) {
+		return String(s).replace(/[&<>"']/g, function (c) {
+			return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+		});
+	}
+
+	/* The most recent save across autosave and all slots, or null */
+	function newestSave() {
+		try {
+			if (!Save.browser.isEnabled() || Save.browser.size < 1) { return null; }
+			var best = null;
+			Save.browser.auto.entries().forEach(function (e) {
+				if (e.info && (!best || e.info.date > best.info.date)) { best = { type: 'Autosave', info: e.info }; }
+			});
+			Save.browser.slot.entries().forEach(function (e) {
+				if (e.info && (!best || e.info.date > best.info.date)) { best = { type: 'Slot ' + (e.index + 1), info: e.info }; }
+			});
+			return best;
+		} catch (err) {
+			return null;
+		}
+	}
+
+	function describeSave(save) {
+		var parts = [save.type];
+		if (typeof save.info.title === 'string' && save.info.title && save.info.title.length < 42) { parts.push(save.info.title); }
+		try {
+			parts.push(new Date(save.info.date).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }));
+		} catch (err) { /* ignore */ }
+		if (save.info.metadata && typeof save.info.metadata.playtime === 'number') { parts.push(setup.formatPlaytime(save.info.metadata.playtime)); }
+		return parts.join(' · ');
+	}
+
+	function dialogOpen() {
+		try { return typeof Dialog !== 'undefined' && Dialog.isOpen(); } catch (err) { return false; }
+	}
+
+	/* ——————————————————————— Build ——————————————————————— */
+	function build() {
+		var save = newestSave();
+		var items = [];
+		if (save) { items.push({ id: 'continue', label: 'Continue', sub: describeSave(save), primary: true }); }
+		items.push({ id: 'new',      label: 'New Game', primary: !save });
+		items.push({ id: 'load',     label: 'Load Game' });
+		items.push({ id: 'settings', label: 'Settings' });
+		items.push({ id: 'quit',     label: 'Quit', quiet: true });
+
+		var menuHtml = items.map(function (it, i) {
+			return '<button type="button" class="mm-item' + (it.primary ? ' is-primary' : '') + (it.quiet ? ' is-quiet' : '') + '" data-act="' + it.id + '" style="--i:' + i + '">' +
+				'<span class="mm-num">' + ('0' + (i + 1)).slice(-2) + '</span>' +
+				'<span class="mm-label">' + it.label + '</span>' + ICON.arrow +
+				(it.sub ? '<span class="mm-sub">' + esc(it.sub) + '</span>' : '') +
+				'</button>';
+		}).join('');
+
+		var html =
+			'<div class="mm-bg"><div style="opacity: .05;width: 100%;background: url(&quot;https://images.unsplash.com/photo-1544524148-67120e1c90c4?q=80&amp;amp;w=2070&amp;amp;auto=format&amp;amp;fit=crop&amp;amp;ixlib=rb-4.1.0&amp;amp;ixid=NHwxMjA3fDA%3D&quot;);height: 100%;background-size: cover;background-repeat: no-repeat;backdrop-filter: blur(0px);" class=""></div>' +
+			'<canvas class="mm-canvas"></canvas></div>' +
+			'<div class="mm-main">' +
+				'<h1 class="mm-title" aria-label="Rise to Ruin">' +
+					'<span>Rise</span> <span class="mm-to">to</span> <span class="mm-ruin" data-text="Ruin">Ruin</span>' +
+				'</h1>' +
+				'<div class="mm-tagline">Control – Coercion – Corruption</div>' +
+				'<nav class="mm-menu" aria-label="Main menu">' + menuHtml + '</nav>' +
+			'</div>' +
+			'<div class="mm-foot">' +
+				'<div class="mm-minor">' +
+					'<button type="button" class="mm-link" data-panel="credits">' + ICON.credits + 'Credits</button>' +
+					'<button type="button" class="mm-link" data-panel="changelog">' + ICON.changes + 'Changelog</button>' +
+					'<button type="button" class="mm-link" data-panel="gallery">' + ICON.gallery + 'Gallery</button>' +
+				'</div>' +
+				'<div class="mm-meta"><span>v' + esc(CFG.version) + '</span><span class="mm-badge">18+</span>' +
+					(State.variables.debug ? '<button type="button" class="mm-link mm-devbtn" data-act="dev" title="Developer shortcuts">Dev</button>' : '') +
+					'</div>' +
+			'</div>' +
+			'<div class="mm-devbox"></div>' +
+			'<div class="mm-modal" aria-hidden="true"><div class="mm-panel" role="dialog" aria-modal="true">' +
+				'<div class="mm-panel-head"><span class="mm-panel-title"></span><button type="button" class="mm-close" aria-label="Close">&times;</button></div>' +
+				'<div class="mm-panel-body"></div>' +
+			'</div></div>' +
+			'<div class="mm-bye"><strong>Thanks for playing</strong><span>You can close this tab now. Click anywhere to go back.</span></div>';
+
+		root.innerHTML = html;
+
+		var $root = $(root);
+		var destroyed = false;
+		var lastFocus = null;
+
+		/* dev shortcuts: reuse the (already rendered) links of the "Skip Intro" passage */
+		var devSource = document.getElementById('mm-dev-source');
+		var devBox = root.querySelector('.mm-devbox');
+		if (devSource) {
+			while (devSource.firstChild) { devBox.appendChild(devSource.firstChild); }
+		}
+		if (!devBox.querySelector('a')) { $root.find('.mm-devbtn').remove(); }
+
+		/* ——— panels ——— */
+		var modal = root.querySelector('.mm-modal');
+		var panelTitle = root.querySelector('.mm-panel-title');
+		var panelBody = root.querySelector('.mm-panel-body');
+
+		/* panel content comes from the (already rendered) include passages, see the top of this passage */
+		var PANELS = {
+			credits:   { title: 'Credits',   html: '' },
+			changelog: { title: 'Changelog', html: '' },
+			gallery:   { title: 'Gallery',   html: '' }
+		};
+		Object.keys(PANELS).forEach(function (id) {
+			var src = document.getElementById('mm-src-' + id);
+			if (src) { PANELS[id].html = src.innerHTML; src.remove(); }
+		});
+
+		function openPanel(id) {
+			var p = PANELS[id];
+			if (!p) { return; }
+			lastFocus = document.activeElement;
+			panelTitle.textContent = p.title;
+			panelBody.innerHTML = p.html;
+			panelBody.scrollTop = 0;
+			modal.classList.add('open');
+			modal.setAttribute('aria-hidden', 'false');
+			root.querySelector('.mm-close').focus();
+		}
+
+		function closePanel() {
+			if (!modal.classList.contains('open')) { return false; }
+			modal.classList.remove('open');
+			modal.setAttribute('aria-hidden', 'true');
+			if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+			return true;
+		}
+
+		/* ——— actions ——— */
+		function leave(fn) {
+			root.classList.add('is-leaving');
+			setTimeout(function () { if (!destroyed) { fn(); } }, 450);
+		}
+
+		function failBack(err) {
+			root.classList.remove('is-leaving');
+			try { UI.alert((err && err.message) || 'Could not load the save.'); } catch (e) { /* ignore */ }
+		}
+
+		function quit() {
+			var bye = root.querySelector('.mm-bye');
+			try { window.close(); } catch (err) { /* ignore */ }
+			/* browsers only allow closing tabs that scripts opened, so fall back to a farewell screen */
+			setTimeout(function () {
+				if (destroyed) { return; }
+				bye.classList.add('show');
+				requestAnimationFrame(function () { bye.classList.add('in'); });
+			}, 200);
+		}
+
+		var ACTIONS = {
+			'continue': function () { leave(function () { Save.browser.continue().catch(failBack); }); },
+			'new':      function () { leave(function () { Engine.play('Disclaimer'); }); },
+			'load':     function () { UI.saves(); },
+			'settings': function () { UI.settings(); },
+			'quit':     quit,
+			'dev':      function () { devBox.classList.toggle('open'); }
+		};
+
+		$root.on('click', '[data-act]', function () {
+			var fn = ACTIONS[this.getAttribute('data-act')];
+			if (fn) { fn(); }
+		});
+		$root.on('click', '[data-panel]', function () { openPanel(this.getAttribute('data-panel')); });
+		$root.on('click', '.mm-close', closePanel);
+		$root.on('click', '.mm-modal', function (e) { if (e.target === this) { closePanel(); } });
+		$root.on('click', '.mm-bye', function () {
+			var bye = this;
+			bye.classList.remove('in');
+			setTimeout(function () { bye.classList.remove('show'); }, 800);
+		});
+		$root.on('click', function (e) {
+			if (!$(e.target).closest('.mm-devbox, .mm-devbtn').length) { devBox.classList.remove('open'); }
+		});
+
+		/* ——— keyboard ——— */
+		$(document).on('keydown.mm', function (e) {
+			if (dialogOpen()) { return; }
+			if (e.key === 'Escape') {
+				if (!closePanel()) { devBox.classList.remove('open'); }
+				return;
+			}
+			if (modal.classList.contains('open')) { return; }
+			if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Home' && e.key !== 'End') { return; }
+			var btns = Array.prototype.slice.call(root.querySelectorAll('.mm-item'));
+			var at = btns.indexOf(document.activeElement);
+			var next;
+			if (e.key === 'Home') { next = 0; }
+			else if (e.key === 'End') { next = btns.length - 1; }
+			else if (at < 0) { next = 0; }
+			else { next = (at + (e.key === 'ArrowDown' ? 1 : -1) + btns.length) % btns.length; }
+			btns[next].focus();
+			e.preventDefault();
+		});
+
+		/* ——— background: Valenx signal (waves) + creeping influence (tendrils) ———
+		   mouse X/Y tune the waves, hovering a menu item retunes them, tendrils lean toward the cursor */
+		var canvas = root.querySelector('.mm-canvas');
+		var ctx = canvas.getContext('2d');
+		var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+		var WAVES = 5;
+		var WAVE_ALPHA = [0.55, 0.34, 0.24, 0.17, 0.12];
+		var MAX_TENDRILS = 26;
+		var MIN_ROOTS = 9;
+		var PRESET = {                         /* per menu item: wave frequency multiplier, tendril boost */
+			'continue': { mul: 1.25, boost: 1 },
+			'new':      { mul: 1.55, boost: 1 },
+			'load':     { mul: 0.8,  boost: 0 },
+			'settings': { mul: 1.0,  boost: 0 },
+			'quit':     { mul: 0.55, boost: 0 }
+		};
+
+		var W = 0, H = 0, waveGrad = null;
+		var mouse = { x: 0.5, y: 0.5 };
+		var tune = { x: 0.5, y: 0.5, mul: 1, boost: 0 };   /* smoothed values that are actually drawn */
+		var aim = { mul: 1, boost: 0 };                     /* where tune.mul / tune.boost are heading */
+		var tendrils = [];
+		var clock = 0, last = 0, T0 = performance.now();
+
+		function resize() {
+			var dpr = Math.min(window.devicePixelRatio || 1, 2);
+			W = canvas.clientWidth; H = canvas.clientHeight;
+			canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			waveGrad = ctx.createLinearGradient(0, 0, W, 0);
+			waveGrad.addColorStop(0,    '#DB354C');
+			waveGrad.addColorStop(0.28, '#EAAF4C');
+			waveGrad.addColorStop(0.58, '#F4E3BC');
+			waveGrad.addColorStop(0.86, '#EAAF4C');
+			waveGrad.addColorStop(1,    '#DB354C');
+			if (reduce) { draw(); }
+		}
+
+		/* a short burst every 8s, in step with the RUIN glitch animation (8s loop, 3.5s delay) */
+		function glitchAmount() {
+			var s = (performance.now() - T0) / 1000 - 3.5;
+			if (s < 0) { return 0; }
+			var c = (s % 8) / 8;
+			return (c > 0.92 && c < 0.975) ? (Math.random() > 0.35 ? 1 : 0.4) : 0;
+		}
+
+		function spawn(parent) {
+			var t = { pts: [], head: null, ang: 0, grown: 0, max: 0, speed: 0, w: 0, state: 0, alpha: 0, hold: 0, seed: Math.random() * 100, depth: 0 };
+			var x, y;
+			if (parent) {
+				x = parent.head.x; y = parent.head.y;
+				t.ang = parent.ang + (Math.random() < 0.5 ? -1 : 1) * (0.5 + Math.random() * 0.5);
+				t.depth = parent.depth + 1;
+				t.max = parent.max * (0.3 + Math.random() * 0.25);
+				t.w = Math.max(0.7, parent.w * 0.7);
+			} else {
+				var r = Math.random(), j = Math.random() * 1.2 - 0.6;
+				if (r < 0.3)      { x = -4;     y = Math.random() * H; t.ang = j; }
+				else if (r < 0.6) { x = W + 4;  y = Math.random() * H; t.ang = Math.PI + j; }
+				else if (r < 0.85){ x = Math.random() * W; y = H + 4;  t.ang = -Math.PI / 2 + j; }
+				else              { x = Math.random() * W; y = -4;     t.ang = Math.PI / 2 + j; }
+				t.max = 220 + Math.random() * 260;
+				t.w = 1.4 + Math.random() * 1.4;
+			}
+			t.speed = 26 + Math.random() * 34;
+			t.hold = 3 + Math.random() * 5;
+			t.head = { x: x, y: y };
+			t.pts.push({ x: x, y: y });
+			return t;
+		}
+
+		function step(dt) {
+			var k = Math.min(1, dt * 3);
+			tune.x += (mouse.x - tune.x) * k;
+			tune.y += (mouse.y - tune.y) * k;
+			tune.mul += (aim.mul - tune.mul) * Math.min(1, dt * 4);
+			tune.boost += (aim.boost - tune.boost) * Math.min(1, dt * 3);
+
+			var roots = 0;
+			for (var i = tendrils.length - 1; i >= 0; i--) {
+				var t = tendrils[i];
+				if (t.depth === 0) { roots++; }
+				if (t.state === 0) {
+					var move = t.speed * (1 + tune.boost * 1.2) * dt;
+					var want = Math.atan2(mouse.y * H - t.head.y, mouse.x * W - t.head.x);
+					var d = want - t.ang;
+					d = Math.atan2(Math.sin(d), Math.cos(d));
+					t.ang += (Math.sin(clock * 0.9 + t.seed + t.grown * 0.012) * 1.1 + Math.max(-1, Math.min(1, d)) * 0.35) * dt;
+					t.head.x += Math.cos(t.ang) * move;
+					t.head.y += Math.sin(t.ang) * move;
+					t.grown += move;
+					t.alpha = Math.min(1, t.alpha + dt * 0.5);
+					var lp = t.pts[t.pts.length - 1];
+					if ((t.head.x - lp.x) * (t.head.x - lp.x) + (t.head.y - lp.y) * (t.head.y - lp.y) > 36) { t.pts.push({ x: t.head.x, y: t.head.y }); }
+					if (t.depth < 2 && t.grown > 40 && tendrils.length < MAX_TENDRILS - 6 && Math.random() < dt * 0.35 * (1 + tune.boost)) {
+						tendrils.push(spawn(t));
+					}
+					if (t.grown >= t.max || t.head.x < -80 || t.head.x > W + 80 || t.head.y < -80 || t.head.y > H + 80) { t.state = 1; }
+				} else if (t.state === 1) {
+					t.hold -= dt;
+					if (t.hold <= 0) { t.state = 2; }
+				} else {
+					t.alpha -= dt * 0.3;
+					if (t.alpha <= 0) { tendrils.splice(i, 1); }
+				}
+			}
+			if (roots < MIN_ROOTS && tendrils.length < MAX_TENDRILS && Math.random() < dt * 2) { tendrils.push(spawn(null)); }
+		}
+
+		function drawWaves(glitch) {
+			var baseY = H * 0.64;
+			var amp = H * (0.045 + 0.1 * tune.y) * (1 + 0.25 * tune.boost);
+			var freq = (1.6 + tune.x * 2.8) * tune.mul;
+			var STEP = 5;
+			ctx.globalCompositeOperation = 'lighter';
+			ctx.strokeStyle = waveGrad;
+			ctx.lineJoin = 'round';
+			for (var k = 0; k < WAVES; k++) {
+				ctx.globalAlpha = WAVE_ALPHA[k];
+				ctx.lineWidth = k === 0 ? 1.8 : 1.1;
+				ctx.shadowColor = 'rgba(234,175,76,.8)';
+				ctx.shadowBlur = k === 0 ? 14 : 0;
+				ctx.beginPath();
+				for (var x = 0; x <= W + STEP; x += STEP) {
+					var nx = x / W;
+					var edge = Math.min(1, Math.abs(nx - 0.58) / 0.58);
+					var env = 0.18 + 0.82 * Math.pow(1 - edge, 1.4);
+					var ph = clock * (0.5 + k * 0.13) + k * 1.1 + tune.x * 4;
+					var y = baseY + k * H * 0.012
+						+ Math.sin(nx * freq * 6.2832 * (1 + k * 0.22) + ph) * amp * env * (1 - k * 0.12)
+						+ Math.sin(nx * freq * 19.5 - ph * 1.7) * amp * 0.22 * env
+						+ Math.sin(x * 0.19 + clock * 9 + k * 2) * Math.sin(x * 0.043 - clock * 2.3) * H * (0.006 + 0.03 * glitch + 0.012 * tune.boost) * edge * edge;
+					if (x === 0) { ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
+				}
+				ctx.stroke();
+			}
+			ctx.shadowBlur = 0;
+			ctx.globalAlpha = 1;
+		}
+
+		function strokeRange(pts, head, from, to) {
+			ctx.beginPath();
+			for (var i = from; i <= to; i++) {
+				var p = i < pts.length ? pts[i] : head;
+				if (i === from) { ctx.moveTo(p.x, p.y); } else { ctx.lineTo(p.x, p.y); }
+			}
+			ctx.stroke();
+		}
+
+		function drawTendrils(glitch) {
+			ctx.globalCompositeOperation = 'source-over';
+			ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+			for (var i = 0; i < tendrils.length; i++) {
+				var t = tendrils[i];
+				var n = t.pts.length;            /* indices 0..n are drawn (n = the live head) */
+				if (n < 2) { continue; }
+				var a = Math.min(0.85, t.alpha * 0.6 * (1 + 0.5 * glitch + 0.3 * tune.boost));
+				for (var c = 0; c < 3; c++) {
+					var from = Math.floor(n * c / 3), to = c === 2 ? n : Math.floor(n * (c + 1) / 3) + 1;
+					var wf = t.w * (1 - c * 0.3);
+					ctx.strokeStyle = 'rgba(114,24,36,' + (a * 0.55).toFixed(3) + ')';
+					ctx.lineWidth = wf * 3.2;
+					strokeRange(t.pts, t.head, from, to);
+					ctx.strokeStyle = 'rgba(219,53,76,' + a.toFixed(3) + ')';
+					ctx.lineWidth = wf * 0.9;
+					strokeRange(t.pts, t.head, from, to);
+				}
+			}
+		}
+
+		function draw() {
+			ctx.clearRect(0, 0, W, H);
+			var glitch = reduce ? 0 : glitchAmount();
+			drawWaves(glitch);
+			drawTendrils(glitch);
+		}
+
+		function frame(now) {
+			if (destroyed) { return; }
+			var dt = Math.min(0.05, (now - last) / 1000 || 0.016);
+			last = now;
+			clock += dt;
+			step(dt);
+			draw();
+			requestAnimationFrame(frame);
+		}
+
+		$(window).on('mousemove.mm', function (e) {
+			mouse.x = e.clientX / window.innerWidth;
+			mouse.y = e.clientY / window.innerHeight;
+		});
+		$root.on('mouseover focusin', '.mm-item', function () {
+			var p = PRESET[this.getAttribute('data-act')] || { mul: 1, boost: 0 };
+			aim.mul = p.mul; aim.boost = p.boost;
+		});
+		$root.on('mouseout focusout', '.mm-item', function () { aim.mul = 1; aim.boost = 0; });
+
+		resize();
+		$(window).on('resize.mm', resize);
+		if (reduce) {
+			for (var s = 0; s < 160; s++) { clock += 0.05; step(0.05); }
+			draw();
+		} else {
+			requestAnimationFrame(frame);
+		}
+
+		/* ——— audio: menu music with a heartbeat underneath ———
+		   both tracks are cached in "Define Audio" (music-main-menu in :music, effect-heartbeat in :ambience),
+		   so the Music/Ambience volume sliders and the sound toggle apply to them, also while the menu is open.
+		   The passage is tagged no_location_audio, so <<PlayAudio>> leaves the location music alone here.
+		   Autoplay: SugarCube's playWhenAllowed() keeps only ONE waiting track (all tracks share one event namespace),
+		   so blocked tracks are collected here and all started together on the first click or key press. */
+		var MENU_AUDIO = [
+			{ id: 'music-main-menu',  volume: 'volMusic' },
+			{ id: 'effect-heartbeat', volume: 'volAmbience' }
+		];
+		function trackVolume(key) {
+			var v = (typeof settings !== 'undefined' && settings[key] != null) ? settings[key] : 70;
+			return v / 100 / 2;                 /* same scale as <<PlayAudio>> */
+		}
+
+		/* the menu has the speakers to itself: stop any location music/ambience that is still running
+		   (when the menu is reached from inside the game) and forget it, so <<PlayAudio>> starts it again afterwards */
+		try { SimpleAudio.select(':music').stop(); } catch (err) { /* ignore */ }
+		try { SimpleAudio.select(':ambience').stop(); } catch (err) { /* ignore */ }
+		if (State.variables.audio && State.variables.audio.now) {
+			State.variables.audio.now.music = null;
+			State.variables.audio.now.ambience = null;
+		}
+
+		var blockedTracks = [];
+		function playOnFirstInput(track) {
+			blockedTracks.push(track);
+			$(document).off('.mmaudio').one('pointerdown.mm.mmaudio keydown.mm.mmaudio touchend.mm.mmaudio', function () {
+				$(document).off('.mmaudio');
+				if (destroyed) { return; }
+				blockedTracks.splice(0).forEach(function (tr) {
+					tr.play().catch(function (err) { console.warn('Main Menu: could not play audio', err); });
+				});
+			});
+		}
+		MENU_AUDIO.forEach(function (t) {
+			var track = null;
+			try { track = SimpleAudio.tracks.get(t.id); } catch (err) { /* ignore */ }
+			if (!track) { console.warn('Main Menu: audio track "' + t.id + '" is not cached (see Define Audio)'); return; }
+			track.volume(trackVolume(t.volume));
+			track.loop(true);
+			track.play().catch(function (err) {
+				if (err && err.name === 'NotAllowedError') { playOnFirstInput(track); }
+				else { console.warn('Main Menu: could not play "' + t.id + '"', err); }
+			});
+		});
+
+		/* fade out, then stop (a stopped track starts from the beginning when the menu is shown again) */
+		function stopMenuAudio() {
+			MENU_AUDIO.forEach(function (t) {
+				try {
+					var track = SimpleAudio.tracks.get(t.id);
+					if (!track) { return; }
+					if (!track.isPlaying()) { track.stop(); return; }
+					track.fadeOut(0.6).catch(function () { /* ignore */ }).then(function () { track.stop(); });
+				} catch (err) { /* ignore */ }
+			});
+		}
+
+		/* ——— teardown when the next passage starts ——— */
+		$(document).one(':passagestart.mm', function () {
+			stopMenuAudio();
+			destroyed = true;
+			$(document).off('.mm');
+			$(window).off('.mm');
+			$root.remove();
+			styleEl.remove();
+			document.documentElement.classList.remove('mm-lock');
+		});
+	}
+
+	/* clear leftovers of a previous visit */
+	$(document).off('.mm');
+	$(window).off('.mm');
+	$('.mm, #mm-style').remove();
+
+	/* cover the screen with the (empty) black menu layer right away, so the page behind never shows;
+	   the content is filled in and faded in once the passage is in the DOM */
+	var styleEl = document.createElement('style');
+	styleEl.id = 'mm-style';
+	styleEl.textContent = CSS;
+	document.head.appendChild(styleEl);
+
+	var root = document.createElement('div');
+	root.className = 'mm';
+	document.body.appendChild(root);
+	document.documentElement.classList.add('mm-lock');
+
+	$(document).one(':passagedisplay.mm', build);
+})();
+<</script>>

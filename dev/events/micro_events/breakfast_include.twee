@@ -1,0 +1,4 @@
+:: Breakfast Include [micro_event event] {"position":"1050,2775","size":"100,100"}
+<b>$mom.callName and $sister.callName are eating breakfast. [[Join them|Breakfast]] </b>
+
+

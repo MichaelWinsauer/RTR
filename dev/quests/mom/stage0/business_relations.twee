@@ -1,0 +1,61 @@
+:: Business Relations [event mom_quest] {"position":"3275,1075","size":"100,100"}
+I walk into the lobby with a thick envelope in the inside pocket of my jacket, and I'm very aware of it the whole time, like it might start glowing. The receptionist barely looks up.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Receptionist", text: "Floor 6? I'd say give her my best, but... well. You probably heard." },
+{ who: $player, text: "I heard." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The elevator mirror shows me a guy in his only decent jacket, trying to look like he does this kind of thing all the time.
+
+<<linkreplace "Arrive at floor 6...">>
+The doors open on the usual noise. Somebody has already moved a potted plant onto $mom.callName's old desk, and her chair is pushed in neatly, like she just went to lunch. Her nameplate is gone.
+
+I walk straight past it to the corner office. The prototype is on in my pocket, set to the same spot that worked last time. <<UseQuestDevice $mom>>I knock once and go in. He's leaning back in his chair with his hands folded on his stomach, like he's been expecting a pizza.
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "Right on time, kid. I had a feeling you'd show up today. You bring my stuff?" },
+{ who: $player, text: "The five thousand and the video. Like we said." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Deliver the payment and video">>
+I put the envelope on his desk. He doesn't count it, which somehow feels more insulting than if he had. Then I pull out my phone, open the clip of $mom.callName in her bed, and slide it across to him.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "Well, would you look at that. Nice and clear, too. You really came through, kid." },
+{ text: "He watches it to the end, then plays it again before he hands the phone back. I wipe the screen on my jeans." },
+{ who: $player, text: "Now let's talk about the other thing. I want you as a client. $company.prototype.name can do for your business what it did for your floor out there. You've seen it up close." },
+{ who: $boss, text: "A client. Of your little gadget company. You even have any other customers?" },
+{ who: $player, text: "A diner, ten minutes from here. Sales went up the first day it ran." },
+{ who: $boss, text: "A diner. Wow." },
+{ who: $player, text: "You saw how calm she was out there the last few weeks. That wasn't yoga." },
+{ text: "He opens his mouth, closes it again, and then laughs, a short bark that makes the window behind him rattle." },
+{ who: $boss, text: "Fair enough. It did something, I'll give you that. Okay, kid, one condition. Your $mom.relation runs the account. She's the one who comes here, she's the one who reports to me, every step of the way. Close contact." },
+{ who: $player, text: "She already works for me. She'll be your project manager. You'll see plenty of her." },
+{ who: $boss, text: "Then we've got a deal. Send me the contract and I'll sign it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Leave the office">>
+He's already turning back to his screen when I close the door behind me. On the way to the elevator I walk past her old desk again. Someone has put a coffee mug on it.
+
+Two clients. One of them is a diner that still thinks I'm the guy who mops the floors, and the other is the man who fired my $mom.relation this week, for reasons she'll never know. And right in the middle of both, smiling and taking notes and trying her best, will be $mom.callName.
+
+I press the button for the lobby and find that I'm whistling.
+<<UpdateStat "+" "Corruption" 5>>
+<<UpdateStat "+" "MomCorruption" 4>>
+<<ProfileLog $mom "Project Manager" "She's now the project manager between my company and her old boss, my second client. He wants her in close contact every step of the way.">>
+<<NextQuest $mom>>
+<<UpdateStat "-" "Money" "5000">>
+
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

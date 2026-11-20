@@ -1,0 +1,65 @@
+:: Landlord Expansion Request [event main_quest] {"position":"3275,375","size":"100,100"}
+I take the narrow staircase up to the second floor, and every one of the old wooden steps has its own opinion about my weight. The hallway smells of mildew and of $landlord.callName's cologne, the cheap kind he must buy by the gallon, which hangs around the stairwell for days after he's walked through it. At the end of the hall there's a door with MANAGER on it in peeling gold letters. I knock twice.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Yeah, yeah, it's open. Unless you're the plumber. If you're the plumber, you're three weeks late." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+His office is barely bigger than mine, which is saying something, and he's managed to fill every inch of it with paper: invoices, yellowed lease agreements, a stack of phone books nobody has opened since the nineties. A desk lamp with a dead moth in the shade throws a weak yellow light over the peeling wallpaper. $landlord.callName sits behind the desk with his gray hair combed flat across his scalp with something that shines, and the buttons of his shirt doing heroic work over his gut. There's a half-eaten sandwich lying on his open ledger. He doesn't move it.
+
+He looks at me over his reading glasses the way you'd look at a stain that just started talking.
+
+<<linkreplace "Get to the point">>
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "Well, look who crawled out of the broom closet. Rent's not due till next week, kid, so if you're here to cry about being short, do it in the hallway. Better acoustics." },
+{ who: $player, text: "I'm not here about the rent. I'm here about the third floor. I heard the unit up there is about to open up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He leans back, and his chair lets out a groan that sounds personally offended. Then the smirk shows up, and he looks me up and down, slowly, the way I imagine he looks at everything he's thinking about renting.
+<<silently>>
+<<set _msgs = [
+{ who: $landlord, text: "The third floor. For you. That's a real unit, kid. For real tenants. The kind who pay on time and don't run some little 'startup' out of a closet next to the boiler." },
+{ who: $player, text: "I've been here a while now, and I've outgrown the closet. I can pay more than I'm paying now." },
+{ who: $landlord, text: "With what? Last I heard, that gadget of yours couldn't make toast." },
+{ who: $player, text: "It has a paying client now. And more on the way." },
+{ who: $landlord, text: "Good for it. Thing is, I've already got somebody sniffing around that unit. Nice young lady, starting up her own business. Real promising." },
+{ text: "He draws the word out like he's tasting it." },
+{ who: $landlord, text: "And the way she dresses, kid... between you and me, I'd knock a little off the rent for her if she asked real nice. She's got 'incentives', if you catch my drift. A man my age appreciates a good 'incentive'." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I catch his drift. It's hard not to, it's coming off him along with the cologne. He's leaning forward now with both elbows on the ledger, one of them in the sandwich, and I keep my face polite and a little bored while I work it out. Money isn't really what he's shopping for, and that makes this a lot easier for me.
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Then maybe I can offer you something more personal than a bigger check." },
+{ text: "He laughs until it turns into a cough, and then coughs until he has to wipe his eyes with his thumb." },
+{ who: $landlord, text: "Personal. From you. Kid, the only personal thing you could give me is your notice. Spit it out, my lunch is getting warm." },
+{ who: $player, text: "My $mom.relation and my $sister.relation. They're both very... capable. They could make life around here a lot more comfortable for you. Help out with whatever you need." },
+{ text: "That gets his attention. He forgets the sandwich completely." },
+{ who: $landlord, text: "Your $mom.relation and your $sister.relation. Well, now. I've seen 'em drop you off out front. Your $mom.relation's still got a real nice figure for a woman her age. And the young one..." },
+{ text: "He licks his lips. There's a crumb on the lower one, and it stays there. I keep my eyes on his and my voice level." },
+{ who: $landlord, text: "...the young one's a real looker. So when you say 'help', kid. What kind of 'help' are we talking about here?" },
+{ who: $player, text: "The kind that makes it worth your while. You give me the third floor, and I make sure you're taken care of." },
+{ who: $landlord, text: "Tempting. Real tempting. But that young lady's already giving me plenty just walking up those stairs in her little skirts. You'd have to beat that. By a lot." },
+{ who: $player, text: "I will. Give me the space and I'll prove it." },
+{ who: $landlord, text: "I'll think about it. Come back in a few days with something better than promises. And kid? Bring your $mom.relation next time. Or your $sister.relation. I make much better decisions when I've got something pretty to look at." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He picks the sandwich back up, which I take to mean we're done here.
+
+Out in the hallway the cologne is waiting for me. I hold my breath down the first flight of stairs. If I asked $mom.callName and $sister.callName about this tonight, they'd both laugh me out of the kitchen, so I won't ask them tonight. I'll get them ready for it first.
+
+<<UpdateStat "+" "Corruption" 5>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+
+

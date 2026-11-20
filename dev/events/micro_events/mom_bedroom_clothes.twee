@@ -1,0 +1,70 @@
+:: Mom Bedroom Clothes [micro_event event nobr] {"position":"1800,2775","size":"100,100"}
+/* Privacy: she brings your laundry. Let her in, talk through the door, or pretend to be asleep. */
+<p>There's a soft knock on my door.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "Sweetheart? I did your laundry. Can I come in for a second?" }
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="choice1">
+	<div>
+		<<link "Let her in">>
+			<<replace "#choice1">>
+				<<Video "images/characters/mom/events/bedroom/mom_enter.webm" "" "" 500>>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Sure, come in." },
+					{ text: "She sets the basket of folded clothes on the end of the bed." },
+					{ who: $mom, text: "Here you go. I even got that stain out of the gray shirt." },
+					{ who: $player, text: "Thanks, $mom.callName. You didn't have to." },
+					{ who: $mom, text: "I know I didn't." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<br>
+				<<if $company.prototype.progress >= 40>>
+					<p>Her eyes drift to my desk, where the prototype is sitting between the cables and half-empty coffee cups.</p>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $mom, text: "Is that the thing you've been working on all this time?" },
+						{ who: $player, text: "A sensor project. Boring, mostly." },
+						{ who: $mom, text: "As long as you're sleeping, too. It looks complicated." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<</if>>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Ask her to leave it outside">>
+			<<replace "#choice1">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Can you leave it outside? I'm in the middle of something." },
+					{ who: $mom, text: "Of course. Don't work too hard, okay?" }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>I hear the basket touch the floor and her footsteps fade down the stairs.</p>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Pretend to be asleep">>
+			<<replace "#choice1">>
+				<p>I close my eyes and slow my breathing. The door opens carefully. She crosses the room on tiptoe, puts the basket on the chair, and stands there for a moment.</p>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $mom, text: "Sleep well, honey." }
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>The door closes with barely a click.</p>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

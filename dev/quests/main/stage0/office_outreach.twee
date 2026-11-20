@@ -1,0 +1,124 @@
+:: Office Outreach [event main_quest] {"position":"3150,250","size":"100,100"}
+I close the door to my little office and let out a long breath. For once nobody needs anything from me. $sister.callName has been taking care of the chores at home without a single complaint, and $mom.callName seems calmer lately too, which leaves me a whole day to actually work. I crack the window to chase out the landlord's cologne, which somehow seeps through every wall in this building, and sit down.
+
+My war table is ready: laptop open, coffee still too hot to drink, a call list on one side and a fresh document titled "Leads, Week 1" on the other. It all looks extremely professional, at least from where I'm sitting.
+
+I polish the pitch one last time. Short, friendly, no buzzwords. Then I paste it into an email template and start sending.
+
+<<linkreplace "Send the first batch of emails">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hi, I'm $player.name from $company.name. \nI built $company.prototype.name, a lightweight tool that helps businesses understand customer focus and mood in real time. It takes almost no setup and it's easy to try. Would you be open to a quick pilot this week?" },
+]>>
+<<set _mail = {
+    title: "Quick question about a possible pilot",
+    who: $player,
+    mailAddress: "info@citycafechain.com",
+    body: _msgs,
+    answerOptions: [],
+}>>
+<</silently>>
+<<Mail _mail false>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hi, I'm $player.name. \n$company.prototype.name is a new tool I developed that reads the mood of a room and helps you keep members engaged and coming back. I'd love to run a short, no-commitment test at your gym if you're interested." },
+]>>
+<<set _mail = {
+    title: "Idea for your gym: a quick pilot?",
+    who: $player,
+    mailAddress: "manager@fitzonegym.com",
+    body: _msgs,
+    answerOptions: [],
+}>>
+<</silently>>
+<<Mail _mail false>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hello, I'm $player.name with $company.name. \nWe help tutoring centers understand student attention in real time. It's private, easy to set up, and it could help with retention. Happy to show you a live demo whenever you have ten minutes." },
+]>>
+<<set _mail = {
+    title: "Quick demo for a student focus tool?",
+    who: $player,
+    mailAddress: "admin@tutortechacademy.com",
+    body: _msgs,
+    answerOptions: [],
+}>>
+<</silently>>
+<<Mail _mail false>>
+
+I hit send on the last one and lean back, weirdly proud of three emails. Now the part I hate: phone calls.
+
+<<linkreplace "Start making calls">>
+The first number belongs to a small café chain downtown. The receptionist puts me on hold for two full rounds of a jazz loop, then transfers me to a friendly voice.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Sarah, Sunrise Café", text: "Hi, this is Sarah from Sunrise Café. How can I help?" },
+{ who: $player, text: "Hi Sarah, I'm $player.name from $company.name. I sent you an email earlier about a pilot for our focus tool. It helps customers feel comfortable enough to stay a little longer. Would you be open to trying it for a week?" },
+{ who: "Sarah, Sunrise Café", text: "Oh, I saw that! It sounds interesting, but we usually need references or a case study before we test new software. Is anyone else using it right now?" },
+{ who: $player, text: "Not yet. That's why I'm reaching out to places like yours first. The test is completely free, and I handle the whole setup myself." },
+{ who: "Sarah, Sunrise Café", text: "I appreciate that, I really do. We just got burned by a vendor last year. Maybe circle back once you have some proof it works?" },
+{ who: $player, text: "Of course. Thanks for your time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The line clicks dead. I cross her off and dial the next number.
+
+<<linkreplace "Next call">>
+This one's a gym that posts a new membership special roughly every eleven minutes. A guy with a voice like a protein shake answers.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Mike, FitZone Gym", text: "FitZone Gym, Mike speaking." },
+{ who: $player, text: "Hey Mike, $player.name from $company.name. I sent an email about a tool that keeps members motivated during peak hours. Any chance you'd be open to a short test run?" },
+{ who: "Mike, FitZone Gym", text: "Yeah, I saw it. Sounds cool, man, but we're pretty locked into our current system. What kind of numbers do you have from other gyms?" },
+{ who: $player, text: "I'm still building the first case studies. The tech is solid, though, and it's completely private." },
+{ who: "Mike, FitZone Gym", text: "Appreciate you being straight with me, but we can't take that risk right now. Good luck, though." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Another polite no. I keep going anyway, email after email and call after call. Some people never reply at all. A few promise to think about it in the voice people use when they've already stopped thinking about it. One gym manager actually laughs and tells me they have enough apps telling them how to run their business.
+
+By early afternoon the rejections are stacking up faster than the coffee cups.
+
+<<linkreplace "Check the inbox again">>
+<<silently>>
+<<set _msgs = [
+{ who: "Bean & Bloom Café", text: "Thanks for reaching out! Looks promising, but we'd need references before moving forward." },
+{ who: "Ironworks Fitness", text: "Interesting idea! Send over a case study when you have one and we'll take a look." },
+{ who: "Lakeside Learning Center", text: "Unfortunately we're going to pass for now. Best of luck with your project." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I rub my eyes and slump in the chair. The office feels smaller than it did this morning, and the cologne is creeping back under the door. The one-pager I designed last night is still open on the second screen, all clean benefit bullets and a calendar link at the bottom. Yesterday it looked great. Now it reads like a birthday card nobody's going to open.
+
+One more round of calls. A tutoring center picks up on the first ring, which feels like a good sign for about four seconds.
+
+<<silently>>
+<<set _msgs = [
+{ who: "TutorTech Academy", text: "Hello, TutorTech Academy." },
+{ who: $player, text: "Hi, this is $player.name from $company.name. I sent you an email about a tool that helps with student engagement during sessions. Would you be interested in a quick pilot?" },
+{ who: "TutorTech Academy", text: "Oh, we actually just signed with a new platform last month. Sorry, we're not looking right now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I hang up and stare at the screen until it dims. Everyone wants proof, references and case studies, and nobody wants to be the one who lets me make any. It's a neat little trap, and I've spent the whole day walking in circles inside it.
+
+I shut the laptop and sit in the quiet for a while. I'm frustrated, sure, but underneath that something is getting clearer. The prototype isn't what they're turning down. They're turning down a nobody with no logos on his website and nobody to vouch for him. Whatever I try next has to make people care for five seconds before they start asking for data I don't have.
+
+$sister.callName has always been good at that, getting people to look up from their phones. Maybe it's time I asked her for help again...
+
+<<UpdateStat "+" "Corruption" 3>>
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+

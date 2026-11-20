@@ -1,0 +1,115 @@
+:: Task Sister Internship Overview 0 [task_scene] {"position":"2025,3925"}
+/* Scene of the task "Internship Overview" (task_sister_internship_overview), stage 0. Played every time the task starts
+   while I'm in the meeting room. Unlocked by the quest "Internship Overview Meetings" (sister_internshipOverviewRequest).
+   Runs at most every other day (cooldown, Define Tasks). Effects are in the task's onComplete.
+   Each meeting picks one topic for her journal from the ones that fit the story so far (_ioTopics), and the opening
+   changes as the meetings add up (the task count). Videos: images/characters/sister/tasks/internship_overview_0_<0-1>.mp4 */
+<<silent>>
+<<SetBackground $locations[15].img>>
+<<set _ioCount to setup.getTaskById("task_sister_internship_overview").count>>
+<<set _ioTopics to ["money", "device", "college"]>>
+<<if setup.getTaskById("task_sister_help_landlord").count > 0>><<run _ioTopics.push("landlord")>><</if>>
+<<if $company.employees.some((e) => e.sysName === "darius")>><<run _ioTopics.push("darius")>><</if>>
+<<if setup.questDone("mom_briefing")>><<run _ioTopics.push("boss")>><</if>>
+<<set _ioTopic to _ioTopics.random()>>
+<</silent>>
+<<if _ioCount is 0>>
+The first official Internship Overview. She shows up two minutes early with two coffees, the journal and a brand-new pen still in its packaging, which she opens at the table with her teeth.
+<<elseif _ioCount lt 4>>
+<<= either("She's in the meeting room before me, as usual, with two coffees and the journal open to a clean page. She's already written today's date at the top and underlined it twice.", "She comes in balancing two coffees on top of the journal like a waiter on his first day, kicks the door shut behind her with her heel and only spills a little.", "She's already there when I come in, sitting on the table instead of a chair, swinging her legs and reading her own last entry with a frown.")>>
+<<else>>
+Her chair has moved to my side of the table for good. Today her knee ends up against mine under the table, and she leaves it there while she uncaps her pen.
+<</if>>
+
+<<Media "images/characters/sister/tasks/internship_overview_0_0.mp4" 600>>
+
+<<linkreplace "Go over the journal">>
+<<switch _ioTopic>>
+<<case "money">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay, today's question. Where does the money actually come from? Because I see it leave. Rent, wages, the coffee. Mostly the coffee." },
+{ who: $player, text: "Clients pay for projects. Some pay once, some pay every week for support. Everything else is me making sure we spend less than that." },
+{ who: $sister, text: "So basically you're $mom.callName with the grocery budget." },
+{ who: $player, text: "With more zeros." },
+{ text: "She writes 'like $mom.callName with the grocery budget, but with zeros' and underlines 'zeros' twice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<case "device">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "My advisor wants me to describe our product. In my own words. So what does $company.prototype.name actually do? For real, not the brochure." },
+{ who: $player, text: "It reads a room. Light, noise, how people move, how tense they are. Then it helps the room feel a little better." },
+{ who: $sister, text: "So it's a really expensive scented candle." },
+{ who: $player, text: "Write that down and I'll fire you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She writes 'expensive scented candle' in very small letters in the margin anyway. The official version goes on the line underneath, word for word, the same one the clients get. It's even true, as far as it goes.
+<<case "college">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can we do college stuff for five minutes? My advisor wants a paragraph about transferable skills. What did I transfer? Coffee. From the machine. To people." },
+{ who: $player, text: "You keep half the office's calendar in your head and nobody asked you to. That's coordination." },
+{ who: $sister, text: "Coordination. Oh, that's good. That's a real word, advisors love that." },
+{ who: $player, text: "You keep everybody's mood up when a deadline gets ugly. That's team morale." },
+{ who: $sister, text: "Stop it. I'm going to put this on my resume, and then I'll have to actually be like that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<case "landlord">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can I write about the building? Like, a 'community relations' section?" },
+{ who: $player, text: "You mean $landlord.callName." },
+{ who: $sister, text: "I mean $landlord.callName. He made me carry a box of his old magazines down to the basement, and he watched me the whole way. From the top of the stairs. Very supervisory." },
+{ who: $player, text: "He keeps our rent low. That's community relations." },
+{ who: $sister, text: "Then the section is called 'community relations' and it's one line long and nobody is ever reading it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<case "darius">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Is it unprofessional to write that $darius.name is very good at his job? Because he is. Objectively. It's an observation." },
+{ who: $player, text: "An observation about his job." },
+{ who: $sister, text: "Mostly about his job." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She glances up while she says it, quickly, to see what my face does. My face doesn't do anything. She looks almost disappointed, and writes 'team dynamics' instead.
+<<case "boss">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can I ask something that's not for the journal?" },
+{ who: $player, text: "Depends on the question." },
+{ who: $sister, text: "When $mom.callName comes back from $boss.callName's office, she goes straight to the bathroom. Every time. Ten minutes. And then she comes out totally fine and wants to talk about lunch." },
+{ who: $player, text: "He's a difficult client." },
+{ who: $sister, text: "Yeah. That's what she says too. Word for word, actually." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+She keeps her eyes on me for a while after that. Then she writes 'client relations: difficult' in the journal, caps her pen and doesn't bring it up again.
+<</switch>>
+
+<<linkreplace "Wrap it up">>
+<<Media "images/characters/sister/tasks/internship_overview_0_1.mp4" 600>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: either("Same time, day after tomorrow? It's in the calendar. I checked. Twice.", "I'm leaving the good pen in here, by the way. It lives in this room now.", "My advisor is going to think I'm a genius. Or that I got kidnapped by a consultant.") },
+{ who: $player, text: "Go on. Your desk misses you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $sister.stats.lust >= 40>>
+On her way out she squeezes my shoulder, and her fingers trail across the back of my neck before she lets go. She's out of the door before I can turn around.
+<<else>>
+She gathers up the journal, both empty cups and the pen, and on her way out she bumps the back of my chair with her hip, the way she used to bump me away from the bathroom sink when we were kids.
+<</if>>
+
+<<EndTaskScene "Back to work">>
+<</linkreplace>>
+<</linkreplace>>

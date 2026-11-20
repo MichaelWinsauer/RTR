@@ -1,0 +1,118 @@
+:: NPC Interaction [interaction nobr system] {"position":"450,2500","size":"200,100"}
+<<silent>>
+<<set _npc to ($interactionCharacter == "mom" ? $mom : $sister)>>
+
+/* every action of this screen (social / flirt / intimate / other) is defined in Define Interactions */
+<<set _options to setup.getInteractionOptions(_npc)>>
+<<set _mood to setup.npcMood(_npc)>>
+
+/* She counts as here when she is in the player's location, is following the player, or was called to the desk
+   (callFamilyToDesk in cmd_management) and has not moved since. Time passes during an interaction, so she can
+   leave in the middle of it; then the player is sent back instead of talking to an empty room. */
+<<set _present to (_npc.flags.isFollowing || setup.sameLocation(_npc.location, $player.location) || ($interactionDesk && $interactionDesk.npc == _npc.sysName && $interactionDesk.npcLoc == _npc.location.id && $interactionDesk.playerLoc == $player.location.id))>>
+<</silent>>
+<<if !_present>>
+	<<run Notification.show(_npc.name + " is no longer here.", { type: Notification.INFORMATION })>>
+	<<goto $locations[$player.location.id].passage>>
+<<else>>
+
+<div class="ni">
+	<div style="display: flex; justify-content: space-between;">
+		<div class="ni-head">
+			<div class="ni-title"><<= _npc.callName>> is <<= setup.activityText(_npc, _npc.activity)>>.</div>
+			<<if _mood != "" || _npc.flags.isFollowing>>
+				<div class="ni-sub"><<= _mood>><<if _npc.flags.isFollowing>> She's following me.<</if>></div>
+			<</if>>
+		</div>
+
+		<div class="ni-leave"><<link "Leave" $locations[$player.location.id].passage>><</link>></div>
+	</div>
+
+	<div class="ni-hero"><<DisplayActivity _npc 400>></div>
+
+	<br>
+	<div id="ni-actions">
+		<<for _g range $interactions.groups>>
+			<<set _inGroup to _options.filter(function (o) { return o.action.group == _g.id; })>>
+			<<if _inGroup.length>>
+			<div class="ni-group">
+				<div class="ni-group-h"><<= _g.label>></div>
+				<div class="ni-grid">
+					<<for _o range _inGroup>>
+						<<set _meta to setup.describeInteraction(_o.action)>>
+						<<if _o.reason>>
+							<div class="ni-opt locked">
+								<span class="ni-name"><<= _o.text>></span>
+								<span class="ni-meta"><<= _o.reason>></span>
+							</div>
+						<<else>>
+							<<capture _o, _npc>>
+							<div class="ni-opt">
+								<<link _o.text>>
+									<<set _res to setup.performInteraction(_o.action.id, _npc.sysName)>>
+									<<if _res.handled>>
+										/* the action did everything itself (follow / stop following) */
+									<<elseif _res.passage>>
+										<<if _res.cost>><<UseAction _res.cost>><</if>>
+										<<goto _res.passage>>
+									<<else>>
+										<<replace "#ni-actions">><</replace>>
+										<<replace "#ni-outcome">>
+											<<if _res.narration != "">><p><<= _res.narration>></p><</if>>
+											<<Chat _res.msgs>>
+											<<if _o.action.money>><div class="red statupdate">You spent $<<= _o.action.money>>.</div><</if>>
+											<<for _d range _res.deltas>><<UpdateStat _d[1] _d[0] _d[2]>><</for>>
+											<<if !_res.success>><div class="red statupdate">That didn't go over well.</div><</if>>
+											<<UseAction _res.cost>>
+											<div class="navigation-link"><<link "Continue" "NPC Interaction">><</link>></div>
+										<</replace>>
+									<</if>>
+								<</link>>
+								<<if _meta != "">><span class="ni-meta"><<= _meta>></span><</if>>
+							</div>
+							<</capture>>
+						<</if>>
+					<</for>>
+				</div>
+			</div>
+			<</if>>
+		<</for>>
+	</div>
+
+	<div id="ni-outcome"></div>
+</div>
+
+<style>
+.ni { max-width: 46rem; margin: 0 auto; }
+
+/* same look as the Return link of the profile screen: small, uppercase, letter-spaced, top right */
+.ni-leave { display: flex; justify-content: flex-end; margin-bottom: .4rem; text-transform: uppercase; letter-spacing: 2px; font-size: .7rem; }
+
+.ni-hero { display: flex; justify-content: center; }
+.ni-hero img, .ni-hero video { width: auto !important; height: auto !important; max-width: 100% !important; max-height: 32vh !important; }
+.ni-head { margin: 0 0 1rem 0; text-align: start; }
+.ni-title { font-size: 1.2em; font-weight: 700; color: var(--accent); }
+.ni-sub { margin-top: .15rem; font-size: .85em; opacity: .75; }
+
+.ni-group { margin-bottom: .8rem; }
+.ni-group-h { margin-bottom: .35rem; padding-bottom: .2rem; border-bottom: 1px solid var(--card-border); font-size: .68rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #EAAF4C; }
+.ni-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .35rem; }
+
+.ni-opt { display: flex; flex-direction: column; padding: .3rem .6rem; border: 1px solid var(--card-border); border-radius: .5em; background: var(--link-bg); backdrop-filter: blur(5px); text-align: left; line-height: 1.25; transition: border-color .2s, background-color .2s; }
+.ni-opt:hover:not(.locked) { border-color: #EAAF4C; background: var(--link-bg-transparent); }
+.ni-opt { position: relative; }
+.ni-opt:not(.locked) { cursor: pointer; }
+.ni-opt a { font-weight: 700; font-size: .92em; color: var(--accent); text-decoration: none; cursor: pointer; }
+/* the link stretches over the whole card, so the entire card is clickable */
+.ni-opt a::after { content: ''; position: absolute; inset: 0; }
+.ni-opt:hover:not(.locked) a { color: #EAAF4C; }
+.ni-meta { font-size: .7em; color: rgba(235,221,197,.6); }
+
+.ni-opt.locked { opacity: .55; }
+.ni-name { font-weight: 700; font-size: .92em; }
+.ni-opt.locked .ni-meta { color: #ff9aa9; }
+
+#ni-outcome { margin-top: 1rem; }
+#ni-outcome p { margin: .6rem 0; text-align: left; }
+</style>
+<</if>>

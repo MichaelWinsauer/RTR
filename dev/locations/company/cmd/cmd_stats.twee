@@ -1,0 +1,35 @@
+:: CMD Stats [nobr] {"position":"2225,3150","size":"100,200"}
+/* The company stats ("Company stats" in Define Company) and my own corruption. Under Efficiency: where it is
+   heading and why, so the vent unit and Secretary Work show up as cause and effect. Suspicion only from
+   Stage 2 on. setup.setVentLevel refreshes this panel through #cmd-stats. */
+<<set _csTarget to setup.efficiencyTarget()>>
+<<set _csEff to $company.stats.efficiency>>
+<<set _csWhy to setup.efficiencyBreakdown().map((s) => s.label + " " + (s.value > 0 ? "+" : "") + s.value).join(", ")>>
+<<DisplayStatHorizontal "Reputation" $company.stats.reputation $company.stats.max.reputation >>
+<<DisplayStatHorizontal "Efficiency" _csEff $company.stats.max.efficiency >>
+<div class="cmd-stats-trend" @title="'Target ' + _csTarget + ': ' + _csWhy">
+	<<if _csEff < _csTarget>>
+		<span class="green">▲</span> rising to <<= _csTarget>>
+	<<elseif _csEff > _csTarget>>
+		<span class="red">▼</span> falling to <<= _csTarget>>
+	<<else>>
+		steady
+	<</if>>
+	· vent <<= setup.ventLevel().name>>
+</div>
+<<DisplayStatHorizontal "Morale" $company.stats.morale $company.stats.max.morale >>
+<<if setup.suspicionActive()>>
+	<<DisplayStatHorizontal "Suspicion" $company.stats.suspicion $company.stats.max.suspicion >>
+<</if>>
+<hr>
+<<DisplayStatHorizontal "Corruption" $player.stats.corruption $player.stats.max.corruption >>
+
+<style>
+.cmd-stats-trend {
+	margin: -.35rem 0 .45rem;
+	font-size: .7rem;
+	text-align: left;
+	opacity: .7;
+	cursor: help;
+}
+</style>

@@ -1,0 +1,145 @@
+:: Task Mom Test Session 2 [task_scene] {"position":"2025,4175"}
+/* Scene of the task "Test Session", stage 2 (sessions 7 and 8). Played every time the task starts while I'm in the meeting room.
+   Effects are in the task's onComplete, the amounts of this stage in its stage entry (Define Tasks).
+   Stage 2 is the sleep mask, and I don't ask whether she'll wear it. With her eyes covered she takes her blouse off by herself
+   around question nine, the way she will in every session from now on. I keep her from hiding: arms down, answers out loud and
+   as a full sentence. Her hand only leaves the table when I say it may, and where it goes then is her own doing. At the end
+   the mask stays on until I say so. Bra and skirt stay on, and I never touch her. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ts2Task to setup.getTaskById("task_mom_test_session")>>
+	<<set _ts2First to (_ts2Task.count || 0) === (_ts2Task.stageStartCount || 0)>>
+	<<set _ts2 to random(0, 2)>>
+<</silent>>
+<<if _ts2First>>
+The sleep mask was $ethan.name's idea, although he doesn't know it. He wore one at his desk for a whole afternoon last week and claimed it cut out the visual noise. Mostly it cut out the part of the afternoon where he was supposed to be working. On the way home I bought a black satin one.
+
+I don't write anything at the top of a page to explain it. When $mom.callName sits down, I put it on top of her clipboard.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What's this?" },
+{ who: $player, text: "You're wearing it tonight." },
+{ who: $mom, text: "I'm going to look like one of those women on a plane who paid for the good seat." },
+{ who: $player, text: "Put it on." },
+{ who: $mom, text: "But what's it for, sweetie? What does it do for the...?" },
+{ text: "I don't answer. I put my phone on my knee and wait, and after a while she stops waiting for an explanation." },
+{ who: $mom, text: "Your $dad.relation used to do that. Just sit there until I gave in." },
+{ text: "She turns the mask over in her hands once more. Then she puts it on, adjusts the strap twice so it won't pull her hair, and lays her hands flat on the table without being told." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+The mask is out of her purse before I've got my phone on my knee. She washed it, she tells me. She doesn't ask whether we'll need it. She puts it on, settles the strap behind her ears, and lays her hands flat on either side of the clipboard, and then she sits there blind and waits for me to say the word.
+<</if>>
+
+<<linkreplace "Tell her it's on">>
+With her eyes covered she can't see the light, so I tell her when it's on. It's a small thing I noticed by accident: she relaxes at the word, before the real one has done anything at all. Tonight I say it and then wait a full minute before I touch my phone, just to watch. Her shoulders drop anyway. <<DevicePulse 4>>
+
+<<= either(
+"I can hear the vacuum cleaner on the floor below, and then I can't, and then the only sound in the room is her breathing.",
+"Out on the street a car alarm goes off and keeps going for a while. She doesn't even turn her head.",
+"Somebody's phone buzzes in the main room, three times, and stops. $brian.name forgot it on his desk again. She doesn't seem to hear it."
+)>>
+
+I skip $darius.name's twelve questions and the body map tonight and go straight to page three, which is all mine.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "When was the last time somebody touched you? Not a handshake. Really touched you." },
+{ who: $mom, text: "Is that on the sheet?" },
+{ who: $player, text: "Answer it." },
+{ text: "She tilts her head toward my voice, as if she could read the page through the satin." },
+{ who: $mom, text: "Your $dad.relation, I suppose. Near the end. And that wasn't... honestly, honey, that wasn't much." },
+{ who: $player, text: "And since then?" },
+{ who: $mom, text: "Since then, a lot of handshakes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs at her own joke, and I push the slider up while she's laughing, so she won't be able to tell where the next part came from.
+
+<<linkreplace "Keep going">>
+I take it slowly, on purpose. <<DevicePulse "+2">> The higher it goes, the less she says, until most of what comes back to me is breathing with a number in it now and then.
+
+Somewhere around question nine she unbuttons her blouse, all the way this time, and shrugs it off her shoulders without a word. She folds it blind and lays it on the chair beside her, because even like this she's still the woman who folds things. Then her arms come up and cross over her chest. I don't think she decided that part either.
+
+<<Media "images/characters/mom/tasks/test_session_2.webp" 500>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Arms down." },
+{ who: $mom, text: "Sweetheart, I'm sitting here in my..." },
+{ who: $player, text: "On the table. Where they were." },
+{ text: "It takes her a while. When they come down, she puts them back exactly where they were, palms flat. The flush has spread down her throat and across her chest, all the way to the lace, and now there's nothing in front of it." },
+{ who: $player, text: "Arousal, one to ten." },
+{ who: $mom, text: "$darius.name wrote that? That young man needs a girlfriend." },
+{ who: $player, text: "Out loud. The whole sentence." },
+{ who: $mom, text: "The whole... what am I supposed to say?" },
+{ who: $player, text: "'My arousal is', and then the number." },
+{ text: "The pause is long enough for the vacuum cleaner downstairs to start up and stop again." },
+{ who: $mom, text: "My arousal is... nine." },
+{ who: $player, text: "Again." },
+{ who: $mom, text: "My arousal is a nine." },
+{ text: "Louder this time. She fixes the volume and leaves the number alone." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I write it down. Her right hand is still flat on the table, but the fingers keep curling a little and flattening out again, like the hand is trying to get somewhere it hasn't been given permission to go.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You can take your right hand off the table." },
+{ who: $mom, text: "Why?" },
+{ who: $player, text: "Because I said you can." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It goes to her lap first, unsure of itself. Then to her thigh, on top of her skirt, and while I read out the next question it starts to move, a few inches up and back again, the way you'd smooth a crease out of a tablecloth. I said she could move it. Where it went was her own idea.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Do you think about these sessions when you're not here?" },
+{ who: $mom, text: "Sometimes. In the bath. Don't write that down." },
+{ who: $player, text: "I'm writing it down." },
+{ text: "She bites her lip under the edge of the mask, and the hand on her skirt goes a little higher." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wrap it up">>
+I switch off the box and tell her it's off, and under the table I bring the rest down to the baseline. <<DevicePulse "off">> Her hand stops. The other one comes up for the mask.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Leave it on." },
+{ text: "The hand stops halfway to her face and goes back down to the table." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take a full minute with the sheet. I make the pen loud on the paper, so she can hear that I'm busy, while she sits across from me in her bra and her skirt and the black satin, with both hands flat on the table, waiting.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Now." },
+{ text: "She pushes the mask up onto her forehead, squints at the ceiling lights, and looks down at herself." },
+{ who: $mom, text: "Oh. Oh, my goodness." },
+{ text: "Her arms start to cross over her chest. Halfway there they remember, and uncross, and go for the blouse instead." },
+{ who: $mom, text: ["I don't even remember taking this off. Isn't that silly? I must be more tired than I thought.", "Well, that's a first. I haven't done that since... I don't know that I've ever done that.", "Please tell me the blinds were closed this whole time."][_ts2] },
+{ who: $player, text: ["It was warm. You said so.", "It was warm. You said so.", "They're always closed. That's why we use this room."][_ts2] },
+{ who: $mom, text: ["I did say so. Didn't I.", "I did. I did say that.", "Right. Of course. You think of everything."][_ts2] },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She puts the blouse back on with her back half turned to me, and she doesn't hurry. She does the buttons one at a time, all the way up, and smooths the collar flat with her thumb.
+
+<<if _ts2First>>At the door she holds up the mask by its strap and starts to ask whether we'll need it again. I tell her she brings it every time from now on. She nods and puts it in her purse, in the pocket with the zipper, next to her wallet.<<else>>At the door she drops the mask into the zipper pocket of her purse, next to her wallet, where it lives now.<</if>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

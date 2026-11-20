@@ -1,0 +1,4 @@
+:: Expansion Preparations [event main_quest] {"position":"3400,125","size":"100,100"}
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>
