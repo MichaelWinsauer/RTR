@@ -41,6 +41,8 @@ sugarcube-2:
     RandomImage: {}
     RandomVideo: {}
     ReturnFromEvent: {}
+    StageTitle:
+      container: true
     SbMeter: {}
     SbNpc: {}
     SbQuest: {}

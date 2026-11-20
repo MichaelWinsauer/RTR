@@ -3139,3 +3139,253 @@ The registered properties let a turned dial glide to the new strength instead of
   #device-pulse .dp-glow  { animation: none; opacity: .6; }
   #device-pulse .dp-flash { display: none; }
 }
+
+/* ==== Stage title card (<<StageTitle>>, setup.stageTitle in Define Company) ==== */
+.stage-card {
+  position: fixed;
+  inset: 0;
+  z-index: 8000; /* over the game, under the device pulse and SugarCube dialogs */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--accent);
+  text-align: center;
+  background: radial-gradient(ellipse 80% 70% at 50% 46%, #1b1820 0%, #0d0c11 55%, #050507 100%);
+  cursor: default;
+  user-select: none;
+  animation: stg-in 1.2s ease both;
+}
+
+/* faint scanlines and a vignette over everything */
+.stage-card::before,
+.stage-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.stage-card::before {
+  background: repeating-linear-gradient(0deg, rgba(235, 221, 197, .022) 0 1px, transparent 1px 3px);
+}
+.stage-card::after {
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, .65) 100%);
+}
+
+.stage-card .stg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 45% 38% at 50% 45%, rgba(234, 175, 76, .32), rgba(234, 175, 76, .08) 55%, transparent 80%);
+}
+
+.stage-card .stg-center {
+  position: relative;
+  z-index: 1;
+  padding: 0 16px;
+  max-width: 100%;
+}
+
+.stage-card .stg-title {
+  font-size: clamp(2.2rem, 7.2vw, 5.6rem);
+  font-weight: 200;
+  line-height: 1.15;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.stage-card .stg-label { --stg-ls: .32em; letter-spacing: .32em; }
+.stage-card .stg-num {
+  --stg-ls: .04em;
+  position: relative;
+  display: inline-block;
+  font-size: 1.3em;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: var(--gold);
+}
+.stage-card .stg-sub {
+  --stg-ls: .5em;
+  min-height: 1.5em;
+  padding-left: .5em; /* balances the letter spacing after the last letter */
+  font-size: clamp(.78rem, 1.7vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: rgba(235, 221, 197, .72);
+}
+
+/* the letters: invisible but in place, then they come in out of a blur, gold-hot, and cool down to cream */
+.stage-card .stg-ch {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(.14em);
+  color: var(--gold);
+  text-shadow: 0 0 .5em rgba(234, 175, 76, .9);
+  transition: opacity .35s ease, filter .5s ease, transform .5s cubic-bezier(.2, .7, .1, 1), color 1.1s ease, text-shadow 1.4s ease;
+}
+.stage-card .stg-sub .stg-ch { filter: blur(4px); }
+.stage-card .stg-ch.stg-on {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  color: inherit;
+  text-shadow: 0 0 .5em rgba(234, 175, 76, 0);
+}
+/* the digits take their glow from the number, so the heartbeat reaches them without a lag */
+.stage-card .stg-num .stg-ch { transition-property: opacity, filter, transform, color; }
+.stage-card .stg-num .stg-ch.stg-on { text-shadow: inherit; }
+.stage-card.stg-skipped .stg-ch { transition-duration: .45s; transition-delay: 0s; }
+
+/* the caret: takes no room, so nothing moves when it does */
+.stage-card .stg-caret {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+.stage-card .stg-caret::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--stg-ls, 0em) * -.6);
+  bottom: -.12em;
+  width: max(2px, .05em);
+  height: .95em;
+  background: var(--gold);
+  box-shadow: 0 0 .5em rgba(234, 175, 76, .6);
+  opacity: 0;
+}
+.stage-card.stg-caret-on .stg-caret::after { animation: stg-blink 1.06s steps(1, end) infinite; }
+.stage-card.stg-typing .stg-caret::after { animation: none; opacity: 1; }
+
+/* the number lands: a lub-dub, two rings and the room lights up, then it keeps breathing */
+.stage-card.stg-hit .stg-num { animation: stg-beat 1.5s ease-out both, stg-breathe 4.5s ease-in-out 1.5s infinite; }
+.stage-card.stg-hit .stg-glow { animation: stg-glow-beat 1.6s ease-out both, stg-glow-breathe 6s ease-in-out 1.6s infinite; }
+.stage-card .stg-num::before,
+.stage-card .stg-num::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 1em;
+  height: 1em;
+  border: 1px solid rgba(234, 175, 76, .7);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.3);
+  pointer-events: none;
+}
+.stage-card.stg-hit .stg-num::before { animation: stg-ring 1.7s cubic-bezier(.15, .6, .3, 1) both; }
+.stage-card.stg-hit .stg-num::after { animation: stg-ring 1.7s cubic-bezier(.15, .6, .3, 1) .32s both; }
+.stage-card.stg-skipped .stg-num { animation: stg-breathe 4.5s ease-in-out infinite; }
+.stage-card.stg-skipped .stg-glow { animation: stg-glow-breathe 6s ease-in-out infinite; }
+.stage-card.stg-skipped .stg-num::before,
+.stage-card.stg-skipped .stg-num::after { animation: none; }
+
+.stage-card .stg-rule {
+  width: min(28rem, 72vw);
+  height: 1px;
+  margin: 1.7rem auto 1.4rem;
+  background: linear-gradient(90deg, transparent, rgba(234, 175, 76, .85), transparent);
+  opacity: 0;
+  transform: scaleX(0);
+  transition: transform 1.4s cubic-bezier(.2, .7, .1, 1), opacity .6s ease;
+}
+.stage-card.stg-ruled .stg-rule { opacity: 1; transform: scaleX(1); }
+
+.stage-card .stg-after {
+  margin-top: 3.2rem;
+  opacity: 0;
+  transform: translateY(.6rem);
+  pointer-events: none;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.stage-card.stg-done .stg-after { opacity: 1; transform: none; pointer-events: auto; }
+.stage-card .stg-after .navigation-link { display: inline-block; }
+.stage-card .stg-after .navigation-link a {
+  display: inline-block;
+  width: auto;
+  min-width: min(14rem, 70vw);
+  box-sizing: border-box;
+  padding: .75em 2.4em;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid rgba(235, 221, 197, .22);
+  transition: color .3s ease, border-color .3s ease, background-color .3s ease;
+}
+.stage-card .stg-after .navigation-link a:hover {
+  color: var(--gold);
+  border-color: rgba(234, 175, 76, .7);
+  background: rgba(234, 175, 76, .08);
+}
+
+.stage-card .stg-skip {
+  position: absolute;
+  right: 1.6rem;
+  bottom: 1.4rem;
+  z-index: 1;
+  font-size: .66rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(235, 221, 197, .32);
+  opacity: 0;
+  animation: stg-in 1s ease 2.6s forwards;
+  transition: opacity .5s ease;
+}
+.stage-card.stg-done .stg-skip { animation: none; opacity: 0; }
+
+@keyframes stg-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes stg-blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes stg-beat {
+  0%   { transform: scale(1.4);  text-shadow: 0 0 .08em rgba(255, 248, 230, .9), 0 0 .8em rgba(234, 175, 76, 1); }
+  13%  { transform: scale(.95); }
+  25%  { transform: scale(1.08); text-shadow: 0 0 .06em rgba(255, 248, 230, .5), 0 0 .7em rgba(234, 175, 76, .85); }
+  42%  { transform: scale(1); }
+  100% { transform: scale(1);    text-shadow: 0 0 0 rgba(255, 248, 230, 0), 0 0 .35em rgba(234, 175, 76, .45); }
+}
+
+@keyframes stg-breathe {
+  0%, 100% { text-shadow: 0 0 0 rgba(255, 248, 230, 0), 0 0 .35em rgba(234, 175, 76, .45); }
+  50%      { text-shadow: 0 0 0 rgba(255, 248, 230, 0), 0 0 .6em rgba(234, 175, 76, .7); }
+}
+
+@keyframes stg-ring {
+  0%   { opacity: .9; transform: translate(-50%, -50%) scale(.3); }
+  100% { opacity: 0;  transform: translate(-50%, -50%) scale(3.4); }
+}
+
+@keyframes stg-glow-beat {
+  0%   { opacity: 0; }
+  8%   { opacity: 1; }
+  20%  { opacity: .35; }
+  30%  { opacity: .75; }
+  100% { opacity: .4; }
+}
+
+@keyframes stg-glow-breathe {
+  0%, 100% { opacity: .4; }
+  50%      { opacity: .22; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-card .stg-ch { filter: none; transform: none; }
+  .stage-card .stg-num,
+  .stage-card .stg-num::before,
+  .stage-card .stg-num::after,
+  .stage-card.stg-hit .stg-glow { animation: none !important; }
+  .stage-card.stg-hit .stg-glow { opacity: .35; }
+}

@@ -659,3 +659,131 @@
 
 /* Loading a save never keeps a pulse from the game that was running before */
 <<run Save.onLoad.add(() => setup.devicePulse(0, { fade: 0 }))>>
+
+/* The stage title card ========================================================
+   The full-screen title that opens a new stage of the company ("Stage 1 Follow Up"). Like the device pulse it
+   only lives in the page; nothing of it is saved.
+   setup.stageTitle(target)   plays the card that <<StageTitle>> ("Event Widgets") built in target (an element or a
+                              selector). The label types in letter by letter behind a caret, the number lands with
+                              a heartbeat, a rule draws out and the subtitle types in under it, then .stg-after (the
+                              continue link) fades in. A click, Enter, Space or Esc jumps to the end, and so does
+                              prefers-reduced-motion. Each card plays once.
+   setup.stageTitleStyle      the timing in ms. The look is .stage-card in StoryStylesheet. */
+<<set setup.stageTitleStyle to {
+    start: 1100,          /* black screen before the caret shows up */
+    caretLead: 1000,      /* the caret blinks on its own before the first letter */
+    letter: 150,          /* base time per letter of the label */
+    jitter: 0.45,         /* each letter strays up to 45 percent from that, so it reads like a person typing */
+    beforeNumber: 1100,   /* the pause after the label, caret blinking */
+    numberLetter: 240,    /* time per digit when the number has more than one */
+    afterNumber: 1700,    /* the heartbeat plays out before the rule draws */
+    subtitleLead: 900,    /* the rule draws out before the subtitle starts */
+    subtitleLetter: 62,   /* base time per subtitle letter */
+    end: 1300,            /* the caret blinks at the end of the subtitle before the link fades in */
+}>>
+
+<<set setup.stageTitle = (target) => {
+    const root = typeof target === "string" ? document.querySelector(target) : target;
+    if (!root || root.dataset.stPlayed) { return; }
+    root.dataset.stPlayed = "1";
+    const style = setup.stageTitleStyle;
+    const timers = [];
+    let finished = false;
+
+    /* One span per letter. Every letter holds its place from the start, so the centered line never shifts while it types */
+    const split = (el) => {
+        if (!el) { return []; }
+        const text = el.textContent.replace(/\s+/g, " ").trim();
+        el.textContent = "";
+        return Array.from(text).map((ch) => {
+            const span = document.createElement("span");
+            span.className = "stg-ch";
+            span.textContent = ch === " " ? " " : ch;
+            el.appendChild(span);
+            return span;
+        });
+    };
+    const label = root.querySelector(".stg-label");
+    const gap = root.querySelector(".stg-gap");
+    const sub = root.querySelector(".stg-sub");
+    const labelChars = split(label);
+    const numChars = split(root.querySelector(".stg-num"));
+    const subChars = split(sub);
+
+    const caret = document.createElement("span");
+    caret.className = "stg-caret";
+    caret.setAttribute("aria-hidden", "true");
+
+    const at = (ms, fn) => { timers.push(setTimeout(fn, ms)); };
+    const typing = (on) => root.classList.toggle("stg-typing", on);
+    const show = (ch) => { ch.classList.add("stg-on"); ch.after(caret); };
+    const step = (ms) => ms * (1 + (Math.random() * 2 - 1) * style.jitter);
+    const hit = () => { typing(false); caret.remove(); root.classList.add("stg-hit"); };
+
+    const onClick = () => finish(true);
+    const onKey = (ev) => {
+        if (typeof Dialog !== "undefined" && Dialog.isOpen()) { return; }
+        if (ev.key === "Enter" || ev.key === " " || ev.key === "Escape") {
+            ev.preventDefault();
+            ev.stopPropagation();
+            finish(true);
+        }
+    };
+    const unbind = () => {
+        document.removeEventListener("keydown", onKey, true);
+        root.removeEventListener("click", onClick);
+        jQuery(document).off(":passagestart.stageTitle");
+    };
+    /* skipped: the letters snap in quickly and the number skips its heartbeat */
+    const finish = (skipped) => {
+        if (finished) { return; }
+        finished = true;
+        timers.forEach(clearTimeout);
+        unbind();
+        if (skipped) { root.classList.add("stg-skipped"); }
+        root.querySelectorAll(".stg-ch").forEach((ch) => ch.classList.add("stg-on"));
+        caret.remove();
+        root.classList.remove("stg-typing");
+        root.classList.add("stg-caret-on", "stg-hit", "stg-ruled", "stg-done");
+    };
+
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        finish(true);
+        return;
+    }
+    document.addEventListener("keydown", onKey, true);
+    root.addEventListener("click", onClick);
+    jQuery(document).one(":passagestart.stageTitle", () => { timers.forEach(clearTimeout); unbind(); });
+
+    /* The label: the caret blinks alone for a moment, then the letters come in at an uneven pace */
+    let t = style.start;
+    at(t, () => { label.prepend(caret); root.classList.add("stg-caret-on"); });
+    t += style.caretLead;
+    at(t, () => typing(true));
+    labelChars.forEach((ch) => { at(t, () => show(ch)); t += step(style.letter); });
+    at(t, () => typing(false));
+
+    /* The number: a held breath, the caret steps over the space, the number lands with a heartbeat */
+    t += style.beforeNumber;
+    if (numChars.length) {
+        at(t, () => { typing(true); (gap || label).after(caret); });
+        t += style.numberLetter * 1.6;
+        numChars.forEach((ch, i) => {
+            const last = i === numChars.length - 1;
+            at(t, () => { show(ch); if (last) { hit(); } });
+            t += last ? style.afterNumber : style.numberLetter;
+        });
+    }
+
+    /* The rule draws out, then the subtitle types in under it, quicker than the label */
+    at(t, () => root.classList.add("stg-ruled"));
+    if (subChars.length) {
+        t += style.subtitleLead;
+        at(t, () => { sub.prepend(caret); typing(true); });
+        t += 380;
+        subChars.forEach((ch) => { at(t, () => show(ch)); t += step(style.subtitleLetter); });
+        at(t, () => typing(false));
+    }
+    t += style.end;
+    at(t, () => finish(false));
+}>>

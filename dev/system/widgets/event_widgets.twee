@@ -91,3 +91,25 @@
 <</widget>>
 
 
+/* Usage: =====================================================================
+	<<StageTitle number ["subtitle"] ["label"]>>contents<</StageTitle>>
+	A full-screen title card for a new stage: "Stage" types in behind a caret, the number lands with a heartbeat,
+	the subtitle types in under a rule, then the contents (the continue link) fade in. The label defaults to
+	"Stage". A click, Enter, Space or Esc skips to the end. Use it once per passage; the animation is
+	setup.stageTitle() ("The stage title card" in Define Company), the look is .stage-card in StoryStylesheet.
+	<<StageTitle 1 "The Third Floor">><<ReturnFromEvent "A week passes...">><</StageTitle>>
+*/
+<<widget "StageTitle" container>>
+	<<set _stLabel to ($args[2] != undefined ? $args[2] : "Stage")>>
+	<div class="stage-card" id="stage-card">
+		<div class="stg-glow"></div>
+		<div class="stg-center">
+			<div class="stg-title"><span class="stg-label">_stLabel</span><span class="stg-gap">&nbsp;</span><span class="stg-num"><<= $args[0]>></span></div>
+			<div class="stg-rule"></div>
+			<<if $args[1] != undefined>><div class="stg-sub"><<= $args[1]>></div><</if>>
+			<div class="stg-after">_contents</div>
+		</div>
+		<div class="stg-skip">Click to skip</div>
+	</div>
+	<<run setTimeout(() => setup.stageTitle("#stage-card"), 0)>>
+<</widget>>
