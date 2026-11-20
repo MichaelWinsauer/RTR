@@ -1,0 +1,9 @@
+:: The Friend [event sister_quest] {"position":"4650,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Friend" (sister_theFriend), STAGE1_PROPOSAL.md 6.6c.
+   Her report: $jess.name and the lake weekend she already said no to. She mutes the group chat in front of me.
+   STAGE1-STUB: meant as her end-of-day report (proposal 3.5), which does not exist yet. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Friend, STAGE1_PROPOSAL.md 6.6c).
+
+<<NextQuest $sister>>
+<<ReturnFromEvent>>

@@ -1,0 +1,8 @@
+:: The Ask [event sister_quest] {"position":"3525,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Ask" (sister_theAsk), STAGE1_PROPOSAL.md 6.1.
+   $darius.name asks her out and she turns him down on her own. That evening she tells me, in my hoodie. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Ask, STAGE1_PROPOSAL.md 6.1).
+
+<<NextQuest $sister>>
+<<ReturnFromEvent>>

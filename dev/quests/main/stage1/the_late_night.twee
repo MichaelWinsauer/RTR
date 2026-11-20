@@ -1,0 +1,9 @@
+:: The Late Night [event main_quest] {"position":"3950,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Late Night" (main_lateNight), STAGE1_PROPOSAL.md 4.3.
+   Three hours with $ethan.name setting the field strength: pizza, the old headset, the startup that cut him out ("you will get
+   your piece"). The vent goes to Off before he comes in. Ends in silence when the Veil settles over the empty office. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Late Night, STAGE1_PROPOSAL.md 4.3).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

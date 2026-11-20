@@ -1,0 +1,11 @@
+:: Gym Dinner [event main_quest] {"position":"4575,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Gym Dinner" (main_gymDinner), STAGE1_PROPOSAL.md 4.5b.
+   The first family option. Going myself costs 20% of the contract. Sending her plays mom_gymDinner that night.
+   STAGE1-STUB: the offer should also check her corruption and exhibition (proposal 3.1). */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Gym Dinner, STAGE1_PROPOSAL.md 4.5b).
+
+<span id="stub-choice">
+<<link "Go to the dinner myself">><<set $mom.flags.gymDinner to false>><<run setup.getProjectById("project_gym_veil").reward = Math.round(setup.getProjectById("project_gym_veil").reward * 0.8)>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<if setup.questReached("mom_gymDinner")>><<link `"Send " + $mom.callName`>><<set $mom.flags.gymDinner to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>><<else>>Send $mom.callName (locked: her quest line has not reached this point yet)<</if>>
+</span>

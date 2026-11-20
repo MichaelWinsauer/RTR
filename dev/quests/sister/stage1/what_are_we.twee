@@ -1,0 +1,8 @@
+:: What Are We [event sister_quest] {"position":"4275,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "What Are We" (sister_whatAreWe), STAGE1_PROPOSAL.md 6.5.
+   The morning after: "What are we?" She stops using $sister.callPlayerShort in private. */
+<<silent>><<SetBackground $locations[3].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (What Are We, STAGE1_PROPOSAL.md 6.5).
+
+<<NextQuest $sister>>
+<<ReturnFromEvent "Continue" "Kitchen">>

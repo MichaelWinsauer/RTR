@@ -1,0 +1,8 @@
+:: Last Night Sister [event sister_quest] {"position":"5275,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Last Night" (sister_lastNight), part of The Night Shift (main_nightShift), STAGE1_PROPOSAL.md 6.9.
+   Optional, like the rehearsal. The hostess, calm and quiet. In the car she sees $mom.callName, and they both know. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Last Night, STAGE1_PROPOSAL.md 6.9).
+
+<<NextQuest $sister>>
+[[Continue|Night Shift 2]]

@@ -1,0 +1,10 @@
+:: Night Shift 2 [event main_quest] {"position":"6200,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Night Shift" (main_nightShift), last part, STAGE1_PROPOSAL.md 4.12.
+   The club door (or the deal alone), then the call from $ethan.name at 11:40 p.m. If they went: the car home, in silence. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Night Shift, STAGE1_PROPOSAL.md 4.12).
+
+<span id="stub-choice">
+<<link `"Answer " + $ethan.name`>><<set $flags.answeredEthan to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<link "Let it ring">><<set $flags.answeredEthan to false>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+</span>

@@ -1,0 +1,7 @@
+:: Send Me Something 2 [event sister_quest] {"position":"4025,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Send Me Something" (sister_sendMeSomething), part 2 of 3, STAGE1_PROPOSAL.md 6.4.
+   The videos at night, each with an apology before she sends it. */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Send Me Something, STAGE1_PROPOSAL.md 6.4).
+
+[[Continue|Send Me Something 3]]

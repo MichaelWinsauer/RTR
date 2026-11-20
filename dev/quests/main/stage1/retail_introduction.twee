@@ -1,0 +1,12 @@
+:: Retail Introduction [event main_quest] {"position":"5700,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Introduction" (main_retailIntroduction), STAGE1_PROPOSAL.md 4.11.
+   The second family option: the fee for the broker, two weeks of waiting, or $sister.callName hosts the rooftop evening of $whitfield.callName.
+   STAGE1-STUB: the fee is not charged, and the offer should check her corruption and exhibition. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Introduction, STAGE1_PROPOSAL.md 4.11).
+
+<span id="stub-choice">
+<<link "Pay the broker">><<set $flags.retailIntro to "broker">><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<link "Wait two weeks">><<set $flags.retailIntro to "wait">><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<if setup.questReached("sister_rooftop")>><<link `"Offer " + $sister.callName + " as the hostess"`>><<set $flags.retailIntro to "sister">><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>><<else>>Offer $sister.callName as the hostess (locked: her quest line has not reached this point yet)<</if>>
+</span>

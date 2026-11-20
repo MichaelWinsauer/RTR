@@ -1,0 +1,8 @@
+:: Office Gossip [event sister_quest] {"position":"3775,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Office Gossip" (sister_officeGossip), STAGE1_PROPOSAL.md 6.3.
+   A comedy: her end-of-day gossip about the staff. Plant: $ethan.name was still there at nine. Again. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Office Gossip, STAGE1_PROPOSAL.md 6.3).
+
+<<NextQuest $sister>>
+<<ReturnFromEvent>>

@@ -1,0 +1,8 @@
+:: Flirt Duty [event mom_quest] {"position":"4275,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Flirt Duty" (mom_flirtDuty), STAGE1_PROPOSAL.md 5.3.
+   A comedy: I coach her in flirting with the staff. Activates task_mom_flirt_duty (quest set). */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Flirt Duty, STAGE1_PROPOSAL.md 5.3).
+
+<<NextQuest $mom>>
+<<ReturnFromEvent>>

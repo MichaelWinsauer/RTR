@@ -1,0 +1,10 @@
+:: Souvenirs [event sister_quest] {"position":"3650,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Souvenirs" (sister_souvenirs), STAGE1_PROPOSAL.md 6.2.
+   Her milestone into stage 1. The photos from the party night, "special memories". "Can I do this more often?" */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Souvenirs, STAGE1_PROPOSAL.md 6.2).
+
+<<AdvanceCorruptionStage $sister>>
+
+<<NextQuest $sister>>
+<<ReturnFromEvent "Continue" "Bedroom">>

@@ -1,0 +1,8 @@
+:: Gym Meeting 2 [event main_quest] {"position":"4450,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Gym Meeting" (main_gymMeeting), part 2 of 2, STAGE1_PROPOSAL.md 4.5a.
+   The afternoon with $ethan.name turning the Veil into an expensive-looking router. $rick.name wants a dinner before he signs. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Gym Meeting, STAGE1_PROPOSAL.md 4.5a).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

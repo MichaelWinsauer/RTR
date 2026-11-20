@@ -1,0 +1,9 @@
+:: Profit Party [event main_quest] {"position":"5075,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Profit Party" (main_profitParty), STAGE1_PROPOSAL.md 4.9.
+   Pizza and drinks. The Catalyst is announced, $ethan.name gives his speech, $whitfield.callName is mentioned for the first time.
+   STAGE1-STUB: the equity choice is undecided ($flags.ethanEquity). */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Profit Party, STAGE1_PROPOSAL.md 4.9).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

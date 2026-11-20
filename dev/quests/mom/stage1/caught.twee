@@ -1,0 +1,8 @@
+:: Caught [event mom_quest] {"position":"4150,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Caught" (mom_caught), STAGE1_PROPOSAL.md 5.2.
+   I walk in on her in the meeting room. $brian.name nearly walks in on us. */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Caught, STAGE1_PROPOSAL.md 5.2).
+
+<<NextQuest $mom>>
+<<ReturnFromEvent>>

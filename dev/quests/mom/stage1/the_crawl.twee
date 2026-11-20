@@ -1,0 +1,8 @@
+:: The Crawl [event mom_quest] {"position":"4525,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Crawl" (mom_crawl), STAGE1_PROPOSAL.md 5.6.
+   Friday, the empty office, her apology. Next morning she thanks me for letting her make it up. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Crawl, STAGE1_PROPOSAL.md 5.6).
+
+<<NextQuest $mom>>
+<<ReturnFromEvent>>

@@ -296,6 +296,13 @@ for (const [L, { value }] of Object.entries(quests)) {
     if (slotCount) for (const t of q.whenTime || []) if (!(t >= 0 && t < slotCount)) report('ERROR', at, `${name}: whenTime ${t} is outside the ${slotCount} time slots`);
     if (q.requirements && (q.requirementsText || []).length !== q.requirements.length) report('WARN', at, `${name}: ${q.requirements.length} requirement(s) but ${(q.requirementsText || []).length} requirementsText line(s)`);
 
+    // optional quests (skip, see "Optional quests" in Define Quests)
+    if (q.skip !== undefined) {
+      if (typeof q.skip !== 'string' || !q.skip.trim()) report('ERROR', at, `${name}: skip must be a TwineScript string`);
+      else if (q.next === undefined) report('ERROR', at, `${name}: has a skip, but it is the last quest of its line, which can never be skipped`);
+      else if (/^\s*!\s*\$/.test(q.skip)) report('WARN', at, `${name}: skip "${q.skip}" is also true while the decision is still null; compare with === false instead`);
+    }
+
     // device use (Define Quests turns it into calibration + charge requirements, the scene spends it with <<UseQuestDevice>>)
     if (q.device && impactCost && devices.prototype) {
       const d = q.device, dev = devices[d.key || 'prototype'];
@@ -373,6 +380,13 @@ for (const p of passages.values()) {
   for (const { text, no } of p.lines) if (MARK.test(text)) report('WARN', `${p.file}:${no}`, `Unfinished marker: ${text.trim().slice(0, 90)}`);
 }
 
+// Stage 1 stubs: quests, data and scenes that are structure only. One line, so they are never forgotten
+{
+  const stubFiles = files.map(({ file, text }) => ({ file, n: (text.match(/STAGE1-STUB/g) || []).length })).filter((f) => f.n > 0);
+  const total = stubFiles.reduce((sum, f) => sum + f.n, 0);
+  if (total) report('WARN', '-', `${total} STAGE1-STUB marker(s) left in ${stubFiles.length} file(s): unfinished Stage 1 quests, data and scenes (grep -rn STAGE1-STUB dev)`);
+}
+
 // help dialog: every page listed in "Help Index" must exist
 {
   const idx = passages.get('Help Index');
@@ -399,6 +413,7 @@ if (flag('--chain')) {
       if (q.where?.length) bits.push(`@ ${q.where.join('/')}`);
       if (q.passage) bits.push(`-> ${q.passage}`);
       if (q.check) bits.push(`check: ${q.check}`);
+      if (q.skip) bits.push(`skip: ${q.skip}`);
       for (const r of q.requirements || []) bits.push(`req: ${r}`);
       console.log(`  ${q.id.padEnd(28)}  ${kind}  ${q.title}${bits.length ? '\n        ' + bits.join('\n        ') : ''}`);
     });

@@ -316,7 +316,7 @@
     },
     {
     	id: "main_officialProductMeeting",
-    	next: "main_end",
+    	next: "main_veil",
     	title: "It'll be official",
         task: "Let's have a meeting to talk with everyone about the next step.",
         where: [ setup.getLocationBySysName("companystage1meeting") ],
@@ -335,6 +335,355 @@
         	"Finish $manager.callName's Project",
         ],
         set: [  "setup.unlockProject('project_company_official')" ], /* shows the product project in the overview */
+    },
+
+    /* ==== Stage 1, acts 2 to 4 (STAGE1_PROPOSAL.md, section 4) ====================================================
+       STAGE1-STUB: everything from here to main_end is structure only. The scene passages are empty stubs, and the
+       requirements, timings and numbers are first guesses from the proposal. Find every open spot with
+       grep -rn STAGE1-STUB dev (the quest audit counts them too). */
+    {
+    	/* 4.2 The idea comes from the proposition of the professor (prof_researchProject). Unlocks the Veil project */
+    	id: "main_veil",
+    	next: "main_lateNight",
+    	title: "The Veil",
+        task: "$prof.callName wants a whole lecture hall under one unit, and I told him that would take months. Time to tell the team what we're building next.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Veil",
+        returnPassage: "Company Stage 1",
+        requirements: [ "setup.questDone('prof_researchProject')" ],
+        requirementsText: [ "Hear out what $prof.callName wants" ],
+        set: [ "setup.unlockProject('project_company_veil')" ],
+    },
+    {
+    	/* 4.3 The night the Veil is finished. The project (onComplete) makes the device owned, this is its first switch-on */
+    	id: "main_lateNight",
+    	next: "main_firstSale",
+    	title: "The Late Night",
+        task: "The $company.devices.valenxVeil.name needs its field strength set before it goes anywhere near a lecture hall. That means a long night at the office, and $ethan.name has already claimed the pizza order.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4, 5],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Late Night",
+        returnPassage: "Company Stage 1",
+        requirements: [ "setup.projectDone('project_company_veil')" ],
+        requirementsText: [ "Finish the $company.devices.valenxVeil.name project" ],
+    },
+    {
+    	/* 4.4 A clean sale to the marketing firm. pressClient matters at the end (they launch the rival company).
+    	   STAGE1-STUB: how the lead arrives (a mail like the gym, or a call in the scene) is not decided */
+    	id: "main_firstSale",
+    	next: "main_waitGymLead",
+    	title: "The First Real Sale",
+        task: "$dana.name runs $marketingFirm.name, a building full of people who sell things for a living, and she wants to see what a calmer conference room does for her pitches. No favors and no family friends this time, just a sale.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "First Real Sale",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount >= setup.getQuestById('main_lateNight').doneDay + 2" ],
+        requirementsText: [ "Give the $company.devices.valenxVeil.name a few days of testing" ],
+        set: [
+            "setup.unlockProject('project_marketing_veil')",
+            "$flags.pressClient = true",
+        ],
+    },
+    {
+    	/* hidden: a few days after the first sale the mail of the gym owner arrives ($company.mails[4]) */
+    	id: "main_waitGymLead",
+    	next: "main_gymMeeting",
+    	title: "Waiting for the gym lead",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        hidden: true,
+        check: "$date.dayCount >= setup.getQuestById('main_firstSale').doneDay + 3",
+        set: [
+            "$company.mails[4].active = true",
+            "Notification.show('New mail from ' + $rick.name + '.', { type: Notification.INFORMATION })",
+        ],
+    },
+    {
+    	/* 4.5a Corporate talk, a comedy with a straight face. Part 2 is the afternoon of the router redesign */
+    	id: "main_gymMeeting",
+    	next: "main_gymDinner",
+    	title: "The Gym Meeting",
+        task: "$darius.name's old friend $rick.name runs $gymChain.name and wants to talk about the wellbeing of his members. I'll need a straight face and a lot of coffee.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Gym Meeting",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "$company.mails[4].answered == true",
+            "$date.dayCount > ($company.mails[4].answeredDay || 0)",
+        ],
+        requirementsText: [
+            "Answer $rick.name's mail",
+            "Wait for the day of the meeting",
+        ],
+    },
+    {
+    	/* 4.5b The first family option. The scene sets $mom.flags.gymDinner (true: she goes, false: I go and give a
+    	   discount). Sending her is only offered once her line has reached mom_gymDinner.
+    	   STAGE1-STUB: the offer should also check her corruption and exhibition (proposal 3.1) */
+    	id: "main_gymDinner",
+    	next: "main_morale",
+    	title: "The Gym Dinner",
+        task: "$rick.name won't sign anything until he's had dinner with the people behind the company. Somebody has to sit across the table from him and haggle.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [3, 4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Gym Dinner",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount >= setup.getQuestById('main_gymMeeting').doneDay + 2" ],
+        requirementsText: [ "Let $rick.name think it over for a couple of days" ],
+        set: [ "setup.unlockProject('project_gym_veil')" ],
+    },
+    {
+    	/* 4.6 The scene sets $flags.dariusBroughtIn (true: ally with a stake, false: shut out) */
+    	id: "main_morale",
+    	next: "main_dinerIncident",
+    	title: "Morale",
+        task: "The new contracts are eating everyone alive. The office could use a little more warmth, and I know exactly who to ask for it.",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Low Morale",
+        returnPassage: "Company Stage 1",
+        requirements: [ "$date.dayCount >= setup.getQuestById('main_gymDinner').doneDay + 3" ],
+        requirementsText: [ "Let the new contract settle in" ],
+    },
+    {
+    	/* 4.7 The first accident of the Veil, told by her at home.
+    	   STAGE1-STUB: the Veil is not installed at the diner yet (that is the Debrief of the manager line, 7.3) */
+    	id: "main_dinerIncident",
+    	next: "main_anchor",
+    	title: "The Diner Incident",
+        task: "Something happened at $diner.name today. $sister.callName came home quieter than usual, and she hasn't looked at her phone in an hour.",
+        lockedTask: "$sister.callName keeps telling stories about the regulars at $diner.name.",
+        where: [ setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
+        whenTime: [4, 5],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Diner Incident",
+        returnPassage: "Living Room",
+        requirements: [
+            "setup.getTaskById('task_sister_diner_shift').count >= 10",
+            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "$sister.callName works 10 shifts at $diner.name ({{Math.min(10, setup.getTaskById('task_sister_diner_shift').count)}}/10)",
+            "$sister.callName has to be home",
+        ],
+    },
+    {
+    	/* 4.8 Needs a week of her attention for the hardware engineer (sister_beNiceToBrian, task_sister_be_nice_to_brian).
+    	   Unlocks the Anchor project. Having the Anchor = setup.projectDone('project_company_anchor').
+    	   STAGE1-STUB: only the hardware engineer should work on the Anchor project, the project system has no such rule */
+    	id: "main_anchor",
+    	next: "main_profitParty",
+    	title: "The Anchor",
+        task: "Some negotiations don't need a calmer room. They need one idea that stays where I put it. $brian.name can build that, as long as nobody tells him what it's for.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Anchor",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "setup.getTaskById('task_sister_be_nice_to_brian').count >= 3" ],
+        requirementsText: [ "$sister.callName keeps $brian.name company ({{Math.min(3, setup.getTaskById('task_sister_be_nice_to_brian').count)}}/3)" ],
+        set: [
+            "setup.unlockProject('project_company_anchor')",
+            "setup.getTaskById('task_sister_be_nice_to_brian').active = false",
+        ],
+    },
+    {
+    	/* 4.9 Only needs the company account in the black. Unlocks the Catalyst project.
+    	   STAGE1-STUB: equity for the old friend ($flags.ethanEquity) is still undecided (proposal section 10, item 6) */
+    	id: "main_profitParty",
+    	next: "main_catalystNight",
+    	title: "The Profit Party",
+        task: "The company account is in the black. For once the office has earned pizza that isn't a late-night apology.",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [4],
+        whenDay: [4],
+        active: false,
+        needsEvent: true,
+        passage: "Profit Party",
+        returnPassage: "Company Stage 1",
+        requirements: [ "$company.finances.money > 0" ],
+        requirementsText: [ "Get the company account into the black" ],
+        set: [ "setup.unlockProject('project_company_catalyst')" ],
+    },
+    {
+    	/* 5.8 and 6.6 as ONE event: the Catalyst night of both. Part 1 (office, evening) is her milestone into stage 2
+    	   (Devoted), part 2 (home, night) is the milestone of mom into stage 2 (Willing). Both lines wait for it in
+    	   mom_waitCatalystNight / sister_waitCatalystNight.
+    	   STAGE1-STUB: the device field takes one target, the Catalyst needs a calibration for each of them */
+    	id: "main_catalystNight",
+    	next: "main_crack",
+    	title: "The Catalyst Night",
+        task: "The $company.devices.valenxCatalyst.name doesn't create anything. It only turns up what's already there, and I know what's already there in both of them.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Catalyst Night",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "setup.projectDone('project_company_catalyst')",
+            "setup.questReached('mom_waitCatalystNight')",
+            "setup.questReached('sister_waitCatalystNight')",
+            "setup.corruptionReady('mom') || setup.corruptionStage('mom') >= 2",
+            "setup.corruptionReady('sister') || setup.corruptionStage('sister') >= 2",
+        ],
+        requirementsText: [
+            "Finish the $company.devices.valenxCatalyst.name project",
+            "Progress $mom.callName's quest",
+            "Progress $sister.callName's quest",
+            "$mom.callName's corruption is full",
+            "$sister.callName's corruption is full",
+        ],
+    },
+    {
+    	/* 4.10 Weekend: the old friend runs the full-strength code on himself. Part 2 (Monday) is the red herring:
+    	   the log pull from the login of the analyst */
+    	id: "main_crack",
+    	next: "main_retailIntroduction",
+    	title: "The Crack",
+        task: "$ethan.name wants the office to himself this weekend for some stability checks. I think I'll drop by anyway.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "The Crack",
+        returnPassage: "Company Stage 1",
+        requirements: [ "$date.dayCount >= setup.getQuestById('main_catalystNight').doneDay + 2" ],
+        requirementsText: [ "Wait a few days" ],
+    },
+    {
+    	/* 4.11, first half: the second family option. The scene sets $flags.retailIntro to "broker" (pay), "wait" (two
+    	   weeks) or "sister" (she hosts the rooftop evening, sister_rooftop). Offering her only once her line has reached
+    	   sister_rooftop. STAGE1-STUB: the broker fee and the corruption/exhibition gate of the offer */
+    	id: "main_retailIntroduction",
+    	next: "main_retailPitch",
+    	title: "The Introduction",
+        task: "$whitfield.callName can open the door to $retailChain.name. Doors like that cost money, or time, or something else.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Retail Introduction",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount >= setup.getQuestById('main_crack').doneDay + 2" ],
+        requirementsText: [ "Wait a few days" ],
+    },
+    {
+    	/* 4.11, second half: the night before the demo, master access for the old friend. The scene sets
+    	   $flags.trustedEthan */
+    	id: "main_retailPitch",
+    	next: "main_supplier",
+    	title: "The Retail Pitch",
+        task: "The biggest pitch we've ever had is tomorrow. Everything has to work, so somebody has to set up the demo tonight.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4, 5],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Retail Pitch",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "$flags.retailIntro == 'broker' || ($flags.retailIntro == 'wait' && $date.dayCount >= setup.getQuestById('main_retailIntroduction').doneDay + 14) || ($flags.retailIntro == 'sister' && setup.questDone('sister_rooftop'))",
+        ],
+        requirementsText: [ "Get the introduction to $retailChain.name" ],
+    },
+    {
+    	/* 4.12, first half: the price of the supplier, $20,000 or an evening with both of them. The scene sets
+    	   $flags.supplierOffered. Offering them only once both lines have reached their optional quests
+    	   (mom_lastNight, sister_rehearsal).
+    	   STAGE1-STUB: the boss line (7.2, The Introduction) should name the supplier first, gate on it once it exists.
+    	   STAGE1-STUB: the pay branch (empty the account, a loan or a cancelled project) */
+    	id: "main_supplier",
+    	next: "main_nightShift",
+    	title: "The Supplier",
+        task: "Everything I've read since the incident at $diner.name says the right compounds would fix the problem. $calloway.callName has them, and he names his own price.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Supplier",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount >= setup.getQuestById('main_retailPitch').doneDay + 2" ],
+        requirementsText: [ "Wait a few days after the pitch" ],
+    },
+    {
+    	/* 4.12, second half: the night. If they go, it runs through Last Night Mom (mom_lastNight) and Last Night Sister
+    	   (sister_lastNight), which advance those lines. The car, then the call of the old friend at 11:40 p.m.
+    	   (the scene sets $flags.answeredEthan) */
+    	id: "main_nightShift",
+    	next: "main_morningAfter",
+    	title: "The Night Shift",
+        task: "Tonight $calloway.callName gets what he asked for, one way or the other.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Night Shift",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "$date.dayCount > setup.getQuestById('main_supplier').doneDay",
+            "$flags.supplierOffered !== true || (setup.questReached('mom_lastNight') && setup.questReached('sister_lastNight') && $date.dayCount > setup.getQuestById('sister_rehearsal').doneDay)",
+        ],
+        requirementsText: [
+            "Wait until tomorrow",
+            "Rehearse the evening with $sister.callName",
+        ],
+    },
+    {
+    	/* 4.13 End of Stage 1: the heist, the investigation, the rival launch.
+    	   STAGE1-STUB: the set below follows proposal 3.7 (every device but the original is gone) and lets the old friend
+    	   leave the staff. Check what else has to reset (projects he is assigned to, the vent, the CCTV) and where
+    	   Stage 2 starts ($company.stage) */
+    	id: "main_morningAfter",
+    	next: "main_end",
+    	title: "The Morning After",
+        task: "Something's wrong at the office. I can feel it before I've even unlocked the door.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [0, 1, 2],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Morning After",
+        returnPassage: "Company Stage 1",
+        requirements: [ "$date.dayCount > setup.getQuestById('main_nightShift').doneDay" ],
+        requirementsText: [ "Wait until morning" ],
+        set: [
+            "Object.keys($company.devices).forEach((k) => { if (k !== 'valenx') { $company.devices[k].owned = false; } })",
+            "$company.employees = $company.employees.filter((e) => e.sysName !== 'ethan')",
+        ],
     },
     {
     	id: "main_end",
@@ -734,7 +1083,7 @@
     	   Two passages, Night Visit and Night Visit 2. Finishing it unlocks the Handjob interaction (its requires in
     	   Define Interactions reads questDone of this quest) */
     	id: "mom_nightVisit",
-    	next: "mom_end",
+    	next: "mom_boozeNight",
     	title: "A Knock at Night",
         task: "Since the morning of the handover, $mom.callName has been cleaning the kitchen until midnight again. Sooner or later she'll come upstairs to talk about it. When she does, I want $company.prototype.name in my desk drawer, calibrated to her and charged all the way.",
         lockedTask: "$mom.callName has been very cheerful since the handover. She's been cleaning a lot, too.",
@@ -756,6 +1105,236 @@
             "$mom.callName needs 80 lust ({{Math.min(80, $mom.stats.lust)}}/80)",
             "$mom.callName has to be home",
         ],
+    },
+
+    /* ==== Stage 1, her line after A Knock at Night (STAGE1_PROPOSAL.md, section 5) ===============================
+       STAGE1-STUB: everything from here to mom_end is structure only. The scene passages are empty stubs, and the
+       requirements, timings and numbers are first guesses from the proposal. Each beat waits for the main beat of
+       the same phase of the timeline (proposal section 8) with questDone. */
+    {
+    	/* 5.1 The breather: wine, the living room, no device. STAGE1-STUB: unlocks more masturbation micro events and
+    	   the catch-her scene (not built) */
+    	id: "mom_boozeNight",
+    	next: "mom_caught",
+    	title: "The Booze Night",
+        task: "$mom.callName opened a bottle of wine on a weeknight. She only does that when she wants company and won't ask for it.",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [5, 6],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Booze Night",
+        returnPassage: "Living Room",
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('mom_nightVisit').doneDay + 3",
+            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Give her a few days",
+            "$mom.callName has to be home",
+        ],
+    },
+    {
+    	/* 5.2 I walk in on her in the meeting room, and the hardware engineer nearly walks in on us. Phase 2 (main_veil) */
+    	id: "mom_caught",
+    	next: "mom_flirtDuty",
+    	title: "Caught",
+        task: "$mom.callName has been slipping off to the meeting room on her own lately, and she always comes back a little flushed.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Caught",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "setup.questDone('main_veil')",
+            "setup.npcIsAt('mom', 'companystage1')",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$mom.callName has to be at the office",
+        ],
+    },
+    {
+    	/* 5.3 A comedy: I coach her in flirting with the staff. Activates task_mom_flirt_duty. Phase 3 (main_lateNight) */
+    	id: "mom_flirtDuty",
+    	next: "mom_notEnough",
+    	title: "Flirt Duty",
+        task: "The staff works harder when somebody makes them feel good about it. $mom.callName could be that somebody, if she still remembers how to flirt.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Flirt Duty",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.questDone('main_lateNight')",
+            "setup.npcIsAt('mom', 'companystage1')",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$mom.callName has to be at the office",
+        ],
+        set: [ "setup.getTaskById('task_mom_flirt_duty').active = true" ],
+    },
+    {
+    	/* 5.4 Handjobs are not enough, she says no, I send her away. Starts the silence ($mom.flags.silence).
+    	   Phase 4 (main_firstSale) */
+    	id: "mom_notEnough",
+    	next: "mom_silence",
+    	title: "Not Enough",
+        task: "$mom.callName is getting good at her rounds. Her rule about what happens in my room hasn't kept up.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [5],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Not Enough",
+        returnPassage: "Bedroom",
+        requirements: [
+            "setup.questDone('main_firstSale')",
+            "setup.getTaskById('task_mom_flirt_duty').count >= 3",
+            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$mom.callName does her flirt duty rounds ({{Math.min(3, setup.getTaskById('task_mom_flirt_duty').count)}}/3)",
+            "$mom.callName has to be home",
+        ],
+        set: [ "$mom.flags.silence = true" ],
+    },
+    {
+    	/* 5.5 A week of nothing, then it moves on by itself.
+    	   STAGE1-STUB: the interactions with her should be locked while $mom.flags.silence is true, and her small
+    	   attempts to make up (breakfast, a note, lasagna) are not built */
+    	id: "mom_silence",
+    	next: "mom_crawl",
+    	title: "The Silence",
+        task: "A week. No talking, no favors, no smiling at breakfast. She needs to find out what it's like when I stop needing her.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "$date.dayCount >= setup.getQuestById('mom_notEnough').doneDay + 7",
+        set: [ "$mom.flags.silence = false" ],
+    },
+    {
+    	/* 5.6 Friday, the empty office, her apology. Sets $mom.flags.morningRoutine. Phase 5 (main_gymMeeting).
+    	   STAGE1-STUB: the morning routine it unlocks is not built */
+    	id: "mom_crawl",
+    	next: "mom_gymDinner",
+    	title: "The Crawl",
+        task: "It's Friday, the office empties out early, and $mom.callName has been working up to an apology all week.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4, 5],
+        whenDay: [4],
+        active: false,
+        needsEvent: true,
+        passage: "The Crawl",
+        returnPassage: "Company Stage 1",
+        requirements: [ "setup.questDone('main_gymMeeting')" ],
+        requirementsText: [ "Progress the main quest" ],
+        set: [ "$mom.flags.morningRoutine = true" ],
+    },
+    {
+    	/* 5.7 OPTIONAL: only if I sent her to the gym dinner (main_gymDinner sets $mom.flags.gymDinner).
+    	   Her report when she comes home that night: Was that right?
+    	   STAGE1-STUB: the end-of-day report system (proposal 3.5) does not exist, so this is a plain event for now */
+    	id: "mom_gymDinner",
+    	next: "mom_waitCatalystNight",
+    	title: "Was That Right?",
+        task: "$mom.callName had dinner with $rick.name tonight because I sent her. She'll want to tell me how it went.",
+        where: [ setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
+        whenTime: [5, 6],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Mom Gym Dinner Report",
+        returnPassage: "Living Room",
+        skip: "$mom.flags.gymDinner === false",
+        requirements: [
+            "setup.questDone('main_gymDinner')",
+            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$mom.callName has to be home",
+        ],
+    },
+    {
+    	/* her Catalyst night (5.8) is part of the main event main_catalystNight */
+    	id: "mom_waitCatalystNight",
+    	next: "mom_calendar",
+    	title: "Progress Main Quest",
+        task: "Continue with the main quest before you can continue $mom.callName's.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "setup.questDone('main_catalystNight')",
+    },
+    {
+    	/* 5.9 Milestone into stage 3 (Complicit). The choice sets $mom.flags.calendarChoice ("truth" or "anchor").
+    	   Sets $mom.flags.freeUse. STAGE1-STUB: the Whenever interaction it unlocks is not built */
+    	id: "mom_calendar",
+    	next: "mom_afterHours",
+    	title: "The Calendar",
+        task: "$mom.callName keeps the company calendar, and this week she's been staring at it a lot.",
+        lockedTask: "$mom.callName has been very quiet at her desk lately.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Calendar",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.projectDone('project_company_anchor')",
+            "$date.dayCount >= setup.getQuestById('main_catalystNight').doneDay + 3",
+            "setup.corruptionReady('mom') || setup.corruptionStage('mom') >= 3",
+        ],
+        requirementsText: [
+            "Finish the Anchor project",
+            "Give her a few days after the Catalyst",
+            "$mom.callName's corruption is full",
+        ],
+        set: [ "$mom.flags.freeUse = true" ],
+    },
+    {
+    	/* 5.10 OPTIONAL: only if I offer her to the boss (The Arrangement, boss line 7.2).
+    	   STAGE1-STUB: the boss line does not exist yet, so $mom.flags.offeredToBoss is false and this is always skipped.
+    	   Once the boss line exists, start the flag at null and make The Arrangement set it */
+    	id: "mom_afterHours",
+    	next: "mom_lastNight",
+    	title: "After Hours",
+        task: "Thursday evening. $boss.callName expects his consultant to stay late.",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [4],
+        whenDay: [3],
+        active: false,
+        needsEvent: true,
+        passage: "After Hours",
+        returnPassage: "Company Stage 1",
+        skip: "$mom.flags.offeredToBoss !== true",
+        requirements: [ "$mom.flags.offeredToBoss === true" ],
+        requirementsText: [ "Offer $mom.callName to $boss.callName" ],
+    },
+    {
+    	/* 5.11 OPTIONAL: only if I offer them to the supplier (main_supplier sets $flags.supplierOffered).
+    	   No event of its own: it is part of the main event main_nightShift, whose passage Last Night Mom advances it */
+    	id: "mom_lastNight",
+    	next: "mom_end",
+    	title: "The Last Night",
+        task: "Tonight she wears what I picked for her.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        skip: "$flags.supplierOffered === false",
+        requirements: [ "setup.questDone('main_supplier')" ],
+        requirementsText: [ "Progress the main quest" ],
     },
     {
     	id: "mom_end",
@@ -1058,7 +1637,7 @@
     },
     {
     	id: "sister_mostlyDone",
-    	next: "sister_end",
+    	next: "sister_theAsk",
     	title: "Good News?",
         task: "$sister.name wants to talk to me.",
         where: [ setup.getLocationBySysName("companystage1meeting") ],
@@ -1080,6 +1659,306 @@
         /* from now on she is at the office from Noon on (and her Noon cells open in the scheduler, Define Schedule).
            Her visits to the staff show up as micro events in the main room (Her rounds in Define Events) */
         set: [ "setup.useRoutine($sister.sysName, 'weekday', 'sister_stage1_noon')"]
+    },
+
+    /* ==== Stage 1, her line after Good News? (STAGE1_PROPOSAL.md, section 6) ======================================
+       STAGE1-STUB: everything from here to sister_end is structure only. The scene passages are empty stubs, and the
+       requirements, timings and numbers are first guesses from the proposal. Each beat waits for the main beat of
+       the same phase of the timeline (proposal section 8) with questDone. */
+    {
+    	/* 6.1 The analyst asks her out, she turns him down on her own and tells me that evening. Phase 2 (main_veil) */
+    	id: "sister_theAsk",
+    	next: "sister_souvenirs",
+    	title: "The Ask",
+        task: "$darius.name keeps finding reasons to stop by $sister.callName's desk. Today he didn't bother with a reason.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [3, 4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Ask",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.questDone('main_veil')",
+            "setup.npcIsAt('sister', 'companystage1')",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$sister.callName has to be at the office",
+        ],
+    },
+    {
+    	/* 6.2 Milestone into stage 1 (Yearning): the photos from the night of the party */
+    	id: "sister_souvenirs",
+    	next: "sister_officeGossip",
+    	title: "Souvenirs",
+        task: "I still have the photos from the night of the party. Maybe it's time $sister.callName saw them.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [5, 6],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Souvenirs",
+        returnPassage: "Bedroom",
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('sister_theAsk').doneDay + 7",
+            "$sister.flags.photoTaken == true",
+            "setup.corruptionReady('sister') || setup.corruptionStage('sister') >= 1",
+            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Give her a week",
+            "Keep the photos from the night of the party",
+            "$sister.callName's corruption is full",
+            "$sister.callName has to be home",
+        ],
+    },
+    {
+    	/* 6.3 A comedy, and the first end-of-day report. Phase 4 (main_firstSale).
+    	   STAGE1-STUB: the How was your day? interaction (proposal 3.5) should exist for her from here on */
+    	id: "sister_officeGossip",
+    	next: "sister_sendMeSomething",
+    	title: "Office Gossip",
+        task: "By noon $sister.callName knows everything that happens in this office. Somebody should ask her about it.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [3, 4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Office Gossip",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.questDone('main_firstSale')",
+            "setup.npcIsAt('sister', 'companystage1')",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$sister.callName has to be at the office",
+        ],
+    },
+    {
+    	/* 6.4 The videos at night, then I walk in on her. Three parts. Phase 5 (main_gymMeeting) */
+    	id: "sister_sendMeSomething",
+    	next: "sister_whatAreWe",
+    	title: "Send Me Something",
+        task: "I don't need to touch $sister.callName to enjoy her. I just want to see her.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [5, 6],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Send Me Something",
+        returnPassage: "Bedroom",
+        requirements: [
+            "setup.questDone('main_gymMeeting')",
+            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$sister.callName has to be home",
+        ],
+    },
+    {
+    	/* 6.5 The morning after: What are we? */
+    	id: "sister_whatAreWe",
+    	next: "sister_beNiceToBrian",
+    	title: "What Are We",
+        task: "$sister.callName was up before me this morning, and she's been rehearsing something over her cereal.",
+        where: [ setup.getLocationBySysName("kitchen") ],
+        whenTime: [0, 1],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "What Are We",
+        returnPassage: "Kitchen",
+        requirements: [
+            "$date.dayCount > setup.getQuestById('sister_sendMeSomething').doneDay",
+            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Wait until the next morning",
+            "$sister.callName has to be home",
+        ],
+    },
+    {
+    	/* 6.5b Her first order about another man. Activates task_sister_be_nice_to_brian, which main_anchor waits for.
+    	   After the diner incident (main_dinerIncident). She is in stage 1 already, Souvenirs comes first in the line */
+    	id: "sister_beNiceToBrian",
+    	next: "sister_waitCatalystNight",
+    	title: "Be Nice to $brian.name",
+        task: "$brian.name works best when he's happy, and nothing makes him happier than $sister.callName walking past his desk.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Be Nice To Brian",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "setup.questDone('main_dinerIncident')",
+            "setup.npcIsAt('sister', 'companystage1')",
+        ],
+        requirementsText: [
+            "Progress the main quest",
+            "$sister.callName has to be at the office",
+        ],
+        set: [ "setup.getTaskById('task_sister_be_nice_to_brian').active = true" ],
+    },
+    {
+    	/* her Catalyst night (6.6) is part of the main event main_catalystNight */
+    	id: "sister_waitCatalystNight",
+    	next: "sister_twoTownsOver",
+    	title: "Progress Main Quest",
+        task: "Continue with the main quest before you can continue $sister.callName's.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "setup.questDone('main_catalystNight')",
+    },
+    {
+    	/* 6.6b The date two towns over. The choice sets $sister.flags.datePhoto (true: her boyfriend, false: her brother) */
+    	id: "sister_twoTownsOver",
+    	next: "sister_theFriend",
+    	title: "Two Towns Over",
+        task: "$sister.callName wants one evening somewhere nobody knows us.",
+        where: [ setup.getLocationBySysName("livingroom") ],
+        whenTime: [4],
+        whenDay: [4, 5],
+        active: false,
+        needsEvent: true,
+        passage: "Two Towns Over",
+        returnPassage: "Living Room",
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('main_catalystNight').doneDay + 3",
+            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Give her a few days after the Catalyst",
+            "$sister.callName has to be home",
+        ],
+    },
+    {
+    	/* 6.6c Her best friend from college, told in her report at the end of the day.
+    	   STAGE1-STUB: the end-of-day report system (proposal 3.5) does not exist, so this is a plain event for now */
+    	id: "sister_theFriend",
+    	next: "sister_rooftop",
+    	title: "The Friend",
+        task: "$jess.name keeps texting $sister.callName, and $sister.callName keeps not answering.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [3, 4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Friend",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('sister_twoTownsOver').doneDay + 3",
+            "setup.npcIsAt('sister', 'companystage1')",
+        ],
+        requirementsText: [
+            "Give her a few days",
+            "$sister.callName has to be at the office",
+        ],
+    },
+    {
+    	/* 6.7 OPTIONAL: only if I offer her as the hostess of the rooftop evening (main_retailIntroduction sets
+    	   $flags.retailIntro to "sister") */
+    	id: "sister_rooftop",
+    	next: "sister_everything",
+    	title: "The Rooftop",
+        task: "$whitfield.callName's rooftop evening, with $sister.callName as our hostess.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Rooftop",
+        returnPassage: "Company Stage 1",
+        skip: "$flags.retailIntro != null && $flags.retailIntro !== 'sister'",
+        requirements: [ "setup.questDone('main_retailIntroduction')" ],
+        requirementsText: [ "Progress the main quest" ],
+    },
+    {
+    	/* 6.8 Milestone into stage 3 (Mine). The night after the rooftop if she went, otherwise after The Friend */
+    	id: "sister_everything",
+    	next: "sister_knockAgain",
+    	title: "Everything",
+        task: "$sister.callName wants to know what she is to me. Tonight she gets an answer, and a choice.",
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Everything",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "$flags.retailIntro != null && ($flags.retailIntro !== 'sister' || $date.dayCount > setup.getQuestById('sister_rooftop').doneDay)",
+            "setup.corruptionReady('sister') || setup.corruptionStage('sister') >= 3",
+        ],
+        requirementsText: [
+            "Settle the introduction to $retailChain.name",
+            "$sister.callName's corruption is full",
+        ],
+    },
+    {
+    	/* 6.8b A late knock while she is in my bed. Needs the Calendar of mom (mom_calendar) */
+    	id: "sister_knockAgain",
+    	next: "sister_rehearsal",
+    	title: "A Knock at Night, Again",
+        task: "$sister.callName sleeps in my bed most nights now. It's a big house, but not that big.",
+        where: [ setup.getLocationBySysName("bedroom") ],
+        whenTime: [6],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Knock At Night Again",
+        returnPassage: "Bedroom",
+        requirements: [
+            "setup.questDone('mom_calendar')",
+            "$date.dayCount >= setup.getQuestById('sister_everything').doneDay + 3",
+            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
+            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
+        ],
+        requirementsText: [
+            "Progress $mom.callName's quest",
+            "Give her a few nights",
+            "$sister.callName has to be home",
+            "$mom.callName has to be home",
+        ],
+    },
+    {
+    	/* 6.8c OPTIONAL: only if I offer them to the supplier (main_supplier sets $flags.supplierOffered).
+    	   The evening before the last night */
+    	id: "sister_rehearsal",
+    	next: "sister_lastNight",
+    	title: "Rehearsal",
+        task: "Tomorrow night is $calloway.callName's evening. Tonight $sister.callName and I run through it.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [4],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Rehearsal",
+        returnPassage: "Company Stage 1",
+        skip: "$flags.supplierOffered === false",
+        requirements: [ "setup.questDone('main_supplier')" ],
+        requirementsText: [ "Progress the main quest" ],
+    },
+    {
+    	/* 6.9 OPTIONAL, like the rehearsal. No event of its own: it is part of the main event main_nightShift, whose
+    	   passage Last Night Sister advances it */
+    	id: "sister_lastNight",
+    	next: "sister_end",
+    	title: "The Last Night",
+        task: "Tonight she's the hostess, the way we rehearsed it.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        skip: "$flags.supplierOffered === false",
+        requirements: [ "setup.questDone('main_supplier')" ],
+        requirementsText: [ "Progress the main quest" ],
     },
     {
     	id: "sister_end",
@@ -1354,6 +2233,56 @@
         State.variables.events[quest.eventId].active = true;
     }
 })>>
+
+/* Optional quests (skip) ======================================================
+   A quest with skip: "TwineScript" is optional. While the condition is true the line jumps over it: it counts as
+   done (done: true, skipped: true, doneDay), its event is switched off, and its "set" does NOT run.
+   The jump happens in two places:
+   - <<NextQuest>>, right after the line moves onto the quest (the decision was already made), and
+   - Check Quest Requirements on every passage, for a line that reached the quest before the decision was made.
+   Because of the second case, decision flags are three-valued: null while undecided, then true or false.
+   Write the skip so that it is false while undecided ("$mom.flags.gymDinner === false", not "!$mom.flags.gymDinner"),
+   and give the quest a requirement that keeps it locked until the decision exists. A scene that offers the
+   optional branch should only offer it once the line has reached the optional quest (setup.questReached), so the
+   optional scene plays right after the decision and not weeks later.
+   The last quest of a line (no next) can never be skipped.
+
+   setup.questSkipped(quest)          its skip condition is true right now
+   setup.skipQuests(line [, notify])  jumps the line over every skipped quest at its front, activates the quest it
+                                      lands on, returns how many were skipped. notify: show the "new quest" toast */
+<<set setup.questSkipped = (quest) => {
+    if (!quest || !quest.skip) { return false; }
+    try { return !!Scripting.evalTwineScript(quest.skip); }
+    catch (e) {
+        console.error('setup.questSkipped: the skip of "' + quest.id + '" failed: ' + e.message);
+        return false;
+    }
+}>>
+
+<<set setup.skipQuests = (line, notify) => {
+    const v = State.variables;
+    let count = 0;
+    let quest = line ? setup.getCurrentQuest(line) : undefined;
+    while (quest && quest.next && !quest.done && setup.questSkipped(quest)) {
+        quest.active = false;
+        quest.done = true;
+        quest.skipped = true;
+        quest.doneDay = v.date.dayCount;
+        if (quest.eventId != null && v.events[quest.eventId]) {
+            v.events[quest.eventId].active = false;
+            v.events[quest.eventId].finished = true;
+        }
+        line.quest = quest.next;
+        setup.activateQuest(line.quest);
+        count++;
+        quest = setup.getCurrentQuest(line);
+    }
+    if (count > 0 && notify && quest && !quest.hidden) {
+        const label = setup.questLineLabel(line.sysName);
+        Notification.show(label ? "New quest for " + wikifyText(label) + "!" : "New main quest!", { type: Notification.QUEST });
+    }
+    return count;
+}>>
 
 /* Needs the helpers above, so it runs last. */
 <<GenerateEventsForQuests>>

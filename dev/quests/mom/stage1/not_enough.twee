@@ -1,0 +1,8 @@
+:: Not Enough [event mom_quest] {"position":"4400,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Not Enough" (mom_notEnough), STAGE1_PROPOSAL.md 5.4.
+   Handjobs are not enough. She says no, I send her away. The silence starts (quest set). */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Not Enough, STAGE1_PROPOSAL.md 5.4).
+
+<<NextQuest $mom>>
+<<ReturnFromEvent "Continue" "Bedroom">>

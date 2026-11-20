@@ -1,0 +1,8 @@
+:: Be Nice To Brian [event sister_quest] {"position":"4400,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Be Nice to $brian.name" (sister_beNiceToBrian), STAGE1_PROPOSAL.md 6.5b.
+   A comedy: I ask her to be extra friendly to $brian.name. "Hardware $brian.name?" Activates task_sister_be_nice_to_brian (quest set). */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Be Nice to $brian.name, STAGE1_PROPOSAL.md 6.5b).
+
+<<NextQuest $sister>>
+<<ReturnFromEvent>>

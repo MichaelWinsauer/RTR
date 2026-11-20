@@ -137,6 +137,139 @@
 		},
         location: $locations[13],
     },
+
+    /* ==== Stage 1, acts 2 to 4 (STAGE1_PROPOSAL.md, section 4) ====================================================
+       STAGE1-STUB: the projects below are first drafts. Durations, requirements, rewards and texts are guesses, and
+       none of them has a task yet. The quests that unlock them are named next to each one. */
+    {
+    	id: "project_company_veil",
+    	title: "The $company.prototype.name Veil",
+        description: "One unit for a whole room instead of one person at a time. $brian.name wants an antenna array, $ethan.name wants to name it, and $prof.callName wanted it in his lecture hall yesterday.",
+        type: "story",
+        unlocked: false, /* unlocked by the set of the quest main_veil. main_lateNight waits for it */
+        duration: 21,
+        active: false,
+        task: null,
+        onStart: [],
+        revenue: 0,
+        reward: 0,
+        outcome: "A unit for a whole room",
+        onComplete: [
+            () => State.variables.company.devices.valenxVeil.owned = true,
+        ],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 220, hardware: 260, analysis: 120, testing: 160, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        location: $locations[13],
+    },
+    {
+    	id: "project_marketing_veil",
+    	title: "A Calmer Conference Room",
+        description: "$dana.name wants a $company.devices.valenxVeil.name in the big conference room at $marketingFirm.name, tuned so her clients say yes a little faster.",
+        type: "story",
+        unlocked: false, /* unlocked by the set of the quest main_firstSale */
+        duration: 10,
+        active: false,
+        task: null,
+        onStart: [],
+        revenue: 100,
+        reward: 12000,
+        onComplete: [],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 60, hardware: 80, analysis: 0, testing: 60, consulting: 80, management: 0, hr: 0, sales: 40, marketing: 0,
+		},
+        client: $dana,
+        location: $locations[13], /* STAGE1-STUB: the marketing firm has no location */
+    },
+    {
+    	id: "project_gym_veil",
+    	title: "Wellness for $gymChain.name",
+        description: "$company.devices.valenxVeil.name units for every location of $gymChain.name, dressed up as expensive routers so nobody asks what they are.",
+        type: "story",
+        unlocked: false, /* unlocked by the set of the quest main_gymDinner. Going to the dinner myself takes 20% off the reward (Gym Dinner) */
+        duration: 28,
+        active: false,
+        task: null,
+        onStart: [],
+        revenue: 200,
+        reward: 30000,
+        onComplete: [],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 120, hardware: 220, analysis: 60, testing: 120, consulting: 150, management: 0, hr: 0, sales: 60, marketing: 40,
+		},
+        client: $rick,
+        location: $locations[13], /* STAGE1-STUB: the gyms have no location */
+    },
+    {
+    	id: "project_company_anchor",
+    	title: "The Anchor",
+        description: "Something small that plants one idea and keeps it planted. $brian.name builds it, and nobody else needs to know it exists.",
+        type: "story",
+        unlocked: false, /* unlocked by the set of the quest main_anchor. mom_calendar waits for it */
+        duration: 14,
+        active: false,
+        task: null,
+        onStart: [],
+        revenue: 0,
+        reward: 0,
+        outcome: "One idea that stays put",
+        onComplete: [],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 80, hardware: 180, analysis: 0, testing: 60, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        location: $locations[13],
+    },
+    {
+    	id: "project_company_catalyst",
+    	title: "The $company.prototype.name Catalyst",
+        description: "Version two. It can't put anything into a person that isn't there already, but it can turn up what is.",
+        type: "story",
+        unlocked: false, /* unlocked by the set of the quest main_profitParty. main_catalystNight waits for it */
+        duration: 21,
+        active: false,
+        task: null,
+        onStart: [],
+        revenue: 0,
+        reward: 0,
+        outcome: "Turns up what is already there",
+        onComplete: [
+            () => State.variables.company.devices.valenxCatalyst.owned = true,
+        ],
+        completed: false,
+        timesCompleted: 0,
+        assigned: [],
+        progress: {
+        	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        requirements: {
+        	software: 220, hardware: 200, analysis: 160, testing: 180, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+		},
+        location: $locations[13],
+    },
 ]>>
 
 /* Project logic ===============================================================

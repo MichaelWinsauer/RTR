@@ -1,0 +1,9 @@
+:: Mom Gym Dinner Report [event mom_quest] {"position":"4650,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Was That Right?" (mom_gymDinner), STAGE1_PROPOSAL.md 5.7.
+   Optional (I sent her to the gym dinner). She comes home and tells me about the hand of $rick.name on her knee. "Was that right?"
+   STAGE1-STUB: the choice of how far she should let it go (before she leaves) is not in the stub. */
+<<silent>><<SetBackground $locations[2].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Was That Right?, STAGE1_PROPOSAL.md 5.7).
+
+<<NextQuest $mom>>
+<<ReturnFromEvent "Continue" "Living Room">>

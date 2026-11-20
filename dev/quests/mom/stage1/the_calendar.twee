@@ -1,0 +1,10 @@
+:: The Calendar [event mom_quest] {"position":"4775,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Calendar" (mom_calendar), STAGE1_PROPOSAL.md 5.9.
+   Her milestone into stage 3. She puts the calendar on my desk with the pattern circled: "Is it the box?" */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Calendar, STAGE1_PROPOSAL.md 5.9).
+
+<span id="stub-choice">
+<<link "Tell her part of the truth">><<set $mom.flags.calendarChoice to "truth">><<AdvanceCorruptionStage $mom>><<replace "#stub-choice">><<NextQuest $mom>><<ReturnFromEvent>><</replace>><</link>>
+<<link "Use the Anchor">><<set $mom.flags.calendarChoice to "anchor">><<AdvanceCorruptionStage $mom>><<replace "#stub-choice">><<NextQuest $mom>><<ReturnFromEvent>><</replace>><</link>>
+</span>

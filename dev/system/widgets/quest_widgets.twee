@@ -2,6 +2,7 @@
 /* Usage: =====================================================================
 	<<NextQuest $player [ShowNotification]>>
 	Finishes the line's current quest and moves on to the quest in its "next" field.
+	Optional quests after it whose "skip" is true are jumped over (setup.skipQuests, Define Quests).
 */
 <<widget "NextQuest">>
 	<<set _nqLine to $args[0]>>
@@ -22,6 +23,8 @@
 		<<set _done.doneDay to $date.dayCount>>
 		<<set _nqLine.quest to _done.next>>
 		<<run setup.activateQuest(_nqLine.quest)>>
+		/* jump over optional quests whose "skip" is already true (setup.skipQuests, Define Quests) */
+		<<run setup.skipQuests(_nqLine)>>
 
 		/*Make sure, that all finished quests & connected events are inactive*/
 		<<for _nqI = 0; _nqI < _nqLine.quests.length; _nqI++>>

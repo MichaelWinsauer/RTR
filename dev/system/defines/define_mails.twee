@@ -96,6 +96,31 @@
         answered: false,
         active: false,
     },
+    {
+    	id: 4,
+        title: "Wellness, apparently",
+        who: $rick,
+        mailAddress: $rick.mailAddress,
+        /* STAGE1-STUB: first draft. Sent by the hidden quest main_waitGymLead (Define Quests), a few days after the
+           first sale. Answering it fixes the day of the meeting (answeredDay): main_gymMeeting plays from the next day */
+        body: [
+        	{who: $rick, text: "Hi $player.name,\n\n$darius.name and I go way back, and he won't stop talking about the new job. Something about rooms that make people feel better. I run $gymChain.name, eleven locations and counting, and making people feel better is supposed to be our whole thing.\n\nCould you come up with an offer and walk me through it? I can swing by your office any day this week.\n\n$rick.name $rick.surname\n$gymChain.name"}
+        ],
+        answerOptions: [
+        	{
+                id: 0,
+                short: "Invite him over",
+                text: "Hi $rick.name,\n\nAny friend of $darius.name's. Come by tomorrow, we'll have the meeting room and a pot of coffee ready for you.\n\nBest,\n$player.name $player.surname",
+                eval: [
+                    () => State.variables.company.mails[4].answeredDay = State.variables.date.dayCount,
+				],
+            }
+        ],
+        read: false,
+        flagged: false,
+        answered: false,
+        active: false,
+    },
 ]>>
 
 

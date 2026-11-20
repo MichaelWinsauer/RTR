@@ -1,0 +1,10 @@
+:: Two Towns Over [event sister_quest] {"position":"4525,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Two Towns Over" (sister_twoTownsOver), STAGE1_PROPOSAL.md 6.6b.
+   The Italian place two towns over, then the classmate from statistics walks in. Who answers first? */
+<<silent>><<SetBackground $locations[2].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Two Towns Over, STAGE1_PROPOSAL.md 6.6b).
+
+<span id="stub-choice">
+<<link "Her boyfriend">><<set $sister.flags.datePhoto to true>><<replace "#stub-choice">><<NextQuest $sister>><<ReturnFromEvent>><</replace>><</link>>
+<<link `"Her " + $sister.playerRelation`>><<set $sister.flags.datePhoto to false>><<replace "#stub-choice">><<NextQuest $sister>><<ReturnFromEvent>><</replace>><</link>>
+</span>

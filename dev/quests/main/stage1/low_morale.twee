@@ -1,0 +1,10 @@
+:: Low Morale [event main_quest] {"position":"4700,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Morale" (main_morale), STAGE1_PROPOSAL.md 4.6.
+   $mom.callName and $sister.callName are told to dress nicer and be friendlier. $darius.name pushes back with numbers. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Morale, STAGE1_PROPOSAL.md 4.6).
+
+<span id="stub-choice">
+<<link `"Bring " + $darius.name + " in with a half-truth"`>><<set $flags.dariusBroughtIn to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<link `"Shut " + $darius.name + " out"`>><<set $flags.dariusBroughtIn to false>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+</span>

@@ -1,0 +1,10 @@
+:: Catalyst Night 2 [event main_quest] {"position":"5325,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Catalyst Night" (main_catalystNight), part 2 of 2, STAGE1_PROPOSAL.md 5.8 and 6.6, one event.
+   Home, later that night: $mom.callName, wanted. Her milestone into stage 2. Both lines move on by their wait quests. */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Catalyst Night, STAGE1_PROPOSAL.md 5.8 and 6.6, one event).
+
+<<AdvanceCorruptionStage $mom>>
+
+<<NextQuest $player>>
+<<ReturnFromEvent "Continue" "Bedroom">>

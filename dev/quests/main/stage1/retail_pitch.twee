@@ -1,0 +1,10 @@
+:: Retail Pitch [event main_quest] {"position":"5825,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Retail Pitch" (main_retailPitch), STAGE1_PROPOSAL.md 4.11.
+   The night before the demo: $ethan.name gets master access, and I almost check the footage. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Retail Pitch, STAGE1_PROPOSAL.md 4.11).
+
+<span id="stub-choice">
+<<link "Leave the footage alone">><<set $flags.trustedEthan to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<link "Skim the footage before I go">><<set $flags.trustedEthan to false>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+</span>

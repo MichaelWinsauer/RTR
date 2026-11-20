@@ -3,6 +3,15 @@
 	introDone: false,
 	brianAskedAboutVent: false,     /* Stage 1: Brian Desk Vent happened (A normal workday, Define Events) */
 	dariusAskedAboutNumbers: false, /* Stage 1: Darius Desk Numbers happened */
+    /* STAGE1-STUB: the decisions of the Stage 1 main line (Define Quests, STAGE1_PROPOSAL.md section 4).
+       null = not decided yet. Optional quests read them in their skip, so keep them three-valued */
+    pressClient: false,             /* The First Real Sale: the marketing firm is a client (they launch the rival at the end) */
+    dariusBroughtIn: null,          /* Morale: true = the analyst was brought in with a half-truth, false = shut out */
+    ethanEquity: null,              /* The Profit Party: undecided in the proposal (section 10, item 6) */
+    retailIntro: null,              /* The Introduction: "broker", "wait" or "sister" (she hosts the rooftop evening) */
+    trustedEthan: null,             /* The Retail Pitch: master access without checking the footage */
+    supplierOffered: null,          /* The Supplier: true = both of them go to the club, false = I pay */
+    answeredEthan: null,            /* The Night Shift: I picked up his call at 11:40 p.m. */
 }>>
 
 

@@ -1,0 +1,9 @@
+:: The Veil [event main_quest] {"position":"3825,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Veil" (main_veil), STAGE1_PROPOSAL.md 4.2.
+   Team meeting: one unit for a whole room, the lecture hall of $prof.callName as the first site. $brian.name wants an array,
+   $ethan.name loves it, $darius.name asks for the raw logs and gets cleaned numbers. Unlocks project_company_veil (quest set). */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Veil, STAGE1_PROPOSAL.md 4.2).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

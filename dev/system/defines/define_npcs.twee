@@ -91,6 +91,8 @@
     photoTaken: false,
     officeExcuses: 0,       /* Stage 1: how often she came up with a reason to be near me (Define Events) */
     movedDesk: false,       /* Sister Office New Spot happened */
+    /* STAGE1-STUB: set by the stub scenes of the Stage 1 quests (Define Quests). null = not decided yet */
+    datePhoto: null,        /* Two Towns Over: true = I said boyfriend (the classmate posts a photo), false = brother */
 }>>
 
 /*Mom*/
@@ -182,6 +184,14 @@
     bedMasturbationSeen: false,
     handjobs: 0,            /* times the Handjob interaction was played (Mom Handjob), after A Knock at Night */
     officePlants: 0,        /* Stage 1: times Mom Office Plants played (the first time she brings them in) */
+    /* STAGE1-STUB: set by the Stage 1 quests and their stub scenes (Define Quests). null = not decided yet.
+       Nothing reads silence, morningRoutine and freeUse yet: the systems behind them are not built */
+    gymDinner: null,        /* The Gym Dinner: true = I sent her (mom_gymDinner plays), false = I went myself */
+    offeredToBoss: false,   /* The Arrangement of the boss line: true = After Hours plays. Start it at null once that line exists */
+    calendarChoice: null,   /* The Calendar: "truth" or "anchor" */
+    silence: false,         /* true during The Silence (Not Enough to the end of that week) */
+    morningRoutine: false,  /* The Crawl: the morning routine is unlocked */
+    freeUse: false,         /* The Calendar: the Whenever interaction is unlocked */
 }>>
 
 /*Dad*/
@@ -395,6 +405,77 @@
     marketing:    0,
 }>>
 
+/* Stage 1 contacts (STAGE1_PROPOSAL.md) ========================================
+   STAGE1-STUB: the default names are the placeholders from the proposal. They are not in Character Configuration
+   (not renamable on purpose for now), but every text still uses the variables. Their companies are in Define Misc
+   ($marketingFirm, $gymChain, $retailChain, $club). */
+<<set $dana = {
+	id: 8,
+	name: "Dana",
+	surname: "Pruitt",
+	gender: "female",
+	callPlayer: $player.name,
+	age: 45,
+	sysName: "dana",
+	callName: "Dana",
+	relation: "client",
+	playerRelation: "contractor",
+    mailAddress: "dana.pruitt@pruitt-comms.to",
+}>>
+
+<<set $rick = {
+	id: 9,
+	name: "Rick",
+	surname: "Dawson",
+	gender: "male",
+	callPlayer: $player.name,
+	age: 41,
+	sysName: "rick",
+	callName: "Rick",
+	relation: "client",
+	playerRelation: "contractor",
+    mailAddress: "rick@peakform.to",
+}>>
+
+<<set $whitfield = {
+	id: 10,
+	name: "Charles",
+	surname: "Whitfield",
+	gender: "male",
+	callPlayer: $player.surname,
+	age: 63,
+	sysName: "whitfield",
+	callName: "Mr. Whitfield",
+	relation: "investor",
+	playerRelation: "founder",
+}>>
+
+<<set $calloway = {
+	id: 11,
+	name: "Leon",
+	surname: "Calloway",
+	gender: "male",
+	callPlayer: $player.name,
+	age: 50,
+	sysName: "calloway",
+	callName: "Mr. Calloway",
+	relation: "supplier",
+	playerRelation: "buyer",
+}>>
+
+<<set $jess = {
+	id: 12,
+	name: "Jess",
+	surname: "Moreno",
+	gender: "female",
+	callPlayer: $player.name,
+	age: 20,
+	sysName: "jess",
+	callName: "Jess",
+	relation: $sister.callName + "'s best friend",
+	playerRelation: "stranger",
+}>>
+
 
 
 /* Name-dependent fields =======================================================
@@ -413,6 +494,7 @@
     v.manager.callPlayer = v.player.surname;
     v.boss.relation = v.mom.callName + "'s boss";
     v.prof.relation = v.sister.callName + "'s professor";
+    v.jess.relation = v.sister.callName + "'s best friend";
     /* her short name for me: bro, or whatever the player renamed the relation to */
     v.sister.callPlayerShort = String(v.sister.playerRelation).toLowerCase() === "brother" ? "bro" : v.sister.playerRelation;
     /* the mail addresses are made from the names too (N.Howell@..., victor.anderson@...) */
@@ -456,14 +538,20 @@
    setup.corruptionNeedText(total)            a total as the player reads it: 40 -> "40", 140 -> "40 (stage 1)"
    setup.advanceCorruptionStage(who)          the stage-up itself (the widget calls it), false without a next stage
    who is "mom" / "sister" or the NPC object. Anyone else counts as stage 0 with their plain corruption. */
+/* STAGE1-STUB: the names of stages 2 and 3 (and her Yearning) are the working names from STAGE1_PROPOSAL.md.
+   main_catalystNight is the milestone of both into stage 2 (one event, two parts) */
 <<set setup.corruptionStages to {
     mom: [
         { name: "Reserved", milestone: null },
         { name: "Dutiful", milestone: "mom_briefing" },
+        { name: "Willing", milestone: "main_catalystNight" },
+        { name: "Complicit", milestone: "mom_calendar" },
     ],
     sister: [
         { name: "Conflicted", milestone: null },
-        { name: "Yearning", milestone: null },
+        { name: "Yearning", milestone: "sister_souvenirs" },
+        { name: "Devoted", milestone: "main_catalystNight" },
+        { name: "Mine", milestone: "sister_everything" },
     ],
 }>>
 

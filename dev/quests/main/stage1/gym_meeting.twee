@@ -1,0 +1,8 @@
+:: Gym Meeting [event main_quest] {"position":"4325,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Gym Meeting" (main_gymMeeting), part 1, STAGE1_PROPOSAL.md 4.5a.
+   Part 1 of 2: corporate talk with $rick.name from start to finish, $darius.name translates the numbers. A comedy with a straight face.
+   $rick.name meets $mom.callName at the office and likes her, but he does not ask for her. */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Gym Meeting, STAGE1_PROPOSAL.md 4.5a).
+
+[[Continue|Gym Meeting 2]]

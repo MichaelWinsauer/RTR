@@ -1,0 +1,8 @@
+:: Knock At Night Again [event sister_quest] {"position":"5025,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "A Knock at Night, Again" (sister_knockAgain), STAGE1_PROPOSAL.md 6.8b.
+   She is in my bed when $mom.callName knocks. STAGE1-STUB: the choice (not tonight / let her in) only colors feelings, not in the stub. */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (A Knock at Night, Again, STAGE1_PROPOSAL.md 6.8b).
+
+<<NextQuest $sister>>
+<<ReturnFromEvent "Continue" "Bedroom">>

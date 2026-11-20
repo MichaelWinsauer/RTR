@@ -1,0 +1,10 @@
+:: Everything [event sister_quest] {"position":"4900,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Everything" (sister_everything), STAGE1_PROPOSAL.md 6.8.
+   Her milestone into stage 3: submit completely, or leave. Afterwards her phone, her passwords, her location. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Everything, STAGE1_PROPOSAL.md 6.8).
+
+<<AdvanceCorruptionStage $sister>>
+
+<<NextQuest $sister>>
+<<ReturnFromEvent>>

@@ -1,0 +1,8 @@
+:: The Anchor [event main_quest] {"position":"4950,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Anchor" (main_anchor), STAGE1_PROPOSAL.md 4.8.
+   I get $brian.name to build it without asking what it is for. Unlocks project_company_anchor (quest set). */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Anchor, STAGE1_PROPOSAL.md 4.8).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

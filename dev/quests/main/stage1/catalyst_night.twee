@@ -1,0 +1,9 @@
+:: Catalyst Night [event main_quest] {"position":"5200,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Catalyst Night" (main_catalystNight), part 1, STAGE1_PROPOSAL.md 5.8 and 6.6, one event.
+   Part 1 of 2, the office in the evening: $sister.callName, her love turned into an obligation. Her milestone into stage 2. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Catalyst Night, STAGE1_PROPOSAL.md 5.8 and 6.6, one event).
+
+<<AdvanceCorruptionStage $sister>>
+
+[[Continue|Catalyst Night 2]]

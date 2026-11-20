@@ -387,6 +387,45 @@
         count: 0,
         lastCompletedAt: 0,
     },
+
+    /* ==== Stage 1, acts 2 to 4 (STAGE1_PROPOSAL.md) ===============================================================
+       STAGE1-STUB: both tasks borrow an existing activity, so they have no clips of their own and no effects yet.
+       Each one needs its own activity in Define Activities (with media and cctv), effects in onComplete, and the
+       POV passage behind the CCTV arrow (proposal 3.5). */
+    {
+    	id: "task_mom_flirt_duty",
+    	who: $mom,
+        title: "Flirt Duty",
+        description: "She does the rounds and makes the staff feel good about their work.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: false, /* activated by the quest Flirt Duty (mom_flirtDuty). Not Enough (mom_notEnough) waits for 3 of them */
+        startTime: [ 1, 2, 3 ],
+        npc: $player,
+        activity: "working", /* STAGE1-STUB: borrowed activity */
+        onComplete: [],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_be_nice_to_brian",
+    	who: $sister,
+        title: "Extra Friendly",
+        description: "She spends some extra time at the desk of $brian.name: coffee, a shoulder massage, and ten minutes of capacitors.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: false, /* activated by the quest Be Nice to Brian (sister_beNiceToBrian), switched off by The Anchor (main_anchor), which waits for 3 */
+        startTime: [ 1, 2, 3, 4 ],
+        npc: $brian,
+        activity: "bring_coffee", /* STAGE1-STUB: borrowed activity */
+        onComplete: [],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
 ]>>
 
 <<set $activeTasks to {

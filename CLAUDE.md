@@ -29,6 +29,7 @@ node tools/activity-media.mjs     # activity media/cctv lists vs. the files on d
 - To check a build without touching `RiseToRuin.html`, compile into a temp folder: `TWEEGO_PATH=.storyformats tweego -o <tmp>/build.html dev`.
 - Tweego doesn't check JavaScript. After changing StoryScript, run `node --check` on the extracted script, or test the logic in Node with a mocked `State.variables`.
 - Run the quest audit after any change to `define_quests.twee` or to a quest passage. It currently reports 0 errors.
+- **`STAGE1-STUB`** marks everything of the rest of Stage 1 (main, mom and sister lines, `STAGE1_PROPOSAL.md` sections 4 to 6) that exists as structure only: the quests after "It'll be official", "A Knock at Night" and "Good News?", their empty scene passages, and the data they need (projects, two tasks, mail 4, flags, the new contacts, corruption stages 2 and 3). The requirements, timings and numbers there are first guesses. `grep -rn STAGE1-STUB dev` lists them, and the quest audit prints their count. When a scene or piece of data is finished, remove its marker. Don't copy the stub scenes' structure or text; write each scene properly from its comment and the proposal.
 - Debugging: "Accept Default & Skip Intro" (`dev/intro/skip_intro.twee`) jumps to a mid-Stage-0 state. `$debug` lives in `Define Misc`.
 - `Define Misc` sets `$path` to a local dev folder for the media files, between `/*delete!*/` markers. Leave it alone unless asked.
 - When you add a macro or widget, also add its name to `rtr.twee-config.yaml`. The VS Code Twee extension uses that list.
@@ -107,6 +108,8 @@ All player-visible text in `dev/` uses variables now, so the grep check below fi
 | Ethan, Brian, Darius | `$ethan.name`, `$brian.name`, `$darius.name` (or their `callName`) |
 | ValTec Co. / Valenx | `$company.name` / `$company.prototype.name` |
 | The Diner | `$diner.name` |
+| Dana Pruitt, Rick Dawson, Charles Whitfield, Leon Calloway, Jess Moreno (Stage 1 contacts) | `$dana.name`, `$rick.name`, `$whitfield.callName`, `$calloway.callName`, `$jess.name` |
+| Pruitt Communications, Peak Form Fitness, Hartwell Stores, The Lantern Room | `$marketingFirm.name`, `$gymChain.name`, `$retailChain.name`, `$club.name` |
 
 - SugarCube's naked variables work inside text and inside Chat strings, possessives included (`$manager.callName's diner`, `$darius.name's chair`).
 - Inside `<<run>>`/`<<set>>` code, build the string: `"New task for " + $mom.callName`. A `$var` written *inside* a JS string literal is not replaced.
@@ -116,7 +119,7 @@ All player-visible text in `dev/` uses variables now, so the grep check below fi
 - The defaults themselves (`define_npcs.twee`, `define_player.twee`, the fallbacks and placeholders in `character_configuration.twee`/`skip_intro.twee`, `$company.prototype.name: 'Valenx'`) are the one place names are typed out.
 - **Check before you finish.** Run this on every file you wrote or edited and fix every hit in player-visible text:
   ```sh
-  grep -nEio '(^|[^$.[:alnum:]_])(anna|sophie|michael|adams|arthur|norman|howell|victor|anderson|frank|morales|antony|walsh|ethan|reed|brian|hayes|darius|brooks|valenx|valtec|mom|mommy|mother|sister|sis|son|brother|daughter|dad|father|bro)\b' <files>
+  grep -nEio '(^|[^$.[:alnum:]_])(anna|sophie|michael|adams|arthur|norman|howell|victor|anderson|frank|morales|antony|walsh|ethan|reed|brian|hayes|darius|brooks|valenx|valtec|mom|mommy|mother|sister|sis|son|brother|daughter|dad|father|bro|dana|pruitt|rick|dawson|whitfield|calloway|jess|moreno)\b' <files>
   ```
   The only hits you may ignore are code and identifiers: passage names (`:: Mom Bed Masturbation`), `[[links]]`/`<<goto>>` targets, and media paths (`images/characters/mom/...`). Everything else gets replaced with a variable.
 
@@ -260,7 +263,7 @@ Write helpers next to the data they work on, in that Define passage, one `<<set>
 
 **Corruption stages** (mom/sister, "Corruption stages" at the end of `define_npcs.twee`):
 - `stats.corruption` (0–100) is the progress **inside** her current stage; `$mom.corruptionStage` is the stage. The bar stops at 100 ("ready", amber pill in the sidebar) and more is lost. A milestone scene calls `<<AdvanceCorruptionStage $mom ["log text"]>>` (`profile_widgets.twee`): stage +1, bar back to 0, notification, Progression entry.
-- Stages are constants in `setup.corruptionStages.<sysName>` = `[{ name, milestone }]`, index = stage. Only stages 0 and 1 exist for now. Her way into stage 1 is `mom_briefing` (The Briefing, the handjob before the handover of the boss prototype); the sister's milestone is still `null`. The author decides the later stages with the story. Add a stage by adding an entry.
+- Stages are constants in `setup.corruptionStages.<sysName>` = `[{ name, milestone }]`, index = stage. Stages 0 to 3 exist, with the working names from `STAGE1_PROPOSAL.md`. Mom: Reserved, Dutiful (`mom_briefing`, the handjob before the handover of the boss prototype), Willing (`main_catalystNight`), Complicit (`mom_calendar`). Sister: Conflicted, Yearning (`sister_souvenirs`), Devoted (`main_catalystNight`), Mine (`sister_everything`). Only The Briefing is written; the other milestones are stub scenes. Add a stage by adding an entry.
 - **Never compare `stats.corruption` directly.** Thresholds use `setup.corruptionTotal(who)` = stage × 100 + bar (the Stage 0 numbers 30/40/60/75 keep working; "stage 1, 40" is 140), formulas (daily drift, chances) use `setup.corruptionEffective(who)` = bar + stage × `$statInfluence.corruptionPerStage`. Interaction `needs`/`max` and camera spots already read the total. Labels: `setup.corruptionLabel(who)`, `setup.corruptionNeedText(total)`.
 - Activities may add `stageText`/`stageMedia`/`stageCctv` (`{ 1: ... }`, highest key ≤ her stage wins, files `<id>_s<stage>_<n>.<ext>`); `setup.activityText`/`activityMedia` pick them up and `tools/activity-media.mjs` checks them.
 - The player has no stages: his `max.corruption` cap is raised by the story instead (Stage 1 Follow Up raises it to 100).
@@ -282,6 +285,7 @@ Quest fields:
 - **Locked display**: while a quest's `requirements` aren't met (the device doesn't count), the sidebar card (`<<SbQuest>>`) and the CMD header hide its title, task, place and time and show `setup.questLockedText` plus the requirements checklist. Optional `lockedTitle`/`lockedTask` give one quest its own stand-in text. Read it with `setup.questDisplay(quest)` (`{ title, task, locked }`) wherever a quest is shown.
 - **Check quest**: `check: "TwineScript condition"`, which advances automatically on PassageReady.
 - **Wait/placeholder quest**: neither of the above, so something else must call `<<NextQuest>>`.
+- **Optional quest**: `skip: "TwineScript"`. While it's true, the line jumps over the quest (it counts as done with `skipped: true`, its `set` does not run). `<<NextQuest>>` checks it when the line arrives, and Check Quest Requirements checks it on every passage, so the decision may also come after the line got there. Decision flags are therefore three-valued: `null` until decided, then `true`/`false`. Write the skip so it's false while undecided (`"$mom.flags.gymDinner === false"`), lock the quest with a requirement until the decision exists, and only offer the branch in a scene once the line has reached the optional quest (`setup.questReached`). Helpers: `setup.questSkipped(quest)`, `setup.skipQuests(line)` ("Optional quests" in Define Quests).
 - **Hidden quest**: `hidden: true` runs like any other quest (check, set, events) but gets no sidebar card, no CMD header chip and no "new quest" notification. Use it for a background wait at the start of a line the player shouldn't know about yet (`prof_waitFirstProjects` waits for the first two projects plus a week and sends his mail in its `set`).
 - **`set`**: TwineScript strings run when the quest is *finished* (unlock locations, activate other lines' quests with `setup.activateQuest('id')`, set flags).
 

@@ -1,0 +1,11 @@
+:: The Supplier [event main_quest] {"position":"5950,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Supplier" (main_supplier), STAGE1_PROPOSAL.md 4.12.
+   The price of $calloway.callName: $20,000 up front, more than the account holds, or an evening with my hostesses.
+   STAGE1-STUB: the pay branch (empty the account, a loan, a cancelled project) is not built. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Supplier, STAGE1_PROPOSAL.md 4.12).
+
+<span id="stub-choice">
+<<link "Pay him">><<set $flags.supplierOffered to false>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
+<<if setup.questReached("mom_lastNight") and setup.questReached("sister_rehearsal")>><<link `"Offer him " + $mom.callName + " and " + $sister.callName`>><<set $flags.supplierOffered to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>><<else>>Offer him $mom.callName and $sister.callName (locked: their quest lines have not reached this point yet)<</if>>
+</span>

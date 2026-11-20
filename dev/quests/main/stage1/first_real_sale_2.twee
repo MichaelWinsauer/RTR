@@ -1,0 +1,8 @@
+:: First Real Sale 2 [event main_quest] {"position":"4200,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The First Real Sale" (main_firstSale), part 2 of 2, STAGE1_PROPOSAL.md 4.4.
+   The bar. "Don't tell me what the dial does, boss." Sets pressClient through the quest set. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The First Real Sale, STAGE1_PROPOSAL.md 4.4).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

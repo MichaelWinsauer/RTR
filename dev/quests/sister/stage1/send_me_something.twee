@@ -1,0 +1,7 @@
+:: Send Me Something [event sister_quest] {"position":"3900,1775","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Send Me Something" (sister_sendMeSomething), part 1, STAGE1_PROPOSAL.md 6.4.
+   Part 1 of 3: I tell her I want to see her. */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Send Me Something, STAGE1_PROPOSAL.md 6.4).
+
+[[Continue|Send Me Something 2]]

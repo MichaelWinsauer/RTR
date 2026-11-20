@@ -1,0 +1,8 @@
+:: The Crack 2 [event main_quest] {"position":"5575,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Crack" (main_crack), part 2 of 2, STAGE1_PROPOSAL.md 4.10.
+   Monday: the log pull from the login of $darius.name, the wrong confrontation. Softer if $flags.dariusBroughtIn. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Crack, STAGE1_PROPOSAL.md 4.10).
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>

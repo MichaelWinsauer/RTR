@@ -1,0 +1,7 @@
+:: First Real Sale [event main_quest] {"position":"4075,500","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The First Real Sale" (main_firstSale), part 1, STAGE1_PROPOSAL.md 4.4.
+   Part 1 of 2: the clean sale to $dana.name and $marketingFirm.name. Part 2: the bar with $ethan.name. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The First Real Sale, STAGE1_PROPOSAL.md 4.4).
+
+[[Continue|First Real Sale 2]]

@@ -1,0 +1,8 @@
+:: Booze Night [event mom_quest] {"position":"4025,1075","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Booze Night" (mom_boozeNight), STAGE1_PROPOSAL.md 5.1.
+   Wine in the living room. She talks about how long it has been since someone chose her. I listen and make her wait. */
+<<silent>><<SetBackground $locations[2].img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Booze Night, STAGE1_PROPOSAL.md 5.1).
+
+<<NextQuest $mom>>
+<<ReturnFromEvent "Continue" "Living Room">>
