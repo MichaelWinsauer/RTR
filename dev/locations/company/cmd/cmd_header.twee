@@ -531,11 +531,23 @@ $(document).off('click.cmd-avatar').on('click.cmd-avatar', '.cmd-staff-member', 
 
 .cmd-quest.good .cmd-quest-dot {
 	box-shadow: 0 0 6px var(--tone);
+}
+
+/* the pulse is a stronger glow that fades in and out: opacity runs on the GPU compositor,
+   an animated box-shadow would be repainted on every frame */
+.cmd-quest.good .cmd-quest-dot::after {
+	content: '';
+	position: absolute;
+	inset: -2px;
+	border-radius: 50%;
+	box-shadow: 0 0 12px var(--tone);
+	opacity: 0;
+	pointer-events: none;
 	animation: cmd-quest-pulse 2s ease-in-out infinite;
 }
 
 @keyframes cmd-quest-pulse {
-	50% { box-shadow: 0 0 12px var(--tone); }
+	50% { opacity: 1; }
 }
 
 /* hover label, hidden while the card is open */

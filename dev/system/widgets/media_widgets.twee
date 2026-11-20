@@ -292,6 +292,8 @@
 <<widget "SetBackground">>
 	<<script>>
         document.body.style.backgroundImage = "url('" + State.variables.path + State.temporary.args[0] + "')";
+        /* the blurred copies of the background (body::before, the sidebar glass) read it from here */
+        document.documentElement.style.setProperty("--page-bg", document.body.style.backgroundImage);
     	document.body.style.backgroundAttachment = "fixed";
 	<</script>>
 <</widget>>

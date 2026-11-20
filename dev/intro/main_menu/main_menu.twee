@@ -47,7 +47,16 @@
 		background: radial-gradient(110% 130% at 60% 70%, var(--main-bg) 0%, var(--main-bg) 55%, var(--card-bg) 100%);
 		opacity: 0; animation: mm-fade 1.4s .1s ease forwards;
 	}
-	.mm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; backdrop-filter: blur(5px); }
+	/* The canvas redraws every frame, so nothing under or over it may use backdrop-filter: a backdrop blur is
+	   recomputed for the whole screen on every one of those frames. The photo is blurred with a plain filter
+	   instead (painted once), and the game's blurred page background is switched off while the menu covers it. */
+	.mm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+	.mm-photo {
+		/* opacity and blur matched by eye to the old look (a backdrop blur on the canvas) */
+		position: absolute; inset: 0; opacity: .08; filter: blur(2px);
+		background: url("https://images.unsplash.com/photo-1544524148-67120e1c90c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") left top / cover no-repeat;
+	}
+	html.mm-lock body::before, html.mm-lock body::after { display: none; }
 	.mm-bg::after {
 		content: ''; position: absolute; inset: 0;
 		background: radial-gradient(ellipse at 55% 55%, rgba(114,24,36,0) 48%, rgba(114,24,36,.32) 100%);
@@ -340,7 +349,7 @@
 		}).join('');
 
 		var html =
-			'<div class="mm-bg"><div style="opacity: .05;width: 100%;background: url(&quot;https://images.unsplash.com/photo-1544524148-67120e1c90c4?q=80&amp;amp;w=2070&amp;amp;auto=format&amp;amp;fit=crop&amp;amp;ixlib=rb-4.1.0&amp;amp;ixid=NHwxMjA3fDA%3D&quot;);height: 100%;background-size: cover;background-repeat: no-repeat;backdrop-filter: blur(0px);" class=""></div>' +
+			'<div class="mm-bg"><div class="mm-photo"></div>' +
 			'<canvas class="mm-canvas"></canvas></div>' +
 			'<div class="mm-main">' +
 				'<h1 class="mm-title" aria-label="Rise to Ruin">' +
@@ -491,6 +500,8 @@
 
 		var WAVES = 5;
 		var WAVE_ALPHA = [0.55, 0.34, 0.24, 0.17, 0.12];
+		var GLOW = [{ w: 24, a: 0.025 }, { w: 12, a: 0.045 }, { w: 5, a: 0.08 }];   /* front wave glow: stroke width px, alpha */
+		var FRAME_MS = 1000 / 60;            /* draw at most 60 frames a second, also on 120/144 Hz screens */
 		var MAX_TENDRILS = 26;
 		var MIN_ROOTS = 9;
 		var PRESET = {                         /* per menu item: wave frequency multiplier, tendril boost */
@@ -602,10 +613,6 @@
 			ctx.strokeStyle = waveGrad;
 			ctx.lineJoin = 'round';
 			for (var k = 0; k < WAVES; k++) {
-				ctx.globalAlpha = WAVE_ALPHA[k];
-				ctx.lineWidth = k === 0 ? 1.8 : 1.1;
-				ctx.shadowColor = 'rgba(234,175,76,.8)';
-				ctx.shadowBlur = k === 0 ? 14 : 0;
 				ctx.beginPath();
 				for (var x = 0; x <= W + STEP; x += STEP) {
 					var nx = x / W;
@@ -618,9 +625,21 @@
 						+ Math.sin(x * 0.19 + clock * 9 + k * 2) * Math.sin(x * 0.043 - clock * 2.3) * H * (0.006 + 0.03 * glitch + 0.012 * tune.boost) * edge * edge;
 					if (x === 0) { ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
 				}
+				/* the glow of the front wave: a few wide, faint strokes of the same path under the line
+				   (shadowBlur looks the same, but runs a gaussian blur over the canvas on every frame) */
+				if (k === 0) {
+					ctx.strokeStyle = 'rgb(234,175,76)';
+					for (var g = 0; g < GLOW.length; g++) {
+						ctx.globalAlpha = WAVE_ALPHA[0] * GLOW[g].a;
+						ctx.lineWidth = GLOW[g].w;
+						ctx.stroke();
+					}
+					ctx.strokeStyle = waveGrad;
+				}
+				ctx.globalAlpha = WAVE_ALPHA[k];
+				ctx.lineWidth = k === 0 ? 1.8 : 1.1;
 				ctx.stroke();
 			}
-			ctx.shadowBlur = 0;
 			ctx.globalAlpha = 1;
 		}
 
@@ -663,6 +682,10 @@
 
 		function frame(now) {
 			if (destroyed) { return; }
+			/* 60 frames a second are plenty for the canvas, a faster screen would only redraw it more often.
+			   Behind an open panel (blurred and dimmed) 30 are enough, which also halves the work of the panel blur */
+			var budget = modal.classList.contains('open') ? FRAME_MS * 2 : FRAME_MS;
+			if (last && now - last < budget - 2) { requestAnimationFrame(frame); return; }
 			var dt = Math.min(0.05, (now - last) / 1000 || 0.016);
 			last = now;
 			clock += dt;
