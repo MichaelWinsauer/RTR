@@ -93,23 +93,29 @@
     ],
     lastUsedAtDay: -1,
     lastUsedOnWho: "",
+    workbenchQueue: [],     /* job ids for the workbench, the next one first (setup.workbenchQueue) */
 }>>
 
 /* The workbench (Stage 0) =========================================================
-   "Prototype Workbench" is the hands-on work on the prototype at the Company office: a minigame session made of one
-   job from each group (a hardware job, a software job and a test), every job scored from 0 to 1. The average score
-   decides the progress, and a session where every job is clean adds a bonus. "Prototype Workbench Result" applies it.
+   "Prototype Workbench" is the hands-on work on the prototype at the Company office: a minigame session of ONE job,
+   scored from 0 to 1. Which job comes next is decided by a queue of job ids ($company.prototype.workbenchQueue), so
+   the types come in a random order (hardware, hardware, test, software, ...) and the player can see what is coming.
+   The queue is refilled with shuffled rounds of every job, so over time each one turns up equally often. The score
+   decides the progress, and a clean job adds a bonus. The minigame passage applies the result itself.
    setup.workbench               tuning: maxGain (progress of a perfect session), flawlessAt and flawlessBonus,
                                  actions (what a session costs), tierAt (progress where the jobs get harder) and
                                  groups (the job ids per group; the jobs themselves live in the minigame passage)
    setup.workbenchTier()         0 rough, 1 working, 2 final build: how hard the jobs are, from the progress
-   setup.workbenchGain(scores)   { score, base, bonus, gain } for a list of job scores (0 to 1) */
+   setup.workbenchGain(scores)   { score, base, bonus, gain } for a list of job scores (0 to 1)
+   setup.workbenchQueue([n])     the next n job ids (default 1), the next one first; tops the queue up when needed
+   setup.workbenchTake()         removes the job at the front of the queue (called once a session is over)
+   setup.workbenchGroup(id)      the group of a job id: "hardware", "software" or "test" */
 <<set setup.workbench to {
-    maxGain: 8,
-    flawlessAt: 0.9,
-    flawlessBonus: 2,
-    actions: 2,
-    tierAt: [40, 70],
+    maxGain: 5,
+    flawlessAt: 0.95,
+    flawlessBonus: 1,
+    actions: 3,
+    tierAt: [50, 70],
     groups: {
         hardware: ["wiring", "solder"],
         software: ["debug", "flash"],
@@ -121,6 +127,26 @@
     const at = setup.workbench.tierAt;
     return p >= at[1] ? 2 : (p >= at[0] ? 1 : 0);
 }>>
+<<set setup.workbenchQueue = (n) => {
+    const p = State.variables.company.prototype;
+    const want = Math.max(1, Number(n) || 1);
+    if (!Array.isArray(p.workbenchQueue)) { p.workbenchQueue = []; }
+    const jobs = Object.values(setup.workbench.groups).flat();
+    while (p.workbenchQueue.length < want) {
+        const round = jobs.slice();
+        for (let i = round.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const t = round[i]; round[i] = round[j]; round[j] = t;
+        }
+        p.workbenchQueue.push(...round);
+    }
+    return p.workbenchQueue.slice(0, want);
+}>>
+<<set setup.workbenchTake = () => {
+    setup.workbenchQueue(1);
+    return State.variables.company.prototype.workbenchQueue.shift();
+}>>
+<<set setup.workbenchGroup = (id) => Object.keys(setup.workbench.groups).find((g) => setup.workbench.groups[g].includes(id))>>
 <<set setup.workbenchGain = (scores) => {
     const w = setup.workbench;
     const list = (scores || []).map((s) => Math.max(0, Math.min(1, Number(s) || 0)));

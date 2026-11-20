@@ -1,13 +1,14 @@
 :: Prototype Workbench [activity nobr hide_sidebar] {"position":"2400,1800","size":"100,100"}
 /* The hands-on work on the prototype at the Company office (Stage 0), reached from "Company".
-   A session is three jobs, one from each group in setup.workbench.groups (Define Company):
+   A session is ONE job: the first one in the job queue ($company.prototype.workbenchQueue, setup.workbenchQueue in
+   Define Company). The jobs, by group (setup.workbench.groups):
        hardware   wiring (leads onto controller pins)      solder (hold each pad until the heat sits in the window)
        software   debug  (find the broken line, pick a fix) flash  (remap bad sectors before the write head gets there)
        test       logic  (set switches so a gate board passes) stress (keep the temperature in band with the fan)
-   Every job has its own clock, which starts only when the player presses Start, and ends with a score from 0 to 1.
-   The jobs get harder from progress 40 and 70 (setup.workbenchTier). The end screen hands the result to
-   $workbenchResult = { score, gain, capped, flawless } and plays "Prototype Workbench Result", which applies it and
-   spends the actions. Leaving before the first job starts costs nothing.
+   The passage opens on the brief of that job; its clock starts when the player presses Start, and it ends with a score
+   from 0 to 1. The jobs get harder from progress 40 and 70 (setup.workbenchTier). When the job is over, the result is
+   shown for a moment, then applied right here (progress, setup.workbenchTake(), the actions), a notification sums it up
+   and the player is back at "Company". Leaving before Start costs nothing and keeps the job at the front of the queue.
    Everything here is page-only: if the passage is left in the middle, nothing is saved and nothing is spent. */
 <<if $company.prototype.progress >= $company.prototype.maxProgress>>
 	<<goto "Company">>
@@ -132,36 +133,37 @@ $(document).one(':passagedisplay', function () {
      api: tier, listen, say, running(), elapsed(), done() (finished early), mistake(seconds, text). */
   const JOBS = {
     wiring: {
-      group: 'hardware', title: 'Rewire the sensor board', time: [35, 40, 50],
+      group: 'hardware', title: 'Rewire the sensor board', time: [30, 35, 40],
       short: 'Every lead from the sensor board goes onto its pin on the controller.',
       how: (t) => [
         'Drag a lead from the sensor board onto a controller pin. Or click the lead, then the pin.',
-        t === 0 ? 'The pins are labelled, so match the names.' : 'The controller only shows pin numbers. The datasheet on the right says which signal goes on which pin.',
-        'A wrong pin shorts out and costs 2 seconds.',
+        'The controller only shows pin numbers. The datasheet on the right says which signal goes on which pin' + (t === 0 ? '.' : ', and it lists pins this board doesn\'t use.'),
+        t >= 2 ? 'This controller numbers its pins in no particular order. Read carefully.' : 'Not every pin on the controller gets a lead.',
+        'A wrong pin shorts out and costs 3 seconds.',
       ],
       tip: 'Drag each lead onto its pin.',
       build: buildWiring,
     },
     solder: {
-      group: 'hardware', title: 'Solder the new parts', time: [25, 30, 35],
+      group: 'hardware', title: 'Solder the new parts', time: [22, 26, 30],
       short: 'Hold the iron on each pad until the heat sits in the green, then let go.',
       how: (t) => [
         'Press and hold a pad to heat it. The ring around it fills up.',
         'Let go while the ring is inside the green part for a clean joint.',
-        'Let go too early and you get a cold joint: heat it again, but it costs you. Hold it too long and the pad is ruined.',
-        t >= 2 ? 'Ground pads (GND) soak up heat and take longer to get there.' : 'Every pad heats a little differently. Watch the ring, not the clock.',
+        'Let go too early and you get a cold joint: heat it again, but it costs 2 seconds. Hold it too long and the pad is ruined.',
+        t === 0 ? 'Every pad heats a little differently. Watch the ring, not the clock.' : 'The hotter a pad gets, the faster it heats up. Ground pads (GND) soak up heat and take longer to get there.',
       ],
       tip: 'Hold a pad, let go in the green.',
       build: buildSolder,
     },
     debug: {
-      group: 'software', title: 'Fix the firmware', time: [45, 75, 85],
+      group: 'software', title: 'Fix the firmware', time: [40, 60, 70],
       short: 'A test is failing. Find the broken line and pick the right fix.',
       how: (t) => [
         'Read the failing test at the top. It tells you what the code gets wrong.',
         'Click the line you think is broken, then pick the replacement that fixes it.',
-        'Clicking a line that works, or picking the wrong fix, costs 3 seconds.',
-        t === 0 ? 'One bug to find.' : 'Two bugs, one after the other.',
+        'Clicking a line that works, or picking the wrong fix, costs 4 seconds.',
+        t === 0 ? 'Two bugs, one after the other.' : 'Three bugs, one after the other.',
       ],
       tip: 'Click the broken line.',
       build: buildDebug,
@@ -171,73 +173,69 @@ $(document).one(':passagedisplay', function () {
       short: 'The write head runs through the memory. Remap the bad sectors before it reaches them.',
       how: (t) => [
         'Bad sectors light up red ahead of the write head. Click them before the head gets there.',
-        t === 0 ? 'Clicking a healthy sector costs you.' : 'Amber flickers are just noise. Leave them alone: clicking a healthy sector costs you.',
-        'The flash runs until the head reaches the end, however fast you are.',
+        'Amber flickers are just noise. Leave them alone: clicking a healthy sector costs you.',
+        'The flash runs until the head reaches the end, however fast you are.' + (t > 0 ? ' The bigger the build, the less warning you get.' : ''),
       ],
       tip: 'Click red sectors before the head reaches them.',
       build: buildFlash,
     },
     logic: {
-      group: 'test', title: 'Test the logic board', time: [45, 55, 65],
+      group: 'test', title: 'Test the logic board', time: [40, 55, 65],
       short: 'Set the switches so every output ends up the way the test sheet wants.',
       how: (t) => [
         'Click the switches on the left to turn the inputs on and off.',
         'The gates only show what they put out when you run the test, so work it out first.',
-        'AND needs both inputs on, OR at least one, XOR exactly one.' + (t > 0 ? ' A small circle in front of a gate flips that input.' : ''),
-        'Every failed test costs 4 seconds. Two boards to pass.',
+        (t === 0 ? 'AND needs both inputs on, OR at least one.' : 'AND needs both inputs on, OR at least one, XOR exactly one. A small circle in front of a gate flips that input.'),
+        'Every failed test costs 5 seconds. ' + (LOGIC_ROUNDS[t] === 2 ? 'Two' : 'Three') + ' boards to pass.',
       ],
       tip: 'Set the switches, then run the test.',
       build: buildLogic,
     },
     stress: {
-      group: 'test', title: 'Run the stress test', time: [20, 22, 25], timed: true,
+      group: 'test', title: 'Run the stress test', time: [22, 25, 28], timed: true,
       short: 'Keep the temperature in the green band while the load jumps around.',
       how: (t) => [
         'Drag the fan lever up to cool the board down and down to let it warm up. The mouse wheel works too.',
         'The temperature follows with a delay, so steer early.',
-        t === 0 ? 'Load spikes are announced a moment before they hit.' : 'Spikes and drops are announced a moment before they hit.',
-        'The test runs until the clock is out. The longer it stays in the green, the better.',
+        'Spikes and drops are announced a moment before they hit' + (t > 0 ? ', and the warning gets shorter on a bigger build.' : '.'),
+        'The test runs until the clock is out. Only a run that stays in the green almost the whole time scores full marks.',
       ],
       tip: 'Keep the line in the green band.',
       build: buildStress,
     },
   };
   const GROUP_LABEL = { hardware: 'Hardware', software: 'Software', test: 'Testing' };
-  const TIER_LEAD = [
-    "It's still a rough build, so none of this is hard, just fiddly.",
-    "It's a working build now, so every change has to fit around the parts that already work.",
-    "This is the final stretch. Everything is small, tight and unforgiving.",
-  ];
+  const GROUP_ICON = { hardware: 'solder', software: 'debug', test: 'stress' };
 
   /* ==== Hardware: wiring ================================================================ */
   const SIGNALS = ['VCC', 'GND', 'SDA', 'SCL', 'INT', 'RST', 'TX', 'RX', 'CLK', 'CS', 'MISO', 'MOSI'];
   const WIRE_COLORS = ['#EAAF4C', '#ff6479', '#1cd88d', '#6fb7ff', '#c38bff', '#ff9f5a', '#EBDDC5', '#5fe0d6'];
 
   function buildWiring(el, api) {
-    const count = [5, 6, 8][api.tier];
-    const labelled = api.tier === 0;
-    const sigs = shuffle(SIGNALS).slice(0, count);
+    const count = [6, 8, 10][api.tier];
+    const spare = [1, 2, 2][api.tier];   /* pins on the controller (and in the datasheet) that no lead goes to */
+    const all = shuffle(SIGNALS).slice(0, count + spare);
+    const sigs = all.slice(0, count);
     const colors = shuffle(WIRE_COLORS);
     const leads = shuffle(sigs).map((s, i) => ({ s, color: colors[i % colors.length], done: false }));
     const pinOf = {};
-    shuffle(sigs).forEach((s, i) => { pinOf[s] = i + 1; });
-    const pins = sigs.map((s) => ({ n: pinOf[s], s, used: false })).sort((a, b) => a.n - b.n);
+    shuffle(all).forEach((s, i) => { pinOf[s] = i + 1; });
+    const pins = all.map((s) => ({ n: pinOf[s], s, used: false })).sort((a, b) => a.n - b.n);
+    /* the final build's controller doesn't number its pins in order, so finding pin 7 is a search of its own */
+    const chipPins = api.tier >= 2 ? shuffle(pins) : pins;
 
-    let sheet = '';
-    if (!labelled) {
-      const rows = pins.slice();
-      if (api.tier >= 2) rows.sort((a, b) => a.s.localeCompare(b.s));   /* sorted by signal: a real lookup */
-      sheet = '<div class="wb-sheet"><div class="wb-col-t">Datasheet</div>' +
-        rows.map((p) => '<div class="wb-sheet-row"><span>Pin ' + p.n + '</span><b>' + p.s + '</b></div>').join('') + '</div>';
-    }
-    el.innerHTML = '<div class="wb-wire' + (labelled ? '' : ' has-sheet') + '">' +
+    const rows = pins.slice();
+    if (api.tier >= 1) rows.sort((a, b) => a.s.localeCompare(b.s));   /* sorted by signal: a real lookup */
+    const sheet = '<div class="wb-sheet"><div class="wb-col-t">Datasheet</div>' +
+      rows.map((p) => '<div class="wb-sheet-row"><span>Pin ' + p.n + '</span><b>' + p.s + '</b></div>').join('') + '</div>';
+    el.innerHTML = '<div class="wb-wire has-sheet' + (all.length > 8 ? ' dense' : '') + '">' +
       '<svg class="wb-wire-svg"></svg>' +
       '<div class="wb-wire-col"><div class="wb-col-t">Sensor board</div>' +
         leads.map((l, i) => '<div class="wb-lead" data-i="' + i + '" style="--c:' + l.color + '"><span class="wb-lead-s">' + l.s + '</span><span class="wb-jack"></span></div>').join('') +
       '</div>' +
       '<div class="wb-wire-gap"></div>' +
       '<div class="wb-wire-col"><div class="wb-col-t">Controller</div><div class="wb-chip">' +
-        pins.map((p) => '<div class="wb-pin" data-n="' + p.n + '"><span class="wb-jack"></span><span class="wb-pin-n">' + p.n + '</span>' + (labelled ? '<span class="wb-pin-s">' + p.s + '</span>' : '') + '</div>').join('') +
+        chipPins.map((p) => '<div class="wb-pin" data-n="' + p.n + '"><span class="wb-jack"></span><span class="wb-pin-n">' + p.n + '</span></div>').join('') +
       '</div></div>' + sheet + '</div>';
 
     const box = el.querySelector('.wb-wire');
@@ -298,7 +296,7 @@ $(document).one(':passagedisplay', function () {
       if (pin.s !== lead.s) {
         mistakes++;
         restart(pinEl(n), 'spark');
-        api.mistake(2, lead.s + " doesn't go on pin " + n + '. That one sparked.');
+        api.mistake(3, lead.s + " doesn't go on pin " + n + '. That one sparked.');
         return;
       }
       pin.used = true;
@@ -338,7 +336,7 @@ $(document).one(':passagedisplay', function () {
 
     return {
       finish: disarm,
-      score: () => wires.length / count - 0.08 * mistakes,
+      score: () => wires.length / count - 0.1 * mistakes,
       detail: () => wires.length + '/' + count + ' leads connected' + (mistakes ? ', ' + plural(mistakes, 'short', 'shorts') : ''),
     };
   }
@@ -348,18 +346,19 @@ $(document).one(':passagedisplay', function () {
   const RING = 2 * Math.PI * 42;
 
   function buildSolder(el, api) {
-    const count = [5, 6, 7][api.tier];
-    const win = [0.22, 0.17, 0.13][api.tier];
+    const count = [6, 7, 9][api.tier];
+    const win = [0.16, 0.12, 0.09][api.tier];
+    const accel = api.tier >= 1;   /* from the working build on, a pad heats faster the hotter it is */
     const cols = 4, rows = 3;
     const cells = shuffle(range(cols * rows)).slice(0, count).sort((a, b) => a - b);
-    const gndAt = api.tier >= 2 ? shuffle(range(count)).slice(0, 2) : [];   /* two slow ground pads on the final build */
+    const gndAt = shuffle(range(count)).slice(0, [0, 1, 3][api.tier]);   /* slow ground pads */
     const pads = cells.map((c, k) => {
       const gnd = gndAt.includes(k);
-      const ws = rnd(0.45, 0.88 - win);
+      const ws = rnd(0.4, 0.92 - win);
       return {
         x: ((c % cols) + 0.25 + Math.random() * 0.5) / cols * 100,
         y: (Math.floor(c / cols) + 0.25 + Math.random() * 0.5) / rows * 100,
-        dur: gnd ? rnd(1.9, 2.5) : rnd(0.95, 1.6),
+        dur: gnd ? rnd(1.5, 2.1) : rnd(0.7, 1.25),
         ws, we: ws + win, heat: 0, state: 'open', gnd,
         ref: gnd ? 'GND' : pick(REFS) + (k + 1),
       };
@@ -408,9 +407,9 @@ $(document).one(':passagedisplay', function () {
       } else if (p.heat < p.ws) {
         colds++;
         restart(p.el, 'cold');
-        api.mistake(1, 'Cold joint. That needs more heat.');
+        api.mistake(2, 'Cold joint. That needs more heat.');
       } else {
-        api.mistake(2, 'Held it too long. The pad lifted right off the board.');
+        api.mistake(3, 'Held it too long. The pad lifted right off the board.');
         settle(p, 'burnt');
       }
     }
@@ -429,7 +428,7 @@ $(document).one(':passagedisplay', function () {
         pads.forEach((p) => {
           if (p.state !== 'open') return;
           if (p === holding) {
-            p.heat += dt / p.dur;
+            p.heat += dt / p.dur * (accel ? 0.55 + 0.9 * p.heat : 1);
             if (p.heat >= 1) { p.heat = 1; paint(p); release(); return; }
           } else if (p.heat > 0) {
             p.heat = Math.max(0, p.heat - dt * 0.6);   /* a pad that is let go cools off again */
@@ -438,7 +437,7 @@ $(document).one(':passagedisplay', function () {
         });
       },
       finish: () => { holding = null; },
-      score: () => good / count - 0.07 * colds,
+      score: () => good / count - 0.1 * colds,
       detail: () => good + '/' + count + ' clean joints' + (colds ? ', ' + plural(colds, 'cold one', 'cold ones') : '') + (burnt ? ', ' + burnt + ' ruined' : ''),
     };
   }
@@ -503,8 +502,9 @@ $(document).one(':passagedisplay', function () {
   }
 
   function buildDebug(el, api) {
-    const tiers = api.tier === 0 ? [0] : (api.tier === 1 ? [0, 1] : [1, 2]);
-    const chosen = tiers.map((t) => pick(SNIPPETS.filter((s) => s.tier === t)));
+    const tiers = [ [0, 0], [0, 1, 1], [1, 2, 2] ][api.tier];
+    const chosen = [];
+    tiers.forEach((t) => chosen.push(pick(SNIPPETS.filter((s) => s.tier === t && !chosen.includes(s)))));
     let k = 0, fixed = 0, mistakes = 0, busy = false;
 
     function show() {
@@ -525,7 +525,7 @@ $(document).one(':passagedisplay', function () {
         if (i === s.bug) { openFixes(ln, s); return; }
         mistakes++;
         restart(ln, 'nope');
-        api.mistake(3, 'Line ' + (i + 1) + ' looks fine to me.');
+        api.mistake(4, 'Line ' + (i + 1) + ' looks fine to me.');
       }));
     }
     function openFixes(ln, s) {
@@ -544,7 +544,7 @@ $(document).one(':passagedisplay', function () {
           mistakes++;
           b.disabled = true;
           b.classList.add('wrong');
-          api.mistake(3, 'The test still fails with that.');
+          api.mistake(4, 'The test still fails with that.');
           return;
         }
         busy = true;
@@ -570,11 +570,11 @@ $(document).one(':passagedisplay', function () {
 
   /* ==== Software: flashing ================================================================ */
   function buildFlash(el, api) {
-    const cols = [10, 10, 12][api.tier], rows = 5, total = cols * rows;
+    const cols = [12, 14, 16][api.tier], rows = 5, total = cols * rows;
     const dur = JOBS.flash.time[api.tier];
-    const nBad = [6, 8, 10][api.tier];
-    const nNoise = [0, 4, 7][api.tier];
-    const warn = [14, 11, 8][api.tier];   /* how many sectors ahead of the head a bad one shows up */
+    const nBad = [9, 12, 15][api.tier];
+    const nNoise = [4, 8, 12][api.tier];
+    const warn = [10, 8, 6][api.tier];   /* how many sectors ahead of the head a bad one shows up */
     const order = shuffle(range(total - 8, 8));
     const bad = new Set(order.slice(0, nBad));
     const noise = new Set(order.slice(nBad, nBad + nNoise));
@@ -584,7 +584,7 @@ $(document).one(':passagedisplay', function () {
       '<div class="wb-flash-top"><span>Writing ' + esc(protoName) + ' firmware</span><span class="wb-flash-pct">0%</span></div>' +
       '<div class="wb-grid" style="--cols:' + cols + '">' + range(total).map((k) => '<div class="wb-sec" data-k="' + k + '"></div>').join('') + '</div>' +
       '<div class="wb-legend"><span><i class="lg-bad"></i>Bad: click it</span><span><i class="lg-fixed"></i>Remapped</span>' +
-        (nNoise ? '<span><i class="lg-noise"></i>Noise: leave it</span>' : '') + '<span><i class="lg-head"></i>Write head</span></div>' +
+        '<span><i class="lg-noise"></i>Noise: leave it</span><span><i class="lg-head"></i>Write head</span></div>' +
       '</div>';
     const secs = Array.from(el.querySelectorAll('.wb-sec'));
     const pctEl = el.querySelector('.wb-flash-pct');
@@ -631,7 +631,7 @@ $(document).one(':passagedisplay', function () {
         pctEl.textContent = Math.round((head + 1) / total * 100) + '%';
       },
       finish: () => { advanceTo(total - 1); if (head >= 0) secs[head].classList.remove('head'); pctEl.textContent = '100%'; },
-      score: () => fixed / nBad - 0.08 * wrong,
+      score: () => fixed / nBad - 0.1 * wrong,
       detail: () => fixed + '/' + nBad + ' bad sectors remapped' + (wrong ? ', ' + plural(wrong, 'healthy one', 'healthy ones') + ' clicked' : ''),
     };
   }
@@ -643,15 +643,16 @@ $(document).one(':passagedisplay', function () {
     const tv = b.top ? OPS[b.top.op](gv[b.top.a], gv[b.top.b]) : null;
     return { gates: gv, top: tv, outs: b.outs.map((o) => (o === 'top' ? tv : gv[o])) };
   }
+  const LOGIC_ROUNDS = [2, 3, 3];   /* boards to pass, by tier */
   function genBoard(t) {
-    const nIn = [3, 4, 4][t];
-    const nGate = [2, 3, 3][t];
+    const nIn = [4, 4, 5][t];
+    const nGate = 3;
     const ops = t === 0 ? ['AND', 'OR'] : ['AND', 'OR', 'XOR'];
     let board = null;
     for (let tries = 0; tries < 300; tries++) {
       const gates = range(nGate).map(() => {
         const ins = shuffle(range(nIn)).slice(0, 2).sort((a, b) => a - b);
-        return { op: pick(ops), a: ins[0], b: ins[1], na: t > 0 && Math.random() < 0.3, nb: t > 0 && Math.random() < 0.3 };
+        return { op: pick(ops), a: ins[0], b: ins[1], na: t > 0 && Math.random() < 0.4, nb: t > 0 && Math.random() < 0.4 };
       });
       const used = new Set();
       gates.forEach((g) => { used.add(g.a); used.add(g.b); });
@@ -672,7 +673,7 @@ $(document).one(':passagedisplay', function () {
   }
 
   function buildLogic(el, api) {
-    const rounds = 2;
+    const rounds = LOGIC_ROUNDS[api.tier];
     let round = 0, fails = 0, totalFails = 0;
     const scores = [];
     let b, state, sw, leds, wiresIn, gateOut, topOut, runBtn, busy = false;
@@ -715,7 +716,7 @@ $(document).one(':passagedisplay', function () {
       /* switches */
       range(b.nIn).forEach((i) => {
         const y = yIn(i);
-        s += '<g class="lg-sw" data-i="' + i + '"><text class="lg-name" x="14" y="' + (y + 5) + '">' + 'ABCD'[i] + '</text>' +
+        s += '<g class="lg-sw" data-i="' + i + '"><text class="lg-name" x="14" y="' + (y + 5) + '">' + 'ABCDE'[i] + '</text>' +
           '<rect x="34" y="' + (y - 14) + '" width="64" height="28" rx="14"/><circle class="lg-knob" cx="49" cy="' + y + '" r="10"/></g>';
       });
       /* LEDs with what the test sheet wants */
@@ -769,12 +770,12 @@ $(document).one(':passagedisplay', function () {
       if (wrongN) {
         fails++;
         totalFails++;
-        api.mistake(4, wrongN + ' of ' + out.length + ' outputs wrong.');
+        api.mistake(5, wrongN + ' of ' + out.length + ' outputs wrong.');
         return;
       }
       busy = true;
       runBtn.disabled = true;
-      scores.push(Math.max(0.25, 1 - 0.25 * fails));
+      scores.push(Math.max(0.2, 1 - 0.3 * fails));
       api.say('Test passed.', 'ok');
       if (round + 1 >= rounds) { api.done(); return; }
       setTimeout(() => { if (api.running()) { round++; draw(); } }, 900);
@@ -790,11 +791,12 @@ $(document).one(':passagedisplay', function () {
   /* ==== Testing: stress test =============================================================== */
   function buildStress(el, api) {
     const t = api.tier;
-    const half = [0.11, 0.08, 0.06][t];
+    const half = [0.085, 0.065, 0.05][t];
     const band = [0.5 - half, 0.5 + half];
     const NEAR = 0.05;
-    const tau = [0.9, 1.05, 1.25][t];         /* how slowly the temperature follows */
-    const gap = [ [5, 7], [4, 6], [3, 5] ][t];  /* seconds between load spikes */
+    const tau = [1.1, 1.3, 1.5][t];           /* how slowly the temperature follows */
+    const gap = [ [3.5, 5], [2.8, 4.2], [2.2, 3.4] ][t];  /* seconds between load spikes */
+    const warnFor = [1.0, 0.8, 0.6][t];       /* how long a spike is announced before it hits */
     const WINDOW = 8;
     const RUN = JOBS.stress.time[t];          /* the score counts the whole run, so leaving early doesn't pay */
 
@@ -875,17 +877,17 @@ $(document).one(':passagedisplay', function () {
       frame: (dt) => {
         time += dt;
         goalIn -= dt;
-        if (goalIn <= 0) { Lgoal = rnd(0.45, 0.85); goalIn = rnd(1.4, 2.8); }
+        if (goalIn <= 0) { Lgoal = rnd(0.45, 0.9); goalIn = rnd(1.0, 2.2); }
         Lbase += (Lgoal - Lbase) * Math.min(1, dt * 0.9);
         nextSpike -= dt;
         if (!pending && !active && nextSpike <= 0) {
-          pending = { kind: (t > 0 && Math.random() < 0.35) ? 'drop' : 'spike', left: 1.1 };
+          pending = { kind: Math.random() < 0.4 ? 'drop' : 'spike', left: warnFor };
           alertEl.className = 'wb-alert show ' + pending.kind;
           alertEl.textContent = pending.kind === 'drop' ? 'Load drop' : 'Load spike';
         }
         if (pending) {
           pending.left -= dt;
-          if (pending.left <= 0) { active = { amt: pending.kind === 'drop' ? -0.22 : 0.3, left: rnd(1.4, 2.2) }; pending = null; }
+          if (pending.left <= 0) { active = { amt: pending.kind === 'drop' ? -rnd(0.2, 0.26) : rnd(0.26, 0.36), left: rnd(1.4, 2.2) }; pending = null; }
         }
         let extra = 0;
         if (active) {
@@ -894,7 +896,7 @@ $(document).one(':passagedisplay', function () {
           if (active.left <= 0) { active = null; nextSpike = rnd(gap[0], gap[1]); alertEl.className = 'wb-alert'; }
         }
         Lnow += (Lbase + extra - Lnow) * Math.min(1, dt * 4);
-        Fe += (F - Fe) * Math.min(1, dt / 0.35);
+        Fe += (F - Fe) * Math.min(1, dt / 0.45);
         const E = 0.3 + 0.8 * Lnow - Fe;
         T += (E - T) * Math.min(1, dt / tau);
         totalT += dt;
@@ -910,19 +912,23 @@ $(document).one(':passagedisplay', function () {
       },
       finish: () => { dragging = false; alertEl.className = 'wb-alert'; },
       score: () => {
-        const raw = (inBand + 0.5 * near) / RUN;
-        return (raw - 0.25) / 0.65;
+        const raw = (inBand + 0.35 * near) / RUN;
+        return (raw - 0.25) / 0.7;
       },
       detail: () => Math.round(Math.min(1, inBand / RUN) * 100) + '% of the run in the green',
     };
   }
 
-  /* ==== the session ======================================================================== */
-  const plan = Object.keys(W.groups).map((g) => pick(W.groups[g].filter((id) => JOBS[id]))).filter(Boolean);
-  const results = [];
+  /* ==== the session ========================================================================
+     One job per session: the first one in the queue. The steps row shows it and the jobs that come after it.
+     The queue only moves on once the job is over and applied (wrapUp), so backing out keeps the same job. */
+  const QUEUE_SHOWN = 5;
+  const queue = setup.workbenchQueue(QUEUE_SHOWN).filter((id) => JOBS[id]);
+  const jobId = queue[0] || 'wiring';
   let job = null;
-  let index = -1;
-  let committed = false;   /* once the first job has started, the session costs its actions */
+  let result = null;   /* { score, detail, gain, capped, bonus } once the job is over */
+  let wrapTimer = 0;
+  let wrapped = false;
 
   function grade(s) {
     if (s >= 0.9) return ['Clean', 'g-a'];
@@ -932,12 +938,15 @@ $(document).one(':passagedisplay', function () {
     return ['Botched', 'g-f'];
   }
   function paintSteps() {
-    stepsEl.innerHTML = plan.map((id, i) => {
-      const r = results[i];
-      const cls = r ? 'done' : (i === index ? 'active' : '');
-      const right = r ? Math.round(r.score * 100) + '%' : JOBS[id].time[tier] + 's';
-      return '<div class="wb-step ' + cls + '"><span class="wb-step-ic">' + icon(id) + '</span><span class="wb-step-t">' + esc(JOBS[id].title) + '</span><span class="wb-step-r' + (r ? ' ' + grade(r.score)[1] : '') + '">' + right + '</span></div>';
-    }).join('');
+    const d = JOBS[jobId];
+    const right = result ? Math.round(result.score * 100) + '%' : d.time[tier] + 's';
+    stepsEl.innerHTML = '<div class="wb-step ' + (result ? 'done' : 'active') + '"><span class="wb-step-ic">' + icon(jobId) + '</span>' +
+        '<span class="wb-step-t">' + esc(d.title) + '</span><span class="wb-step-r' + (result ? ' ' + grade(result.score)[1] : '') + '">' + right + '</span></div>' +
+      '<div class="wb-queue"><span class="wb-queue-t">Up next</span>' +
+        queue.slice(1).map((id) => {
+          const g = JOBS[id].group;
+          return '<span class="wb-queue-i"><span class="wb-step-ic">' + icon(GROUP_ICON[g]) + '</span>' + GROUP_LABEL[g] + '</span>';
+        }).join('') + '</div>';
   }
   function paintTimer() {
     if (!job) return;
@@ -953,42 +962,24 @@ $(document).one(':passagedisplay', function () {
   }
   function leave() { cleanup(); Engine.play('Company'); }
 
-  function showBoard() {
-    index = -1;
-    job = null;
+  function showBrief() {
+    const d = JOBS[jobId];
     paintSteps();
-    paintIdle(null);
-    stage.innerHTML = '<div class="wb-board"><p class="wb-intro">' + "Three things on the list today. Each one gets its own clock, and the clock only starts once I'm ready. " +
-      esc(TIER_LEAD[tier]) + ' The cleaner the work, the further ' + esc(protoName) + ' gets.</p><div class="wb-cards">' +
-      plan.map((id) => {
-        const d = JOBS[id];
-        return '<div class="wb-card"><div class="wb-card-top"><span class="wb-card-ic">' + icon(id) + '</span><span class="wb-card-g">' + GROUP_LABEL[d.group] + '</span><span class="wb-card-time">' + d.time[tier] + 's</span></div>' +
-          '<div class="wb-card-t">' + esc(d.title) + '</div><div class="wb-card-d">' + esc(d.short) + '</div></div>';
-      }).join('') + '</div></div>';
-    say('This takes ' + W.actions + ' actions once the first job starts. Backing out now costs nothing.', 'info');
-    setActions([{ label: 'Not now', ghost: true, onClick: leave }, { label: 'Get to work', onClick: () => showBrief(0) }]);
-  }
-  function showBrief(i) {
-    index = i;
-    job = null;
-    paintSteps();
-    const id = plan[i], d = JOBS[id];
     paintIdle(d.time[tier]);
-    stage.innerHTML = '<div class="wb-brief"><div class="wb-brief-ic">' + icon(id) + '</div>' +
-      '<div class="wb-brief-g">Job ' + (i + 1) + ' of ' + plan.length + ' · ' + GROUP_LABEL[d.group] + ' · ' + d.time[tier] + ' seconds</div>' +
+    stage.innerHTML = '<div class="wb-brief"><div class="wb-brief-ic">' + icon(jobId) + '</div>' +
+      '<div class="wb-brief-g">' + GROUP_LABEL[d.group] + ' · ' + d.time[tier] + ' seconds · ' + plural(W.actions, 'action', 'actions') + '</div>' +
       '<div class="wb-brief-t">' + esc(d.title) + '</div>' +
       '<ul class="wb-how">' + d.how(tier).map((h) => '<li>' + esc(h) + '</li>').join('') + '</ul></div>';
-    say('The clock starts when you press Start.', 'info');
+    say('The clock starts when you press Start. Backing out now costs nothing.', 'info');
     setActions([
-      committed ? { label: 'Stop here', ghost: true, onClick: stopHere } : { label: 'Not now', ghost: true, onClick: leave },
-      { label: 'Start', onClick: () => startJob(i) },
+      { label: 'Not now', ghost: true, onClick: leave },
+      { label: 'Start', onClick: startJob },
     ]);
   }
-  function startJob(i) {
-    committed = true;
-    const id = plan[i], d = JOBS[id];
-    stage.innerHTML = '<div class="wb-job wb-job-' + id + '"></div>';
-    job = { id, def: d, total: d.time[tier], left: d.time[tier], running: true, mistakes: 0, listeners: [] };
+  function startJob() {
+    const d = JOBS[jobId];
+    stage.innerHTML = '<div class="wb-job wb-job-' + jobId + '"></div>';
+    job = { id: jobId, def: d, total: d.time[tier], left: d.time[tier], running: true, mistakes: 0, listeners: [] };
     const j = job;
     j.inst = d.build(stage.firstElementChild, {
       tier,
@@ -1017,56 +1008,43 @@ $(document).one(':passagedisplay', function () {
     if (j.inst.finish) j.inst.finish();
     unlisten(j.listeners);
     const score = clamp01(j.inst.score());
-    results[index] = { id: j.id, score, detail: j.inst.detail() };
+    const g = setup.workbenchGain([score]);
+    const p = State.variables.company.prototype;
+    const gain = Math.min(g.gain, Math.max(0, p.maxProgress - p.progress));
+    result = { score, detail: j.inst.detail(), gain, capped: gain < g.gain, bonus: g.bonus };
     paintSteps();
     paintTimer();
-    const g = grade(score);
+    const gr = grade(score);
     const ov = document.createElement('div');
     ov.className = 'wb-result';
     ov.innerHTML = '<div class="wb-result-k">' + (completed || j.def.timed ? 'Job done' : (j.left <= 0 ? 'Out of time' : 'Left as it is')) + '</div>' +
       '<div class="wb-result-t">' + esc(j.def.title) + '</div>' +
-      '<div class="wb-result-pct ' + g[1] + '">' + Math.round(score * 100) + '%</div>' +
-      '<div class="wb-result-g ' + g[1] + '">' + g[0] + '</div>' +
-      '<div class="wb-result-d">' + esc(results[index].detail) + '</div>';
+      '<div class="wb-result-pct ' + gr[1] + '">' + Math.round(score * 100) + '%</div>' +
+      '<div class="wb-result-g ' + gr[1] + '">' + gr[0] + '</div>' +
+      '<div class="wb-result-d">' + esc(result.detail) + '</div>' +
+      '<div class="wb-result-gain' + (gain > 0 ? '' : ' none') + '">' + (gain > 0 ? '+' + gain + ' progress' + (g.bonus ? ' (flawless bonus)' : '') : 'No progress') + '</div>';
+    ov.addEventListener('click', wrapUp);
     stage.appendChild(ov);
     say('', '');
-    const last = index >= plan.length - 1;
-    setActions([{ label: last ? 'See how it went' : 'Next job', onClick: () => (last ? showSummary() : showBrief(index + 1)) }]);
+    setActions([]);
+    wrapTimer = setTimeout(wrapUp, 2200);
   }
-  function stopHere() {
-    plan.forEach((id, i) => { if (!results[i]) results[i] = { id, score: 0, detail: 'Skipped' }; });
-    showSummary();
-  }
-  function showSummary() {
-    index = plan.length;
-    job = null;
-    paintSteps();
-    paintIdle(null);
-    const scores = plan.map((id, i) => (results[i] ? results[i].score : 0));
-    const g = setup.workbenchGain(scores);
+  /* applies the result, spends the actions and goes back to the office */
+  function wrapUp() {
+    if (wrapped || !result || !root.isConnected) return;
+    wrapped = true;
+    clearTimeout(wrapTimer);
+    cleanup();
     const p = State.variables.company.prototype;
-    const room = Math.max(0, p.maxProgress - p.progress);
-    const gain = Math.min(g.gain, room);
-    const og = grade(g.score);
-    stage.innerHTML = '<div class="wb-summary">' +
-      '<div class="wb-sum-rows">' + plan.map((id, i) => {
-        const r = results[i] || { score: 0, detail: 'Skipped' };
-        const rg = grade(r.score);
-        return '<div class="wb-sum-row"><span class="wb-sum-ic">' + icon(id) + '</span><div class="wb-sum-main"><div class="wb-sum-t">' + esc(JOBS[id].title) + '</div><div class="wb-sum-d">' + esc(r.detail) + '</div>' +
-          '<div class="wb-sum-bar"><div class="' + rg[1] + '" style="width:' + Math.round(r.score * 100) + '%"></div></div></div>' +
-          '<span class="wb-sum-pct ' + rg[1] + '">' + Math.round(r.score * 100) + '%</span></div>';
-      }).join('') + '</div>' +
-      '<div class="wb-sum-total"><div class="wb-sum-score"><span>Overall</span><b class="' + og[1] + '">' + Math.round(g.score * 100) + '%</b><em class="' + og[1] + '">' + og[0] + '</em></div>' +
-        '<div class="wb-sum-gain"><span>Progress</span><b>+' + gain + '</b>' +
-          (g.bonus ? '<em class="g-a">includes +' + g.bonus + ' for a flawless session</em>' : '<em>every job at ' + Math.round(W.flawlessAt * 100) + '% or better adds +' + W.flawlessBonus + '</em>') +
-          (gain < g.gain ? '<em class="g-d">capped: ' + esc(protoName) + ' is as far as it gets for now</em>' : '') +
-        '</div></div></div>';
-    say('', '');
-    setActions([{ label: 'Pack up', onClick: () => {
-      cleanup();
-      State.variables.workbenchResult = { score: g.score, gain, capped: gain < g.gain, flawless: g.bonus > 0 };
-      Engine.play('Prototype Workbench Result');
-    } }]);
+    p.progress = Math.min(p.maxProgress, p.progress + result.gain);
+    setup.workbenchTake();
+    $.wiki('<<UseAction ' + W.actions + '>>');
+    const gr = grade(result.score);
+    Notification.show(JOBS[jobId].title + ': ' + gr[0] + ', ' + Math.round(result.score * 100) + '%. ' +
+      (result.gain > 0 ? protoName + ' +' + result.gain + (result.bonus ? ', flawless bonus included.' : '.') : 'No progress this time.'),
+      { type: result.gain > 0 ? Notification.POSITIVE : Notification.NEGATIVE });
+    if (result.capped) Notification.show(protoName + " won't get any further until I know what it needs to do next.", { type: Notification.INFORMATION });
+    Engine.play('Company');
   }
 
   /* ---- the clock ---- */
@@ -1084,7 +1062,7 @@ $(document).one(':passagedisplay', function () {
     raf = requestAnimationFrame(loop);
   }
   raf = requestAnimationFrame(loop);
-  showBoard();
+  showBrief();
 });
 <</script>>
 
@@ -1127,13 +1105,18 @@ $(document).one(':passagedisplay', function () {
 #wb-timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--crimson), var(--gold)); }
 
 /* ——— job steps ——— */
-.wb-steps { flex: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.wb-steps { flex: none; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+.wb-steps > .wb-step { flex: 0 1 22rem; }
 .wb-step { display: flex; align-items: center; gap: 0.55rem; min-width: 0; padding: 0.4rem 0.8rem; border: 1px solid rgba(235,221,197,0.14); border-radius: 999px; font-size: 0.7rem; color: rgba(235,221,197,0.5); transition: border-color 0.3s, color 0.3s, background-color 0.3s; }
 .wb-step-ic { flex: none; width: 1.05rem; height: 1.05rem; }
 .wb-step-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wb-step-r { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
 .wb-step.active { border-color: var(--gold); color: var(--gold); background: rgba(234,175,76,0.08); }
 .wb-step.done { border-color: rgba(235,221,197,0.3); color: var(--cream); background: rgba(235,221,197,0.05); }
+.wb-queue { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; min-width: 0; }
+.wb-queue-t { margin-right: 0.2rem; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(235,221,197,0.45); }
+.wb-queue-i { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.65rem; border: 1px solid rgba(235,221,197,0.12); border-radius: 999px; font-size: 0.65rem; color: rgba(235,221,197,0.55); }
+.wb-queue-t + .wb-queue-i { border-color: rgba(235,221,197,0.3); color: var(--cream); }
 
 /* ——— stage ——— */
 .wb-stage { flex: 1; min-height: 0; position: relative; padding: 0.9rem 1rem; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem; background: var(--card-bg); box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.35); }
@@ -1160,18 +1143,7 @@ $(document).one(':passagedisplay', function () {
 .wb .wb-btn.ghost:hover { border-color: var(--cream); color: #fff; box-shadow: none; }
 .wb .wb-btn:disabled { opacity: 0.4; cursor: default; box-shadow: none; }
 
-/* ——— board, brief, results ——— */
-.wb-board { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; max-width: 60rem; margin: 0 auto; }
-.wb-intro { margin: 0; font-size: 0.95rem; line-height: 1.6; color: rgba(235,221,197,0.85); }
-.wb-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
-.wb-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem; background: rgba(235,221,197,0.04); }
-.wb-card-top { display: flex; align-items: center; gap: 0.5rem; }
-.wb-card-ic { width: 1.8rem; height: 1.8rem; color: var(--gold); }
-.wb-card-g { flex: 1; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
-.wb-card-time { font-size: 0.7rem; font-weight: 700; color: rgba(235,221,197,0.6); }
-.wb-card-t { font-weight: 800; font-size: 1rem; }
-.wb-card-d { font-size: 0.8rem; line-height: 1.45; color: rgba(235,221,197,0.7); }
-
+/* ——— brief, result ——— */
 .wb-brief { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.6rem; max-width: 40rem; margin: 0 auto; animation: wb-fade 0.3s; }
 .wb-brief-ic { width: 3.4rem; height: 3.4rem; color: var(--gold); }
 .wb-brief-g { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
@@ -1186,25 +1158,10 @@ $(document).one(':passagedisplay', function () {
 .wb-result-pct { font-size: clamp(2.8rem, 10vh, 4.8rem); font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; animation: wb-pop 0.45s cubic-bezier(.2,1.6,.4,1); }
 .wb-result-g { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; }
 .wb-result-d { margin-top: 0.4rem; font-size: 0.8rem; color: rgba(235,221,197,0.65); }
+.wb-result { cursor: pointer; }
+.wb-result-gain { margin-top: 0.6rem; padding: 0.3rem 0.9rem; border: 1px solid rgba(234,175,76,0.55); border-radius: 999px; background: rgba(234,175,76,0.08); color: var(--gold); font-weight: 800; font-size: 0.85rem; animation: wb-pop 0.5s cubic-bezier(.2,1.6,.4,1); }
+.wb-result-gain.none { border-color: rgba(255,100,121,0.5); background: rgba(255,100,121,0.06); color: var(--red); }
 .g-a { color: var(--ok); } .g-b { color: var(--gold); } .g-c { color: var(--cream); } .g-d { color: #ff9f5a; } .g-f { color: var(--red); }
-
-.wb-summary { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; max-width: 46rem; margin: 0 auto; animation: wb-fade 0.3s; }
-.wb-sum-rows { display: flex; flex-direction: column; gap: 0.7rem; }
-.wb-sum-row { display: flex; align-items: center; gap: 0.9rem; padding: 0.7rem 0.9rem; border: 1px solid rgba(235,221,197,0.14); border-radius: 0.6rem; background: rgba(235,221,197,0.03); }
-.wb-sum-ic { flex: none; width: 1.8rem; height: 1.8rem; color: var(--gold); }
-.wb-sum-main { flex: 1; min-width: 0; }
-.wb-sum-t { font-weight: 800; font-size: 0.9rem; }
-.wb-sum-d { font-size: 0.72rem; color: rgba(235,221,197,0.6); margin: 0.1rem 0 0.4rem; }
-.wb-sum-bar { height: 5px; border-radius: 3px; background: rgba(235,221,197,0.1); overflow: hidden; }
-.wb-sum-bar div { height: 100%; border-radius: 3px; background: currentColor; animation: wb-grow 0.8s ease-out; transform-origin: left; }
-.wb-sum-pct { flex: none; width: 3.4rem; text-align: right; font-weight: 800; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
-.wb-sum-total { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-.wb-sum-score, .wb-sum-gain { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; padding: 0.9rem; border: 1px solid rgba(235,221,197,0.16); border-radius: 0.7rem; background: rgba(235,221,197,0.04); text-align: center; }
-.wb-sum-gain { border-color: rgba(234,175,76,0.55); background: rgba(234,175,76,0.07); }
-.wb-sum-total span { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(235,221,197,0.55); }
-.wb-sum-total b { font-size: 2.2rem; font-weight: 800; line-height: 1.15; animation: wb-pop 0.5s cubic-bezier(.2,1.6,.4,1); }
-.wb-sum-gain b { color: var(--gold); }
-.wb-sum-total em { font-style: normal; font-size: 0.72rem; color: rgba(235,221,197,0.6); }
 
 /* ——— wiring ——— */
 .wb-wire { position: relative; height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(3rem, 1.3fr) minmax(0, 1fr); gap: 0 1rem; align-items: center; touch-action: none; }
@@ -1214,6 +1171,8 @@ $(document).one(':passagedisplay', function () {
 .wb-wire-shadow { fill: none; stroke: rgba(0,0,0,0.55); stroke-width: 8; stroke-linecap: round; }
 .wb-wire-temp { fill: none; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 7 6; opacity: 0.9; }
 .wb-wire-col { min-width: 0; }
+.wb-wire.dense .wb-lead, .wb-wire.dense .wb-pin { margin: 0.2rem 0; padding-top: 0.24rem; padding-bottom: 0.24rem; }
+.wb-wire.dense .wb-sheet-row { padding: 0.1rem 0; }
 .wb-lead { display: flex; align-items: center; justify-content: flex-end; gap: 0.7rem; margin: 0.35rem 0; padding: 0.4rem 0.7rem; border: 1px solid rgba(235,221,197,0.18); border-radius: 0.5rem; background: rgba(235,221,197,0.04); cursor: grab; transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s; }
 .wb-lead:hover, .wb-lead.armed { border-color: var(--c); }
 .wb-lead.armed { box-shadow: 0 0 14px var(--c); }
@@ -1359,7 +1318,6 @@ $(document).one(':passagedisplay', function () {
 @keyframes wb-pulse { 50% { opacity: 0.45; } }
 @keyframes wb-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes wb-pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes wb-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes wb-pen { from { transform: translateY(0); opacity: 1; } to { transform: translateY(1rem); opacity: 0; } }
 @keyframes wb-hit { 20% { transform: translateX(-6px); } 45% { transform: translateX(5px); } 70% { transform: translateX(-3px); } 100% { transform: translateX(0); } }
 @keyframes wb-spark { 0%, 100% { background: transparent; } 20% { background: rgba(255,100,121,0.55); box-shadow: 0 0 22px var(--red); } 50% { background: rgba(255,243,216,0.35); } }
@@ -1371,12 +1329,9 @@ $(document).one(':passagedisplay', function () {
 
 /* ——— small screens ——— */
 @media (max-width: 860px) {
-  .wb-steps { grid-template-columns: minmax(0, 1fr); }
-  .wb-cards { grid-template-columns: minmax(0, 1fr); }
-  .wb-board { justify-content: flex-start; overflow-y: auto; }
+  .wb-steps > .wb-step { flex-basis: 100%; }
   .wb-wire.has-sheet { grid-template-columns: minmax(0, 1fr) 2rem minmax(0, 1fr); }
   .wb-wire.has-sheet .wb-sheet { grid-column: 1 / -1; margin-top: 0.6rem; transform: none; }
-  .wb-sum-total { grid-template-columns: minmax(0, 1fr); }
   .wb-foot { flex-direction: column-reverse; align-items: stretch; }
   .wb-actions { justify-content: flex-end; }
 }

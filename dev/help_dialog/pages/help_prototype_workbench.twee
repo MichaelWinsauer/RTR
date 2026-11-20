@@ -1,11 +1,11 @@
 :: Help Prototype Workbench [nobr] {"position":"300,4750"}
-<p>At the <b>Company</b> office you can get the board out and build on <<= $company.prototype.name>> by hand. A session takes <b><<= setup.workbench.actions>> actions</b> and is made of three jobs: one hardware job, one software job and one test. Which ones you get changes every time.</p>
+<p>At the <b>Company</b> office you can get the board out and build on <<= $company.prototype.name>> by hand. Every session is <b>one job</b> and takes <b><<= setup.workbench.actions>> actions</b>. The jobs come from a queue in random order, so you might get two hardware jobs in a row and then a test. The bar at the top shows the job you're on and what's up next.</p>
 <dl class="help-stats">
 	<dt>Hardware</dt><dd>Wiring leads onto the right controller pins, or soldering joints with just the right amount of heat.</dd>
-	<dt>Software</dt><dd>Finding and fixing a bug in the firmware, or remapping bad memory sectors while the firmware is flashed.</dd>
-	<dt>Testing</dt><dd>Setting switches so a logic board passes its test, or keeping the temperature in range during a stress test.</dd>
+	<dt>Software</dt><dd>Finding and fixing bugs in the firmware, or remapping bad memory sectors while the firmware is flashed.</dd>
+	<dt>Testing</dt><dd>Setting switches so logic boards pass their test, or keeping the temperature in range during a stress test.</dd>
 </dl>
-<p>Every job explains itself before it starts, and its clock only runs once you press <b>Start</b>. Mistakes cost time and lower the job's score. You can leave a job as it is at any time, but whatever is unfinished counts as failed.</p>
-<p>The average score of the three jobs decides the progress: up to <b>+<<= setup.workbench.maxGain>></b> per session, plus <b>+<<= setup.workbench.flawlessBonus>></b> if every job scores <<= Math.round(setup.workbench.flawlessAt * 100)>>% or better. Progress never goes past the current <a href="#" data-help="Help Prototype Progress">limit</a>, and the workbench stays closed while the prototype is at it.</p>
-<p>The further along the prototype is, the more intricate the work gets: more leads and joints, narrower heat windows, trickier bugs and bigger logic boards, from <b><<= setup.workbench.tierAt[0]>></b> and again from <b><<= setup.workbench.tierAt[1]>></b>.</p>
-<div class="help-note">Backing out before the first job starts costs nothing. Once a job has started, the session counts.</div>
+<p>The job explains itself before it starts, and its clock only runs once you press <b>Start</b>. Mistakes cost time and lower the score. You can leave a job as it is at any time, but whatever is unfinished counts as failed. When the job is over, the progress is added and you're back in the office.</p>
+<p>The score decides the progress: up to <b>+<<= setup.workbench.maxGain>></b> per session, plus <b>+<<= setup.workbench.flawlessBonus>></b> for a job at <<= Math.round(setup.workbench.flawlessAt * 100)>>% or better. Progress never goes past the current <a href="#" data-help="Help Prototype Progress">limit</a>, and the workbench stays closed while the prototype is at it.</p>
+<p>The further along the prototype is, the more intricate the work gets: more leads and joints, narrower heat windows, more bugs, bigger logic boards and less warning, from <b><<= setup.workbench.tierAt[0]>></b> and again from <b><<= setup.workbench.tierAt[1]>></b>.</p>
+<div class="help-note">Backing out before you press Start costs nothing, and the job stays at the front of the queue.</div>
