@@ -360,7 +360,7 @@ Each line ends with a `*_end` quest ("End of Content"). Insert new content befor
 | Sidebar | `dev/system/caption/` |
 | Intro, character setup, skip intro | `dev/intro/` |
 | In-game help texts | `dev/help_dialog/pages/` |
-| The author's story plan | `dev/notes_for_me.twee`, `STORY_FEEDBACK.md` |
+| The author's story plan | `dev/notes_for_me.twee`, `STAGE1_PROPOSAL.md`; where Stages 2+ are heading: `LATER_STAGES_VISION.md` |
 
 ---
 
