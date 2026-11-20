@@ -14,11 +14,8 @@ These change what gets built or written, so they come before the scenes that dep
 
 - [ ] **Ethan's equity** (proposal 3.3 and section 10, item 6): a token 2% as a choice at the Profit Party, or always stalled? `$flags.ethanEquity` waits for it.
 - [ ] **How hard the family offers are gated** (3.1): which corruption and exhibition values unlock each offer (gym dinner, rooftop, supplier). Right now the stubs only check that her line has reached the optional quest.
-- [ ] **The Boss line, or a way around it.** Two main/mom beats depend on it:
-  - After Hours (5.10) is always skipped until The Arrangement (7.2) can set `$mom.flags.offeredToBoss`.
-  - The Supplier (4.12) should come after the Boss names him (7.2, The Introduction).
-  Either build the Boss line's Stage 1 setup, or let the supplier come in another way and cut After Hours from Stage 1.
-- [ ] **The Veil at the diner.** The Diner Incident (4.7) assumes a Veil is installed there, which is the Manager line's Debrief (7.3). Same choice: build that quest first, or install it inside the main line.
+- [x] **The Boss line, or a way around it.** *Decided: the Boss line gets built (proposal 7.2, section 5 below). The Arrangement sets the flag for After Hours, and The Introduction comes before The Supplier (proposal 7.5).*
+- [x] **The Veil at the diner.** *Decided: the Manager line's Debrief installs it, before the Diner Incident (proposal 7.3 and 7.5).*
 - [ ] **How the first sale arrives** (4.4): a mail like the gym lead, or a call inside the scene.
 - [ ] **The supplier's pay branch** (4.12): emptying the account, a loan, or a cancelled project? A loan would be a new system.
 - [ ] **The end of Stage 1** (4.13): what else resets at The Morning After (Ethan's project assignments, the vent unit, CCTV, the office), and where Stage 2 starts (`$company.stage`, a title card, a new location).
@@ -126,12 +123,47 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 
 ## 5. Side lines, Stage 1 setup
 
-Not part of this pass, but the main line touches them (proposal section 7). Each one gets its own quest line (`setup.questLines`, a portrait, a `*_end` quest).
+Revised against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md), see proposal section 7. Each line opens its venue for the later stages, introduces the people who'll be there, and climbs to level 2 of the ladder. Nothing sexual with these four until the doorway at the end of Stage 1.
 
-- [ ] **Boss** (7.2): Support Review, The Clip, The Arrangement, After Hours, The Introduction. Needed by After Hours and The Supplier (section 1).
-- [ ] **Manager** (7.3): Three Shifts (the weekly rule with the fine), The Debrief (the Veil at the diner, needed by the Diner Incident), The Incident, The Uniform, The Closing Keys.
-- [ ] **Landlord** (7.1): The Helpers (the CCTV tiers), What He Saw, The Review, The Rival Tenant, The Sale.
-- [ ] **Prof** (7.4): The Face of the Project, The List, The Pilot, The Dean's Visit, The Letter. The Letter is what the lawyer asks for in The Morning After.
+**Setup for each new line** (Boss, Manager, Landlord; the Prof line exists): a `quests` array and a start quest in Define Quests, the key in `setup.questLines`, a `*_end` quest, a portrait at `images/characters/portraits/<key>.jpg`, optionally a ring color. The `quest: 0` fields left over in Define NPCs become the quest id.
+
+**Boss** (7.2, venue: his office tower, floor 6 and upstairs)
+- [ ] Floor Six: Mom back on her old floor, "my former assistant", the coffee. Introduces her old colleagues and the woman at her old desk. Report or POV.
+- [ ] The Support Review: the device doesn't take on him, the pills, the drink. The player starts a file on him.
+- [ ] The Clip
+- [ ] The Arrangement: pay / offer Mom / break him with the Anchor. Sets `$mom.flags.offeredToBoss`. **Then change its default in Define NPCs from `false` to `null`**, so After Hours stops being skipped.
+- [ ] After Hours: this is Mom's 5.10 (`mom_afterHours`), already in her line.
+- [ ] The Introduction: names the supplier. **Add it to the requirements of `main_supplier`.**
+
+**Manager** (7.3, venue: the diner)
+- [ ] Three Shifts: the weekly rule with the fine, a `{{...}}` counter in the requirement text.
+- [ ] The Debrief: the Veil goes into the diner. **Add it to the requirements of `main_dinerIncident`.**
+- [ ] The Regulars: the construction crew, the trucker, the old regular.
+- [ ] Sales Report: "eighteen percent on her days". Waits for `main_dinerIncident`.
+- [ ] The Uniform: seven shifts a week and a cut. The new uniform needs its own media for the diner shift activity.
+- [ ] Cover Shift: Mom takes a shift in the new uniform. Needs a one-off way to put her at the diner (an event, or a one-off task).
+- [ ] The Closing Keys
+
+**Landlord** (7.1, venue: his apartment, card nights, outings)
+- [ ] The Helpers: the CCTV tiers split by person (Mom keeps house, Sister is shown off), a POV passage per tier. Replaces the one-line CCTV clips (TODO.md P4).
+- [ ] What He Saw: his footage, shown like a home video.
+- [ ] Card Night: serving his three buddies. Introduces the loudmouth, the widower (with the warning about Norm) and the ex-military one.
+- [ ] The Review: the rent goes up, or the visits do. Uses `visitedLandlordThisWeek` for the weekly rule.
+- [ ] The Walk: to the pharmacy across the park, on his arm.
+- [ ] The Sale: long, quiet Saturdays. Ends together with the main line.
+- The Rival Tenant is cut.
+
+**Prof** (7.4, venue: the college; the line exists up to The Proposition)
+- [ ] The Face of the Project: also gives her college tutoring task its scenes.
+- [ ] The List: the study group, with the athletes, the STEM club and the outsider.
+- [ ] The Pilot: the Veil in the lecture hall, the second emitter on him.
+- [ ] The Guest Lecture: Mom teaches one seminar, and the students respect her.
+- [ ] The Dean's Visit: the co-signed report, the raw data she wants, "if I ran this place", Fridays. **Add it to the requirements of `main_morningAfter`** (the lawyer needs the report).
+- [ ] The Letter: part of The Morning After (4.13).
+
+**After the side lines exist**
+- [ ] Update [STAGE1_FLOWCHARTS.md](STAGE1_FLOWCHARTS.md): its side-line charts still show the old section 7 (the Rival Tenant, the Incident in the Manager line, no Card Night, Walk, Regulars, Sales Report, Cover Shift, Floor Six or Guest Lecture).
+- [ ] [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md): the Rival Tenant is cut from Stage 1, so key beat 5 of the Landlord and open question 8 need a second look.
 
 ---
 
@@ -146,8 +178,8 @@ Not part of this pass, but the main line touches them (proposal section 7). Each
 
 ## Suggested order
 
-1. Make the decisions in section 1, at least the Boss line and the Veil at the diner.
+1. Make the remaining decisions in section 1.
 2. Build the end-of-day report and the POV passages. Half of the scenes are easier to write once they exist.
-3. Write the scenes phase by phase, building each system right before the first scene that needs it.
-4. Play Stage 1 through once, then tune (section 4).
-5. Add the side lines' setup, starting with the Boss and the Manager.
+3. Set up the three new quest lines (Boss, Manager, Landlord) as stubs, the same way the main, mom and sister lines were done, and add their gates to the main quests (section 5). Two of them gate the main line now.
+4. Write the scenes phase by phase, side lines included (the side-line column of the timeline in proposal section 8), building each system right before the first scene that needs it.
+5. Play Stage 1 through once, then tune (section 4).

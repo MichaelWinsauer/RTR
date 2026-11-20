@@ -520,59 +520,112 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 
 ## 7. The four side lines
 
-Each one gets a line key (`$landlord.quests`, etc.), 4 to 6 quests, and a **currency**: what the player ends up with. Setup in Stage 1. The sexual part begins in Stage 2. In every line the family comes up because the player brings it up, except where noted.
+*Revised 2026-11-20 against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md).*
+
+Each line gets a line key (`$landlord.quests`, etc.), 5 to 7 quests, a **currency** (what the player ends up with) and a **venue** (where Mom and Sister end up in the later stages). The rules for Stage 1 stay the same: it's setup only, nothing sexual happens with these four until the doorway at the end of the stage, and the family comes up because the player brings it up, except for the asks that fit the business (3.1).
+
+What changes is what the setup is for. A line doesn't only build leverage for the player. It does three things:
+1. **Opens the venue**: the place the later stages happen in becomes a place Mom or Sister already goes to.
+2. **Introduces its people**: the supporting cast of the vision appears once, by name, with one detail each, so Stage 2 doesn't have to introduce anyone.
+3. **Climbs to level 2** of the ladder (vision 1.3: Charm, Warm-up, Entertain), so Stage 2 opens at level 3 or 4 instead of at zero.
+
+Each line ends on its **Stage 2 doorway**, in the order from section 9: Boss (upstairs), Landlord (Saturdays), Prof (Fridays), Manager (closing).
 
 ### 7.1 Landlord (`landlord_`)
-**Character:** greasy, gruff, 76. Wants *company*, and he'd rather watch than ask. He also owns the building, which turns out to matter.
+**Character:** greasy, gruff, 76. Lonely and petty, and he'd rather watch than ask. His weakness is vanity: he wants his friends to *see* what he has. He also owns the building, which turns out to matter.
 
+**Venue:** his apartment, his card nights, outings on his arm. Old men and degradation.
 **Currency:** property. In Stage 2 or 3, the player gets the building.
 
-1. **The Helpers.** The placeholder CCTV clips become real, in three tiers. Stage 0: carrying boxes. Stage 1: the *high shelves* (stool, hem). Stage 2: "sit with me while the show's on", tea, a hand on a knee. The ladder is inside the task, so nothing new needs a menu. This is the old deal, so his asks are allowed here. Each tier gets a POV passage behind the CCTV arrow.
-2. **What He Saw.** He has his own cameras in the building. A short scene: he mentions something he shouldn't know (what was said in the meeting room, or what Mom wore). He isn't blackmailing. He's *letting the player know he knows*.
-3. **The Review.** The company has grown and the discount was for a broom-closet company. He raises the rent. The player can pay, or *suggest* the visits go up instead. He also sees the Veil and asks for one for his lobby ("my tenants never complain"). He's the first non-client to own one, and he has no idea what it does.
-4. **The Rival Tenant.** Use the line in your mail: "a nice young lady starting up her own business... she's got incentives". She turns up on the stairs. She's a person, not a joke. She tells the player the landlord changes the terms when he gets bored. A quiet warning, and a seed for a Stage 2/3 character.
-5. **The Sale.** Near the end of Stage 1 he mentions he's thinking about selling the building. The new owner won't honor any deal. The player asks what would change his mind. The landlord grumbles about long, quiet Saturdays, and doesn't say more. The player understands. Stage 2 starts with the player's offer.
-- **Optional red herring:** when the authorities call, the player briefly suspects the landlord.
-- **Code note:** `visitedLandlordThisWeek` is set and never read. Use it for the weekly rule (fine or discount reversal) in quest 3.
+1. **The Helpers.** The placeholder CCTV clips become real, in three tiers inside the task (Stage 0: carrying boxes; Stage 1: the high shelves, stool and hem; later: "sit with me while the show's on"). The tiers split by person, the way the vision does:
+   - **Mom** drifts into keeping house for him: she makes his tea, folds his laundry "since I'm here anyway", tells him off about the state of his fridge. She means it kindly. He enjoys being fussed over far too much.
+   - **Sister** is the one he shows off. When someone drops by, she's introduced as "my helper" and asked to fetch something from a high shelf.
+   This is the old deal, so his asks are allowed here. Each tier gets a POV passage behind the CCTV arrow.
+2. **What He Saw.** He has his own cameras in the building. He doesn't hint, he *shows*: a clip of the helpers on his old laptop, played for the player like a home video he's proud of. He isn't blackmailing. He's sharing. The player realizes the footage exists, and that it's worth something. (In Stage 2 it's a currency of its own.)
+3. **Card Night.** His three buddies come over on Thursday, and he asks for one of the helpers to serve drinks and sandwiches. The men talk about her as if she weren't in the room: who she looks like, what they'd have done at her age. A pat, nothing more. Level 1 to 2. It introduces the cast:
+   - **The loudmouth**: the same three stories, bets big, laughs first.
+   - **The quiet widower**: says nothing, watches everything. On the way out he tells the player, very quietly, that "Norm changes the terms when he gets bored." (This replaces the Rival Tenant's warning.)
+   - **The ex-military one**: barks orders at whoever serves, and tips like it's a salute.
+4. **The Review.** The company has grown, and the discount was for a broom-closet company. He raises the rent. The player can pay, or *suggest* the visits go up instead. He also sees the Veil and asks for one for his lobby ("my tenants never complain"). He's the first non-client to own one, and he has no idea what it does.
+5. **The Walk.** His knee is bad and the pharmacy is across the park. He asks for "an arm to lean on". Mom or Sister walks him there and back, slowly, past the benches where his friends sit. Nothing happens. It's the first public outing, and he's never been prouder.
+6. **The Sale.** Near the end of Stage 1 he mentions he's thinking about selling the building. The new owner won't honor any deal. The player asks what would change his mind. The landlord grumbles about long, quiet Saturdays, and doesn't say more. The player understands.
+- **Stage 2 doorway:** Saturdays. Stage 2 opens with the player's offer for the building.
+- **Cut:** the Rival Tenant. She didn't serve a venue for Mom or Sister. Her warning moved to the widower (quest 3).
+- **Optional red herring:** when the authorities call, the player briefly suspects the landlord (he has cameras, after all).
+- **Code note:** `visitedLandlordThisWeek` is set and never read. Use it for the weekly rule (fine or discount reversal) in quest 4.
 
 ### 7.2 Boss (`boss_`)
-**Character:** arrogant, bullying, 57. The surprise: he's the first person who resists the device, and he's holding the player's own leverage.
+**Character:** arrogant, bullying, 57. The surprise: he's the first person the device doesn't work on, so everything he does, he does on his own. That makes him the cruelest villain in the game, and the only one the player can't steer. He's also holding the player's own leverage.
 
-**Currency:** connections. And the supplier.
+**Venue:** his office tower: floor 6, where Mom used to work and her old colleagues still sit, and "upstairs", his executive floor. Humiliation in an office setting.
+**Currency:** connections, and the supplier. In the later stages: his company.
 
-1. **The Support Review.** Mom reports back weekly (end-of-day report). The Boss shows the unit to his staff as his "secret weapon". The data shows he's the only person who doesn't respond to it. Mom notices a pill organizer on his desk and a drink in the afternoons. (This also feeds the chemistry idea, 4.7.)
-2. **The Clip.** The Boss sends the player a still of the clip from Business Relations: "Thought you'd like to know it's safe with me. For now." The player realizes he sold Mom's clip for $5,000 and the Boss never deleted it. Now it's a leash on the player.
-3. **The Arrangement.** The Boss wants more support hours, on site, at a rate that hurts, and he knows about the clip. He doesn't mention Mom. He doesn't have to.
+1. **Floor Six.** The support project puts Mom back on her old floor as the "on-site consultant". He introduces her to the room as "my former assistant", and has her bring the coffee to a meeting she used to run. It introduces:
+   - **Her old colleagues**: the ones who knew her as a competent manager, and now don't know where to look.
+   - **The woman who has her old desk**: polite, nervous, and the only one who says hello. A witness, nothing more in Stage 1.
+   It's humiliation without sex, level 1. The player hears it in her end-of-day report (3.5), or sees it as a POV passage. Her feelings toward the Boss (3.6) start here.
+2. **The Support Review.** The Boss shows the unit to his staff as his "secret weapon". The data shows he's the only person who doesn't respond to it. Mom notices a pill organizer on his desk and a drink in the afternoons. The player opens a file on him: the pills, the drink, the device that doesn't take. (It feeds the chemistry idea in 4.7, and it's the first piece of the reversal: in the later stages the player takes over his company.)
+3. **The Clip.** The Boss sends the player a still of the clip from Business Relations: "Thought you'd like to know it's safe with me. For now." The player realizes he sold Mom's clip for $5,000 and the Boss never deleted it. Now it's a leash on the player.
+4. **The Arrangement.** The Boss wants more support hours, on site, at a rate that hurts, and he knows about the clip. He doesn't mention Mom. He doesn't have to.
    - **The player's options:**
      - **Pay.** ~$2,500 a week for the extra hours. The clip stays where it is. He still names the supplier later, for a fee.
      - **Offer Mom.** "My consultant can stay after hours on Thursdays. No charge." The Boss smiles. The price: his contacts, a seat at his club, and "a man I know" (the supplier). He deletes the clip in front of the player (maybe).
-     - **Break him.** The Anchor. The Boss becomes his instrument. It costs a spike in the logs (Ethan sees), and the player loses the Boss as an independent resource. He gains a *pet*.
-4. **After Hours.** Only if Mom was offered. Stage 1 ends at the door of his office (5.10). The Boss says "Next time, upstairs." That's the Stage 2 opener.
-5. **The Introduction.** The Boss introduces the supplier, so he pays the player in access (or charges for it, on the Pay path).
+     - **Break him.** The Anchor. The Boss becomes his instrument. It costs a spike in the logs (Ethan sees), and the player loses the Boss as an independent resource. He gains a *pet*, and the takeover comes early.
+5. **After Hours.** Only if Mom was offered. Stage 1 ends at the door of his office (5.10). The Boss says "Next time, upstairs."
+6. **The Introduction.** The Boss introduces the supplier, so he pays the player in access (or charges for it, on the Pay path). Has to come before The Supplier (4.12).
+- **Stage 2 doorway:** upstairs.
+- **Sister stays out of this line in Stage 1.** Whether she ever comes here is still open (vision, section 9).
 
 ### 7.3 Manager (`manager_`)
-**Character:** tired, sarcastic, used to mock the player. He's not a villain. His arc is losing control of his own diner.
+**Character:** tired, sarcastic, used to mock the player. He's not a villain. In Stage 1 he's not leering, he's counting. His arc is losing control of his own diner.
 
-**Currency:** a cut of the diner, and a base (the diner as a field lab and later a hangout).
+**Venue:** the diner. Serving and exhibition: lewder uniforms, and later serving the customers as part of the job.
+**Currency:** a cut of the diner, and a field lab (the first public place where the Veil works on strangers).
 
 1. **Three Shifts.** The weekly rule from your notes, with the fine. The count shows in the quest's requirement text (`{{...}}` counter), no CMD panel.
-2. **The Debrief.** After the analysis project, a meeting at the office. He's read the whole report and argued with every point. The player pitches the Veil for the diner. He says yes grudgingly. First client with a Veil in the field.
-3. **The Incident.** After ten shifts, the aggressive customer (4.7). Sister calms him (nothing sexual), and tells the player in her report. The Manager notices: "Sales go up eighteen percent on her days." He starts to see her as the draw.
-4. **The Uniform.** He proposes a new uniform for "the brand". This is one of the asks that may come from the other side: it's her job, and it isn't demanding. The player negotiates: seven shifts a week, plus a cut. The Manager grumbles but agrees. He is not leering, he's counting. That makes him more uncomfortable later, when he starts to.
-5. **The Closing Keys.** End of Stage 1: he asks for Sister on closing shifts on weekends, and offers the player a share of those nights. A teaser for Stage 2, and the fair warning of what "closing" will mean.
+2. **The Debrief.** After the analysis project, a meeting at the office. He's read the whole report and argued with every point. The player pitches the Veil for the diner. He says yes grudgingly. First client with a Veil in the field. **Has to come before the Diner Incident (4.7)**, which needs the Veil in the diner.
+3. **The Regulars.** A shift told through her report, or a short POV passage. It introduces the people the diner will be about:
+   - **The construction crew**: breakfast, loud, in a group, the same table every day.
+   - **The trucker**: passing through, never the same one twice, always the biggest tip.
+   - **The old regular**: the same booth for twenty years, tips in coins, has known Sister since her first shift. The one she'll later be unable to look at.
+4. **Sales Report.** After the Diner Incident (main line, 4.7), the Manager comes to the office with the numbers. "Sales go up eighteen percent on her days." He starts to see her as the draw, and he's already wondering what makes the difference. (This replaces the old quest 3: the incident itself is in the main line now.)
+5. **The Uniform.** He proposes a new uniform for "the brand". This is one of the asks that may come from the other side: it's her job, and it isn't demanding. The player negotiates: seven shifts a week, plus a cut. The Manager grumbles but agrees. Level 1.
+6. **Cover Shift.** Sister is sick, and the Manager needs someone *today*. Mom covers, in the new uniform, and is mortified for exactly ten minutes before the crew starts tipping. The Manager doesn't stop talking about the numbers for a week. Nothing comes of it in Stage 1. (The seed for "Mom joins later".)
+7. **The Closing Keys.** End of Stage 1: he asks for Sister on closing shifts on weekends, and offers the player a share of those nights. A teaser for Stage 2, and the fair warning of what "closing" will mean.
+- **Stage 2 doorway:** closing.
 - **Humiliation, not sex, in Stage 1:** the player gets small revenge. The Manager mops, takes orders, says "Mr. Consultant". The bitter-funny tone you already have.
+- **Not yet:** the detective from the vision. The investigation only starts at the end of Stage 1, so he's a Stage 2 regular.
 
 ### 7.4 Prof (`prof_`)
-**Character:** irritable, pedantic, 61. Wants the chair, the fund, and what he was promised.
+**Character:** irritable, pedantic, 61. Wants the chair, the fund, and what he was promised. In Stage 1 the chair turns out to be the dean's.
 
+**Venue:** the college. Sister tutoring the student groups, and later Mom as a teacher, once the Prof is dean and reworks the place.
 **Currency:** legitimacy. His pilot study is the legal shield when the investigation arrives.
 
 1. **The Proposition** (done). The Veil in a lecture hall, as a "research project". This is also what starts the Veil in the main line (4.2).
 2. **The Face of the Project.** Sister is told. The player preps her. She asks if the Prof "looks". "A little." She tugs her hem. "Fine, but tights." A short, funny scene that makes the player's Stage 0 promise real. Her college tutoring task finally gets its scenes.
-3. **The List.** On campus, with the students he picked. The study group takes off: "Calculus with Sophie" hits 60 people. The dean notices (a minor character, formidable).
+3. **The List.** On campus, with the students he picked. The study group takes off: "Calculus with Sophie" hits 60 people. Its first members come from the groups the later stages are about, one line each:
+   - **The athletes**: their coach sent them, they sit in the back and call her "teach".
+   - **The STEM club**: they bring their own whiteboard markers and correct each other.
+   - **The outsider**: the one in the last row who never asks anything and never misses a session.
+   The dean notices the numbers (a minor character, formidable).
 4. **The Pilot.** The Veil is installed in the lecture hall at night with Brian. The Prof asks if it works on him. The player says it's calibrated away from the podium and adds a second emitter that is *not*. He's a long-term subject now.
-5. **The Dean's Visit.** The numbers are great. She wants a paper. The Prof is now owed and indebted at once. In private he reminds the player of what he was promised in Stage 0, and what he thinks it should mean now: Sister, alone, after hours on Fridays. The player doesn't answer yet. Stage 2.
-6. **The Letter (in the Morning After).** The lawyer asks for something that proves this is research. The Prof's pilot study and the dean's letter. "I bought a shield with a cheerleader's smile."
+5. **The Guest Lecture.** The dean wants a practitioner for a professional-practice seminar, and the Prof suggests "your company's consultant". Mom gives one guest lecture on running projects. She's good at it, better than she expected, and the students respect her. It's the authority the later stages take away from her, set up once so it can be lost. (The seed for Mom as a teacher.)
+6. **The Dean's Visit.** The numbers are great. The dean co-signs a preliminary report, and then asks for the one thing the player can't show her: the raw data. She'll want it for the paper. From here on she's the obstacle. In private the Prof says what he'd do "if I ran this place", and reminds the player of what he was promised in Stage 0, and what he thinks it should mean now: Sister, alone, after hours on Fridays. The player doesn't answer yet.
+7. **The Letter (in the Morning After).** The lawyer asks for something that proves this is research. The Prof's pilot study and the report the dean co-signed before she started asking questions. "I bought a shield with a cheerleader's smile."
+- **Stage 2 doorway:** Fridays, and the dean in the way. How the Prof gets past her is a Stage 2 question (vision 5.1).
+
+### 7.5 Where the side lines touch the main, mom and sister lines
+
+| Gate | Why |
+|---|---|
+| Manager 2, The Debrief, before main 4.7, The Diner Incident | The incident needs the Veil in the diner. |
+| Main 4.7 before Manager 4, Sales Report | The report is his reaction to it. |
+| Boss 4, The Arrangement, sets the flag for Mom 5.10, After Hours | After Hours only plays if Mom was offered. |
+| Boss 6, The Introduction, before main 4.12, The Supplier | The supplier has to be named first. |
+| Prof 6, The Dean's Visit, before main 4.13, The Morning After | The co-signed report is the shield in The Letter. |
+| Landlord 6, The Sale, and main 4.13 end together | Both are the Stage 2 openers. |
+| Mom's line before Prof 5, The Guest Lecture | She should be past the Crawl (5.6), so the respect she earns there lands in the middle of everything else. |
 
 ---
 
@@ -584,16 +637,16 @@ Each row is a phase. The order is the point: the main line never moves twice in 
 |---|---|---|---|---|
 | 1 | (waits for the Prof's Proposition, exists) | 5.1 Booze night | Coffee rounds (exists) | Manager: three shifts |
 | 2 | 4.2 The Veil | 5.2 Caught | 6.1 The Ask (Darius) | Landlord: The Helpers |
-| 3 | 4.3 Late night | 5.3 Flirt duty | 6.2 Souvenirs | |
+| 3 | 4.3 Late night | 5.3 Flirt duty | 6.2 Souvenirs | Boss: Floor Six |
 | 4 | 4.4 First sale | 5.4 Not enough, 5.5 Silence | 6.3 Office gossip | Manager: Debrief; Prof: Face of the Project |
 | 5 | 4.5a Gym meeting (comedy) | 5.6 The Crawl | 6.4 Send me something | Landlord: What He Saw |
-| 6 | 4.5b Gym dinner (first family option) | 5.7 Gym dinner (if sent) | 6.5 What are we | Prof: The List |
-| 7 | 4.6 Morale (Darius) | | 6.5b Be nice to Brian | Manager: The Incident (4.7) |
-| 8 | 4.8 Anchor | (breather) | (breather, rounds) | Boss: Support Review, The Clip |
+| 6 | 4.5b Gym dinner (first family option) | 5.7 Gym dinner (if sent) | 6.5 What are we | Prof: The List; Manager: The Regulars |
+| 7 | 4.6 Morale (Darius), 4.7 The Diner Incident | | 6.5b Be nice to Brian | Manager: Sales Report (after 4.7) |
+| 8 | 4.8 Anchor | (breather) | (breather, rounds) | Boss: Support Review, The Clip; Landlord: Card Night |
 | 9 | 4.9 Profit party (in the black; Catalyst project starts and finishes) | | | Manager: The Uniform; Landlord: The Review |
-| 10 | 4.10 The Crack | 5.8 Catalyst night, Ethan asks Mom if she's okay | 6.6 Catalyst, first night | Prof: The Pilot |
-| 11 | | 5.9 The Calendar | 6.6b Two Towns Over | Boss: The Arrangement |
-| 12 | 4.11 Retail pitch (second family option) | | 6.6c The Friend, 6.7 The Rooftop (if offered) | Landlord: Rival tenant; Prof: Dean's visit |
+| 10 | 4.10 The Crack | 5.8 Catalyst night, Ethan asks Mom if she's okay | 6.6 Catalyst, first night | Prof: The Pilot; Manager: Cover Shift |
+| 11 | | 5.9 The Calendar | 6.6b Two Towns Over | Boss: The Arrangement; Landlord: The Walk |
+| 12 | 4.11 Retail pitch (second family option) | | 6.6c The Friend, 6.7 The Rooftop (if offered) | Prof: The Guest Lecture (Mom), then The Dean's Visit |
 | 13 | | 5.10 After Hours (if offered) | 6.8 Everything, 6.8b A Knock at Night, Again | Boss: The Introduction; Manager: Closing keys; Landlord: The Sale |
 | 14 | 4.12 The Night Shift (last family option) | 5.11 (if offered) | 6.8c Rehearsal, 6.9 (if offered) | |
 | 15 | 4.13 Morning After | | | Prof: The Letter |
