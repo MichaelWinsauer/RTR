@@ -27,18 +27,20 @@ Numbers in the requirements (days, counts, prices) are starting values to tune, 
 flowchart TD
   S0(["Done: It'll be official<br/>official product project exists"]):::done
 
-  M1["4.1 Crickets<br/>no orders, only Linda from HR bites"]
+  G0[/"Prof The Proposition done<br/>the lecture hall idea"/]:::gate
   M2["4.2 The Veil<br/>team meeting, Veil project starts"]
   M3["4.3 The Late Night<br/>tuning with Ethan, vent off for one night"]
   M4["4.4 First Real Sale<br/>marketing firm, flag pressClient"]
 
-  F1{"The gym dinner:<br/>who goes?"}:::offer
+  M5a["4.5a The Gym Meeting<br/>Darius's old friend, corporate talk<br/>router redesign, he wants a dinner"]
+  F1{"4.5b The Gym Dinner:<br/>who goes?"}:::offer
   G1[/"Mom 5.7 The Gym Dinner<br/>told in her end-of-day report"/]:::gate
-  M5["4.5 The Gym<br/>router redesign, contract signed"]
+  M5(["Gym contract signed"]):::done
   M6["4.6 Morale<br/>staff dress code, Darius pushes back"]
   D1{"Let Darius in?"}:::choice
   G2[/"Manager 7.3 The Incident played<br/>10 diner shifts and a Veil at the diner"/]:::gate
   M7["4.7 Diner Incident aftermath<br/>chemistry matters"]
+  G3[/"Sister 6.5b Be Nice to Brian<br/>Brian is easier to talk to"/]:::gate
   M8["4.8 The Anchor<br/>built with Brian only"]
   M9["4.9 The Profit Party<br/>Catalyst announced, the investor mentioned"]
   D2{"Ethan asks for<br/>his piece"}:::choice
@@ -57,12 +59,13 @@ flowchart TD
   M13["4.13 The Morning After<br/>heist, investigation, lawyer, Dana's press"]
   S2(["Stage 2"]):::done
 
-  S0 -->|"about 1 week"| M1
-  M1 -->|"no orders after a week"| M2
+  S0 --> M2
+  G0 -->|"required"| M2
   M2 -->|"Veil project at 80 percent"| M3
   M3 -->|"Veil project complete<br/>Veil owned"| M4
-  M4 -->|"gym chain wants a dinner"| F1
-  F1 -->|"offer Mom: full contract<br/>needs her ready"| G1
+  M4 -->|"a few days later, Rick's mail<br/>Darius hired, Veil owned"| M5a
+  M5a -->|"dinner scheduled"| F1
+  F1 -->|"send Mom: full contract<br/>needs her ready"| G1
   G1 --> M5
   F1 -->|"go himself: 20 percent discount"| M5
   M5 -->|"1 week of heavier workload"| M6
@@ -70,8 +73,9 @@ flowchart TD
   D1 -->|"half-truth: flag dariusAlly"| M7
   D1 -->|"shut him out: flag dariusSuspicious"| M7
   G2 -->|"required"| M7
-  M7 -->|"enough budget and Brian free"| M8
-  M8 -->|"30 days in the black<br/>company profit"| M9
+  M7 --> M8
+  G3 -->|"required"| M8
+  M8 -->|"company account in the black"| M9
   M9 --> D2
   D2 -->|"give 2 percent: flag equityGiven"| C1
   D2 -->|"stall: flag equityStalled"| C1
@@ -113,7 +117,7 @@ flowchart TD
   A4["5.4 Not Enough<br/>she refuses, he scoffs"]
   A5["5.5 The Silence<br/>a week of cold, no interactions"]
   A6["5.6 The Crawl<br/>Friday at the empty office"]
-  G0[/"Main 4.5 The Gym<br/>player offered Mom for the dinner"/]:::gate
+  G0[/"Main 4.5b The Gym Dinner<br/>player sent Mom"/]:::gate
   A7["5.7 The Gym Dinner<br/>told in her end-of-day report: Was that right?"]
   D1{"What he tells her<br/>before she goes"}:::choice
   A8H{{"Stage 2: Willing"}}:::milestone
@@ -172,43 +176,61 @@ flowchart TD
 flowchart TD
   S0(["Done: Good News?<br/>stage 0 Conflicted, works at the office from noon"]):::done
 
-  B1["6.1 The Ask<br/>Darius asks her out, she asks permission"]
-  D1{"Allow it or block it"}:::choice
+  B1["6.1 The Ask<br/>Darius asks her out, she says no on her own<br/>he is the only one she wants"]
   B2["6.2 Souvenirs<br/>the photos, her first handjob"]
   B2H{{"Stage 1: Yearning"}}:::milestone
   B3["6.3 Office Gossip<br/>comedy, her first end-of-day reports"]
   B4["6.4 Send Me Something<br/>videos at night on his phone, then he walks in"]
   B5["6.5 What Are We<br/>she cannot say the old word anymore"]
+  G4[/"Main 4.7 Diner Incident aftermath<br/>he wants Brian on his side"/]:::gate
+  B5b["6.5b Be Nice to Brian<br/>comedy, task with a POV passage<br/>her first order about someone else"]
+  X2(["Main 4.8 The Anchor"]):::done
   G1[/"Main 4.9 Catalyst project complete"/]:::gate
   B6H{{"Stage 2: Devoted"}}:::milestone
   B6["6.6 The Catalyst, first night<br/>love turned into obligation"]
-  G3[/"Main 4.11<br/>player offered her as hostess"/]:::gate
+  B6b["6.6b Two Towns Over<br/>a real date, a classmate walks in"]
+  D2{"Who answers first?"}:::choice
+  B6c["6.6c The Friend<br/>she turns down the lake weekend<br/>and mutes the group chat"]
+  M11(["Main 4.11<br/>the retail introduction is settled"]):::done
   B7["6.7 The Rooftop<br/>investor evening, the signal across the room"]
-  X1(["Main 4.11 Retail Pitch<br/>free introduction"]):::done
   B8["6.8 Everything<br/>submit or leave, she asks him to pick her clothes: Soon"]
   B8H{{"Stage 3: Mine"}}:::milestone
+  G5[/"Mom 5.9 The Calendar done<br/>Mom comes at night when she likes"/]:::gate
+  B8b["6.8b A Knock at Night, Again<br/>Mom at the door, Sister in his bed"]
+  D3{"Through the door"}:::choice
   M12(["Main 4.12 The Night Shift"]):::done
+  B8c["6.8c Rehearsal<br/>he plays the supplier, device off<br/>Will you be there? Outside."]
   B9["6.9 The Last Night<br/>she is the hostess, the car"]
   M13(["Main 4.13 The Morning After"]):::done
 
-  S0 -->|"5 days<br/>Darius hired, rounds task done 3 times"| B1
-  B1 --> D1
-  D1 -->|"allow: she dates, tells him in her report<br/>flag dariusDate"| B2
-  D1 -->|"block: she is relieved and guilty<br/>flag dariusBlocked"| B2
+  S0 -->|"5 days<br/>rounds task done 3 times"| B1
+  B1 -->|"1 week"| B2
   B2 -->|"7 days, bar full, flag photoTaken"| B2H
   B2H --> B3
   B3 -->|"Internship Overview done 4 times<br/>her stage 1"| B4
   B4 -->|"lust 60 or more<br/>3 gossip reports heard"| B5
-  B5 -->|"2 videos sent"| B6H
+  B5 -->|"2 videos sent"| B5b
+  G4 -->|"required"| B5b
+  B5b -.->|"done about 3 times"| X2
+  B5b --> B6H
   G1 -->|"required"| B6H
   B6H --> B6
-  G3 -->|"exhibition 40 or more"| B7
-  B6 -.->|"if he offers her"| B7
-  B7 -.-> X1
-  B6 -->|"stage 2 bar full<br/>Catalyst charged"| B8
+  B6 -->|"a few days, a weekend evening"| B6b
+  B6b --> D2
+  D2 -->|"boyfriend: she glows<br/>flag datePhoto"| B6c
+  D2 -->|"brother: a quiet ride home<br/>feelings toward him down"| B6c
+  B6c -->|"about 1 week"| M11
+  M11 -.->|"player offered her as hostess<br/>exhibition 40 or more"| B7
+  B7 -->|"the night after"| B8
+  M11 -->|"player paid the broker or waited"| B8
   B8 --> B8H
-  B8H --> M12
-  M12 -->|"player offered them to the supplier"| B9
+  B8H -->|"a few nights later, both at home"| B8b
+  G5 -->|"required"| B8b
+  B8b --> D3
+  D3 -->|"Not tonight: Mom leaves hurt"| M12
+  D3 -->|"Let her in: tea, she almost sits on Sister"| M12
+  M12 -->|"player offered them to the supplier"| B8c
+  B8c -->|"the next evening"| B9
   M12 -->|"player paid"| M13
   B9 --> M13
 
@@ -380,8 +402,9 @@ This chart drops everything inside a line and keeps the links between them. If a
 ```mermaid
 flowchart LR
   subgraph Main
+    m42["4.2 The Veil"]
     m44["4.4 First Sale"]
-    m45["4.5 The Gym"]
+    m45["4.5b The Gym Dinner"]
     m47["4.7 Diner aftermath"]
     m48["4.8 The Anchor"]
     m49["4.9 Profit Party"]
@@ -398,9 +421,12 @@ flowchart LR
   end
   subgraph Sister
     b62["6.2 Souvenirs"]
+    b65b["6.5b Be Nice to Brian"]
     b66["6.6 Catalyst night"]
     b67["6.7 The Rooftop"]
     b68["6.8 Everything"]
+    b68b["6.8b A Knock at Night, Again"]
+    b68c["6.8c Rehearsal"]
     b69["6.9 Last Night"]
   end
   subgraph Boss
@@ -413,6 +439,7 @@ flowchart LR
     g5["7.3.5 Closing Keys"]
   end
   subgraph Prof
+    p0["The Proposition (done)"]
     p1["7.4.1 Face of the Project"]
     p3["7.4.3 The Pilot"]
     p5["7.4.5 The Letter"]
@@ -421,15 +448,21 @@ flowchart LR
     l5["7.1.5 The Sale"]
   end
 
+  p0 -->|"the lecture hall idea"| m42
   m44 --> m45
-  m45 -.->|"offer Mom"| a57
+  m45 -.->|"send Mom"| a57
   g3 --> m47
+  m47 --> b65b
+  b65b --> m48
   b62 -.-> g4
   b62 -.-> p1
   b66 -.-> g5
   m49 -.->|"Catalyst built"| a58
   m49 -.->|"Catalyst built"| b66
   m411 -.->|"offer Sister"| b67
+  b67 -->|"the night after"| b68
+  m411 -->|"introduction settled"| b68
+  a59 -->|"Mom comes at night now"| b68b
   m48 -.->|"Anchor path"| a59
   a59 --> o3
   o3 -.->|"offer Mom"| a510
@@ -440,7 +473,8 @@ flowchart LR
   a59 -.->|"offer needs Mom stage 3"| m412
   b68 -.->|"offer needs Sister stage 3"| m412
   m412 -.->|"offer them"| a511
-  m412 -.->|"offer them"| b69
+  m412 -.->|"offer them"| b68c
+  b68c --> b69
   m412 --> m413
   p3 -.-> p5
   p5 -.-> m413
@@ -462,12 +496,12 @@ flowchart TD
 
   subgraph MAING["MAIN LINE"]
     mS(["Done: It'll be official"]):::done
-    m1["4.1 Crickets"]
     m2["4.2 The Veil<br/>team meeting"]
     m3["4.3 The Late Night<br/>vent off for one night"]
     m4["4.4 First Real Sale<br/>marketing firm"]
-    mF1{"Gym dinner:<br/>who goes?"}:::offer
-    m5["4.5 The Gym"]
+    m5a["4.5a The Gym Meeting<br/>Darius's old friend"]
+    mF1{"4.5b Gym dinner:<br/>who goes?"}:::offer
+    m5(["Gym contract signed"]):::done
     m6["4.6 Morale<br/>Darius pushes back"]
     mD1{"Let Darius in?"}:::choice
     m7["4.7 Diner aftermath<br/>chemistry matters"]
@@ -508,18 +542,24 @@ flowchart TD
 
   subgraph SISG["SISTER"]
     bS(["Done: Good News?"]):::done
-    b1["6.1 The Ask<br/>Darius asks her out"]
-    bD1{"Allow or block"}:::choice
+    b1["6.1 The Ask<br/>she turns Darius down"]
     b2["6.2 Souvenirs<br/>the photos"]
     bH1{{"Stage 1 Yearning"}}:::milestone
     b3["6.3 Office Gossip<br/>first reports"]
     b4["6.4 Send Me Something"]
     b5["6.5 What Are We"]
+    b5b["6.5b Be Nice to Brian"]
     bH2{{"Stage 2 Devoted"}}:::milestone
     b6["6.6 The Catalyst, first night"]
+    b6b["6.6b Two Towns Over<br/>a real date"]
+    bD2{"Boyfriend or<br/>brother"}:::choice
+    b6c["6.6c The Friend<br/>she closes the door"]
     b7["6.7 The Rooftop<br/>the signal"]
     b8["6.8 Everything"]
     bH3{{"Stage 3 Mine"}}:::milestone
+    b8b["6.8b A Knock at Night, Again"]
+    bD3{"Not tonight or<br/>let her in"}:::choice
+    b8c["6.8c Rehearsal"]
     b9["6.9 The Last Night"]
   end
 
@@ -572,12 +612,13 @@ flowchart TD
   NOW --> pS
 
   %% main line
-  mS -->|"about 1 week"| m1
-  m1 -->|"no orders after a week"| m2
+  mS --> m2
+  pS -->|"required: the lecture hall idea"| m2
   m2 -->|"Veil project at 80 percent"| m3
   m3 -->|"Veil owned"| m4
-  m4 --> mF1
-  mF1 -.->|"offer Mom"| a7
+  m4 -->|"a few days, Rick's mail"| m5a
+  m5a -->|"dinner scheduled"| mF1
+  mF1 -.->|"send Mom"| a7
   mF1 -->|"go himself, 20 percent discount"| m5
   a7 --> m5
   m5 -->|"1 week of heavier workload"| m6
@@ -586,8 +627,10 @@ flowchart TD
   mD1 -->|"shut out: dariusSuspicious"| m7
   g3 -->|"required: Incident played"| m7
   o1 -.->|"the pills give the chemistry idea"| m7
-  m7 -->|"budget and Brian free"| m8
-  m8 -->|"30 days in the black"| m9
+  m7 -.->|"he wants Brian on his side"| b5b
+  b5b -->|"required: Brian softened up"| m8
+  m7 --> m8
+  m8 -->|"company account in the black"| m9
   m9 --> mD2
   mD2 -->|"give 2 percent"| mC
   mD2 -->|"stall"| mC
@@ -601,7 +644,8 @@ flowchart TD
   o5 -->|"required: supplier named"| m12
   m12 --> mF3
   mF3 -.->|"offer them, both at stage 3"| a11
-  mF3 -.->|"offer them, both at stage 3"| b9
+  mF3 -.->|"offer them, both at stage 3"| b8c
+  b8c -->|"the next evening"| b9
   mF3 -->|"pay 20,000, account emptied"| mD3
   a11 --> mD3
   b9 --> mD3
@@ -638,18 +682,26 @@ flowchart TD
 
   %% sister
   bS -->|"5 days, Darius hired, rounds done 3 times"| b1
-  b1 --> bD1
-  bD1 -->|"allow: dariusDate"| b2
-  bD1 -->|"block: dariusBlocked"| b2
+  b1 -->|"1 week"| b2
   b2 -->|"7 days, bar full, photoTaken"| bH1
   bH1 --> b3
   b3 -->|"Internship Overview done 4 times"| b4
   b4 -->|"lust 60 or more, 3 gossip reports"| b5
-  b5 -->|"2 videos sent"| bH2
+  b5 -->|"2 videos sent"| b5b
+  b5b --> bH2
   mC -.->|"required: Catalyst owned"| bH2
   bH2 --> b6
-  b6 -->|"stage 2 bar full"| b8
-  b8 --> bH3
+  b6 -->|"a few days, a weekend evening"| b6b
+  b6b --> bD2
+  bD2 -->|"boyfriend: datePhoto"| b6c
+  bD2 -->|"brother: feelings down"| b6c
+  b6c -->|"after the introduction is settled"| b8
+  b7 -->|"the night after"| b8
+  b8 -->|"stage 2 bar full"| bH3
+  bH3 -->|"a few nights later"| b8b
+  aH3 -.->|"Mom comes at night now"| b8b
+  b8b --> bD3
+  bD3 -.->|"either answer"| mF3
   bH3 -.->|"needed for the supplier offer"| mF3
   aH3 -.->|"needed for the supplier offer"| mF3
 

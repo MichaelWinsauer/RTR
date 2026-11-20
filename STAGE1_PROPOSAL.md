@@ -14,6 +14,8 @@ A suggestion for how the rest of Stage 1 could go, for the main, mom and sister 
 - Scenes the player isn't in are shown as a **POV swap** (her point of view) behind the CCTV arrow, or through the **end-of-day report** (3.5).
 - The favor ledger, the diary and the earpiece are dropped. Wardrobe orders move to Stage 2.
 - Resentment became **Feelings**: how she feels about a specific person, anyone, not just the player (3.6).
+- Main line pass: Crickets (4.1) is cut. The Veil starts from the Prof's *Proposition*. The gym is split into a meeting (4.5a, Darius's old friend) and a dinner (4.5b). Sister softens Brian up before the Anchor (6.5b). The profit party only needs positive finances.
+- Sister line pass: The Ask (6.1) is no choice: she turns Darius down on her own. Party Animal stays as it is. Everything (6.8) comes after the Rooftop. New beats: Two Towns Over (6.6b), The Friend (6.6c), A Knock at Night, Again (6.8b), Rehearsal (6.8c).
 
 **Names:** this is a design doc, so I use the default names and role labels (Mom, Sister, Landlord, Boss, Manager, Prof). Client names I invented (Rick, Dana, Whitfield, Calloway and so on) are placeholders. In the game every one of them needs a story variable. Sex is described at plot level only.
 
@@ -46,7 +48,7 @@ Four acts. Act 1 is already in the game.
 | Act | Title | What it's about | Ends with |
 |---|---|---|---|
 | 1 | **Hired Help** | Office, hires, first two clients, the official product | "It'll be official" (done) |
-| 2 | **Hospitality** | The product doesn't sell by itself. The Veil. The first deals with a price on them. | The gym dinner: the first time he can offer Mom instead of paying |
+| 2 | **Hospitality** | The Prof's lecture hall turns into the Veil. The first real sales, and the first deals with a price on them. | The gym dinner: the first time he can offer Mom instead of paying |
 | 3 | **Favors** | The prices go up. Boss, investor, the supplier's name. The first cracks: Darius, Ethan, Mom noticing. | Mom finds out the device does more than relax her, and decides she doesn't care |
 | 4 | **The Price** | Everything is cashed in at once. | One night: the supplier, and the heist |
 
@@ -80,7 +82,7 @@ Four acts. Act 1 is already in the game.
 
 | Deal | Act | Plain price | Family option | What it gets him |
 |---|---|---|---|---|
-| Gym dinner (Rick) | 2 | He goes himself and gives a 20% discount. Affordable. | Mom comes along "as the consultant" (level 2) | The full contract |
+| Gym dinner (Rick, Darius's old friend) | 2 | He goes himself and gives a 20% discount. Affordable. | Mom comes along "as the consultant" (level 2) | The full contract |
 | Investor (Whitfield) | 3 | A broker's fee (~$15,000) or a two-week delay on the retail pitch | Sister hosts the rooftop evening (level 1 to 2) | The retail chain introduction, free |
 | Boss: The Arrangement | 3 | Weekly support hours at his rate (~$2,500 a week), and he keeps the clip | Mom on Thursdays, after hours (level 2) | Contacts, the supplier's name, maybe the clip |
 | Supplier (Calloway) | 4 | $20,000 cash up front. By design it's more than the account holds at that point. | Mom and Sister at the club (level 3, doorway only) | The compounds, and his access |
@@ -165,7 +167,7 @@ Not every scene should be "the player talks to her in a room". Formats to mix:
 | **Public risk** | A scene where someone could see | Gym, rooftop, elevator, the office with the staff in |
 | **Comedy** | A real joke scene, no sex, to break the rhythm | Mom learning to flirt, Sister's office gossip |
 | **Reversal** | The player is read, refused or beaten | Darius, Ethan, the Boss, Mom at the Calendar |
-| **The ask** | An NPC asks *her* something, and she asks the player for permission | Darius asking Sister out |
+| **The ask** | An NPC asks *her* something, and her answer shows where she is | Darius asking Sister out, Jess's invitation |
 | **The silence** | No dialogue, only what he notices | The last car ride |
 
 **A rule of thumb for the next batch:** after any two scenes of the same format, the third has to be different.
@@ -220,18 +222,15 @@ How she feels about a specific person, anyone with a story variable, including t
 
 Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the gym, morale, Anchor, party, Catalyst, Ethan, pitch, deal, heist). I merge a few and add friction. All ids and titles are suggestions.
 
-### 4.1 Crickets
-*The official product goes online. Nothing happens.*
-- A week of montage via the mail panel and the dashboard: zero orders. A spam mail, a mail from the guy who sent only a photo of his car (callback), and one from Linda from HR (Mom's contact), who wants *one* unit for her department.
-- Darius: "They love the demo. They don't trust the price. Or the box."
-- The obstacle: nobody buys a calming box for an office they've never sat in. They need to feel it in a *room*. This is why the Veil is needed.
-- Mode: **Comedy**, then a short **Reversal** (the player's plan didn't work).
+### 4.1 (removed for now)
+*Crickets, the week where the official product sells nothing, is cut. The numbering stays so the references don't shift.*
 
 ### 4.2 The Veil
 *Team meeting. The room-wide version.*
-- He pitches it. Brian: antennas and an "array". Ethan: loves it. Darius: wants distance-vs-effect data and asks for the raw logs. The player refuses and gives him cleaned numbers. Darius writes it down.
-- Opens the in-house project for `valenxVeil`.
-- This replaces the "make it look like a router" scene. Do the router redesign once, with the gym (4.5).
+- **Gate:** the Prof's *The Proposition* (`prof_researchProject`) is done. That's where the idea comes from: the player pitched the Prof a version for a whole lecture hall, "two hundred students instead of five people and a coffee machine", and promised him it would take months. Now he has to build it.
+- He brings it to the team as the company's next step: one unit for a whole room, and the hall at the college as the first site. Brian: antennas and an "array". Ethan: loves it. Darius: wants distance-vs-effect data and asks for the raw logs. The player refuses and gives him cleaned numbers. Darius writes it down.
+- Opens the in-house project for `valenxVeil`. When it's done it feeds both the Prof's pilot (7.4) and the main line.
+- The router look comes later, with the gym (4.5a).
 
 ### 4.3 The Late Night
 *Ethan and the player finalize the field strength. Three hours.*
@@ -246,13 +245,20 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 - Text to Ethan ("We did it. Drinks on me"), the bar, a good night. Ethan says "Don't tell me what the dial does, boss. I like not knowing." He doesn't mean it.
 - **Plant:** Dana's firm is a PR/marketing company. Later they handle Ethan's launch press (4.13). Keep a flag, `pressClient`.
 
-### 4.5 The Gym
-*The gym chain wants the device and a dinner with "the company" before they sign.*
-- The player and Ethan redo the Veil to look like an expensive router. They argue about colors like old friends.
-- The owner (Rick, placeholder) wants to haggle over dinner. He's met Mom once at the office and keeps mentioning "your consultant", but he doesn't ask.
+### 4.5a The Gym Meeting
+*A lead from Darius.*
+- Darius told an old friend from his sports-franchise days about the new job. The friend (Rick, placeholder) now runs a regional gym chain, and he's interested. A mail arrives asking for a meeting and an offer.
+- The meeting at the office is corporate talk from start to finish: "member journey", "wellness touchpoints", "holistic retention". The player answers in the same language, Darius translates the numbers, and nobody says what the device actually does. A **Comedy** with a straight face.
+- Rick's one hard condition: nothing in his gyms can look like a gadget. That's the router redesign. The player and Ethan spend an afternoon turning the Veil into something that looks like an expensive router, and argue about colors like old friends. (A short beat between the two scenes, or the lead-in of 4.5b.)
+- At the end Rick says he likes the product, but he wants to know the people behind the company before he signs. He wants to schedule a dinner.
+- **Gate:** the Veil is owned, Darius is hired, a few days after the first sale (4.4).
+
+### 4.5b The Gym Dinner
+*Rick wants to get to know the company over dinner, and haggle.*
 - **The first family option** (3.1):
   - **Go himself.** A stiff dinner, Rick haggles, the player gives a 20% discount. Fine, and a little humiliating.
-  - **Offer Mom.** "My consultant will join you." Plays Mom's 5.7. Full contract.
+  - **Send Mom.** "My consultant will take you to dinner. She knows the company better than I do." Plays Mom's 5.7. Full contract.
+- Rick has met Mom once at the office (4.5a) and liked her, but he doesn't ask for her. It's the player's idea.
 - Either way the contract is signed and the company stops being fragile. Gate for the offer: Mom's corruption and exhibition, or the option shows as locked.
 
 ### 4.6 Morale
@@ -261,7 +267,7 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 - **Darius pushes back.** Not morally, analytically: "Productivity peaks twenty minutes after your mother walks through the room. I'd like to know why." He's the first to connect the dots. The player can bring him in with a half-truth ("it's a nudge, it's the Veil, it's in the brochure") or shut him out.
   - **Brought in:** Darius becomes an ally and gets a stake. Stage 2 ally.
   - **Shut out:** he stays suspicious, and the later log pull looks guilty (4.10).
-- Also here: **Sister and Darius** (6.1).
+- Since Sister turned him down (6.1), Darius watches the family a little more closely than before. That's part of why he notices.
 
 ### 4.7 The Diner Incident
 *The Veil's first accident* (from the diner line, 7.3).
@@ -270,12 +276,14 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 
 ### 4.8 The Anchor
 *He wants a tool for hard negotiations.*
-- He builds it with Brian only. Ethan notices the part orders and says nothing.
+- **Gate:** Sister's *Be Nice to Brian* (6.5b). He needs Brian to build something without asking what it's for, and Brian is easier to talk to after a week of her attention.
+- He builds it with Brian only. Brian is flustered, eager, and doesn't ask a single question. Ethan notices the part orders and says nothing.
 - First use: Mom at the Calendar (5.9). A second optional use: the Boss (7.2).
 - He feels the power. He texts Ethan and hints at what the device can *really* do. Ethan's reply is a joke. He's already seen the spikes.
 
 ### 4.9 The Profit Party
-*First month in the black.*
+*The company is in the black.*
+- **Gate:** positive finances (the company account above 0). No time requirement.
 - Pizza and drinks. Announces Catalyst (the V2 plan).
 - Drunk Ethan gives the "best boss I've ever had" speech and jokes about "my piece" (the equity choice, 3.3).
 - The investor (Whitfield) is mentioned for the first time: someone Dana knows, who could open the door to a national retail chain.
@@ -360,7 +368,7 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 - Unlocks: the morning routine, and the first time at home she's ordered around.
 - **Add:** next morning, she thanks him for letting her "make it up". This is the first time she says the word *thank* about it.
 
-### 5.7 The Gym Dinner (only if he offers her, 4.5)
+### 5.7 The Gym Dinner (only if he sends her, 4.5b)
 - Before she goes, he tells her how far to let it go. That's the choice:
   - **"Let him."** Rick's hand stays on her knee. Bigger goodwill, higher Resistance, her feelings toward the player drop a little.
   - **"Keep it light."** Same contract, she's at ease, Rick is a little disappointed.
@@ -410,16 +418,14 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 | 3 | Mine | The submission (6.8) |
 
 ### 6.1 The Ask (a Darius scene)
-- Darius asks Sister to coffee. She tells the player the same evening, in his hoodie, in the office, because she tells him everything.
-- She asks: "Do you want me to?" She means *is it okay with you*. She's handed him control of her love life and doesn't notice.
-- **The choice:**
-  - **Allow it.** She goes. She tells him about it in the end-of-day report, and he gets to listen and doesn't like how much. Darius is now nearer to the family, which is dangerous.
-  - **Block it** (gently, with the device or without). She's relieved and guilty. Darius notices she's different around him.
-- Either way the scene shows how far she's gone without any sex. Her feelings toward Darius are set here.
+- Darius asks her to coffee. Properly, the way he does everything: a time, a place, no pressure, a smile that's done this before.
+- He's exactly her type, and that's the problem. Tall, sharp, the shirts, the cologne she makes fun of. A few months ago she'd have said yes before he finished. Now she says no, nicely, and is surprised how easy it was.
+- That evening she tells the player, in his hoodie, in the office, because she tells him everything. She tries to make it a joke ("I turned down a man in a tailored shirt, I should get a medal"). Then, quieter, not looking at him: he's the only one she's interested in.
+- No choice for the player. The point is that he didn't have to do anything. He just listens, and lets it sit.
+- Her feelings toward Darius are set here (fond, a little guilty). Darius notices she's different around him and doesn't push. He's too polite to, and too sharp not to wonder why.
 
 ### 6.2 Souvenirs (milestone, stage 1: Yearning)
 - A week after the previous beat he shows her the photos from the night she doesn't remember.
-- **Note on Party Animal:** this works with whatever that scene ends up being (TODO P3 says you want to rewrite it). The beat only needs: she has a gap in her memory and he has proof.
 - He doesn't threaten her. He says they're "special memories".
 - She feels sick, and touched that he *kept* them. Then: "Can I... can I touch you? Like that night?" It's her first milestone and her first handjob in the game.
 - Her question afterwards: "Can I do this more often?"
@@ -441,10 +447,37 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 - He tells her that love between them can be beautiful if they both want it. She's relieved and terrified, as in your notes.
 - **Small detail:** she stops calling him by the sibling word in private (`$sister.callPlayerShort` stops appearing in intimate scenes).
 
+### 6.5b Be Nice to Brian (a Comedy, and her first order about someone else)
+*Before the Anchor (4.8): he needs Brian to build something without asking what it's for.*
+- He asks her to be extra friendly to Brian for a while. Dress nicely when she does her rounds, stay at his desk a little longer, give him a shoulder massage when he's hunched over a board.
+- Her reaction: "Brian? *Hardware* Brian?" Then a small, hurt pause, because he's asking her to be nice to another man. Then she does it, because he asked.
+- A short task (about three times in a week) with a CCTV clip and a POV passage behind the arrow (3.5): her side of it. Brian goes red, walks into his own chair, explains capacitors to her for ten minutes because he doesn't know what else to say.
+- Her end-of-day report: "He showed me his soldering iron collection. I think where he's from, that's a proposal."
+- **What it does:** it's the first time she's used on someone else on the player's orders. Level 1, inside the company, nothing at stake for her. It's the gentle version of what the family options become later. It sets her feelings toward Brian (fond, a bit sorry for him) and raises her exhibition a little.
+- **Gate:** her stage 1 (Yearning), Main 4.7 done.
+
 ### 6.6 The Catalyst, first night (milestone, stage 2: Devoted)
 - Evening, the office, nobody around. He talks about the stress of the project. She offers a handjob "right here, in the open".
 - The Catalyst: he tells her that to love means to give everything, and her love crosses a line. He asks for the proof. First blowjob. He has her say "I love you" while she does it.
 - This is about her *love* being turned into obligation.
+
+### 6.6b Two Towns Over (Public risk, then a small choice)
+*She wants one evening where they're allowed to be what they are.*
+- A few days after 6.6 she asks for a real date. Not the office, not the house. Somewhere nobody knows them. He picks an Italian place two towns over, the kind with candles in wine bottles.
+- For an hour it works. The waiter calls her "your girlfriend" and she nearly knocks over her glass. She orders for both of them and gets it wrong on purpose so she can steal from his plate. No device, no dial. It's the lightest scene she's had with him, and it should feel like it.
+- Then a girl from her statistics class walks in with her boyfriend and spots her. Panic. "Oh my god, hi! Who's this?"
+- **The choice** (who answers first):
+  - **"Her boyfriend."** He says it before she can. She glows all the way home. The classmate posts a photo of the four of them that night. Flag `datePhoto`.
+  - **"Her brother."** Flat, friendly, true. She laughs along at the table and doesn't say a word in the car. Her feelings toward him take a small hit. He decides when they're allowed to be a couple, and she just learned that.
+- Either way it answers "what are we" without anyone saying it.
+
+### 6.6c The Friend (Report, then Silence)
+*Her world gets smaller, and she's the one who closes the door.*
+- Her best friend from college (a one-off extra, placeholder Jess) has been trying to reach her for weeks. Unanswered texts, a missed birthday. Now an invitation: a long weekend at the lake with the old group, like every year.
+- If `datePhoto` is set, Jess saw the photo. "Who's the guy? He looks weirdly familiar."
+- The player doesn't see any of it. He hears it in her end-of-day report. She already said no. "I told her I'm busy. I'm always busy now. She said I talk about you like..." She trails off and doesn't finish it.
+- Then she mutes the group chat in front of him, without being asked, and puts the phone face down on his desk.
+- No sex, no device. The scene is what she gives up for him, and that he lets her. It also gives Ethan the thing he notices (3.3): she has no friends of her own anymore.
 
 ### 6.7 The Rooftop (only if he offers her as hostess, 4.11)
 *The investor evening. Entertain, Public risk.*
@@ -455,13 +488,32 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 - Gets the introduction to the retail chain for free (4.11).
 
 ### 6.8 Everything (milestone, stage 3: Mine)
+- **Order:** after 6.6c, and after the retail introduction is settled (4.11). If he offered her, 6.7 comes first and this is the night after the rooftop, which gives the scene its opening: she did what he asked in front of a room full of strangers, and now she wants to know what she is to him. If he paid the broker instead, 6.7 never happened and this follows 6.6c.
 - Evening, the office, the Catalyst on. He tells her he might feel something like love too. But his love belongs to the company. He gives her a choice: submit completely, here, now, or leave.
 - She's unsure, and gives in. Her manipulation is already too deep for her to do anything else.
 - **Afterwards:** she hands over her phone, her passwords and her location. She asks him to choose her clothes each morning. He says "Soon." (The Stage 2 hook for wardrobe orders.)
 - Her first full sex scene.
 
+### 6.8b A Knock at Night, Again (Public risk at home, a Comedy with teeth)
+*A callback to Mom's "A Knock at Night", from the other side of the door.*
+- A few nights after 6.8, Sister sleeps in his bed now, more nights than not. Late, a soft knock. Mom's voice: "Honey? Are you awake?" Since the Calendar (5.9) Mom comes when she feels like it, and tonight she does.
+- Sister freezes under the blanket. Neither woman knows about the other.
+- **The choice:**
+  - **"Not tonight."** Through the door. Mom says "Okay, sweetheart" in the voice she uses when it isn't okay, and goes. Sister whispers: "What did she want this late?" He says she worries. Sister believes him, and is a little jealous of a mother who worries that much. Mom's feelings toward him dip for a day.
+  - **Let her in.** Sister rolls against the wall under the blanket. Mom brings tea, sits on the edge of the bed, talks about nothing, strokes his hair, almost sits on Sister's foot. She leaves without anything happening. After the door closes, Sister lets out her breath: "She *sat* on me." And then, slower: "Does she always come in like that?"
+- Nobody finds out. But both of them came very close, and the player enjoyed every second. It makes the car in 6.9 land harder.
+- **Gate:** Mom's 5.9 done (stage 3), a few nights after 6.8, both at home.
+
+### 6.8c Rehearsal (only if he offers them to the supplier, 4.12)
+*The evening before the last night. Role play, device off.*
+- He rehearses the evening with her in the meeting room. He plays the supplier. Where to sit, how to laugh, when to let a hand stay, how to say no so it sounds like "later".
+- He doesn't turn the Catalyst on, and she doesn't ask him to (3.2: the device is scaffolding now).
+- Halfway through she understands what she's being prepared for. She stops, and asks the question that used to be in 6.9: "Will you be there?" He says "Outside." She thinks about it, and says: "Then I can do it."
+- They run it once more from the top. She's good. That's the worst part, and the player knows it.
+- This is the mirror of 6.7: there she waited for his signal. Here she learns to do it without one.
+
 ### 6.9 The Last Night (only if he offers them to the supplier, 4.12)
-- She's the hostess, as at the rooftop. Her voice is quiet and she's very calm. She asks "Will you be there?" He says "Outside."
+- She's the hostess, as at the rooftop and as rehearsed. Her voice is quiet and she's very calm.
 - In the car, she sees Mom. Both of them stop. They know. Mom takes her hand. Neither says a word. The player watches in the rearview mirror. (Or this is where Stage 2 opens. Your call, see section 10.)
 
 ---
@@ -515,7 +567,7 @@ Each one gets a line key (`$landlord.quests`, etc.), 4 to 6 quests, and a **curr
 
 **Currency:** legitimacy. His pilot study is the legal shield when the investigation arrives.
 
-1. **The Proposition** (done). The Veil in a lecture hall, as a "research project".
+1. **The Proposition** (done). The Veil in a lecture hall, as a "research project". This is also what starts the Veil in the main line (4.2).
 2. **The Face of the Project.** Sister is told. The player preps her. She asks if the Prof "looks". "A little." She tugs her hem. "Fine, but tights." A short, funny scene that makes the player's Stage 0 promise real. Her college tutoring task finally gets its scenes.
 3. **The List.** On campus, with the students he picked. The study group takes off: "Calculus with Sophie" hits 60 people. The dean notices (a minor character, formidable).
 4. **The Pilot.** The Veil is installed in the lecture hall at night with Brian. The Prof asks if it works on him. The player says it's calibrated away from the podium and adds a second emitter that is *not*. He's a long-term subject now.
@@ -530,19 +582,21 @@ Each row is a phase. The order is the point: the main line never moves twice in 
 
 | # | Main | Mom | Sister | Side lines |
 |---|---|---|---|---|
-| 1 | 4.1 Crickets | 5.1 Booze night | Coffee rounds (exists) | Manager: three shifts |
+| 1 | (waits for the Prof's Proposition, exists) | 5.1 Booze night | Coffee rounds (exists) | Manager: three shifts |
 | 2 | 4.2 The Veil | 5.2 Caught | 6.1 The Ask (Darius) | Landlord: The Helpers |
 | 3 | 4.3 Late night | 5.3 Flirt duty | 6.2 Souvenirs | |
 | 4 | 4.4 First sale | 5.4 Not enough, 5.5 Silence | 6.3 Office gossip | Manager: Debrief; Prof: Face of the Project |
-| 5 | | 5.6 The Crawl | 6.4 Send me something | Landlord: What He Saw |
-| 6 | 4.5 The Gym (first family option) | 5.7 Gym dinner (if offered) | 6.5 What are we | Prof: The List |
-| 7 | 4.6 Morale (Darius) | | | Manager: The Incident (4.7) |
+| 5 | 4.5a Gym meeting (comedy) | 5.6 The Crawl | 6.4 Send me something | Landlord: What He Saw |
+| 6 | 4.5b Gym dinner (first family option) | 5.7 Gym dinner (if sent) | 6.5 What are we | Prof: The List |
+| 7 | 4.6 Morale (Darius) | | 6.5b Be nice to Brian | Manager: The Incident (4.7) |
 | 8 | 4.8 Anchor | (breather) | (breather, rounds) | Boss: Support Review, The Clip |
-| 9 | 4.9 Profit party (Catalyst project starts and finishes) | | | Manager: The Uniform; Landlord: The Review |
-| 10 | 4.10 The Crack | 5.8 Catalyst night, Ethan asks Mom if she's okay | 6.6 Catalyst, first night | Prof: The Pilot; Boss: The Arrangement |
-| 11 | 4.11 Retail pitch (second family option) | 5.9 The Calendar | 6.7 The Rooftop (if offered), 6.8 Everything | Landlord: Rival tenant; Prof: Dean's visit |
-| 12 | 4.12 The Night Shift (last family option) | 5.10-5.11 (if offered) | 6.9 (if offered) | Boss: After Hours; Manager: Closing keys; Landlord: The Sale |
-| 13 | 4.13 Morning After | | | Prof: The Letter |
+| 9 | 4.9 Profit party (in the black; Catalyst project starts and finishes) | | | Manager: The Uniform; Landlord: The Review |
+| 10 | 4.10 The Crack | 5.8 Catalyst night, Ethan asks Mom if she's okay | 6.6 Catalyst, first night | Prof: The Pilot |
+| 11 | | 5.9 The Calendar | 6.6b Two Towns Over | Boss: The Arrangement |
+| 12 | 4.11 Retail pitch (second family option) | | 6.6c The Friend, 6.7 The Rooftop (if offered) | Landlord: Rival tenant; Prof: Dean's visit |
+| 13 | | 5.10 After Hours (if offered) | 6.8 Everything, 6.8b A Knock at Night, Again | Boss: The Introduction; Manager: Closing keys; Landlord: The Sale |
+| 14 | 4.12 The Night Shift (last family option) | 5.11 (if offered) | 6.8c Rehearsal, 6.9 (if offered) | |
+| 15 | 4.13 Morning After | | | Prof: The Letter |
 
 ---
 
@@ -578,8 +632,7 @@ Each row is a phase. The order is the point: the main line never moves twice in 
 4. **The supplier and "compounds".** I kept your idea of a shady contact, but gave it a reason (the Boss's pills, the diner incident). If you'd rather avoid drugs, swap the supplier for the owner of a private club who pays in cash and access. The structure doesn't change.
 5. **The Anchor.** Two uses, keeps the name change. Fine, or do you want it cut?
 6. **Ethan's equity.** A token 2% as a player choice, or always stalled?
-7. **Party Animal.** The photos beat (6.2) works with either version. But it should be decided before 6.2 is written.
-8. **Two Catalyst nights.** Mom's 5.8 and Sister's 6.6 have the same shape (device on, a framing, a bigger act) and sit in the same phase. Worth changing one of them, for example Mom's comes out of the gym dinner report instead of a separate night.
+7. **Two Catalyst nights.** Mom's 5.8 and Sister's 6.6 have the same shape (device on, a framing, a bigger act) and sit in the same phase. Worth changing one of them, for example Mom's comes out of the gym dinner report instead of a separate night.
 
 **Resolved (2026-11-20):**
 - Third-party use is the player's idea in Stage 1, never strictly required, increasingly hard to avoid (3.1).
