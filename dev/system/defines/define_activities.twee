@@ -149,6 +149,7 @@
                 "getting_dressed_0.mp4",
                 "getting_dressed_1.mp4",
                 "getting_dressed_2.mp4",
+                "getting_dressed_3.mp4",
             ],
             cctv: [
 
@@ -230,7 +231,20 @@
                 setup.getLocationBySysName("landlordapartment"),
             ],
             media: [
-
+                "landlord_clean_0.mp4",
+                "landlord_clean_1.mp4",
+                "landlord_clean_2.mp4",
+                "landlord_clean_3.mp4",
+                "landlord_clean_4.mp4",
+                "landlord_clean_5.mp4",
+                "landlord_bring_gifts_0.mp4",
+                "landlord_talk_0.mp4",
+                "landlord_talk_1.mp4",
+                "landlord_talk_2.mp4",
+                "landlord_talk_3.mp4",
+                "landlord_read_0.mp4",
+                "landlord_read_1.mp4",
+                "landlord_read_2.mp4",
             ],
             cctv: [
 
@@ -368,13 +382,7 @@
                 setup.getLocationBySysName("sisterroom"),
             ],
             media: [ 
-                "sleeping_0.jpg", 
-                "sleeping_1.jpg", 
-                "sleeping_2.jpg", 
-                "sleeping_3.jpg", 
-                "sleeping_4.jpg", 
-                "sleeping_5.jpg", 
-                "sleeping_6.jpg" 
+                "sleeping_0.mp4",
             ],
             cctv: [
 
@@ -596,7 +604,31 @@
             locations: [
                 setup.getLocationBySysName("landlordapartment"),
             ],
-            media: [],
+            media: [
+                "landlord_read_0.mp4",
+                "landlord_read_1.mp4",
+                "landlord_read_2.mp4",
+                "landlord_clean_0.mp4",
+                "landlord_clean_1.mp4",
+                "landlord_clean_2.mp4",
+                "landlord_clean_3.mp4",
+                "landlord_clean_4.mp4",
+                "landlord_clean_5.mp4",
+                "landlord_dishes_0.mp4",
+                "landlord_dishes_1.mp4",
+                "landlord_flowers_0.mp4",
+                "landlord_flowers_1.mp4",
+                "landlord_food_0.mp4",
+                "landlord_food_1.mp4",
+                "landlord_food_2.mp4",
+                "landlord_help_kitchen_0.mp4",
+                "landlord_help_kitchen_1.mp4",
+                "landlord_help_kitchen_2.mp4",
+                "landlord_playing_cards_0.mp4",
+                "landlord_talk_0.mp4",
+                "landlord_talk_1.mp4",
+                "landlord_talk_2.mp4",
+            ],
             cctv: [],
         },
     },
