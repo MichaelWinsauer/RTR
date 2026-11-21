@@ -1,8 +1,140 @@
 :: Knock At Night Again [event sister_quest] {"position":"5025,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "A Knock at Night, Again" (sister_knockAgain), STAGE1_PROPOSAL.md 6.8b.
-   She is in my bed when $mom.callName knocks. STAGE1-STUB: the choice (not tonight / let her in) only colors feelings, not in the stub. */
+/* Quest "A Knock at Night, Again" (sister_knockAgain), STAGE1_PROPOSAL.md 6.8b. Public risk at home, a comedy with teeth, and a
+   callback to mom's A Knock at Night from the other side of the door. A few nights after Everything, $sister.callName sleeps in
+   my bed most nights. Late, the old knock: two taps and a third. Since The Calendar $mom.callName comes when she feels like it.
+   $sister.callName freezes under the blanket. Neither of them knows about the other.
+   The choice only colors feelings:
+     "Not tonight"   through the door. $mom.callName says okay in the voice that means it isn't (a mood dip toward me).
+                     $sister.callName asks what she wanted; I say she worries, and she's a little jealous of that
+     "Let her in"    $sister.callName rolls against the wall under the blanket. $mom.callName brings tea, sits on the edge of
+                     the bed, talks about nothing, strokes my hair and nearly sits on her foot. Nothing happens.
+                     "She sat on me." Then: "Does she always come in like that?"
+   Nobody finds out, and both of them came very close. */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (A Knock at Night, Again, STAGE1_PROPOSAL.md 6.8b).
+It's after one. $sister.callName is asleep against my side with her cheek on my shoulder and one leg thrown over mine, breathing slow and warm into my neck. She's in one of my T-shirts. She stopped bringing her own pajamas over a week ago, and her toothbrush has been in my bathroom glass since Tuesday.
 
+The house is completely quiet. Then:
+
+Two soft taps on my door. A pause. A third.
+
+<<silently>>
+<<set _msgs = [
+{ text: "$sister.callName's eyes snap open an inch from mine. Every muscle in her body goes rigid at once." },
+{ who: $mom, text: "Honey? Are you awake?" },
+{ text: "Through the door, very quiet, in the voice she uses after midnight." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName stares at me. She doesn't breathe. Then, in one movement, she yanks the blanket up over her head and curls into a ball against the wall, as small as a person can get, and goes perfectly still.
+
+The door isn't locked. It's never locked. $mom.callName has never needed it to be.
+
+<<linkreplace "Answer the door">>
+<div id="kna-choice">
+<div>
+<<link "Not tonight">><<replace "#kna-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Not tonight, $mom.callName. I'm really tired." },
+{ text: "A pause on the other side of the door. A long one." },
+{ who: $mom, text: "Okay, sweetheart." },
+{ text: "It's the voice she uses when it isn't okay. The one from when I said I'd skip her birthday dinner for a hackathon, years ago. Then her slippers on the hallway floor, slowly, and her door, closing very quietly." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For a whole minute neither of us moves. Then the lump under the blanket unfolds, and $sister.callName's face appears at the top edge of it, pale and wide-eyed.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh my God. Oh my God. I think my heart actually stopped. Is that medically possible? I think I died for a second." },
+{ who: $player, text: "You're fine." },
+{ who: $sister, text: "What did she want? This late?" },
+{ who: $player, text: "She worries. She can't sleep sometimes, and she checks on me. She's done it since I was a kid." },
+{ text: "$sister.callName thinks about that. Then she settles back down against my shoulder, slowly, with her heart still going like a rabbit's against my arm." },
+{ who: $sister, text: "She never checks on me. Not like that. Lucky." },
+{ text: "She says it as a joke. There's a little bit of jealousy in it that she doesn't hear, of a $mom.relation who worries that much about one of her kids." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She falls asleep again eventually, holding on to my shirt a little tighter than before. I lie awake longer. Down the hall, I'm fairly sure, so does $mom.callName.
+
+<<Feel $mom "player" -1>>
+<<Feel $sister "mom" 1>>
+<<UpdateStat "+" "SisterCorruption" 2>>
+<<UpdateStat "+" "Corruption" 1>>
+<<ProfileLog $sister "A Knock at Night, Again" "She was asleep in my bed when $mom.callName knocked after one. She hid under the blanket against the wall, and I sent $mom.callName away through the door. Afterwards she asked what $mom.callName wanted so late, and I said she worries. She was a little jealous of that.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</replace>><</link>>
+</div>
+<div>
+<<link "Let her in">><<replace "#kna-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Come in." },
+{ text: "Under the blanket, $sister.callName makes a tiny noise of pure horror and presses herself flatter against the wall." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The door opens. $mom.callName comes in with a mug in each hand, in her robe, with her hair in the loose braid she sleeps in. She pushes the door shut with her hip, the way she always does, and comes straight over to the bed.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I couldn't sleep. I made chamomile. I made you one too, you work too much, you never sleep." },
+{ text: "She puts my mug on the nightstand and sits down on the edge of the bed. Right on the edge. About four inches from where $sister.callName's foot is curled under the blanket." },
+{ who: $mom, text: "Is it cold in here? It feels cold. You have so many blankets, honey. Why do you have so many blankets?" },
+{ who: $player, text: "I get cold." },
+{ who: $mom, text: "You've never been cold a day in your life. You used to kick everything off in your sleep." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She talks about nothing. The client who wants everything in triplicate. The plant at the office that's doing very well, thank you. Something $sister.callName said at dinner that she thought was so funny, and she laughs at it again, quietly, and a foot away under the blanket $sister.callName goes even more still, if that's possible.
+
+$mom.callName reaches out and strokes my hair while she talks, slowly, from my forehead back, the way she did when I had a fever. Her hand is warm from the mug. She shifts to get more comfortable, and her hip comes down on the blanket right next to the lump that is $sister.callName's foot, close enough that the blanket pulls tight across it.
+
+I watch the lump. The lump does not move. I'm impressed.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well. I'll let you sleep. Drink your tea." },
+{ text: "She leans down and kisses my forehead, and stays there for a moment with her lips against my skin, and I can feel her deciding something, and deciding against it." },
+{ who: $mom, text: "Goodnight, sweetheart. You know where I am." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes her own mug and goes. Her door clicks shut down the hall.
+
+For a long time nothing happens. Then the blanket at the wall rises, and $sister.callName's head appears, hair everywhere, face bright red, eyes enormous.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "She sat on me." },
+{ who: $player, text: "She sat next to you." },
+{ who: $sister, text: "She sat on my foot. My actual foot. I had to not exist for six minutes. I've never not existed that hard in my life." },
+{ text: "She flops back onto the pillow and stares at the ceiling. Then, slower:" },
+{ who: $sister, text: "Does she always come in like that? In the middle of the night? With tea?" },
+{ who: $player, text: "Sometimes. When she can't sleep." },
+{ who: $sister, text: "Huh." },
+{ text: "She thinks about that for a while. Then she reaches over me, picks up the second mug from the nightstand, and drinks the chamomile $mom.callName made for me, all of it, without asking." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<Feel $mom "player" 1>>
+<<Feel $sister "mom" -1>>
+<<UpdateStat "+" "SisterCorruption" 2>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "+" "Corruption" 2>>
+<<ProfileLog $sister "A Knock at Night, Again" "She was asleep in my bed when $mom.callName knocked after one, and I let $mom.callName in. She hid under the blanket against the wall while $mom.callName brought tea and sat on the edge of the bed and stroked my hair, close enough to sit on her foot. Afterwards she asked if $mom.callName always comes in like that. Then she drank my tea.">>
+<<NextQuest $sister>>
+<<ReturnFromEvent "Continue" "Bedroom">>
+<</replace>><</link>>
+</div>
+</div>
+<</linkreplace>>

@@ -1,8 +1,80 @@
 :: Gym Meeting 2 [event main_quest] {"position":"4450,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Gym Meeting" (main_gymMeeting), part 2 of 2, STAGE1_PROPOSAL.md 4.5a.
-   The afternoon with $ethan.name turning the Veil into an expensive-looking router. $gymOwner.name wants a dinner before he signs. */
+/* Quest "The Gym Meeting" (main_gymMeeting), part 2 of 2, STAGE1_PROPOSAL.md 4.5a. The afternoon with $ethan.name turning the
+   $company.devices.valenxVeil.name into something that looks like an expensive router, arguing about colors like old friends.
+   $brian.name has opinions about the vents. The renders go to $gymOwner.name, who answers with a date for the dinner. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Gym Meeting, STAGE1_PROPOSAL.md 4.5a).
+By three, $ethan.name has dragged a whiteboard over to his desk and covered it in routers. He printed photos of every router he could find, the expensive ones, the ones hotels put in the ceiling, and taped them to the board in rows, and he's labeled each one with a grade like a teacher. Most of them have a D.
 
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Okay. So. The problem with routers is that they are, as a species, ugly. Look at this one. Look at the antennas. It looks like a dead bug." },
+{ who: $player, text: "We don't need antennas." },
+{ who: $ethan, text: "We need antennas. Fake ones. A router without antennas is just a box, and a box makes people ask questions. Antennas say, 'I am boring, I make the internet happen, please ignore me'." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Argue about it">>
+We spend an hour on antennas. Two, says $ethan.name, because three is aggressive and four is a cry for help. One, I say, because one is honest. He calls one "the unicorn of routers" and refuses to discuss it. We settle on two, and he draws them on the gray disk on the whiteboard, little stubs, and it immediately looks less like a smoke detector and more like something a hotel would forget about for ten years.
+
+Then we spend another hour on the color.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "White. Everything in a ceiling is white. White is invisible." },
+{ who: $player, text: "White gets yellow. Have you seen a gym ceiling? It's sweat and protein powder all the way down." },
+{ who: $ethan, text: "Then off-white. Eggshell." },
+{ who: $player, text: "Eggshell is just white that gave up." },
+{ who: $ethan, text: "Okay, what do you want? Black? You want a black box in the ceiling of a gym? That's a camera, man. That's literally what a camera looks like." },
+{ who: $player, text: "Gray." },
+{ who: $ethan, text: "Gray is the color of a man who's given up." },
+{ who: $player, text: "Gray is the color of a router." },
+{ text: "He opens his mouth, closes it, looks at the photos on the whiteboard, which are about seventy percent gray, and throws a marker at me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It lands on the floor between us. Neither of us picks it up. It's the kind of argument you only get to have with someone you've known since you were a furious kid with a bike helmet, and I'm enjoying it more than I'd admit to anyone.
+
+<<linkreplace "Get $brian.name">>
+$brian.name comes over when I wave and stands behind us, looking at the board with his hands in his pockets and the expression of a man watching two children paint a car.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "It needs vents." },
+{ who: $ethan, text: "It doesn't get hot. That's the whole point of the emitters, they barely draw anything." },
+{ who: $brian, text: "Real routers have vents. People know that. Even if they don't know they know. If it doesn't have vents, it looks... wrong. Like a fake." },
+{ text: "There's a pause while $ethan.name and I both look at the drawing and slowly realize he's right." },
+{ who: $ethan, text: "Fake vents. On the fake router. With the fake antennas." },
+{ who: $brian, text: "Uh. Yes. Also, the light should blink. Not all the time. Every few seconds. Real ones blink when they're doing nothing. It's, uh, comforting." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He takes the marker off the floor, draws a row of thin slits along the side of the disk and a tiny circle on the front with a little starburst next to it, and hands the marker back to $ethan.name, and goes back to his desk. The whole thing took ninety seconds. It's better than anything we did in two hours.
+
+<<linkreplace "Send it off">>
+By six it's a render on $ethan.name's screen: a gray box, two stubby antennas, a row of vents that do nothing, a little green light that blinks every four seconds for no reason at all. It's the most boring object I have ever seen. If I hung it over my own bed I'd never look at it again.
+
+Inside it, the same eight emitters, the same field, the same profile called <i>FINAL_final_actually_final</i>.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "I hate it. It's perfect. I hate that it's perfect." },
+{ who: $player, text: "Send it to $gymOwner.name." },
+{ who: $ethan, text: "Done. Want to bet on how many exclamation points he uses?" },
+{ text: "The answer comes back in under four minutes. $ethan.name reads it out loud in his best gym voice." },
+{ who: $ethan, text: "'LOVE IT. Looks like nothing!!! Exactly what we need. Let's do dinner, my assistant will send dates.' Three. Three exclamation points, and he put them all in the middle." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$ethan.name prints the render, tapes it to the top of the whiteboard over all the D-grade routers, and writes an A+ next to it in red. Then he writes, smaller, underneath: <i>gray. ugh.</i>
+
+<<UpdateStat "+" "Reputation" 3>>
+<<UpdateStat "+" "Morale" 2>>
 <<NextQuest $player>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

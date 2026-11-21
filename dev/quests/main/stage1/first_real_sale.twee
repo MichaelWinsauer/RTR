@@ -1,9 +1,106 @@
 :: First Real Sale [event main_quest] {"position":"4075,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The First Real Sale" (main_firstSale), part 1, STAGE1_PROPOSAL.md 4.4.
-   Part 1 of 2, short: the day after I answered her mail ($company.mails[4]) $marketingOwner.name calls me at my desk. She asked
-   about the official unit for one desk, I sell her the room version for her conference room over the phone. A clean
-   sale, no favors. It ends with my text to $ethan.name ("We did it. Drinks on me"). Part 2: the bar with $ethan.name. */
+/* Quest "The First Real Sale" (main_firstSale), part 1 of 2, STAGE1_PROPOSAL.md 4.4. The day after I answered her mail
+   ($company.mails[4]), $marketingOwner.name calls me at my desk. She asked about the official unit for one desk; over the phone
+   I sell her the room version for her conference room. A clean sale: no favors, no family, and for once no $company.prototype.name
+   in my pocket either, because there's nothing to point it at on a phone line. It ends with my text to $ethan.name.
+   Part 2: First Real Sale 2, the bar (the link jumps the clock to the Night, like It Makes A Difference 2). The quest's set unlocks project_marketing_veil and sets $flags.pressClient. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The First Real Sale, STAGE1_PROPOSAL.md 4.4).
+The call comes in at 10:02. She said whenever it suits her, and apparently what suits her is two minutes after the hour, so nobody could ever accuse her of being early.
 
-[[Continue|First Real Sale 2]]
+<<silently>>
+<<set _msgs = [
+{ who: $marketingOwner, text: "$player.name? $marketingOwner.name $marketingOwner.surname. You have twenty minutes, I have nineteen, so let's not waste the one." },
+{ who: $player, text: "Good morning. Thanks for calling." },
+{ who: $marketingOwner, text: "Don't thank me yet. I've read your website. Did an intern write it? It has a lot of exclamation marks for a product that's supposed to calm people down." },
+{ who: $player, text: "My $sister.relation. She's very enthusiastic about calm." },
+{ who: $marketingOwner, text: "Clearly. Okay. Tell me what it does. No brochure words. If you say 'wellness' I'm hanging up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I like her immediately, which is inconvenient. People I like are harder to sell to. They notice things.
+
+<<linkreplace "Tell her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "It reads the room. Light, sound, how people are sitting, how they're breathing. And it nudges the room a little toward calm. Not sleepy. Calm. Like the feeling after a good lunch." },
+{ who: $marketingOwner, text: "And my friend's little box does that for her desk." },
+{ who: $player, text: "For her desk. A few feet. It's made for one person having a long day." },
+{ who: $marketingOwner, text: "My problem isn't one person having a long day. My problem is a conference room. Twelve of my people on one side of the table, a client on the other side, and everyone so tense you could hear a pen click from the parking lot." },
+{ who: $marketingOwner, text: "We lose accounts in that room. Good pitches. I watch my people walk in knowing their stuff and walk out having talked too fast and smiled too hard. And then the client says they'll think about it, which means no." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That's a sales pitch, and she doesn't know she's giving it. It's also the exact shape of the thing sitting in my office on $brian.name's borrowed cart, tuned to the decimal, with a profile called <i>FINAL_final_actually_final</i>.
+
+<<linkreplace "Offer her the Veil">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Then you don't want the desk unit. You want the room." },
+{ who: $marketingOwner, text: "There's a room one?" },
+{ who: $player, text: "As of this week, there's a room one. We built it for a lecture hall at the college. A research pilot. One unit in the ceiling, eight emitters, even coverage from wall to wall. A conference room is easier than a lecture hall. Fewer people, smaller space, nobody's asleep in the back row." },
+{ who: $marketingOwner, text: "And what does it do to my client? I don't want them drugged. I want them to say yes because my people are good, not because they're high on the ceiling." },
+{ who: $player, text: "It does the same thing to everyone in the room. Your people, your client, the guy who brings the coffee. Nobody's high. Everybody's just a little less afraid of each other. Your people stop talking too fast. Your client stops waiting for the catch." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's a pause on the line, long enough that I check the screen to make sure the call didn't drop.
+
+<<silently>>
+<<set _msgs = [
+{ who: $marketingOwner, text: "Okay. That's a good answer. Most people would have told me it makes clients say yes." },
+{ who: $player, text: "It doesn't. Your pitch has to be good. It just makes sure they hear it." },
+{ who: $marketingOwner, text: "Hm." },
+{ text: "I can hear her tapping a pen on something. Glass, maybe. A desk with a glass top. She seems like a woman with a glass desk." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Talk numbers">>
+She asks about installation, and I tell her: one day, after hours, nobody has to move a desk. She asks about the contract, and I tell her: a pilot, three months, and if her close rate doesn't go up she can send it back and keep the coffee machine we'll throw in because $ethan.name says every installation needs a coffee machine. She asks about the price, and I tell her, and she laughs once, short and dry.
+
+<<silently>>
+<<set _msgs = [
+{ who: $marketingOwner, text: "That's a lot of money for a smoke detector." },
+{ who: $player, text: "It's less than one lost account. You told me yourself, you lose them in that room." },
+{ who: $marketingOwner, text: "I did tell you that, didn't I. That was careless of me." },
+{ who: $player, text: "It was honest of you." },
+{ who: $marketingOwner, text: "In my business those are the same thing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Another pause. The tapping stops.
+
+<<silently>>
+<<set _msgs = [
+{ who: $marketingOwner, text: "Send me the contract. The pilot one. If my lawyer doesn't find anything stupid in it, we'll sign by Friday." },
+{ who: $player, text: "You'll have it within the hour." },
+{ who: $marketingOwner, text: "And $player.name? If this thing works, I know a lot of people with conference rooms. And a lot of people who'd pay to be told about things before everyone else. Keep that in mind." },
+{ who: $player, text: "I will." },
+{ who: $marketingOwner, text: "Good. That was seventeen minutes. I like you already." },
+{ text: "She hangs up without saying goodbye. I suspect she never says goodbye." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let it sink in">>
+I sit there with the phone in my hand.
+
+It's the first one that didn't know me. Not $boss.callName, not $manager.callName, not somebody who used to yell at $mom.callName or make me wipe tables. A stranger found our website, picked up the phone and bought the thing because of what it does. I didn't charm her face to face, and I didn't have $company.prototype.name in my coat nudging her toward yes. It was just me and a phone line and a good product.
+
+It feels better than I expected. That's annoying too.
+
+I send the contract to $darius.name to check the numbers and to $mom.callName to check the commas. Then I take my phone out again and text $ethan.name, who's sitting about forty feet away with his headphones on.
+
+<i>We did it. A real one. A stranger. Drinks on me tonight.</i>
+
+Across the office, $ethan.name reads it, takes his headphones off, stands up on his chair and starts slow-clapping. $brian.name looks up in alarm. $darius.name doesn't look up at all, but he's smiling at his screen.
+
+<div class="navigation-link"><<link "That evening" "First Real Sale 2">><<AdvanceTimeTo 5>><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

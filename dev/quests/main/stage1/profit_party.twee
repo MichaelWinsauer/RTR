@@ -1,9 +1,154 @@
 :: Profit Party [event main_quest] {"position":"5075,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Profit Party" (main_profitParty), STAGE1_PROPOSAL.md 4.9.
-   Pizza and drinks. The Catalyst is announced, $ethan.name gives his speech, $investor.callName is mentioned for the first time.
-   His "my piece" joke gets a real answer: I give him a token 2 percent, no choice ($ethan.equity is set by the quest). */
+/* Quest "The Profit Party" (main_profitParty), STAGE1_PROPOSAL.md 4.9. The company account is in the black. Friday evening,
+   pizza and drinks in the office. I announce the Catalyst (the V2 plan: a unit that adapts to each person, in the Veil version
+   of the story). A drunk $ethan.name gives his "best boss I've ever had" speech and jokes about "my piece", and I give him a
+   token 2 percent, no choice (the quest's set sets $ethan.equity). $marketingOwner.name has sent word that she knows
+   $investor.callName, who could open the door to $retailChain.name: the first mention. A small crack: $brian.name asks, uh,
+   what the Catalyst is for, and gets the Veil answer. A line changes with $flags.dariusBroughtIn.
+   The quest's set unlocks project_company_catalyst. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Profit Party, STAGE1_PROPOSAL.md 4.9).
+The account crossed into the black on Wednesday at 2:14 in the afternoon, when the second gym payment cleared. I know the minute because I was watching. I've been watching that line for months, the way you watch a pot.
 
+So on Friday at five the office closes early and turns into a party. $mom.callName ordered the pizza, which means there's a salad nobody asked for. $ethan.name brought the drinks, which means there's a bottle of something blue nobody can identify. $sister.callName made a banner out of printer paper and tape that says WE'RE NOT BROKE!!! and hung it over the coffee machine, slightly crooked, and nobody has the heart to straighten it.
+
+/* MEDIA: images/events/profit_party/office.jpg | The office after hours, pizza boxes on the desks, a crooked hand-made banner reading WE'RE NOT BROKE over the coffee machine, everyone holding cups */
+
+<<linkreplace "Join the party">>
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "There he is! The man, the myth, the guy who signs our checks! Somebody give him a cup of the blue stuff." },
+{ who: $player, text: "What is the blue stuff?" },
+{ who: $ethan, text: "It's festive. That's all you need to know." },
+{ text: "$mom.callName hands me a cup of the blue stuff and, a second later, a plate with two slices and a pile of salad on it, and gives me a look that says the salad isn't optional." },
+{ who: $mom, text: "Eat something green, honey. You've had nothing but coffee since Tuesday." },
+{ who: $sister, text: "Is the banner too much? Be honest. I can take it down. I won't, but I can." },
+{ who: $player, text: "It's perfect." },
+{ who: $sister, text: "I knew it was perfect. I just wanted to hear it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For an hour it's just a party. $brian.name and $ethan.name argue about whether pineapple is a vegetable. <<if $flags.dariusBroughtIn === true>>$darius.name, in his new title and a slightly loosened tie, is explaining the gym numbers to $mom.callName, who is pretending to follow and doing it very well.<<else>>$darius.name stands near the window with a cup he hasn't touched, polite and pleasant, and every so often I catch him watching the room the way he watches a spreadsheet.<</if>> $sister.callName dances with $mom.callName to something on $ethan.name's phone, badly, both of them laughing too hard to finish.
+
+<<linkreplace "Make an announcement">>
+At half past six I tap my cup with a pen. It's a paper cup, so it doesn't work, and $ethan.name does it for me by putting two fingers in his mouth and whistling.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Okay. Thank you. I'll be quick, because I know $ethan.name is going to give a speech later whether we want one or not." },
+{ who: $ethan, text: "I'm going to give a great speech." },
+{ who: $player, text: "A few months ago this company was me, a prototype and a broom closet two floors down. Today it's six people, three products and a bank account I'm not afraid to look at. That's you. All of you." },
+{ text: "$mom.callName puts her hand over her heart. $sister.callName whoops." },
+{ who: $player, text: "So here's what's next. The Veil works on a room. It works on everybody in it the same way, which is good, but it's blunt. The next one won't be. The next one learns what each person in the room responds to, and supports that. One unit, a different effect for every person in the room. Personal." },
+{ who: $player, text: "We're calling it the Catalyst." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$ethan.name throws both hands in the air. $brian.name has gone very still, the way he does when he's already thinking about the hardware. <<if $flags.dariusBroughtIn === true>>$darius.name gives me a small nod, like a man who just saw the next chapter in a book he's helping to write.<<else>>$darius.name writes something down on a napkin.<</if>>
+
+<<linkreplace "Let them react">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Catalyst. That sounds very scientific, sweetie. Is it like the Veil, but nicer?" },
+{ who: $player, text: "It's like the Veil, but smarter." },
+{ who: $sister, text: "Can I name the colors? Please? I have so many ideas. One of them is 'Seafoam Breakthrough'." },
+{ text: "And then, quietly, from the edge of the group, holding a slice of pizza he's forgotten to eat:" },
+{ who: $brian, text: "Uh. What's it... what's it for? Exactly?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He isn't looking at me when he asks. He's looking at the floor near my shoes. It's the first question $brian.name has ever asked me about what a device does instead of how.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The same thing as the Veil. Calm, focus, comfort. Just tuned to the person instead of the room. Somebody who's anxious gets a little calmer. Somebody who's tired gets a little more energy. Like a good thermostat, but for moods." },
+{ who: $brian, text: "Right. Okay. A thermostat. That makes sense." },
+{ text: "He nods and eats his pizza. I can't tell if he believes it. I'm fairly sure he can't either." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "$ethan.name's speech">>
+At eight, three cups of the blue stuff in, $ethan.name climbs onto a chair. $mom.callName tells him to get down before he breaks his neck. He doesn't.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Okay. Okay. Everybody shut up. I've prepared remarks." },
+{ who: $sister, text: "You have not prepared remarks." },
+{ who: $ethan, text: "I have prepared remarks in my heart." },
+{ text: "He puts his hand on his heart and almost falls off the chair. $brian.name steadies it without being asked." },
+{ who: $ethan, text: "I've had a lot of jobs. A lot of bosses. Most of them were idiots, and the ones who weren't idiots were worse, because they were smart idiots. And then this kid, this tiny furious kid with a bike helmet full of wires, walks up to my table at a hackathon, and..." },
+{ text: "He stops. He looks at me across the room. For a second, through all the blue stuff, he's completely serious." },
+{ who: $ethan, text: "...and I never had a better boss in my life. That's it. That's the speech. Best boss I've ever had." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Everybody cheers. $mom.callName wipes her eyes. $sister.callName is filming. Above us the vent hums along at its usual setting, as it has every working day, and I don't let myself think about that for more than a second.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Also. Also! As the guy who wrote most of the code. I'd like to formally remind the boss that he owes me my piece." },
+{ text: "He says it grinning, like a joke, a running bit. Everyone laughs. He's still looking at me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Give him his piece">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Two percent." },
+{ who: $ethan, text: "...What?" },
+{ who: $player, text: "Two percent of the company. The paperwork's on your desk on Monday. I told you you'd get your piece." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For a second the whole room is quiet. $ethan.name stands on his chair with his cup in one hand and his mouth slightly open, and for once in his life he doesn't have a joke ready.
+
+Then he gets down off the chair, very carefully, walks across the office, and hugs me so hard my cup of blue stuff goes all over both of us.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "You're an idiot. You're the smartest idiot I know. Two percent. That's two whole percents." },
+{ who: $player, text: "That's how percents work." },
+{ who: $ethan, text: "Shut up. I'm having a moment." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's two percent of a company whose most valuable product is hidden in the ceiling, and he'll never see the books that say what it's really worth. It's also, as far as he's concerned, the first promise anyone in his career has kept. I'm happy to give him that. It costs me almost nothing.
+
+<<linkreplace "Later">>
+Later, when the pizza's gone and $ethan.name is asleep on the couch in the meeting room with the banner over him like a blanket, $mom.callName finds me by the window.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, honey, I almost forgot. $marketingOwner.name called this afternoon. She wanted to congratulate you on the gyms, she'd heard. She hears everything." },
+{ who: $mom, text: "And she said she knows a man. $investor.callName. He sits on a lot of boards, and he's apparently very close with the people at $retailChain.name. She said, and I wrote it down so I'd get it right..." },
+{ text: "She takes a folded sticky note out of her cardigan pocket and reads it carefully." },
+{ who: $mom, text: "'If your boy wants a national account, $investor.name is the door. Doors like that don't come free.' She called you my boy. I didn't correct her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the sticky note from her and look at the name for a while. Out on the street, the neon sign of the bar two blocks down flickers on.
+
+A national chain. Hundreds of stores. Thousands of rooms. A door that doesn't come free.
+
+<<UpdateStat "+" "Morale" 6>>
+<<UpdateStat "+" "Reputation" 3>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<run State.variables.ethan.stats.morale = State.variables.ethan.stats.max.morale>>
 <<NextQuest $player>>
+<<run Notification.show("New project available: " + $company.devices.valenxCatalyst.name, { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

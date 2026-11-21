@@ -1,8 +1,131 @@
 :: Gym Meeting [event main_quest] {"position":"4325,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Gym Meeting" (main_gymMeeting), part 1, STAGE1_PROPOSAL.md 4.5a.
-   Part 1 of 2: corporate talk with $gymOwner.name from start to finish, $darius.name translates the numbers. A comedy with a straight face.
-   $gymOwner.name meets $mom.callName at the office and likes her, but he does not ask for her. */
-<<silent>><<SetBackground $locations[15].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Gym Meeting, STAGE1_PROPOSAL.md 4.5a).
+/* Quest "The Gym Meeting" (main_gymMeeting), part 1 of 2, STAGE1_PROPOSAL.md 4.5a. $gymOwner.name, an old friend of
+   $darius.name's from his sports-franchise days, runs $gymChain.name and answered nothing but corporate wellness language
+   from start to finish. I answer in kind, $darius.name translates the numbers, nobody says what the device does. A comedy
+   with a straight face. His one hard condition: nothing in his gyms may look like a gadget (the router redesign, part 2).
+   He meets $mom.callName on the way in and likes her, but he doesn't ask for her. At the end he likes the product and wants
+   a dinner with the people behind the company before he signs (main_gymDinner).
+   Part 2: Gym Meeting 2, the afternoon with $ethan.name (the link jumps to the Afternoon if it's earlier). */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+$gymOwner.name $gymOwner.surname walks into the office at ten sharp in a quarter-zip pullover with his company's logo on the chest, a smartwatch the size of a coaster, and the posture of a man who has never once in his life skipped leg day. He shakes $darius.name's hand and then pulls him into a hug with two hard slaps on the back.
 
-[[Continue|Gym Meeting 2]]
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Look at this guy. Look at him. Still dressing like he's about to testify in front of Congress." },
+{ who: $darius, text: "It's good to see you too. You look exactly the same." },
+{ who: $gymOwner, text: "Body fat's down two percent since last time, but I'll take it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName is crossing the office with a tray of coffee at exactly the moment they come through the door, which I would call a coincidence if I didn't know she watched the elevator for four minutes. She offers him a cup. She asks how he takes it. She looks him in the eye and laughs at something he says about the stairs, which isn't funny, and touches his arm for exactly one second.
+
+He forgets about the cup in his hand until she's back at her desk. Then he remembers why he's here.
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Great energy in here. Really great energy. Who's that?" },
+{ who: $player, text: "My client consultant. She runs our accounts." },
+{ who: $gymOwner, text: "Love that. Love a people person. Okay! Let's talk shop." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Into the meeting room">>
+<<silently>><<SetBackground $locations[15].img>><</silently>>
+He sits down, puts both hands flat on the table, and looks me straight in the eye like we're about to arm wrestle.
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "So. Here's where we're at. $gymChain.name is eleven locations, twelve next spring, and we're very focused right now on the member journey." },
+{ who: $player, text: "The member journey." },
+{ who: $gymOwner, text: "From the second they walk in the door to the second they walk out. Every touchpoint. The front desk, the locker room, the smoothie bar. We want every touchpoint to be a wellness touchpoint." },
+{ who: $player, text: "Of course." },
+{ who: $gymOwner, text: "Because here's the thing nobody in this industry wants to say out loud. People sign up in January. By March, they're ghosts. Our whole model is built on retention, and retention is built on how people feel in the space. Holistically." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$darius.name is writing in his notebook. I glance at it upside down. It says: <i>January signups, March churn. He wants them to keep coming.</i>
+
+<<linkreplace "Answer in kind">>
+I've read three of his company's press releases this morning, and I'm ready.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "What we do is environmental. We optimize the emotional climate of a space. Your members don't interact with it. They experience it." },
+{ who: $gymOwner, text: "Okay. Okay, I like that. Experience it." },
+{ who: $player, text: "It's ambient. It sits in the room and it supports a sense of calm motivation. Less friction, more flow. People feel good in your space, so they come back to your space." },
+{ who: $gymOwner, text: "Flow. Yes. That's the word I've been trying to find for like two years." },
+{ who: $player, text: "We don't sell a product. We sell a feeling your members associate with your brand." },
+{ text: "He points at me across the table with two fingers, like a gun, and fires once. I have apparently said something deeply right." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I haven't said a single true thing about what it does. Neither has he, about what he wants. We're both perfectly happy.
+
+<<linkreplace "Let $darius.name do the numbers">>
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Okay, but give me data. I love a feeling, but my board loves a spreadsheet." },
+{ who: $darius, text: "Our pilot at a diner showed an eleven percent rise in average visit length and a nine percent rise in repeat visits over eight weeks. At an office client, self-reported job satisfaction went up fourteen points." },
+{ who: $gymOwner, text: "Repeat visits. That's retention. That's literally retention, $darius.name." },
+{ who: $darius, text: "I know. That's why I mentioned it." },
+{ who: $gymOwner, text: "So if I put this in my locations, my members stick around longer and come back more." },
+{ who: $darius, text: "If your locations behave like the pilot sites, yes. I'd want to run it in two locations first and compare against two without it." },
+{ who: $gymOwner, text: "See, this is why I love this guy. A control group. In my gym. He's a scientist. He's always been a scientist." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$darius.name doesn't smile at the compliment, but he doesn't hate it either. He also doesn't look at me once while he gives the numbers. They're the cleaned numbers, the ones I gave him. He's presenting them exactly as they are, precisely, and he's leaving it to me to know what they are.
+
+<<linkreplace "Hear his condition">>
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "One thing. One non-negotiable." },
+{ text: "He holds up a single finger and his face goes completely serious, the face of a man who has fired a lot of personal trainers." },
+{ who: $gymOwner, text: "It can't look like a gadget. My members cannot look up at the ceiling and see a robot. The second they see a box with a blinking light, it's 'what's that, is that a camera, is it filming me in the locker room', and I've got a lawsuit and a Yelp page on fire." },
+{ who: $player, text: "What can it look like?" },
+{ who: $gymOwner, text: "Nothing. It should look like nothing. Like the stuff that's already up there. Sprinklers. A speaker. The wifi thing." },
+{ who: $player, text: "A router." },
+{ who: $gymOwner, text: "A router! Yes! Nobody has ever looked at a router and asked a single question in their life." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That's true. And it's a far better disguise than he knows.
+
+<<linkreplace "Close the meeting">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "We can do that. I'll have a design to you this week." },
+{ who: $gymOwner, text: "Love it. I love all of it. Honestly, I'm in. I'm basically in." },
+{ who: $player, text: "Basically?" },
+{ who: $gymOwner, text: "Here's how I work. I don't sign with a company. I sign with people. I want to sit down, have a steak, have a drink, get to know the folks behind the product. Look them in the eye. Talk numbers, sure, haggle a little, that's half the fun. But over dinner. Like humans." },
+{ who: $player, text: "We can do dinner." },
+{ who: $gymOwner, text: "Perfect. Let's get something on the calendar once I've seen the design. You pick the place. I'll pick the wine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On the way out he shakes my hand, hugs $darius.name again, and stops by $mom.callName's desk to thank her for the coffee. She laughs at whatever he says. It's the new laugh. He leaves looking like a man who has just had a very good workout.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "He'll sign. He always signs if he likes the dinner." },
+{ who: $player, text: "And if he doesn't like the dinner?" },
+{ who: $darius, text: "Then he asks for a discount. A big one. He's very good at that part. It's how he got to eleven locations." },
+{ text: "He tucks his notebook under his arm and goes back to his desk. Over his shoulder he adds, without turning around:" },
+{ who: $darius, text: "He liked your consultant." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<div class="navigation-link"><<link "That afternoon" "Gym Meeting 2">><<if $time.current.value lt 3>><<AdvanceTimeTo 3>><</if>><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

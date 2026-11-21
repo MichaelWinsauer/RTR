@@ -1,10 +1,148 @@
 :: Two Towns Over [event sister_quest] {"position":"4525,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Two Towns Over" (sister_twoTownsOver), STAGE1_PROPOSAL.md 6.6b.
-   The Italian place two towns over, then the classmate from statistics walks in. Who answers first? */
+/* Quest "Two Towns Over" (sister_twoTownsOver), STAGE1_PROPOSAL.md 6.6b. A few days after the Catalyst night she asks for one
+   real date, somewhere nobody knows us. An Italian place two towns over, candles in wine bottles. For an hour it works: the
+   waiter calls her my girlfriend, she orders for both of us and gets it wrong on purpose so she can steal from my plate. No
+   device. Then a girl from her statistics class (Kayla, a one-off extra) walks in with her boyfriend. "Who's this?"
+   The choice, who answers first, sets $sister.flags.datePhoto:
+     true   "Her boyfriend": she glows all the way home, and Kayla posts a photo of the four of them (The Friend reads it)
+     false  "Her <playerRelation>": flat, friendly, true. She laughs along and says nothing in the car. Her feelings toward
+            me take a small hit: I decide when we're allowed to be a couple, and she just learned that.
+   The evening ends at home at Night. */
 <<silent>><<SetBackground $locations[2].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Two Towns Over, STAGE1_PROPOSAL.md 6.6b).
+She's been ready since six. I know, because she's come downstairs four times to ask me if she's overdressed, and gone back up three times to change her earrings.
 
-<span id="stub-choice">
-<<link "Her boyfriend">><<set $sister.flags.datePhoto to true>><<replace "#stub-choice">><<NextQuest $sister>><<ReturnFromEvent>><</replace>><</link>>
-<<link `"Her " + $sister.playerRelation`>><<set $sister.flags.datePhoto to false>><<replace "#stub-choice">><<NextQuest $sister>><<ReturnFromEvent>><</replace>><</link>>
-</span>
+When she comes down the last time, she's in a dress I've never seen, dark red, with her hair pinned up on one side and a little more makeup than she wears to the office. She stops at the bottom of the stairs and does a small, awkward turn, and then stands there with her hands clasped behind her back like a kid at a recital.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Be honest. Is it too much? It's too much. It's a Tuesday dress on a Friday. Wait, that doesn't make sense, that's the wrong way round." },
+{ who: $player, text: "You look beautiful." },
+{ text: "She opens her mouth to argue, and nothing comes out, and she closes it again and goes pink from the collarbones up." },
+{ who: $sister, text: "Okay. Okay. Then let's go before $mom.callName asks where we're going." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/events/two_towns_over/stairs.jpg | Sister at the bottom of the stairs in a dark red dress, hair pinned up on one side, hands behind her back */
+
+$mom.callName is at the office tonight, catching up on invoices. $sister.callName told her we're going to see a movie with some people from her seminar. She had the lie ready a day in advance, and she still said it too fast.
+
+<<linkreplace "Drive two towns over">>
+It's forty minutes on the highway. She spends the first ten with her hands in her lap, looking out the window, and the next thirty talking nonstop about nothing, because the further we get from home the more she relaxes, as if the town line were a door closing behind us.
+
+The restaurant is exactly what she wanted. Small, dim, a little shabby, with checkered tablecloths and candles stuck in old wine bottles crusted with wax from a thousand other dinners. The waiter is about sixty and has a mustache you could hang a coat on.
+
+/* MEDIA: images/characters/sister/events/two_towns_over/restaurant.jpg | A small dim Italian restaurant, checkered tablecloth, a candle in a wax-crusted wine bottle, Sister across the table smiling */
+
+<<silently>>
+<<set _msgs = [
+{ text: "He pulls out her chair for her and then turns to me with a little bow." },
+{ text: "'And what can I bring for your girlfriend tonight?'" },
+{ text: "$sister.callName knocks her water glass with her elbow. I catch it before it goes over. She looks at me over the candle with her eyes enormous, and she doesn't correct him." },
+{ who: $sister, text: "I'll... I'll order for both of us. If that's okay. I've been wanting to order for both of us my whole life." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her order">>
+She orders me the mushroom risotto, which she knows I don't like, and herself the lasagna, and when the food comes she looks at my plate in mock horror and says oh no, there must have been a mistake, and starts eating off it with her fork before I can answer.
+
+It's the easiest hour I've had with her in months. No office, no tray, no journal. No device in my pocket. She tells me about a professor who wears the same sweater every day and might be a ghost. She steals all my mushrooms and then complains about the mushrooms. She reaches across the table halfway through dessert and puts her hand on mine and leaves it there, on the checkered cloth, in a room full of strangers, and nobody looks twice, because to them we're just a couple on a date.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "This is what it would be like. If we were... normal. If we were just two people." },
+{ who: $player, text: "Do you like it?" },
+{ who: $sister, text: "I love it. I'm going to remember this risotto for the rest of my life. And I hate risotto." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "The door opens">>
+The bell over the door jingles.
+
+$sister.callName glances up, the way you do, and her hand goes stiff on mine. Then it's gone, back in her lap, and she's sitting up very straight.
+
+A girl about her age is standing in the doorway, shaking rain off her umbrella, with a tall guy in a varsity jacket behind her. She sees $sister.callName at the same moment. Her face lights up.
+
+<<silently>>
+<<set _msgs = [
+{ text: "'Oh my God! Hi! What are you doing all the way out here?'" },
+{ who: $sister, text: "Kayla! Hi! Wow. Hi. What are... you're... hi." },
+{ text: "Kayla from her statistics class. She has already crossed the room. She's already hugging $sister.callName, half bent over the table, and her boyfriend is already standing behind her, and then she straightens up and looks at me with a bright, curious smile." },
+{ text: "'And who's this?'" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName opens her mouth. Nothing comes out. She looks at me, and there's a half-second where I can see her deciding, and failing to decide, and waiting for me.
+
+I answer first.
+
+<div id="ttw-choice">
+<div>
+<<link "Her boyfriend">><<replace "#ttw-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Her boyfriend. Nice to meet you." },
+{ text: "I hold out my hand. Kayla shakes it, delighted, and turns to $sister.callName with her mouth open." },
+{ text: "'Shut up! You never said! Babe, look, she has a boyfriend. Oh my God, you guys are so cute. We have to get a picture. Tyler, take a picture.'" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName is staring at me. She doesn't say anything at all. She doesn't need to. Her whole face says it.
+
+Tyler takes the picture: the four of us crammed together behind the candle, Kayla making a peace sign, $sister.callName with her head on my shoulder and a smile so big it looks like it hurts.
+
+On the drive home she doesn't let go of my hand once. She holds it on the gearshift the whole forty minutes, and every few miles she says it under her breath, testing it, "boyfriend", like a word in a language she's just started learning. Near the exit to our town her phone buzzes. Kayla has posted the picture. $sister.callName looks at it for a very long time, and then turns the screen off and holds the phone against her chest.
+
+<<set $sister.flags.datePhoto to true>>
+<<UpdateStat "+" "SisterRelation" 5>>
+<<UpdateStat "+" "SisterCorruption" 4>>
+<<Feel $sister "player" 3 "lasting">>
+<<ProfileLog $sister "Two Towns Over" "She asked for one date somewhere nobody knows us. An Italian place two towns over, candles in wine bottles. A girl from her statistics class walked in and asked who I was, and I said her boyfriend before she could answer. She held my hand all the way home. The girl posted a photo of the four of us.">>
+<<ProfileMemory $sister "Risotto" "She ordered me mushroom risotto because she knows I hate it, so she could eat off my plate. She says she'll remember that risotto for the rest of her life.">>
+<<AdvanceTimeTo 5>>
+<<NextQuest $sister>>
+<<ReturnFromEvent "Home" "Living Room">>
+<</replace>><</link>>
+</div>
+<div>
+<<link `"Her " + $sister.playerRelation`>><<replace "#ttw-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Her $sister.playerRelation. She dragged me out for her birthday dinner, two weeks late." },
+{ text: "I hold out my hand, friendly, easy. Kayla shakes it and laughs." },
+{ text: "'Aw! That's so sweet. My cousin wouldn't drive me to the end of the driveway, and he owes me money.'" },
+{ who: $sister, text: "Ha. Yeah. He's... yeah. He's the best." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs along. She laughs at everything Kayla says, at the umbrella story and the varsity jacket and the professor who might be a ghost, which Kayla also has, and she keeps laughing until Kayla and Tyler have been seated across the room and she's waved at them twice.
+
+Then she eats the rest of her dessert in silence.
+
+In the car she sits with her hands in her lap and looks out the window. Forty minutes. She doesn't say a word. When I put my hand on her knee at a red light she lets it stay there, and she doesn't put hers on top of it.
+
+At home she says goodnight at the bottom of the stairs. It's the first time in weeks that she goes up without stopping by my room.
+
+She'll be fine by morning. She'll bring my coffee and laugh at my jokes. But tonight she learned that I decide when we're allowed to be a couple, and where, and in front of whom. That's worth one quiet car ride.
+
+<<set $sister.flags.datePhoto to false>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<UpdateStat "+" "SisterCorruption" 3>>
+<<UpdateStat "+" "Corruption" 2>>
+<<Feel $sister "player" -2>>
+<<ProfileLog $sister "Two Towns Over" "She asked for one date somewhere nobody knows us. An Italian place two towns over, candles in wine bottles. A girl from her statistics class walked in and asked who I was, and I told her the truth before $sister.callName could say anything else. She laughed along. She didn't say a word in the car.">>
+<<ProfileMemory $sister "Risotto" "She ordered me mushroom risotto because she knows I hate it, so she could eat off my plate. For an hour, nobody in the room knew what we were.">>
+<<AdvanceTimeTo 5>>
+<<NextQuest $sister>>
+<<ReturnFromEvent "Home" "Living Room">>
+<</replace>><</link>>
+</div>
+</div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

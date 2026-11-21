@@ -1,8 +1,131 @@
 :: Not Enough [event mom_quest] {"position":"4400,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Not Enough" (mom_notEnough), STAGE1_PROPOSAL.md 5.4.
-   Handjobs are not enough. She says no, I send her away. The silence starts (quest set). */
+/* Quest "Not Enough" (mom_notEnough), STAGE1_PROPOSAL.md 5.4. She comes up to my room in a good mood: her rounds at the office
+   are going well. I ask her to take care of me, the way she does now whenever I ask, and halfway through I tell her that her
+   hand isn't enough anymore. She says no, and means it: there's a line, and that's it. I scoff and send her away, and decide
+   on the spot that she'll find out what it's like when I stop needing her. Before I sleep I set the device in the house to
+   keep her guilt going all week. The quest's set starts The Silence ($mom.flags.silence, the meals of her attempts).
+   Her note later in the week calls back to this night ("I'm not sure I meant it"). */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Not Enough, STAGE1_PROPOSAL.md 5.4).
+She knocks the old way, two taps and a third, and comes in before I answer. She's still in her work blouse with the sleeves rolled up, holding a basket of my laundry on one hip, and she's humming.
 
+$mom.callName doesn't hum. Not for years. But she's been humming all week, since her rounds at the office started going right.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Clean socks, honey. All of them matched, even the gray ones, which I want you to know was a spiritual journey." },
+{ text: "She sets the basket on my bed and starts putting things into my drawers without asking, because she has never once in my life asked." },
+{ who: $mom, text: "$darius.name laughed today. At something I said. Out loud. $ethan.name says nobody's ever heard him do that." },
+{ who: $player, text: "I saw." },
+{ who: $mom, text: "You saw? You were watching?" },
+{ text: "She pretends to be embarrassed. She isn't. She folds the same shirt twice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Ask her to take care of me">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Leave the laundry. Come here." },
+{ who: $mom, text: "Is it bad today?" },
+{ who: $player, text: "It's bad." },
+{ who: $mom, text: "Okay, sweetie. Okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She closes the drawer and comes over and sits down next to me on the bed, the way she always does now, on my left, close. Her hand finds my belt with no hesitation at all. A month ago she needed the dial all the way up to get her this far. Tonight she's humming under her breath while she does it.
+
+That's the problem. She has made it hers. She has a rule for it, and a place for it in her week, somewhere between the laundry and the client calls, and inside that rule she's comfortable. She's settled. She thinks this is where it stops.
+
+<<linkreplace "Stop her">>
+I put my hand over hers.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What is it? Did I do something wrong?" },
+{ who: $player, text: "This isn't enough anymore." },
+{ text: "She doesn't understand. Her eyebrows pull together, the way they do when someone on the phone gives her a wrong number." },
+{ who: $mom, text: "What isn't?" },
+{ who: $player, text: "Your hand. I want your mouth." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes her hand back, slowly, as if she wants to be very sure she's the one deciding to do it.
+
+<<linkreplace "Wait for her answer">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "No." },
+{ text: "Just that. She sits there with her hands in her lap and lets it be the whole sentence for a while." },
+{ who: $mom, text: "Honey, no. I know what I've... I know what we've been doing. I know how it looks, and I know it's not normal, and I've made my peace with it, because you needed me and I'm the one who takes care of you. That's my job. It's always been my job." },
+{ who: $mom, text: "But there's a line. I'm still your $mom.relation. There are things a $mom.relation just doesn't do, and that's one of them, and that's it. That's where it stops." },
+{ who: $player, text: "Says who?" },
+{ who: $mom, text: "Says me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her voice shakes on it, but she holds on. She's looking right at me. I can't remember the last time she said no to me and looked at me while she did it.
+
+$company.prototype.name is in my desk drawer, three feet away, charged. I could open the drawer.
+
+I leave it there. If I turn the dial now, I get her mouth tonight and her "no" back tomorrow morning, along with the tears and the shower that runs for an hour. What I want is for the "no" to be gone, and the dial can't do that for me. She has to do that herself.
+
+<<linkreplace "Scoff">>
+I laugh. Short, through my nose, the way you laugh at a child who has said something very serious about the rules of a game they made up.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Says you." },
+{ who: $mom, text: "Honey..." },
+{ who: $player, text: "You'll go around my office every day flirting with three men you barely know, because I asked. You'll take your clothes off in my room because I asked. You'll do this, every night, because I asked. And this is where you suddenly remember you're my $mom.relation." },
+{ text: "She flinches at 'three men'. She flinches again at 'every night'." },
+{ who: $mom, text: "That's not fair. That's not... I do all of that for you. I've done everything you..." },
+{ who: $player, text: "Then go." },
+{ who: $mom, text: "What?" },
+{ who: $player, text: "You said no. Fine. Go to bed." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pick my laptop up off the nightstand and open it, and look at the screen.
+
+For a long moment she doesn't move. Then the bed shifts as she stands up. She doesn't go right away. She stands next to the bed, and I can feel her waiting for me to look up, for one word, for anything at all that would let her stay and still have said no.
+
+I scroll through an email I've already read.
+
+<<linkreplace "Let her go">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'll... I'll finish the laundry tomorrow." },
+{ text: "I don't answer. She picks up the empty basket, and then sets it down again, and then picks it up." },
+{ who: $mom, text: "Goodnight, sweetheart." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The door closes very quietly behind her. She always closes doors quietly when she's upset, as if the door had done something and might do it again.
+
+I wait until I hear her bathroom door, then the water running. Then I open the desk drawer.
+
+<<DevicePulse 1>>
+
+I don't point $company.prototype.name at her. That would be too much and too fast, and she'd feel the shape of it. I set it to the house instead, low, all night, every night this week, tuned to the one thing that's already in her and only needs a little warmth to grow: the feeling of having let somebody down. She's going to lie awake with it. She's going to wake up with it. She's going to make me breakfast with it.
+
+She said no to me tonight. She'll spend the next week finding out what it's like when I stop needing her.
+
+I close the drawer and go to sleep easily, which surprises me a little.
+
+<<UpdateStat "+" "MomResistance" 5>>
+<<UpdateStat "-" "MomRelation" 3>>
+<<UpdateStat "+" "Corruption" 2>>
+<<Feel $mom "player" -2>>
+<<ProfileLog $mom "Not Enough" "I told her that her hand isn't enough anymore. She said no, and looked at me while she said it: she's still my $mom.relation, and that's where it stops. I laughed at her and sent her to bed. For the next week I'm not going to need her for anything.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

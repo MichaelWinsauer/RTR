@@ -1,10 +1,179 @@
 :: Everything [event sister_quest] {"position":"4900,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Everything" (sister_everything), STAGE1_PROPOSAL.md 6.8.
-   Her milestone into stage 3: submit completely, or leave. Afterwards her phone, her passwords, her location. */
-<<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Everything, STAGE1_PROPOSAL.md 6.8).
+/* Quest "Everything" (sister_everything), STAGE1_PROPOSAL.md 6.8. Her milestone into corruption stage 3 (Mine). Evening, the
+   empty office. If she hosted the rooftop evening ($flags.retailIntro "sister"), this is the night after, and that's her
+   opening: she did what I asked in front of a room full of strangers, and now she wants to know what she is to me. Otherwise
+   it follows The Friend: she gave up the lake, and she wants to know what for.
+   The $company.devices.valenxCatalyst.name is on my desk and on (narrated, with a screen pulse, no quest device field). I tell
+   her I might feel something like love too, but my love belongs to the company, and I give her a choice: everything, here,
+   now, or leave. She's unsure, and gives in; it's already too deep for anything else. Her first time, and her first full sex
+   scene. Afterwards she gives me her phone, her passwords and her location, and asks me to choose her clothes every morning.
+   I say: soon (the Stage 2 hook for wardrobe orders). */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+Everybody's gone. The office is dark except for my desk lamp and the green standby light of the gray box on the corner of my desk: the $company.devices.valenxCatalyst.name, a little smaller than a paperback, finished two weeks ago and calibrated to exactly one person.
 
-<<AdvanceCorruptionStage $sister>>
+She comes in at seven, after her seminar, and stands in the doorway with her bag still on her shoulder.
 
+<<if $flags.retailIntro === "sister">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can we talk? About last night?" },
+{ text: "Last night she stood on a rooftop in a dress I chose, and laughed at $investor.callName's stories, and let him put his hand on the small of her back while he introduced her to people as 'the charming young lady from that clever little company'. She did everything I asked. She did it well. She hasn't said a word about it all day." },
+{ who: $sister, text: "I did it. All of it. For you. And on the way home I kept thinking, what am I? To you? Like, what am I actually, that I'd do that?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can we talk? Like, actually talk?" },
+{ text: "She's been quiet since the afternoon with the group chat. She isn't sad, she's thoughtful, which on her is rarer." },
+{ who: $sister, text: "I gave up the lake. I gave up $bestFriend.name, kind of. I don't even miss it, which is the scary part. And I keep thinking, okay, but what am I giving it up for? What am I? To you?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Turn the Catalyst on">>
+I reach over and press the button on the gray box while she's still talking. The standby light turns from green to a soft, warm amber.
+
+<<DevicePulse 4>>
+
+The Catalyst doesn't make anybody want anything new. It can't. It finds what's already there, whatever she's been holding back with both hands, and it makes it a little harder to hold. In her case it doesn't have to search very long.
+
+She doesn't notice the light. She notices that she's suddenly closer to my desk than she was. She doesn't remember walking.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Close the door." },
+{ text: "She closes it and drops her bag on the floor next to it and comes over and stands in front of my chair, close, with her hands twisted together." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Answer her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You want to know what you are to me." },
+{ who: $sister, text: "Yes." },
+{ who: $player, text: "I think I might feel something like what you feel. Something like love. I don't say that to anyone." },
+{ text: "Her breath catches. Her eyes fill instantly, as if they'd been waiting." },
+{ who: $player, text: "But my love belongs to the company. To what I'm building. That comes first, and it always will. Everything I have goes into it. Everyone I have goes into it." },
+{ who: $sister, text: "I know. I know that. I've seen it." },
+{ who: $player, text: "So here's what you are, if you want to be. You stop being my $sister.relation and my intern. You're mine. All of you, here, tonight, and after tonight. Whatever I need, whenever I need it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's trembling. The amber light hums on the corner of my desk.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Or you can pick up your bag and go home, and tomorrow you're my intern, and you bring me coffee, and nothing else. I won't be angry. I'll never ask again." },
+{ who: $player, text: "Everything, or leave. You choose." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her choose">>
+She looks at the door. It's closed. Her bag is on the floor next to it.
+
+For a long moment she really does look at it, and I can see her imagining it: picking up the bag, walking out, the elevator, the bus, her room, her old life, $bestFriend.name, the lake, the group chat she could unmute. A normal girl with a normal $sister.playerRelation. It's right there. It's twelve steps away.
+
+Then she looks back at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I'm scared." },
+{ who: $player, text: "I know." },
+{ who: $sister, text: "I don't know if I... I don't know if I'm ready for everything. I don't even know what everything is." },
+{ who: $player, text: "You don't have to know. You just have to choose." },
+{ text: "She closes her eyes. When she opens them again, she's stopped crying." },
+{ who: $sister, text: "Everything." },
+{ text: "It comes out very small. Then she says it again, louder, like she's signing her name." },
+{ who: $sister, text: "Everything. I choose everything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't think she ever really had a choice. I don't think she knows that. That's what makes it hers.
+
+<<linkreplace "Take her">>
+I stand up. She flinches, very slightly, and then she's in my arms and kissing me, hard and clumsy, the way she kissed me the first time, months ago in my room, except that this time she doesn't stop and she doesn't apologize.
+
+I take her clothes off myself, slowly, one piece at a time, and she lets me. The blouse. The skirt. The plain cotton things underneath, which she didn't choose for tonight because she didn't know there would be a tonight. She stands in front of my desk in the lamplight with her arms at her sides, not covering anything, because I haven't told her to, and her skin is goosebumps from her collarbones to her knees.
+
+/* MEDIA: images/characters/sister/events/everything/standing.jpg | Sister standing naked in the lamplight in front of the desk, arms at her sides, the amber light of the gray box behind her */
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I've never... you know I've never. Not all the way. Not with anyone." },
+{ who: $player, text: "I know." },
+{ who: $sister, text: "I'm glad. I'm glad it's you. I always wanted it to be..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I lay her down on the couch in the corner of the office, the one where $ethan.name naps after lunch, and she pulls me down with her.
+
+She's nervous and she's ready, both at once. It hurts her at first. She tells me so in a whisper, and tells me not to stop in the same breath, and holds on to my shoulders with both hands until it stops hurting, and then she holds on for a different reason.
+
+/* MEDIA: images/characters/sister/events/everything/sex_0.mp4 | On the office couch, her arms around his neck, her face turned into his shoulder */
+
+I take my time with her, and it has nothing to do with being gentle. I want her to remember every minute of it, and to know who gave it to her. She says my name over and over, and once, near the end, she says she loves me, and once she says she's mine, as if she's practicing it, and I make her say it again until her voice doesn't shake.
+
+/* MEDIA: images/characters/sister/events/everything/sex_1.mp4 | Closer, faster, her heels digging into the backs of his legs, the amber light on the desk behind them */
+
+When she comes, she clings to me so hard it hurts, and cries a little, and laughs a little, and doesn't let go. When I finish, she wraps her legs around me and keeps me there.
+
+<<DevicePulse "off" "3s">>
+
+<<linkreplace "Afterwards">>
+She lies against me on the narrow couch for a long time with her ear on my chest, drawing little circles on my stomach with one finger. On the desk, I switch the Catalyst back to standby. The light goes green again. She doesn't notice that either.
+
+Then she sits up, suddenly, as if she's remembered something important.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Wait. Hold on. Everything means everything, right?" },
+{ text: "She climbs off the couch, wrapped in my jacket, pads over to her bag, digs out her phone and comes back. She unlocks it and holds it out to me." },
+{ who: $sister, text: "Here. The code's my birthday, you know that already. My email password is the name of our first cat with a two and an exclamation mark. And I'm turning on location sharing. For you. Always on." },
+{ who: $player, text: "You don't have to do that." },
+{ who: $sister, text: "I want to. I don't want there to be anything you can't see. I don't want to have a single secret from you. Not one." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take the phone. Her location turns on while I'm holding it, a little blue dot on a map, right here, sitting next to me in my jacket.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And can I ask for something? A weird something." },
+{ who: $player, text: "Ask." },
+{ who: $sister, text: "Could you pick my clothes? In the mornings? Like, tell me what to wear. I stand in front of my closet for half an hour every day, and I keep thinking, what would he want. I'd rather just know." },
+{ text: "She says it to my chest, not to my face, and her ears go red." },
+{ who: $player, text: "Soon." },
+{ who: $sister, text: "Soon. Okay. Soon is good. I can wait for soon." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lies back down on top of me and sighs, a long, contented sigh, like someone getting into a warm bath. A few minutes later she's asleep, on the couch in the dark office, wearing my jacket, with her phone in my hand.
+
+I hold it and look at the blue dot for a while. Then I put it in my pocket.
+
+<<UpdateStat "+" "SisterRelation" 5>>
+<<UpdateStat "-" "SisterLust" 40>>
+<<UpdateStat "-" "SisterResistance" 8>>
+<<UpdateStat "+" "Corruption" 4>>
+<<set $sister.stats.exhibition to Math.clamp($sister.stats.exhibition + 3, $sister.stats.min.exhibition, $sister.stats.max.exhibition)>>
+<<Feel $sister "player" 3 "lasting">>
+<<AdvanceCorruptionStage $sister "I told her my love belongs to the company and gave her a choice: everything, or leave. She looked at the door for a long time. Then she chose everything.">>
+<<ProfileLog $sister "Everything" "She asked what she is to me. I switched the $company.devices.valenxCatalyst.name on, told her I might feel something like love, and that it belongs to the company, and gave her a choice: everything, or leave. She chose everything. Her first time, on the couch in the dark office. Afterwards she gave me her phone, her passwords and her location, and asked me to choose her clothes every morning. I told her: soon.">>
+<<ProfileMemory $sister "The blue dot" "She switched on location sharing while I was holding her phone. A little blue dot on a map, right next to me, wearing my jacket. Always on, she said.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

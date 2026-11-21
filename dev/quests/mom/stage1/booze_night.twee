@@ -1,8 +1,112 @@
 :: Booze Night [event mom_quest] {"position":"4025,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Booze Night" (mom_boozeNight), STAGE1_PROPOSAL.md 5.1.
-   Wine in the living room. She talks about how long it has been since someone chose her. I listen and make her wait. */
+/* Quest "The Booze Night" (mom_boozeNight), STAGE1_PROPOSAL.md 5.1. The breather after A Knock at Night: a weeknight, a bottle
+   of wine in the living room, no device. She talks about $dad.callName and how long it has been since anyone chose her. I don't
+   do anything. I listen and let her wait, her lust climbs, and she goes to bed having asked for nothing.
+   What it unlocks (her masturbating in more places, the catch-her scene) is not built yet, see STAGE1_TODO.md. */
 <<silent>><<SetBackground $locations[2].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Booze Night, STAGE1_PROPOSAL.md 5.1).
+The living room is dark except for the lamp by the couch and the TV, which is on with the sound off. Some cooking show. A man is folding egg whites into something with the solemn face of a surgeon.
 
+$mom.callName is in her corner of the couch with her feet tucked under her and a glass of red in her hand. The bottle is on the coffee table, a little less than half full. It's a Tuesday, or a Wednesday, one of the days that don't count, and she has a coaster under the bottle and another one under her glass, which is how I know she had a plan when she opened it.
+
+/* MEDIA: images/characters/mom/events/booze_night/couch.jpg | Mom curled up in the corner of the couch in leggings and an oversized cardigan, a glass of red wine, the TV light on her face */
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh. Hi, honey. I didn't hear you come down." },
+{ text: "She looks at the bottle as if somebody else had left it there." },
+{ who: $mom, text: "It was open. Well, it wasn't open. But it would have gone bad eventually. Do you want a glass? You don't have to. You probably have work." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Get a glass">>
+I get a glass from the kitchen and sit down at the other end of the couch, not in the middle. She pours for me with great care, filling it exactly as far as hers, and then tops hers up a little so they match again.
+
+For a while we watch the man with the egg whites. His soufflé collapses. She makes a small sympathetic noise, the one she used to make when I struck out at Little League.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Your $dad.relation used to cook on Sundays. Did you know that? Before you were born. He made this awful chili. So much cumin, sweetie, you could smell it on the curtains for a week." },
+{ who: $player, text: "I didn't know he cooked." },
+{ who: $mom, text: "He stopped. When you came, and then your $sister.relation, there wasn't time for chili. There wasn't time for a lot of things. And then he was traveling so much, and then..." },
+{ text: "She waves her glass at the rest of the sentence. A little wine slops up the side and she watches it slide back down." },
+{ who: $mom, text: "Anyway. That's ancient history. That's like talking about the Romans." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her keep going">>
+I don't say anything. I've noticed that if I don't fill the quiet, she will, and she does.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You know what I was thinking about today? At my desk. It's so silly." },
+{ who: $mom, text: "When I met your $dad.relation, I was at a party with my roommate, and I was in the kitchen, because I'm always in the kitchen at parties. And he walked all the way across the room. Past all these girls who were much prettier and much more interesting. Right to the kitchen. To me." },
+{ who: $mom, text: "He picked me. Out of a whole room." },
+{ text: "She smiles into her glass. Then the smile goes somewhere else." },
+{ who: $mom, text: "I don't think anybody has picked me since. Isn't that a funny thing to realize at my age? Not picked for a job. Not picked to organize something. Just... picked." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs at herself, because that's what she does when she's said too much, and drinks to cover the laugh. Her cheeks are pink. The cardigan has slipped off one shoulder and she hasn't fixed it, which is unusual. She fixes everything.
+
+<<linkreplace "Say nothing">>
+I could tell her that I picked her. That I pick her all the time now: for the sixth floor, for the meeting room, for the test sessions in the evening. That I picked her out of a whole house. She'd hear it as something sweet, and it would be the kindest thing anyone has said to her in a year.
+
+I drink my wine instead and keep looking at her, and let her wonder what I'm thinking.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What? Why are you looking at me like that?" },
+{ who: $player, text: "Like what?" },
+{ who: $mom, text: "Like... I don't know. Like you're waiting for something." },
+{ who: $player, text: "I'm just listening." },
+{ who: $mom, text: "Well. Nobody listens to me this long. You'll give me a big head." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She tucks her feet in tighter. A minute later she untucks them again, and her toes end up a few inches from my thigh, and she leaves them there and pretends that they're not there, and I pretend with her.
+
+<<linkreplace "Let the bottle run out">>
+The bottle goes down. She does most of the work. She tells me about the roommate, who married a dentist, and about the first apartment, which had a bathtub in the kitchen, and about the dress she wore to her cousin's wedding the year before I was born, which she still has, which still fits, she thinks, she's almost sure it would still fit.
+
+Every time she stops talking she looks at me, and every time I just wait, and every time she starts talking again a little faster. She keeps touching her own collarbone. She keeps crossing and uncrossing her legs. At one point she gets up to get water, and stands at the kitchen counter for a long time with the glass in her hand and her back to me, and doesn't drink any of it.
+
+She knows what she wants. The night she came up to my room, she told me to come and find her whenever it gets bad. Tonight it's bad for her, not for me, and there's no rule for that. If I reached over now she'd let me, and tomorrow she'd tell herself it was the wine.
+
+So I don't reach over.
+
+<<linkreplace "Say goodnight">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "It's late. You have the client call at nine." },
+{ who: $mom, text: "Right. Yes. Of course. Nine." },
+{ text: "She stands up too fast, steadies herself on the armrest and laughs about it. She picks up both glasses and the empty bottle and stands there holding them, looking at me." },
+{ who: $mom, text: "This was nice, honey. Just talking. We should... it was nice." },
+{ who: $player, text: "Goodnight, $mom.callName." },
+{ who: $mom, text: "Goodnight." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes the glasses to the kitchen. I hear her rinse them, slowly, and set them upside down on the rack. Then the stairs, one at a time, and on the landing a pause where she stands still for a few seconds before she goes on.
+
+Her door closes. A while later, through the ceiling, I hear her bed creak once, and then again, and then for a long time in a rhythm she probably thinks is quiet.
+
+I turn the TV off and sit in the dark a while, finishing my glass. I didn't need $company.prototype.name tonight. I didn't need to do anything at all.
+
+<<UpdateStat "+" "MomLust" 15>>
+<<UpdateStat "+" "MomRelation" 2>>
+<<UpdateStat "+" "MomCorruption" 2>>
+<<UpdateStat "+" "Corruption" 1>>
+<<ProfileLog $mom "The Booze Night" "She opened a bottle of wine on a weeknight and talked about $dad.callName, and about how nobody has picked her for anything in years. I listened and didn't touch her. She went upstairs on her own, and I heard her bed through the ceiling.">>
+<<ProfileMemory $mom "Picked" "She told me $dad.callName walked across a whole party to find her in the kitchen. She still has the dress from her cousin's wedding. She's almost sure it still fits.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent "Continue" "Living Room">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

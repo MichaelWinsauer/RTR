@@ -377,7 +377,8 @@
 	sysColor: "#e67e22",
 	callName: "Darius",
 	relation: "employee",
-	playerRelation: "boss"
+	playerRelation: "boss",
+	equity: 0,	/* percent of the company: 1 if Morale brought him in ($flags.dariusBroughtIn) */
 }>>
 
 <<set $darius.stats = {

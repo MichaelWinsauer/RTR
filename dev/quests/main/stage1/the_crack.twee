@@ -1,7 +1,88 @@
 :: The Crack [event main_quest] {"position":"5450,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Crack" (main_crack), part 1, STAGE1_PROPOSAL.md 4.10.
-   Part 1 of 2, the weekend: $ethan.name runs the full-strength code on himself for ten minutes. */
+/* Quest "The Crack" (main_crack), STAGE1_PROPOSAL.md 4.10. A weekend. $ethan.name asked for the office to himself for some
+   "stability checks", and I drop by anyway. Through the glass of the meeting room I find him sitting in front of a test rig
+   with a timer running, eyes closed, and on the rig's screen a firmware build from the headset days, the one without a cap.
+   Ten minutes. When it wears off he looks at me with something I can't read. I pretend not to notice anything, and he tells
+   me everything is stable. The first small crack, and I ignore it. No foreshadowing beyond what I see: he never says why.
+   The Monday after is the next quest, main_crackLogs (The Crack 2). */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Crack, STAGE1_PROPOSAL.md 4.10).
+The office on a Saturday sounds different. No keyboards, no coffee machine, no $ethan.name narrating his own code under his breath. Just the vent and the fridge in the kitchen, taking turns.
 
-[[Continue|The Crack 2]]
+He told me on Friday he wanted the place to himself this weekend. Stability checks on the Catalyst firmware, long runs, nothing that needed anybody watching. He said it while packing up, casually, with his back to me. I said sure. Then I thought about it all evening, and this morning I bought two coffees and came in anyway.
+
+His jacket is on his chair. His laptop is open on his desk, with the screen locked. The light is on in the meeting room.
+
+<<linkreplace "Look through the glass">>
+The blinds are half down. Through the gap I can see him.
+
+He's sitting in a chair at the end of the table, facing one of $brian.name's test rigs: a bare circuit board on a stand, one emitter, a thin cable running to a second laptop. His phone is on the table next to him with a timer running. He has his hands flat on his thighs and his eyes closed, and he's smiling, a small, slack, faraway smile I've never seen on him, the kind people have in the dentist's chair after the gas.
+
+On the laptop screen, in a terminal window, there's a build name I haven't seen in more than a year. I know it because I named it, at two in the morning, the week the headset first talked back instead of only listening.
+
+It's the old code. The version from before I decided how high the dial goes. The one without a cap.
+
+/* MEDIA: images/events/the_crack/glass.jpg | Through half-closed blinds: Ethan in a chair facing a bare test rig, eyes closed, a faint smile, a phone timer on the table */
+
+<<linkreplace "Wait">>
+I don't go in. I stand at the glass with two coffees getting cold in my hands and watch the timer on his phone count down. 6:12. 6:11.
+
+He doesn't move. Once, his fingers curl on his thighs and uncurl again. Once, he laughs, softly, at nothing, the way you laugh in a dream.
+
+I think about the vent above my desk, set to eighteen percent since the day we moved in. I think about the night of the field strength, when I turned it off and he laughed at my jokes anyway. I don't think about what it would feel like to sit where he's sitting at full strength, because I already know.
+
+The timer hits zero. The phone buzzes. The emitter on the rig goes dark.
+
+<<linkreplace "Watch it wear off">>
+It takes a minute. His smile goes first, slowly, like water running out of a sink. Then his hands close into fists on his thighs. Then he opens his eyes and sits there, looking at the rig, breathing.
+
+Then he turns his head and sees me through the glass.
+
+There's something on his face I can't read, something quieter than guilt or fear. He looks at me the way you look at a photo of someone you thought you knew, when you notice something in the background you never saw before.
+
+It lasts a second. Then it's gone, and he's $ethan.name again, standing up, grinning, opening the door.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Boss! Hey. You came in? It's Saturday. Don't you have a life? Never mind, I know the answer." },
+{ who: $player, text: "I brought coffee. It's cold now." },
+{ who: $ethan, text: "Cold coffee is still coffee. That's my whole philosophy." },
+{ text: "He takes one and drinks half of it in one go. His hand is steady. He closes the laptop on the table behind him without looking at it, the way you close a book you've finished." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Ask how it's going">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "How are the stability checks going?" },
+{ who: $ethan, text: "Stable. Very stable. Boringly stable. I've been staring at numbers since eight, my eyes are falling out of my head." },
+{ who: $player, text: "Find anything?" },
+{ text: "He looks at me for a moment over the coffee cup. Just a moment." },
+{ who: $ethan, text: "Nope. Everything's exactly what it says on the box." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I could ask him about the build name on the screen. I could ask him why the rig was pointed at his chair. I could ask him what it felt like.
+
+I don't. If I ask, he answers, and then we both know that I know, and something between us has to change. If I don't ask, it's just a Saturday and some cold coffee. I'm very good at deciding which things haven't happened.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Don't stay all weekend." },
+{ who: $ethan, text: "Wouldn't dream of it. Couple more hours. Go home, boss. Go outside. They have a sun out there now, I hear it's great." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He goes back into the meeting room and closes the door. Through the gap in the blinds I watch him sit down at the second laptop and start typing, fast, the way he types when he's working, and he doesn't look up again.
+
+I leave the other coffee on his desk next to his locked laptop. On the stairs I notice that my hands aren't completely steady, which is strange, because nothing happened.
+
+<<UpdateStat "+" "Corruption" 1>>
+<<NextQuest $player>>
+<<ReturnFromEvent "Go home" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

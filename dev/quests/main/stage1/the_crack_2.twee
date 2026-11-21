@@ -1,8 +1,121 @@
 :: The Crack 2 [event main_quest] {"position":"5575,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Crack" (main_crack), part 2 of 2, STAGE1_PROPOSAL.md 4.10.
-   Monday: the log pull from the login of $darius.name, the wrong confrontation. Softer if $flags.dariusBroughtIn. */
+/* Quest "The Access Log" (main_crackLogs), STAGE1_PROPOSAL.md 4.10, the Monday after The Crack. $ethan.name is completely
+   normal. Then the server's access log: every raw log the company has ever recorded was pulled on Saturday night, from the
+   login of $darius.name. I confront him. I'm wrong: he spent the weekend out of town, and he can prove it. He's hurt and polite
+   about it. If I brought him in at Morale ($flags.dariusBroughtIn) he forgives fast; if I shut him out, it hits harder, and his
+   morale with it. Who really pulled the logs is never said; I ask $ethan.name to reset everybody's passwords. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Crack, STAGE1_PROPOSAL.md 4.10).
+On Monday $ethan.name is the first one in, which never happens. He's brought donuts. He makes a joke about the elevator, and another one about $brian.name's new haircut, and he laughs at his own jokes the way he always does, too loud, slapping the desk. By ten he's arguing with $brian.name about emitter timings at exactly the usual volume.
 
+Whatever I saw through the glass on Saturday, it's gone. He's fine. I decide that he's fine.
+
+Then I open the server dashboard to check the overnight backups, and there's a line in the access log I don't recognize.
+
+<<linkreplace "Read it">>
+Saturday, 21:43. A full export of the raw sensor archive. Every reading from every unit we have ever run: the diner pilot, $boss.callName's office, the gyms, the Veil tests. The office vent, from the first day. All of it, packed into one file and downloaded in four minutes.
+
+Next to it, the account that did it: $darius.name's.
+
+I sit and look at that for a long time.
+
+<<if $flags.dariusBroughtIn === true>>He has access to the raw data now. I gave it to him myself, the curated version of it, the week of the morale numbers. But he would never need to pull the whole archive at night, on a Saturday, in one go, unless he wanted all of it at once, without anyone watching, and the archive has things in it that I never cleaned.<<else>>He doesn't have access to the raw archive. I shut him out. And now his name is on a full export, on a Saturday night, when nobody was here. He kept the printout from that afternoon. He folded it and put it in his jacket instead of the bin.<</if>>
+
+<<linkreplace "Call him over">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$darius.name. Meeting room." },
+{ text: "He looks up, sees my face, and closes his laptop without saving whatever he was working on, which I have never seen him do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<silently>><<SetBackground $locations[15].img>><</silently>>
+I turn the screen so he can see the log and don't say anything. He reads it standing up. I watch him read it twice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "That's my account." },
+{ who: $player, text: "It is." },
+{ who: $darius, text: "Saturday at 21:43." },
+{ who: $player, text: "Where were you on Saturday at 21:43?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wait for his answer">>
+He doesn't get defensive. That's almost worse. He takes out his phone, scrolls for a moment, and puts it on the table in front of me.
+
+It's a photo. A crowded dining room, a long table, a lot of people in nice clothes, a cake with a big gold 40 on it. $darius.name is in the middle of it in a dark suit, with his arm around a woman who has his cheekbones.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "My cousin's fortieth. In my parents' town, three hours north. I drove up Saturday morning and came back Sunday night. The timestamp is 21:38. That's me making a toast." },
+{ who: $darius, text: "I can show you the toast too, if you want. It's not very good. I don't do toasts." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I look at the photo, and the timestamp, and his face, which is perfectly calm and has gone a shade paler than usual.
+
+He's telling the truth. He'd be a fool to lie about something this easy to check, and he isn't a fool. Somebody used his login. Somebody who knew his password, or found it, or didn't need it.
+
+<<if $flags.dariusBroughtIn === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I had to ask." },
+{ who: $darius, text: "I know you did." },
+{ text: "He picks his phone back up and puts it in his pocket. He doesn't look away from me while he does it." },
+{ who: $darius, text: "I'd have asked too. In your position. It looks bad. It looks exactly like what it would look like if I'd done it." },
+{ who: $darius, text: "But you brought me in, a few weeks ago. You told me the truth when you didn't have to. I'm not going to throw that away by stealing a file I could have asked you for." },
+{ who: $player, text: "I'm sorry." },
+{ who: $darius, text: "Accepted. Now, can we find out who actually did it? Because somebody in this office has my password, and I'd really like to know how." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's hurt. He's careful not to show it, and that's how I can tell. But he's on my side of the table, already thinking about the problem instead of about me. I brought him in, and today that bought me a lot.
+
+<<run State.variables.darius.stats.morale = Math.clamp(State.variables.darius.stats.morale - 5, State.variables.darius.stats.min.morale, State.variables.darius.stats.max.morale)>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I had to ask." },
+{ who: $darius, text: "Of course." },
+{ text: "He picks his phone back up and slides it into his pocket, very precisely." },
+{ who: $darius, text: "May I go back to my desk? I have the gym report due at noon." },
+{ who: $player, text: "$darius.name. I'm sorry." },
+{ who: $darius, text: "There's no need. You were protecting your company. I understand completely." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He means every word, and every word is a closed door. He walks back to his desk, opens his laptop, and works through lunch without speaking to anyone. When $sister.callName brings him his coffee, he thanks her the same way he thanks the vending machine.
+
+I shut him out once, and today I accused him. In his notebook those are two data points, and he's very good at drawing lines between data points.
+
+<<run State.variables.darius.stats.morale = Math.clamp(State.variables.darius.stats.morale - 20, State.variables.darius.stats.min.morale, State.variables.darius.stats.max.morale)>>
+<<UpdateStat "-" "Morale" 3>>
+<</if>>
+
+<<linkreplace "Deal with it">>
+<<silently>><<SetBackground $locations[14].img>><</silently>>
+Back at my desk I look at the log line again for a while. Saturday, 21:43. A Saturday when the office should have been empty.
+
+I don't let the thought go any further than that. I'm good at that. I've been good at it all weekend.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$ethan.name. I need everybody's passwords reset today. New ones, long ones, two-factor on the server. Somebody's been sloppy." },
+{ who: $ethan, text: "On it, boss. I'll make them so long nobody can remember them, including you." },
+{ text: "He gives me a thumbs up over his monitor without looking away from his screen, and starts typing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "Corruption" 1>>
 <<NextQuest $player>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

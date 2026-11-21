@@ -1,8 +1,98 @@
 :: Be Nice To Brian [event sister_quest] {"position":"4400,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Be Nice to $brian.name" (sister_beNiceToBrian), STAGE1_PROPOSAL.md 6.5b.
-   A comedy: I ask her to be extra friendly to $brian.name. "Hardware $brian.name?" Activates task_sister_be_nice_to_brian (quest set). */
+/* Quest "Be Nice to $brian.name" (sister_beNiceToBrian), STAGE1_PROPOSAL.md 6.5b. A comedy with a small sting, and her first
+   order about another man. I need $brian.name to build something without asking what it's for (The Anchor), and he's easier to
+   talk to after a week of her attention. So I ask her, at my desk, as if I were asking her to water a plant: be extra friendly
+   to $brian.name for a while. Dress nicely on her rounds, stay at his desk longer, a shoulder rub when he's hunched over a board.
+   "$brian.name? Hardware $brian.name?" Then a small hurt pause, because I'm asking her to be nice to another man. Then she
+   says sure, of course. Her first visit (Task Sister Extra Friendly 0) remembers it exactly like that.
+   The quest's set activates task_sister_be_nice_to_brian; The Anchor waits for three of them. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Be Nice to $brian.name, STAGE1_PROPOSAL.md 6.5b).
+She brings my coffee first, as promised, and sets it on my desk with the handle turned toward my right hand, the way she always does now. Since that morning in the kitchen she leaves her hand on my shoulder for a second when she does it. Nobody in the office has noticed. She checks every time.
 
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "One oat milk latte, extra hot, no foam, because you're a monster who hates foam." },
+{ who: $player, text: "Thanks. Hey, while you're here." },
+{ who: $sister, text: "Mm?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't look up from my screen. That's important. This has to sound like nothing.
+
+<<linkreplace "Ask her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Be extra friendly to $brian.name for a while, okay? He needs a little attention." },
+{ text: "And I go back to my email." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For a second nothing happens. Then:
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "$brian.name?" },
+{ who: $player, text: "$brian.name." },
+{ who: $sister, text: "Hardware $brian.name? Soldering iron $brian.name? $brian.name who apologizes to furniture?" },
+{ who: $player, text: "He's been working on the gym rollout for two weeks without a break, and I've got something new for him after that. I need him happy. You're good at happy." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her react">>
+She laughs. It's a real laugh, at first, because the idea of her doing anything to $brian.name except bringing him coffee and watching him panic is genuinely funny. Then the laugh runs out, and she's still standing there with her hand on my shoulder, and I feel her fingers go still.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Extra friendly how?" },
+{ who: $player, text: "Dress nice on your rounds. Stay at his desk a little longer than everyone else's. If he's hunched over a board for an hour, rub his shoulders. You know. Friendly." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her hand slides off my shoulder.
+
+It isn't much. She doesn't step back. She doesn't say anything. She just stands there next to my desk for a few seconds, holding the empty coffee tray against her stomach with both arms, and I can feel her doing the math. Not long ago she sat across from me at the kitchen table and asked what we are, and I told her it could be something beautiful. This morning I'm asking her to go and rub another man's shoulders.
+
+I keep reading my email. I don't help her with the math. She has to finish it herself.
+
+<<linkreplace "Wait">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Sure." },
+{ text: "A beat. Then, brighter, because she's decided to be bright about it:" },
+{ who: $sister, text: "Of course. Yeah, of course. Poor guy. He does look like he hasn't slept since the Bronze Age." },
+{ who: $player, text: "Thanks." },
+{ who: $sister, text: "But I'm not wearing anything nice for $brian.name. I'm wearing something nice and $brian.name happens to be there. That's a very important distinction." },
+{ who: $player, text: "Noted." },
+{ who: $sister, text: "And you owe me. A big thing. I don't know what yet. Something with cannoli." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She heads off toward the kitchen with the tray. Halfway there she looks back, quickly, to see if I'm watching her go.
+
+I'm not. I make sure I'm not. I'm looking at my screen, where I've had the parts list for the next project open the whole time, a short list of very specific components that $brian.name is going to order without asking a single question, as long as somebody has made him feel, for one week of his life, like the most interesting man in the room.
+
+<<linkreplace "Later that afternoon">>
+At a quarter to three, $sister.callName comes back from the kitchen with two coffees and walks straight past my desk without stopping. She's taken her hair down. She's undone one more button than she had this morning.
+
+She pulls the spare chair up to $brian.name's desk and sits down, and hands him a cup, and says something I can't hear. $brian.name freezes with the soldering iron halfway to the board, looks at the coffee, looks at the space about a foot to the left of her face, and very slowly sets the iron down in its stand.
+
+Then he starts talking. He talks with his hands. I have never seen $brian.name talk with his hands.
+
+$sister.callName puts her chin in her palm and listens. Once, just once, she glances across the office at me. Then she looks back at $brian.name and laughs at something, loud enough for me to hear it.
+
+<<UpdateStat "+" "SisterCorruption" 3>>
+<<UpdateStat "+" "Corruption" 1>>
+<<Feel $sister "player" -1>>
+<<ProfileLog $sister "Be Nice to $brian.name" "I asked her to be extra friendly to $brian.name for a while: dress nice, stay at his desk longer, rub his shoulders when he's hunched over a board. I said it without looking up. She laughed first, and then she did the math, and then she said sure, of course. That afternoon she undid one more button and took him a coffee.">>
 <<NextQuest $sister>>
+<<run Notification.show("New task for " + $sister.callName + ": Extra Friendly", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

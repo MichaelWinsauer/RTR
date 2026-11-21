@@ -292,6 +292,23 @@
         set: [
             () => setup.getMealById("silence_lasagna").isActive = false,
         ]
+    }, {
+        /* the morning after The Crawl (mom_crawl), switched on by that scene */
+        id: "crawl_thank_you",
+        passage: "Meal Crawl Thank You",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("crawl_thank_you").isActive = false,
+        ]
     },
 ]>>
 

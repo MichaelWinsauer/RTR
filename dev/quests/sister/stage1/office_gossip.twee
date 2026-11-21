@@ -1,8 +1,121 @@
 :: Office Gossip [event sister_quest] {"position":"3775,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Office Gossip" (sister_officeGossip), STAGE1_PROPOSAL.md 6.3.
-   A comedy: her end-of-day gossip about the staff. Plant: $ethan.name was still there at nine. Again. */
+/* Quest "Office Gossip" (sister_officeGossip), STAGE1_PROPOSAL.md 6.3. A comedy. After her coffee rounds she drops by my desk at
+   the end of the day and tells me everything about the staff: $ethan.name's noodle count, $brian.name and the glass door,
+   $darius.name's cologne, and how gracious he's being since The Ask. No sex. Under the surface she has become my informant and
+   hasn't noticed. I ask her to keep doing it, every evening.
+   Finishing it unlocks her end-of-day report for both of them (setup.dayReportsUnlocked, "End-of-day report" in Define NPCs).
+   Plant (STAGE1_PROPOSAL.md 3.3): "$ethan.name was still there when I left at nine. Again." Said in passing, nobody reacts. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Office Gossip, STAGE1_PROPOSAL.md 6.3).
+At a quarter to five $sister.callName drops into the chair next to my desk with the empty coffee tray in her lap, like a waitress at the end of a double shift. She kicks off one shoe under the desk and wiggles her toes.
 
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. I need to tell someone or I'm going to explode, and you're the only one who isn't a suspect." },
+{ who: $player, text: "A suspect in what?" },
+{ who: $sister, text: "Everything. This office is a soap opera. I've been here three weeks with a tray and I know things. I know so many things." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Tell me">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "First of all. $ethan.name. Do you know how many instant noodle cups he's eaten this week? Guess." },
+{ who: $player, text: "Five." },
+{ who: $sister, text: "Nine. It's Thursday. He keeps the empties in his bottom drawer so $mom.callName won't see them, like a raccoon. I asked him if he owns a pot and he said, and I quote, 'conceptually'." },
+{ who: $player, text: "Conceptually." },
+{ who: $sister, text: "Conceptually! He owns a pot conceptually! I'm going to buy him a pot. I'm going to wrap it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's counting on her fingers. She has a list. Of course she has a list.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Second. $brian.name walked into the glass door to the meeting room. Again. Same door. That's three times this month. I think he and the door have a thing going on. Like a rivalry." },
+{ who: $player, text: "Was $mom.callName nearby?" },
+{ who: $sister, text: "...Yes, actually. How did you know that?" },
+{ who: $player, text: "Lucky guess." },
+{ text: "She squints at me for a second, then decides it isn't interesting and moves on. I don't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Keep going">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Third. Okay, this one's important. $darius.name changed his cologne." },
+{ who: $player, text: "That's important?" },
+{ who: $sister, text: "It's a lot. It's so much. You walk past his desk and it's like being hugged by a department store. I think it's on purpose. I think it's a statement." },
+{ who: $player, text: "What's it saying?" },
+{ who: $sister, text: "It's saying, 'I am a man who was turned down by an intern and I am thriving'." },
+{ text: "She says it in a deep, smooth voice with her chin tucked in, which is a terrible impression of $darius.name and also exactly him." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then her own voice comes back, a little quieter.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "He's being really nice about it, though. Like, really nice. He still says thank you for the coffee. He still asks how my seminar's going. It would honestly be easier if he was a jerk about it." },
+{ who: $player, text: "Do you want him to be a jerk about it?" },
+{ who: $sister, text: "No. I want him to be a little bit sad about it. Just a little. Like, one sad song in the car. Is that terrible?" },
+{ who: $player, text: "Yes." },
+{ who: $sister, text: "Okay, good, as long as we agree." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Anything else?">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh! $mom.callName has a new laugh. Have you heard it? It's like a little..." },
+{ text: "She does it. A low, soft little laugh with her head tilted. It's very good. It's exactly the laugh I watched $mom.callName practice at this desk." },
+{ who: $sister, text: "She does it at the guys. All of them. And they love it. $ethan.name actually stopped mid-joke the other day. I didn't know he had an off switch." },
+{ who: $sister, text: "I think it's cute. I think she's having like a second spring or something. Good for her. She deserves a second spring." },
+{ who: $player, text: "She does." },
+{ who: $sister, text: "And, uh, oh, $ethan.name was still there when I left at nine on Tuesday. Again. Just him and the server rack and a noodle cup. I said goodnight and he jumped like I'd caught him robbing the place." },
+{ who: $player, text: "He's working on the emitter software." },
+{ who: $sister, text: "I figured. He's so dedicated. It's kind of sad. Somebody should buy him a pot." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it and moves on, already on to the printer, which she believes has a personal problem with her, and which she's thinking of reporting to HR, as soon as she finds out who HR is.
+
+<<linkreplace "Make it a habit">>
+I let her finish. All of it: the printer, the plant $mom.callName named Gerald, the delivery guy who winks. By the end she's laughing so hard at her own stories that she has to put the tray on my desk.
+
+Somewhere in the middle of it I realize I've learned more about my own company in fifteen minutes than in a month of reading reports. Who eats what. Who stays late. Who walks into doors, and when. Who's thriving and who's pretending to. She has no idea that's what she's giving me. As far as she knows, she's just telling her favorite person about her day.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You should do this every day." },
+{ who: $sister, text: "Do what? Gossip?" },
+{ who: $player, text: "Come by at the end of the day and tell me how it went. All of it. The noodles, the doors, the cologne." },
+{ who: $sister, text: "You actually want to hear about the noodles?" },
+{ who: $player, text: "I want to hear about everything." },
+{ text: "That lands. It lands all the way. She tucks her hair behind her ear and looks down at the tray and tries to hide how much she likes that, and fails completely." },
+{ who: $sister, text: "Okay. Okay, yes. Daily briefing. I'll call it 'Office Gossip with $sister.name'. I'll make a logo." },
+{ who: $player, text: "Don't make a logo." },
+{ who: $sister, text: "I'm making a logo." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She finds her shoe with her foot, picks up the tray and heads for the kitchen, and on the way she stops at $brian.name's desk to tell him his shirt is nice, and he says thank you to his keyboard.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "SisterCorruption" 2>>
+<<UpdateStat "+" "Morale" 1>>
+<<Feel $sister "ethan" 1>>
+<<ProfileLog $sister "Office Gossip" "She dropped by my desk after her coffee rounds and told me everything about the staff: the noodles, the glass door, the cologne. I asked her to come by every evening and tell me how her day went. She thinks I just like hearing her talk. She's going to make a logo.">>
 <<NextQuest $sister>>
+<<run Notification.show("In the evening you can now ask " + $sister.callName + " and " + $mom.callName + " how their day was.", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -48,55 +48,55 @@ In the order the story first needs them. Each one names the first quest that use
 In play order, phase by phase (proposal section 8). Each stub's comment says what the scene is. Write the scene, move its effects (stats, `<<ProfileLog>>`, `<<ProfileMemory>>`) in, replace the stub choice links with real ones, and remove the marker.
 
 **Phase 1–2**
-- [ ] The Veil (4.2): [the_veil.twee](dev/quests/main/stage1/the_veil.twee)
-- [ ] The Booze Night (5.1): [booze_night.twee](dev/quests/mom/stage1/booze_night.twee)
-- [ ] Caught (5.2): [caught.twee](dev/quests/mom/stage1/caught.twee)
-- [ ] The Ask (6.1): [the_ask.twee](dev/quests/sister/stage1/the_ask.twee)
+- [x] The Veil (4.2): [the_veil.twee](dev/quests/main/stage1/the_veil.twee)
+- [x] The Booze Night (5.1): [booze_night.twee](dev/quests/mom/stage1/booze_night.twee)
+- [x] Caught (5.2): [caught.twee](dev/quests/mom/stage1/caught.twee)
+- [x] The Ask (6.1): [the_ask.twee](dev/quests/sister/stage1/the_ask.twee)
 
 **Phase 3**
-- [ ] The Late Night (4.3): [the_late_night.twee](dev/quests/main/stage1/the_late_night.twee). Also add the vent switch to Off before Ethan arrives (3.3).
-- [ ] Flirt Duty (5.3): [flirt_duty.twee](dev/quests/mom/stage1/flirt_duty.twee)
-- [ ] Souvenirs (6.2), her milestone into stage 1: [souvenirs.twee](dev/quests/sister/stage1/souvenirs.twee)
+- [x] The Late Night (4.3): [the_late_night.twee](dev/quests/main/stage1/the_late_night.twee). The vent goes to Off before Ethan arrives and back afterwards.
+- [x] Flirt Duty (5.3): [flirt_duty.twee](dev/quests/mom/stage1/flirt_duty.twee)
+- [x] Souvenirs (6.2), her milestone into stage 1: [souvenirs.twee](dev/quests/sister/stage1/souvenirs.twee)
 
 **Phase 4**
-- [ ] The First Real Sale (4.4), two parts (her phone call, the bar): [first_real_sale.twee](dev/quests/main/stage1/first_real_sale.twee), [first_real_sale_2.twee](dev/quests/main/stage1/first_real_sale_2.twee). Revise her mail too (`$company.mails[4]`, a first draft).
-- [ ] Not Enough (5.4): [not_enough.twee](dev/quests/mom/stage1/not_enough.twee)
-- [ ] Office Gossip (6.3): [office_gossip.twee](dev/quests/sister/stage1/office_gossip.twee)
+- [x] The First Real Sale (4.4), two parts (her phone call, the bar): [first_real_sale.twee](dev/quests/main/stage1/first_real_sale.twee), [first_real_sale_2.twee](dev/quests/main/stage1/first_real_sale_2.twee). Still open: revise her mail (`$company.mails[4]`, a first draft).
+- [x] Not Enough (5.4): [not_enough.twee](dev/quests/mom/stage1/not_enough.twee)
+- [x] Office Gossip (6.3): [office_gossip.twee](dev/quests/sister/stage1/office_gossip.twee)
 
 **Phase 5**
-- [ ] The Gym Meeting (4.5a), two parts: [gym_meeting.twee](dev/quests/main/stage1/gym_meeting.twee), [gym_meeting_2.twee](dev/quests/main/stage1/gym_meeting_2.twee). Revise Rick's mail too (`$company.mails[5]`, a first draft).
-- [ ] The Crawl (5.6): [the_crawl.twee](dev/quests/mom/stage1/the_crawl.twee)
-- [ ] Send Me Something (6.4), three parts: [send_me_something.twee](dev/quests/sister/stage1/send_me_something.twee), [_2](dev/quests/sister/stage1/send_me_something_2.twee), [_3](dev/quests/sister/stage1/send_me_something_3.twee)
+- [x] The Gym Meeting (4.5a), two parts: [gym_meeting.twee](dev/quests/main/stage1/gym_meeting.twee), [gym_meeting_2.twee](dev/quests/main/stage1/gym_meeting_2.twee). Still open: revise Rick's mail (`$company.mails[5]`, a first draft).
+- [x] The Crawl (5.6): [the_crawl.twee](dev/quests/mom/stage1/the_crawl.twee). The next morning is a meal: [crawl_thank_you.twee](dev/meals/important/crawl_thank_you.twee).
+- [x] Send Me Something (6.4), three parts: [send_me_something.twee](dev/quests/sister/stage1/send_me_something.twee), [_2](dev/quests/sister/stage1/send_me_something_2.twee), [_3](dev/quests/sister/stage1/send_me_something_3.twee)
 
 **Phase 6**
 - [ ] The Gym Dinner (4.5b), the first family option: [gym_dinner.twee](dev/quests/main/stage1/gym_dinner.twee)
 - [ ] Was That Right? (5.7, optional): [mom_gym_dinner_report.twee](dev/quests/mom/stage1/mom_gym_dinner_report.twee). The "let him / keep it light" choice belongs before she leaves, so it goes into the Gym Dinner scene.
-- [ ] What Are We (6.5): [what_are_we.twee](dev/quests/sister/stage1/what_are_we.twee)
+- [x] What Are We (6.5): [what_are_we.twee](dev/quests/sister/stage1/what_are_we.twee)
 
 **Phase 7**
-- [ ] Morale (4.6), Darius in or out: [low_morale.twee](dev/quests/main/stage1/low_morale.twee)
+- [x] Morale (4.6), Darius in or out: [low_morale.twee](dev/quests/main/stage1/low_morale.twee)
 - [ ] The Diner Incident (4.7): [diner_incident.twee](dev/quests/main/stage1/diner_incident.twee)
-- [ ] Be Nice to Brian (6.5b): [be_nice_to_brian.twee](dev/quests/sister/stage1/be_nice_to_brian.twee)
+- [x] Be Nice to Brian (6.5b): [be_nice_to_brian.twee](dev/quests/sister/stage1/be_nice_to_brian.twee)
 
 **Phase 8–9**
 - [ ] The Anchor (4.8): [the_anchor.twee](dev/quests/main/stage1/the_anchor.twee)
-- [ ] The Profit Party (4.9): [profit_party.twee](dev/quests/main/stage1/profit_party.twee)
+- [x] The Profit Party (4.9): [profit_party.twee](dev/quests/main/stage1/profit_party.twee)
 
 **Phase 10**
 - [ ] The Catalyst Night (5.8 + 6.6, one event, both milestones into stage 2): [catalyst_night.twee](dev/quests/main/stage1/catalyst_night.twee) (her, at the office), [catalyst_night_2.twee](dev/quests/main/stage1/catalyst_night_2.twee) (mom, at home)
-- [ ] The Crack (4.10), two parts: [the_crack.twee](dev/quests/main/stage1/the_crack.twee), [the_crack_2.twee](dev/quests/main/stage1/the_crack_2.twee)
+- [x] The Crack (4.10), two parts: [the_crack.twee](dev/quests/main/stage1/the_crack.twee), [the_crack_2.twee](dev/quests/main/stage1/the_crack_2.twee). The Monday part is its own quest now (`main_crackLogs`, "The Access Log")
 
 **Phase 11–12**
 - [ ] The Calendar (5.9), her milestone into stage 3: [the_calendar.twee](dev/quests/mom/stage1/the_calendar.twee)
-- [ ] Two Towns Over (6.6b): [two_towns_over.twee](dev/quests/sister/stage1/two_towns_over.twee)
-- [ ] The Friend (6.6c): [the_friend.twee](dev/quests/sister/stage1/the_friend.twee)
+- [x] Two Towns Over (6.6b): [two_towns_over.twee](dev/quests/sister/stage1/two_towns_over.twee)
+- [x] The Friend (6.6c): [the_friend.twee](dev/quests/sister/stage1/the_friend.twee)
 - [ ] The Introduction (4.11), the second family option: [retail_introduction.twee](dev/quests/main/stage1/retail_introduction.twee)
 - [ ] The Rooftop (6.7, optional): [the_rooftop.twee](dev/quests/sister/stage1/the_rooftop.twee)
-- [ ] The Retail Pitch (4.11): [retail_pitch.twee](dev/quests/main/stage1/retail_pitch.twee)
+- [x] The Retail Pitch (4.11): [retail_pitch.twee](dev/quests/main/stage1/retail_pitch.twee) (two passages, the second one at home that night)
 
 **Phase 13**
-- [ ] Everything (6.8), her milestone into stage 3: [everything.twee](dev/quests/sister/stage1/everything.twee)
-- [ ] A Knock at Night, Again (6.8b): [knock_at_night_again.twee](dev/quests/sister/stage1/knock_at_night_again.twee). Add the "not tonight / let her in" choice.
+- [x] Everything (6.8), her milestone into stage 3: [everything.twee](dev/quests/sister/stage1/everything.twee)
+- [x] A Knock at Night, Again (6.8b): [knock_at_night_again.twee](dev/quests/sister/stage1/knock_at_night_again.twee), with the "not tonight / let her in" choice.
 - [ ] After Hours (5.10, optional, needs the Boss line): [after_hours.twee](dev/quests/mom/stage1/after_hours.twee)
 
 **Phase 14–15**
@@ -106,7 +106,7 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 - [ ] The Morning After (4.13): [morning_after.twee](dev/quests/main/stage1/morning_after.twee)
 
 **Next to the scenes**
-- [ ] Ethan's foreshadowing (3.3): CCTV clips of him alone at night, Sister's "still there at nine" (Office Gossip), Darius's login in the log pull (The Crack).
+- [ ] Ethan's foreshadowing (3.3): CCTV clips of him alone at night. *Done in the scenes: Sister's "still there at nine" (Office Gossip), the bartender who knows him (First Real Sale 2), the uncapped build on the rig (The Crack), Darius's login in the log pull (The Access Log), him watching her mute the group chat (The Friend).*
 - [ ] Important meals that call back to the bigger scenes (the CLAUDE.md meal pattern), at least after the Catalyst Night and The Calendar.
 - [ ] Stage-aware variants of home scenes and interactions for her stages 2 and 3.
 

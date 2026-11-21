@@ -1,8 +1,108 @@
 :: The Ask [event sister_quest] {"position":"3525,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Ask" (sister_theAsk), STAGE1_PROPOSAL.md 6.1.
-   $darius.name asks her out and she turns him down on her own. That evening she tells me, in my hoodie. */
+/* Quest "The Ask" (sister_theAsk), STAGE1_PROPOSAL.md 6.1. End of the workday. From my desk I watch $darius.name stop at hers
+   and ask her out properly: a time, a place, no pressure. She says no, nicely, and is surprised how easy it was. When the
+   office has emptied she comes over to my desk in my hoodie and tells me, because she tells me everything. A joke first,
+   then, quieter, that I'm the only one she's interested in. No choice for me: I didn't have to do anything, I just let it sit.
+   Sets her feelings toward $darius.name (fond, a little guilty). */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Ask, STAGE1_PROPOSAL.md 6.1).
+It's the part of the afternoon when the office starts pretending it's still working. $ethan.name has his jacket on and is "just finishing something". $brian.name is wrapping a cable around his hand and elbow in slow, neat loops. $mom.callName is watering the plants, the ones she brought in, which have names now.
 
+$darius.name shuts his laptop, slides it into his bag, and then, instead of going for the door, he walks over to $sister.callName's desk.
+
+From mine I can't hear much. I can see plenty.
+
+<<linkreplace "Watch">>
+He doesn't lean on her desk. That's the first thing. Every other guy who has ever tried this with her leaned on something. $darius.name stands a polite distance away with his bag on his shoulder and his hands where she can see them, and he says something short, and smiles, the easy, practiced smile of a man who has done this before and has mostly heard yes.
+
+$sister.callName stops typing.
+
+She looks up at him, and for a second her face does the thing it always did when a boy she liked said her name, a quick bright flash that she couldn't hide. Then something passes over it. She glances, very briefly, toward my side of the room, without quite looking at me.
+
+Then she shakes her head, smiling, and says something that makes him laugh. He nods, says one more short thing, taps her desk twice with two fingers, and leaves. No sulking, no lingering. He even holds the door for $ethan.name on the way out.
+
+She sits there for a while with her hands on the keyboard, not typing.
+
+<<linkreplace "Wait for the office to empty">>
+By six it's just us. $mom.callName left with a quick squeeze of my shoulder and a reminder about dinner. The lights over the empty desks switch themselves off one row at a time, and the only sound is the vent.
+
+$sister.callName comes over in my hoodie. The gray one, which disappeared from my closet a month ago and now lives on the back of her chair. The sleeves cover her hands. She sits down on the corner of my desk, on top of a contract I need, and pulls her knees up.
+
+/* MEDIA: images/characters/sister/events/the_ask/desk.jpg | Sister sitting on the corner of a desk in an oversized gray hoodie, sleeves over her hands, knees up, the dark office behind her */
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "So. Guess what." },
+{ who: $player, text: "$darius.name asked you out." },
+{ who: $sister, text: "Okay, rude. You're supposed to guess wrong first. That's how guessing works." },
+{ who: $player, text: "Coffee?" },
+{ who: $sister, text: "Saturday. This little Italian place near the river with the good cannoli. He'd already looked up the hours. He said, and I quote, 'no pressure, I just think you're interesting and I'd like to know more about you'." },
+{ who: $sister, text: "Who talks like that? That's not how boys talk. That's how a LinkedIn profile talks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her tell it">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And he's tall. And he does the thing with his sleeves, the rolling. And that cologne, which, okay, is a lot. But still." },
+{ who: $sister, text: "Like, objectively, on paper, he is extremely my type. A few months ago I would have said yes before he got to the word Saturday." },
+{ who: $player, text: "And?" },
+{ who: $sister, text: "And I said no." },
+{ text: "She says it to her knees. Then she looks up and puts on a big grin, the one she uses for bad grades and parking tickets." },
+{ who: $sister, text: "I turned down a man in a tailored shirt. Voluntarily. I think I deserve a medal. Or a plaque. Something for the wall." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't laugh. I don't say anything at all. I lean back in my chair and look at her, and wait, and the grin can't hold up under that for very long.
+
+<<linkreplace "Wait">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "It was weird, though. It was so easy. I thought it would be hard, like I'd have to talk myself out of it, but I didn't even have to think. He asked, and I just... knew." },
+{ text: "She pulls the sleeves down further over her hands and twists them together." },
+{ who: $sister, text: "He was really nice about it. He said 'fair enough' and that he hoped it wouldn't make things weird. And I said of course not. And now it's going to be so weird. I'm going to bring him coffee tomorrow and it's going to be the weirdest coffee in history." },
+{ who: $player, text: "Why did you say no?" },
+{ text: "She doesn't answer right away. She looks at the dark windows, and at the empty desks, and at the vent, anywhere except at me." },
+{ who: $sister, text: "You know why." },
+{ text: "It comes out very quietly. Then even quieter, so I almost miss it:" },
+{ who: $sister, text: "You're the only one I'm interested in. That's the stupid truth. I don't know what to do with it. I just thought you should know that I'm not... that I'm not looking." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let it sit">>
+I could say something. I could tell her I feel the same, or that it's wrong, or that it's fine. Every one of those answers would give her something to hold, and the whole point is that she doesn't get anything to hold. Not yet. She turned down a perfectly good man on her own, without a single nudge from me, and all I had to do was sit at my desk and be in her line of sight.
+
+So I reach out and fix the hood of my hoodie where it's folded under at the back of her neck, and leave my hand there for a moment, warm against her skin. That's all.
+
+She closes her eyes. When she opens them again, she's smiling, a small real one this time.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Okay, cool. Great talk. Very emotionally healthy of us." },
+{ text: "She slides off the desk, and the contract slides with her. She picks it up, smooths it out, and puts it back exactly where it was, which it wasn't." },
+{ who: $sister, text: "I'm keeping the hoodie, by the way. That's not a question." },
+{ who: $player, text: "I know." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She waits for me by the elevator while I shut down, and on the drive home she talks about cannoli, and how she's never actually had a good one, and how that's probably a sign of something. She doesn't mention $darius.name again.
+
+Tomorrow she'll bring him his coffee and be extra nice to him, the way you are to someone you've let down, and he'll be gracious about it, because he's gracious about everything. And he'll notice she looks at my desk every time she laughs. He's too polite to push. He's also much too sharp not to wonder.
+
+<<UpdateStat "+" "SisterRelation" 3>>
+<<UpdateStat "+" "SisterCorruption" 3>>
+<<UpdateStat "+" "SisterLust" 3>>
+<<Feel $sister "darius" 1 "lasting">>
+<<Feel $sister "player" 2>>
+<<ProfileLog $sister "The Ask" "$darius.name asked her out for Saturday, properly, and she turned him down on her own. That evening she sat on my desk in my hoodie and told me she isn't looking, because I'm the only one she's interested in. I didn't say anything. I didn't have to.">>
+<<ProfileMemory $sister "Cannoli" "She has never had a good cannoli. She thinks that's probably a sign of something.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,8 +1,157 @@
 :: The Crawl [event mom_quest] {"position":"4525,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Crawl" (mom_crawl), STAGE1_PROPOSAL.md 5.6.
-   Friday, the empty office, her apology. Next morning she thanks me for letting her make it up. */
-<<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Crawl, STAGE1_PROPOSAL.md 5.6).
+/* Quest "The Crawl" (mom_crawl), STAGE1_PROPOSAL.md 5.6. The Friday after The Silence. The office empties out early, and she
+   stays. She apologizes; I'm rude and don't look up. She changes in the bathroom into the dress from her cousin's wedding (The
+   Booze Night: she was almost sure it still fits) and crawls to my desk across the empty office. Her first blowjob, and I
+   insult her while she does it. At the end I tell her that from now on she brings my coffee in the morning and does this
+   with it, and she says yes. No device.
+   The quest's set unlocks the morning routine ($mom.flags.morningRoutine, not built yet). This scene switches on the meal
+   crawl_thank_you: the next morning she thanks me for letting her make it up, at breakfast, in front of $sister.callName. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+By five on a Friday, the office is a ghost town. $ethan.name left at four with a wink and the words "long weekend, boss, I can feel it in my bones", though it isn't one. $brian.name left at four-fifteen because $ethan.name left. $darius.name left at four-thirty, exactly, with his notebook under his arm. $sister.callName left with him, because her seminar starts at six.
 
+$mom.callName didn't leave.
+
+She's at her desk with her coat on. She's had her coat on for forty minutes. She hasn't typed anything in thirty. Every few minutes she looks over at me, and every time she does, I'm looking at my screen.
+
+It's been a week. A week of her trying, in every small way she could think of, and a week of me walking past her in the kitchen like she was a piece of furniture. I haven't said a single word to her that wasn't about a client.
+
+<<linkreplace "Keep working">>
+At five-twenty she gets up. She takes her coat off, folds it over the back of her chair, and walks over to my desk. She stops a few feet away, the way she did in my room the night I sent her away, and stands there with her hands clasped in front of her.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Can I... can I talk to you? Just for a minute. You don't have to say anything." },
+{ text: "I keep reading the email on my screen. I've read it three times." },
+{ who: $mom, text: "I'm sorry. About that night. About what I said." },
+{ who: $mom, text: "I've been trying to figure out all week why I said it. I've done everything you asked. Everything. And then I drew this line, like I was... like I still got to decide something. And you stopped needing me. And it was the worst week I've had since your $dad.relation left. Worse. At least then I had you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Her voice cracks on the last part, and she stops and breathes and steadies it, because she doesn't want to cry at me. She wants to apologize properly.
+
+<<linkreplace "Don't look up">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Okay." },
+{ text: "That's all. I scroll down." },
+{ who: $mom, text: "Okay?" },
+{ who: $player, text: "You're sorry. Okay. Was there something else? I have a contract to finish." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's cruel, and I mean it to be. I can feel her standing there taking it. I can hear her breathing change.
+
+And then, very quietly:
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Give me five minutes. Please. Don't go anywhere." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She picks up her purse from her desk and walks to the bathroom at the far end of the office. The door closes. I hear the lock.
+
+<<linkreplace "Wait five minutes">>
+It's closer to ten. I finish the contract, which I didn't need to finish. The office has gone blue with dusk, and nobody's switched the lights on except the strip over my desk.
+
+The bathroom door opens.
+
+She's wearing a dress I've never seen. Dark green, silky, with thin straps and a neckline that goes lower than anything she owns. It was made for a younger woman at a wedding twenty years ago, and it fits her the way it was supposed to fit her then, and maybe a little better. Her hair is down. Her lipstick is fresh and darker than she ever wears it. Her feet are bare. She's left her heels in the bathroom.
+
+It's the dress from her cousin's wedding, the one she told me about on the couch with half a bottle of wine in her. She was almost sure it still fit. She found out.
+
+/* MEDIA: images/characters/mom/events/the_crawl/dress.jpg | Mom in the doorway of the office bathroom in a dark green silk slip dress, barefoot, hair down, dark lipstick, the office dim and blue behind her */
+
+<<linkreplace "Look at her">>
+She doesn't walk over. She stands there long enough for me to look at her, all of her, and she lets me. Then she gets down onto her knees on the office carpet.
+
+And she crawls.
+
+All the way across the main room: past $ethan.name's desk with the noodle drawer, past Gerald the fern, past the coffee machine, slowly, on her hands and knees in a dress she wore at a wedding, with her eyes on me the whole way. The straps slip off one shoulder. She doesn't fix it. The carpet is going to leave marks on her knees, and she'll have to wear pants on Monday, and she knows it.
+
+/* MEDIA: images/characters/mom/events/the_crawl/crawl.mp4 | Mom crawling across the dim office toward the camera on hands and knees, dress slipping off one shoulder, eyes up */
+
+She stops at my chair. She kneels up between my knees and puts her hands flat on my thighs, and looks up at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I want to make it up to you. Please let me make it up to you." },
+{ who: $player, text: "You said there were things a $mom.relation doesn't do." },
+{ who: $mom, text: "I know what I said." },
+{ text: "She swallows. Her hands find my belt. They're perfectly steady." },
+{ who: $mom, text: "I'm not sure I meant it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+She's slow at first, careful, like she's doing something delicate and doesn't want to break it. Her lipstick leaves a ring. She makes a small surprised sound, at herself more than anything, and then she closes her eyes and stops being careful.
+
+/* MEDIA: images/characters/mom/events/the_crawl/bj_0.mp4 | Mom kneeling between his knees at the desk, the desk lamp the only light */
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Look at you. A whole week of being sweet to me, and this is what you were saving." },
+{ text: "She whimpers around me. Her fingers dig into my thighs." },
+{ who: $player, text: "All that talk about lines. You crawled across the office for this. On your knees, in a dress you bought for a wedding." },
+{ who: $player, text: "Don't stop. You've made me wait a week. You can work for it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Every word goes into her. I can see it. Her face flushes, her eyes squeeze shut, and she takes me deeper, as if she can make up for every one of them. She doesn't argue with any of it. She just works harder, the way she does at everything, the way she's always done everything for me.
+
+/* MEDIA: images/characters/mom/events/the_crawl/bj_1.mp4 | Closer, faster, his hand in her hair */
+
+I put my hand in her hair. She leans into it like a cat.
+
+When I come she doesn't pull away. She stays there, eyes closed, and swallows, and stays where she is, breathing hard through her nose, before she sits back on her heels and wipes her mouth with the back of her hand. Her lipstick is everywhere. She doesn't seem to care.
+
+<<linkreplace "Tell her how it's going to be">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Was that... did I..." },
+{ who: $player, text: "From now on you bring my coffee in the morning." },
+{ who: $mom, text: "I do bring your coffee in the morning." },
+{ who: $player, text: "And you do that. Every morning. With the coffee." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks up at me from the floor. Her mascara has run a little at the corners. Her straps are both off her shoulders now, and she hasn't noticed, or she's stopped caring about straps.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Every morning." },
+{ who: $player, text: "Every morning." },
+{ text: "There's no fight in it. There's something that looks almost like relief." },
+{ who: $mom, text: "Yes. Okay. Yes, honey." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I touch her cheek with two fingers, once, and that's all it takes. She closes her eyes and leans her face into my hand and lets out a long, slow breath, the kind you let out at the end of a week like the one she's had. The week is over. She knows it. I'm needing her again.
+
+She gets up slowly, rubbing her knees, and pads back to the bathroom for her heels and her work clothes. On the way she stops at Gerald the fern and straightens one of his leaves.
+
+<<set setup.getMealById("crawl_thank_you").isActive to true>>
+<<set $mom.stats.exhibition to Math.clamp($mom.stats.exhibition + 3, $mom.stats.min.exhibition, $mom.stats.max.exhibition)>>
+<<UpdateStat "+" "MomCorruption" 8>>
+<<UpdateStat "-" "MomResistance" 6>>
+<<UpdateStat "+" "MomRelation" 3>>
+<<UpdateStat "-" "MomLust" 20>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $mom "player" 3>>
+<<ProfileLog $mom "The Crawl" "On the Friday after the silent week she stayed late at the office and apologized. I didn't look up. She changed into the green dress from her cousin's wedding and crawled across the office to my desk, and used her mouth this time. I told her what I thought of her while she did it. From now on she brings my coffee in the morning, and that with it. She said yes, and she sounded relieved.">>
+<<ProfileMemory $mom "The green dress" "She was almost sure it still fit. It does. She left her heels in the office bathroom and came to me barefoot, on her knees, with her eyes on me the whole way across the room.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -592,10 +592,10 @@
         ],
     },
     {
-    	/* 4.10 Weekend: the old friend runs the full-strength code on himself. Part 2 (Monday) is the red herring:
-    	   the log pull from the login of the analyst */
+    	/* 4.10 Weekend: the old friend runs the full-strength code on himself. The Monday after is its own quest
+    	   (main_crackLogs), so the clock does not have to jump two days inside one event */
     	id: "main_crack",
-    	next: "main_retailIntroduction",
+    	next: "main_crackLogs",
     	title: "The Crack",
         task: "$ethan.name wants the office to himself this weekend for some stability checks. I think I'll drop by anyway.",
         where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
@@ -607,6 +607,23 @@
         returnPassage: "Company Stage 1",
         requirements: [ "$date.dayCount >= setup.getQuestById('main_catalystNight').doneDay + 2" ],
         requirementsText: [ "Wait a few days" ],
+    },
+    {
+    	/* 4.10, the Monday after The Crack: the access log shows a pull of the raw data from the login of the analyst
+    	   over the weekend, and I confront the wrong man. Softer if $flags.dariusBroughtIn */
+    	id: "main_crackLogs",
+    	next: "main_retailIntroduction",
+    	title: "The Access Log",
+        task: "Somebody pulled every raw log off the server this weekend. The access log has a name on it.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0],
+        active: false,
+        needsEvent: true,
+        passage: "The Crack 2",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount > setup.getQuestById('main_crack').doneDay" ],
+        requirementsText: [ "Wait for Monday" ],
     },
     {
     	/* 4.11, first half: the second family option. The scene sets $flags.retailIntro to "broker" (pay), "wait" (two
@@ -1875,9 +1892,7 @@
         ],
     },
     {
-    	/* 6.6c Her best friend from college, told in her report at the end of the day.
-    	   STAGE1-STUB: a plain event for now. The end-of-day report exists (Define NPCs): when the scene is written,
-    	   decide whether it stays an event or becomes a report entry (setup.dayReports and <<LogDay>>) */
+    	/* 6.6c Her best friend from college. Stays an event, written as her end-of-day report at my desk */
     	id: "sister_theFriend",
     	next: "sister_rooftop",
     	title: "The Friend",

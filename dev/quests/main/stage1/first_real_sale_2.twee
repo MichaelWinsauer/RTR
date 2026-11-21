@@ -1,8 +1,72 @@
 :: First Real Sale 2 [event main_quest] {"position":"4200,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The First Real Sale" (main_firstSale), part 2 of 2, STAGE1_PROPOSAL.md 4.4.
-   The bar. "Don't tell me what the dial does, boss." Sets pressClient through the quest set. */
-<<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The First Real Sale, STAGE1_PROPOSAL.md 4.4).
+/* Quest "The First Real Sale" (main_firstSale), part 2 of 2, STAGE1_PROPOSAL.md 4.4. The bar with $ethan.name after the sale.
+   A good night. He says "Don't tell me what the dial does, boss. I like not knowing", and the way he holds his glass says he
+   doesn't quite mean it. Kept light: no real foreshadowing yet. The quest's set unlocks project_marketing_veil and sets
+   $flags.pressClient ($marketingFirm.name launches the rival company at the end of Stage 1). Ends at home. */
+The bar is two blocks from the office and has a neon sign in the window that says OPEN in a font that's trying very hard. Inside it's dark wood and a jukebox that only plays songs from before either of us was born, and a bartender who calls $ethan.name by name, which tells me something about where $ethan.name goes after he leaves the office at nine.
 
+/* MEDIA: images/events/first_real_sale/bar.jpg | A dim, wood-paneled bar, two beers on the counter, a neon OPEN sign in the window */
+
+He orders for both of us without asking: two of something dark from a tap with a hand-drawn label. He clinks his glass against mine so hard the foam slops over.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "To the first stranger. May she have many friends with many conference rooms." },
+{ who: $player, text: "She does. She said so." },
+{ who: $ethan, text: "Of course she does. She runs a marketing firm. Her whole job is having friends." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Drink">>
+We drink. We talk about nothing for a while: a show he's watching that he insists I would love, the pizza guy from the other night, $brian.name's theory that the office printer is haunted, which $brian.name says is a joke but which he has clearly thought about a lot. The jukebox plays a song about a truck. $ethan.name knows all the words.
+
+Around the second round he gets quieter, the good kind of quiet, the kind where you've stopped performing.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "You know what I keep thinking about? The night with the field strength. When we got it right and every corner read the same." },
+{ who: $player, text: "Me too." },
+{ who: $ethan, text: "I've built a lot of things that worked. That one felt like something. Like when the first plane stayed up." },
+{ text: "He turns his glass in a slow circle on the coaster." },
+{ who: $ethan, text: "And today some lady at a glass desk bought it over the phone. That's insane, boss. That's really insane." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Second round">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You set the dial on that thing. You know better than anyone what it does." },
+{ who: $ethan, text: "Nope. No. I know what the profile does. I know what eight emitters at that setting do to a meter $brian.name built out of a multimeter and spite." },
+{ who: $ethan, text: "Don't tell me what the dial does, boss. I like not knowing. It's the nicest part of the job." },
+{ text: "He grins when he says it. Then he takes a sip and holds the glass against his lip for a while without drinking any more, looking at the bottles behind the bar." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's a programmer. Programmers always want to know what the dial does. It's practically the definition of the job. I let it go, because it's a good night, and because he's let it go too, or he's decided to.
+
+<<linkreplace "Last round">>
+At eleven he tries to pay, and I don't let him, and we argue about it in front of the bartender until she takes my card just to make us stop. Outside, the air is cold and smells like rain that hasn't started yet. He hugs me on the sidewalk, the full kind with a slap on the back, the way you hug someone at a wedding.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Proud of you, man. Seriously. You did that." },
+{ who: $player, text: "We did that." },
+{ who: $ethan, text: "Yeah, okay, we did. But you picked up the phone. Get home safe. Don't sleep at your desk." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He walks off toward the bus stop, hands in his pockets, whistling the song about the truck. I stand on the sidewalk for a minute after he's gone. Then I call a car, and on the ride home I read the marketing firm's contract one more time on my phone, even though I already know every line.
+
+<<UpdateStat "+" "Reputation" 5>>
+<<UpdateStat "+" "Morale" 3>>
+<<run State.variables.ethan.stats.morale = Math.clamp(State.variables.ethan.stats.morale + 10, State.variables.ethan.stats.min.morale, State.variables.ethan.stats.max.morale)>>
 <<NextQuest $player>>
-<<ReturnFromEvent>>
+<<run Notification.show("New project available: " + $marketingFirm.name, { type: Notification.INFORMATION })>>
+<<ReturnFromEvent "Go home" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

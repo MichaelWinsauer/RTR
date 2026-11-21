@@ -1,10 +1,164 @@
 :: Low Morale [event main_quest] {"position":"4700,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Morale" (main_morale), STAGE1_PROPOSAL.md 4.6.
-   $mom.callName and $sister.callName are told to dress nicer and be friendlier. $darius.name pushes back with numbers. */
+/* Quest "Morale" (main_morale), STAGE1_PROPOSAL.md 4.6. The gym contract is signed and the workload has doubled. I tell
+   $mom.callName and $sister.callName to dress a little nicer and be friendlier with the staff (their rounds already exist as
+   tasks). $darius.name pushes back, not morally but analytically: productivity peaks twenty minutes after $mom.callName walks
+   through the room, and he'd like to know why. Since $sister.callName turned him down he watches the family more closely.
+   The choice sets $flags.dariusBroughtIn:
+     true   a half-truth ("it's a nudge, it's in the brochure"), a title and a small stake ($darius.equity): a Stage 2 ally
+     false  shut out: he stays suspicious, and the log pull in The Crack 2 looks guilty
+   A line changes with how the gym dinner went ($mom.flags.gymDinner). */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Morale, STAGE1_PROPOSAL.md 4.6).
+<<if $mom.flags.gymDinner === true>>
+$gymOwner.name signed the full contract the morning after his dinner with $mom.callName, eleven locations and a twelfth next spring, and sent a fruit basket the size of a car tire.
+<<else>>
+$gymOwner.name signed the morning after our dinner, with the discount I gave him and a handshake that went on for a while, eleven locations and a twelfth next spring.
+<</if>> That was ten days ago. Since then the office has been running like a kitchen on a Saturday night.
 
-<span id="stub-choice">
-<<link `"Bring " + $darius.name + " in with a half-truth"`>><<set $flags.dariusBroughtIn to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-<<link `"Shut " + $darius.name + " out"`>><<set $flags.dariusBroughtIn to false>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-</span>
+Eleven gyms means eleven site surveys, eleven routers, eleven installations after closing time. $brian.name has been soldering emitter rings at his desk with his lunch balanced on his knee. $ethan.name hasn't told a joke since Tuesday, which is the most worrying number in the building. $darius.name has a spreadsheet for the spreadsheets. Nobody says anything about it, because nobody has the energy to.
+
+The company Morale on my dashboard has been going down a little every day, a slow, steady slope, the kind you don't notice until you look at the whole week.
+
+<<linkreplace "Do something about it">>
+I call $mom.callName and $sister.callName into the meeting room at the same time, which I don't usually do. $sister.callName sits down next to $mom.callName and steals a mint from the bowl. $mom.callName takes the bowl away from her without looking.
+
+<<silently>><<SetBackground $locations[15].img>><</silently>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The team is tired. You've both seen it." },
+{ who: $mom, text: "$brian.name fell asleep at his desk yesterday, honey. With the soldering iron on. $ethan.name had to unplug it." },
+{ who: $sister, text: "And $ethan.name didn't even make a joke about it. I was waiting. It was very sad." },
+{ who: $player, text: "So for the next few weeks, the two of you are going to be the best part of their day. Dress a little nicer. Spend a little longer at every desk. Laugh a little more. Whatever you're doing on your rounds, do more of it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They look at each other. It's the first time I've given them the same order, in the same room, and something passes between them that I can't quite read. A sort of polite curiosity. Neither of them knows what the other one's rounds look like.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Nicer how? Like, blazer nice? Or like, nice nice?" },
+{ who: $player, text: "Nice enough that they notice." },
+{ who: $mom, text: "I can do that. I've got the blue dress, the one with the belt. Everybody always says something about the blue dress." },
+{ who: $sister, text: "Okay, wait, now I have to beat the blue dress. That's not fair, the blue dress is a classic." },
+{ who: $mom, text: "It's not a competition, sweetie." },
+{ who: $sister, text: "Everything is a competition." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's a joke. Everybody laughs. It's also the first time they've ever been put side by side for the same audience, and from the way $sister.callName glances at $mom.callName's legs when she stands up, I don't think it's entirely a joke anymore.
+
+<<linkreplace "A few days later">>
+<<silently>><<SetBackground $locations[14].img>><</silently>>
+It works. Of course it works.
+
+The blue dress shows up on Tuesday. $sister.callName answers on Wednesday with a skirt I've never seen and a blouse that she has, technically, buttoned. The Morale line on my dashboard flattens out, and then on Thursday it starts to climb, a little at first, then a lot. $ethan.name tells a joke about the printer at a quarter past ten. $brian.name eats lunch at a table like a person. By Friday the office sounds the way it did before the gyms.
+
+On Friday afternoon, $darius.name knocks on the edge of my desk. He isn't here to chat. He has a printout.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Do you have ten minutes? It's about us again. Not a client." },
+{ who: $player, text: "Sit down." },
+{ text: "He doesn't sit. He lays the printout on my desk, squares it with the edge, and taps it with one finger." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's a chart. Commits from $ethan.name, closed tickets, $brian.name's soldering log, $darius.name's own output, all on one timeline over the last week. And over it, a row of small colored marks. I don't need him to tell me what they are. I recognize the colors. Blue for $mom.callName. Yellow for $sister.callName.
+
+<<linkreplace "Hear him out">>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "I log everything. It's a habit. Those marks are every time one of them came through the main room on one of their rounds." },
+{ who: $darius, text: "Productivity peaks about twenty minutes after your $mom.relation walks through the room. Every time. Your $sister.relation's effect is smaller, and it's mostly on $brian.name." },
+{ who: $darius, text: "I'm not saying anything is wrong. People work better when somebody's nice to them. That's a real effect, there are papers on it. But it's not twenty minutes and it's not this clean. This looks like a dose." },
+{ who: $player, text: "A dose." },
+{ who: $darius, text: "I'd like to know why." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He isn't accusing me of anything. He's doing the most dangerous thing a smart person can do: he's being curious, out loud, in my office. And he's been watching them. Since $sister.callName turned him down, he's been watching my family a little more closely than before, and now he's found a pattern in it.
+
+He's the first one to put any of it together. He doesn't have all of it, but he has enough.
+
+<<linkreplace "Decide what to do with him">>
+<div id="morale-choice">
+<div>
+<<link "Bring him in with a half-truth">><<replace "#morale-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Close the door." },
+{ text: "He closes it and sits down for the first time." },
+{ who: $player, text: "It's the Veil. A low-power unit in the ventilation. It's been running since we moved in. It's a nudge, the same thing we sell, the same thing that's in the brochure. Calm, focus, a little warmth. When somebody walks through the room and makes people smile, the unit amplifies it, because that's what it's built to do. You found the amplification." },
+{ who: $darius, text: "In our own office." },
+{ who: $player, text: "Where else would I test it? I wasn't going to tell the team they were the pilot. Then it's not a pilot anymore, it's a placebo study." },
+{ text: "He thinks about that. I can see him turning it over, looking for the crack, and finding one, and deciding it's small enough to live with." },
+{ who: $darius, text: "That's a design flaw in your study, by the way. Not telling people." },
+{ who: $player, text: "That's why I need someone who notices design flaws. Head of Analytics. A real title. And a stake in the company, a small one. You get the raw data from now on. All of it. Including ours." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The raw data from the office vent is going to look like a low-power Veil, because I'll make sure that's what it looks like. It'll be a week of work to build him a past that holds up. It's worth it. A man like $darius.name is much safer inside the tent, where I can see what he's measuring.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Including ours." },
+{ who: $player, text: "Including ours." },
+{ text: "He stands up, picks up his printout, and for the first time since he started here he offers me his hand like an equal." },
+{ who: $darius, text: "Then I'm in. Thank you for telling me the truth." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He means it. That's the part I enjoy most.
+
+<<set $flags.dariusBroughtIn to true>>
+<<set $darius.equity to 1>>
+<<run State.variables.darius.stats.morale = Math.clamp(State.variables.darius.stats.morale + 15, State.variables.darius.stats.min.morale, State.variables.darius.stats.max.morale)>>
+<<UpdateStat "+" "Morale" 4>>
+<<UpdateStat "+" "Corruption" 1>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</replace>><</link>>
+</div>
+<div>
+<<link "Shut him out">><<replace "#morale-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "It's called a good office culture, $darius.name. People like my family. They're likable. You're welcome to put that in a paper." },
+{ who: $darius, text: "That's a culture explanation." },
+{ who: $player, text: "It's the explanation." },
+{ who: $darius, text: "With respect, culture doesn't come in twenty-minute doses." },
+{ who: $player, text: "With respect, you're an analyst on a contract that runs through the end of the year. Analyze the gyms." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's a short pause. He doesn't argue. He picks up the printout, folds it once down the middle, and puts it in the inside pocket of his jacket instead of the bin.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Understood. The gyms." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He goes back to his desk. For the rest of the afternoon he works exactly as hard as always, and every time $mom.callName walks through the main room, he looks at his watch.
+
+<<set $flags.dariusBroughtIn to false>>
+<<run State.variables.darius.stats.morale = Math.clamp(State.variables.darius.stats.morale - 10, State.variables.darius.stats.min.morale, State.variables.darius.stats.max.morale)>>
+<<UpdateStat "+" "Morale" 2>>
+<<UpdateStat "+" "Corruption" 2>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</replace>><</link>>
+</div>
+</div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

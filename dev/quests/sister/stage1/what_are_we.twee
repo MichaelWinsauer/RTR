@@ -1,8 +1,116 @@
 :: What Are We [event sister_quest] {"position":"4275,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "What Are We" (sister_whatAreWe), STAGE1_PROPOSAL.md 6.5.
-   The morning after: "What are we?" She stops using $sister.callPlayerShort in private. */
+/* Quest "What Are We" (sister_whatAreWe), STAGE1_PROPOSAL.md 6.5. The morning after Send Me Something. She was up before me and
+   has been rehearsing over her cereal. With $mom.callName in the shower upstairs she asks: what are we? She can't say the
+   sibling word anymore, and she can't say anything else either. I tell her that what we have can be beautiful, if we both want
+   it. Relieved and terrified. From here on she stops using $sister.callPlayerShort in private (a note for later scenes, nothing
+   reads a flag for it). */
 <<silent>><<SetBackground $locations[3].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (What Are We, STAGE1_PROPOSAL.md 6.5).
+She's at the kitchen table when I come down, already dressed, which never happens before eight. There's a bowl of cereal in front of her that she hasn't touched. The flakes have gone soft and sunk. Her phone is face down next to the bowl, and she's turning her spoon over and over between her fingers like a coin.
 
+Upstairs the shower is running. $mom.callName sings in the shower, badly, and today it's something from a musical.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hi. Morning. Hi." },
+{ who: $player, text: "You're up early." },
+{ who: $sister, text: "I didn't really sleep. I mean, I slept. After. For a while. And then I woke up and I couldn't stop thinking, so I came down here to think somewhere with snacks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pour a coffee and sit down across from her. She watches me do every part of it: the mug, the coffee, the milk, the sitting, as if she's memorizing the order for a test.
+
+<<linkreplace "Wait for it">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. I've been practicing this, so just let me get through it, okay? Don't say anything until I'm done or I'll lose my place." },
+{ who: $player, text: "Okay." },
+{ who: $sister, text: "So. Last night. And the photos. And the thing in your room, the sometimes. And before that, the kiss. And before that, like, my entire life." },
+{ text: "She stops, takes a breath, and looks at a spot on the table about a foot in front of my coffee." },
+{ who: $sister, text: "What are we?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lets it sit there between us, next to the soggy cereal. Upstairs, $mom.callName misses a high note.
+
+<<linkreplace "Let her keep going">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Because I know what we're supposed to be. I've known my whole life. I used to introduce you to people. 'This is my...'" },
+{ text: "She stops on the word. She tries it again, and her mouth just doesn't do it." },
+{ who: $sister, text: "I can't say it anymore. Isn't that crazy? It's like, one syllable, and I can't. It feels like lying." },
+{ who: $sister, text: "But I can't say anything else either. There isn't another word. There's no word for this. I looked." },
+{ who: $player, text: "You looked?" },
+{ who: $sister, text: "At three in the morning. On my phone. Don't make fun of me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She finally looks up at me, and her eyes are already wet, and she's furious at them for it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I just need to know if I'm making it up. If it's just me. Because if it's just me, I can... I'll deal with it. I'll stop. I'll go back to being normal, I'll date some guy with a tailored shirt, I'll be fine. But I need you to tell me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She won't stop. She couldn't if she tried, and we both know it. But she needs to believe she could, and she needs me to be the one who tells her she doesn't have to.
+
+<<linkreplace "Answer her">>
+I reach across the table and take the spoon out of her hand, because she's going to bend it, and hold her hand instead.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You're not making it up." },
+{ text: "Her breath catches. That's all, a little catch, like a hiccup." },
+{ who: $player, text: "I don't have a word for it either. Maybe there isn't one. But I know this: what we have doesn't have to be wrong. It can be something beautiful. If we both want it." },
+{ who: $sister, text: "If we both want it." },
+{ who: $player, text: "Do you want it?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stares at our hands for a long time. Her thumb moves over my knuckles, back and forth.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "So much. So much it's scary. I'm so scared, and I'm so happy, and I can't tell which one is louder." },
+{ who: $player, text: "You don't have to tell. You just have to want it." },
+{ who: $sister, text: "Okay." },
+{ text: "Then, almost too quiet to hear:" },
+{ who: $sister, text: "Okay. Yeah. I want it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Upstairs, the shower stops">>
+The pipes knock as the shower turns off. $sister.callName yanks her hand back so fast her elbow hits the bowl and slops milk across the table, and she's mopping it up with a paper towel by the time $mom.callName's footsteps cross the landing.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh my God. Okay. Act normal. How do people act normal? What do I usually do with my hands?" },
+{ who: $player, text: "You eat cereal." },
+{ who: $sister, text: "Right. Cereal. I'm a normal person who eats cereal." },
+{ text: "She shovels a spoonful of soggy flakes into her mouth and immediately makes a face, and swallows anyway, and grins at me with her cheeks full." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName comes in with a towel around her hair, asks why there's milk all over the table, and $sister.callName says she sneezed, which is a terrible lie, and $mom.callName believes it completely, because why wouldn't she.
+
+When $mom.callName turns to the coffee maker, $sister.callName catches my eye over her bowl. She mouths something. It isn't the word she used to call me. It's my name.
+
+<<UpdateStat "+" "SisterRelation" 4>>
+<<UpdateStat "+" "SisterCorruption" 4>>
+<<UpdateStat "-" "SisterResistance" 3>>
+<<Feel $sister "player" 2>>
+<<ProfileLog $sister "What Are We" "The morning after she sent me the videos, she asked me at the kitchen table what we are. She can't say the sibling word anymore, and there's no other word, she looked. I told her it doesn't have to be wrong, that it can be beautiful if we both want it. She said she wants it. She calls me by my name now when it's just us.">>
+<<ProfileMemory $sister "Three in the morning" "She looked it up at three in the morning, on her phone, whether there's a word for what we are. There isn't. She told me not to make fun of her for looking.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent "Continue" "Kitchen">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

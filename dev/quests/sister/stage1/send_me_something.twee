@@ -1,7 +1,71 @@
 :: Send Me Something [event sister_quest] {"position":"3900,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Send Me Something" (sister_sendMeSomething), part 1, STAGE1_PROPOSAL.md 6.4.
-   Part 1 of 3: I tell her I want to see her. */
+/* Quest "Send Me Something" (sister_sendMeSomething), part 1 of 3, STAGE1_PROPOSAL.md 6.4. Night, my room. She comes over for
+   the "sometimes, when you want" from Souvenirs, and I stop her: tonight I don't want to be touched. I want to see her. I tell
+   her to go back to her room and send me something. I could watch her on the camera in her room any night I like; what I want
+   is for her to choose to show me.
+   Part 2: the two videos that night, each one with an apology before it. Part 3: I walk in on her. */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Send Me Something, STAGE1_PROPOSAL.md 6.4).
+She comes in without knocking now. That's new since the photos. She just opens the door, slips through, closes it behind her and leans on it, in the gray hoodie and a pair of shorts, with her hair down and her face scrubbed and pink from the shower.
 
-[[Continue|Send Me Something 2]]
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hi. Is it... is tonight a sometimes?" },
+{ text: "She says it like a joke, but she's already walking over. She's already sitting down next to me on the bed with her hand on my knee." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's the third time this week. She's good at it now. She's proud of being good at it, the same way she's proud of her journal and her coffee tray, and if I let her she'd make it a habit, then a routine, then something comfortable.
+
+I take her hand off my knee.
+
+<<linkreplace "Stop her">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh. Okay. Not tonight. That's fine, that's totally fine, I'll just..." },
+{ who: $player, text: "Stay a second." },
+{ text: "She stays, half up, half sitting, with her hand hovering in the air between us like it doesn't know where it belongs anymore." },
+{ who: $player, text: "I don't want you to touch me tonight." },
+{ who: $sister, text: "Okay." },
+{ who: $player, text: "I want to see you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't get it at first. I watch her turn it over. Then her eyes go wide, and her ears go red, and she pulls the sleeves of the hoodie down over both hands.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "See me. Like... see me see me." },
+{ who: $player, text: "Go back to your room. Send me something." },
+{ who: $sister, text: "Like a picture? You want me to send you a picture? I'm so bad at pictures, I have like a two percent success rate, I always look like I'm being arrested." },
+{ who: $player, text: "Not a picture." },
+{ text: "That takes her a second too. When she gets there, she puts both sleeves over her face." },
+{ who: $sister, text: "Oh my God." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wait for her answer">>
+She doesn't say yes. She doesn't say no. She sits there with her face in her sleeves for a while, and then she drops her hands into her lap and looks at me, really looks, the way she looked at the photos on my phone.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You really want that? Me? You want to look at me?" },
+{ who: $player, text: "I want to look at you." },
+{ who: $sister, text: "Nobody's ever... okay. Okay. I mean, I'm not saying I'm going to. I'm just saying I heard you." },
+{ who: $player, text: "Goodnight." },
+{ who: $sister, text: "Goodnight. I heard you. I'm just... I heard you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes. She closes my door very carefully, and then her own door, a little less carefully.
+
+The camera I hid in her room weeks ago would show me everything she does in there tonight. I could open it on my phone right now. I don't. A camera only shows me what she does when she thinks nobody's looking. I want to see what she does when she knows I am.
+
+I put my phone face up on the nightstand and turn off the light.
+
+[[Wait|Send Me Something 2]]
+<</linkreplace>>
+<</linkreplace>>

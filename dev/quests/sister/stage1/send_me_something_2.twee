@@ -1,7 +1,84 @@
 :: Send Me Something 2 [event sister_quest] {"position":"4025,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Send Me Something" (sister_sendMeSomething), part 2 of 3, STAGE1_PROPOSAL.md 6.4.
-   The videos at night, each with an apology before she sends it. */
+/* Quest "Send Me Something" (sister_sendMeSomething), part 2 of 3, STAGE1_PROPOSAL.md 6.4. The same night. Two videos arrive
+   on my phone, each one after a string of apologies. The first is shy and very short. I answer with one word, and the second
+   is braver. Part 3: I go to her room. */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Send Me Something, STAGE1_PROPOSAL.md 6.4).
+11:52. The phone lights up the ceiling.
 
-[[Continue|Send Me Something 3]]
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "ok" },
+{ who: $sister, text: "this is so stupid" },
+{ who: $sister, text: "sorry. sorry in advance. you can delete it. you should probably delete it" },
+{ who: $sister, text: "sorry" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then a video. Eleven seconds.
+
+<<linkreplace "Watch it">>
+/* MEDIA: images/characters/sister/events/send_me_something/video_0.mp4 | Phone video, her bedroom lit only by fairy lights, Sister in the gray hoodie sitting on her bed, slowly lifting the hem to her ribs, then grabbing the phone */
+
+Her room, lit only by the fairy lights. She's propped the phone up on something, her desk maybe, and she's sitting on the end of her bed in my hoodie. For three seconds she just sits there, looking somewhere just off the camera, biting her lip. Then she takes the hem in both hands and lifts it, slowly, up over her stomach, up to her ribs, and stops there.
+
+Then her face crumples into a silent oh my God, she lets go of the hem and lunges for the phone, and the video ends on a blur of ceiling.
+
+I watch it four times.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "sorry" },
+{ who: $sister, text: "that was terrible. that was the worst video ever made. i panicked" },
+{ who: $sister, text: "you don't have to say anything" },
+{ who: $sister, text: "please say something" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Answer her">>
+I type one word.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "More." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The little dots appear under it. Disappear. Appear. Disappear again. For six minutes nothing happens at all, and I lie in the dark and listen to the house, and to her floor creaking through the wall, back and forth, back and forth, someone pacing.
+
+<<linkreplace "Wait">>
+12:31.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "ok i'm sorry about this one too" },
+{ who: $sister, text: "i'm sorry i keep saying sorry" },
+{ who: $sister, text: "it's for you. only you. ok" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+This one is forty seconds long.
+
+/* MEDIA: images/characters/sister/events/send_me_something/video_1.mp4 | Phone video, same room, the hoodie off, Sister in only her underwear on the bed, looking straight into the camera, one hand sliding down her stomach */
+
+The phone's on the desk again, closer this time. The hoodie is on the floor. She's on the bed in nothing but a pair of plain cotton panties, sitting with her knees pulled up and her arms around them, and she's looking straight into the camera. Straight at me. Her cheeks are blotchy red and she looks terrified, and she doesn't look away.
+
+Slowly she lets go of her knees. She leans back on one hand, and the other one slides down over her stomach, and stops at the waistband, and stays there while she breathes, and then slips under it.
+
+She doesn't do much. She doesn't need to. For thirty seconds she just touches herself and looks at the camera with her mouth a little open, and right at the end she whispers something too quiet for the phone to catch, and then reaches out and stops it.
+
+It doesn't take me long to work out what she whispered. It's my name. It's always my name.
+
+<<linkreplace "Get up">>
+No text comes after it. No apology. Through the wall I can hear her bed creak, softly, steadily, and then a sound like someone biting into a pillow.
+
+I get up and go down the hall.
+
+[[Open her door|Send Me Something 3]]
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

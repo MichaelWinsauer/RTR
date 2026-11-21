@@ -1,9 +1,122 @@
 :: The Veil [event main_quest] {"position":"3825,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Veil" (main_veil), STAGE1_PROPOSAL.md 4.2.
-   Team meeting: one unit for a whole room, the lecture hall of $prof.callName as the first site. $brian.name wants an array,
-   $ethan.name loves it, $darius.name asks for the raw logs and gets cleaned numbers. Unlocks project_company_veil (quest set). */
+/* Quest "The Veil" (main_veil), STAGE1_PROPOSAL.md 4.2. The idea comes from The Proposition of the $prof line: I promised
+   $prof.callName a unit for a whole lecture hall and told him it would take months. Now I have to build it.
+   A team meeting: one unit for a whole room, the hall at the college as the first site. $brian.name wants an antenna array,
+   $ethan.name loves it and names it, $darius.name asks for the raw logs and gets cleaned numbers, and writes that down.
+   The quest's set unlocks project_company_veil. The router look comes later, with the gym (Gym Meeting 2). */
 <<silent>><<SetBackground $locations[15].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Veil, STAGE1_PROPOSAL.md 4.2).
+I've drawn it on the whiteboard before anyone comes in, because a drawing gets people arguing about the drawing instead of the idea. A rectangle for the lecture hall. Rows of little circles for the students. In the middle of the ceiling, one box, with wavy lines coming out of it in every direction like a kid's picture of the sun.
 
+$ethan.name is first through the door, as usual, and stops dead.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Oh, I love it already. Is it a sun? Are we going into solar?" },
+{ who: $player, text: "Sit down." },
+{ who: $ethan, text: "Because I have opinions about solar." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$brian.name comes in sideways behind him, sees the drawing, and his whole face changes. He doesn't even pull out a chair. He walks straight up to the whiteboard and stands there with his hands in his pockets, tilting his head at the wavy lines the way other people look at paintings.
+
+$darius.name comes last, with a fresh notebook and a coffee he made himself, because he's tried $mom.callName's and has been polite about it ever since. He reads the whiteboard once, sits down, and opens the notebook to a clean page. He's already started a list before I've said a word.
+
+<<linkreplace "Pitch it">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Everything we've sold so far works on a desk. One person, maybe two, a few feet away. The official unit, $boss.callName's unit, the diner. All small." },
+{ who: $player, text: "This is the next step. One unit for a whole room. Forty people, a hundred, two hundred. You walk in, and the room is just a little nicer to be in than it should be." },
+{ who: $ethan, text: "So, like a really good playlist. For the air." },
+{ who: $player, text: "And I already have a first site. $prof.callName at the college wants one for his lecture hall. A pilot study, paid for out of a research budget nobody has touched since somebody bought a smartboard." },
+{ who: $ethan, text: "A pilot study. We're academics now. I'm going to start wearing a scarf indoors." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$brian.name still hasn't turned away from the board. He lifts one hand and traces the wavy lines in the air without touching them.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "One emitter won't do that. Not evenly. You'd get a hot spot under the box and nothing in the back rows." },
+{ who: $player, text: "So what would?" },
+{ who: $brian, text: "An array. Uh, six, maybe eight small ones, phased, so they overlap. You'd have to map the room first. Walls, the ceiling height, where the bodies are. People absorb things. Like, a lot." },
+{ text: "He turns around for the first time, and for once he's actually looking at me, because he's too busy thinking to remember not to." },
+{ who: $brian, text: "That's a really good problem. Can I have it?" },
+{ who: $player, text: "It's yours." },
+{ who: $brian, text: "Okay. Okay. I'm going to need a ladder. And the floor plan. And a ladder." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let them run with it">>
+For ten minutes I barely have to say anything. $brian.name draws his array next to my sun, eight neat little squares in a ring, and $ethan.name gets up to argue about the software that's supposed to keep eight emitters in step, and they disagree about everything except that it can be done. It's the best ten minutes I've had in this office. It's also exactly what I wanted to happen, which is nice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Also, we need a name. We can't keep calling it 'the big one'. That's how you end up in an HR seminar." },
+{ who: $player, text: "Go ahead." },
+{ who: $ethan, text: "Okay. Okay. It goes over the whole room. It's soft, you don't notice it, it's just there, like... a veil. $company.prototype.name Veil." },
+{ text: "He sits back and spreads his hands, waiting for applause. $brian.name gives him a small, serious nod, the highest honor $brian.name has." },
+{ who: $player, text: "Fine. Veil." },
+{ who: $ethan, text: "Write that down, $darius.name. Historic moment. I named the thing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$darius.name doesn't write that down. He's been writing the whole time, slowly and evenly, and he finally lifts his pen.
+
+<<linkreplace "Hear $darius.name out">>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Before we build it, I'd like to know what we're tuning it to. Effect against distance. If the official unit loses half its effect at two meters, a lecture hall is a very different problem from a meeting room." },
+{ who: $player, text: "That's fair." },
+{ who: $darius, text: "So I'd want the raw logs. From the diner pilot and from $boss.callName's office. Session data, every reading the units took, not the weekly summaries." },
+{ text: "He asks it the way he asks everything, politely and precisely, as if it were the most normal request in the world. Which it is. That's the problem." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The raw logs from $boss.callName's office would show him a curve that looks like the official unit's, because it is the official unit. The logs from the diner would show him something else: spikes on the days I sat in a booth with my coat on, my real $company.prototype.name in the inside pocket, nudging $manager.callName toward yes. Nobody looks at those days and sees a gentle product.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I'll put a dataset together for you. Cleaned up, everything you need for distance and decay." },
+{ who: $darius, text: "Cleaned up how?" },
+{ who: $player, text: "The pilot units were prototypes. Half the raw readings are calibration noise and sensor drift. You'd spend a week throwing out garbage. I already did that part." },
+{ who: $darius, text: "I like throwing out garbage. It's most of my job." },
+{ who: $player, text: "Then you'll be bored. You'll have it by tomorrow." },
+{ text: "There's a pause, short enough that $ethan.name doesn't notice it." },
+{ who: $darius, text: "Tomorrow is fine. Thank you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He writes one more line in his notebook. It's short. I'd give a lot to know what it says, and I'm not going to ask, because asking is exactly what would make it interesting to him.
+
+<<linkreplace "Wrap it up">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So that's the next big project. $brian.name, the array. $ethan.name, everything that keeps it in step. $darius.name, the numbers. I'll talk to $prof.callName about access to the hall." },
+{ who: $ethan, text: "How long did you tell him?" },
+{ who: $player, text: "Months." },
+{ who: $ethan, text: "And how long do we actually have?" },
+{ who: $player, text: "Less." },
+{ who: $ethan, text: "Classic. I love this job." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They leave in the order they came, and $brian.name takes a photo of the whiteboard on his way out, from three different angles, in case one of them is blurry.
+
+I'm the last one in the room. I wipe off my sun and leave his array where it is. Then I go to my desk and pull up the diner logs, every session, every day, and start deciding which days never happened.
+
+<<UpdateStat "+" "Morale" 3>>
+<<UpdateStat "+" "Corruption" 1>>
 <<NextQuest $player>>
+<<run Notification.show("New project available: " + $company.devices.valenxVeil.name, { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

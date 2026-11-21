@@ -1,10 +1,165 @@
 :: Souvenirs [event sister_quest] {"position":"3650,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Souvenirs" (sister_souvenirs), STAGE1_PROPOSAL.md 6.2.
-   Her milestone into stage 1. The photos from the party night, "special memories". "Can I do this more often?" */
+/* Quest "Souvenirs" (sister_souvenirs), STAGE1_PROPOSAL.md 6.2. Her milestone into corruption stage 1 (Yearning). A week after
+   The Ask I show her the photos from the night of the party (Party Animal, $sister.flags.photoTaken): her on her bed under the
+   fairy lights, after. She remembers that night only as dreams. I don't threaten her. I call them special memories. She
+   feels sick, and then touched that I kept them, and then she asks if she can touch me like that night. Her first
+   handjob she'll remember. Afterwards: "Can I do this more often?" No device. */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Souvenirs, STAGE1_PROPOSAL.md 6.2).
+I text her at eleven: <i>you up? come over for a sec</i>
 
-<<AdvanceCorruptionStage $sister>>
+She's there in under a minute, in the gray hoodie and sleep shorts, with her hair in a lopsided bun and a face mask still drying on her chin that she has clearly forgotten about. She knocks on my open door, which she never does.
 
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You rang? Is it a spider? Please tell me it's a spider, I've been training for this my whole life." },
+{ who: $player, text: "Close the door." },
+{ text: "She closes it. Something about the way I said it takes the bounce out of her, and she sits down on the end of my bed with her hands tucked into the sleeves." },
+{ who: $sister, text: "Okay, you're being weird. Is it the internship? Did I mess something up with the journal?" },
+{ who: $player, text: "You didn't mess anything up. I want to show you something. I've been thinking about whether I should for a while." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hand her the phone">>
+I open the album and hand her my phone.
+
+She looks at the first photo for a long time without understanding it. Her room, from the doorway. The fairy lights over her bed. A shape on the bed, all bare skin and loose hair, one arm thrown over its face.
+
+Then she swipes, and the shape is her.
+
+/* MEDIA: images/characters/sister/events/souvenirs/phone.jpg | Sister on the end of the bed in the gray hoodie, staring at a phone screen held in both hands, face pale */
+
+<<silently>>
+<<set _msgs = [
+{ text: "Her thumb stops. Her whole body stops. For a few seconds she doesn't breathe, and then she does, too fast." },
+{ who: $sister, text: "What is... when is this? When did you..." },
+{ who: $player, text: "The night of the party. You came home and you came to find me." },
+{ who: $sister, text: "No. No, that was... I dreamed that. I dream about that night all the time, I thought it was a dream, I thought I made it up because I'm a disgusting person and my brain is broken..." },
+{ text: "She swipes again. Her hand is shaking. She swipes again." },
+{ who: $sister, text: "Oh my God. Oh my God, it was real. I was... I did..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She drops the phone on the comforter like it's hot and presses both sleeves over her mouth. For a second I think she's going to be sick right there on my bed.
+
+<<linkreplace "Wait">>
+I don't touch her. I don't take the phone back. I sit on my desk chair and wait while she breathes into her sleeves, and I let her get all the way to the bottom of it on her own, because the bottom is where she'll look for something to hold on to, and I'm going to be the only thing there.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Why do you have these? Why would you... are you going to... is this a..." },
+{ who: $player, text: "Hey. Look at me." },
+{ text: "She does. Her eyes are wet and enormous." },
+{ who: $player, text: "Nobody has ever seen them. Nobody ever will. I didn't take them to hurt you." },
+{ who: $sister, text: "Then why?" },
+{ who: $player, text: "Because that night you told me things nobody has ever told me. And you'd forgotten them by morning. I didn't want to be the only one who remembered. They're special. They're memories. That's all they are." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's almost the truth, which makes it the best kind of lie. I watch it work on her: the fear first, then confusion, then something warm creeping up underneath that she doesn't want to be there.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You kept them. All this time. You kept them and you never said anything, you never..." },
+{ who: $sister, text: "You never made me feel weird about it. I've been feeling weird about it every single day and you just... let me pretend." },
+{ who: $player, text: "I thought you weren't ready." },
+{ who: $sister, text: "I'm not ready. I'm so not ready. I'm wearing a face mask." },
+{ text: "She touches her chin, finds the mask, and laughs, horribly, wetly, and starts picking it off in little pieces." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her ask">>
+She picks the phone back up. She doesn't swipe this time. She just looks at the one on the screen, the one where she's turned toward the camera, half asleep and smiling.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I remember bits. Like, flashes. The lights. Your belt. I remember thinking I had to thank you, like it was the most important thing in the whole world." },
+{ who: $sister, text: "And I remember how it felt. Not the... not the drunk part. Just. Being that close to you, and you letting me." },
+{ text: "She puts the phone down, face down, very carefully, and looks at her hands instead of at me." },
+{ who: $sister, text: "Can I... is it okay if I ask something terrible?" },
+{ who: $player, text: "You can ask me anything." },
+{ who: $sister, text: "Can I touch you? Like that night. But I want to remember it this time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't answer right away. I let her hear herself say it, and sit in it, until her ears go red under the hair.
+
+Then I get up from the chair and sit down next to her on the bed.
+
+<<linkreplace "Let her">>
+She's slow about it, and shaky, and completely serious. She pushes the sleeves of the hoodie up to her elbows first, like someone about to wash dishes. She asks if it's okay twice. When she finally opens my jeans her fingers are cold, and she says sorry for that too, and rubs her hands together to warm them, and I almost laugh.
+
+/* MEDIA: images/characters/sister/events/souvenirs/hj_0.mp4 | Sister kneeling on the bed beside him in the hoodie, sleeves pushed up, looking down, her hand on him */
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Is this... am I doing it right? I can't remember if I was good at it. I was probably terrible. I was drunk." },
+{ who: $player, text: "You're doing fine." },
+{ who: $sister, text: "Fine. Wow. Okay. I'll take fine." },
+{ text: "But she watches my face the whole time, the way she watched it when she read her grades out loud, and every time I breathe a little differently she adjusts, and learns, and gets better. She's a fast learner. She always has been, when it's something she cares about." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Halfway through she stops talking. Her breathing has changed. She's leaning against my shoulder now, her cheek on my arm, and her free hand has found a fistful of my shirt and is holding on to it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I've thought about this so much. Every night. And I hated myself every time. And now it's real and it's you and I don't hate anything." },
+{ who: $player, text: "Don't stop." },
+{ who: $sister, text: "I'm not going to stop. I'm not going to stop." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/events/souvenirs/hj_1.mp4 | Close, faster, her forehead against his shoulder */
+
+When I come, she gasps like she's the one who did, and doesn't let go, and stares down at her hand and my stomach with an expression I can't name. Wonder, maybe. Like someone who has just watched something hatch.
+
+<<linkreplace "Afterwards">>
+She cleans us both up with the tissues on my nightstand, carefully, thoroughly, the way she does everything when it matters to her. Then she sits back on her heels on the bed and looks at me with her hands in her lap.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "That was real. That one counts." },
+{ who: $player, text: "That one counts." },
+{ text: "She nods, slowly. Then she takes a deep breath, and I can see her working up to it, the same way she worked up to asking about the internship." },
+{ who: $sister, text: "Can I... can I do that more often?" },
+{ text: "She hurries on before I can answer." },
+{ who: $sister, text: "Not like, all the time. I'm not a... I just mean. Sometimes. When you want. I'd like to be the one who does that. For you." },
+{ who: $player, text: "Sometimes. When I want." },
+{ who: $sister, text: "Okay. Okay. Yeah. That's... yes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She leaves my phone on the nightstand, face down, without asking me to delete anything. At the door she stops and looks back at it, and then at me, and smiles, a little crooked.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Keep them. The pictures. I think... I think I like that you have them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Down the hall her door closes, and through the wall I hear her bed creak once as she falls onto it, and then a sound muffled by a pillow. It takes me a moment to place it, because it's the last thing I expected. She's laughing.
+
+<<UpdateStat "+" "SisterRelation" 4>>
+<<UpdateStat "+" "SisterLust" 5>>
+<<UpdateStat "-" "SisterResistance" 3>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $sister "player" 2 "lasting">>
+<<AdvanceCorruptionStage $sister "I showed her the photos from the night of the party. She'd thought it was a dream. Then she asked if she could touch me like that night, so that she'd remember it this time.">>
+<<ProfileLog $sister "Souvenirs" "I showed her the photos from the night of the party, the ones of her on her bed under the fairy lights. She'd thought she dreamed that night. I told her they're special memories, and that nobody else will ever see them. She asked if she could touch me again, sober this time, and afterwards she asked if she could do it more often. She told me to keep the photos.">>
+<<ProfileMemory $sister "That one counts" "She pushed the sleeves of my hoodie up to her elbows like she was about to wash dishes, and asked if it was okay twice. Afterwards she said that this one counts.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

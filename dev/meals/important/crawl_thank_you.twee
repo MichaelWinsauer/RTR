@@ -1,0 +1,60 @@
+:: Meal Crawl Thank You [activity meal] {"position":"1475,2350"}
+/*
+{
+        id: "crawl_thank_you",
+        passage: "Meal Crawl Thank You",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+        ],
+        set: [
+            () => setup.getMealById("crawl_thank_you").isActive = false,
+        ]
+}
+   Activated by: "The Crawl" (mom_crawl). The morning after she crawled to my desk in the green dress. She brought my coffee
+   upstairs first, the new way, and now at breakfast she thanks me for letting her make it up, in front of $sister.callName,
+   who thinks it's about whatever they fought about all week. The first time she says the word thank about it.
+*/
+She brought my coffee up at seven. She knocked the old way, came in, set the mug on my nightstand and knelt down next to the bed without a word, still in her robe, and when she was done she pulled the blanket back up over me and said good morning, honey, as if that were the whole of what had happened.
+
+Now she's at the stove, dressed, making eggs, humming again.
+
+/* IMAGE: images/meals/important/crawl_thank_you.jpg | Bright kitchen, Mom at the stove in a cardigan, humming, Sister at the table in pajamas looking between the two of them, a coffee mug at his place */
+
+$sister.callName is at the table in her pajamas with her chin on her fist, looking from her to me and back again with the deep suspicion of someone who has spent a week eating meals in total silence.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Are we done? Is it over? Are we allowed to talk again?" },
+{ who: $mom, text: "Talk about what, sweetie?" },
+{ who: $sister, text: "The cold war. The thing. Whatever it was. I had to eat lasagna in a demilitarized zone. I'm traumatized." },
+{ who: $mom, text: "There's no cold war. Eat your eggs." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She brings the pan over and serves me first. She gives me the eggs the way I like them, which she always does, and then she puts her hand on my shoulder and leaves it there while she talks.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Thank you, honey." },
+{ who: $player, text: "For what?" },
+{ text: "She knows I know. She says it anyway, with $sister.callName sitting right there, because she wants to say it out loud." },
+{ who: $mom, text: "For letting me make it up to you." },
+{ who: $sister, text: "Ugh. Okay. Whatever it was, I'm glad you guys made up. Truly. Never do that again. I'm serious. I almost moved out." },
+{ who: $mom, text: "You'd last two days, sweetheart. You don't know where we keep the laundry detergent." },
+{ who: $sister, text: "I could learn. I'm very adaptable." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName squeezes my shoulder once and goes back to the stove. She hums the whole time she does the dishes. There's a faint pink mark on each of her knees, just visible under the hem of her skirt, and she's wearing a skirt anyway.
+
+<<UpdateStat "+" "MomRelation" 2>>
+<<UpdateStat "+" "MomCorruption" 2>>

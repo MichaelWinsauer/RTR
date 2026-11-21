@@ -1,8 +1,97 @@
 :: Send Me Something 3 [event sister_quest] {"position":"4150,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Send Me Something" (sister_sendMeSomething), part 3 of 3, STAGE1_PROPOSAL.md 6.4.
-   I walk in on her and help her finish. It ends with her being held. */
+/* Quest "Send Me Something" (sister_sendMeSomething), part 3 of 3, STAGE1_PROPOSAL.md 6.4. Right after the second video I walk
+   into her room. She's mortified, and she doesn't stop when I tell her not to. I help her finish with my hand. The scene ends
+   with her being held, not with her coming: she falls asleep against me, and I stay until she does. */
 <<silent>><<SetBackground $locations[6].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Send Me Something, STAGE1_PROPOSAL.md 6.4).
+Her door isn't locked. It never is. I open it without knocking.
 
+The fairy lights are on. She's on the bed exactly where the video left her, with one hand down the front of her panties and the other one clamped over her mouth, and when she sees me in the doorway she makes a sound like a kettle and yanks the blanket over herself all the way up to the chin.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh my God. Oh my God, you can't... I sent that like two minutes ago, you weren't supposed to..." },
+{ who: $player, text: "Don't stop." },
+{ who: $sister, text: "What?" },
+{ text: "I close the door behind me and sit down on the edge of her bed. The blanket is pulled up to her nose. Above it, her eyes are enormous." },
+{ who: $player, text: "You were doing fine. Don't stop because I'm here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/events/send_me_something/room.jpg | Sister in bed under the fairy lights with the blanket pulled up to her nose, wide-eyed, him sitting on the edge of the bed */
+
+<<linkreplace "Wait">>
+For a long moment nothing moves except her chest under the blanket. Then she lets the blanket slide down to her collarbones, just that far, and I can see from the way her shoulder shifts that her hand has started moving again under it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "This is the most embarrassing moment of my entire life. Just so you know. I'm going to be thinking about this when I'm eighty." },
+{ who: $player, text: "Good." },
+{ who: $sister, text: "That's not... you're supposed to say it's not embarrassing." },
+{ who: $player, text: "It's very embarrassing. Keep going." },
+{ text: "She laughs, a strangled, helpless laugh, and it turns into a gasp halfway through." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She keeps going. She keeps her eyes on me, because she can't seem to look anywhere else, and she bites her lip so hard it goes white, and she gets close, and then she gets stuck there. I can see it happen: she's too nervous, too watched, too aware of every sound she's making. Her hand slows. Her face crumples a little.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I can't. I'm sorry. I'm so close and I can't, I keep thinking about how I look, I'm sorry..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Help her">>
+I slide my hand under the blanket and lay it over hers. She goes completely still.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh." },
+{ who: $player, text: "Stop thinking." },
+{ text: "I move her hand away and put mine where it was. She's soaked. She makes a small, high, broken sound and grabs a fistful of my shirt." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't hurry. I keep it slow, and keep my other arm around her shoulders, and let her hide her face in my neck. She's shaking. She says my name into my collar, over and over, quietly, like a word she's practicing so she won't forget it.
+
+/* MEDIA: images/characters/sister/events/send_me_something/held.mp4 | Under the fairy lights, her face buried in his neck, his arm around her, the blanket over both of them */
+
+When she comes, it's very quiet. Her whole body goes tight against mine and stays that way for a few seconds, trembling, and then everything goes out of her at once and she just holds on.
+
+<<linkreplace "Hold her">>
+I take my hand back, and pull the blanket up over both of us, and stay.
+
+She doesn't say anything for a long time. She just breathes against my neck, slower and slower, with her fingers still twisted in my shirt. Her hair smells like the strawberry shampoo she's used since forever. The fairy lights blink in their lazy pattern on the ceiling. Somewhere downstairs the fridge hums.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can you stay a little? Just till I fall asleep. You don't have to stay stay." },
+{ who: $player, text: "I'll stay." },
+{ who: $sister, text: "Okay." },
+{ text: "A few minutes later, much quieter, almost asleep:" },
+{ who: $sister, text: "I didn't know it could be like that. With someone. I didn't know it could feel safe." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She falls asleep with her hand still holding my shirt. I have to unhook her fingers one at a time to get up. She frowns in her sleep when I do, and reaches for the warm spot where I was, and finds the hoodie instead, and pulls it against her chest.
+
+I close her door very quietly. In my own room, my phone is still lying face up on the nightstand with both videos on it. I put it in the drawer without watching them again and go to sleep with the smell of her shampoo still on my collar.
+
+<<UpdateStat "+" "SisterCorruption" 6>>
+<<UpdateStat "+" "SisterRelation" 4>>
+<<UpdateStat "-" "SisterLust" 25>>
+<<UpdateStat "-" "SisterResistance" 3>>
+<<UpdateStat "+" "Corruption" 2>>
+<<set $sister.stats.exhibition to Math.clamp($sister.stats.exhibition + 4, $sister.stats.min.exhibition, $sister.stats.max.exhibition)>>
+<<Feel $sister "player" 2 "lasting">>
+<<ProfileLog $sister "Send Me Something" "I told her I didn't want to be touched, I wanted to see her. That night she sent me two videos from her room, each with a string of apologies before it, the second one braver than the first. Then I walked in on her, and finished what she couldn't finish alone. She fell asleep holding on to my shirt.">>
+<<ProfileMemory $sister "It's for you" "Before the second video she wrote that it was for me, only me. At the end of it she whispered my name. Afterwards, half asleep, she told me she didn't know it could feel safe.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

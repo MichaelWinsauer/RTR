@@ -1,10 +1,123 @@
 :: The Friend [event sister_quest] {"position":"4650,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Friend" (sister_theFriend), STAGE1_PROPOSAL.md 6.6c.
-   Her report: $bestFriend.name and the lake weekend she already said no to. She mutes the group chat in front of me.
-   STAGE1-STUB: meant as her end-of-day report (proposal 3.5). The report exists now (Define NPCs): an entry in
-   setup.dayReports, logged with <<LogDay>>, with this passage as the one to hear in full. */
+/* Quest "The Friend" (sister_theFriend), STAGE1_PROPOSAL.md 6.6c. Report, then silence. It stays an event (not a dayReports
+   entry), but it is written as her end-of-day report at my desk, the habit from Office Gossip: the usual staff gossip first,
+   then the thing she actually came to tell me. $bestFriend.name has been trying to reach her for weeks: unanswered texts, a
+   missed birthday, and now the long weekend at the lake with the old group, like every year. She already said no. With
+   $sister.flags.datePhoto, $bestFriend.name saw Kayla's photo. Then she mutes the group chat in front of me, without being
+   asked, and puts the phone face down on my desk. No sex, no device: this is what she gives up for me, and that I let her. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Friend, STAGE1_PROPOSAL.md 6.6c).
+She comes by at a quarter to five, like every day now, and drops into the chair next to my desk with her shoes already half off.
 
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Daily briefing. Item one: $ethan.name has started bringing his own pot. An actual pot. He keeps it under his desk. I'm taking full credit." },
+{ who: $player, text: "Noted." },
+{ who: $sister, text: "Item two: $brian.name said good morning to me today. To me. Not to the floor. I think he's healing." },
+{ who: $player, text: "And item three?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She opens her mouth for item three and doesn't say anything. She looks at her phone, which is in her lap, face up. It lights up while she's looking at it. She turns it over.
+
+<<linkreplace "Wait">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Item three is boring. It's not even office stuff." },
+{ who: $player, text: "Tell me anyway." },
+{ who: $sister, text: "It's $bestFriend.name. You remember $bestFriend.name. From freshman year. The one who threw up in $mom.callName's car at the homecoming thing." },
+{ who: $player, text: "I remember." },
+{ who: $sister, text: "She keeps texting. Like, a lot. For a few weeks now. And I keep... not answering. Not on purpose. I just see it and think, I'll answer later, when I have time to answer properly. And then it's three days later." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She turns the phone over in her hands, once, twice, like a card trick.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I missed her birthday. Last week. I didn't even text. I've never missed her birthday. We've been doing birthdays since we were eighteen. I had it in my calendar and everything, and I just..." },
+{ text: "She doesn't finish. She knows exactly where she was that night. So do I. She was in my bed." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her keep going">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And today she sent this long message. About the lake. Every year our whole group from freshman year rents this cabin at the lake for the long weekend, and it's the best weekend of the year, and there's a hot tub that only works if you kick it." },
+{ who: $sister, text: "She said they're keeping a bed for me. She said they're not going without me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $sister.flags.datePhoto === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And then she said she saw the picture. Kayla's picture. From the restaurant." },
+{ text: "She laughs, a little too high." },
+{ who: $sister, text: "She said, 'Who's the guy? He looks weirdly familiar.' Which, I mean. Yeah. She's met you, like, a hundred times." },
+{ who: $player, text: "What did you tell her?" },
+{ who: $sister, text: "Nothing. I didn't answer that part. I didn't answer any of it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So are you going?" },
+{ who: $sister, text: "No. I already told her no. This afternoon." },
+{ text: "She says it quickly, as if it were obvious." },
+{ who: $sister, text: "I told her I'm busy. Which is true. I'm always busy now. There's the office and the seminar and the overviews, and..." },
+{ who: $sister, text: "And she said, 'You're always busy now.' Like that. And then she said I talk about you like..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stops. Her mouth stays a little open, as if the rest of the sentence is still sitting there on her tongue and she's deciding whether to let it out. She doesn't.
+
+<<linkreplace "Say nothing">>
+I don't ask her how $bestFriend.name finished the sentence. I don't tell her she should go, or that she shouldn't. I lean back in my chair and look at her, and let it sit.
+
+She looks back at me. Then she picks up her phone, opens a group chat with a lake emoji and about forty unread messages in it, and, while I watch, taps through the settings until she gets to the mute button. She mutes it, and of the options she picks the one that never runs out.
+
+Then she puts the phone face down on my desk, between my keyboard and my coffee, and pushes it a couple of inches toward me with two fingers.
+
+/* MEDIA: images/characters/sister/events/the_friend/phone.jpg | A phone lying face down on a desk between a keyboard and a coffee cup, her fingers just letting go of it */
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "There. Done. I'm here anyway. This is where I want to be." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+Nobody asked her to. That's what makes it perfect. I never said a word against $bestFriend.name, or the lake, or the cabin with the broken hot tub. I didn't need to. All I had to do was be the center of her life for long enough that everything else started to feel like a distraction from it, and then let her close the door herself.
+
+She sits there for a while with her hands in her lap, looking at the phone on my desk. Then she sniffs once, sharply, and puts her shoes back on.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. That was the boring part. Item four: Gerald has a new leaf. $mom.callName cried a little." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On her way out, she picks her phone back up. She doesn't turn it over to check it. She just puts it in her back pocket, face in, like something she's agreed not to look at.
+
+Across the office, $ethan.name is still at his desk with his headphones around his neck. He watched the whole thing. When he sees me look up, he goes back to his screen.
+
+<<UpdateStat "+" "SisterCorruption" 4>>
+<<UpdateStat "-" "SisterResistance" 3>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<UpdateStat "+" "Corruption" 2>>
+<<Feel $sister "bestFriend" -1>>
+<<ProfileLog $sister "The Friend" "Her best friend $bestFriend.name has been trying to reach her for weeks. She missed her birthday because she was with me. Today she turned down the lake weekend with her old group from freshman year, and then she muted their group chat in front of me, without being asked, and put her phone face down on my desk.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

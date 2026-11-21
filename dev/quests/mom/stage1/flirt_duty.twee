@@ -1,8 +1,169 @@
 :: Flirt Duty [event mom_quest] {"position":"4275,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "Flirt Duty" (mom_flirtDuty), STAGE1_PROPOSAL.md 5.3.
-   A comedy: I coach her in flirting with the staff. Activates task_mom_flirt_duty (quest set). */
+/* Quest "Flirt Duty" (mom_flirtDuty), STAGE1_PROPOSAL.md 5.3. A comedy. In the morning at my desk I give her a new job: make the
+   staff feel good about their work. She says she hasn't flirted since college, so I coach her, with myself as the practice
+   target. Three rules, which I make her say back to me twice, like a phone number (her first round, Task Mom Flirt Duty 0,
+   quotes them): look them in the eye, a hand on the arm for only a second, laugh at their jokes, especially the bad ones.
+   Every time she tries to flirt, a mother comes out. Once, at the end, she gets it right, and the small proud smile shows
+   for the first time. The quest's set activates task_mom_flirt_duty. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (Flirt Duty, STAGE1_PROPOSAL.md 5.3).
+$mom.callName comes to my desk with her tablet and her morning face, the cheerful one with the to-do list behind it. She's got the client calendar open before she's even stopped walking.
 
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Good morning, sweetie. So, today, the $diner.name invoice went out, $boss.callName wants Thursday instead of Wednesday, and somebody keeps putting fish in the office microwave and I have my suspicions." },
+{ who: $player, text: "Sit down for a minute." },
+{ who: $mom, text: "Is something wrong? Is it the fish? I didn't say anything to anybody yet." },
+{ who: $player, text: "It's not the fish." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She sits on the edge of the chair next to my desk with the tablet on her knees, ready to write down whatever's wrong.
+
+<<linkreplace "Give her the new job">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The team's working hard. The new project's going to be a lot harder, and I need them happy. Not just paid. Happy. Coming in early, staying late, feeling good about it." },
+{ who: $mom, text: "Oh, I can do that. I'll bring in muffins. The lemon ones, everyone likes those. Except $brian.name, he doesn't like anything with a texture." },
+{ who: $player, text: "Not muffins." },
+{ who: $mom, text: "Cookies?" },
+{ who: $player, text: "You. I want you to do a round every day. Talk to them. Make each of them feel like the most interesting man in the room." },
+{ who: $mom, text: "I do talk to them, honey. I talk to them all the time." },
+{ who: $player, text: "You fuss over them. You sew on their buttons and take away their noodles. I want you to flirt with them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at me as if I've asked her to do their taxes in Latin.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Flirt." },
+{ who: $player, text: "A little. Harmless. A smile, some attention." },
+{ who: $mom, text: "Sweetheart, I haven't flirted since college. I don't think I even did it then. I think I just stood in kitchens until your $dad.relation found me." },
+{ who: $mom, text: "And they're boys. I mean, they're grown men, but they're... I'm old enough to be..." },
+{ who: $player, text: "You're old enough to be very good at it." },
+{ text: "That one gets through. I watch it land, and watch her pretend it didn't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Coach her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Three things. Write them down if you have to." },
+{ who: $mom, text: "I'm not writing down 'flirt' on the company tablet." },
+{ who: $player, text: "One. Look them in the eye. Not at their screen, not at their coffee. At them." },
+{ who: $player, text: "Two. A hand on the arm. Only for a second. Then take it back." },
+{ who: $player, text: "Three. Laugh at their jokes. Especially the ones that aren't funny." },
+{ who: $mom, text: "Even $ethan.name's?" },
+{ who: $player, text: "Especially $ethan.name's." },
+{ who: $mom, text: "That's going to take a lot out of me, honey." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Make her practice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Try it on me. I'm $darius.name. I'm at my desk, I'm very busy, I'm very handsome." },
+{ who: $mom, text: "Oh, this is ridiculous." },
+{ who: $player, text: "Go." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stands up, smooths her skirt, walks three steps away from my desk, turns around and walks back. She stops beside me, looks me firmly in the eye, and puts her hand on my arm.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Hello, $darius.name. You look tired. Are you sleeping enough? You need to eat more than that salad." },
+{ who: $player, text: "Stop." },
+{ who: $mom, text: "What? I looked him in the eye!" },
+{ who: $player, text: "You asked him if he's sleeping enough." },
+{ who: $mom, text: "Well, he doesn't look like he is!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Again">>
+The second try, she leans on my desk, which is better, and tells me that's a very nice tie, which is good, and then asks if I want her to iron it, which isn't.
+
+The third try she gets through the eye contact and the hand on the arm and then forgets to take the hand back. It just stays there, patting me, the way she pats my arm at the dinner table when I've told her about my day.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You're patting me." },
+{ who: $mom, text: "I know! I can feel it! I can't make it stop!" },
+{ text: "She snatches the hand back and holds it against her chest as if it bit her, and then she starts laughing, helplessly, with her other hand over her mouth, and I laugh too, because it's impossible not to." },
+{ who: $mom, text: "Every time I open my mouth, a $mom.relation comes out. I don't know how to turn it off. I've had it on for twenty years." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "One more time">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "One more. And this time don't think about him. Think about how you'd want someone to look at you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That stops her laughing. She stands there for a moment, and something in her face changes, gets quieter, and she walks the three steps away again and turns.
+
+This time she takes her time coming back. She doesn't lean on the desk. She stops a little closer than she needs to and looks at me, not firmly this time, just looks, as if she has all the time in the world to decide what to say. Her fingers rest on my forearm, light as anything, and slide off again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I read your report last night. All of it. You're much funnier on paper than you let anybody see, did you know that?" },
+{ text: "And then she smiles, a slow, private kind of smile I have genuinely never seen on her face before, and walks off toward the copier without waiting for an answer." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She gets four steps before she turns around, completely pink.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Was that... was that okay? That felt okay. Was it too much?" },
+{ who: $player, text: "That was it. That's exactly it." },
+{ who: $mom, text: "Really?" },
+{ who: $player, text: "Do that, every day, to all three of them, and I'll be very happy with you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There it is: a small smile at the corner of her mouth that she presses flat as soon as she feels it. It comes right back. She presses it flat again.
+
+<<linkreplace "Send her off">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Say them back to me. The three things." },
+{ who: $mom, text: "Eye contact. Hand on the arm, one second. Laugh at the bad jokes." },
+{ who: $player, text: "Again." },
+{ who: $mom, text: "Eye contact. Hand on the arm, one second, honey, I know. Laugh at the bad jokes. I've got it. I'm not senile." },
+{ who: $player, text: "I'm putting your first round in the schedule. I'll be watching." },
+{ who: $mom, text: "Oh, God. Don't watch. Please don't watch." },
+{ who: $player, text: "I'll be watching." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes her tablet and goes back to her desk, and sits there for a while straightening things, and looks over at $ethan.name, and then at $darius.name, and then at $brian.name, the way a swimmer looks at cold water.
+
+Then she opens her compact and checks her lipstick, which I have never seen her do at the office.
+
+<<UpdateStat "+" "MomCorruption" 3>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<UpdateStat "+" "Corruption" 1>>
+<<set $mom.stats.exhibition to Math.clamp($mom.stats.exhibition + 2, $mom.stats.min.exhibition, $mom.stats.max.exhibition)>>
+<<ProfileLog $mom "Flirt Duty" "I gave her a new job: one round a day through the office, making the staff feel like the most interesting men in the room. She said she hasn't flirted since college, so I made her practice on me until a $mom.relation stopped coming out. The last try was good. She was proud of it, and tried hard not to show it.">>
 <<NextQuest $mom>>
+<<run Notification.show("New task for " + $mom.callName + ": Flirt Duty", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
