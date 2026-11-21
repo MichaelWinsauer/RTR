@@ -30,7 +30,7 @@ flowchart TD
   G0[/"Prof The Proposition done<br/>the lecture hall idea"/]:::gate
   M2["4.2 The Veil<br/>team meeting, Veil project starts"]
   M3["4.3 The Late Night<br/>tuning with Ethan, vent off for one night"]
-  M4["4.4 First Real Sale<br/>marketing firm, flag pressClient"]
+  M4["4.4 First Real Sale<br/>her mail, her call, the bar, flag pressClient"]
 
   M5a["4.5a The Gym Meeting<br/>Darius's old friend, corporate talk<br/>router redesign, he wants a dinner"]
   F1{"4.5b The Gym Dinner:<br/>who goes?"}:::offer
@@ -42,8 +42,7 @@ flowchart TD
   M7["4.7 The Diner Incident<br/>told in her report, chemistry matters"]
   G3[/"Sister 6.5b Be Nice to Brian<br/>Brian is easier to talk to"/]:::gate
   M8["4.8 The Anchor<br/>built with Brian only"]
-  M9["4.9 The Profit Party<br/>Catalyst announced, the investor mentioned"]
-  D2{"Ethan asks for<br/>his piece"}:::choice
+  M9["4.9 The Profit Party<br/>Catalyst announced, the investor mentioned,<br/>Ethan gets a token 2 percent"]
   C1(["Catalyst project runs and completes<br/>device Catalyst owned"]):::done
   M10["4.10 The Crack<br/>Ethan tries the full code on himself"]
   M10b["Player accuses Darius<br/>the log pull used Darius's login"]
@@ -62,7 +61,7 @@ flowchart TD
   S0 --> M2
   G0 -->|"required"| M2
   M2 -->|"Veil project at 80 percent"| M3
-  M3 -->|"Veil project complete<br/>Veil owned"| M4
+  M3 -->|"Veil project complete, Veil owned<br/>a couple of days later, her mail"| M4
   M4 -->|"a few days later, Rick's mail<br/>Darius hired, Veil owned"| M5a
   M5a -->|"dinner scheduled"| F1
   F1 -->|"send Mom: full contract<br/>needs her ready"| G1
@@ -76,9 +75,7 @@ flowchart TD
   M7 --> M8
   G3 -->|"required"| M8
   M8 -->|"company account in the black"| M9
-  M9 --> D2
-  D2 -->|"give 2 percent: flag equityGiven"| C1
-  D2 -->|"stall: flag equityStalled"| C1
+  M9 --> C1
   C1 -.->|"unlocks Mom 5.8<br/>and Sister 6.6"| C2[/"Mom 5.8 and Sister 6.6<br/>Catalyst nights"/]:::gate
   C1 -->|"a weekend, Ethan alone in the office"| M10
   M10 --> M10b
@@ -530,8 +527,7 @@ flowchart TD
     mD1{"Let Darius in?"}:::choice
     m7["4.7 The Diner Incident<br/>chemistry matters"]
     m8["4.8 The Anchor"]
-    m9["4.9 The Profit Party"]
-    mD2{"Ethan asks<br/>for his piece"}:::choice
+    m9["4.9 The Profit Party<br/>Ethan gets 2 percent"]
     mC(["Catalyst project completes<br/>Catalyst owned"]):::done
     m10["4.10 The Crack"]
     m10b["Player accuses Darius<br/>wrongly"]
@@ -644,7 +640,7 @@ flowchart TD
   mS --> m2
   pS -->|"required: the lecture hall idea"| m2
   m2 -->|"Veil project at 80 percent"| m3
-  m3 -->|"Veil owned"| m4
+  m3 -->|"Veil owned, her mail"| m4
   m4 -->|"a few days, Rick's mail"| m5a
   m5a -->|"dinner scheduled"| mF1
   mF1 -.->|"send Mom"| a7
@@ -660,9 +656,7 @@ flowchart TD
   b5b -->|"required: Brian softened up"| m8
   m7 --> m8
   m8 -->|"company account in the black"| m9
-  m9 --> mD2
-  mD2 -->|"give 2 percent"| mC
-  mD2 -->|"stall"| mC
+  m9 --> mC
   mC -->|"a weekend, Ethan alone"| m10
   m10 --> m10b
   m10b -->|"fast forgiveness if dariusAlly"| mF2

@@ -12,14 +12,14 @@ What's left before Stage 1 is playable from start to end. Written 2026-11-20, ri
 
 These change what gets built or written, so they come before the scenes that depend on them.
 
-- [ ] **Ethan's equity** (proposal 3.3 and section 10, item 6): a token 2% as a choice at the Profit Party, or always stalled? `$flags.ethanEquity` waits for it.
-- [ ] **How hard the family offers are gated** (3.1): which corruption and exhibition values unlock each offer (gym dinner, rooftop, supplier). Right now the stubs only check that her line has reached the optional quest.
+- [x] **Ethan's equity.** *Decided: no choice. He always gets a token 2% at the Profit Party, and loses it with everything else at The Morning After. `$ethan.equity` (2 from `main_profitParty`'s `set`, 0 from `main_morningAfter`'s); the `$flags.ethanEquity` flag is gone.*
+- [ ] **How hard the family offers are gated** (3.1): which corruption and exhibition values unlock each offer (gym dinner, rooftop, supplier). Right now the stubs only check that her line has reached the optional quest. *The author handles this one later.*
 - [x] **The Boss line, or a way around it.** *Decided: the Boss line gets built (proposal 7.2, section 5 below). The Arrangement sets the flag for After Hours, and The Introduction comes before The Supplier (proposal 7.5).*
 - [x] **The Veil at the diner.** *Decided: the Manager line's Debrief installs it, before the Diner Incident (proposal 7.3 and 7.5).*
-- [ ] **How the first sale arrives** (4.4): a mail like the gym lead, or a call inside the scene.
-- [ ] **The supplier's pay branch** (4.12): emptying the account, a loan, or a cancelled project? A loan would be a new system.
-- [ ] **The end of Stage 1** (4.13): what else resets at The Morning After (Ethan's project assignments, the vent unit, CCTV, the office), and where Stage 2 starts (`$company.stage`, a title card, a new location).
-- [ ] **Names to keep:** the corruption stage names (Willing, Complicit, Yearning, Devoted, Mine), the contacts (Dana Pruitt, Rick Dawson, Charles Whitfield, Leon Calloway, Jess Moreno) and their companies. Should the contacts become renamable in Character Configuration?
+- [x] **How the first sale arrives.** *Decided: a mail, then a short phone call scene. A couple of days after The Late Night the hidden quest `main_waitFirstSaleLead` sends the marketing firm owner's mail (`$company.mails[4]`, first draft). The day after the answer she calls him at his desk: that call is part 1 of The First Real Sale, the bar is part 2. The gym owner's mail moved to `$company.mails[5]`.*
+- [ ] **The supplier's pay branch** (4.12): emptying the account, a loan, or a cancelled project? A loan would be a new system. *Postponed, too early to decide.*
+- [ ] **The end of Stage 1** (4.13): what else resets at The Morning After (Ethan's project assignments, the vent unit, CCTV, the office), and where Stage 2 starts (`$company.stage`, a title card, a new location). *Postponed, too early to decide.*
+- [x] **Names to keep.** *Decided: the default names stay (stage names, contacts, companies). The contacts' variables are named after their role now: `$marketingOwner` (Dana Pruitt), `$gymOwner` (Rick Dawson), `$investor` (Charles Whitfield), `$supplier` (Leon Calloway), `$bestFriend` (Jess Moreno). Still open: whether they become renamable in Character Configuration.*
 
 ---
 
@@ -59,12 +59,12 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 - [ ] Souvenirs (6.2), her milestone into stage 1: [souvenirs.twee](dev/quests/sister/stage1/souvenirs.twee)
 
 **Phase 4**
-- [ ] The First Real Sale (4.4), two parts: [first_real_sale.twee](dev/quests/main/stage1/first_real_sale.twee), [first_real_sale_2.twee](dev/quests/main/stage1/first_real_sale_2.twee)
+- [ ] The First Real Sale (4.4), two parts (her phone call, the bar): [first_real_sale.twee](dev/quests/main/stage1/first_real_sale.twee), [first_real_sale_2.twee](dev/quests/main/stage1/first_real_sale_2.twee). Revise her mail too (`$company.mails[4]`, a first draft).
 - [ ] Not Enough (5.4): [not_enough.twee](dev/quests/mom/stage1/not_enough.twee)
 - [ ] Office Gossip (6.3): [office_gossip.twee](dev/quests/sister/stage1/office_gossip.twee)
 
 **Phase 5**
-- [ ] The Gym Meeting (4.5a), two parts: [gym_meeting.twee](dev/quests/main/stage1/gym_meeting.twee), [gym_meeting_2.twee](dev/quests/main/stage1/gym_meeting_2.twee). Revise Rick's mail too (`$company.mails[4]`, a first draft).
+- [ ] The Gym Meeting (4.5a), two parts: [gym_meeting.twee](dev/quests/main/stage1/gym_meeting.twee), [gym_meeting_2.twee](dev/quests/main/stage1/gym_meeting_2.twee). Revise Rick's mail too (`$company.mails[5]`, a first draft).
 - [ ] The Crawl (5.6): [the_crawl.twee](dev/quests/mom/stage1/the_crawl.twee)
 - [ ] Send Me Something (6.4), three parts: [send_me_something.twee](dev/quests/sister/stage1/send_me_something.twee), [_2](dev/quests/sister/stage1/send_me_something_2.twee), [_3](dev/quests/sister/stage1/send_me_something_3.twee)
 

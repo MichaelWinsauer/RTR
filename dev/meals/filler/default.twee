@@ -575,9 +575,9 @@
 <<switch random(1, 3)>>
 <<case 1>>
 <<set _msgs to [
-	{ who: $sister, text: "Okay, so my friend Jess is not talking to her roommate. At all. They communicate by sticky notes." },
+	{ who: $sister, text: "Okay, so my friend $bestFriend.name is not talking to her roommate. At all. They communicate by sticky notes." },
 	{ who: $mom, text: "What did the roommate do?" },
-	{ who: $sister, text: "She ate Jess's leftovers. A whole lasagna." },
+	{ who: $sister, text: "She ate $bestFriend.name's leftovers. A whole lasagna." },
 	{ who: $mom, text: "Well. I'd also stop talking to someone over a lasagna." },
 ]>>
 <<Chat _msgs>>

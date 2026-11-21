@@ -1,6 +1,6 @@
 :: Last Night Mom [event mom_quest] {"position":"5025,1075","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "The Last Night" (mom_lastNight), part of The Night Shift (main_nightShift), STAGE1_PROPOSAL.md 5.11.
-   Optional (offered to $calloway.callName). She wears what I picked and I tell her to look after $sister.callName. */
+   Optional (offered to $supplier.callName). She wears what I picked and I tell her to look after $sister.callName. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Last Night, STAGE1_PROPOSAL.md 5.11).
 

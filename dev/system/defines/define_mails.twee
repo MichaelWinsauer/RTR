@@ -98,21 +98,61 @@
     },
     {
     	id: 4,
+        title: "A room full of nervous people",
+        who: $marketingOwner,
+        mailAddress: $marketingOwner.mailAddress,
+        /* STAGE1-STUB: first draft. Sent by the hidden quest main_waitFirstSaleLead (Define Quests), a couple of days
+           after The Late Night. Answering it fixes the day of her call (answeredDay): main_firstSale plays from the
+           next day, at my desk */
+        body: [
+        	{who: $marketingOwner, text: "Hi $player.name,
+
+I run $marketingFirm.name. That's twelve people who pitch for a living, and one conference room that has watched us lose more accounts than I like to count.
+
+Someone I had lunch with last week has one of your $company.devices.valenxOfficial.name units on her desk and would not stop talking about it. In my line of work that's either a very good sign or a very good ad, and I'd like to know which.
+
+So, is it a gadget for one desk, or could it do something for a whole room of nervous people? I'd rather hear it from you than from a brochure. Do you have twenty minutes for a call this week?
+
+$marketingOwner.name $marketingOwner.surname
+$marketingFirm.name"}
+        ],
+        answerOptions: [
+        	{
+                id: 0,
+                short: "Set up a call",
+                text: "Hi $marketingOwner.name,
+
+Twenty minutes is plenty. The short answer is yes, and the long answer sounds a lot better on the phone. Call me whenever it suits you tomorrow, I'll be at my desk.
+
+Best,
+$player.name $player.surname",
+                eval: [
+                    () => State.variables.company.mails[4].answeredDay = State.variables.date.dayCount,
+				],
+            }
+        ],
+        read: false,
+        flagged: false,
+        answered: false,
+        active: false,
+    },
+    {
+    	id: 5,
         title: "Wellness, apparently",
-        who: $rick,
-        mailAddress: $rick.mailAddress,
+        who: $gymOwner,
+        mailAddress: $gymOwner.mailAddress,
         /* STAGE1-STUB: first draft. Sent by the hidden quest main_waitGymLead (Define Quests), a few days after the
            first sale. Answering it fixes the day of the meeting (answeredDay): main_gymMeeting plays from the next day */
         body: [
-        	{who: $rick, text: "Hi $player.name,\n\n$darius.name and I go way back, and he won't stop talking about the new job. Something about rooms that make people feel better. I run $gymChain.name, eleven locations and counting, and making people feel better is supposed to be our whole thing.\n\nCould you come up with an offer and walk me through it? I can swing by your office any day this week.\n\n$rick.name $rick.surname\n$gymChain.name"}
+        	{who: $gymOwner, text: "Hi $player.name,\n\n$darius.name and I go way back, and he won't stop talking about the new job. Something about rooms that make people feel better. I run $gymChain.name, eleven locations and counting, and making people feel better is supposed to be our whole thing.\n\nCould you come up with an offer and walk me through it? I can swing by your office any day this week.\n\n$gymOwner.name $gymOwner.surname\n$gymChain.name"}
         ],
         answerOptions: [
         	{
                 id: 0,
                 short: "Invite him over",
-                text: "Hi $rick.name,\n\nAny friend of $darius.name's. Come by tomorrow, we'll have the meeting room and a pot of coffee ready for you.\n\nBest,\n$player.name $player.surname",
+                text: "Hi $gymOwner.name,\n\nAny friend of $darius.name's. Come by tomorrow, we'll have the meeting room and a pot of coffee ready for you.\n\nBest,\n$player.name $player.surname",
                 eval: [
-                    () => State.variables.company.mails[4].answeredDay = State.variables.date.dayCount,
+                    () => State.variables.company.mails[5].answeredDay = State.variables.date.dayCount,
 				],
             }
         ],

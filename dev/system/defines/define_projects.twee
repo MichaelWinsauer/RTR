@@ -171,7 +171,7 @@
     {
     	id: "project_marketing_veil",
     	title: "A Calmer Conference Room",
-        description: "$dana.name wants a $company.devices.valenxVeil.name in the big conference room at $marketingFirm.name, tuned so her clients say yes a little faster.",
+        description: "$marketingOwner.name wants a $company.devices.valenxVeil.name in the big conference room at $marketingFirm.name, tuned so her clients say yes a little faster.",
         type: "story",
         unlocked: false, /* unlocked by the set of the quest main_firstSale */
         duration: 10,
@@ -190,7 +190,7 @@
         requirements: {
         	software: 60, hardware: 80, analysis: 0, testing: 60, consulting: 80, management: 0, hr: 0, sales: 40, marketing: 0,
 		},
-        client: $dana,
+        client: $marketingOwner,
         location: $locations[13], /* STAGE1-STUB: the marketing firm has no location */
     },
     {
@@ -215,7 +215,7 @@
         requirements: {
         	software: 120, hardware: 220, analysis: 60, testing: 120, consulting: 150, management: 0, hr: 0, sales: 60, marketing: 40,
 		},
-        client: $rick,
+        client: $gymOwner,
         location: $locations[13], /* STAGE1-STUB: the gyms have no location */
     },
     {

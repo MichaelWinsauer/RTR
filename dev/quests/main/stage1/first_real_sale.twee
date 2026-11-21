@@ -1,6 +1,8 @@
 :: First Real Sale [event main_quest] {"position":"4075,500","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "The First Real Sale" (main_firstSale), part 1, STAGE1_PROPOSAL.md 4.4.
-   Part 1 of 2: the clean sale to $dana.name and $marketingFirm.name. Part 2: the bar with $ethan.name. */
+   Part 1 of 2, short: the day after I answered her mail ($company.mails[4]) $marketingOwner.name calls me at my desk. She asked
+   about the official unit for one desk, I sell her the room version for her conference room over the phone. A clean
+   sale, no favors. It ends with my text to $ethan.name ("We did it. Drinks on me"). Part 2: the bar with $ethan.name. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The First Real Sale, STAGE1_PROPOSAL.md 4.4).
 

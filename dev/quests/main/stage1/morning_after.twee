@@ -1,6 +1,8 @@
 :: Morning After [event main_quest] {"position":"6325,500","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "The Morning After" (main_morningAfter), STAGE1_PROPOSAL.md 4.13.
-   End of Stage 1: the empty desk, the wiped servers, the CCTV at 3:17 a.m., the investigation, the lawyer, the launch of the rival. */
+   End of Stage 1: the empty desk, the wiped servers, the CCTV at 3:17 a.m., the investigation, the lawyer, the launch of the rival.
+   His 2 percent are gone with him (the quest sets $ethan.equity back to 0). The resignation mail can carry his line about
+   "two percent of something I'm not sure I was ever allowed to say no to". */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Morning After, STAGE1_PROPOSAL.md 4.13).
 

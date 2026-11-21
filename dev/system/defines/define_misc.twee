@@ -27,10 +27,10 @@
 
 /* STAGE1-STUB: the companies of the Stage 1 contacts (Define NPCs). Default names from the proposal, not renamable yet.
    Always write $gymChain.name and so on in texts, never the name itself */
-<<set $marketingFirm to { name: "Pruitt Communications" }>>   /* $dana runs it */
-<<set $gymChain to { name: "Peak Form Fitness" }>>            /* $rick runs it */
-<<set $retailChain to { name: "Hartwell Stores" }>>           /* the national chain, $whitfield opens the door */
-<<set $club to { name: "The Lantern Room" }>>                 /* the club of $calloway, the last night */
+<<set $marketingFirm to { name: "Pruitt Communications" }>>   /* $marketingOwner runs it */
+<<set $gymChain to { name: "Peak Form Fitness" }>>            /* $gymOwner runs it */
+<<set $retailChain to { name: "Hartwell Stores" }>>           /* the national chain, $investor opens the door */
+<<set $club to { name: "The Lantern Room" }>>                 /* the club of $supplier, the last night */
 
 <<set $mealType to "breakfast">>
 

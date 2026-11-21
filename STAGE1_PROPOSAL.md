@@ -17,7 +17,7 @@ A suggestion for how the rest of Stage 1 could go, for the main, mom and sister 
 - Main line pass: Crickets (4.1) is cut. The Veil starts from the Prof's *Proposition*. The gym is split into a meeting (4.5a, Darius's old friend) and a dinner (4.5b). Sister softens Brian up before the Anchor (6.5b). The profit party only needs positive finances.
 - Sister line pass: The Ask (6.1) is no choice: she turns Darius down on her own. Party Animal stays as it is. Everything (6.8) comes after the Rooftop. New beats: Two Towns Over (6.6b), The Friend (6.6c), A Knock at Night, Again (6.8b), Rehearsal (6.8c).
 
-**Names:** this is a design doc, so I use the default names and role labels (Mom, Sister, Landlord, Boss, Manager, Prof). Client names I invented (Rick, Dana, Whitfield, Calloway and so on) are placeholders. In the game every one of them needs a story variable. Sex is described at plot level only.
+**Names:** this is a design doc, so I use the default names and role labels (Mom, Sister, Landlord, Boss, Manager, Prof). The client names I invented (Rick, Dana, Whitfield, Calloway, Jess) are kept as the defaults. In the game every one of them is a story variable named after the role: `$gymOwner`, `$marketingOwner`, `$investor`, `$supplier`, `$bestFriend`. Sex is described at plot level only.
 
 ---
 
@@ -135,7 +135,7 @@ The current plan (he finds spikes, finds the old backup, tries the full code, st
 
 **The motive, in three layers:**
 1. **The friendship might be fake.** The vent unit has been running at Ethan the whole time. His "best boss I've ever had" speech, his warm feelings for the player, even taking the job could all be partly manufactured. When he tries the full-strength code on himself, he recognizes the feeling. He's felt it every day at the office. That's the real hit.
-2. **He's the one who was cut out.** Ethan wrote most of the original code. In the old startup he was cut out of equity, and he said "never again". The player promised "you'll get your piece" and never did anything about it.
+2. **He's the one who was cut out.** Ethan wrote most of the original code. In the old startup he was cut out of equity, and he said "never again". The player promised "you'll get your piece", and the piece turns out to be a token 2%.
 3. **He sees what the player does to the family.** He's seen the massage ("is there a waitlist for that?"), the way Sister has no friends of her own, the way Mom says she's "never been happier". He asks Mom privately if she's okay. She smiles and says she's happier than she's been in years. That answer scares him more than anything in the logs.
 
 **Why he steals instead of just quitting:** he thinks someone else will do this if he doesn't, and *he'd do it ethically*. He starts a rival startup with a "licensed, safe" version, and the anonymous tip makes the player the cautionary tale and Ethan the clean alternative.
@@ -144,7 +144,7 @@ The current plan (he finds spikes, finds the old backup, tries the full code, st
 
 **The cruel detail:** the night of the Veil tuning, the player secretly turns the vent down to Off before Ethan arrives. He wants to know if Ethan still laughs at his jokes without the device. He does. That's the one night the friendship was real, and Ethan can't know it, because the logs say the vent was on for the weeks before and after.
 
-**The equity choice:** at the profit party, Ethan jokes about "my piece". The player can give him a token 2%, or stall. Either way he leaves. If he got the 2%, Ethan says "you gave me two percent of something I'm not sure I was ever allowed to say no to."
+**The equity (decided 2026-11-21):** at the profit party, Ethan jokes about "my piece", and the player gives him a token 2%. There's no choice. It doesn't keep him: after the heist and the anonymous tip he's obviously out, and the 2% go with him. His line fits the resignation mail: "you gave me two percent of something I'm not sure I was ever allowed to say no to."
 
 **Foreshadowing, for players who pay attention:**
 - CCTV clips of Ethan alone in the test corner at night.
@@ -241,13 +241,14 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 
 ### 4.4 The First Real Sale
 *The marketing firm.*
-- A small local firm (owner: Dana Pruitt, placeholder). A clean sale, no favors. The Veil in a conference room does the job.
+- A small local firm (owner: Dana Pruitt). A clean sale, no favors. The Veil in a conference room does the job.
+- **How it arrives (decided 2026-11-21):** a mail. Dana heard about the official unit and asks if it could do something for a whole conference room. The player answers, and the next day she calls him at his desk. The short phone call is the sale: he sells her the room version. Then the text to Ethan.
 - Text to Ethan ("We did it. Drinks on me"), the bar, a good night. Ethan says "Don't tell me what the dial does, boss. I like not knowing." He doesn't mean it.
 - **Plant:** Dana's firm is a PR/marketing company. Later they handle Ethan's launch press (4.13). Keep a flag, `pressClient`.
 
 ### 4.5a The Gym Meeting
 *A lead from Darius.*
-- Darius told an old friend from his sports-franchise days about the new job. The friend (Rick, placeholder) now runs a regional gym chain, and he's interested. A mail arrives asking for a meeting and an offer.
+- Darius told an old friend from his sports-franchise days about the new job. The friend (Rick) now runs a regional gym chain, and he's interested. A mail arrives asking for a meeting and an offer.
 - The meeting at the office is corporate talk from start to finish: "member journey", "wellness touchpoints", "holistic retention". The player answers in the same language, Darius translates the numbers, and nobody says what the device actually does. A **Comedy** with a straight face.
 - Rick's one hard condition: nothing in his gyms can look like a gadget. That's the router redesign. The player and Ethan spend an afternoon turning the Veil into something that looks like an expensive router, and argue about colors like old friends. (A short beat between the two scenes, or the lead-in of 4.5b.)
 - At the end Rick says he likes the product, but he wants to know the people behind the company before he signs. He wants to schedule a dinner.
@@ -285,7 +286,7 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 *The company is in the black.*
 - **Gate:** positive finances (the company account above 0). No time requirement.
 - Pizza and drinks. Announces Catalyst (the V2 plan).
-- Drunk Ethan gives the "best boss I've ever had" speech and jokes about "my piece" (the equity choice, 3.3).
+- Drunk Ethan gives the "best boss I've ever had" speech and jokes about "my piece". The player gives him a token 2% (3.3).
 - The investor (Whitfield) is mentioned for the first time: someone Dana knows, who could open the door to a national retail chain.
 - A small crack: Brian asks, uh, what the Catalyst is *for*. The player gives him the Veil version of the answer.
 
@@ -304,7 +305,7 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 
 ### 4.12 The Night Shift
 *The supplier deal and the heist, the same night.*
-- The supplier (Calloway, placeholder, named by the Boss in 7.2) has what the player's research says he needs. His price: **$20,000 up front, or an evening** with the player's "hostesses". By design, the account can't cover the money at this point. (Your notes had the same "or $20k".)
+- The supplier (Calloway, named by the Boss in 7.2) has what the player's research says he needs. His price: **$20,000 up front, or an evening** with the player's "hostesses". By design, the account can't cover the money at this point. (Your notes had the same "or $20k".)
 - **The last family option:**
   - **Pay.** He empties the account, takes a loan, or cancels a project to cover it. He goes alone. The company limps into Stage 2.
   - **Offer them.** Mom and Sister go (5.11 and 6.9). It ends at the club door. The player waits outside.
@@ -313,7 +314,7 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 
 ### 4.13 The Morning After
 *End of Stage 1.*
-- Empty desk. Wiped servers. The resignation mail: short and cold.
+- Empty desk. Wiped servers. The resignation mail: short and cold. His 2% are gone with him.
 - CCTV: Ethan leaves at 3:17 a.m. with two big boxes and a laptop bag. He stops in the doorway and looks at the vent.
 - The player realizes the vent unit is also gone. Inventory: everything but the portable Valenx, which was in his coat that night.
 - Brian: "Uh. I kept the spare." (optional)
@@ -473,7 +474,7 @@ Keeps your order of beats (Veil, late night with Ethan, the marketing firm, the 
 
 ### 6.6c The Friend (Report, then Silence)
 *Her world gets smaller, and she's the one who closes the door.*
-- Her best friend from college (a one-off extra, placeholder Jess) has been trying to reach her for weeks. Unanswered texts, a missed birthday. Now an invitation: a long weekend at the lake with the old group, like every year.
+- Her best friend from college (Jess) has been trying to reach her for weeks. Unanswered texts, a missed birthday. Now an invitation: a long weekend at the lake with the old group, like every year.
 - If `datePhoto` is set, Jess saw the photo. "Who's the guy? He looks weirdly familiar."
 - The player doesn't see any of it. He hears it in her end-of-day report. She already said no. "I told her I'm busy. I'm always busy now. She said I talk about you like..." She trails off and doesn't finish it.
 - Then she mutes the group chat in front of him, without being asked, and puts the phone face down on his desk.
@@ -684,7 +685,7 @@ Each row is a phase. The order is the point: the main line never moves twice in 
 3. **The Calendar.** Mom figuring out part of the truth and choosing to stay is the biggest change to her arc. It also ends the dramatic irony for her (she knows). If you'd rather she never finds out, the Anchor path works alone, and she just becomes complicit.
 4. **The supplier and "compounds".** I kept your idea of a shady contact, but gave it a reason (the Boss's pills, the diner incident). If you'd rather avoid drugs, swap the supplier for the owner of a private club who pays in cash and access. The structure doesn't change.
 5. **The Anchor.** Two uses, keeps the name change. Fine, or do you want it cut?
-6. **Ethan's equity.** A token 2% as a player choice, or always stalled?
+6. ~~**Ethan's equity.** A token 2% as a player choice, or always stalled?~~ *Resolved: always a token 2%, lost after the heist (3.3).*
 7. **Two Catalyst nights.** Mom's 5.8 and Sister's 6.6 have the same shape (device on, a framing, a bigger act) and sit in the same phase. Worth changing one of them, for example Mom's comes out of the gym dinner report instead of a separate night.
 
 **Resolved (2026-11-20):**

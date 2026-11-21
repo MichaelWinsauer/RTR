@@ -1,6 +1,6 @@
 :: The Supplier [event main_quest] {"position":"5950,500","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "The Supplier" (main_supplier), STAGE1_PROPOSAL.md 4.12.
-   The price of $calloway.callName: $20,000 up front, more than the account holds, or an evening with my hostesses.
+   The price of $supplier.callName: $20,000 up front, more than the account holds, or an evening with my hostesses.
    STAGE1-STUB: the pay branch (empty the account, a loan, a cancelled project) is not built. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Supplier, STAGE1_PROPOSAL.md 4.12).

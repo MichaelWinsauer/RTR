@@ -289,7 +289,8 @@
 	sysColor: "#3498db",
 	callName: "Ethan",
 	relation: "employee",
-	playerRelation: "boss"
+	playerRelation: "boss",
+	equity: 0,	/* percent of the company: a token 2 from The Profit Party, back to 0 at The Morning After */
 }>>
 
 <<set $ethan.stats = {
@@ -406,71 +407,76 @@
 }>>
 
 /* Stage 1 contacts (STAGE1_PROPOSAL.md) ========================================
-   STAGE1-STUB: the default names are the placeholders from the proposal. They are not in Character Configuration
-   (not renamable on purpose for now), but every text still uses the variables. Their companies are in Define Misc
-   ($marketingFirm, $gymChain, $retailChain, $club). */
-<<set $dana = {
+   Named after their role, not their default name:
+     $marketingOwner   runs $marketingFirm, the first real sale (4.4), later the press of the rival (4.13)
+     $gymOwner         runs $gymChain, a lead from the data analyst (4.5a/b)
+     $investor         opens the door to $retailChain (4.9, 4.11), hosts the rooftop evening (6.7)
+     $supplier         sells the compounds, owns $club (4.12)
+     $bestFriend       the best friend of the sister from college (6.6c)
+   They are not in Character Configuration (not renamable for now), but every text still uses the variables.
+   Their companies are in Define Misc ($marketingFirm, $gymChain, $retailChain, $club). */
+<<set $marketingOwner = {
 	id: 8,
 	name: "Dana",
 	surname: "Pruitt",
 	gender: "female",
 	callPlayer: $player.name,
 	age: 45,
-	sysName: "dana",
+	sysName: "marketingOwner",
 	callName: "Dana",
 	relation: "client",
 	playerRelation: "contractor",
     mailAddress: "dana.pruitt@pruitt-comms.to",
 }>>
 
-<<set $rick = {
+<<set $gymOwner = {
 	id: 9,
 	name: "Rick",
 	surname: "Dawson",
 	gender: "male",
 	callPlayer: $player.name,
 	age: 41,
-	sysName: "rick",
+	sysName: "gymOwner",
 	callName: "Rick",
 	relation: "client",
 	playerRelation: "contractor",
     mailAddress: "rick@peakform.to",
 }>>
 
-<<set $whitfield = {
+<<set $investor = {
 	id: 10,
 	name: "Charles",
 	surname: "Whitfield",
 	gender: "male",
 	callPlayer: $player.surname,
 	age: 63,
-	sysName: "whitfield",
+	sysName: "investor",
 	callName: "Mr. Whitfield",
 	relation: "investor",
 	playerRelation: "founder",
 }>>
 
-<<set $calloway = {
+<<set $supplier = {
 	id: 11,
 	name: "Leon",
 	surname: "Calloway",
 	gender: "male",
 	callPlayer: $player.name,
 	age: 50,
-	sysName: "calloway",
+	sysName: "supplier",
 	callName: "Mr. Calloway",
 	relation: "supplier",
 	playerRelation: "buyer",
 }>>
 
-<<set $jess = {
+<<set $bestFriend = {
 	id: 12,
 	name: "Jess",
 	surname: "Moreno",
 	gender: "female",
 	callPlayer: $player.name,
 	age: 20,
-	sysName: "jess",
+	sysName: "bestFriend",
 	callName: "Jess",
 	relation: $sister.callName + "'s best friend",
 	playerRelation: "stranger",
@@ -494,7 +500,7 @@
     v.manager.callPlayer = v.player.surname;
     v.boss.relation = v.mom.callName + "'s boss";
     v.prof.relation = v.sister.callName + "'s professor";
-    v.jess.relation = v.sister.callName + "'s best friend";
+    v.bestFriend.relation = v.sister.callName + "'s best friend";
     /* her short name for me: bro, or whatever the player renamed the relation to */
     v.sister.callPlayerShort = String(v.sister.playerRelation).toLowerCase() === "brother" ? "bro" : v.sister.playerRelation;
     /* the mail addresses are made from the names too (N.Howell@..., victor.anderson@...) */

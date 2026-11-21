@@ -1,6 +1,6 @@
 :: Rehearsal [event sister_quest] {"position":"5150,1775","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "Rehearsal" (sister_rehearsal), STAGE1_PROPOSAL.md 6.8c.
-   Optional (offered to $calloway.callName). I play the supplier, device off. "Will you be there?" "Outside." */
+   Optional (offered to $supplier.callName). I play the supplier, device off. "Will you be there?" "Outside." */
 <<silent>><<SetBackground $locations[15].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (Rehearsal, STAGE1_PROPOSAL.md 6.8c).
 

@@ -361,7 +361,7 @@
     {
     	/* 4.3 The night the Veil is finished. The project (onComplete) makes the device owned, this is its first switch-on */
     	id: "main_lateNight",
-    	next: "main_firstSale",
+    	next: "main_waitFirstSaleLead",
     	title: "The Late Night",
         task: "The $company.devices.valenxVeil.name needs its field strength set before it goes anywhere near a lecture hall. That means a long night at the office, and $ethan.name has already claimed the pizza order.",
         where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
@@ -375,12 +375,30 @@
         requirementsText: [ "Finish the $company.devices.valenxVeil.name project" ],
     },
     {
-    	/* 4.4 A clean sale to the marketing firm. pressClient matters at the end (they launch the rival company).
-    	   STAGE1-STUB: how the lead arrives (a mail like the gym, or a call in the scene) is not decided */
+    	/* hidden: a couple of days after The Late Night the mail of the marketing firm owner arrives ($company.mails[4]) */
+    	id: "main_waitFirstSaleLead",
+    	next: "main_firstSale",
+    	title: "Waiting for the first lead",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        hidden: true,
+        check: "$date.dayCount >= setup.getQuestById('main_lateNight').doneDay + 2",
+        set: [
+            "$company.mails[4].active = true",
+            "Notification.show('New mail from ' + $marketingOwner.name + '.', { type: Notification.INFORMATION })",
+        ],
+    },
+    {
+    	/* 4.4 A clean sale to the marketing firm. The lead is her mail ($company.mails[4]), part 1 is her call the day
+    	   after my answer (the sale), part 2 the bar with the old friend. pressClient matters at the end (they launch
+    	   the rival company) */
     	id: "main_firstSale",
     	next: "main_waitGymLead",
     	title: "The First Real Sale",
-        task: "$dana.name runs $marketingFirm.name, a building full of people who sell things for a living, and she wants to see what a calmer conference room does for her pitches. No favors and no family friends this time, just a sale.",
+        task: "$marketingOwner.name runs $marketingFirm.name, a building full of people who sell things for a living, and she wants to hear what a calmer conference room does for her pitches. No favors and no family friends this time, just a sale.",
         where: [ setup.getLocationBySysName("companystage1desk") ],
         whenTime: [1, 2, 3],
         whenDay: [0, 1, 2, 3, 4],
@@ -388,15 +406,21 @@
         needsEvent: true,
         passage: "First Real Sale",
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
-        requirements: [ "$date.dayCount >= setup.getQuestById('main_lateNight').doneDay + 2" ],
-        requirementsText: [ "Give the $company.devices.valenxVeil.name a few days of testing" ],
+        requirements: [
+            "$company.mails[4].answered == true",
+            "$date.dayCount > ($company.mails[4].answeredDay || 0)",
+        ],
+        requirementsText: [
+            "Answer $marketingOwner.name's mail",
+            "Wait for her call at my desk",
+        ],
         set: [
             "setup.unlockProject('project_marketing_veil')",
             "$flags.pressClient = true",
         ],
     },
     {
-    	/* hidden: a few days after the first sale the mail of the gym owner arrives ($company.mails[4]) */
+    	/* hidden: a few days after the first sale the mail of the gym owner arrives ($company.mails[5]) */
     	id: "main_waitGymLead",
     	next: "main_gymMeeting",
     	title: "Waiting for the gym lead",
@@ -408,8 +432,8 @@
         hidden: true,
         check: "$date.dayCount >= setup.getQuestById('main_firstSale').doneDay + 3",
         set: [
-            "$company.mails[4].active = true",
-            "Notification.show('New mail from ' + $rick.name + '.', { type: Notification.INFORMATION })",
+            "$company.mails[5].active = true",
+            "Notification.show('New mail from ' + $gymOwner.name + '.', { type: Notification.INFORMATION })",
         ],
     },
     {
@@ -417,7 +441,7 @@
     	id: "main_gymMeeting",
     	next: "main_gymDinner",
     	title: "The Gym Meeting",
-        task: "$darius.name's old friend $rick.name runs $gymChain.name and wants to talk about the wellbeing of his members. I'll need a straight face and a lot of coffee.",
+        task: "$darius.name's old friend $gymOwner.name runs $gymChain.name and wants to talk about the wellbeing of his members. I'll need a straight face and a lot of coffee.",
         where: [ setup.getLocationBySysName("companystage1meeting") ],
         whenTime: [1, 2, 3],
         whenDay: [0, 1, 2, 3, 4],
@@ -426,11 +450,11 @@
         passage: "Gym Meeting",
         returnPassage: "Company Stage 1",
         requirements: [
-            "$company.mails[4].answered == true",
-            "$date.dayCount > ($company.mails[4].answeredDay || 0)",
+            "$company.mails[5].answered == true",
+            "$date.dayCount > ($company.mails[5].answeredDay || 0)",
         ],
         requirementsText: [
-            "Answer $rick.name's mail",
+            "Answer $gymOwner.name's mail",
             "Wait for the day of the meeting",
         ],
     },
@@ -441,7 +465,7 @@
     	id: "main_gymDinner",
     	next: "main_morale",
     	title: "The Gym Dinner",
-        task: "$rick.name won't sign anything until he's had dinner with the people behind the company. Somebody has to sit across the table from him and haggle.",
+        task: "$gymOwner.name won't sign anything until he's had dinner with the people behind the company. Somebody has to sit across the table from him and haggle.",
         where: [ setup.getLocationBySysName("companystage1desk") ],
         whenTime: [3, 4],
         whenDay: [0, 1, 2, 3, 4],
@@ -450,7 +474,7 @@
         passage: "Gym Dinner",
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [ "$date.dayCount >= setup.getQuestById('main_gymMeeting').doneDay + 2" ],
-        requirementsText: [ "Let $rick.name think it over for a couple of days" ],
+        requirementsText: [ "Let $gymOwner.name think it over for a couple of days" ],
         set: [ "setup.unlockProject('project_gym_veil')" ],
     },
     {
@@ -516,8 +540,8 @@
         ],
     },
     {
-    	/* 4.9 Only needs the company account in the black. Unlocks the Catalyst project.
-    	   STAGE1-STUB: equity for the old friend ($flags.ethanEquity) is still undecided (proposal section 10, item 6) */
+    	/* 4.9 Only needs the company account in the black. Unlocks the Catalyst project. The old friend gets his
+    	   token 2 percent here, no choice ($ethan.equity, back to 0 at The Morning After) */
     	id: "main_profitParty",
     	next: "main_catalystNight",
     	title: "The Profit Party",
@@ -531,7 +555,10 @@
         returnPassage: "Company Stage 1",
         requirements: [ "$company.finances.money > 0" ],
         requirementsText: [ "Get the company account into the black" ],
-        set: [ "setup.unlockProject('project_company_catalyst')" ],
+        set: [
+            "setup.unlockProject('project_company_catalyst')",
+            "$ethan.equity = 2",
+        ],
     },
     {
     	/* 5.8 and 6.6 as ONE event: the Catalyst night of both. Part 1 (office, evening) is her milestone into stage 2
@@ -588,7 +615,7 @@
     	id: "main_retailIntroduction",
     	next: "main_retailPitch",
     	title: "The Introduction",
-        task: "$whitfield.callName can open the door to $retailChain.name. Doors like that cost money, or time, or something else.",
+        task: "$investor.callName can open the door to $retailChain.name. Doors like that cost money, or time, or something else.",
         where: [ setup.getLocationBySysName("companystage1desk") ],
         whenTime: [1, 2, 3],
         whenDay: [0, 1, 2, 3, 4],
@@ -627,7 +654,7 @@
     	id: "main_supplier",
     	next: "main_nightShift",
     	title: "The Supplier",
-        task: "Everything I've read since the incident at $diner.name says the right compounds would fix the problem. $calloway.callName has them, and he names his own price.",
+        task: "Everything I've read since the incident at $diner.name says the right compounds would fix the problem. $supplier.callName has them, and he names his own price.",
         where: [ setup.getLocationBySysName("companystage1desk") ],
         whenTime: [2, 3],
         whenDay: [0, 1, 2, 3, 4],
@@ -645,7 +672,7 @@
     	id: "main_nightShift",
     	next: "main_morningAfter",
     	title: "The Night Shift",
-        task: "Tonight $calloway.callName gets what he asked for, one way or the other.",
+        task: "Tonight $supplier.callName gets what he asked for, one way or the other.",
         where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
         whenTime: [4],
         whenDay: [0, 1, 2, 3, 4, 5, 6],
@@ -683,6 +710,7 @@
         set: [
             "Object.keys($company.devices).forEach((k) => { if (k !== 'valenx') { $company.devices[k].owned = false; } })",
             "$company.employees = $company.employees.filter((e) => e.sysName !== 'ethan')",
+            "$ethan.equity = 0",
         ],
     },
     {
@@ -1245,7 +1273,7 @@
     	id: "mom_gymDinner",
     	next: "mom_waitCatalystNight",
     	title: "Was That Right?",
-        task: "$mom.callName had dinner with $rick.name tonight because I sent her. She'll want to tell me how it went.",
+        task: "$mom.callName had dinner with $gymOwner.name tonight because I sent her. She'll want to tell me how it went.",
         where: [ setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
         whenTime: [5, 6],
         whenDay: [0, 1, 2, 3, 4, 5, 6],
@@ -1844,7 +1872,7 @@
     	id: "sister_theFriend",
     	next: "sister_rooftop",
     	title: "The Friend",
-        task: "$jess.name keeps texting $sister.callName, and $sister.callName keeps not answering.",
+        task: "$bestFriend.name keeps texting $sister.callName, and $sister.callName keeps not answering.",
         where: [ setup.getLocationBySysName("companystage1desk") ],
         whenTime: [3, 4],
         whenDay: [0, 1, 2, 3, 4],
@@ -1867,7 +1895,7 @@
     	id: "sister_rooftop",
     	next: "sister_everything",
     	title: "The Rooftop",
-        task: "$whitfield.callName's rooftop evening, with $sister.callName as our hostess.",
+        task: "$investor.callName's rooftop evening, with $sister.callName as our hostess.",
         where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
         whenTime: [4],
         whenDay: [0, 1, 2, 3, 4],
@@ -1933,7 +1961,7 @@
     	id: "sister_rehearsal",
     	next: "sister_lastNight",
     	title: "Rehearsal",
-        task: "Tomorrow night is $calloway.callName's evening. Tonight $sister.callName and I run through it.",
+        task: "Tomorrow night is $supplier.callName's evening. Tonight $sister.callName and I run through it.",
         where: [ setup.getLocationBySysName("companystage1meeting") ],
         whenTime: [4],
         whenDay: [0, 1, 2, 3, 4, 5, 6],

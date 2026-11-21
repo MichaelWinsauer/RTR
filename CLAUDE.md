@@ -29,7 +29,7 @@ node tools/activity-media.mjs     # activity media/cctv lists vs. the files on d
 - To check a build without touching `RiseToRuin.html`, compile into a temp folder: `TWEEGO_PATH=.storyformats tweego -o <tmp>/build.html dev`.
 - Tweego doesn't check JavaScript. After changing StoryScript, run `node --check` on the extracted script, or test the logic in Node with a mocked `State.variables`.
 - Run the quest audit after any change to `define_quests.twee` or to a quest passage. It currently reports 0 errors.
-- **`STAGE1-STUB`** marks everything of the rest of Stage 1 (main, mom and sister lines, `STAGE1_PROPOSAL.md` sections 4 to 6) that exists as structure only: the quests after "It'll be official", "A Knock at Night" and "Good News?", their empty scene passages, and the data they need (projects, two tasks, mail 4, flags, the new contacts, corruption stages 2 and 3). The requirements, timings and numbers there are first guesses. `grep -rn STAGE1-STUB dev` lists them, and the quest audit prints their count. When a scene or piece of data is finished, remove its marker. Don't copy the stub scenes' structure or text; write each scene properly from its comment and the proposal.
+- **`STAGE1-STUB`** marks everything of the rest of Stage 1 (main, mom and sister lines, `STAGE1_PROPOSAL.md` sections 4 to 6) that exists as structure only: the quests after "It'll be official", "A Knock at Night" and "Good News?", their empty scene passages, and the data they need (projects, two tasks, mails 4 and 5, flags, the new contacts, corruption stages 2 and 3). The requirements, timings and numbers there are first guesses. `grep -rn STAGE1-STUB dev` lists them, and the quest audit prints their count. When a scene or piece of data is finished, remove its marker. Don't copy the stub scenes' structure or text; write each scene properly from its comment and the proposal.
 - Debugging: "Accept Default & Skip Intro" (`dev/intro/skip_intro.twee`) jumps to a mid-Stage-0 state. `$debug` lives in `Define Misc`.
 - `Define Misc` sets `$path` to a local dev folder for the media files, between `/*delete!*/` markers. Leave it alone unless asked.
 - When you add a macro or widget, also add its name to `rtr.twee-config.yaml`. The VS Code Twee extension uses that list.
@@ -108,7 +108,7 @@ All player-visible text in `dev/` uses variables now, so the grep check below fi
 | Ethan, Brian, Darius | `$ethan.name`, `$brian.name`, `$darius.name` (or their `callName`) |
 | ValTec Co. / Valenx | `$company.name` / `$company.prototype.name` |
 | The Diner | `$diner.name` |
-| Dana Pruitt, Rick Dawson, Charles Whitfield, Leon Calloway, Jess Moreno (Stage 1 contacts) | `$dana.name`, `$rick.name`, `$whitfield.callName`, `$calloway.callName`, `$jess.name` |
+| Dana Pruitt (marketing firm owner), Rick Dawson (gym chain owner), Charles Whitfield (investor), Leon Calloway (supplier), Jess Moreno (the sister's best friend) | `$marketingOwner.name`, `$gymOwner.name`, `$investor.callName`, `$supplier.callName`, `$bestFriend.name` |
 | Pruitt Communications, Peak Form Fitness, Hartwell Stores, The Lantern Room | `$marketingFirm.name`, `$gymChain.name`, `$retailChain.name`, `$club.name` |
 
 - SugarCube's naked variables work inside text and inside Chat strings, possessives included (`$manager.callName's diner`, `$darius.name's chair`).

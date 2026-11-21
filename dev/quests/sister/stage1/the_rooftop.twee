@@ -1,6 +1,6 @@
 :: The Rooftop [event sister_quest] {"position":"4775,1775","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "The Rooftop" (sister_rooftop), STAGE1_PROPOSAL.md 6.7.
-   Optional (offered as the hostess). The rooftop evening of $whitfield.callName and our signal: a touch on my ear. */
+   Optional (offered as the hostess). The rooftop evening of $investor.callName and our signal: a touch on my ear. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Rooftop, STAGE1_PROPOSAL.md 6.7).
 
