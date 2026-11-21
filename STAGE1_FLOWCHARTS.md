@@ -38,8 +38,8 @@ flowchart TD
   M5(["Gym contract signed"]):::done
   M6["4.6 Morale<br/>staff dress code, Darius pushes back"]
   D1{"Let Darius in?"}:::choice
-  G2[/"Manager 7.3 The Incident played<br/>10 diner shifts and a Veil at the diner"/]:::gate
-  M7["4.7 Diner Incident aftermath<br/>chemistry matters"]
+  G2[/"Manager 7.3.2 The Debrief<br/>the Veil is in the diner, 10 diner shifts"/]:::gate
+  M7["4.7 The Diner Incident<br/>told in her report, chemistry matters"]
   G3[/"Sister 6.5b Be Nice to Brian<br/>Brian is easier to talk to"/]:::gate
   M8["4.8 The Anchor<br/>built with Brian only"]
   M9["4.9 The Profit Party<br/>Catalyst announced, the investor mentioned"]
@@ -50,12 +50,12 @@ flowchart TD
   F2{"The retail chain<br/>introduction"}:::offer
   G4[/"Sister 6.7 The Rooftop<br/>she hosts the investor evening"/]:::gate
   M11["4.11 The Retail Pitch<br/>Ethan sets up, gets master access"]
-  G5[/"Boss 7.2.5 The Introduction<br/>the supplier is named"/]:::gate
+  G5[/"Boss 7.2.6 The Introduction<br/>the supplier is named"/]:::gate
   M12["4.12 The Night Shift<br/>the supplier wants 20,000 dollars or an evening"]
   F3{"The supplier's price"}:::offer
   G7[/"Mom 5.11 and Sister 6.9<br/>The Last Night, ends at the club door"/]:::gate
   D3{"Ethan calls at 11:40 pm"}:::choice
-  G6[/"Prof 7.4 Pilot study done<br/>the shield for the lawyer"/]:::gate
+  G6[/"Prof 7.4.6 The Dean's Visit<br/>the co-signed report, the shield for the lawyer"/]:::gate
   M13["4.13 The Morning After<br/>heist, investigation, lawyer, Dana's press"]
   S2(["Stage 2"]):::done
 
@@ -127,7 +127,7 @@ flowchart TD
   A9["5.9 The Calendar<br/>she circles the pattern: Is it the box?"]
   D2{"Her question"}:::choice
   A9H{{"Stage 3: Complicit<br/>interaction Whenever unlocks"}}:::milestone
-  G2[/"Boss 7.2.3 The Arrangement<br/>player offered Mom"/]:::gate
+  G2[/"Boss 7.2.4 The Arrangement<br/>player offered Mom"/]:::gate
   A10["5.10 After Hours<br/>the walk to the car, ends at the Boss's door"]
   A10b["No After Hours<br/>short scene at his office instead"]
   M12(["Main 4.12 The Night Shift"]):::done
@@ -182,7 +182,7 @@ flowchart TD
   B3["6.3 Office Gossip<br/>comedy, her first end-of-day reports"]
   B4["6.4 Send Me Something<br/>videos at night on his phone, then he walks in"]
   B5["6.5 What Are We<br/>she cannot say the old word anymore"]
-  G4[/"Main 4.7 Diner Incident aftermath<br/>he wants Brian on his side"/]:::gate
+  G4[/"Main 4.7 The Diner Incident<br/>he wants Brian on his side"/]:::gate
   B5b["6.5b Be Nice to Brian<br/>comedy, task with a POV passage<br/>her first order about someone else"]
   X2(["Main 4.8 The Anchor"]):::done
   G1[/"Main 4.9 Catalyst project complete"/]:::gate
@@ -244,21 +244,22 @@ flowchart TD
 
 ## 7. Side lines
 
-Each chart is one line. The currency is what the player ends up holding.
+Each chart is one line. The currency is what the player ends up holding, the venue is where Mom and Sister end up in the later stages ([LATER_STAGES_VISION.md](LATER_STAGES_VISION.md)). Revised 2026-11-20 together with proposal section 7.
 
-### 7.1 Landlord (currency: the building)
+### 7.1 Landlord (currency: the building, venue: his apartment, card nights, outings)
 
 ```mermaid
 flowchart TD
   S0(["Done: mail 0 confirmed<br/>weekly help tasks active, rent 3750"]):::done
 
-  L1["7.1.1 The Helpers<br/>3 tiers inside the task, POV passage behind each CCTV clip"]
-  L2["7.1.2 What He Saw<br/>he mentions something he should not know"]
-  L3["7.1.3 The Review<br/>the rent goes up, and he wants a Veil for his lobby"]
+  L1["7.1.1 The Helpers<br/>3 tiers inside the task, POV passage behind each CCTV clip<br/>Mom keeps house for him, Sister is shown off"]
+  L2["7.1.2 What He Saw<br/>his own footage, shown like a home video"]
+  L3["7.1.3 Card Night<br/>she serves his three buddies, level 1 to 2<br/>the widower's warning"]
+  L4["7.1.4 The Review<br/>the rent goes up, and he wants a Veil for his lobby"]
   D1{"The new rent"}:::offer
-  L4["7.1.4 The Rival Tenant<br/>a warning on the stairs"]
-  L5["7.1.5 The Sale<br/>he might sell, long quiet Saturdays"]
-  S2(["Stage 2: the player's offer<br/>for the building"]):::done
+  L5["7.1.5 The Walk<br/>to the pharmacy across the park, on his arm"]
+  L6["7.1.6 The Sale<br/>he might sell, long quiet Saturdays"]
+  S2(["Stage 2: Saturdays<br/>the player's offer for the building"]):::done
 
   G0[/"Main 4.9 Profit Party<br/>company is clearly rich now"/]:::gate
   G1[/"Mom stage 2 Willing<br/>Main 4.11 Retail Pitch done"/]:::gate
@@ -267,64 +268,69 @@ flowchart TD
 
   S0 -->|"weekly visit rule: flag visitedLandlordThisWeek<br/>miss a week: fine or discount reversal"| L1
   L1 -->|"6 help tasks done in total<br/>tier 2 needs corruption 30 or more"| L2
-  L2 -->|"1 week"| L3
-  G0 -->|"required"| L3
-  L3 -.->|"gets a Veil"| X1
-  L3 --> D1
-  D1 -->|"pay the higher rent"| L4
-  D1 -->|"suggest more visits instead"| L4
-  L4 -->|"1 week"| L5
-  G1 -->|"required"| L5
-  L5 --> S2
-  L5 -.-> X2
+  L2 -->|"1 week, on a Thursday"| L3
+  L3 -->|"1 week"| L4
+  G0 -->|"required"| L4
+  L4 -.->|"gets a Veil"| X1
+  L4 --> D1
+  D1 -->|"pay the higher rent"| L5
+  D1 -->|"suggest more visits instead"| L5
+  L5 -->|"1 week"| L6
+  G1 -->|"required"| L6
+  L6 --> S2
+  L6 -.-> X2
 
   classDef done fill:#2c4a3e,stroke:#1cd88d,color:#fff
   classDef offer fill:#5a1f2a,stroke:#ff6479,color:#fff
   classDef gate fill:#2b2b2b,stroke:#999,color:#ddd,stroke-dasharray:4 3
 ```
 
-### 7.2 Boss (currency: connections and the supplier)
+### 7.2 Boss (currency: connections and the supplier, venue: floor 6 and upstairs)
 
 ```mermaid
 flowchart TD
   S0(["Done: The Handover<br/>support project unlocked, Mom is his consultant"]):::done
 
-  B1["7.2.1 The Support Review<br/>he is the only one who does not respond to the unit<br/>pill organizer, afternoon drink"]
-  B2["7.2.2 The Clip<br/>he sends a still: safe with me, for now"]
-  B3["7.2.3 The Arrangement<br/>more support hours at his rate, the clip as leverage"]
+  B1["7.2.1 Floor Six<br/>Mom back on her old floor: my former assistant<br/>coffee for the meeting she used to run, report or POV"]
+  B2["7.2.2 The Support Review<br/>he is the only one the unit does not reach<br/>pills, afternoon drink, the player starts a file on him"]
+  B3["7.2.3 The Clip<br/>he sends a still: safe with me, for now"]
+  B4["7.2.4 The Arrangement<br/>more support hours at his rate, the clip as leverage"]
   D1{"How does the player answer?"}:::offer
-  B4["7.2.4 After Hours<br/>Mom goes, scene ends at his door<br/>he says Next time, upstairs"]
-  B4b["The Anchor on the Boss<br/>he becomes a pet, logs spike"]
-  B5["7.2.5 The Introduction<br/>the Boss names the supplier"]
+  B5["7.2.5 After Hours<br/>Mom goes, scene ends at his door<br/>he says Next time, upstairs"]
+  B5b["The Anchor on the Boss<br/>he becomes a pet, logs spike"]
+  B6["7.2.6 The Introduction<br/>the Boss names the supplier"]
   S2(["Main 4.12, then Stage 2: upstairs"]):::done
 
   G0[/"Mom 5.9 The Calendar done<br/>stage 3 Complicit"/]:::gate
   G1[/"Main 4.8 The Anchor built"/]:::gate
   X1(["Mom skips 5.10<br/>short scene at his office instead"]):::done
   X2(["Feeds Main 4.7<br/>chemistry insight"]):::done
+  X3(["Seed for the takeover<br/>of his company, later stages"]):::done
 
-  S0 -->|"support project active 1 week<br/>consultant task done 3 times"| B1
-  B1 -.->|"the pills give the chemistry idea"| X2
-  B1 -->|"5 days, Mom stage 1 or more"| B2
-  B2 --> B3
-  B3 --> D1
-  D1 -->|"Pay: about 2,500 a week<br/>he keeps the clip"| B5
+  S0 -->|"support project active<br/>consultant task done once"| B1
+  B1 -->|"1 week<br/>consultant task done 3 times"| B2
+  B2 -.->|"the pills give the chemistry idea"| X2
+  B2 -.->|"the file on him"| X3
+  B2 -->|"5 days, Mom stage 1 or more"| B3
+  B3 --> B4
+  B4 --> D1
+  D1 -->|"Pay: about 2,500 a week<br/>he keeps the clip"| B6
   D1 -->|"Offer Mom: Thursdays after hours<br/>contacts, his club, the supplier<br/>he deletes the clip, maybe"| G0
-  G0 -->|"required"| B4
-  B4 -->|"After Hours done once"| B5
+  G0 -->|"required"| B5
+  B5 -->|"After Hours done once"| B6
   D1 -->|"Break him<br/>needs the Anchor, big charge cost"| G1
-  G1 -->|"required"| B4b
-  B4b -->|"he gives the name himself"| B5
-  B4b -.-> X1
+  G1 -->|"required"| B5b
+  B5b -->|"he gives the name himself"| B6
+  B5b -.-> X1
   D1 -.->|"Pay"| X1
-  B5 -->|"gate for Main 4.12<br/>a fee on the Pay path"| S2
+  B6 -->|"gate for Main 4.12<br/>a fee on the Pay path"| S2
 
   classDef done fill:#2c4a3e,stroke:#1cd88d,color:#fff
   classDef offer fill:#5a1f2a,stroke:#ff6479,color:#fff
   classDef gate fill:#2b2b2b,stroke:#999,color:#ddd,stroke-dasharray:4 3
 ```
 
-### 7.3 Manager (currency: a cut of the diner)
+### 7.3 Manager (currency: a cut of the diner, venue: the diner)
 
 ```mermaid
 flowchart TD
@@ -332,50 +338,58 @@ flowchart TD
 
   M1["7.3.1 Three Shifts<br/>weekly rule, count in the quest text, fine if missed"]
   M2["7.3.2 The Debrief<br/>meeting at the office, the Veil goes into the diner"]
-  M3["7.3.3 The Incident<br/>aggressive customer, nothing sexual, told in her report"]
-  M4["7.3.4 The Uniform<br/>his ask: it is her job, so it may come from him"]
+  M3["7.3.3 The Regulars<br/>the construction crew, the trucker, the old regular"]
+  M4["7.3.4 Sales Report<br/>eighteen percent on her days"]
+  M5["7.3.5 The Uniform<br/>his ask: it is her job, so it may come from him"]
   D1{"Negotiation"}:::choice
-  M5["7.3.5 The Closing Keys<br/>he asks for Sister on weekend closing shifts"]
+  M6["7.3.6 Cover Shift<br/>Sister is sick, Mom covers in the new uniform"]
+  M7["7.3.7 The Closing Keys<br/>he asks for Sister on weekend closing shifts"]
   S2(["Stage 2: closing time<br/>the sexual part"]):::done
 
   G0[/"Veil owned<br/>Main 4.3 done"/]:::gate
+  G3[/"Main 4.7 The Diner Incident<br/>the aggressive customer"/]:::gate
   G1[/"Sister stage 1 Yearning<br/>exhibition 30 or more"/]:::gate
   G2[/"Sister stage 2 Devoted"/]:::gate
-  X1(["Feeds Main 4.7<br/>the player learns chemistry matters"]):::done
+  X1(["Gate for Main 4.7<br/>the Veil is in the diner"]):::done
 
   S0 --> M1
   M1 -->|"analysis project done, 1 week"| M2
   G0 -->|"required"| M2
-  M2 -->|"Veil installed<br/>10 diner shifts done"| M3
-  M3 -.-> X1
-  M3 -->|"sales up on her days"| M4
-  G1 -->|"required"| M4
-  M4 --> D1
-  D1 -->|"cut and 7 shifts: he agrees, grumbling"| M5
-  D1 -->|"he refuses: player squeezes him<br/>small revenge, mopping, Mr Consultant"| M5
-  G2 -->|"required"| M5
-  M5 -->|"14 shifts in the new uniform"| S2
+  M2 -.-> X1
+  M2 -->|"Veil installed, a few shifts"| M3
+  M3 --> M4
+  G3 -->|"required"| M4
+  M4 -->|"he wants to know what makes the difference"| M5
+  G1 -->|"required"| M5
+  M5 --> D1
+  D1 -->|"cut and 7 shifts: he agrees, grumbling"| M6
+  D1 -->|"he refuses: player squeezes him<br/>small revenge, mopping, Mr Consultant"| M6
+  M6 -->|"one sick day"| M7
+  G2 -->|"required"| M7
+  M7 -->|"14 shifts in the new uniform"| S2
 
   classDef done fill:#2c4a3e,stroke:#1cd88d,color:#fff
   classDef choice fill:#47306b,stroke:#b08bff,color:#fff
   classDef gate fill:#2b2b2b,stroke:#999,color:#ddd,stroke-dasharray:4 3
 ```
 
-### 7.4 Prof (currency: legitimacy)
+### 7.4 Prof (currency: legitimacy, venue: the college)
 
 ```mermaid
 flowchart TD
-  S0(["Done: The Proposition<br/>college tutoring task unlocked"]):::done
+  S0(["Done: 7.4.1 The Proposition<br/>college tutoring task unlocked"]):::done
 
-  P1["7.4.1 The Face of the Project<br/>Sister is told, dresses for campus, tights, hem"]
-  P2["7.4.2 The List<br/>study group takes off, the dean notices"]
-  P3["7.4.3 The Pilot<br/>Veil in the lecture hall, second emitter on the Prof"]
-  P4["7.4.4 The Dean's Visit<br/>the paper, and he reminds the player<br/>of the Stage 0 promise: Fridays, alone"]
-  P5["7.4.5 The Letter<br/>pilot study and dean's letter satisfy the lawyer"]
-  S2(["Stage 2: Friday office hours<br/>the sexual part"]):::done
+  P1["7.4.2 The Face of the Project<br/>Sister is told, dresses for campus, tights, hem"]
+  P2["7.4.3 The List<br/>study group takes off, the dean notices<br/>the athletes, the STEM club, the outsider"]
+  P3["7.4.4 The Pilot<br/>Veil in the lecture hall, second emitter on the Prof"]
+  P4["7.4.5 The Guest Lecture<br/>Mom teaches one seminar, the students respect her"]
+  P5["7.4.6 The Dean's Visit<br/>she co-signs a report, then wants the raw data<br/>if I ran this place, and the old promise: Fridays, alone"]
+  P6["7.4.7 The Letter<br/>the pilot study and the co-signed report satisfy the lawyer"]
+  S2(["Stage 2: Fridays<br/>and the dean in the way"]):::done
 
   G0[/"Sister stage 1 Yearning<br/>Souvenirs done"/]:::gate
   G1[/"Veil owned<br/>funding application mailed on letterhead"/]:::gate
+  G3[/"Mom 5.6 The Crawl done"/]:::gate
   G2[/"Main 4.13 The Morning After<br/>lawyer hired"/]:::gate
 
   S0 -->|"1 day"| P1
@@ -383,11 +397,13 @@ flowchart TD
   P1 -->|"college tutoring task done 10 times"| P2
   P2 --> P3
   G1 -->|"required"| P3
-  P3 -->|"pilot running 2 weeks"| P4
-  P4 -.->|"stays in the story as legal shield"| P5
-  G2 -->|"required"| P5
-  P4 --> S2
-  P5 -.->|"unlocks the lawyer's defense in Main 4.13"| X1[/"Main 4.13"/]:::gate
+  P3 -->|"pilot running 1 week"| P4
+  G3 -->|"required"| P4
+  P4 -->|"pilot running 2 weeks"| P5
+  P5 -.->|"the co-signed report stays as the legal shield"| P6
+  G2 -->|"required"| P6
+  P5 --> S2
+  P6 -.->|"unlocks the lawyer's defense in Main 4.13"| X1[/"Main 4.13"/]:::gate
 
   classDef done fill:#2c4a3e,stroke:#1cd88d,color:#fff
   classDef gate fill:#2b2b2b,stroke:#999,color:#ddd,stroke-dasharray:4 3
@@ -405,7 +421,7 @@ flowchart LR
     m42["4.2 The Veil"]
     m44["4.4 First Sale"]
     m45["4.5b The Gym Dinner"]
-    m47["4.7 Diner aftermath"]
+    m47["4.7 The Diner Incident"]
     m48["4.8 The Anchor"]
     m49["4.9 Profit Party"]
     m411["4.11 Retail Pitch"]
@@ -413,6 +429,7 @@ flowchart LR
     m413["4.13 Morning After"]
   end
   subgraph Mom
+    a56["5.6 The Crawl"]
     a57["5.7 Gym dinner"]
     a58["5.8 Catalyst Night"]
     a59["5.9 The Calendar"]
@@ -430,28 +447,32 @@ flowchart LR
     b69["6.9 Last Night"]
   end
   subgraph Boss
-    o3["7.2.3 Arrangement"]
-    o5["7.2.5 Introduction"]
+    o3["7.2.4 Arrangement"]
+    o5["7.2.6 Introduction"]
   end
   subgraph Manager
-    g3["7.3.3 The Incident"]
-    g4["7.3.4 The Uniform"]
-    g5["7.3.5 Closing Keys"]
+    g2["7.3.2 The Debrief"]
+    g3["7.3.4 Sales Report"]
+    g4["7.3.5 The Uniform"]
+    g5["7.3.7 Closing Keys"]
   end
   subgraph Prof
-    p0["The Proposition (done)"]
-    p1["7.4.1 Face of the Project"]
-    p3["7.4.3 The Pilot"]
-    p5["7.4.5 The Letter"]
+    p0["7.4.1 The Proposition (done)"]
+    p1["7.4.2 Face of the Project"]
+    p3["7.4.4 The Pilot"]
+    p4["7.4.5 Guest Lecture"]
+    p5["7.4.6 Dean's Visit"]
+    p6["7.4.7 The Letter"]
   end
   subgraph Landlord
-    l5["7.1.5 The Sale"]
+    l5["7.1.6 The Sale"]
   end
 
   p0 -->|"the lecture hall idea"| m42
   m44 --> m45
   m45 -.->|"send Mom"| a57
-  g3 --> m47
+  g2 -->|"the Veil in the diner"| m47
+  m47 --> g3
   m47 --> b65b
   b65b --> m48
   b62 -.-> g4
@@ -476,8 +497,11 @@ flowchart LR
   m412 -.->|"offer them"| b68c
   b68c --> b69
   m412 --> m413
-  p3 -.-> p5
-  p5 -.-> m413
+  p3 --> p4
+  a56 -.->|"Mom past The Crawl"| p4
+  p4 --> p5
+  p5 -.->|"co-signed report"| p6
+  p6 -.-> m413
   a58 -.-> l5
   m411 -.-> l5
 ```
@@ -504,7 +528,7 @@ flowchart TD
     m5(["Gym contract signed"]):::done
     m6["4.6 Morale<br/>Darius pushes back"]
     mD1{"Let Darius in?"}:::choice
-    m7["4.7 Diner aftermath<br/>chemistry matters"]
+    m7["4.7 The Diner Incident<br/>chemistry matters"]
     m8["4.8 The Anchor"]
     m9["4.9 The Profit Party"]
     mD2{"Ethan asks<br/>for his piece"}:::choice
@@ -535,7 +559,7 @@ flowchart TD
     a9["5.9 The Calendar"]
     aD2{"Tell her or<br/>use the Anchor"}:::choice
     aH3{{"Stage 3 Complicit<br/>Whenever unlocks"}}:::milestone
-    a10["5.10 / 7.2.4 After Hours<br/>ends at the Boss's door"]
+    a10["5.10 / 7.2.5 After Hours<br/>ends at the Boss's door"]
     a10b["No After Hours<br/>short scene at his office"]
     a11["5.11 The Last Night"]
   end
@@ -565,40 +589,45 @@ flowchart TD
 
   subgraph LANDG["LANDLORD"]
     lS(["Done: weekly help tasks active"]):::done
-    l1["7.1.1 The Helpers<br/>3 tiers inside the task"]
-    l2["7.1.2 What He Saw"]
-    l3["7.1.3 The Review<br/>rent up, wants a Veil"]
+    l1["7.1.1 The Helpers<br/>Mom keeps house, Sister is shown off"]
+    l2["7.1.2 What He Saw<br/>his footage"]
+    l2b["7.1.3 Card Night<br/>his three buddies"]
+    l3["7.1.4 The Review<br/>rent up, wants a Veil"]
     lD1{"Pay or suggest<br/>more visits"}:::offer
-    l4["7.1.4 The Rival Tenant"]
-    l5["7.1.5 The Sale<br/>long quiet Saturdays"]
+    l4["7.1.5 The Walk<br/>through the park on his arm"]
+    l5["7.1.6 The Sale<br/>long quiet Saturdays"]
   end
 
   subgraph BOSSG["BOSS"]
     oS(["Done: The Handover"]):::done
-    o1["7.2.1 Support Review<br/>pills, the only one who resists"]
-    o2["7.2.2 The Clip"]
-    o3["7.2.3 The Arrangement"]
+    o0["7.2.1 Floor Six<br/>my former assistant"]
+    o1["7.2.2 Support Review<br/>pills, the only one who resists"]
+    o2["7.2.3 The Clip"]
+    o3["7.2.4 The Arrangement"]
     oD1{"Pay, offer Mom<br/>or break him"}:::offer
     o4b["The Anchor on the Boss"]
-    o5["7.2.5 The Introduction<br/>the supplier's name"]
+    o5["7.2.6 The Introduction<br/>the supplier's name"]
   end
 
   subgraph MANG["MANAGER"]
     gS(["Done: diner analysis<br/>shift task active"]):::done
     g1["7.3.1 Three Shifts<br/>weekly rule"]
-    g2["7.3.2 The Debrief"]
-    g3["7.3.3 The Incident"]
-    g4["7.3.4 The Uniform"]
-    g5["7.3.5 The Closing Keys"]
+    g2["7.3.2 The Debrief<br/>the Veil goes in"]
+    g2b["7.3.3 The Regulars"]
+    g3["7.3.4 Sales Report"]
+    g4["7.3.5 The Uniform"]
+    g4b["7.3.6 Cover Shift<br/>Mom in the uniform"]
+    g5["7.3.7 The Closing Keys"]
   end
 
   subgraph PROFG["PROF"]
     pS(["Done: The Proposition"]):::done
-    p1["7.4.1 Face of the Project"]
-    p2["7.4.2 The List"]
-    p3["7.4.3 The Pilot"]
-    p4["7.4.4 The Dean's Visit<br/>the old promise: Fridays, alone"]
-    p5["7.4.5 The Letter"]
+    p1["7.4.2 Face of the Project"]
+    p2["7.4.3 The List<br/>the student groups"]
+    p3["7.4.4 The Pilot"]
+    p3b["7.4.5 The Guest Lecture<br/>Mom teaches once"]
+    p4["7.4.6 The Dean's Visit<br/>raw data, Fridays, alone"]
+    p5["7.4.7 The Letter"]
   end
 
   S2(["STAGE 2<br/>Boss upstairs, Landlord on Saturdays,<br/>Prof on Fridays, Manager at closing,<br/>clients start asking, the investigation, Ethan's rival"]):::done
@@ -625,7 +654,7 @@ flowchart TD
   m6 --> mD1
   mD1 -->|"half-truth: dariusAlly"| m7
   mD1 -->|"shut out: dariusSuspicious"| m7
-  g3 -->|"required: Incident played"| m7
+  g2 -->|"required: the Veil in the diner, 10 shifts"| m7
   o1 -.->|"the pills give the chemistry idea"| m7
   m7 -.->|"he wants Brian on his side"| b5b
   b5b -->|"required: Brian softened up"| m8
@@ -708,7 +737,8 @@ flowchart TD
   %% landlord
   lS -->|"weekly rule: visit or lose the discount"| l1
   l1 -->|"6 help tasks, tier 2 needs corruption 30"| l2
-  l2 -->|"1 week"| l3
+  l2 -->|"1 week, on a Thursday"| l2b
+  l2b -->|"1 week"| l3
   m9 -.->|"company is clearly rich"| l3
   l3 --> lD1
   lD1 -->|"either answer"| l4
@@ -718,7 +748,8 @@ flowchart TD
   l5 --> S2
 
   %% boss
-  oS -->|"support project 1 week, consultant task 3 times"| o1
+  oS -->|"support project active"| o0
+  o0 -->|"1 week, consultant task 3 times"| o1
   o1 -->|"5 days, Mom stage 1 or more"| o2
   o2 --> o3
   o3 --> oD1
@@ -732,10 +763,13 @@ flowchart TD
   gS --> g1
   g1 -->|"analysis done, 1 week"| g2
   m3 -.->|"Veil owned"| g2
-  g2 -->|"Veil installed, 10 diner shifts"| g3
+  g2 -->|"Veil installed, a few shifts"| g2b
+  g2b --> g3
+  m7 -->|"required: the incident"| g3
   g3 -->|"sales up on her days"| g4
   b2 -.->|"Sister stage 1, exhibition 30 or more"| g4
-  g4 -->|"14 shifts in the new uniform"| g5
+  g4 --> g4b
+  g4b -->|"14 shifts in the new uniform"| g5
   bH2 -.->|"Sister stage 2"| g5
   g5 --> S2
 
@@ -745,8 +779,10 @@ flowchart TD
   p1 -->|"college tutoring done 10 times"| p2
   p2 --> p3
   m3 -.->|"Veil owned, application on letterhead"| p3
-  p3 -->|"pilot running 2 weeks"| p4
-  p3 -.->|"pilot study is the shield"| p5
+  p3 -->|"pilot running 1 week"| p3b
+  a6 -.->|"Mom past The Crawl"| p3b
+  p3b -->|"pilot running 2 weeks"| p4
+  p4 -.->|"the co-signed report is the shield"| p5
   p4 --> S2
 
   classDef now fill:#6b4100,stroke:#EAAF4C,color:#fff

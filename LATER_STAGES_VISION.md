@@ -78,6 +78,14 @@ The excuse matters as much as the act. It escalates too:
 
 The formats from the proposal carry over: POV swaps behind the CCTV arrow, the end-of-day report, public-risk scenes. Later stages lean more on reports and POV, because he's sending them to more places than he can attend. The scenes he *does* attend are the milestones at each venue.
 
+### 1.7 What Stage 1 already sets up
+
+The side lines in Stage 1 ([STAGE1_PROPOSAL.md](STAGE1_PROPOSAL.md), section 7) open every venue of sections 2 to 5 and climb to level 2, so the later stages start at level 3 or 4. They also introduce each venue's people once:
+- **Landlord:** the three card buddies (Card Night), his footage (What He Saw), the park (The Walk).
+- **Manager:** the construction crew, the trucker and the old regular (The Regulars), and Mom's one shift (Cover Shift).
+- **Boss:** her old colleagues on floor 6 and the woman at her old desk (Floor Six), and the player's file on him (The Support Review).
+- **Prof:** the athletes, the STEM club and the outsider (The List), Mom in front of a class (The Guest Lecture), and the dean as the obstacle (The Dean's Visit).
+
 ---
 
 ## 2. Landlord: old men and degradation
@@ -115,9 +123,9 @@ Three is enough. Each one gives the card nights a different flavor without new v
 ### Key beats (suggestions)
 1. **The Offer** (Stage 2 opener): the player's answer to The Sale. He doesn't buy the building with money.
 2. **The Deed**: the building is signed over, piece by piece, one milestone per floor.
-3. **The First Card Night**: he invites the player too. The player declines and watches the CCTV instead. (The Landlord has his own cameras, from What He Saw. The footage is a currency of its own.)
-4. **The Walk**: the first outing. A public-risk scene.
-5. **The Rival Tenant returns** (from 7.1): she's still in the building and sees what's going on. Witness, rival, or the next resident of the venue. Author's call.
+3. **The Stakes**: Card Night again (Stage 1 introduced it at level 1 to 2, she only served). This time she's what they play for. He invites the player too. The player declines and watches the CCTV instead.
+4. **The Bench**: the walk through the park from Stage 1, with a stop on the bench where his friends sit. A public-risk scene.
+5. **The Footage**: his own recordings of the helpers (What He Saw, Stage 1) are an archive by now. Whoever has the building has the archive. A currency of its own.
 6. **The landlord's last day**: once the building is the player's, what happens to the old man? He stays as a tenant who now pays in a different way, or he's simply gone.
 
 ---
@@ -153,11 +161,11 @@ The diner, as it stops being a diner. The device makes it the field lab: the new
 - **Mom joins later**, as a hostess or "the new shift lead". The draw is mother and daughter on the same shift. The moment the regulars find out they're related is its own beat.
 
 ### Key beats (suggestions)
-1. **Sales Report**: the Manager brings the numbers. Revenue tracks the uniform length. He asks for more without being asked.
+1. **The Next Report**: after the Sales Report of Stage 1, the numbers keep tracking the uniform length. He asks for more without being asked.
 2. **The Menu**: the specials card. Played as comedy at first.
 3. **The Window Seat**: exhibition, seen from the street. Public risk.
 4. **The Cut**: the player takes a bigger share of the diner, then the deed. The Manager signs.
-5. **Family Shift**: Mom's first day.
+5. **Family Shift**: Mom's first real day on the staff. Stage 1's Cover Shift was the one-off that gave the Manager the idea.
 6. **The Detective's Booth**: the investigation gets a blind spot.
 
 ---
@@ -196,7 +204,7 @@ Connections at first, then contracts, then leverage, and in the end the Boss's c
 
 ### Key beats (suggestions)
 1. **Upstairs**: the Stage 2 opener from 7.2.
-2. **Floor 6**: the first time her old colleagues see her in her new role.
+2. **Floor 6, Again**: in Stage 1 (Floor Six) her old colleagues saw her bring the coffee. Now they see her new role.
 3. **The Review**: a performance review as a humiliation scene.
 4. **The Clip, Again**: the player finally gets the clip back, or finds out he can't, and changes the terms another way.
 5. **The Takeover**: the player buys, steers or blackmails his way into the company. The Boss becomes an employee.
@@ -320,6 +328,6 @@ What the existing code already covers, and the little that would be new:
 5. **Sister at the Boss's office.** Never, or as an "intern" later on?
 6. **The shelter.** Is PR during the investigation the right way in, and which line owns it?
 7. **The player in venue scenes.** Present for the milestones and absent otherwise (POV and reports)? Or does he sometimes join?
-8. **The Rival Tenant and the woman who replaced Mom.** Both are set up as possible new characters. Do you want new women in the story, or should it stay Mom and Sister only?
+8. **New women.** Partly settled for Stage 1: the Rival Tenant is cut, and the woman who has Mom's old desk appears only as a witness (proposal 7.2). For the later stages it's still open: should she become one, or does it stay Mom and Sister only?
 9. **The detective.** Is compromising the investigation through the diner too convenient, or a good Stage 2 thread?
 10. **Stage 4.** An ending, or open?

@@ -161,9 +161,9 @@ Revised against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md), see proposal s
 - [ ] The Dean's Visit: the co-signed report, the raw data she wants, "if I ran this place", Fridays. **Add it to the requirements of `main_morningAfter`** (the lawyer needs the report).
 - [ ] The Letter: part of The Morning After (4.13).
 
-**After the side lines exist**
-- [ ] Update [STAGE1_FLOWCHARTS.md](STAGE1_FLOWCHARTS.md): its side-line charts still show the old section 7 (the Rival Tenant, the Incident in the Manager line, no Card Night, Walk, Regulars, Sales Report, Cover Shift, Floor Six or Guest Lecture).
-- [ ] [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md): the Rival Tenant is cut from Stage 1, so key beat 5 of the Landlord and open question 8 need a second look.
+**Docs**
+- [x] [STAGE1_FLOWCHARTS.md](STAGE1_FLOWCHARTS.md) follows the revised section 7. *Its Mom and Sister charts still show the Catalyst nights (5.8, 6.6) as two scenes; in the game they're one event, `main_catalystNight`.*
+- [x] [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md) follows it too (Landlord beats, open question 8, new section 1.7).
 
 ---
 
