@@ -14,12 +14,15 @@
 <h3>The cards</h3>
 <ul>
 	<li>Under its name each card says what it costs (actions, sometimes money) and which of her stats it changes when it works.</li>
-	<li>A <b>greyed-out</b> card says why you can't use it right now: she has to have a certain Relation or Corruption, her Resistance is too high, she is busy with something that doesn't allow it, it isn't something to do with other people around, you already did it today, or you can't afford it.</li>
+	<li>A <b>greyed-out</b> card says why you can't use it right now: she has to have a certain Relation or Corruption, her Resistance is too high, she is busy with something that doesn't allow it, it isn't something to do with other people around, you already did it today, or you can't afford it. Sometimes every card with someone is locked for a while, and the reason says why.</li>
 	<li>Many cards work <b>once a day</b> per person. Repeating the same compliment five times in a row wouldn't impress anybody either.</li>
 	<li>Some cards can <b>fail</b>. Her stats decide how likely they work: Relation and Lust help, Resistance works against you. A failure can cost you Relation or raise her Resistance.</li>
 	<li>Cards you are still far away from stay hidden. They show up, greyed out, once you are getting close, and some only appear when the story gets there.</li>
 	<li>What happens depends on what she is doing. Talking to her while she cooks is a different conversation than while she's watching TV.</li>
 </ul>
+
+<h3>How was her day?</h3>
+<p>Later on, she gets used to telling you about her day. On days when she did something worth telling, a card for it shows up from the evening on, in a group of its own at the top of the screen, and it lights up until you've used it. She sums the day up in a few lines, and you can pick any of them to hear the whole story, told from her side. She likes being asked, so it's worth a little Relation. If you don't ask, nothing is lost but the story: the next day starts fresh.</p>
 
 <h3>Follow me</h3>
 <p>Asking her to follow you is free. She then goes wherever you go, and the location shows that she is following you. Only one person can follow you at a time. Ask her to stop on the same screen.</p>

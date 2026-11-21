@@ -26,6 +26,7 @@
 	<li>Click a button to switch to that camera. The picture changes at once and the button is highlighted.</li>
 	<li>If $mom.callName or $sister.callName is in that room right now, her round portrait appears on its button, so you can see at a glance who is where.</li>
 	<li>Switching costs no time and no action, and the dashboard remembers the last camera you chose.</li>
+	<li>When the picture shows something worth a closer look, an <b>arrow</b> appears next to the title. It opens that moment as a scene, sometimes told from her side. Watching it costs no time.</li>
 </ul>
 
 <h3>The picture</h3>

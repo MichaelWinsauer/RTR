@@ -30,6 +30,7 @@
     <<capture _cctvPassage>>
       <span class="cctv-arrow-enabled"><<link "->">>
         <<set $cctv.returnPassage to passage()>>
+        <<set $povReturn to passage()>>
         <<goto _cctvPassage>>
       <</link>></span>
     <</capture>>

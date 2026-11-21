@@ -105,27 +105,13 @@
            after The Late Night. Answering it fixes the day of her call (answeredDay): main_firstSale plays from the
            next day, at my desk */
         body: [
-        	{who: $marketingOwner, text: "Hi $player.name,
-
-I run $marketingFirm.name. That's twelve people who pitch for a living, and one conference room that has watched us lose more accounts than I like to count.
-
-Someone I had lunch with last week has one of your $company.devices.valenxOfficial.name units on her desk and would not stop talking about it. In my line of work that's either a very good sign or a very good ad, and I'd like to know which.
-
-So, is it a gadget for one desk, or could it do something for a whole room of nervous people? I'd rather hear it from you than from a brochure. Do you have twenty minutes for a call this week?
-
-$marketingOwner.name $marketingOwner.surname
-$marketingFirm.name"}
+        	{who: $marketingOwner, text: "Hi $player.name,\n\nI run $marketingFirm.name. That's twelve people who pitch for a living, and one conference room that has watched us lose more accounts than I like to count.\n\nSomeone I had lunch with last week has one of your $company.devices.valenxOfficial.name units on her desk and would not stop talking about it. In my line of work that's either a very good sign or a very good ad, and I'd like to know which.\n\nSo, is it a gadget for one desk, or could it do something for a whole room of nervous people? I'd rather hear it from you than from a brochure. Do you have twenty minutes for a call this week?\n\n$marketingOwner.name $marketingOwner.surname\n$marketingFirm.name"}
         ],
         answerOptions: [
         	{
                 id: 0,
                 short: "Set up a call",
-                text: "Hi $marketingOwner.name,
-
-Twenty minutes is plenty. The short answer is yes, and the long answer sounds a lot better on the phone. Call me whenever it suits you tomorrow, I'll be at my desk.
-
-Best,
-$player.name $player.surname",
+                text: "Hi $marketingOwner.name,\n\nTwenty minutes is plenty. The short answer is yes, and the long answer sounds a lot better on the phone. Call me whenever it suits you tomorrow, I'll be at my desk.\n\nBest,\n$player.name $player.surname",
                 eval: [
                     () => State.variables.company.mails[4].answeredDay = State.variables.date.dayCount,
 				],

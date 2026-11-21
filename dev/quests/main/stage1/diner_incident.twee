@@ -1,7 +1,8 @@
 :: Diner Incident [event main_quest] {"position":"4825,500","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "The Diner Incident" (main_dinerIncident), STAGE1_PROPOSAL.md 4.7.
    She tells me about the aggressive customer she calmed down. My first lesson that chemistry matters.
-   STAGE1-STUB: meant as her end-of-day report (proposal 3.5), which does not exist yet. */
+   STAGE1-STUB: meant as her end-of-day report (proposal 3.5). The report exists now (Define NPCs): an entry in
+   setup.dayReports, logged with <<LogDay>>, with this passage as the one to hear in full. */
 <<silent>><<SetBackground $locations[2].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Diner Incident, STAGE1_PROPOSAL.md 4.7).
 

@@ -256,6 +256,42 @@
         set: [
             () => setup.getMealById("sister_internship").isActive = false,
         ]
+    }, {
+        /* The Silence (Define NPCs): her attempts to make up. Switched on by the set of Not Enough (mom_notEnough),
+           off again by mom_silence, and each turns itself off after it played */
+        id: "silence_breakfast",
+        passage: "Meal Silence Breakfast",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+            () => setup.silenceDay() >= 1,
+        ],
+        set: [
+            () => setup.getMealById("silence_breakfast").isActive = false,
+        ]
+    }, {
+        id: "silence_lasagna",
+        passage: "Meal Silence Lasagna",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+            () => setup.silenceDay() >= 4,
+        ],
+        set: [
+            () => setup.getMealById("silence_lasagna").isActive = false,
+        ]
     },
 ]>>
 

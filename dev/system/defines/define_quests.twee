@@ -1231,12 +1231,15 @@
             "$mom.callName does her flirt duty rounds ({{Math.min(3, setup.getTaskById('task_mom_flirt_duty').count)}}/3)",
             "$mom.callName has to be home",
         ],
-        set: [ "$mom.flags.silence = true" ],
+        set: [
+            "$mom.flags.silence = true",
+            "setup.getMealById('silence_breakfast').isActive = true",
+            "setup.getMealById('silence_lasagna').isActive = true",
+        ],
     },
     {
-    	/* 5.5 A week of nothing, then it moves on by itself.
-    	   STAGE1-STUB: the interactions with her should be locked while $mom.flags.silence is true, and her small
-    	   attempts to make up (breakfast, a note, lasagna) are not built */
+    	/* 5.5 A week of nothing, then it moves on by itself. What the week does (locked interactions, her attempts
+    	   to make up, the guilt) is in The Silence in Define NPCs */
     	id: "mom_silence",
     	next: "mom_crawl",
     	title: "The Silence",
@@ -1246,7 +1249,11 @@
         whenDay: [],
         active: false,
         check: "$date.dayCount >= setup.getQuestById('mom_notEnough').doneDay + 7",
-        set: [ "$mom.flags.silence = false" ],
+        set: [
+            "$mom.flags.silence = false",
+            "setup.getMealById('silence_breakfast').isActive = false",
+            "setup.getMealById('silence_lasagna').isActive = false",
+        ],
     },
     {
     	/* 5.6 Friday, the empty office, her apology. Sets $mom.flags.morningRoutine. Phase 5 (main_gymMeeting).
@@ -1269,7 +1276,8 @@
     {
     	/* 5.7 OPTIONAL: only if I sent her to the gym dinner (main_gymDinner sets $mom.flags.gymDinner).
     	   Her report when she comes home that night: Was that right?
-    	   STAGE1-STUB: the end-of-day report system (proposal 3.5) does not exist, so this is a plain event for now */
+    	   STAGE1-STUB: a plain event for now. The end-of-day report exists (Define NPCs): when the scene is written,
+    	   decide whether it stays an event or becomes a report entry (setup.dayReports and <<LogDay>>) */
     	id: "mom_gymDinner",
     	next: "mom_waitCatalystNight",
     	title: "Was That Right?",
@@ -1742,8 +1750,8 @@
         ],
     },
     {
-    	/* 6.3 A comedy, and the first end-of-day report. Phase 4 (main_firstSale).
-    	   STAGE1-STUB: the How was your day? interaction (proposal 3.5) should exist for her from here on */
+    	/* 6.3 A comedy, and the first end-of-day report. Phase 4 (main_firstSale). Finishing it unlocks the report
+    	   for both of them (setup.dayReportsUnlocked, End-of-day report in Define NPCs) */
     	id: "sister_officeGossip",
     	next: "sister_sendMeSomething",
     	title: "Office Gossip",
@@ -1868,7 +1876,8 @@
     },
     {
     	/* 6.6c Her best friend from college, told in her report at the end of the day.
-    	   STAGE1-STUB: the end-of-day report system (proposal 3.5) does not exist, so this is a plain event for now */
+    	   STAGE1-STUB: a plain event for now. The end-of-day report exists (Define NPCs): when the scene is written,
+    	   decide whether it stays an event or becomes a report entry (setup.dayReports and <<LogDay>>) */
     	id: "sister_theFriend",
     	next: "sister_rooftop",
     	title: "The Friend",

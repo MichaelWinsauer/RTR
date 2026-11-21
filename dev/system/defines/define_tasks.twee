@@ -16,6 +16,14 @@
         startTime: [ 1, 2, 3, 4 ],
         npc: $player,
         activity: "working",
+        /* her end-of-day report (Define NPCs): the small stuff, no passage to hear in full */
+        report: {
+            line: [
+                "I color-coded the client folders today. Nobody noticed. I'm choosing to believe that means it works.",
+                "The printer jammed three times and I fixed it three times. Put that on my headstone, sweetie.",
+                "$ethan.name asked me where we keep the stapler. It's on his desk. It's been on his desk since Tuesday.",
+            ],
+        },
         onComplete: [
         	() => {
             	State.variables.company.projects.forEach((p) => {
@@ -273,6 +281,15 @@
         startTime: [ 1, 2, 3, 4 ],
         npc: $player,
         activity: "bring_coffee",
+        /* her end-of-day report (Define NPCs): office gossip, no passage to hear in full */
+        report: {
+            line: [
+                "$ethan.name is on noodle cup number nine this week. I asked if he owns a pot. He said, and I quote, 'conceptually'.",
+                "$brian.name walked into the glass door again. Same door. I think it's personal at this point.",
+                "$darius.name's cologne is a lot. It's like being hugged by a department store.",
+                "Somebody took all the good pens. I'm not saying it was me. I'm saying I know where they are.",
+            ],
+        },
         onComplete: [
         	() => {
             	const v = State.variables;
@@ -389,21 +406,80 @@
     },
 
     /* ==== Stage 1, acts 2 to 4 (STAGE1_PROPOSAL.md) ===============================================================
-       STAGE1-STUB: both tasks borrow an existing activity, so they have no clips of their own and no effects yet.
-       Each one needs its own activity in Define Activities (with media and cctv), effects in onComplete, and the
-       POV passage behind the CCTV arrow (proposal 3.5). */
+       Flirt Duty (mom, proposal 5.3) and Extra Friendly (sister, 6.5b). Neither is a task with me: I watch them on
+       the camera, and the CCTV arrow opens her side of it, a POV passage per stage (dev/tasks/<npc>/, tag pov).
+       The same passage is what I hear when I ask about it in her end-of-day report (report on each stage).
+       Every stage has its own activity (and clips, Define Activities). What one round does is on the stage that
+       was played (read by onComplete through setup.getTaskStage, like the test sessions). */
     {
     	id: "task_mom_flirt_duty",
     	who: $mom,
         title: "Flirt Duty",
-        description: "She does the rounds and makes the staff feel good about their work.",
+        description: "She does the rounds and makes the staff feel good about their work: <b class='accent'>+morale</b> for everyone on the staff and company <b class='accent'>Morale</b>, a little <b class='accent'>Exhibition</b> for her. She gets better at it every round.",
         location: $locations[13], /*Stage 1 Office*/
         apCost: 2,
         active: false, /* activated by the quest Flirt Duty (mom_flirtDuty). Not Enough (mom_notEnough) waits for 3 of them */
         startTime: [ 1, 2, 3 ],
         npc: $player,
-        activity: "working", /* STAGE1-STUB: borrowed activity */
-        onComplete: [],
+        activity: "flirt_duty0",
+        /* terrible at first, then good, then a little scary. staffMorale: each employee, companyMorale: the company
+           stat, exhibition and corruption: hers, proud: she likes being good at it (a warmer mood toward me) */
+        stage: 0,
+        stages: [
+            {
+                activity: "flirt_duty0", passage: "Task Mom Flirt Duty 0",
+                staffMorale: 2, companyMorale: 1, exhibition: 1, corruption: 0,
+                report: { line: "I tried the arm thing on $ethan.name, honey. He was holding his coffee at the time. I don't think his shirt is going to make it.", ask: "Ask how her first round went" },
+            },
+            {
+                activity: "flirt_duty1", passage: "Task Mom Flirt Duty 1", minCount: 1,
+                staffMorale: 3, companyMorale: 2, exhibition: 1, corruption: 1, proud: true,
+                report: { line: "$darius.name told me my blouse was an 'objectively good color'. I've decided that counts.", ask: "Ask about $darius.name" },
+            },
+            {
+                activity: "flirt_duty2", passage: "Task Mom Flirt Duty 2", minCount: 1,
+                staffMorale: 4, companyMorale: 2, exhibition: 2, corruption: 1, proud: true,
+                report: {
+                    line: [
+                        "$brian.name walked into the glass door again. I wasn't even trying that time, sweetie. Well. Not very hard.",
+                        "$ethan.name stopped making jokes when I sat on the corner of his desk. I didn't know he could do that.",
+                        "I got $darius.name to laugh. Out loud. He looked so surprised at himself, I almost apologized.",
+                    ],
+                    ask: "Ask about her rounds",
+                },
+            },
+        ],
+        onComplete: [
+        	() => {
+            	const v = State.variables;
+                const mom = v.mom;
+                const live = setup.getTaskById("task_mom_flirt_duty");
+                /* the stage that was just played (onComplete runs before the next stage unlocks) */
+                const played = setup.getTaskStage(live) || {};
+
+                /* the staff (copies in the employee list, so change the live NPCs) and the office as a whole */
+                v.company.employees.forEach((e) => {
+                    const npc = v[e.sysName];
+                    if (!npc || !npc.stats || e.sysName === "mom" || e.sysName === "sister") { return; }
+                    npc.stats.morale = Math.clamp(npc.stats.morale + (played.staffMorale || 2), npc.stats.min.morale, npc.stats.max.morale);
+                });
+                setup.changeCompanyStat("morale", played.companyMorale || 1);
+
+                mom.stats.exhibition = Math.clamp(mom.stats.exhibition + (played.exhibition || 0), mom.stats.min.exhibition, mom.stats.max.exhibition);
+                mom.stats.corruption = Math.clamp(mom.stats.corruption + (played.corruption || 0), mom.stats.min.corruption, mom.stats.max.corruption);
+
+                /* what she thinks of each of them (Feelings, Define NPCs). The first round settles it: the joker makes
+                   it easy, and she feels for the hardware guy. Every round warms all three a little */
+                if (live.count === 1) {
+                    setup.feel("mom", "ethan", 1, true);
+                    setup.feel("mom", "brian", 1, true);
+                }
+                setup.feel("mom", "ethan", 1);
+                setup.feel("mom", "darius", 1);
+                setup.feel("mom", "brian", 1);
+                if (played.proud) { setup.feel("mom", "player", 1); }
+            },
+        ],
         revenue: 0,
         baseEnergyCost: 5,
         count: 0,
@@ -413,14 +489,53 @@
     	id: "task_sister_be_nice_to_brian",
     	who: $sister,
         title: "Extra Friendly",
-        description: "She spends some extra time at the desk of $brian.name: coffee, a shoulder massage, and ten minutes of capacitors.",
+        description: "She spends some extra time at the desk of $brian.name: coffee, a shoulder rub, and ten minutes of capacitors. Lifts his <b class='accent'>morale</b>, the company <b class='accent'>Efficiency</b> a little, and her <b class='accent'>Exhibition</b>.",
         location: $locations[13], /*Stage 1 Office*/
         apCost: 2,
         active: false, /* activated by the quest Be Nice to Brian (sister_beNiceToBrian), switched off by The Anchor (main_anchor), which waits for 3 */
         startTime: [ 1, 2, 3, 4 ],
         npc: $brian,
-        activity: "bring_coffee", /* STAGE1-STUB: borrowed activity */
-        onComplete: [],
+        activity: "extra_friendly0",
+        /* brianMorale: his, exhibition: hers */
+        stage: 0,
+        stages: [
+            {
+                activity: "extra_friendly0", passage: "Task Sister Extra Friendly 0",
+                brianMorale: 6, exhibition: 1,
+                report: { line: "He showed me his soldering iron collection. I think where he's from, that's a proposal.", ask: "Ask about $brian.name" },
+            },
+            {
+                activity: "extra_friendly1", passage: "Task Sister Extra Friendly 1", minCount: 1,
+                brianMorale: 8, exhibition: 1,
+                report: {
+                    line: [
+                        "I rubbed his shoulders for like two minutes and he apologized to me four times. For what? Having shoulders?",
+                        "He named a circuit board after me. I think. It's either me or a resistor. He went very red either way.",
+                    ],
+                    ask: "Ask how it went at the desk of $brian.name",
+                },
+            },
+        ],
+        onComplete: [
+        	() => {
+            	const v = State.variables;
+                const live = setup.getTaskById("task_sister_be_nice_to_brian");
+                const played = setup.getTaskStage(live) || {};
+                const brian = v.brian;
+                const sister = v.sister;
+                brian.stats.morale = Math.clamp(brian.stats.morale + (played.brianMorale || 6), brian.stats.min.morale, brian.stats.max.morale);
+                sister.stats.exhibition = Math.clamp(sister.stats.exhibition + (played.exhibition || 0), sister.stats.min.exhibition, sister.stats.max.exhibition);
+                setup.changeCompanyStat("efficiency", 1);
+
+                /* Feelings (Define NPCs): fond of him, a bit sorry for him. And the first time a small sting toward me
+                   for asking her to be nice to another man (a mood, it fades) */
+                if (live.count === 1) {
+                    setup.feel("sister", "brian", 1, true);
+                    setup.feel("sister", "player", -1);
+                }
+                setup.feel("sister", "brian", 1);
+            },
+        ],
         revenue: 0,
         baseEnergyCost: 5,
         count: 0,
@@ -756,8 +871,11 @@
    day (done Monday, rests Tuesday, again Wednesday). Only a finished run starts the rest; a missed or declined
    one does not, so she comes back the next day.
 
+   During The Silence (Define NPCs) the tasks of mom with me rest the same way, every day of that week.
+
    setup.taskNextDay(task)      the dayCount from which on it can run again (0: any day)
    setup.taskRestsToday(task)   true when it rests today (and did not already run today)
+   setup.restsForSilence(task)  true for a task of mom with me during The Silence
    setup.taskRestText(task)     "again tomorrow" / "again in 2 days", for the schedule
    setup.taskCooldownText(task) "Every other day" / "Every 3 days", or "" without a cooldown */
 <<set setup.taskNextDay = (task) => {
@@ -770,10 +888,17 @@
 <<set setup.taskRestsToday = (task) => {
     const live = setup.getLiveTask(task);
     const day = State.variables.date.dayCount;
+    if (setup.restsForSilence(live)) { return true; }
     return !!live && live.lastCompletedAt !== day && day < setup.taskNextDay(live);
 }>>
 
+<<set setup.restsForSilence = (task) => {
+    const live = setup.getLiveTask(task);
+    return !!live && !!live.withPlayer && live.who.sysName === "mom" && setup.momSilent();
+}>>
+
 <<set setup.taskRestText = (task) => {
+    if (setup.restsForSilence(task)) { return "not this week"; }
     const days = setup.taskNextDay(task) - State.variables.date.dayCount;
     return days <= 1 ? "again tomorrow" : "again in " + days + " days";
 }>>

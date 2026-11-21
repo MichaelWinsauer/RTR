@@ -1,0 +1,19 @@
+:: Profile Feelings [nobr] {"position":"2900,1050","size":"100,100"}
+/* The Feelings tab of the profile: how she feels about the people around her right now (Feelings in Define NPCs).
+   Moods fade back over a few days, so this list changes. Only people she currently feels something about are shown. */
+<<set _pfFeelings to setup.feelingsList(_npc)>>
+<h4 class="pf-label">How <<= _npc.callName>> feels about...</h4>
+<<if _pfFeelings.length == 0>>
+	<p class="pf-empty">Nobody stands out to her right now.</p>
+<<else>>
+<ul class="pf-feelings">
+	<<for _feeling range _pfFeelings>>
+		<<set _pfFeelClass to (_feeling.value > 0 ? "pf-feel-warm" : "pf-feel-cold")>>
+		<li @class="_pfFeelClass">
+			<span class="pf-feel-name"><<= _feeling.name>></span>
+			<span class="pf-feel-label"><span class="pf-feel-dot"></span><<= _feeling.label.charAt(0).toUpperCase() + _feeling.label.slice(1)>></span>
+		</li>
+	<</for>>
+</ul>
+<p class="pf-feel-note">Moods fade over a few days. What really happened stays.</p>
+<</if>>

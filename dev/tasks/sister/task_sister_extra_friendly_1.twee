@@ -1,0 +1,55 @@
+:: Task Sister Extra Friendly 1 [scene pov] {"position":"2525,4075","size":"100,100"}
+/* POV passage, her side of the task Extra Friendly (task_sister_be_nice_to_brian), stage 1: from her second visit on
+   (a random detail, _ef1, so repeated visits differ a little). Opened with the CCTV arrow while the task runs, or from
+   her end-of-day report. Effects are in the task's onComplete.
+   Proposal 6.5b: she dressed up for it because I asked, and gives him a shoulder rub while he is hunched over a board.
+   He apologizes four times and walks into his own chair. Fond of him, a bit sorry for him, and under it the question of
+   whether I mind. Both report lines happen here (the apologies, the board he names after her).
+   Clips (images/characters/sister/tasks/, activity extra_friendly1): the dress, the shoulder rub, the chair */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _ef1 to random(0, 1)>>
+<</silent>>
+<<PovHeader $sister>>
+<<if _ef1 == 0>>
+I wore the yellow dress today, the one with the buttons all the way down. $player.name said dress nice when you do your rounds, so I did, and then I spent the whole bus ride wondering who exactly I'd dressed nice for.
+<<else>>
+I'm wearing the skirt $mom.callName says is too short for an office. $player.name said dress nice. He didn't say for whom. I've decided not to think about that part, and so far I've been thinking about it for about four hours.
+<</if>>
+
+$brian.name is hunched so far over his board that his nose is almost touching it, with a magnifying lamp pulled down in front of his face, and his shoulders are up around his ears. He looks like a question mark that hasn't slept.
+
+So I put my coffee down, stand behind his chair and put my hands on his shoulders.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Oh. Oh, uh. Hi." },
+{ who: $sister, text: "Hi. You're a rock, you know that? This is not a shoulder. This is a geological formation." },
+{ who: $brian, text: "Sorry." },
+{ who: $sister, text: "Why are you sorry? Breathe out. There. See?" },
+{ who: $brian, text: "Sorry. I mean. Yes. Sorry." },
+{ text: "Every time I find a knot, he apologizes for it, like he put it there on purpose to inconvenience me. By the time I get to his neck he's said it four times, and he's holding the soldering iron perfectly still in the air, the tip a good two inches from anything, because he doesn't trust his hands right now. Honestly, fair." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Here's the thing nobody tells you about $brian.name: he's actually really sweet. He remembered that I said I liked the color teal, last week, in a sentence that wasn't even to him, and there's a strip of teal electrical tape on the edge of his monitor now that wasn't there before. He hasn't mentioned it. I haven't either.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "This board. Uh. I named it. I name all of them. They have, uh, names." },
+{ who: $sister, text: "Okay, that's adorable. What's this one called?" },
+{ text: "He tells me. It's my name, or it's the part number of a resistor that happens to sound exactly like my name, and he says it so fast that I genuinely can't tell which. He goes red all the way to his hairline either way." },
+{ who: $sister, text: "I'm going to pretend it's me." },
+{ who: $brian, text: "That's. Okay. Yes. That's allowed." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+When I let go, he stands up to say thank you, forgets his chair is on wheels, and it rolls out from under the attempt. He catches the desk, the board survives, and he apologizes to the chair.
+
+I go back to my own desk smiling, and I'm still smiling when I look over at $player.name, and he's looking right at me, at me and not at $brian.name, and he doesn't look away when I catch him at it.
+
+I don't know what that look means. I'd give a lot to know if any part of it is jealous. I'd give a little more if it were.
+
+<<EndPov>>

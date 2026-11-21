@@ -52,6 +52,12 @@
 /* company Efficiency moves a few points toward its target (the vent unit, morale, ... see Define Company) */
 <<run setup.companyStatsDaily()>>
 
+/* mom and sister: yesterday's day log is gone (End-of-day report), moods drift back toward their floor (Feelings),
+   and during The Silence the guilt wears her down (all in Define NPCs) */
+<<run setup.clearDayLogs()>>
+<<run setup.feelingsDaily()>>
+<<run setup.silenceDaily()>>
+
 /* The Stage 0 prototype trickles back some charge overnight; the player can speed that up with "Activity Charge Prototype" */
 <<set $company.prototype.charge to Math.min($company.prototype.maxCharge, $company.prototype.charge + ($company.prototype.rechargePerDay || 10))>>
 

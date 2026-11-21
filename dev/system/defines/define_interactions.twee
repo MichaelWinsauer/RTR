@@ -7,10 +7,12 @@
      group     id of one of $interactions.groups
      text      button text
      hidden    true = never shown (not implemented yet)
+     highlight true = the card stands out on the screen while it can be used (the end-of-day report)
      hideWhen  hides the card while her flags match, e.g. { isFollowing: true }
      who       optional list of the NPCs it is offered to, e.g. ["mom"] (default: both)
      requires  optional TwineScript condition, e.g. "setup.questDone('mom_nightVisit')": the card stays hidden
-               until it is true (story unlocks; for stat thresholds use needs/max, which show a greyed-out card)
+               until it is true (story unlocks; for stat thresholds use needs/max, which show a greyed-out card).
+               {sysName} in it is replaced by hers ("mom" / "sister"): "setup.hasDayReport('{sysName}')"
      private   true = locked while anybody else is around: the other one of mom/sister in the same place, or the
                staff while I am in the office during work hours (setup.isOfficeWorkTime, Define Events)
      camera    location sysName from setup.cameraSpots (Define Items): asks her to hide a camera there.
@@ -40,14 +42,17 @@
                scene   { narration: "...", msgs: [ { who: "player" | "npc", text: "..." }, { text: "narration line" } ], only: [activity ids] }
                {activity} in any text = what she is doing right now, as the player reads it ("watching TV")
 
+   During The Silence every card with mom is locked (setup.interactionSilence, Define NPCs).
+
    Stat keys are the stat names of an NPC: relation, corruption, lust, resistance.
    In needs/max, corruption is her total over all stages (setup.corruptionTotal, Define NPCs): 40 is "40 in
    Stage 0" and stays met after a stage-up, "40 in Stage 1" is 140. In chance formulas it is
    setup.corruptionEffective (the bar plus a bonus per stage).
    ========================================================================== */
-/* activities during which she can't be talked to at all; bring_coffee and internship_overview are tasks (her coffee
-   round at the office, the overview meeting with me), not moments for a chat */
-<<set _busy to ["sleeping", "showering", "peeing", "bring_coffee", "internship_overview"]>>
+/* activities during which she can't be talked to at all; bring_coffee, internship_overview, flirt_duty and
+   extra_friendly are tasks (her coffee round at the office, the overview meeting with me, her rounds with the
+   staff, her time at the desk of the hardware guy), not moments for a chat */
+<<set _busy to ["sleeping", "showering", "peeing", "bring_coffee", "internship_overview", "flirt_duty", "extra_friendly"]>>
 <<set $interactions to {
 
 	/* An action stays hidden while she is still too far from its requirements: when the stat points she is
@@ -58,7 +63,10 @@
 
 	statLabels: { relation: "Relation", corruption: "Corruption", lust: "Lust", resistance: "Resistance" },
 
+	/* in this order on the screen. The group report holds only her end-of-day report and stays empty (so hidden) on days
+	   without one */
 	groups: [
+		{ id: "report", label: "Her day" },
 		{ id: "social", label: "Social" },
 		{ id: "flirt", label: "Flirt & tease" },
 		{ id: "intimate", label: "Intimate" },
@@ -74,6 +82,15 @@
 			   Mom showering/peeing are the walk-in scenes of the bathroom event, so the busy activities stay blocked */
 			blocked: _busy,
 			passage: "{npc} {activityId}"
+		},
+		{
+			/* her end-of-day report (End-of-day report in Define NPCs): its own group at the top, from the Evening on,
+			   when something went into her day log today. The passage applies the Relation (once a day) */
+			id: "dayReport", group: "report", text: "How was your day?", cost: 1, once: true, highlight: true,
+			requires: "setup.hasDayReport('{sysName}')",
+			blocked: _busy,
+			effect: { relation: 1 },
+			passage: "Day Report"
 		},
 		{
 			id: "askDay", group: "social", text: "Ask about her day", cost: 2, once: true,
@@ -955,10 +972,11 @@
 		return Object.keys(wanted || {}).every(function (k) { return !!flags[k] === wanted[k]; });
 	}
 
-	/* {npc}, {activity} and {activityId} in passage names and scene texts */
+	/* {npc}, {sysName}, {activity} and {activityId} in passage names, requires and scene texts */
 	function fill(text, npc) {
 		return String(text)
 			.replace(/\{npc\}/g, npc.sysName === 'mom' ? 'Mom' : 'Sister')
+			.replace(/\{sysName\}/g, npc.sysName)
 			.replace(/\{activityId\}/g, npc.activity || '')
 			.replace(/\{activity\}/g, setup.activityText(npc, npc.activity));
 	}
@@ -1026,16 +1044,19 @@
 		return null;
 	}
 
-	/* an action with "requires" stays hidden until its TwineScript condition is true */
-	function unlocked(action) {
+	/* an action with "requires" stays hidden until its TwineScript condition is true ({sysName} is hers) */
+	function unlocked(action, npc) {
 		if (!action.requires) { return true; }
-		try { return !!Scripting.evalTwineScript(action.requires); }
+		try { return !!Scripting.evalTwineScript(fill(action.requires, npc)); }
 		catch (e) { console.error('Interaction "' + action.id + '": requires failed: ' + e.message); return false; }
 	}
 
 	/* null when the action is possible right now, otherwise a short reason for the greyed-out card */
 	setup.interactionLockReason = function (npc, action) {
 		var labels = data().statLabels;
+		/* The Silence: I am not talking to her at all (Define NPCs) */
+		var silence = setup.interactionSilence(npc);
+		if (silence) { return silence; }
 		if (action.once && log(npc)[action.id] === State.variables.date.dayCount) { return 'Already done today.'; }
 		if (action.blocked && setup.activityIs(npc, npc.activity, action.blocked)) { return 'Not while she\'s ' + setup.activityText(npc, npc.activity) + '.'; }
 		if (action.only && !setup.activityIs(npc, npc.activity, action.only)) { return "It's not the right moment..."; }
@@ -1086,7 +1107,7 @@
 		return data().actions
 			.filter(function (action) { return !action.hidden && !(action.hideWhen && flagsMatch(npc.flags, action.hideWhen)); })
 			.filter(function (action) { return !action.who || action.who.includes(npc.sysName); })
-			.filter(unlocked)
+			.filter(function (action) { return unlocked(action, npc); })
 			.filter(function (action) {
 				return !action.camera || (setup.itemCount('camera') > 0 && !setup.hasCamera(action.camera) && !setup.cameraPending(action.camera));
 			})
@@ -1105,7 +1126,7 @@
 		var v = State.variables;
 		var npc = v[key];
 		var action = def(id);
-		if (!action || !unlocked(action) || setup.interactionLockReason(npc, action)) { return null; }
+		if (!action || !unlocked(action, npc) || setup.interactionLockReason(npc, action)) { return null; }
 
 		if (action.money) { pay(action.money); }
 		if (action.once) { log(npc)[action.id] = v.date.dayCount; }

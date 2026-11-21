@@ -1,0 +1,51 @@
+:: Task Mom Flirt Duty 1 [scene pov] {"position":"2525,3925","size":"100,100"}
+/* POV passage, her side of the task Flirt Duty (task_mom_flirt_duty), stage 1: her second round. Opened with the CCTV
+   arrow while the task runs, or from her end-of-day report. Effects are in the task's onComplete.
+   Proposal 5.3: she gets the hang of it, and finds out she likes being good at it. Her tell is a small, proud smile she
+   tries to hide. The analyst gives her the "objectively good color" line her report quotes.
+   Clips (images/characters/mom/tasks/, activity flirt_duty1): at the desk of the analyst, leaning on the divider;
+   laughing with the joker; a coffee and a hand on the shoulder of the hardware guy */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+<<PovHeader $mom>>
+I wore the green blouse today. I told myself it was because the blue one needs ironing, and then I ironed the blue one anyway, last night, and hung it back in the closet.
+
+The trick, it turns out, is to stop trying so hard. I worked that out in the car. Yesterday I walked up to every desk like a woman about to sell them insurance. Today I'm only going to talk to them, the way I'd talk to anyone at a party I was glad to be at, and let the rest happen by itself.
+
+I start with $darius.name this time, while I still have the nerve. I don't stand over him. I lean on the divider next to his screen with my coffee in both hands and ask what he's working on, and then I actually listen to the answer, which is about churn, which I think is a kind of customer.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "...so the retention curve flattens around week six, which is either very good news or a reporting error." },
+{ who: $mom, text: "Which one do you think it is?" },
+{ who: $darius, text: "Honestly? I think it's good news, and I don't trust it. Good news usually means I've missed something." },
+{ who: $mom, text: "That sounds exhausting, honey. You're allowed to be right sometimes." },
+{ text: "He looks up at me properly then, for the first time all week, and I see him notice the blouse. He's polite about it. He notices it anyway." },
+{ who: $darius, text: "That's a good color on you. Objectively. It's a good color." },
+{ who: $mom, text: "Objectively." },
+{ who: $darius, text: "I just mean that it's... yes. Objectively." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I leave him there with his curve and his ears turning pink, and it's all I can do not to skip.
+
+$ethan.name tells me a joke about a programmer who got stuck in the shower because the shampoo said lather, rinse, repeat. It's an awful joke. I laugh anyway, and then I really laugh, because he's so pleased with himself, and I touch his arm while I do it, the arm without the coffee this time. He stops halfway through his next sentence and has to start it again.
+
+For $brian.name I've brought a coffee, two sugars, which I found out by watching him. I set it down by his elbow without a word and leave my hand on his shoulder for a moment while he says thank you to his soldering iron.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Uh. Thank you. That's, uh. That's exactly how I... how did you..." },
+{ who: $mom, text: "I pay attention, sweetie." },
+{ who: $brian, text: "Right. Yes. Okay. Thank you. I said that. Thank you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+When I get back to my desk, my cheeks are warm again, but it's a different warm than yesterday.
+
+I can't remember the last time a man looked at me the way $darius.name looked at that blouse. I was probably twenty. I was probably wearing something I had borrowed.
+
+I glance over at $player.name, and he's watching, of course he's watching, and there's that smile pulling at the corner of my mouth that I can't seem to do anything about. I put my head down and type something, anything, until it goes away. It takes a while.
+
+<<EndPov>>

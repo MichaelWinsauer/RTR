@@ -123,6 +123,7 @@ On the way out she tells the receptionist to have a lovely day. The receptionist
 <<UpdateStat "+" "Corruption" 2>>
 <<UpdateStat "+" "MomCorruption" 5>>
 <<UpdateStat "+" "Reputation" 5>>
+<<Feel $mom "boss" -2 "lasting">>  /* his hands on her, three times: that stays (Feelings, Define NPCs) */
 <<ProfileLog $mom "The Handover" "She handed over the prototype on her old floor, in the silk blouse I picked and nothing under it. Her old boss had his hands on her three times, and she laughed every time, the way I briefed her. He signed on for weekly maintenance, as long as she keeps coming over as his consultant.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>

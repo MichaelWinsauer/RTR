@@ -71,7 +71,15 @@ I sleep like a rock. No dreams, or none that stick. When I wake up, the light is
 /* Sleeping spends every action left today, one by one (UseAction), so the rest of the day still happens: tasks start
    and end, the staff works, missed tasks count. The last one runs AdvanceDay and leaves me at Early Morning. */
 <<set _sleepActions to $time.actions.left + ($timeSlots.length - 1 - $time.current.value) * $time.actions.max>>
-<<if $mom.flags.wakeUp == true>>
+<<if $mom.flags.wakeUp == true and setup.momSilent()>>
+  /* The Silence (Define NPCs): no wake-up call that week, just the mug */
+  There's a mug on my nightstand when I open my eyes. The coffee in it has gone cold, with a skin on the milk. She came in while I was asleep, set it down without a sound and left again.
+
+  <<link "Wake up" "Bedroom">>
+      <<UseAction _sleepActions>>
+      <<AdvanceTime>>
+  <</link>>
+<<elseif $mom.flags.wakeUp == true>>
   <<link "$mom.callName enters the room with a hot coffee in hand..." "Morning Wakeup">>
       <<UseAction _sleepActions>>
   <</link>>

@@ -1,0 +1,60 @@
+:: Meal Silence Breakfast [activity meal] {"position":"1225,2350"}
+/*
+{
+        id: "silence_breakfast",
+        passage: "Meal Silence Breakfast",
+        isActive: false,
+        mealType: ["breakfast"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+            () => setup.silenceDay() >= 1,
+        ],
+        set: [
+            () => setup.getMealById("silence_breakfast").isActive = false,
+        ]
+}
+   Activated by: "Not Enough" (mom_notEnough), in the set of the quest. The first morning of The Silence (Define NPCs):
+   she said no to me in my room, I sent her away, and now she makes the pancakes she used to make when I was home sick.
+   I don't say a word to her. I talk to $sister.callName instead.
+*/
+The kitchen smells of butter and vanilla before I'm halfway down the stairs.
+
+$mom.callName is at the stove in her robe with the heavy pan, the one that only comes out for birthdays, and there's already a stack waiting on the plate at my place. Blueberry. On the top one she has pressed the berries into a lopsided smile, the way she did when I was home sick from school and wouldn't eat anything else.
+
+/* IMAGE: images/meals/important/silence_breakfast.jpg | Mom at the stove in her robe, spatula raised, looking over her shoulder; a stack of blueberry pancakes with a berry smile on the table, Sister in pajamas eyeing it. */
+
+She turns around when she hears my chair. The spatula stays where it is, halfway up.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Good morning, sweetie. I made the..." },
+{ text: "I sit down and reach for the coffee. She lets the rest of the sentence go." },
+{ who: $mom, text: "There's more batter, if you want more. I made too much. I always make too much." },
+{ who: $sister, text: "Okay, why are there pancakes? Nobody has a birthday. Did somebody die?" },
+{ who: $mom, text: "Nobody died, honey. I just felt like making pancakes." },
+{ who: $sister, text: "You felt like it. At this hour. With a face on them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName looks at her, then at me, then at the smile on my plate, and puts the pieces together about as far as she can without any of the important ones. She takes a big bite and says mm, very loudly, the way you turn the radio up in a car where nobody is talking.
+
+I eat two pancakes from the bottom of the stack. The one with the face stays on top, getting cold.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$sister.callName, pass the syrup?" },
+{ text: "The bottle is right next to $mom.callName's hand. $sister.callName has to lean across her to get it, and $mom.callName moves her hand out of the way a second late, like she was about to pass it herself and caught it in time." },
+{ who: $sister, text: "Here. Wow. Okay. Great breakfast, everyone. Really warm in here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName turns back to the stove and pours another pancake nobody asked for. When I get up to leave she's still standing there with her back to the table, flipping it, and the smiling one is still on my plate.
+
+<<UpdateStat "+" "Corruption" 1>>

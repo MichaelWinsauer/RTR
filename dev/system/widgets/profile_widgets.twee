@@ -47,3 +47,23 @@
 		<<run Notification.show($args[0].callName + " has reached corruption " + _acsTitle + ".", { type: Notification.POSITIVE })>>
 	<</if>>
 <</widget>>
+
+/* Usage: =====================================================================
+	<<Feel $mom "boss" -2 ["lasting"]>>
+	Changes how she feels about someone: a sysName ("ethan", "boss", "player" for me) and an amount. Without
+	"lasting" only her mood changes and fades back over the next days; with it, the floor it fades back to
+	moves too. Prints nothing. See "Feelings" in Define NPCs.
+*/
+<<widget "Feel">>
+	<<run setup.feel(_args[0], _args[1], _args[2], _args[3] === "lasting")>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<LogDay $sister "diner_incident" ["deal"]>>
+	Puts an event (or, with "deal", a deal) into her day log, so she can tell me about it in her end-of-day
+	report. The id is a key of setup.dayReports.<sysName>, which holds her line and the passage to hear it in
+	full. Finished tasks log themselves. See "End-of-day report" in Define NPCs.
+*/
+<<widget "LogDay">>
+	<<run setup.logDay(_args[0], _args[2] || "event", _args[1])>>
+<</widget>>

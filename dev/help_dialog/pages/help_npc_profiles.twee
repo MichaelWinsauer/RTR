@@ -1,9 +1,10 @@
 :: Help Npc Profiles [nobr] {"position":"425,4625"}
 <p>The sidebar shows <b>$mom.callName</b> and <b><<= $sister.name>></b>: where they are, what they are doing, and their stats. Click a name to open a profile.</p>
-<p>A profile has three tabs:</p>
+<p>A profile has four tabs:</p>
 <dl class="help-stats">
 	<dt>Progression</dt><dd>Their story so far, the step they are on now, and what is coming up. Changes you notice in them are noted here too.</dd>
 	<dt>Schedule</dt><dd>Their plan for today, action by action: where they are and what they're doing. The current action is highlighted, and tasks from the office schedule are marked. Each day is planned when it starts, so tomorrow can look different.</dd>
 	<dt>Recollection</dt><dd>What you remember about them and the moments worth keeping.</dd>
+	<dt>Feelings</dt><dd>How they feel about the people around them right now, you included. A mood fades over a few days, but what really mattered stays. Feelings never block anything; they change how people talk and act.</dd>
 </dl>
 <div class="help-note">Check today's plan before you go looking for someone.</div>

@@ -90,6 +90,45 @@
     <div class="navigation-link"><<link _text>><<goto $cctv.returnPassage>><</link>></div>
 <</widget>>
 
+/* Usage: =====================================================================
+	<<PovHeader $mom ["Kicker"]>>
+	The header of a POV passage: her portrait, her name and a small kicker above it ("Her side" by default),
+	so her first-person text is never mistaken for mine. A POV passage is written in HER voice (first person,
+	present tense), is tagged [scene pov] and ends with <<EndPov>>. It opens from two doors: the CCTV arrow
+	(a task stage passage or an activity cctvPassage) and her end-of-day report (Day Report). Both set
+	$povReturn. Effects never go into a POV passage, it may be watched any number of times: they belong in the
+	task onComplete or the scene that logged it.
+*/
+<<widget "PovHeader">>
+	<<set _povNpc to _args[0]>>
+	<<set _povKicker to (_args[1] !== undefined ? _args[1] : "Her side")>>
+	<<set _povImg to $path + "images/characters/portraits/" + _povNpc.sysName + ".jpg">>
+	<div class="pov-header">
+		<div class="pov-avatar">
+			<span class="pov-initial"><<= String(_povNpc.callName || "?").charAt(0)>></span>
+			<img @src="_povImg" alt="" onerror="this.remove()">
+		</div>
+		<div class="pov-titles">
+			<div class="pov-kicker"><<= _povKicker>></div>
+			<div class="pov-name"><<= _povNpc.callName>></div>
+		</div>
+	</div>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<EndPov [TEXT]>>
+	Ends a POV passage and goes back to the door it was opened from ($povReturn: the desk for the CCTV arrow,
+	Day Report for her end-of-day report).
+*/
+<<widget "EndPov">>
+	<<set _epText to (_args[0] !== undefined ? _args[0] : "Back")>>
+	<div class="navigation-link"><<link _epText>>
+		<<set _epGo to ($povReturn || $cctv.returnPassage || $locations[$player.location.id].passage)>>
+		<<set $povReturn to null>>
+		<<goto _epGo>>
+	<</link>></div>
+<</widget>>
+
 
 /* Usage: =====================================================================
 	<<StageTitle number ["subtitle"] ["label"]>>contents<</StageTitle>>

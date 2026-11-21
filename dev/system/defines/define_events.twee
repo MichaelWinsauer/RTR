@@ -161,7 +161,7 @@
         passage: "Mom Passing Hallway",
         where: [ "Hallway" ],
         conditions: {
-            npc: null,
+            npc: "mom",
             npcLocation: [],
             npcPreviousLocation: [],
             whenTime: [ 1, 2, 3, 4, 5 ],
@@ -982,6 +982,26 @@
         lastSeenDay: -1,
         lastSeenAP: 0,
     },
+    /* The Silence (Define NPCs): her note on my pillow, one of her attempts to make up. Once, from the second day on */
+    {
+        id: 45,
+        passage: "Mom Silence Note",
+        where: [ "Bedroom" ],
+        conditions: {
+            npc: "",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 4, 5, 6 ],
+            eval: [ () => setup.silenceDay() >= 2, () => !State.variables.mom.flags.silenceNote ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        duringSilence: true,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
 ]>>
 
 /* A normal workday ===========================================================
@@ -1042,6 +1062,8 @@
                                   (default) only takes events without a visitor
                                   block (<<CheckMicroEvent>> in location passages), "visitor" only those with one
                                   (setup.updateDeskVisitor). Nothing happens before the intro is done.
+                                  During The Silence (Define NPCs) events with mom (conditions.npc or visitor.who
+                                  "mom") are skipped, unless they have duringSilence: true.
    setup.isOfficeWorkTime()       a weekday and the current action lies in $company.workHours: the staff is in */
 <<set setup.pickMicroEvent = (kind) => {
     const v = State.variables;
@@ -1051,10 +1073,13 @@
     const slot = v.time.current.value;
     const day = v.date.dayCount;
     const row = setup.scheduleCurrentRow();
+    const silent = setup.momSilent();
     const candidates = [];
     for (const ev of v.microEvents) {
         if (!ev.active || !!ev.visitor !== wantVisitor) { continue; }
         if (!ev.where.includes(here.name) && !ev.where.includes(here.sysName)) { continue; }
+        /* The Silence (Define NPCs): nothing with her that week, except her attempts to make up */
+        if (silent && !ev.duringSilence && ((ev.conditions || {}).npc === "mom" || (ev.visitor && ev.visitor.who === "mom"))) { continue; }
         if (ev.oncePerDay && ev.lastSeenDay === day) { continue; }
         if (ev.dayCooldown > 0 && day - ev.lastSeenDay < ev.dayCooldown) { continue; }
         if (ev.apCooldown > 0 && ev.lastSeenDay === day && row - ev.lastSeenAP < ev.apCooldown) { continue; }

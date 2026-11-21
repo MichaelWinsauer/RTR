@@ -35,6 +35,8 @@ sugarcube-2:
     PayRent: {}
     SkipToQuest: {}
     ProfileLog: {}
+    Feel: {}
+    LogDay: {}
     ProfileMemory: {}
     AdvanceCorruptionStage: {}
     ProgressProjects: {}
@@ -57,3 +59,5 @@ sugarcube-2:
     UseAction: {}
     Video: {}
     ReturnFromCCTV: {}
+    PovHeader: {}
+    EndPov: {}

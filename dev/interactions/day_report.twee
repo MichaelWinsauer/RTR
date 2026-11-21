@@ -1,0 +1,56 @@
+:: Day Report [interaction] {"position":"575,2500","size":"100,100"}
+/* Her end-of-day report: the "How was your day?" card of the NPC Interaction screen (id dayReport, Define Interactions).
+   How it works is in "End-of-day report" in Define NPCs. She sums up today's log, one line per entry, in her own words,
+   and I can pick any entry that has a passage to hear it in full: its POV passage plays, and <<EndPov>> brings me back
+   here ($povReturn). The first visit of the day gives the Relation and the summary (_npc.reportDay); coming back from a
+   POV passage only shows the list again. */
+<<silent>>
+<<set _npc to ($interactionCharacter == "mom" ? $mom : $sister)>>
+<<set _drEntries to setup.dayReportEntries(_npc)>>
+<<set _drFirst to (_npc.reportDay !== $date.dayCount)>>
+<<run State.variables[_npc.sysName].reportDay = State.variables.date.dayCount>>
+<<set _drOpen to _drEntries.filter((r) => r.passage && !r.heard)>>
+<<set _drStat to (_npc.sysName == "mom" ? "MomRelation" : "SisterRelation")>>
+<</silent>>
+<<if _drFirst>>
+	<<if _npc.sysName == "mom">>
+		<<if random(0, 1) == 0>>
+		When I ask about her day, $mom.callName looks up as if I've handed her something. She smooths her skirt over her knees and starts at the beginning, the way she used to tell $dad.callName about hers over dinner, back when he still asked.
+		<<else>>
+		I ask how her day was, and she actually stops what she's doing to think about it. She has been waiting for somebody to ask since lunch, and now that I have, she wants to get it right.
+		<</if>>
+	<<else>>
+		<<if random(0, 1) == 0>>
+		I ask how her day was, and $sister.callName lights up like I've opened a tab she has kept open all afternoon. She pulls her feet up, gets comfortable and holds up one finger. She has a list.
+		<<else>>
+		She's been waiting for this. I can tell, because she starts talking before I've finished the question, stops, clears her throat with a lot of ceremony and starts over, properly this time.
+		<</if>>
+	<</if>>
+
+	<<set _msgs to _drEntries.map((r) => ({ who: _npc, text: r.line }))>>
+	<<Chat _msgs>>
+
+	<<UpdateStat "+" _drStat 1>>
+<<else>>
+	<<if _drOpen.length > 0>>
+		<<= _npc.callName>> is still there, waiting to see if I want to hear more.
+	<<else>>
+		That's everything, as far as <<= _npc.callName>> is concerned. She looks pleased with herself for remembering all of it.
+	<</if>>
+<</if>>
+
+<<if _drOpen.length > 0>>
+<div class="dr-list">
+	<<for _dr range _drOpen>>
+		<<capture _dr>>
+		<div class="navigation-link"><<link _dr.ask>>
+			<<set State.variables[_npc.sysName].dayLog[_dr.index].heard to true>>
+			<<set $povReturn to "Day Report">>
+			<<goto _dr.passage>>
+		<</link>></div>
+		<</capture>>
+	<</for>>
+</div>
+<</if>>
+
+<div class="navigation-link"><<link "That's enough for today" "NPC Interaction">><</link>></div>

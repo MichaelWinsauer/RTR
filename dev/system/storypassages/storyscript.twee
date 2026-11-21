@@ -947,7 +947,7 @@ $(document).on(':passagerender', function () {
 /*
 ============================== Task Progression Check ==================================================
 completeTaskEntry(sysName, entry) pays a finished $activeTasks entry out: revenue, her energy, count,
-onComplete, stages. checkTaskProgression calls it when an entry reaches its endRow;
+onComplete, her day log (End-of-day report, Define NPCs), stages. checkTaskProgression calls it when an entry reaches its endRow;
 setup.completeTaskSceneEntry (Define Tasks) when a scene ends with no action left to spend.
 */
 window.completeTaskEntry = function (sysName, taskEntry) {
@@ -981,6 +981,10 @@ window.completeTaskEntry = function (sysName, taskEntry) {
     if (task.onComplete && typeof task.onComplete.forEach === "function") {
         task.onComplete.forEach(func => func());
     }
+
+    /* her end-of-day report: an entry for the stage that was just played, if the task has a report
+       ("End-of-day report" in Define NPCs). Before checkTaskStage, which may move the task on */
+    setup.logTaskReport(sysName, task);
 
     /* a new stage changes the activity: setup.npcAt reads it from the task, nothing to copy */
     setup.checkTaskStage(task.id);

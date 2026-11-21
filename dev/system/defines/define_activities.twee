@@ -304,6 +304,39 @@
 
             ],
         },
+        /* task Flirt Duty (task_mom_flirt_duty), stage 0: her first round, stiff and over-rehearsed */
+        flirt_duty0: {
+            id: "flirt_duty0",
+            base: "flirt_duty",
+            text: "doing her rounds with the staff",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Flirt Duty, stage 1: she gets the hang of it */
+        flirt_duty1: {
+            id: "flirt_duty1",
+            base: "flirt_duty",
+            text: "doing her rounds with the staff",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Flirt Duty, stage 2: good at it, and it shows (perched on desks, a hand on a shoulder) */
+        flirt_duty2: {
+            id: "flirt_duty2",
+            base: "flirt_duty",
+            text: "doing her rounds with the staff",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
         /* task "Test Session" (unlocked by Test Session Request), stage 0 */
         testing_prototype: {
             id: "testing_prototype",
@@ -488,6 +521,28 @@
             media: [
                 "bringing_coffee_0.mp4",
             ],
+            cctv: [],
+        },
+        /* task Extra Friendly (task_sister_be_nice_to_brian), stage 0: coffee and ten minutes of capacitors */
+        extra_friendly0: {
+            id: "extra_friendly0",
+            base: "extra_friendly",
+            text: "keeping $brian.name company at his desk",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Extra Friendly, stage 1: dressed up for it, a shoulder rub while he works */
+        extra_friendly1: {
+            id: "extra_friendly1",
+            base: "extra_friendly",
+            text: "keeping $brian.name company at his desk",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
             cctv: [],
         },
         /* the task Internship Overview (task_sister_internship_overview), with me in the meeting room */

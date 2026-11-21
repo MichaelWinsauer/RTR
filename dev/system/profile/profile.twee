@@ -59,10 +59,12 @@
 		<input type="radio" name="pf-tab" id="pf-tab-progress" checked>
 		<input type="radio" name="pf-tab" id="pf-tab-schedule">
 		<input type="radio" name="pf-tab" id="pf-tab-recollection">
+		<input type="radio" name="pf-tab" id="pf-tab-feelings">
 		<div class="pf-tabbar">
 			<label for="pf-tab-progress">Progression</label>
 			<label for="pf-tab-schedule">Schedule</label>
 			<label for="pf-tab-recollection">Recollection</label>
+			<label for="pf-tab-feelings">Feelings</label>
 		</div>
 		<div class="pf-panels">
 			<div class="pf-panel pf-panel-progress">
@@ -73,6 +75,9 @@
 			</div>
 			<div class="pf-panel pf-panel-recollection">
 				<<include "Profile Recollection">>
+			</div>
+			<div class="pf-panel pf-panel-feelings">
+				<<include "Profile Feelings">>
 			</div>
 		</div>
 	</section>

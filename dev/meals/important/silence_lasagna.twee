@@ -1,0 +1,80 @@
+:: Meal Silence Lasagna [activity meal] {"position":"1350,2350"}
+/*
+{
+        id: "silence_lasagna",
+        passage: "Meal Silence Lasagna",
+        isActive: false,
+        mealType: ["dinner"],
+        isImportant: true,
+        dayType: ["weekday", "weekend"],
+        cooldown: 0,
+        once: true,
+        lastSeen: -1,
+        present: ["mom", "sister"],
+        requirements: [
+            () => setup.silenceDay() >= 4,
+        ],
+        set: [
+            () => setup.getMealById("silence_lasagna").isActive = false,
+        ]
+}
+   Activated by: "Not Enough" (mom_notEnough), in the set of the quest. Late in The Silence (Define NPCs), from the fourth
+   day on: her last and biggest attempt, my favorite lasagna with the corner piece on my plate (the same one she brings
+   to my desk in Mom Desk Lunch). I can eat it without a word, or leave it and make myself a sandwich.
+*/
+The lasagna is already on the table when I come in, still bubbling at the edges, and I know before I reach my chair that the corner piece is on my plate. The crispy one, with the burnt cheese along two sides. She has saved it for me since I was six, swearing to $sister.callName every single time that nobody else had asked for it.
+
+$mom.callName has changed for dinner. Nothing special, just the blue cardigan and a little lipstick, which for a dinner at home is about as subtle as a speech.
+
+/* IMAGE: images/meals/important/silence_lasagna.jpg | A family dinner table, a big tray of lasagna, the corner piece on one plate; Mom in a blue cardigan watching the empty chair, Sister already eating. */
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Lasagna on a normal day. Okay. Is this the dinner where you tell us you're moving to Italy?" },
+{ who: $mom, text: "It's just dinner, honey." },
+{ text: "She says it to $sister.callName, but she's looking at me. She has been looking at me since I walked in." },
+{ who: $mom, text: "There's more in the oven. I made the big tray, so there's plenty left over for lunch tomorrow. For anybody who wants to take some to the office." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<div id="silence-lasagna-choice">
+	<div>
+		<<link "Eat it without a word">>
+			<<replace "#silence-lasagna-choice">>
+				<p>I sit down and eat. All of it, the corner too. It's as good as it always is, which almost makes it worse, and she watches every forkful without touching her own plate.</p>
+				<<silently>>
+				<<set _msgs = [
+				{ who: $sister, text: "This is really good, $mom.callName." },
+				{ who: $mom, text: "Thank you, sweetheart. Is it... is it good, the corner? It's not too burnt?" },
+				{ text: "The question has my name all over it. I keep chewing. $sister.callName kicks my ankle under the table, not hard, and I don't look up." },
+				{ who: $mom, text: "It's fine. It looked fine. I'll just... I'll get the salad." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>When my plate is empty she reaches for it before I've put the fork down, and her fingers stop just short of mine. Then she takes the plate to the sink and stands there rinsing it for a long time, smiling down at it a little, as if an empty plate were some kind of answer. I let her think it is.</p>
+				<<UpdateStat "+" "MomRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave it and make a sandwich">>
+			<<replace "#silence-lasagna-choice">>
+				<p>I push the plate an inch toward the middle of the table. Then I get up, get the bread and the peanut butter out of the cupboard and make myself a sandwich at the counter, with my back to both of them.</p>
+				<<silently>>
+				<<set _msgs = [
+				{ text: "Behind me, $sister.callName has stopped chewing. Nobody's fork moves." },
+				{ who: $sister, text: "$sister.callPlayerShort. Seriously?" },
+				{ who: $mom, text: "Leave it, honey. It's fine. He's not hungry, that's all. I'll wrap it up for later." },
+				{ text: "She does it right away, while I'm still spreading the peanut butter: tinfoil over the corner piece, pressed down at the edges, very neatly, the way she'd wrap something she plans to keep." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<p>I eat my sandwich on the way upstairs. Through the floor I can hear $sister.callName talking, low and fast, and $mom.callName not answering.</p>
+				<<UpdateStat "+" "Corruption" 1>>
+				<<UpdateStat "-" "MomRelation" 2>>
+				<<UpdateStat "-" "MomResistance" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

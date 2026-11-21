@@ -185,11 +185,12 @@
     handjobs: 0,            /* times the Handjob interaction was played (Mom Handjob), after A Knock at Night */
     officePlants: 0,        /* Stage 1: times Mom Office Plants played (the first time she brings them in) */
     /* STAGE1-STUB: set by the Stage 1 quests and their stub scenes (Define Quests). null = not decided yet.
-       Nothing reads silence, morningRoutine and freeUse yet: the systems behind them are not built */
+       Nothing reads morningRoutine and freeUse yet: the systems behind them are not built */
     gymDinner: null,        /* The Gym Dinner: true = I sent her (mom_gymDinner plays), false = I went myself */
     offeredToBoss: false,   /* The Arrangement of the boss line: true = After Hours plays. Start it at null once that line exists */
     calendarChoice: null,   /* The Calendar: "truth" or "anchor" */
-    silence: false,         /* true during The Silence (Not Enough to the end of that week) */
+    silence: false,         /* true during The Silence (Not Enough to the end of that week), see The Silence below */
+    silenceNote: false,     /* The Silence: her note on my pillow was found (Mom Silence Note) */
     morningRoutine: false,  /* The Crawl: the morning routine is unlocked */
     freeUse: false,         /* The Calendar: the Whenever interaction is unlocked */
 }>>
@@ -629,4 +630,271 @@
     npc.corruptionStage = next;
     npc.stats.corruption = npc.stats.min.corruption;
     return true;
+}>>
+
+
+
+/* Feelings ====================================================================
+   How mom or sister feels about one person: anyone with a story variable, the player too (STAGE1_PROPOSAL.md
+   3.6). It never blocks anything, it only colors: a scene, a POV passage or a report line can read it and pick a
+   variant where there is a natural spot for one. Keys are sysNames ("boss", "ethan", "player"), so renaming a
+   character changes nothing.
+
+   $mom.feelings / $sister.feelings = { <sysName>: { mood: n, floor: n } }
+       mood    what she feels right now, from -setup.feelingRange to +setup.feelingRange. setup.feels reads it
+       floor   where the mood settles again: every night the mood moves one step toward it
+   A plain change only moves the mood, so it fades over the next days. A "lasting" change moves the floor too
+   (and the mood with it), for the big moments: what the boss did at the handover stays.
+
+   <<Feel $mom "boss" -2 ["lasting"]>>       in a scene (Profile Widgets), prints nothing
+   setup.feel(who, key, amount [, lasting])  the same from code, e.g. in a task onComplete
+   setup.feels(who, key)                     her mood toward key, 0 while she has no feelings about them
+   setup.feelsLabel(who, key)                a few words for it: "can't stand him", "wary of her", "fond of you"
+   setup.feelingsList(who)                   [{ key, name, value, label }] of everyone she feels something about
+                                             right now, strongest first (the Feelings tab of her profile)
+   setup.feelingsDaily()                     Daily Update: every mood one step toward its floor
+   who is "mom" / "sister" or the NPC object, like the corruption helpers. */
+<<set $mom.feelings to {}>>
+<<set $sister.feelings to {}>>
+
+<<set setup.feelingRange to 10>>
+
+/* the first entry whose min the value reaches wins. {o} is him, her, you or them */
+<<set setup.feelingLabels to [
+    { min: 7,   text: "drawn to {o}" },
+    { min: 4,   text: "very fond of {o}" },
+    { min: 2,   text: "fond of {o}" },
+    { min: 1,   text: "likes {o}" },
+    { min: 0,   text: "no strong feelings" },
+    { min: -1,  text: "a little uneasy around {o}" },
+    { min: -3,  text: "wary of {o}" },
+    { min: -6,  text: "resents {o}" },
+    { min: -99, text: "can't stand {o}" },
+]>>
+
+<<set setup.feel = (who, key, amount, lasting) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !key) { console.error("setup.feel: unknown character or key", who, key); return; }
+    if (!npc.feelings) { npc.feelings = {}; }
+    const range = setup.feelingRange;
+    if (!npc.feelings[key]) { npc.feelings[key] = { mood: 0, floor: 0 }; }
+    const f = npc.feelings[key];
+    const n = Number(amount) || 0;
+    if (lasting === true || lasting === "lasting") { f.floor = Math.clamp(f.floor + n, -range, range); }
+    f.mood = Math.clamp(f.mood + n, -range, range);
+}>>
+
+<<set setup.feels = (who, key) => {
+    const npc = setup.corruptionNpc(who);
+    const f = npc && npc.feelings ? npc.feelings[key] : undefined;
+    return f ? (Number(f.mood) || 0) : 0;
+}>>
+
+<<set setup.feelsLabel = (who, key) => {
+    const value = setup.feels(who, key);
+    const entry = setup.feelingLabels.find((l) => value >= l.min);
+    const target = State.variables[key];
+    let pronoun = "them";
+    if (key === "player") { pronoun = "you"; }
+    else if (target && target.gender === "female") { pronoun = "her"; }
+    else if (target && target.gender === "male") { pronoun = "him"; }
+    return entry.text.replace("{o}", pronoun);
+}>>
+
+<<set setup.feelingsList = (who) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !npc.feelings) { return []; }
+    return Object.keys(npc.feelings)
+        .map((key) => {
+            const target = State.variables[key];
+            const name = key === "player" ? "You" : (target ? (target.callName || target.name) : key);
+            return { key: key, name: name, value: setup.feels(npc, key), label: setup.feelsLabel(npc, key) };
+        })
+        .filter((row) => row.value !== 0)
+        .sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+}>>
+
+<<set setup.feelingsDaily = () => {
+    ["mom", "sister"].forEach((sysName) => {
+        const feelings = State.variables[sysName].feelings || {};
+        Object.keys(feelings).forEach((key) => {
+            const f = feelings[key];
+            if (f.mood > f.floor) { f.mood -= 1; }
+            else if (f.mood < f.floor) { f.mood += 1; }
+        });
+    });
+}>>
+
+
+/* End-of-day report ===========================================================
+   "How was your day?" (STAGE1_PROPOSAL.md 3.5). What mom or sister did without me leaves an entry in her day
+   log. In the evening I can ask her about it (card dayReport on the NPC Interaction screen, Define Interactions,
+   passage Day Report): she sums the day up, one line per entry in her own words, and I can pick an entry to hear
+   in full. That plays its POV passage, her side of it (<<PovHeader>> in Event Widgets), the same one the CCTV
+   arrow opens for things on camera. Places without cameras only have this door.
+
+   $mom.dayLog / $sister.dayLog = [ { kind, id, day [, stage] [, line] [, heard] } ]
+       kind    "task" (a finished task, added by completeTaskEntry), "event" or "deal" (<<LogDay>>)
+       id      the task id, or the key of its entry in setup.dayReports
+       day     the $date.dayCount it happened on. The Daily Update drops older entries
+       stage   tasks: the index of the stage that was played (its report and passage are used)
+       line    the index of the line that was picked, when the source has a list of lines
+       heard   true once I listened to it in full
+
+   Where the line and the passage come from:
+       tasks    report: { line [, ask] [, passage] [, requires] } on the task, or on one of its stages (that one
+                wins). The passage defaults to the passage of the stage that was played
+       others   setup.dayReports.<sysName>.<id> = { line [, ask] [, passage] }, constants below
+       line     what she says about it in the summary: a string that may contain variables, or a list of strings
+                (one is picked when the entry is made and kept for the day)
+       ask      the link text that plays the passage ("Ask about $brian.name"). Not needed without a passage
+       requires optional TwineScript condition, checked when the entry is made: while false there is no entry
+
+   The card shows once the report exists in the story (setup.dayReportsUnlocked: after Office Gossip,
+   sister_officeGossip), from the Evening on, while today's log has something in it. Listening is worth a little
+   Relation once a day (Day Report). If I never ask, nothing breaks: the log is cleared overnight.
+
+   <<LogDay $sister "diner_incident" ["deal"]>>   an entry for an event or a deal (Profile Widgets)
+   setup.logDay(who, kind, id [, extra])          the same from code; extra is merged into the entry
+   setup.logTaskReport(sysName, task)             completeTaskEntry: the entry for a finished task with a report
+   setup.dayReportSource(who, entry)              { line, ask, passage } of an entry, or null
+   setup.dayReportEntries(who)                    today's entries with a source:
+                                                  [{ entry, index, line, ask, passage, heard }] (index into dayLog)
+   setup.dayReportsUnlocked()                     the report exists in the story
+   setup.hasDayReport(who)                        the card is offered right now
+   setup.clearDayLogs()                           Daily Update: drops everything from before today */
+<<set $mom.dayLog to []>>
+<<set $sister.dayLog to []>>
+<<set $povReturn to null>>  /* where <<EndPov>> goes back to (the desk for the CCTV, Day Report for the report) */
+
+/* events and deals that she reports on, by sysName. Empty until the first scenes use them (the Diner Incident,
+   Was That Right?, The Friend, see STAGE1_TODO.md) */
+<<set setup.dayReports to {
+    mom: {},
+    sister: {},
+}>>
+
+<<set setup.logDay = (who, kind, id, extra) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc) { console.error("setup.logDay: unknown character", who); return; }
+    if (!Array.isArray(npc.dayLog)) { npc.dayLog = []; }
+    const entry = Object.assign({ kind: kind, id: id, day: State.variables.date.dayCount }, extra || {});
+    /* a list of lines: pick one now, so the summary says the same thing all evening */
+    const source = setup.dayReportSource(npc, entry);
+    if (source && Array.isArray(source.lines)) { entry.line = random(0, source.lines.length - 1); }
+    npc.dayLog.push(entry);
+}>>
+
+<<set setup.logTaskReport = (sysName, task) => {
+    const live = setup.getLiveTask(task);
+    if (!live) { return; }
+    const stage = setup.getTaskStage(live);
+    const report = (stage && stage.report) || live.report;
+    if (!report) { return; }
+    if (report.requires) {
+        try { if (!Scripting.evalTwineScript(report.requires)) { return; } }
+        catch (e) { console.error("setup.logTaskReport: requires of " + live.id + " failed: " + e.message); return; }
+    }
+    setup.logDay(sysName, "task", live.id, { stage: Number(live.stage) || 0 });
+}>>
+
+<<set setup.dayReportSource = (who, entry) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !entry) { return null; }
+    let report;
+    let passage;
+    if (entry.kind === "task") {
+        const live = setup.getTaskById(entry.id);
+        if (!live) { return null; }
+        const stage = Array.isArray(live.stages) ? live.stages[entry.stage || 0] : undefined;
+        report = (stage && stage.report) || live.report;
+        passage = (stage && stage.passage) || live.passage;
+    } else {
+        report = (setup.dayReports[npc.sysName] || {})[entry.id];
+    }
+    if (!report) { return null; }
+    const lines = Array.isArray(report.line) ? report.line : null;
+    return {
+        line: lines ? lines[Math.clamp(entry.line || 0, 0, lines.length - 1)] : report.line,
+        lines: lines,
+        ask: report.ask || "Ask about it",
+        passage: report.passage || passage || null,
+    };
+}>>
+
+<<set setup.dayReportEntries = (who) => {
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !Array.isArray(npc.dayLog)) { return []; }
+    const today = State.variables.date.dayCount;
+    const rows = [];
+    npc.dayLog.forEach((entry, index) => {
+        if (entry.day !== today) { return; }
+        const source = setup.dayReportSource(npc, entry);
+        if (!source || !source.line) { return; }
+        const passage = source.passage && Story.has(source.passage) ? source.passage : null;
+        rows.push({ entry: entry, index: index, line: source.line, ask: source.ask, passage: passage, heard: !!entry.heard });
+    });
+    return rows;
+}>>
+
+<<set setup.dayReportsUnlocked = () => setup.questDone("sister_officeGossip")>>
+
+<<set setup.hasDayReport = (who) => {
+    if (!setup.dayReportsUnlocked()) { return false; }
+    if (State.variables.time.current.value < 4) { return false; }
+    return setup.dayReportEntries(who).length > 0;
+}>>
+
+<<set setup.clearDayLogs = () => {
+    const today = State.variables.date.dayCount;
+    ["mom", "sister"].forEach((sysName) => {
+        const npc = State.variables[sysName];
+        npc.dayLog = (npc.dayLog || []).filter((entry) => entry.day >= today);
+    });
+}>>
+
+
+/* The Silence =================================================================
+   Mom, STAGE1_PROPOSAL.md 5.5: the week after Not Enough. mom_notEnough sets $mom.flags.silence, mom_silence clears
+   it seven days later. I stay cold for a week, and the game makes that a real choice:
+     - every card on her NPC Interaction screen is locked (setup.interactionSilence, read by Define Interactions)
+     - her tasks with me rest without a missed penalty: no massage, no test session (setup.taskRestsToday,
+       Define Tasks)
+     - micro events and desk visitors with her are skipped (setup.pickMicroEvent, Define Events), except her
+       attempts to make up, which have duringSilence: true
+     - no coffee at my bed in the morning (Activity Sleep)
+     - the device I set before the week started keeps the guilt going: every night she loses some Morale and
+       Resistance (setup.silenceDaily, numbers in setup.silenceTuning)
+   Her attempts, which I can only ignore: a breakfast (meal silence_breakfast), a note on my pillow (micro event
+   45, Mom Silence Note) and the lasagna (meal silence_lasagna). The set of mom_notEnough switches the meals on,
+   the set of mom_silence switches them off again.
+
+   setup.momSilent()             true during that week
+   setup.silenceDay()            how far into the week it is: 1 on the day after Not Enough, 0 when not silent
+   setup.interactionSilence(npc) the reason every card with her is locked right now, or null
+   setup.silenceDaily()          Daily Update: the guilt */
+<<set setup.silenceTuning to {
+    moraleLoss: 4,
+    resistanceLoss: 2,
+}>>
+
+<<set setup.momSilent = () => State.variables.mom.flags.silence === true>>
+
+<<set setup.silenceDay = () => {
+    if (!setup.momSilent()) { return 0; }
+    const start = setup.getQuestById("mom_notEnough");
+    return start && start.doneDay !== undefined ? State.variables.date.dayCount - start.doneDay : 0;
+}>>
+
+<<set setup.interactionSilence = (npc) => {
+    if (!npc || npc.sysName !== "mom" || !setup.momSilent()) { return null; }
+    return "I'm not talking to her this week.";
+}>>
+
+<<set setup.silenceDaily = () => {
+    if (!setup.momSilent()) { return; }
+    const mom = State.variables.mom;
+    const t = setup.silenceTuning;
+    mom.stats.morale = Math.clamp(mom.stats.morale - t.moraleLoss, mom.stats.min.morale, mom.stats.max.morale);
+    mom.stats.resistance = Math.clamp(mom.stats.resistance - t.resistanceLoss, mom.stats.min.resistance, mom.stats.max.resistance);
 }>>

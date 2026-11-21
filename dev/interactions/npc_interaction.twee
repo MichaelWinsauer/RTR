@@ -47,7 +47,9 @@
 							</div>
 						<<else>>
 							<<capture _o, _npc>>
-							<div class="ni-opt">
+							/* highlight: a card that should stand out while it can be used (the end-of-day report) */
+							<<set _optClass to (_o.action.highlight ? "ni-opt ni-opt-highlight" : "ni-opt")>>
+							<div @class="_optClass">
 								<<link _o.text>>
 									<<set _res to setup.performInteraction(_o.action.id, _npc.sysName)>>
 									<<if _res.handled>>
@@ -109,6 +111,16 @@
 .ni-meta { font-size: .7em; color: rgba(235,221,197,.6); }
 
 .ni-opt.locked { opacity: .55; }
+
+/* a highlighted card (action.highlight): amber border and glow all around, a soft pulse, and a "new" badge */
+.ni-opt-highlight { border-color: #EAAF4C; background: rgba(234, 175, 76, .14); box-shadow: 0 0 0 1px #EAAF4C66, 0 0 14px rgba(234, 175, 76, .35); animation: ni-highlight-pulse 2.4s ease-in-out infinite; }
+.ni-opt-highlight::before { content: 'New'; position: absolute; top: .35rem; right: .5rem; padding: .05rem .45rem; border-radius: 1rem; background: #EAAF4C; color: #19141E; font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.ni-opt-highlight a { color: #EAAF4C; }
+@keyframes ni-highlight-pulse {
+	0%, 100% { box-shadow: 0 0 0 1px #EAAF4C66, 0 0 10px rgba(234, 175, 76, .25); }
+	50% { box-shadow: 0 0 0 1px #EAAF4CAA, 0 0 20px rgba(234, 175, 76, .5); }
+}
+@media (prefers-reduced-motion: reduce) { .ni-opt-highlight { animation: none; } }
 .ni-name { font-weight: 700; font-size: .92em; }
 .ni-opt.locked .ni-meta { color: #ff9aa9; }
 

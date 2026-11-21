@@ -179,7 +179,8 @@
 .pf-tabbar label:hover { opacity: 0.85; }
 #pf-tab-progress:checked ~ .pf-tabbar label[for="pf-tab-progress"],
 #pf-tab-schedule:checked ~ .pf-tabbar label[for="pf-tab-schedule"],
-#pf-tab-recollection:checked ~ .pf-tabbar label[for="pf-tab-recollection"] {
+#pf-tab-recollection:checked ~ .pf-tabbar label[for="pf-tab-recollection"],
+#pf-tab-feelings:checked ~ .pf-tabbar label[for="pf-tab-feelings"] {
 	opacity: 1;
 	border-bottom-color: #EBDDC5;
 }
@@ -199,7 +200,8 @@
 	overflow: auto;
 }
 #pf-tab-progress:checked ~ .pf-panels .pf-panel-progress,
-#pf-tab-recollection:checked ~ .pf-panels .pf-panel-recollection { display: block; }
+#pf-tab-recollection:checked ~ .pf-panels .pf-panel-recollection,
+#pf-tab-feelings:checked ~ .pf-panels .pf-panel-feelings { display: block; }
 #pf-tab-schedule:checked ~ .pf-panels .pf-panel-schedule {
 	display: flex;
 	flex-direction: column;
@@ -372,6 +374,16 @@
 
 /* ---- recollection ---- */
 .pf-appearance { margin: 0 0 1.2rem; font-size: 0.95rem; line-height: 1.5; }
+/* ---- feelings (Profile Feelings) ---- */
+.pf-feelings { list-style: none; margin: 0; padding: 0; }
+.pf-feelings li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-top: 1px solid #EBDDC520; }
+.pf-feel-name { font-weight: 700; }
+.pf-feel-label { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; opacity: 0.85; }
+.pf-feel-dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #EBDDC566; }
+.pf-feel-warm .pf-feel-dot { background: #1cd88d; }
+.pf-feel-cold .pf-feel-dot { background: #ff6479; }
+.pf-feel-note { margin: 0.8rem 0 0; font-size: 0.75rem; opacity: 0.5; }
+
 .pf-memories { list-style: none; margin: 0; padding: 0; }
 .pf-memories li { padding: 0.6rem 0; border-top: 1px solid #EBDDC520; }
 .pf-mem-head { display: flex; justify-content: space-between; gap: 1rem; }

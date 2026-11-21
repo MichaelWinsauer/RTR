@@ -1,0 +1,39 @@
+:: Mom Silence Note [micro_event event nobr] {"position":"1800,2900","size":"100,100"}
+/* Inline micro event in my bedroom (micro event 45, The Silence in Define NPCs): one of her attempts to make up during
+   that week, from its second day on, once. A note on my pillow. There is no answering it: I can keep it or throw it
+   away where she'll find it. */
+<<set $mom.flags.silenceNote to true>>
+<p>There's a note on my pillow. Folded in half and then in half again, the way she used to fold the notes she put in my lunch, with my name on the outside in her handwriting, underlined twice.</p>
+<div class="silence-note">
+	<p>Honey,</p>
+	<p>I know you don't want to talk right now, and that's okay. I'm not writing this so you'll talk to me. I just didn't want to keep walking past your door without saying anything at all.</p>
+	<p>I'm sorry about <s>what I said</s> the other night. I don't think it came out the way I meant it. I'm not sure I meant it.</p>
+	<p>I bought the coffee you like. It's in the cupboard on the left, behind the oats, so your $sister.relation doesn't find it.</p>
+	<p>I'm right down the hall.</p>
+	<p class="silence-note-sign">$mom.callName</p>
+</div>
+<p>On the back, smaller, squeezed in after she must have folded it already: <i>Whenever you want.</i></p>
+<div id="silence-note-choice">
+	<div>
+		<<link "Put it in the drawer">>
+			<<replace "#silence-note-choice">>
+				<p>I fold it back along her creases and put it in the drawer of my nightstand, under the charger cables. I don't write anything back. When I go to brush my teeth, her door down the hall is open a crack and the light is on, and it stays on until long after I've gone to bed.</p>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Throw it away where she'll see it">>
+			<<replace "#silence-note-choice">>
+				<p>I crumple it up and drop it in the wastebasket by the door, on top, where nobody could miss it. She empties that basket every other morning. She'll see it tomorrow, and she'll take the bag out anyway, because that's what she does.</p>
+				<<UpdateStat "+" "Corruption" 1>>
+				<<UpdateStat "-" "MomRelation" 1>>
+				<<UpdateStat "-" "MomResistance" 2>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>
+<style>
+.silence-note { margin: .8rem auto; padding: .9rem 1.2rem; max-width: 30rem; border: 1px solid #EBDDC533; border-radius: .6rem; background: rgba(235, 221, 197, .06); font-family: "Segoe Print", "Bradley Hand", cursive; font-size: .95em; line-height: 1.5; transform: rotate(-.6deg); }
+.silence-note p { margin: .35rem 0; }
+.silence-note-sign { text-align: right; }
+</style>
