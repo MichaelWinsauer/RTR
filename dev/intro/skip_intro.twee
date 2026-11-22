@@ -104,6 +104,15 @@
     
     <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
     <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
+
+    /* what the skipped Stage 0 scenes did (not quest sets, so SkipToQuest doesn't run them) */
+    <<set $events[3].active to true>>
+    <<set $mom.flags.rentHelp to false>>
+    <<set $mom.flags.bedMasturbationSeen to true>>
+    <<set $player.flags.hasMomClip to true>>
+    <<set $sister.flags.worksAtDiner to true>>
+    <<set $sister.flags.isTutoring to true>>
+    <<set $sister.flags.passedTest to true>>
     
     <<goto "Hallway">>
 <</link>>
@@ -171,6 +180,15 @@
     <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
     <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
 
+    /* what the skipped Stage 0 scenes did (not quest sets, so SkipToQuest doesn't run them) */
+    <<set $events[3].active to true>>
+    <<set $mom.flags.rentHelp to false>>
+    <<set $mom.flags.bedMasturbationSeen to true>>
+    <<set $player.flags.hasMomClip to true>>
+    <<set $sister.flags.worksAtDiner to true>>
+    <<set $sister.flags.isTutoring to true>>
+    <<set $sister.flags.passedTest to true>>
+
     /* ---- from here on: everything up to the start of the new Stage 1 quests (The Veil, The Booze Night, The Ask) ----
        The main line has hired the staff and held the "It'll be official" meeting, mom is past A Knock at Night (corruption
        stage 1), the sister past Good News? (at the office from noon on), and the prof line past The Proposition. */
@@ -203,6 +221,7 @@
     <<run State.variables.company.mails[3].read = true>>
     <<run State.variables.company.mails[3].answered = true>>
     <<run State.variables.company.mails[3].answerOptions = []>>
+    <<run State.variables.company.mails[3].answeredDay = $date.dayCount - 7>>
     /* The Booze Night waits three days after A Knock at Night: those days have passed */
     <<run setup.getQuestById("mom_nightVisit").doneDay = $date.dayCount - 3>>
 
@@ -217,10 +236,18 @@
     <<set $player.stats.corruption to 60>>
     <<run setup.getTaskById("task_mom_test_session").count = 10>>
     <<run setup.setTaskStage("task_mom_test_session", 3)>>
-    <<run setup.getTaskById("task_mom_private_attention").count = 6>>
-    <<run setup.setTaskStage("task_mom_private_attention", 1)>>
+    /* the massage reaches its last stage after The Briefing (stage 3 needs her corruption stage 1) */
+    <<run setup.getTaskById("task_mom_private_attention").count = 20>>
+    <<run setup.setTaskStage("task_mom_private_attention", 3)>>
     <<run setup.getTaskById("task_sister_internship_overview").count = 3>>
     <<run setup.feel("mom", "boss", -2, true)>>
+    /* what the requirements of the skipped quests needed: the camera in her room (It Makes A Difference) and her
+       excuses to be near me at the office (sister_waitSupportiveSister). Plus a camera in the main office, so the
+       CCTV and its POV passages work */
+    <<set $cctv.cameras.sisterroom to $date.dayCount - 10>>
+    <<set $cctv.cameras.companystage1 to $date.dayCount - 10>>
+    <<set $sister.flags.officeExcuses to 5>>
+    <<set $locations[12].name to "$boss.callName's Office">>
     
     <<goto "Hallway">>
 <</link>>
