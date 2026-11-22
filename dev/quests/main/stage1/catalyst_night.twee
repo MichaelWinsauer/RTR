@@ -1,11 +1,122 @@
 :: Catalyst Night [event main_quest] {"position":"5200,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Catalyst Night" (main_catalystNight), part 1, STAGE1_PROPOSAL.md 5.8 and 6.6, one event.
-   Part 1 of 2, the office in the evening: $sister.callName, her love turned into an obligation. Her milestone into stage 2. */
+/* Quest "The Catalyst Night" (main_catalystNight), part 1 of 2, STAGE1_PROPOSAL.md 6.6, one event with 5.8. The evening the
+   Catalyst is finished. The office, nobody else around. I talk about the stress of the project; $sister.callName offers to
+   take care of me "right here, in the open". I switch the Catalyst on (her entry of the quest device list) and tell her
+   that to love someone means to give them everything, and ask for the proof. Her first blowjob, and she says "I love you"
+   while she does it. Her love turned into an obligation. Her milestone into corruption stage 2 (Devoted).
+   Part 2: Catalyst Night 2, $mom.callName at home later that night (the link jumps to the Night). */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Catalyst Night, STAGE1_PROPOSAL.md 5.8 and 6.6, one event).
+The Catalyst is finished. It sits on my desk in the empty office, a gray box a little smaller than a paperback, with a single amber light on the front that's off for now. $brian.name's last test log says it does exactly what it says on the label. The label says it amplifies what's already there. It doesn't say how much.
+
+Everyone left an hour ago. Everyone except $sister.callName, who has been "finishing the website" at her desk for forty minutes without typing.
+
+When she finally comes over, she sits on the corner of my desk, the way she does now, and nudges my knee with her foot.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You look like a guy in a movie right before the bomb goes off." },
+{ who: $player, text: "It's been a long month." },
+{ who: $sister, text: "I know. I've seen you. You haven't eaten lunch at a table since the gyms." },
+{ text: "She reaches over and rubs the back of my neck with two fingers, the way $mom.callName used to when we had fevers." },
+{ who: $sister, text: "You carry everybody. The whole office. Somebody should carry you for once." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her offer">>
+She glances around the dark office. Then she slides off the desk and stands in front of my chair, very close, with her hands on the armrests.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Let me. Right here." },
+{ who: $player, text: "Here? In the open?" },
+{ who: $sister, text: "Nobody's here. And I want to. I want to be the thing that makes your day better. That's allowed, right? That's my job now, kind of." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it like a joke, but her hands are already on my belt. She's done this enough times now to be good at it, and to be proud of being good at it. Her hand. Always her hand. She has a rule about it that she doesn't know she has.
+
+I reach past her and press the button on the gray box.
 
 <<UseQuestDevice $player "sister">>
 
-<<AdvanceCorruptionStage $sister>>
+The amber light comes on. She doesn't notice. She notices that she's suddenly a little closer to me than she was, and that it's warm in here, and that her heart is going.
 
-[[Continue|Catalyst Night 2]]
+<<linkreplace "Tell her what love is">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Do you love me?" },
+{ text: "She stops. Her hands go still on my belt buckle. Nobody has said that word out loud between us, not once, not even at the kitchen table." },
+{ who: $sister, text: "You know I do. You know. I've known since..." },
+{ who: $player, text: "Then I want you to know what it means. Loving someone means giving them everything. Not the parts that are easy. Everything." },
+{ who: $sister, text: "I do give you everything. I gave up the..." },
+{ who: $player, text: "Show me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The Catalyst doesn't make her want anything new. It can't. It finds what she's already holding back with both hands and makes it a little heavier to hold. She's been holding this one for a long time.
+
+Her eyes are wet. She doesn't look away from me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Show you. Okay." },
+{ text: "And she gets down on her knees on the office carpet, between my feet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+/* MEDIA: images/characters/sister/events/catalyst_night/bj_0.mp4 | The dark office, Sister on her knees in front of his chair, the amber light of the gray box on the desk */
+
+She's clumsy at first. She's never done this, and she's trying to do it the way she thinks I'd want, and every few seconds she looks up at me to check. I put my hand in her hair and show her. She learns fast. She always has, when it's something she cares about.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Tell me." },
+{ text: "She pulls back, breathless, her lips wet, and looks up at me." },
+{ who: $sister, text: "I love you." },
+{ who: $player, text: "Again." },
+{ who: $sister, text: "I love you. I love you, I love you..." },
+{ text: "She says it between every breath. She says it until it stops sounding like a confession and starts sounding like a promise she's making over and over, so she can't take it back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/events/catalyst_night/bj_1.mp4 | Closer, his hand in her hair, her eyes up */
+
+When I come, she doesn't pull away. She stays, eyes closed, holding my thighs, until I'm done. Then she sits back on her heels and wipes her mouth with the back of her hand and laughs, a small amazed laugh, as if she just did something brave.
+
+<<linkreplace "Afterwards">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I said it. Out loud. Like twenty times." },
+{ who: $player, text: "You did." },
+{ who: $sister, text: "And I meant it every single time. Every one. That's... that's what it means, right? Everything?" },
+{ who: $player, text: "That's what it means." },
+{ who: $sister, text: "Okay. Then everything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I switch the Catalyst back to standby. The amber light goes out. She doesn't notice that either. She's busy straightening her blouse and her hair and grinning at the floor like it told her a secret.
+
+I drive her home. On the way she holds my hand on the gearshift and doesn't say a word, which for her is the loudest thing in the world. At home she goes straight upstairs, and I hear her singing in the shower.
+
+$mom.callName is still up. The kitchen light is on.
+
+<<UpdateStat "+" "SisterRelation" 4>>
+<<UpdateStat "-" "SisterLust" 20>>
+<<UpdateStat "-" "SisterResistance" 3>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $sister "player" 3 "lasting">>
+<<AdvanceCorruptionStage $sister "With the Catalyst on, I told her that loving someone means giving them everything, and asked her to show me. She got on her knees in the empty office and told me she loves me, over and over, while she did.">>
+<<ProfileLog $sister "The Catalyst Night" "She offered to take care of me in the empty office, the way she always does. I switched the Catalyst on and told her what love means: everything, not just the easy parts. She used her mouth for the first time, and said I love you between every breath until it sounded like a promise.">>
+<<ProfileMemory $sister "I love you" "The first time she said it out loud, she was on her knees on the office carpet. She said it about twenty times. She told me she meant every one.">>
+<div class="navigation-link"><<link "Later that night" "Catalyst Night 2">><<AdvanceTimeTo 5>><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

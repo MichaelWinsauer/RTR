@@ -1298,9 +1298,7 @@
     },
     {
     	/* 5.7 OPTIONAL: only if I sent her to the gym dinner (main_gymDinner sets $mom.flags.gymDinner).
-    	   Her report when she comes home that night: Was that right?
-    	   STAGE1-STUB: a plain event for now. The end-of-day report exists (Define NPCs): when the scene is written,
-    	   decide whether it stays an event or becomes a report entry (setup.dayReports and the LogDay widget) */
+    	   Her report when she comes home that night: Was that right? Stays an event, told like her end-of-day report */
     	id: "mom_gymDinner",
     	next: "mom_waitCatalystNight",
     	title: "Was That Right?",

@@ -1,10 +1,185 @@
 :: The Calendar [event mom_quest] {"position":"4775,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Calendar" (mom_calendar), STAGE1_PROPOSAL.md 5.9.
-   Her milestone into stage 3. She puts the calendar on my desk with the pattern circled: "Is it the box?" */
-<<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Calendar, STAGE1_PROPOSAL.md 5.9).
+/* Quest "The Calendar" (mom_calendar), STAGE1_PROPOSAL.md 5.9. Her milestone into corruption stage 3 (Complicit), the biggest
+   mom scene of Stage 1. She keeps the shared calendar, and she has noticed that her "bad days" line up with the days the
+   office feels different and with the test sessions. She doesn't rage. She puts a printout on my desk with the pattern
+   circled and asks: "Is it the box?" A reversal: for once she has turned the table.
+   The choice sets $mom.flags.calendarChoice:
+     "truth"   part of it, not the sabotage. She needs to think. Then: she can't tell how much is her and how much is the
+               box, and she's decided she doesn't care
+     "anchor"  the Anchor (setup.useDevice valenxAnchor, a use, the whole charge, a spike in its log) plants one belief:
+               this is your choice, and you love it. A nosebleed. Afterwards I text $ethan.name a hint, and he answers
+               with a joke. He has already seen the spike
+   The quest's set unlocks Whenever ($mom.flags.freeUse). That night I test it: the hallway, no device, "Whatever you need." */
+<<silent>>
+	<<SetBackground $locations[14].img>>
+	<<set _calAnchor to $company.devices.valenxAnchor>>
+	<<set _calAnchorOk to (_calAnchor.owned and setup.deviceUsesLeft(_calAnchor) > 0 and _calAnchor.charge >= $company.impactCost[10])>>
+<</silent>>
+$mom.callName has been quiet all week, the busy kind of quiet, not the sad kind. She's stayed late three nights in a row with the shared calendar open on both her monitors, scrolling back through months of it, and every time I walked past she minimized the window.
 
-<span id="stub-choice">
-<<link "Tell her part of the truth">><<set $mom.flags.calendarChoice to "truth">><<AdvanceCorruptionStage $mom>><<replace "#stub-choice">><<NextQuest $mom>><<ReturnFromEvent>><</replace>><</link>>
-<<link "Use the Anchor">><<set $mom.flags.calendarChoice to "anchor">><<AdvanceCorruptionStage $mom>><<replace "#stub-choice">><<NextQuest $mom>><<ReturnFromEvent>><</replace>><</link>>
-</span>
+This morning she comes to my desk with a single sheet of paper and puts it face down in front of me, squared to the edge of the desk. Then she sits in the chair next to it with her hands folded in her lap.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Can you look at that for me, honey? When you have a minute." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Turn it over">>
+It's a printout of the company calendar. Three months of it, shrunk down to fit one page, every day a little colored box. She's gone over it by hand with three highlighters.
+
+Yellow: the days the office felt "warm", her word, written in the margin. The days everyone worked late without complaining. Orange: the evening test sessions in the meeting room. Pink: what she's labeled, in tiny careful letters, <i>bad days</i>. The days she came home and cleaned the kitchen until midnight. The days she knocked on my door.
+
+The pink is almost always on an orange day. Or the day after a yellow one. She has drawn neat little lines between them, and circled the clusters, the way she'd circle a scheduling conflict for a client.
+
+/* MEDIA: images/characters/mom/events/the_calendar/printout.jpg | A calendar printout on a desk, highlighted in yellow, orange and pink, neat circles and lines drawn between the days */
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'm a project manager, sweetie. Or I was. I notice patterns. It's the one thing I'm actually good at." },
+{ text: "She isn't angry. That's the strange part. Her voice is perfectly calm, and very gentle, the voice she'd use to tell a client their budget doesn't add up." },
+{ who: $mom, text: "Is it the box?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For the first time since this started, she's ahead of me. She sat at her desk for three nights and did the work, quietly, the way she does everything, and walked into my office with the proof in her hand. She's waiting to see what I'll do with it.
+
+<<linkreplace "Decide">>
+<div id="cal-choice">
+<div><<link "Tell her part of the truth">><<replace "#cal-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Yes. It's the box. Not the white one in the meeting room. A stronger one. It makes people feel what they're already close to feeling. A little more easily." },
+{ text: "I tell her about the evenings, the sessions, the unit in the office. I don't tell her about her old job, or the sabotage, or why she was fired. She doesn't need that part. Nobody does." },
+{ who: $mom, text: "The nights I came to your room." },
+{ who: $player, text: "Some of them." },
+{ who: $mom, text: "Which ones?" },
+{ who: $player, text: "I don't know anymore. Honestly. I stopped keeping track." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes the printout back and looks at it for a long time. Then she folds it in half, and in half again, and holds it in both hands.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I need to think. Can I... I'm going to go sit in the meeting room for a while. Don't come in." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's in there for two hours. Through the glass I can see her sitting at the end of the table, very straight, with the folded paper in front of her. She doesn't cry. She doesn't call anyone. At one point she gets up and waters Gerald through the doorway, and sits down again.
+
+At lunch she comes back to my desk and sits down in the same chair.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I can't tell how much of this is me and how much is the box." },
+{ text: "She turns the folded paper over in her fingers." },
+{ who: $mom, text: "And I think... I think I've decided I don't care." },
+{ who: $player, text: "You don't care." },
+{ who: $mom, text: "I sat in there and tried to be angry, honey. I really tried. And all I could think was that I've never been this happy. Not even close. If a box did that, then thank God for the box." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She drops the folded calendar in my wastebasket on her way back to her desk, without looking at it.
+
+<<set $mom.flags.calendarChoice to "truth">>
+<<UpdateStat "-" "MomResistance" 10>>
+<<UpdateStat "+" "MomRelation" 3>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $mom "player" 2 "lasting">>
+<<AdvanceCorruptionStage $mom "She worked out the pattern on her own and asked me if it was the box. I told her part of the truth. She thought about it for two hours and decided she doesn't care.">>
+<<ProfileLog $mom "The Calendar" "She found the pattern in the company calendar on her own: her bad days line up with the sessions and the days the office feels warm. She asked me if it was the box, and I told her part of the truth, not about her old job. She thought about it for two hours. Then she said she can't tell how much of this is her and how much is the box, and that she's decided she doesn't care.">>
+<div class="navigation-link"><<link "That night" "The Calendar 2">><<AdvanceTimeTo 5>><</link>></div>
+<</replace>><</link>></div>
+<div><<if _calAnchorOk>><<link "Use the Anchor">><<replace "#cal-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Come with me for a second." },
+{ text: "I take her into the meeting room and close the blinds. She lets me, the way she always lets me, and sits down at the table with her hands folded. The Anchor is in my jacket pocket, warm from my body." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<run setup.useDevice("valenxAnchor", "mom", 10, "mom_calendar")>>
+<<DevicePulse 10>>
+
+I take it out and point it at her and press the button, and say the sentence I've been carrying around for two weeks, slowly, so every word goes in.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "This is your choice. And you love it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The coil whines. Her pupils go wide, all at once, like someone turned out a light behind her eyes. For three seconds she doesn't blink.
+
+Then a thin line of blood runs out of her left nostril and over her lip, and she lifts her hand and touches it and looks at the red on her fingertips, puzzled, as if it belongs to someone else.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh. Silly. It's so dry in here. It's the air conditioning, it always does this to me." },
+{ text: "I hand her a tissue. She dabs her lip and smiles at me over it, a soft, clear, untroubled smile. The printout is still lying on the table between us. She glances at it as if it's somebody else's grocery list." },
+{ who: $mom, text: "What did I want to show you? It doesn't matter. Nothing that can't wait." },
+{ who: $mom, text: "I love working here, you know that? I chose this. I'd choose it again." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She folds the printout in half and puts it in the recycling on her way out, and hums.
+
+<<DevicePulse "off" "2s">>
+
+Back at my desk, my hands are still not completely steady. I take out my phone and text $ethan.name, who is sitting forty feet away with his headphones on.
+
+<i>Ever wonder what the dial really does at the top?</i>
+
+The answer takes four minutes.
+
+<i>Nope. Remember? I like not knowing. Also the coffee machine is making the dying-whale noise again. Priorities, boss.</i>
+
+He sends a whale emoji. I look across the office. He's looking at his screen. His screen is the device log, and I can see the shape of a single tall spike on it, reflected in the window behind him, before he clicks it away.
+
+<<set $mom.flags.calendarChoice to "anchor">>
+<<UpdateStat "+" "Corruption" 5>>
+<<Feel $mom "player" 2 "lasting">>
+<<AdvanceCorruptionStage $mom "She worked out the pattern on her own and asked me if it was the box. I took her into the meeting room and used the Anchor. Now she believes it's her choice, and that she loves it.">>
+<<ProfileLog $mom "The Calendar" "She found the pattern in the company calendar on her own and asked me if it was the box. I took her into the meeting room and used the Anchor: this is your choice, and you love it. Her nose bled. She blamed the air conditioning, threw the printout away and told me she'd choose this again.">>
+<div class="navigation-link"><<link "That night" "The Calendar 2">><<AdvanceTimeTo 5>><</link>></div>
+<</replace>><</link>><<else>><span class="offer-card locked" style="display:inline-flex"><span class="offer-label">Use the Anchor</span><span class="offer-lock"><<if !_calAnchor.owned>>I don't have it yet<<elseif setup.deviceUsesLeft(_calAnchor) <= 0>>It has no uses left<<else>>It needs a full charge<</if>></span></span><</if>></div>
+</div>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: The Calendar 2 [event mom_quest] {"position":"4900,1075","size":"100,100"}
+/* Quest "The Calendar" (mom_calendar), part 2: that night, the hallway. The device stays in my drawer, and I test what she
+   promised. "Whatever you need." Advances her line; its set unlocks Whenever ($mom.flags.freeUse). */
+<<silent>><<SetBackground $locations[0].img>><</silent>>
+I leave the devices in my desk drawer, all of them, and go out into the hallway at eleven in my socks.
+
+She's coming out of the bathroom in her robe with her hair wrapped in a towel. She stops when she sees me. The hallway is dark except for the night light by the stairs, the one she put in when we were small and never took out.
+
+She doesn't ask what I want. She looks at my face, and then she unties the towel and lets her hair down, and takes a step toward me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Whatever you need, honey." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's no box switched on, no dial turned, and she hasn't made a single rule about it.
+
+I take her hand and lead her back to my room, and she comes without a sound, past $sister.callName's door, with her free hand holding the robe closed until the moment I close mine.
+
+<<UpdateStat "+" "MomCorruption" 2>>
+<<UpdateStat "-" "MomLust" 20>>
+<<NextQuest $mom>>
+<<run Notification.show("New interaction with " + $mom.callName + ": Whenever I want", { type: Notification.INFORMATION })>>
+<<ReturnFromEvent "Continue" "Bedroom">>

@@ -1,12 +1,115 @@
 :: Retail Introduction [event main_quest] {"position":"5700,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Introduction" (main_retailIntroduction), STAGE1_PROPOSAL.md 4.11.
-   The second family option: the fee for the broker, two weeks of waiting, or $sister.callName hosts the rooftop evening of $investor.callName.
-   STAGE1-STUB: the fee is not charged, and the offer should check her corruption and exhibition. */
-<<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Introduction, STAGE1_PROPOSAL.md 4.11).
+/* Quest "The Introduction" (main_retailIntroduction), STAGE1_PROPOSAL.md 4.11, first half. The second family option, built
+   with <<Offer>> (Family offers in Define Quests). I call $investor.callName, the door to $retailChain.name that
+   $marketingOwner.name mentioned at the Profit Party. He doesn't ask for anyone. He names his associate's fee, mentions that
+   he could bring it up at a board dinner in two weeks, and mentions, in passing, the rooftop evening he's hosting for the
+   people from $retailChain.name on Thursday, and that the caterers have let him down on a hostess. Offering her is my idea.
+     plain    pay the broker: $15,000 (+$2,500 for every stall), out of the account (setup.spend)
+     plain    wait two weeks for his board dinner (main_retailPitch waits 14 days)
+     family   $sister.callName hosts the rooftop evening, level 2 (Entertain); locked until her line has reached sister_rooftop
+     stall    think about it: it comes back in a few days, and the fee goes up
+   Sets $flags.retailIntro ("broker", "wait" or "sister"). */
+<<silent>>
+	<<SetBackground $locations[14].img>>
+	<<set _riStalls to setup.offerStalls("main_retailIntroduction")>>
+	<<set _riFee to 15000 + 2500 * _riStalls>>
+	<<set _riLock to (setup.questReached("sister_rooftop") ? "" : "She isn't there yet")>>
+<</silent>>
+<<if _riStalls == 0>>
+$marketingOwner.name's sticky note has been on the corner of my monitor since the Profit Party. <i>If your boy wants a national account, $investor.name is the door. Doors like that don't come free.</i> $mom.callName's handwriting, $marketingOwner.name's words. Underneath it, a phone number with a country club area code.
 
-<span id="stub-choice">
-<<link "Pay the broker">><<set $flags.retailIntro to "broker">><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-<<link "Wait two weeks">><<set $flags.retailIntro to "wait">><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-<<if setup.questReached("sister_rooftop")>><<link `"Offer " + $sister.callName + " as the hostess"`>><<set $flags.retailIntro to "sister">><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>><<else>>Offer $sister.callName as the hostess (locked: her quest line has not reached this point yet)<</if>>
-</span>
+I call it at ten. A woman answers, takes my name, puts me on hold with something baroque, and four minutes later $investor.callName picks up.
+<<else>>
+I call $investor.callName back. The same woman, the same baroque hold music, a little shorter this time. He picks up on the second minute, and I can hear that he's smiling.
+<</if>>
+
+/* MEDIA: images/events/retail_introduction/phone.jpg | My desk, the phone to my ear, a sticky note with a phone number on the monitor */
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "Mr. $player.surname. $marketingOwner.name speaks highly of you, which she does of almost no one, so I made a point of taking your call." },
+{ who: $player, text: "I appreciate it. I'll get to the point." },
+{ who: $investor, text: "Please. At my age, the point is the only part worth getting to." },
+{ who: $player, text: "I'd like an introduction to $retailChain.name. The people who decide what goes into their stores." },
+{ who: $investor, text: "Of course you would. Everybody would. Four hundred stores is a great many conference rooms." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He lets that hang for a moment, pleasantly, like a man letting a wine breathe.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "I'll be candid, Mr. $player.surname. Introductions are a service. My associate handles that side of things. For a company of your size, he'd say $" + _riFee.toLocaleString("en-US") + " is very reasonable, and he'd be right." },
+{ who: $investor, text: "Or I could simply mention you to them myself, over dinner. The board meets again in two weeks. I'm a patient man. I hope you are too." },
+{ who: $investor, text: "In the meantime, I'm hosting a little evening on Thursday. My rooftop, a few friends from $retailChain.name, some very good wine. Our caterers have let me down on a hostess, which is a small tragedy, but I'll survive it." },
+{ text: "He says it lightly, as an aside, the way a man mentions the weather. He isn't asking me for anything. He's telling me what his week looks like." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+A hostess. On a rooftop full of the people I need, with a man who sends invoices to strangers and favors to friends. I look across the office at $sister.callName, who is laughing at something $brian.name said, with her hair up and her sleeves pushed back.
+
+<<Offer>>
+<<plain "Pay the fee" `"-$" + _riFee.toLocaleString("en-US") + " from the company account"` _riFee>>
+<<silently>>
+<<set $flags.retailIntro to "broker">>
+<<set _msgs = [
+{ who: $player, text: "Have your associate send me the invoice." },
+{ who: $investor, text: "Splendid. Decisive. I like that in a young man. You'll hear from them by the end of the week." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The invoice arrives forty minutes later, which tells me the associate had it written before I called. I pay it the same afternoon. It's the most money I've ever spent on a phone call, and I check the account balance three times afterwards to make sure it really happened.
+
+<<UpdateStat "+" "Reputation" 2>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+
+<<plain "Wait for his board dinner" "two weeks before anything happens">>
+<<silently>>
+<<set $flags.retailIntro to "wait">>
+<<set _msgs = [
+{ who: $player, text: "I can be patient. Mention us at the board dinner." },
+{ who: $investor, text: "A man who can wait. How rare. I'll mention you, Mr. $player.surname. Whether they listen is another matter, but I'll mention you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Two weeks. I write it on a sticky note and put it next to the other one, and then I spend the afternoon trying not to think about four hundred stores and the eleven hundred conference rooms in them.
+
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+
+<<family $sister 2 `"Offer " + $sister.callName + " as his hostess"` "the introduction, free" _riLock>>
+<<silently>>
+<<set $flags.retailIntro to "sister">>
+<<set _msgs = [
+{ who: $player, text: "About your hostess problem. My $sister.relation works for me. She's very good with people. Everyone says so." },
+{ text: "There's a pause on the line. Not a long one. Just long enough for him to understand exactly what I'm offering, and for me to hear that he does." },
+{ who: $investor, text: "Is she. How generous of you." },
+{ who: $investor, text: "Thursday at eight, then. Tell her to wear something that goes with the city at night. And Mr. $player.surname? I don't send invoices to friends." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He hangs up. I sit there with the phone in my hand and look across the office at her again. She catches me looking and makes a face, and waves, and goes back to her screen.
+
+I haven't asked her yet. I already know what she'll say.
+
+<<UpdateStat "+" "Corruption" 2>>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+
+<<stall "Think it over" "main_retailIntroduction" "his fee will go up">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Let me think it over and get back to you." },
+{ who: $investor, text: "By all means. Doors don't move, Mr. $player.surname. Though I'm afraid my associate's prices do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<ReturnFromEvent>>
+<</Offer>>

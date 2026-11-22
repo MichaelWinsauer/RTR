@@ -1,8 +1,127 @@
 :: The Rooftop [event sister_quest] {"position":"4775,1775","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Rooftop" (sister_rooftop), STAGE1_PROPOSAL.md 6.7.
-   Optional (offered as the hostess). The rooftop evening of $investor.callName and our signal: a touch on my ear. */
+/* Quest "The Rooftop" (sister_rooftop), STAGE1_PROPOSAL.md 6.7. Optional: only if I offered her as $investor.callName's hostess
+   in The Introduction ($flags.retailIntro "sister"). Entertain, public risk, and I'm in the room this time, so it isn't a
+   report. In the office I ask her to host; she says yes before I've finished the sentence. We agree on a signal: a touch
+   on my ear means yes. On the rooftop $investor.callName takes to her, and later a man from $retailChain.name puts his
+   hand on her waist, and she looks across the terrace for me. Giving the signal is the whole scene.
+   The introduction is free either way. Everything (sister_everything) is the night after. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Rooftop, STAGE1_PROPOSAL.md 6.7).
+At six the office is empty except for us. She's at her desk, packing up, and I stop next to it with my hands in my pockets.
 
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Are you busy tonight?" },
+{ who: $sister, text: "Is that a trick question? I'm never busy. I muted my whole life, remember?" },
+{ who: $player, text: "There's an evening. On a rooftop downtown. An investor, some people from $retailChain.name, very good wine. He needs a hostess, and I'd like it to be you. I'd like you to..." },
+{ who: $sister, text: "Yes." },
+{ who: $player, text: "I haven't told you what it..." },
+{ who: $sister, text: "Yes. Whatever it is. Yes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it so fast she has to laugh at herself afterwards. Then she asks what to wear, and I tell her, and she goes a little pink, and says okay.
+
+<<linkreplace "Agree on a signal">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I'll be there the whole time. Across the room, mostly. If you're not sure about something, look at me." },
+{ who: $sister, text: "Not sure about what?" },
+{ who: $player, text: "Anything. Someone gets a little too friendly. Someone asks you to stay for one more drink." },
+{ text: "She looks at me for a moment. She understands more than she lets on. She always has." },
+{ who: $player, text: "If I touch my ear, it's fine. Let it happen. If I don't, smile and find a reason to go get somebody a drink." },
+{ who: $sister, text: "Touch your ear. Okay. Like a secret agent. That's so stupid. I love it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "The rooftop">>
+/* MEDIA: images/characters/sister/events/the_rooftop/terrace.jpg | A rooftop terrace at night, string lights, the city behind, well-dressed people with wine glasses, Sister in a dark dress near the bar */
+$investor.callName's building is the kind with a doorman who knows your name before you give it. The rooftop is all glass railings and string lights and little heaters shaped like torches, and beyond it the whole city, lit up and silent, like a model of itself.
+
+$sister.callName is in the black dress I picked, the one with no back, and heels she practiced walking in for an hour in the hallway. She takes coats. She brings drinks. She remembers everybody's name after hearing it once, which I didn't know she could do, and she laughs at the right moment at every bad joke on the terrace.
+
+$investor.callName takes to her within ten minutes. He walks her around the terrace with one hand barely touching her elbow, introducing her to everyone as "the charming young lady from that clever little company", and she charms them, one by one, while I stand by the railing with a glass of wine I'm not drinking and watch her work.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "Mr. $player.surname. Your $sister.relation is a revelation. Where on earth have you been hiding her?" },
+{ who: $player, text: "At a coffee machine, mostly." },
+{ who: $investor, text: "A crime. An absolute crime. The people from $retailChain.name are quite taken. I'll make the introduction on Monday. Consider it done." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Later">>
+Near eleven, the wine has done what wine does. One of the men from $retailChain.name, a big man in a gray suit with a wedding ring and a laugh you can hear from the elevator, has her in a corner by the heaters, telling her a long story about a fishing trip. His hand has found the small of her back. Her bare back. It's resting there, and as he talks, his fingers move a little, slowly, back and forth.
+
+She's smiling at him. Her shoulders are very straight.
+
+Then, over his shoulder, she looks across the terrace. Straight at me. Her eyes ask the question we practiced in the office five hours ago.
+
+/* MEDIA: images/characters/sister/events/the_rooftop/look.jpg | Sister in a corner by a patio heater, a man's hand on her bare back, her eyes looking past his shoulder toward the camera */
+
+She's waiting. The whole terrace is laughing and talking, and she's waiting for me to move my hand.
+
+<div id="rt-choice">
+<div><<link "Touch your ear">><<replace "#rt-choice">>
+I lift my glass with my left hand and touch my right ear with two fingers, as casually as I can, the way you'd brush away a strand of hair.
+
+She sees it. Something in her face settles. She turns back to the man in the gray suit and laughs at the end of his story, a little louder than before, and she lets the hand stay. When he leans in to say something in her ear, she lets him do that too. When he puts his other hand on her hip, she looks across at me once more, quickly, and I don't look away, and she doesn't move it.
+
+She only looks away from me when she's sure.
+
+On the drive home she sits with her heels in her lap and the window down, looking at the city go by. Somewhere around the bridge she reaches over and takes my right hand off the gearshift and holds it, and touches my ear with one finger, very lightly, and lets go.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I did good, right?" },
+{ who: $player, text: "You did perfectly." },
+{ text: "She nods and looks out the window again, and doesn't say anything else until we're home." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "SisterExhibition" 4>>
+<<UpdateStat "+" "SisterCorruption" 4>>
+<<UpdateStat "-" "SisterResistance" 2>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $sister "player" -1>>
+<<Feel $sister "investor" -1>>
+<<ProfileLog $sister "The Rooftop" "She hosted $investor.callName's rooftop evening for the company, in the black dress I picked. Late in the evening a man from $retailChain.name had his hand on her bare back and she looked across the terrace at me for the signal. I touched my ear. She let him. The introduction is free.">>
+<<ProfileMemory $sister "The signal" "In the car she took my hand off the gearshift and touched my ear with one finger, very lightly, and let go. She asked if she did good.">>
 <<NextQuest $sister>>
-<<ReturnFromEvent>>
+<<AdvanceTimeTo 6>>
+<<ReturnFromEvent "Home" "Bedroom">>
+<</replace>><</link>></div>
+<div><<link "Leave your hand where it is">><<replace "#rt-choice">>
+I keep my hand on the railing.
+
+She watches for a moment longer, to be sure. Then she smiles at the man in the gray suit, touches his arm, says something about his glass being empty, and slips out from under his hand toward the bar as if that had been her plan all along. He laughs and lets her go. He doesn't seem to mind. He's had a lot of wine.
+
+She brings him a fresh glass and someone else a napkin and $investor.callName a joke that makes him clap his hands, and for the rest of the evening she stays where I can see her, and keeps glancing at me as if I'd done something kind.
+
+On the drive home she talks nonstop: about the doorman, the heaters, the man's fishing story, which apparently ended with a bear. Then, at a red light, quieter:
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Thanks. For not touching your ear." },
+{ who: $player, text: "You'd have done it." },
+{ who: $sister, text: "I know. That's kind of why I'm saying thanks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "SisterExhibition" 2>>
+<<UpdateStat "+" "SisterCorruption" 2>>
+<<UpdateStat "+" "SisterRelation" 2>>
+<<Feel $sister "player" 1>>
+<<ProfileLog $sister "The Rooftop" "She hosted $investor.callName's rooftop evening for the company, in the black dress I picked. Late in the evening a man from $retailChain.name had his hand on her bare back and she looked across the terrace at me for the signal. I didn't give it, and she slipped away to the bar. The introduction is free anyway.">>
+<<NextQuest $sister>>
+<<AdvanceTimeTo 6>>
+<<ReturnFromEvent "Home" "Bedroom">>
+<</replace>><</link>></div>
+</div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

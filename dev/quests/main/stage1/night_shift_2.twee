@@ -1,10 +1,137 @@
 :: Night Shift 2 [event main_quest] {"position":"6200,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Night Shift" (main_nightShift), last part, STAGE1_PROPOSAL.md 4.12.
-   The club door (or the deal alone), then the call from $ethan.name at 11:40 p.m. If they went: the car home, in silence. */
-<<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Night Shift, STAGE1_PROPOSAL.md 4.12).
+/* Quest "The Night Shift" (main_nightShift), last part, STAGE1_PROPOSAL.md 4.12. $club.name. If they went
+   ($flags.supplierOffered): the door, the doorman, members only, and me in the car outside. If I paid: the deal in the back
+   office, alone. Either way, at 11:40 p.m. $ethan.name calls. The choice sets $flags.answeredEthan:
+     true   "Where are you? I need to talk to you. Come to the office." "Tomorrow."
+     false  a voicemail I don't listen to until morning
+   The way home is Night Shift 3. */
+<<silent>><<SetBackground $locations[7].img>><</silent>>
+$club.name doesn't have a sign. It has a black door between a closed bank and a shoe repair shop, a doorman in a dark coat, and a small brass plate with a number on it that you'd only notice if you were looking for it.
 
-<span id="stub-choice">
-<<link `"Answer " + $ethan.name`>><<set $flags.answeredEthan to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-<<link "Let it ring">><<set $flags.answeredEthan to false>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-</span>
+/* MEDIA: images/events/night_shift/door.jpg | A black door on a dark downtown street, a doorman in a long coat, a single brass number plate, rain on the pavement */
+
+<<if $flags.supplierOffered === true>>
+I park across the street. Neither of them has said a word the whole way. In the rearview mirror I can see their hands, still linked on the seat between them.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Ask for $supplier.callName at the door. He's expecting you. I'll be right here." },
+{ text: "$mom.callName nods. $sister.callName nods. Then $mom.callName squeezes her hand once, lets go, and opens her door." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They cross the street together, in the rain, in the black dresses and the heels, $mom.callName half a step ahead the way she walks when she's taking someone to the doctor. The doorman looks at them, then at a list on his phone, then steps aside and opens the black door.
+
+$sister.callName looks back once, at the car. I don't know if she can see me through the windshield. I don't touch my ear.
+
+The door closes behind them.
+
+<<else>>
+The doorman takes my name and my phone and walks me through a dark room full of low music and lower voices, past a long bar and a row of velvet booths, to a door at the back marked PRIVATE. $supplier.callName is behind a desk with a glass of something amber and a small aluminum case.
+
+<<silently>>
+<<set _msgs = [
+{ who: $supplier, text: "$player.name. Punctual. And alone. You'd be amazed how rare both of those are." },
+{ text: "He slides the case across the desk without opening it." },
+{ who: $supplier, text: "Everything on your list. The instructions are inside. Read them twice. My customers who read them once don't stay my customers for long." },
+{ who: $player, text: "Thank you." },
+{ who: $supplier, text: "Don't thank me. Just come back. Everyone comes back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The whole thing takes six minutes. On my way out, a woman in one of the velvet booths is laughing at something a man is saying with his hand on her knee, and she looks up at me as I pass, and then away.
+
+I sit in the car outside for a while with the case on the passenger seat, not starting the engine.
+<</if>>
+
+<<linkreplace "Wait">>
+<<silently>><<AdvanceTimeTo 6>><</silently>>
+The rain gets heavier. The doorman stands under the awning and smokes. Nobody comes out. The clock on the dashboard says 11:39, and then it says 11:40.
+
+My phone lights up on the seat beside me.
+
+<i>$ethan.name</i>
+
+/* MEDIA: images/events/night_shift/phone.jpg | A phone lighting up on a car seat in the dark, rain on the windshield behind it */
+
+He never calls. He texts, he sends memes at two in the morning, he leaves voice notes about pizza. He doesn't call.
+
+It keeps ringing.
+
+<div id="ns-choice">
+<div><<link `"Answer " + $ethan.name`>><<replace "#ns-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey. What's up?" },
+{ who: $ethan, text: "Where are you?" },
+{ text: "There's no joke first, and he doesn't call me boss. His voice sounds wrong, flat and very awake, somewhere with an echo." },
+{ who: $player, text: "A meeting. I told you. What's going on?" },
+{ who: $ethan, text: "I need to talk to you. Tonight. Can you come to the office?" },
+{ text: "Across the street, the black door stays closed. Somewhere behind it are the two people I live with." },
+{ who: $player, text: "Tomorrow. First thing. I can't tonight." },
+{ text: "There's a long silence on the line. Long enough that I check whether the call dropped." },
+{ who: $ethan, text: "Tomorrow. Okay." },
+{ text: "He hangs up without saying goodbye. He always says goodbye. He usually says it twice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I look at the phone for a while. Then I put it face down on the seat and look at the black door again.
+
+<<set $flags.answeredEthan to true>>
+<div class="navigation-link"><<link "Later" "Night Shift 3">><</link>></div>
+<</replace>><</link>></div>
+<div><<link "Let it ring">><<replace "#ns-choice">>
+I let it ring. It rings for a long time. Then it stops, and a minute later the screen lights up again: <i>1 new voicemail</i>.
+
+I don't listen to it. Whatever it is, it's $ethan.name, and $ethan.name can wait until tomorrow. I put the phone face down on the seat and look at the black door again.
+
+<<set $flags.answeredEthan to false>>
+<div class="navigation-link"><<link "Later" "Night Shift 3">><</link>></div>
+<</replace>><</link>></div>
+</div>
+
+<</linkreplace>>
+
+
+:: Night Shift 3 [event main_quest] {"position":"6325,500","size":"100,100"}
+/* Quest "The Night Shift" (main_nightShift), the end: after the call. If they went, the car home, the two of them in the
+   back seat, in silence, and $sister.callName sleeps in $mom.callName's room. If I paid, home alone with the case. Ends the
+   quest; The Morning After is next. */
+<<silent>><<SetBackground $locations[7].img>><</silent>>
+<<if $flags.supplierOffered === true>>
+They come out at ten past two.
+
+The doorman holds the door. $mom.callName comes first, with her coat on and buttoned to the neck, and $sister.callName right behind her, holding her heels in one hand. Neither of them looks at the car until they're halfway across the street.
+
+They get into the back seat. Both of them. Nobody says anything.
+
+I drive home through empty streets, under the orange lights, with the rain on the windshield and the wipers going. In the rearview mirror, every time we pass under a streetlight, I can see them: $sister.callName with her head on $mom.callName's shoulder, eyes open, looking at nothing. $mom.callName with her arm around her, looking out the window. Their hands linked again on the seat.
+
+Nobody says a single word the whole way home.
+
+At the house they go upstairs together, and I hear $mom.callName's door close, and then, after a minute, $sister.callName's door doesn't close at all, because she's in $mom.callName's room.
+
+I sit at the kitchen table in the dark for a long time. My phone is still face down. I don't turn it over.
+
+<<UpdateStat "+" "MomCorruption" 5>>
+<<UpdateStat "+" "SisterCorruption" 5>>
+<<UpdateStat "+" "MomResistance" 5>>
+<<UpdateStat "+" "SisterResistance" 5>>
+<<UpdateStat "+" "Corruption" 5>>
+<<Feel $mom "player" -2>>
+<<Feel $sister "player" -2>>
+<<Feel $mom "supplier" -3 "lasting">>
+<<Feel $sister "supplier" -3 "lasting">>
+<<ProfileLog $mom "The Last Night" "I drove her and $sister.callName to $supplier.callName's club in the black dresses I picked, and waited outside. In the back seat they saw each other and understood. They came out at ten past two and didn't say a word the whole way home. She took $sister.callName into her room.">>
+<<ProfileLog $sister "The Last Night" "I drove her and $mom.callName to $supplier.callName's club, the way we rehearsed it, and waited outside. In the back seat she saw $mom.callName, and they both knew. They came out at ten past two. She slept in $mom.callName's room.">>
+<<else>>
+I drive home with the case on the passenger seat. The streets are empty. At home everyone's asleep, $mom.callName's door closed, $sister.callName's light off.
+
+I put the case in my desk drawer, next to the Anchor and the Catalyst and the original, and sit on my bed for a long time with my phone face down on the nightstand.
+<</if>>
+
+<<NextQuest $player>>
+<<ReturnFromEvent "Go to bed" "Bedroom">>

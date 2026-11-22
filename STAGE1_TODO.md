@@ -69,8 +69,8 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 - [x] Send Me Something (6.4), three parts: [send_me_something.twee](dev/quests/sister/stage1/send_me_something.twee), [_2](dev/quests/sister/stage1/send_me_something_2.twee), [_3](dev/quests/sister/stage1/send_me_something_3.twee)
 
 **Phase 6**
-- [ ] The Gym Dinner (4.5b), the first family option: [gym_dinner.twee](dev/quests/main/stage1/gym_dinner.twee)
-- [ ] Was That Right? (5.7, optional): [mom_gym_dinner_report.twee](dev/quests/mom/stage1/mom_gym_dinner_report.twee). The "let him / keep it light" choice belongs before she leaves, so it goes into the Gym Dinner scene.
+- [x] The Gym Dinner (4.5b), the first family option: [gym_dinner.twee](dev/quests/main/stage1/gym_dinner.twee)
+- [x] Was That Right? (5.7, optional): [mom_gym_dinner_report.twee](dev/quests/mom/stage1/mom_gym_dinner_report.twee). The "let him / keep it light" choice belongs before she leaves, so it goes into the Gym Dinner scene.
 - [x] What Are We (6.5): [what_are_we.twee](dev/quests/sister/stage1/what_are_we.twee)
 
 **Phase 7**
@@ -79,19 +79,19 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 - [x] Be Nice to Brian (6.5b): [be_nice_to_brian.twee](dev/quests/sister/stage1/be_nice_to_brian.twee)
 
 **Phase 8–9**
-- [ ] The Anchor (4.8): [the_anchor.twee](dev/quests/main/stage1/the_anchor.twee)
+- [x] The Anchor (4.8): [the_anchor.twee](dev/quests/main/stage1/the_anchor.twee)
 - [x] The Profit Party (4.9): [profit_party.twee](dev/quests/main/stage1/profit_party.twee)
 
 **Phase 10**
-- [ ] The Catalyst Night (5.8 + 6.6, one event, both milestones into stage 2): [catalyst_night.twee](dev/quests/main/stage1/catalyst_night.twee) (her, at the office), [catalyst_night_2.twee](dev/quests/main/stage1/catalyst_night_2.twee) (mom, at home)
+- [x] The Catalyst Night (5.8 + 6.6, one event, both milestones into stage 2): [catalyst_night.twee](dev/quests/main/stage1/catalyst_night.twee) (her, at the office), [catalyst_night_2.twee](dev/quests/main/stage1/catalyst_night_2.twee) (mom, at home)
 - [x] The Crack (4.10), two parts: [the_crack.twee](dev/quests/main/stage1/the_crack.twee), [the_crack_2.twee](dev/quests/main/stage1/the_crack_2.twee). The Monday part is its own quest now (`main_crackLogs`, "The Access Log")
 
 **Phase 11–12**
-- [ ] The Calendar (5.9), her milestone into stage 3: [the_calendar.twee](dev/quests/mom/stage1/the_calendar.twee)
+- [x] The Calendar (5.9), her milestone into stage 3: [the_calendar.twee](dev/quests/mom/stage1/the_calendar.twee)
 - [x] Two Towns Over (6.6b): [two_towns_over.twee](dev/quests/sister/stage1/two_towns_over.twee)
 - [x] The Friend (6.6c): [the_friend.twee](dev/quests/sister/stage1/the_friend.twee)
-- [ ] The Introduction (4.11), the second family option: [retail_introduction.twee](dev/quests/main/stage1/retail_introduction.twee)
-- [ ] The Rooftop (6.7, optional): [the_rooftop.twee](dev/quests/sister/stage1/the_rooftop.twee)
+- [x] The Introduction (4.11), the second family option: [retail_introduction.twee](dev/quests/main/stage1/retail_introduction.twee)
+- [x] The Rooftop (6.7, optional): [the_rooftop.twee](dev/quests/sister/stage1/the_rooftop.twee)
 - [x] The Retail Pitch (4.11): [retail_pitch.twee](dev/quests/main/stage1/retail_pitch.twee) (two passages, the second one at home that night)
 
 **Phase 13**
@@ -100,9 +100,9 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 - [ ] After Hours (5.10, optional, needs the Boss line): [after_hours.twee](dev/quests/mom/stage1/after_hours.twee)
 
 **Phase 14–15**
-- [ ] The Supplier (4.12), the last family option: [the_supplier.twee](dev/quests/main/stage1/the_supplier.twee)
-- [ ] Rehearsal (6.8c, optional): [rehearsal.twee](dev/quests/sister/stage1/rehearsal.twee)
-- [ ] The Night Shift (4.12): [night_shift.twee](dev/quests/main/stage1/night_shift.twee), [last_night_mom.twee](dev/quests/mom/stage1/last_night_mom.twee), [last_night_sister.twee](dev/quests/sister/stage1/last_night_sister.twee), [night_shift_2.twee](dev/quests/main/stage1/night_shift_2.twee)
+- [x] The Supplier (4.12), the last family option: [the_supplier.twee](dev/quests/main/stage1/the_supplier.twee)
+- [x] Rehearsal (6.8c, optional): [rehearsal.twee](dev/quests/sister/stage1/rehearsal.twee)
+- [x] The Night Shift (4.12): [night_shift.twee](dev/quests/main/stage1/night_shift.twee), [last_night_mom.twee](dev/quests/mom/stage1/last_night_mom.twee), [last_night_sister.twee](dev/quests/sister/stage1/last_night_sister.twee), [night_shift_2.twee](dev/quests/main/stage1/night_shift_2.twee)
 - [ ] The Morning After (4.13): [morning_after.twee](dev/quests/main/stage1/morning_after.twee)
 
 **Next to the scenes**

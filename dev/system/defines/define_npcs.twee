@@ -187,6 +187,7 @@
     /* STAGE1-STUB: set by the Stage 1 quests and their stub scenes (Define Quests). null = not decided yet.
        morningRoutine is read by Activity Sleep (Morning Routine), freeUse by the Whenever card */
     gymDinner: null,        /* The Gym Dinner: true = I sent her (mom_gymDinner plays), false = I went myself */
+    gymDinnerLetHim: null,  /* The Gym Dinner, if I sent her: true = I told her to let him, false = keep it light */
     offeredToBoss: false,   /* The Arrangement of the boss line: true = After Hours plays. Start it at null once that line exists */
     calendarChoice: null,   /* The Calendar: "truth" or "anchor" */
     silence: false,         /* true during The Silence (Not Enough to the end of that week), see The Silence below */

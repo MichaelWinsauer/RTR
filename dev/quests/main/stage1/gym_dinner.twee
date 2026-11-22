@@ -1,11 +1,155 @@
 :: Gym Dinner [event main_quest] {"position":"4575,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Gym Dinner" (main_gymDinner), STAGE1_PROPOSAL.md 4.5b.
-   The first family option. Going myself costs 20% of the contract. Sending her plays mom_gymDinner that night.
-   STAGE1-STUB: the offer should also check her corruption and exhibition (proposal 3.1). */
-<<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Gym Dinner, STAGE1_PROPOSAL.md 4.5b).
+/* Quest "The Gym Dinner" (main_gymDinner), STAGE1_PROPOSAL.md 4.5b. The first family option, built with <<Offer>> (Family
+   offers in Define Quests). $gymOwner.name wants his dinner before he signs. Nobody asks for $mom.callName; it's my idea.
+     plain    I go myself: a stiff steak, he haggles, the contract loses 20% (5% more for every stall)
+     family   $mom.callName goes "as the consultant", level 2 (Entertain); locked until her line has reached mom_gymDinner.
+              Before she leaves I tell her how far to let it go: $mom.flags.gymDinnerLetHim. Her report that night is
+              Was That Right? (mom_gymDinner)
+     stall    ask him to move the dinner: it comes back in a few days, and the discount he expects grows
+   Sets $mom.flags.gymDinner (false: I went, true: she went). The quest's set unlocks project_gym_veil. */
+<<silent>>
+	<<SetBackground $locations[14].img>>
+	<<set _gdStalls to setup.offerStalls("main_gymDinner")>>
+	<<set _gdDiscount to 20 + 5 * _gdStalls>>
+	<<set _gdLock to (setup.questReached("mom_gymDinner") ? "" : "She isn't there yet")>>
+<</silent>>
+<<if _gdStalls == 0>>
+The email from $gymOwner.name's assistant has three exclamation marks in the subject line and a reservation already in it: tonight, eight o'clock, a steakhouse downtown with a name that's just a surname and an ampersand. Underneath, $gymOwner.name has added one line himself.
 
-<span id="stub-choice">
-<<link "Go to the dinner myself">><<set $mom.flags.gymDinner to false>><<run setup.getProjectById("project_gym_veil").reward = Math.round(setup.getProjectById("project_gym_veil").reward * 0.8)>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>>
-<<if setup.questReached("mom_gymDinner")>><<link `"Send " + $mom.callName`>><<set $mom.flags.gymDinner to true>><<replace "#stub-choice">><<NextQuest $player>><<ReturnFromEvent>><</replace>><</link>><<else>>Send $mom.callName (locked: her quest line has not reached this point yet)<</if>>
-</span>
+<i>Looking forward to meeting the team properly. Let's talk numbers like humans. R.</i>
+
+I read it twice. The team. He doesn't mean $ethan.name and a pizza box. He means whoever sits across that table from him tonight and decides how much of the contract survives dessert.
+<<else>>
+$gymOwner.name's assistant has rebooked the steakhouse. Again. The new email is shorter than the last one, and the subject line has lost its exclamation marks. Underneath, $gymOwner.name has written: <i>Third time's the charm? I'm starting to think you don't like steak. R.</i>
+
+$darius.name stopped by my desk this morning to tell me, very politely, that his friend has started talking about "flexibility on the price" again, and that he means it as a number.
+<</if>>
+
+/* MEDIA: images/events/gym_dinner/email.jpg | A laptop screen with a restaurant reservation in an email, the office behind it */
+
+I look across the office. $mom.callName is at her desk on the phone with a client, laughing at something, the low little laugh she learned at this desk a few weeks ago. $gymOwner.name liked that laugh. He thanked her for the coffee on his way out and looked back at her desk twice. He never asked about her. He doesn't have to.
+
+<<Offer>>
+<<plain "I'll take him to dinner myself" `"a stiff evening and " + _gdDiscount + "% off the contract"`>>
+<<silently>>
+<<set $mom.flags.gymDinner to false>>
+<<run setup.getProjectById("project_gym_veil").reward = Math.round(setup.getProjectById("project_gym_veil").reward * (1 - _gdDiscount / 100))>>
+<</silently>>
+I write back that I'll be there, and I am, at five to eight, in my only good jacket.
+
+It's a long dinner. $gymOwner.name orders for both of us without asking, a bone-in rib-eye the size of a hubcap, and spends the first hour talking about his morning routine, which starts at four-thirty and involves an ice bath. I nod a lot. When the dessert menus come, he leans back and gets down to it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Here's the thing, $player.name. I love the product. I do. But you're a young company, and eleven locations is a lot of trust for a young company." },
+{ who: $player, text: "It's a pilot price already." },
+{ who: $gymOwner, text: "And I appreciate that. I'm thinking a little lower. Call it a partnership discount. You get a big name on your client list, I get to sleep at night." },
+{ text: "He names a number. It's exactly as much lower as I thought it would be, and he smiles at me while he says it, like a man who has done this at a hundred tables and won at ninety of them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take it. It's a fair price for being nineteen and alone at the table. He shakes my hand in the parking lot, slaps my shoulder twice, and tells me I've got guts, which is what people say when they've beaten you and want you to feel fine about it.
+
+On the drive home I do the math on what I gave away. Then I do the math on what it would have cost me to send someone else. I'm not sure yet which number I like less.
+
+<<UpdateStat "+" "Reputation" 2>>
+<<NextQuest $player>>
+<<AdvanceTimeTo 5>>
+<<ReturnFromEvent "Go home" "Bedroom">>
+
+<<family $mom 2 `"Send " + $mom.callName` "the full contract" _gdLock>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$mom.callName. Got a minute?" },
+{ text: "She finishes her call, writes something on a sticky note and comes over with her tablet, the way she always does, ready to write down whatever's wrong." },
+{ who: $player, text: "$gymOwner.name wants a dinner before he signs. Tonight. Somebody has to sit across from him, keep him happy and keep the price where it is." },
+{ who: $mom, text: "Oh. Well, you'll be wonderful, honey. Wear the blue shirt, he'll..." },
+{ who: $player, text: "Not me. You." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lowers the tablet very slowly.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Me? To dinner? With him?" },
+{ who: $player, text: "You're my client consultant. You know the accounts better than I do. You know the numbers. And he liked you." },
+{ who: $mom, text: "He liked the coffee, sweetie." },
+{ who: $player, text: "He liked you." },
+{ text: "She opens her mouth to argue and doesn't, because she was there, and she saw him look back at her desk twice too." },
+{ who: $mom, text: "What do I even wear to a dinner like that? I haven't been to a steakhouse since your $dad.relation's fortieth." },
+{ who: $player, text: "The green dress." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes pink so fast it's almost funny. The green dress has only been worn twice in twenty years, and the second time was on her knees on this carpet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Okay. Okay. I can do a dinner. I've done a hundred client dinners. This is just one more client dinner." },
+{ who: $mom, text: "But honey... what if he, you know. Gets friendly. Men at dinners get friendly after the second glass." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's asking me how far. She wants me to be the one who decides.
+
+<div id="gd-choice">
+<div><<link "Let him">><<replace "#gd-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Then let him. Within reason. A hand on your knee won't kill you, and it'll keep the price where it is." },
+{ text: "She doesn't say anything for a moment. She looks at her tablet, at the calendar on it, at tonight." },
+{ who: $mom, text: "Within reason." },
+{ who: $player, text: "You'll know." },
+{ who: $mom, text: "I'll know. Okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes back to her desk and sits there for a while, perfectly still, and then picks up the phone and calls the restaurant to ask whether they have a dress code, although she already knows they don't.
+
+<<set $mom.flags.gymDinnerLetHim to true>>
+<<UpdateStat "+" "MomResistance" 3>>
+<<UpdateStat "+" "MomCorruption" 3>>
+<<UpdateStat "+" "MomExhibition" 2>>
+<<Feel $mom "player" -1>>
+<<set $mom.flags.gymDinner to true>>
+<<UpdateStat "+" "Corruption" 2>>
+<<ProfileLog $mom "The Gym Dinner" "$gymOwner.name wanted a dinner before he signed, and I sent her, in the green dress, as my client consultant. Before she left she asked me what to do if he got friendly. I told her to let him, within reason.">>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</replace>><</link>></div>
+<div><<link "Keep it light">><<replace "#gd-choice">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Keep it light. Laugh at his stories, let him talk about his ice baths. If his hand wanders, move it back and smile. He'll sign anyway." },
+{ who: $mom, text: "I can do that. I've been doing that since I was twenty-two." },
+{ text: "The relief comes off her like heat from a radiator. She actually laughs." },
+{ who: $mom, text: "Ice baths?" },
+{ who: $player, text: "You'll hear about them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She spends the rest of the afternoon working a little faster than usual and humming, and at five she leaves early to go home and change.
+
+<<set $mom.flags.gymDinnerLetHim to false>>
+<<UpdateStat "+" "MomCorruption" 2>>
+<<UpdateStat "+" "MomExhibition" 1>>
+<<set $mom.flags.gymDinner to true>>
+<<UpdateStat "+" "Corruption" 1>>
+<<ProfileLog $mom "The Gym Dinner" "$gymOwner.name wanted a dinner before he signed, and I sent her, in the green dress, as my client consultant. I told her to keep it light. She laughed when I warned her about the ice baths.">>
+<<NextQuest $player>>
+<<ReturnFromEvent>>
+<</replace>><</link>></div>
+</div>
+
+<<stall "Ask him to move the dinner" "main_gymDinner" "he'll expect a bigger discount">>
+I write back that something's come up tonight, with apologies, and could we find another evening this week. The answer comes in eleven minutes and is two words long: <i>Sure thing.</i> No exclamation marks.
+
+<<ReturnFromEvent>>
+<</Offer>>

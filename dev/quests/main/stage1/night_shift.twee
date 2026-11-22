@@ -1,7 +1,33 @@
 :: Night Shift [event main_quest] {"position":"6075,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Night Shift" (main_nightShift), STAGE1_PROPOSAL.md 4.12.
-   Part 1: the start of the night. If they go, it runs through Last Night Mom and Last Night Sister, else straight to Night Shift 2. */
+/* Quest "The Night Shift" (main_nightShift), STAGE1_PROPOSAL.md 4.12, part 1 of 2 (or of 4, if they go). The supplier deal
+   and, though I don't know it yet, the night of the heist. The office in the evening, $ethan.name still at his desk.
+   If I offered them ($flags.supplierOffered), the night runs through Last Night Mom (5.11) and Last Night Sister (6.9),
+   which advance those lines, and then Night Shift 2. If I paid, it goes straight to Night Shift 2. Mode: silence. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Night Shift, STAGE1_PROPOSAL.md 4.12).
+The office empties out at six like any other Thursday. $brian.name leaves with a box of parts under his arm. $darius.name says goodnight at exactly five past. $mom.callName and $sister.callName went home early, separately, an hour apart, each with an excuse the other didn't hear.
 
-<<if $flags.supplierOffered>>[[Continue|Last Night Mom]]<<else>>[[Continue|Night Shift 2]]<</if>>
+$ethan.name stays.
+
+He's at his desk with his headphones on and two monitors full of something that scrolls. When I walk past on my way out, he takes the headphones off.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Big night?" },
+{ who: $player, text: "A meeting. A supplier." },
+{ who: $ethan, text: "At night. Very mysterious. Very boss." },
+{ text: "He grins. It looks almost exactly like his usual grin. Behind him on the screen, the scrolling stops, and he minimizes the window without looking at it." },
+{ who: $ethan, text: "I'll lock up. Don't worry about the office. Go do your mysterious thing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell him thanks. I mean it. He's the only one I'd leave here alone tonight.
+
+<<if $flags.supplierOffered === true>>
+<div class="navigation-link"><<link "Drive home" "Last Night Mom">><<AdvanceTimeTo 5>><</link>></div>
+<<else>>
+In my bag there's an envelope with a bank receipt in it, and a number I've memorized, and the address of $club.name. Ten o'clock. Come alone.
+
+<div class="navigation-link"><<link "Drive downtown" "Night Shift 2">><<AdvanceTimeTo 5>><</link>></div>
+<</if>>
+

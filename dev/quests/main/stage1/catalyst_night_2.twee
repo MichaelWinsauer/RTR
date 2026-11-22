@@ -1,12 +1,124 @@
 :: Catalyst Night 2 [event main_quest] {"position":"5325,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Catalyst Night" (main_catalystNight), part 2 of 2, STAGE1_PROPOSAL.md 5.8 and 6.6, one event.
-   Home, later that night: $mom.callName, wanted. Her milestone into stage 2. Both lines move on by their wait quests. */
-<<silent>><<SetBackground $locations[1].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Catalyst Night, STAGE1_PROPOSAL.md 5.8 and 6.6, one event).
+/* Quest "The Catalyst Night" (main_catalystNight), part 2 of 2, STAGE1_PROPOSAL.md 5.8, one event with 6.6. Home, later that
+   night. $mom.callName is in the kitchen. In her, the Catalyst (her entry of the device list) finds the need to be wanted, not
+   lust. I tell her the truth in a way she can't refuse: she's been good for weeks, and she's wanted. If she went to the gym
+   dinner ($mom.flags.gymDinner), that's where I start. Their first full sex scene, in her bed. Afterwards she doesn't make a
+   rule this time, and that's what I notice. Her milestone into corruption stage 2 (Willing). Both lines move on by their
+   wait quests. */
+<<silent>><<SetBackground $locations[3].img>><</silent>>
+She's at the kitchen table with a cup of tea she's stopped drinking and the company calendar open on her tablet, color-coding next week. Her reading glasses are pushed up into her hair. She's in the big robe, the thick one, and her feet are bare on the cold tiles.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There you are. Your $sister.relation came in singing. Did something good happen at the office?" },
+{ who: $player, text: "Something good happened." },
+{ who: $mom, text: "Well, I'm glad. You both work too hard." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The Catalyst is in my jacket pocket. It still has half its charge. I sit down across from her at the table, and while she's telling me about the client who wants everything in triplicate, I reach into my pocket and press the button.
 
 <<UseQuestDevice $player "mom">>
 
-<<AdvanceCorruptionStage $mom>>
+<<linkreplace "Tell her">>
+In $sister.callName the Catalyst found love. In $mom.callName it finds something else, something older and quieter: the wish to be wanted, which is a different thing from being needed. She's been needed her whole life, by $dad.callName, by us, by her old boss, by this company. Wanted is different. Nobody has wanted her in a long time, and she knows exactly how long.
 
+<<if $mom.flags.gymDinner === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I keep thinking about the gym dinner." },
+{ text: "Her pen stops on the screen." },
+{ who: $player, text: "A man had his hand on your knee for an hour, and the whole time you were thinking about whether I'd approve." },
+{ who: $mom, text: "Honey..." },
+{ who: $player, text: "You were." },
+{ who: $mom, text: "I was. Yes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You've been so good. For weeks. The rounds, the mornings, everything I've asked for. You've been perfect." },
+{ text: "She puts the tablet down. Her hands find each other on the table." },
+{ who: $mom, text: "I've only been doing what you needed." },
+{ who: $player, text: "It's not about what I need. I want you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes completely still.
+
+I watch it land. I watch the Catalyst take a feeling that's been sitting at the bottom of her for twenty years and turn the volume up on it, slowly, until it's all she can hear. Her lips part. Her eyes fill. She looks at me the way she looked at the photo of $dad.callName walking across a party to find her in a kitchen.
+
+<<linkreplace "Wait">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You can't say that to me. You can't say things like that, honey, I'm your..." },
+{ who: $player, text: "You're the most beautiful woman I know, and I want you, and I'm tired of pretending I don't." },
+{ text: "She makes a sound that's half a laugh and half something else, and covers her mouth with her hand." },
+{ who: $mom, text: "Nobody's said that to me in... I don't even know. Years. Years and years." },
+{ who: $player, text: "I'm saying it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes her hand away from her mouth. She looks at the stairs, toward $sister.callName's room, where the shower has stopped. Then she looks back at me, and she stands up, and she holds out her hand.
+
+<<linkreplace "Take her hand">>
+/* MEDIA: images/characters/mom/events/catalyst_night/bed_0.mp4 | Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
+She leads me up the stairs and into her bedroom, past my own door, past $sister.callName's door with the light still on under it, and closes hers very quietly. She turns the lamp down to its lowest setting. Then she stands at the foot of the bed she shared with $dad.callName and unties the robe, twice-knotted, and lets it fall.
+
+She's never stood in front of me like this without being told to. She doesn't cover anything.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is this... do you really..." },
+{ who: $player, text: "Come here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lies back on her own bed and pulls me down with her, and for a moment she just holds my face in both hands and looks at me, as if she's memorizing something. Then she kisses me, and it isn't the kiss she puts on my forehead. It's the way a woman kisses someone she wants.
+
+/* MEDIA: images/characters/mom/events/catalyst_night/bed_1.mp4 | In her bed, her arms around his neck, her face turned toward him */
+
+It's slow. She's careful at first, the way she's careful with everything, and then she isn't. She holds on to my shoulders and says my name, again and again, and once she says that she's wanted this, that she didn't let herself know she wanted it, and she sounds surprised and relieved in the same breath.
+
+When she comes, she pulls me down against her and holds on with her whole body, shaking, and doesn't let go for a long time.
+
+<<linkreplace "Afterwards">>
+She lies against me with her head on my chest. The lamp is still on. Her hair is all over the pillow, and she's tracing slow circles on my stomach with one finger, the same way $sister.callName did a few hours ago on the office couch, though neither of them will ever know that.
+
+I wait for it. The rule. Only when it gets bad. Just this once. Only in my room. She always makes a rule afterwards, a little fence around what happened so she can live next to it.
+
+She doesn't make one.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Stay a little. Until I fall asleep." },
+{ who: $player, text: "I'll stay." },
+{ who: $mom, text: "Good." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That's all she says. She falls asleep holding my hand against her heart, and I lie there in the low light and listen to the house: the fridge, the old pipes, my $sister.relation turning over in bed on the other side of the wall.
+
+In my jacket on her floor, the Catalyst has gone dark. It didn't create anything tonight. It only turned up what was already there, in both of them, and there was more of it than I'd guessed.
+
+<<UpdateStat "+" "MomRelation" 4>>
+<<UpdateStat "-" "MomLust" 40>>
+<<UpdateStat "-" "MomResistance" 4>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $mom "player" 3 "lasting">>
+<<AdvanceCorruptionStage $mom "With the Catalyst on, I told her she's been good for weeks, and that I want her. She led me up to her own bed. Afterwards she didn't make a rule.">>
+<<ProfileLog $mom "The Catalyst Night" "I switched the Catalyst on at the kitchen table and told her I want her, not need her. Nobody had said that to her in years. She took my hand, led me past both our doors to her own bed, and let the robe fall. Afterwards she didn't make a rule. She asked me to stay until she fell asleep.">>
+<<ProfileMemory $mom "Wanted" "She said nobody had told her that in years and years. Then she stood up from the kitchen table and held out her hand.">>
 <<NextQuest $player>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

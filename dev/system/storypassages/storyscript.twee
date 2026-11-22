@@ -582,7 +582,9 @@ setup._setByPath = (root, path, value) => {
 /* ==== <<UpdateStat "+"|"−" key amount>> ================================== */
 /*
 ============================== Offer ==================================================
-<<Offer>> <<plain "label" "cost" [money]>> ... <<family $mom level "label" ["cost"]>> ... <<stall "label" "questId" ["note"]>> ... <</Offer>>
+<<Offer>> <<plain "label" "cost" [money]>> ... <<family $mom level "label" ["cost"] ["lock"]>> ... <<stall "label" "questId" ["note"]>> ... <</Offer>>
+A family card may name both of them ([$mom, $sister]): every one of them has to be ready. A non-empty "lock" text locks
+it with that reason whatever her stats say (her own story isn't there yet).
 A row of offer cards for a deal: the plain price, the family option, and stalling. Each card runs its own block
 when clicked and the row goes away. A family card is locked with the reason until she is ready for that level, a
 plain card with money is locked while the account can't cover it, a stall card is hidden once the deal has no
@@ -600,7 +602,7 @@ Macro.add('Offer', {
             let label = '';
             let cost = '';
             let lock = null;
-            let npc = null;
+            let npcs = [];
             let level = 0;
             let money = 0;
             let questId = null;
@@ -609,26 +611,32 @@ Macro.add('Offer', {
                 label = a[0]; cost = a[1] || ''; money = Number(a[2]) || 0;
                 if (money > 0 && !setup.canAfford(money)) { lock = "The account can't cover it"; }
             } else if (chunk.name === 'family') {
-                npc = setup.corruptionNpc(a[0]);
+                npcs = (Array.isArray(a[0]) ? a[0] : [a[0]]).map((w) => setup.corruptionNpc(w)).filter(Boolean);
                 level = Number(a[1]) || 0;
                 label = a[2]; cost = a[3] || '';
-                const ready = setup.offerReady(npc, level);
-                if (!ready.ok) { lock = ready.reason; }
+                if (a[4]) { lock = a[4]; }
+                npcs.forEach((n) => {
+                    const ready = setup.offerReady(n, level);
+                    if (!lock && !ready.ok) { lock = (npcs.length > 1 ? n.callName + ": " : '') + ready.reason; }
+                });
             } else if (chunk.name === 'stall') {
                 label = a[0]; questId = a[1]; cost = a[2] || '';
                 if (!setup.canStall(questId)) { return; }
             }
 
             const $card = jQuery('<button type="button" class="offer-card"></button>').addClass('offer-' + chunk.name);
-            if (npc) {
+            if (npcs.length) {
                 const lv = setup.offerLevels[Math.clamp(level, 0, setup.offerLevels.length - 1)];
                 const $who = jQuery('<span class="offer-who"></span>');
-                const $dot = jQuery('<span class="offer-dot"></span>').text(String(npc.callName || '?').charAt(0));
-                jQuery('<img alt="">')
-                    .attr('src', State.variables.path + 'images/characters/portraits/' + npc.sysName + '.jpg')
-                    .on('error', function () { jQuery(this).remove(); })
-                    .appendTo($dot);
-                $who.append($dot, jQuery('<span class="offer-level"></span>').text(lv.name));
+                npcs.forEach((npc) => {
+                    const $dot = jQuery('<span class="offer-dot"></span>').text(String(npc.callName || '?').charAt(0));
+                    jQuery('<img alt="">')
+                        .attr('src', State.variables.path + 'images/characters/portraits/' + npc.sysName + '.jpg')
+                        .on('error', function () { jQuery(this).remove(); })
+                        .appendTo($dot);
+                    $who.append($dot);
+                });
+                $who.append(jQuery('<span class="offer-level"></span>').text(lv.name));
                 $card.append($who);
             }
             $card.append(jQuery('<span class="offer-label"></span>').wiki(label));

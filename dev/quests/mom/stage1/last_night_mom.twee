@@ -1,8 +1,42 @@
 :: Last Night Mom [event mom_quest] {"position":"5025,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Last Night" (mom_lastNight), part of The Night Shift (main_nightShift), STAGE1_PROPOSAL.md 5.11.
-   Optional (offered to $supplier.callName). She wears what I picked and I tell her to look after $sister.callName. */
-<<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Last Night, STAGE1_PROPOSAL.md 5.11).
+/* Quest "The Last Night" (mom_lastNight), part of The Night Shift (main_nightShift), STAGE1_PROPOSAL.md 5.11. Optional: only if
+   I offered them to $supplier.callName. At home she wears what I picked for the night and tells me she's ready. I tell her to
+   look after $sister.callName, and I don't say why. Advances her line. */
+<<silent>><<SetBackground $locations[5].img>><</silent>>
+Her bedroom door is open. She's standing in front of the long mirror on the closet door in the dress I picked: black, simple, a hem that stops well above the knee and a neckline she adjusted twice before I came in and once while I watched. Her hair is up. She's wearing the earrings $dad.callName gave her for their tenth anniversary, and I don't think she knows she chose them.
 
+/* MEDIA: images/characters/mom/events/last_night/mirror.jpg | Mom in a short black dress in front of her closet mirror, hair up, earrings, looking at her own reflection */
+
+She sees me in the mirror and doesn't turn around.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is it right? You said black. I only have this one." },
+{ who: $player, text: "It's right." },
+{ who: $mom, text: "Okay." },
+{ text: "She smooths the dress over her hips with both hands, slowly, as if she's ironing it on her body." },
+{ who: $mom, text: "I'm ready, honey. Whatever tonight is. I'm ready." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She doesn't ask what tonight is. She asked once, in the kitchen, and I said a client, an important one, and that she'd understand when we got there. She nodded and didn't ask again. Since the calendar she doesn't ask.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "One more thing. Tonight, look after $sister.callName." },
+{ text: "She turns around for the first time." },
+{ who: $mom, text: "$sister.callName? Why would I need to..." },
+{ who: $player, text: "Just look after her." },
+{ text: "She looks at me for a long moment. Then she nods, slowly, the way she nods when she's decided not to ask a question because she might not like the answer." },
+{ who: $mom, text: "Always. You know that. Always." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She picks up her purse and her coat, checks her lipstick in the mirror one more time, and walks past me down the stairs to the car, very straight, in heels she hasn't worn since her old job.
+
+<<UpdateStat "+" "MomCorruption" 3>>
+<<UpdateStat "+" "MomExhibition" 3>>
 <<NextQuest $mom>>
-[[Continue|Last Night Sister]]
+<div class="navigation-link"><<link "Go down to the car" "Last Night Sister">><</link>></div>
