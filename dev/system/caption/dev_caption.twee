@@ -94,6 +94,21 @@
 <</link>>
 </div>
 
+<div class="sb-dev-group"><span class="sb-dev-h">Company</span>
+/* fills every requirement of the active projects and lets setup.checkProjects finish them the normal way (reward,
+   onComplete, notifications) */
+<<link "Complete Projects">>
+	<<run $company.projects.forEach((p) => {
+		if (!p || p.active !== true) { return; }
+		Object.keys(p.requirements || {}).forEach((cat) => {
+			if ((Number(p.requirements[cat]) || 0) > 0) { p.progress[cat] = p.requirements[cat]; }
+		});
+	})>>
+	<<run setup.checkProjects()>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
 <div class="sb-dev-group"><span class="sb-dev-h">$mom.callName</span>
 <<link "+5 $mom.callName Relation">>
 	<<set $mom.stats.relation += 5>>
