@@ -165,6 +165,7 @@
   /* ——— assignment ——— */
   function assign(project, sysName) {
     if (isAssigned(project, sysName)) return;
+    if (!setup.projectAllows(project, sysName)) return;
     const emp = roster().find(e => e.sysName === sysName);
     if (!emp) return;
     project.assigned.push(emp);
@@ -248,7 +249,11 @@
 
     const employees = roster();
     const assigned  = project.assigned.map(e => employees.find(x => x.sysName === e.sysName) || e);
-    const available = employees.filter(e => !isAssigned(project, e.sysName));
+    /* a project with a staff list (Define Projects) only offers those people */
+    const available = employees.filter(e => !isAssigned(project, e.sysName) && setup.projectAllows(project, e.sysName));
+    const staffOnly = Array.isArray(project.staff) && project.staff.length
+      ? project.staff.map(k => (State.variables[k] && (State.variables[k].callName || State.variables[k].name)) || k).join(', ')
+      : '';
 
     const facts = [
       ['Client', client ? `<span class="prj-client"><span class="prj-avatar xs">${portrait(client.sysName)}</span>${client.name} ${client.surname || ''}</span>` : 'In-house'],
@@ -258,6 +263,7 @@
       ['On completion', project.reward ? rewardText : (project.outcome || '—')],
       project.reward ? ['If late', `&minus;${penalty}% per day <small class="prj-fact-sub">(min. ${floor}%)</small>`] : null,
       ['Team', assigned.length ? `${assigned.length} ${assigned.length === 1 ? 'person' : 'people'}` : 'Nobody yet'],
+      staffOnly ? ['Who can work on it', `Only ${staffOnly}`] : null,
     ].filter(Boolean).map(([k, val]) => `<div class="prj-fact"><span>${k}</span><b>${val}</b></div>`).join('');
 
     /* project.task is the id of the task the project unlocks (Define Tasks) */

@@ -86,7 +86,7 @@ I close her door very quietly. In my own room, my phone is still lying face up o
 <<UpdateStat "-" "SisterLust" 25>>
 <<UpdateStat "-" "SisterResistance" 3>>
 <<UpdateStat "+" "Corruption" 2>>
-<<set $sister.stats.exhibition to Math.clamp($sister.stats.exhibition + 4, $sister.stats.min.exhibition, $sister.stats.max.exhibition)>>
+<<UpdateStat "+" "SisterExhibition" 4>>
 <<Feel $sister "player" 2 "lasting">>
 <<ProfileLog $sister "Send Me Something" "I told her I didn't want to be touched, I wanted to see her. That night she sent me two videos from her room, each with a string of apologies before it, the second one braver than the first. Then I walked in on her, and finished what she couldn't finish alone. She fell asleep holding on to my shirt.">>
 <<ProfileMemory $sister "It's for you" "Before the second video she wrote that it was for me, only me. At the end of it she whispered my name. Afterwards, half asleep, she told me she didn't know it could feel safe.">>

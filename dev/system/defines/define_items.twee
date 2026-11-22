@@ -16,7 +16,7 @@
    setup.addItem(id [, n])      gives him n (default 1)
    setup.removeItem(id [, n])   takes n (default 1) away. false, and nothing changes, when he has fewer
    setup.funds()                the money he can spend: his wallet in Stage 0, the company account later
-   setup.spend(amount)          takes the money from there
+   setup.spend(amount)          takes the money from there (defined in Define Company, "Money for deals")
    setup.buyItem(id)            pays the price and adds one. false when he can not afford it or has enough */
 <<set setup.items to {
     camera: {
@@ -65,15 +65,10 @@
     return v.company.stage === 0 ? v.player.money : v.company.finances.money;
 }>>
 
-<<set setup.spend = (amount) => {
-    const v = State.variables;
-    if (v.company.stage === 0) { v.player.money -= amount; } else { v.company.finances.money -= amount; }
-}>>
-
 <<set setup.buyItem = (id) => {
     const item = setup.items[id];
     if (!item || setup.funds() < item.price || setup.itemLeft(id) <= 0) { return false; }
-    setup.spend(item.price);
+    setup.spend(item.price, item.name, true);
     setup.addItem(id);
     return true;
 }>>

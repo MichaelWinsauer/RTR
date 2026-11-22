@@ -29,6 +29,8 @@
    client           copy of the client NPC (read the live one through State.variables[client.sysName]).
                     Leave it out for an in-house project
    location         copy of the location it happens at
+   staff            optional list of the sysNames who may work on it (["brian"]): the project window only offers
+                    them, and nobody else's work counts. Without it everyone may (setup.projectAllows)
 
    Set while playing: active, startedAtDay, due, completed (the last run is finished), completedAtDay,
    timesCompleted, assigned (employee copies), progress. */
@@ -224,6 +226,7 @@
         description: "Something small that plants one idea and keeps it planted. $brian.name builds it, and nobody else needs to know it exists.",
         type: "story",
         unlocked: false, /* unlocked by the set of the quest main_anchor. mom_calendar waits for it */
+        staff: [ "brian" ], /* only he works on it, and he never asks what it is for */
         duration: 14,
         active: false,
         task: null,
@@ -231,7 +234,9 @@
         revenue: 0,
         reward: 0,
         outcome: "One idea that stays put",
-        onComplete: [],
+        onComplete: [
+            () => State.variables.company.devices.valenxAnchor.owned = true,
+        ],
         completed: false,
         timesCompleted: 0,
         assigned: [],
@@ -239,7 +244,7 @@
         	software: 0, hardware: 0, analysis: 0, testing: 0, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
 		},
         requirements: {
-        	software: 80, hardware: 180, analysis: 0, testing: 60, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
+        	software: 20, hardware: 180, analysis: 0, testing: 20, consulting: 0, management: 0, hr: 0, sales: 0, marketing: 0,
 		},
         location: $locations[13],
     },
@@ -318,6 +323,12 @@
     const project = State.variables.company.projects.find((p) => p.id === id);
     if (!project) { console.error('setup.getProjectById: there is no project with the id "' + id + '"'); }
     return project;
+}>>
+
+/* setup.projectAllows(project, sysName)   may this employee work on the project? (its staff list, or anyone) */
+<<set setup.projectAllows = (project, sysName) => {
+    const staff = project && Array.isArray(project.staff) ? project.staff : null;
+    return !staff || staff.includes(sysName);
 }>>
 
 <<set setup.projectDone = (id) => {

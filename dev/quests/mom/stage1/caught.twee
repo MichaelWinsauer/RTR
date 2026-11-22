@@ -124,7 +124,7 @@ Afterwards she sits very still with her hand in her lap. Then she pulls her skir
 
 When she walks past $brian.name's desk on the way to the bathroom, he sits up very straight and stares at his monitor and doesn't breathe until she's gone. I don't think he knows why. He's going to spend the next month not knowing why.
 
-<<set $mom.stats.exhibition to Math.clamp($mom.stats.exhibition + 3, $mom.stats.min.exhibition, $mom.stats.max.exhibition)>>
+<<UpdateStat "+" "MomExhibition" 3>>
 <<UpdateStat "-" "MomLust" 30>>
 <<UpdateStat "+" "MomCorruption" 4>>
 <<UpdateStat "-" "MomResistance" 2>>

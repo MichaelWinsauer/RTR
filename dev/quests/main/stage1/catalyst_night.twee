@@ -4,6 +4,8 @@
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Catalyst Night, STAGE1_PROPOSAL.md 5.8 and 6.6, one event).
 
+<<UseQuestDevice $player "sister">>
+
 <<AdvanceCorruptionStage $sister>>
 
 [[Continue|Catalyst Night 2]]

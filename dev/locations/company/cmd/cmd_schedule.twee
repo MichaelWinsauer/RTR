@@ -272,7 +272,8 @@ setup.renderScheduler = function () {
 };
 
 /* ====================== Task picker ======================================================
-   Clicking a free cell opens a compact list of her unlocked tasks for that action.
+   Clicking a free cell opens a large dialog with her unlocked tasks for that action, one column per person
+   she does them with.
    window.getTaskPlacementIssue(task, startRow, character)   null if it fits there, otherwise the reason
    window.canPlaceTask(task, startRow, character)            true if it fits
    window.displayTaskSelectionDialog(character, startRow)    the dialog
@@ -334,16 +335,31 @@ window.canPlaceTask = function (task, startRow, character) {
     return window.getTaskPlacementIssue(task, startRow, character) === null;
 };
 
+/* The picker fills most of the screen with one column per person the task is for (task.npc: me, the landlord,
+   the manager, ...). I come first, the others follow in the order their tasks are defined. A column only
+   exists if she has at least one unlocked task with that person. In each column the tasks that fit come
+   first, sorted by place, then the ones that don't, dimmed, below "Not possible here". */
 window.displayTaskSelectionDialog = function (character, selectedStart) {
     const v = State.variables;
     const npc = v[character.sysName];
     const tasks = v.tasks
         .filter(task => task.active && task.who.sysName === character.sysName)
         .map(task => ({ task: task, issue: window.getTaskPlacementIssue(task, selectedStart, character) }));
-    /* the ones that fit, grouped by where they happen */
     const placeOf = t => wikifyText(v.locations[t.task.location.id].name);
-    const fits = tasks.filter(t => !t.issue).sort((a, b) => placeOf(a).localeCompare(placeOf(b)));
-    const blocked = tasks.filter(t => t.issue);
+
+    /* one group per task.npc.sysName, in the order of $tasks, me first (Array.sort is stable) */
+    const groups = [];
+    tasks.forEach(t => {
+        const key = (t.task.npc && t.task.npc.sysName) || "none";
+        let group = groups.find(g => g.key === key);
+        if (!group) {
+            group = { key: key, fits: [], blocked: [] };
+            groups.push(group);
+        }
+        (t.issue ? group.blocked : group.fits).push(t);
+    });
+    groups.sort((a, b) => (a.key === "player" ? 0 : 1) - (b.key === "player" ? 0 : 1));
+    groups.forEach(g => g.fits.sort((a, b) => placeOf(a).localeCompare(placeOf(b))));
 
     Dialog.setup("Plan a task for " + npc.callName, "task-picker");
 
@@ -363,31 +379,54 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
             </div>
         </div>`;
 
-    const list = document.createElement("div");
-    list.className = "tp-list";
-    fits.forEach(t => list.appendChild(window.displaySingleTask(t.task, selectedStart, null)));
-    if (blocked.length) {
-        const divider = document.createElement("div");
-        divider.className = "tp-divider";
-        divider.textContent = "Not possible here";
-        list.appendChild(divider);
-        blocked.forEach(t => list.appendChild(window.displaySingleTask(t.task, selectedStart, t.issue)));
-    }
+    const board = document.createElement("div");
+    board.className = "tp-board";
+    board.style.setProperty("--tp-cols", Math.max(groups.length, 1));
+
+    groups.forEach(group => {
+        const person = group.key !== "none" ? v[group.key] : null;
+        const name = person ? (person.callName || person.name) : "Alone";
+        const count = group.fits.length;
+
+        const col = document.createElement("section");
+        col.className = "tp-col" + (count ? "" : " tp-col-blocked");
+        col.innerHTML = `
+            <div class="tp-col-head">
+                ${person ? `<img class="tp-col-avatar" src="${v.path}images/characters/portraits/${group.key}.jpg" alt="" onerror="this.style.display='none'">` : ""}
+                <span class="tp-col-name">${name}</span>
+                ${group.key === "player" ? `<span class="tp-badge">me</span>` : ""}
+                <span class="tp-col-count">${count ? count + " possible" : "none here"}</span>
+            </div>`;
+
+        const list = document.createElement("div");
+        list.className = "tp-list";
+        group.fits.forEach(t => list.appendChild(window.displaySingleTask(t.task, selectedStart, null)));
+        if (group.blocked.length) {
+            const divider = document.createElement("div");
+            divider.className = "tp-divider";
+            divider.textContent = "Not possible here";
+            list.appendChild(divider);
+            group.blocked.forEach(t => list.appendChild(window.displaySingleTask(t.task, selectedStart, t.issue)));
+        }
+        col.appendChild(list);
+        board.appendChild(col);
+    });
+
     if (!tasks.length) {
         const empty = document.createElement("div");
         empty.className = "tp-empty";
         empty.textContent = npc.callName + " has no tasks unlocked yet.";
-        list.appendChild(empty);
+        board.appendChild(empty);
     }
-    wrap.appendChild(list);
+    wrap.appendChild(board);
 
     Dialog.append(wrap);
     Dialog.open();
 };
 
-/* One row of the picker: picture of the place with the portrait of who she does it with; title and badges,
-   the place on its own line, then the description (or why it can't go here); on the right the pay, the
-   length and the energy it costs. issue = why it can't go here, or null */
+/* One row of the picker: picture of the place; title and badges, the place on its own line, then the
+   description (or why it can't go here); on the right the pay, the length and the energy it costs.
+   Who she does it with is the column, so the row doesn't repeat it. issue = why it can't go here, or null */
 window.displaySingleTask = function (task, selectedStart, issue) {
     const v = State.variables;
     const live = setup.getLiveTask(task);
@@ -414,9 +453,7 @@ window.displaySingleTask = function (task, selectedStart, issue) {
     if (lowEnergy && !issue) badges.push(`<span class="tp-badge tp-badge-warn" title="She has less energy than it costs. It won't start until she has enough.">Low energy</span>`);
 
     row.innerHTML = `
-        <span class="tp-thumb" style="background-image: url('${v.path + task.location.img}')">
-            <img class="tp-npc" src="${v.path}images/characters/portraits/${task.npc.sysName}.jpg" alt="" onerror="this.remove()">
-        </span>
+        <span class="tp-thumb" style="background-image: url('${v.path + task.location.img}')"></span>
         <span class="tp-main">
             <span class="tp-line">
                 <span class="tp-name">${wikifyText(task.title)}</span>
@@ -497,10 +534,12 @@ window.updateCurrentTimeLine = function () {
 
 /* ====================== Task picker (displayTaskSelectionDialog) ====================== */
 /* frame like the task offer dialog: no SugarCube title bar, a round close button in the corner */
+/* it fills most of the screen: the columns need the width, the lists the height */
 #ui-dialog:has(#ui-dialog-body.task-picker) {
-  width: 46rem;
-  max-width: 94vw;
-  top: 8vh;
+  width: 92vw;
+  max-width: none;
+  max-height: none;
+  top: 5vh;
 }
 
 #ui-dialog:has(#ui-dialog-body.task-picker) #ui-dialog-titlebar {
@@ -537,8 +576,10 @@ window.updateCurrentTimeLine = function () {
 }
 
 #ui-dialog-body.task-picker {
-  height: auto !important;
-  max-height: 84vh;
+  box-sizing: border-box;
+  height: 88vh !important;
+  max-height: 88vh;
+  overflow: hidden;
   padding: 1.3rem 1.4rem 1.2rem;
   display: flex;
   flex-direction: column;
@@ -552,6 +593,7 @@ window.updateCurrentTimeLine = function () {
   display: flex;
   flex-direction: column;
   gap: .9rem;
+  flex: 1;
   min-height: 0;
   text-align: left;
 }
@@ -615,25 +657,87 @@ window.updateCurrentTimeLine = function () {
   opacity: .8;
 }
 
+/* the columns, one per person (--tp-cols). Each one scrolls on its own; with many people the board
+   scrolls sideways instead of squeezing the rows */
+.tp-board {
+  display: grid;
+  grid-template-columns: repeat(var(--tp-cols, 1), minmax(19rem, 1fr));
+  gap: .8rem;
+  flex: 1;
+  min-height: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(235, 221, 197, .3) transparent;
+}
+
+.tp-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #EBDDC506;
+  border: 1px solid #EBDDC51a;
+  border-radius: .9rem;
+  overflow: hidden;
+}
+
+.tp-col-head {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .7rem .85rem;
+  border-bottom: 1px solid #EBDDC51a;
+}
+
+.tp-col-avatar {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 2px solid #EBDDC5 !important;
+  border-radius: 50%;
+}
+
+.tp-col-name {
+  min-width: 0;
+  overflow: hidden;
+  font-size: .95rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tp-col-count {
+  margin-left: auto;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #1cd88d;
+}
+
+/* nothing of hers with this person fits here */
+.tp-col-blocked .tp-col-count { color: #EBDDC5; opacity: .4; }
+.tp-col-blocked .tp-col-avatar { filter: grayscale(1); opacity: .6; }
+
 .tp-list {
   display: flex;
   flex-direction: column;
   gap: .4rem;
+  flex: 1;
   min-height: 0;
-  max-height: 62vh;
-  margin-right: -.4rem;
-  padding-right: .4rem;
+  padding: .6rem;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(235, 221, 197, .3) transparent;
 }
 
-/* a row: [picture + who] [title, badges / place / description] [pay / actions / energy] */
+/* a row: [picture] [title, badges / place / description] [pay / actions / energy] */
 .tp-row {
   display: grid;
-  grid-template-columns: 5.2rem 1fr auto;
+  grid-template-columns: 4.6rem 1fr auto;
   align-items: center;
-  gap: .9rem;
+  gap: .75rem;
   box-sizing: border-box;
   width: 100%;
   margin: 0;
@@ -652,7 +756,6 @@ window.updateCurrentTimeLine = function () {
   background: #EBDDC51a;
   border-color: #EBDDC566;
   outline: none;
-  transform: translateX(2px);
 }
 
 .tp-row-blocked {
@@ -663,7 +766,6 @@ window.updateCurrentTimeLine = function () {
 .tp-row-blocked:hover {
   background: #EBDDC50a;
   border-color: #EBDDC51f;
-  transform: none;
 }
 
 .tp-row-blocked .tp-thumb { filter: grayscale(1); }
@@ -671,23 +773,11 @@ window.updateCurrentTimeLine = function () {
 .tp-thumb {
   position: relative;
   display: block;
-  width: 5.2rem;
-  height: 3.4rem;
+  width: 4.6rem;
+  height: 3.2rem;
   background-size: cover;
   background-position: center;
   border-radius: .45rem;
-}
-
-.tp-npc {
-  position: absolute;
-  right: -.35rem;
-  bottom: -.35rem;
-  width: 1.65rem;
-  height: 1.65rem;
-  object-fit: cover;
-  border: 2px solid #2a2a36 !important;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px #EBDDC5;
 }
 
 .tp-main {
@@ -733,12 +823,14 @@ window.updateCurrentTimeLine = function () {
 /* a little air between the place and the description */
 .tp-place + .tp-desc, .tp-place + .tp-issue { margin-top: .35rem; }
 
+/* the columns are narrow but tall, so the text wraps, up to three lines */
 .tp-desc, .tp-issue {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   font-size: .72rem;
   line-height: 1.35;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .tp-desc { opacity: .55; }
@@ -799,6 +891,8 @@ window.updateCurrentTimeLine = function () {
 }
 
 .tp-empty {
+  grid-column: 1 / -1;
+  align-self: center;
   padding: 1.2rem;
   font-size: .85rem;
   text-align: center;

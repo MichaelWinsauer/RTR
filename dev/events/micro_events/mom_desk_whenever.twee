@@ -1,0 +1,59 @@
+:: Mom Desk Blinds [micro_event event nobr] {"position":"1300,3275","size":"100,100"}
+/* Desk visitor (micro event 49, Whenever in Define Events): after The Calendar she offers before I ask. She's standing at
+   the meeting room door with a folder, and she lowers the blinds. Shown in the CMD drawer, so no action is spent and there
+   is no exit link: what happens in the meeting room is told here. */
+<p>She doesn't come all the way to my desk. She stops a few feet away, with the folder held against her chest like a shield she doesn't need anymore, and lowers her voice to the one she uses for client calls.</p>
+<<silently>>
+<<set _msgs to [
+	{ who: $mom, text: "I booked the meeting room. For ten minutes. It's in the calendar as 'quarterly review'." },
+	{ who: $player, text: "Is it quarterly?" },
+	{ who: $mom, text: "It is today." },
+	{ text: "She glances over her shoulder at the office. $ethan.name has his headphones on. $darius.name is on a call. Then she looks back at me, and waits, because she still always waits for me to say yes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<div id="mom-blinds-choice">
+	<div><<link "Follow her">><<replace "#mom-blinds-choice">>
+		<p>I give her a head start of a minute, for appearances. When I open the meeting room door, the blinds are down and she is already on her knees beside the table, with the folder on the chair next to her, open to a page of numbers in case anybody walks in.</p>
+		<p>Nobody walks in. Ten minutes later she walks out first, fixing her lipstick with one fingertip, and stops at $brian.name's desk to ask him if he's eaten. He says he has. She tells him he's a terrible liar.</p>
+		<<UpdateStat "+" "MomCorruption" 1>>
+		<<UpdateStat "-" "MomLust" 15>>
+		<<UpdateStat "+" "MomRelation" 1>>
+		<<set $mom.flags.whenever to ($mom.flags.whenever || 0) + 1>>
+	<</replace>><</link>></div>
+	<div><<link "Not now">><<replace "#mom-blinds-choice">>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $player, text: "Not now. Later." },
+			{ who: $mom, text: "Later. Of course, sweetie. I'll keep the calendar open." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>She goes back to her desk, and actually does leave a block open in the shared calendar, labeled 'Q4 follow-up', with no end time.</p>
+	<</replace>><</link>></div>
+</div>
+
+
+:: Mom Desk Note [micro_event event nobr] {"position":"1425,3275","size":"100,100"}
+/* Desk visitor (micro event 50, Whenever in Define Events): after The Calendar she leaves a sticky note on my keyboard on
+   her way past. Shown in the CMD drawer: no action, no exit link. */
+<p>The note is in her handwriting, the neat, round letters she uses for birthday cards. It says:</p>
+<div class="silence-note"><p>Supply closet. 5 min. Whatever you need. xx</p></div>
+<p>Underneath, smaller, as if she thought about it afterwards: <i>(I brought wipes.)</i></p>
+<div id="mom-note-choice">
+	<div><<link "Go to the supply closet">><<replace "#mom-note-choice">>
+		<p>The supply closet is the size of a phone booth, full of printer paper and the good pens $sister.callName keeps hiding. $mom.callName is already in there, in the dark, and she pulls me in by my tie and shuts the door with her foot.</p>
+		<p>It's quick and close and very quiet, with a shelf of toner cartridges digging into my back. Afterwards she does, in fact, have wipes. She also straightens my tie, and gives me a box of staples to carry out, so I'll have a reason for having been in there.</p>
+		<<UpdateStat "+" "MomCorruption" 1>>
+		<<UpdateStat "-" "MomLust" 15>>
+		<<UpdateStat "+" "MomExhibition" 1>>
+		<<set $mom.flags.whenever to ($mom.flags.whenever || 0) + 1>>
+	<</replace>><</link>></div>
+	<div><<link "Keep the note">><<replace "#mom-note-choice">>
+		<p>I fold the note in half and put it in my wallet, behind my driver's license. Across the office, $mom.callName sees me do it, and has to look down at her screen very quickly.</p>
+	<</replace>><</link>></div>
+</div>
+<style>
+.silence-note { margin: .8rem auto; padding: .9rem 1.2rem; max-width: 30rem; border: 1px solid #EBDDC533; border-radius: .6rem; background: rgba(235, 221, 197, .06); font-family: "Segoe Print", "Bradley Hand", cursive; font-size: .95em; line-height: 1.5; transform: rotate(-.6deg); }
+.silence-note p { margin: .35rem 0; }
+</style>

@@ -156,7 +156,7 @@ Then she opens her compact and checks her lipstick, which I have never seen her 
 <<UpdateStat "+" "MomCorruption" 3>>
 <<UpdateStat "+" "MomRelation" 1>>
 <<UpdateStat "+" "Corruption" 1>>
-<<set $mom.stats.exhibition to Math.clamp($mom.stats.exhibition + 2, $mom.stats.min.exhibition, $mom.stats.max.exhibition)>>
+<<UpdateStat "+" "MomExhibition" 2>>
 <<ProfileLog $mom "Flirt Duty" "I gave her a new job: one round a day through the office, making the staff feel like the most interesting men in the room. She said she hasn't flirted since college, so I made her practice on me until a $mom.relation stopped coming out. The last try was good. She was proud of it, and tried hard not to show it.">>
 <<NextQuest $mom>>
 <<run Notification.show("New task for " + $mom.callName + ": Flirt Duty", { type: Notification.INFORMATION })>>

@@ -167,7 +167,8 @@ setup.questLines.forEach(function (key) {
 		if (q.device) {
 			var d = setup.questDevice(q.device);
 			var devName = d.dev ? d.dev.name : sv.company.prototype.name;
-			if (!d.calOk) reason = devName + " isn't calibrated for " + setup.presetLabel(q.device.target);
+			if (!d.calOk) reason = devName + " isn't calibrated for " + setup.questDeviceTarget(q.device);
+			else if (!d.usesOk) reason = devName + " has no uses left";
 			else if (!d.chargeOk) reason = devName + " needs " + d.cost + "% charge (" + (d.dev ? d.dev.charge : 0) + "% now)";
 		}
 		chip.tone = "warn";

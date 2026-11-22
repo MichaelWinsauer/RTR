@@ -14,9 +14,10 @@
 	<dt>Tasks</dt><dd>Each finished <a href="#" data-help="Help Company Tasks">task</a> pays its amount straight away.</dd>
 	<dt>$mom.callName's help</dt><dd>In Stage 0, while she still has her old job and helps with the rent, $500 comes in once a week.</dd>
 	<dt>Wages</dt><dd>Every Monday morning the whole week of wages is paid out of the account at once.</dd>
+	<<if $company.debts.length>><dt>Debts</dt><dd>Money you borrowed is paid back in weekly installments, every Monday morning together with the wages: $<<= setup.debtsPerWeek()>> a week right now.</dd><</if>>
 	<dt>Rent</dt><dd>Taken when the landlord visits (below).</dd>
 </dl>
-<p>Rent and wages are the bills that are paid out of the account. The account can go below zero.</p>
+<p>Rent and wages are the bills that are paid out of the account, and some deals cost money too, which leaves the account the moment you agree to them. The account can go below zero, but a deal you can't afford stays locked.</p>
 
 <h3>The rent</h3>
 <p>Rent is due every <b>Monday</b>, and right now it is <b>$<<= $rent>></b> a week. You have two ways to pay it:</p>

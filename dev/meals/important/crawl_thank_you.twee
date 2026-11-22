@@ -21,7 +21,7 @@
    upstairs first, the new way, and now at breakfast she thanks me for letting her make it up, in front of $sister.callName,
    who thinks it's about whatever they fought about all week. The first time she says the word thank about it.
 */
-She brought my coffee up at seven. She knocked the old way, came in, set the mug on my nightstand and knelt down next to the bed without a word, still in her robe, and when she was done she pulled the blanket back up over me and said good morning, honey, as if that were the whole of what had happened.
+<<if $mom.flags.morningRoutines > 0>>She brought my coffee up at seven. She knocked the old way, came in, set the mug on my nightstand and knelt down next to the bed, still in her robe, and when she was done she pulled the blanket back up over me and said good morning, honey, as if that were the whole of what had happened.<<else>>This morning I didn't let her in. She left my coffee on the floor outside my door anyway, on a saucer, with a napkin folded over the top to keep it warm.<</if>>
 
 Now she's at the stove, dressed, making eggs, humming again.
 

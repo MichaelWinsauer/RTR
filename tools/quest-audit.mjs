@@ -305,10 +305,15 @@ for (const [L, { value }] of Object.entries(quests)) {
 
     // device use (Define Quests turns it into calibration + charge requirements, the scene spends it with <<UseQuestDevice>>)
     if (q.device && impactCost && devices.prototype) {
-      const d = q.device, dev = devices[d.key || 'prototype'];
-      if (!dev) report('ERROR', at, `${name}: device key "${d.key}" is not in $company.devices`);
-      else if (!(dev.calibrationPresets || []).includes(d.target)) report('ERROR', at, `${name}: device target "${d.target}" is not a calibration preset of ${d.key || 'the prototype'} (${(dev.calibrationPresets || []).join(', ')})`);
-      if (!(d.impact >= 1 && d.impact < impactCost.length)) report('ERROR', at, `${name}: device impact ${d.impact} is outside 1-${impactCost.length - 1}`);
+      // a device list (two targets, the Catalyst Night) is checked entry by entry; a device with anyTarget only
+      // needs a calibration, so its target only has to be somebody
+      for (const d of (Array.isArray(q.device) ? q.device : [q.device])) {
+        const dev = devices[d.key || 'prototype'];
+        if (!dev) report('ERROR', at, `${name}: device key "${d.key}" is not in $company.devices`);
+        else if (!dev.anyTarget && !(dev.calibrationPresets || []).includes(d.target)) report('ERROR', at, `${name}: device target "${d.target}" is not a calibration preset of ${d.key || 'the prototype'} (${(dev.calibrationPresets || []).join(', ')})`);
+        else if (dev.anyTarget && !d.target) report('ERROR', at, `${name}: device entry without a target`);
+        if (!(d.impact >= 1 && d.impact < impactCost.length)) report('ERROR', at, `${name}: device impact ${d.impact} is outside 1-${impactCost.length - 1}`);
+      }
       if (!q.passage || !passages.has(q.passage)) report('WARN', at, `${name}: has a device but no scene passage to spend the charge in`);
       else if (![...reach(q.passage)].some((n) => passages.get(n).lines.some(({ text }) => /<<UseQuestDevice\s/.test(text)))) report('WARN', at, `${name}: has a device, but "${q.passage}" and the passages it leads to never call <<UseQuestDevice>>, so no charge is spent`);
     }

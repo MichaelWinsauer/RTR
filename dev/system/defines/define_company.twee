@@ -160,6 +160,67 @@
    Quests set it with device: { target, impact } in "Define Quests". */
 <<set $company.impactCost to [0, 10, 15, 25, 35, 50, 60, 65, 75, 85, 100]>>
 
+/* Money for deals ===============================================================
+   What a deal costs actually leaves the company account (the broker fee, the price of the supplier, ...).
+   setup.canAfford(amount)            the company account can pay it (in Stage 0: the wallet, see setup.funds in
+                                      Define Items)
+   setup.spend(amount [, label] [, quiet])
+                                      takes it out of the account, counts it for today's finance chart
+                                      (finances.spentToday) and shows a notification "label: -$amount" (not with
+                                      quiet: the Shop shows its own)
+
+   Debts: the advance from the boss (the pay branch of The Supplier, STAGE1_PROPOSAL.md 4.12). No loan system,
+   just a list of weekly installments that the Monday morning pays together with the wages.
+   $company.debts = [ { id, label, perWeek, weeksLeft } ]
+   setup.addDebt(id, label, amount, perWeek, weeks)
+                                      puts amount into the account now and adds the installments. Returns the debt
+   setup.payDebts()                   Daily Update, Monday: one installment of every debt, finished ones are removed
+   setup.debtsPerWeek()               what all debts cost per week right now (for the CMD and the help page) */
+<<set $company.debts to []>>
+
+<<set setup.canAfford = (amount) => setup.funds() >= (Number(amount) || 0)>>
+
+<<set setup.spend = (amount, label, quiet) => {
+    const v = State.variables;
+    const n = Math.max(0, Number(amount) || 0);
+    if (n === 0) { return 0; }
+    if (v.company.stage === 0) { v.player.money -= n; }
+    else {
+        v.company.finances.money -= n;
+        v.company.finances.spentToday = (v.company.finances.spentToday || 0) + n;
+    }
+    if (!quiet) { Notification.show((label ? label + ": " : "") + "-$" + n.toLocaleString("en-US"), { type: Notification.NEGATIVE }); }
+    return n;
+}>>
+
+<<set setup.addDebt = (id, label, amount, perWeek, weeks) => {
+    const v = State.variables;
+    v.company.finances.money += Number(amount) || 0;
+    const debt = { id: id, label: label, perWeek: Number(perWeek) || 0, weeksLeft: Number(weeks) || 0 };
+    v.company.debts.push(debt);
+    Notification.show(label + ": +$" + (Number(amount) || 0).toLocaleString("en-US") + ", then $" + debt.perWeek.toLocaleString("en-US") + " every Monday for " + debt.weeksLeft + " weeks", { type: Notification.WARN });
+    return debt;
+}>>
+
+<<set setup.payDebts = () => {
+    const v = State.variables;
+    let total = 0;
+    v.company.debts.forEach((d) => {
+        if (d.weeksLeft <= 0) { return; }
+        total += d.perWeek;
+        d.weeksLeft -= 1;
+    });
+    v.company.debts = v.company.debts.filter((d) => d.weeksLeft > 0);
+    if (total > 0) {
+        v.company.finances.money -= total;
+        v.company.finances.spentToday = (v.company.finances.spentToday || 0) + total;
+        Notification.show("Debts paid: $" + total.toLocaleString("en-US") + " this week.", { type: Notification.NEGATIVE });
+    }
+    return total;
+}>>
+
+<<set setup.debtsPerWeek = () => State.variables.company.debts.reduce((sum, d) => sum + (d.weeksLeft > 0 ? d.perWeek : 0), 0)>>
+
 /* Wages =========================================================================
    Every employee (staff and family, $company.employees) earns wage per day and is paid for the whole week on
    Monday morning, from the company account (the Daily Update of a Monday calls it). The account may go below 0.
@@ -302,6 +363,7 @@
         description: "A device that amplifies a dormant desire or character trait. Cannot create new desires from nothing.",
     	charge: 100,
         maxCharge: 100,
+        anyTarget: true,  /* it turns up whatever is already there, so quests only need a good calibration, not a target */
         calibration: "mom",
         calibrationQuality: 0,
         calibratedAtDay: -1,
@@ -322,6 +384,40 @@
                     fill="none" stroke="#EBDDC5" stroke-width="4" opacity="0.55"/>
               <rect x="160" y="50" width="12" height="8" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"/>
               <rect x="160" y="65" width="12" height="8" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"/>
+            </svg>`,
+        owned: false,
+    },
+    /* The Anchor (STAGE1_PROPOSAL.md 3.2): plants one belief, nothing else. Built by the project project_company_anchor
+       (only the hardware engineer works on it), whose onComplete makes it owned. Two uses in all of Stage 1 (maxUses),
+       each takes the whole charge, and each leaves a spike in its log (spikes: { day, target, quest }) that the old
+       friend finds later. setup.useDevice (Define Quests) counts the uses and writes the spikes. */
+    valenxAnchor: {
+    	name: $company.prototype.name + " Anchor",
+        description: "A handheld that plants one idea and keeps it planted. Two uses, and each one empties it completely.",
+    	charge: 100,
+        maxCharge: 100,
+        calibration: "mom",
+        calibrationQuality: 0,
+        calibratedAtDay: -1,
+        calibrationPresets: [
+            "mom",
+            "sister",
+            "general",
+        ],
+        lastUsedAtDay: -1,
+        lastUsedOnWho: "",
+        maxUses: 2,
+        uses: 0,
+        spikes: [],
+        design: `<svg viewBox="0 0 200 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+              <rect x="60" y="20" width="80" height="200" rx="18" ry="18"
+                    fill="#EBDDC5" fill-opacity="0.06" stroke="#EBDDC5" stroke-width="6"></rect>
+              <circle cx="100" cy="70" r="24" fill="none" stroke="#EBDDC5" stroke-width="5" opacity="0.6"></circle>
+              <circle cx="100" cy="70" r="7" fill="#EBDDC5" opacity="0.5"></circle>
+              <rect x="82" y="120" width="36" height="6" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"></rect>
+              <rect x="82" y="134" width="36" height="6" rx="2" ry="2" fill="#EBDDC5" opacity="0.4"></rect>
+              <circle cx="88" cy="185" r="6" fill="#EBDDC5" opacity="0.4"></circle>
+              <circle cx="112" cy="185" r="6" fill="#EBDDC5" opacity="0.4"></circle>
             </svg>`,
         owned: false,
     },

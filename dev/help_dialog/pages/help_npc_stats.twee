@@ -1,9 +1,10 @@
 :: Help Npc Stats [nobr] {"position":"175,4750"}
-<p>Each person has four stats, shown under their name in the sidebar and in their profile.</p>
+<p>Each person has four main stats, shown under their name in the sidebar and in their profile, and a fifth one in the profile.</p>
 <dl class="help-stats">
 	<dt>Relation</dt><dd>How much they like and trust you. It grows through time together and through quests, and drops after bad moments, for example when you are caught spying. Many quests need a certain relation.</dd>
 	<dt>Corruption</dt><dd>How far they have been bent your way. It grows in scenes and quests, and later quests need enough of it. It comes in <b>stages</b>: the pill next to the name in the sidebar shows the stage. Once the bar is full it stops and turns amber, which means she is ready for the next stage, and more corruption is wasted until a key scene of the story moves her up. Then the bar starts again at 0. Everything she already agreed to stays unlocked.</dd>
 	<dt>Lust</dt><dd>It builds up day after day until it is relieved, and it opens certain scenes and random events.</dd>
+	<dt>Exhibition</dt><dd>How comfortable she is with being seen. It grows slowly, in scenes where other people are around or where she is watched. Some deals later in the story only become possible once she is comfortable enough.</dd>
 	<dt>Resistance</dt><dd>How much they push back. It rises when you use the prototype on them, and when your relation falls. It falls again over time and when you spend time with them. A high resistance blocks scenes, makes <a href="#" data-help="Help Prototype Minigame">calibrating</a> harder and makes it more likely that they notice what you are doing.</dd>
 </dl>
 <p>Watch these four. Almost every decision moves at least one of them.</p>

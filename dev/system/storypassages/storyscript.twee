@@ -565,6 +565,9 @@ setup.statDefs = {
   sistercorruption:{ path: 'sister.stats.corruption',label: 'SisterCorruption',goodIncrease: true,  min: 0, max: 100, text: "$sister.name's Corruption", capText: "$sister.callName is ready for more." },
   sisterresistance:{ path: 'sister.stats.resistance',label: 'SisterResistance',goodIncrease: false, min: 0, max: 100, text: "$sister.name's Resistance" },
   sisterlust:	  { path: 'sister.stats.lust',	   label: 'SisterLust',	goodIncrease: true,  min: 0, max: 100, text: "$sister.name's Lust" },
+  /* how comfortable she is being seen: the second gate of the family offers ("Family offers" in Define Quests) */
+  momexhibition:   { path: 'mom.stats.exhibition',    label: 'MomExhibition',    goodIncrease: true, min: 0, max: 100, text: "$mom.name's Exhibition" },
+  sisterexhibition:{ path: 'sister.stats.exhibition', label: 'SisterExhibition', goodIncrease: true, min: 0, max: 100, text: "$sister.name's Exhibition" },
 };
 
 /* Helpers to read/write v.* via string paths */
@@ -577,6 +580,80 @@ setup._setByPath = (root, path, value) => {
 };
 
 /* ==== <<UpdateStat "+"|"−" key amount>> ================================== */
+/*
+============================== Offer ==================================================
+<<Offer>> <<plain "label" "cost" [money]>> ... <<family $mom level "label" ["cost"]>> ... <<stall "label" "questId" ["note"]>> ... <</Offer>>
+A row of offer cards for a deal: the plain price, the family option, and stalling. Each card runs its own block
+when clicked and the row goes away. A family card is locked with the reason until she is ready for that level, a
+plain card with money is locked while the account can't cover it, a stall card is hidden once the deal has no
+stalls left. The data and the helpers are in "Family offers" (Define Quests).
+*/
+Macro.add('Offer', {
+    tags: ['plain', 'family', 'stall'],
+    handler() {
+        const $row = jQuery('<div class="offer-row"></div>');
+        const $out = jQuery('<div class="offer-outcome"></div>');
+        let decided = false;
+
+        this.payload.slice(1).forEach((chunk) => {
+            const a = chunk.args;
+            let label = '';
+            let cost = '';
+            let lock = null;
+            let npc = null;
+            let level = 0;
+            let money = 0;
+            let questId = null;
+
+            if (chunk.name === 'plain') {
+                label = a[0]; cost = a[1] || ''; money = Number(a[2]) || 0;
+                if (money > 0 && !setup.canAfford(money)) { lock = "The account can't cover it"; }
+            } else if (chunk.name === 'family') {
+                npc = setup.corruptionNpc(a[0]);
+                level = Number(a[1]) || 0;
+                label = a[2]; cost = a[3] || '';
+                const ready = setup.offerReady(npc, level);
+                if (!ready.ok) { lock = ready.reason; }
+            } else if (chunk.name === 'stall') {
+                label = a[0]; questId = a[1]; cost = a[2] || '';
+                if (!setup.canStall(questId)) { return; }
+            }
+
+            const $card = jQuery('<button type="button" class="offer-card"></button>').addClass('offer-' + chunk.name);
+            if (npc) {
+                const lv = setup.offerLevels[Math.clamp(level, 0, setup.offerLevels.length - 1)];
+                const $who = jQuery('<span class="offer-who"></span>');
+                const $dot = jQuery('<span class="offer-dot"></span>').text(String(npc.callName || '?').charAt(0));
+                jQuery('<img alt="">')
+                    .attr('src', State.variables.path + 'images/characters/portraits/' + npc.sysName + '.jpg')
+                    .on('error', function () { jQuery(this).remove(); })
+                    .appendTo($dot);
+                $who.append($dot, jQuery('<span class="offer-level"></span>').text(lv.name));
+                $card.append($who);
+            }
+            $card.append(jQuery('<span class="offer-label"></span>').wiki(label));
+            if (cost) { $card.append(jQuery('<span class="offer-cost"></span>').wiki(cost)); }
+
+            if (lock) {
+                $card.addClass('locked').attr('disabled', true)
+                    .append(jQuery('<span class="offer-lock"></span>').text(lock));
+            } else {
+                $card.on('click', this.createShadowWrapper(() => {
+                    if (decided) { return; }
+                    decided = true;
+                    if (money > 0) { setup.spend(money, jQuery('<span></span>').wiki(label).text()); }
+                    if (questId) { setup.stallOffer(questId); }
+                    $row.remove();
+                    $out.wiki(chunk.contents);
+                }));
+            }
+            $row.append($card);
+        });
+
+        jQuery(this.output).append($row, $out);
+    }
+});
+
 Macro.add('UpdateStat', {
   handler () {
     const [opRaw, keyRaw, amtRaw] = this.args;

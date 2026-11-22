@@ -460,8 +460,8 @@
     },
     {
     	/* 4.5b The first family option. The scene sets $mom.flags.gymDinner (true: she goes, false: I go and give a
-    	   discount). Sending her is only offered once her line has reached mom_gymDinner.
-    	   STAGE1-STUB: the offer should also check her corruption and exhibition (proposal 3.1) */
+    	   discount). Sending her is only offered once her line has reached mom_gymDinner. The scene uses the Offer macro
+    	   (Family offers below): the plain price, her card at level 2 (Entertain), and a stall */
     	id: "main_gymDinner",
     	next: "main_morale",
     	title: "The Gym Dinner",
@@ -519,8 +519,8 @@
     },
     {
     	/* 4.8 Needs a week of her attention for the hardware engineer (sister_beNiceToBrian, task_sister_be_nice_to_brian).
-    	   Unlocks the Anchor project. Having the Anchor = setup.projectDone('project_company_anchor').
-    	   STAGE1-STUB: only the hardware engineer should work on the Anchor project, the project system has no such rule */
+    	   Unlocks the Anchor project (only the hardware engineer works on it, its staff list). Its onComplete makes the
+    	   Anchor device owned ($company.devices.valenxAnchor, two uses) */
     	id: "main_anchor",
     	next: "main_profitParty",
     	title: "The Anchor",
@@ -563,8 +563,8 @@
     {
     	/* 5.8 and 6.6 as ONE event: the Catalyst night of both. Part 1 (office, evening) is her milestone into stage 2
     	   (Devoted), part 2 (home, night) is the milestone of mom into stage 2 (Willing). Both lines wait for it in
-    	   mom_waitCatalystNight / sister_waitCatalystNight.
-    	   STAGE1-STUB: the device field takes one target, the Catalyst needs a calibration for each of them */
+    	   mom_waitCatalystNight / sister_waitCatalystNight. The Catalyst is used on both of them (a device list: each
+    	   part switches its own entry on with UseQuestDevice and her sysName). It needs no target */
     	id: "main_catalystNight",
     	next: "main_crack",
     	title: "The Catalyst Night",
@@ -576,6 +576,10 @@
         needsEvent: true,
         passage: "Catalyst Night",
         returnPassage: "Company Stage 1",
+        device: [
+            { key: "valenxCatalyst", target: "sister", impact: 4 },
+            { key: "valenxCatalyst", target: "mom", impact: 4 },
+        ],
         requirements: [
             "setup.projectDone('project_company_catalyst')",
             "setup.questReached('mom_waitCatalystNight')",
@@ -628,7 +632,8 @@
     {
     	/* 4.11, first half: the second family option. The scene sets $flags.retailIntro to "broker" (pay), "wait" (two
     	   weeks) or "sister" (she hosts the rooftop evening, sister_rooftop). Offering her only once her line has reached
-    	   sister_rooftop. STAGE1-STUB: the broker fee and the corruption/exhibition gate of the offer */
+    	   sister_rooftop. The scene uses the Offer macro (Family offers below): the broker fee as money (setup.spend), the
+    	   wait, her card at level 2 (Entertain), and a stall */
     	id: "main_retailIntroduction",
     	next: "main_retailPitch",
     	title: "The Introduction",
@@ -667,7 +672,8 @@
     	   $flags.supplierOffered. Offering them only once both lines have reached their optional quests
     	   (mom_lastNight, sister_rehearsal).
     	   STAGE1-STUB: the boss line (7.2, The Introduction) should name the supplier first, gate on it once it exists.
-    	   STAGE1-STUB: the pay branch (empty the account, a loan or a cancelled project) */
+    	   The scene uses the Offer macro: the price as money, their cards at level 3, and for the pay branch the advance from
+    	   the boss (setup.addDebt, Define Company: the money now, installments every Monday) */
     	id: "main_supplier",
     	next: "main_nightShift",
     	title: "The Supplier",
@@ -1157,8 +1163,8 @@
        requirements, timings and numbers are first guesses from the proposal. Each beat waits for the main beat of
        the same phase of the timeline (proposal section 8) with questDone. */
     {
-    	/* 5.1 The breather: wine, the living room, no device. STAGE1-STUB: unlocks more masturbation micro events and
-    	   the catch-her scene (not built) */
+    	/* 5.1 The breather: wine, the living room, no device. Unlocks catching her at home (micro events 46 to 48,
+    	   setup.momCanBeCaught in Define Events); Caught is the scene that follows */
     	id: "mom_boozeNight",
     	next: "mom_caught",
     	title: "The Booze Night",
@@ -1273,8 +1279,8 @@
         ],
     },
     {
-    	/* 5.6 Friday, the empty office, her apology. Sets $mom.flags.morningRoutine. Phase 5 (main_gymMeeting).
-    	   STAGE1-STUB: the morning routine it unlocks is not built */
+    	/* 5.6 Friday, the empty office, her apology. Sets $mom.flags.morningRoutine, which unlocks the morning routine
+    	   (Morning Routine, offered by Activity Sleep). Phase 5 (main_gymMeeting) */
     	id: "mom_crawl",
     	next: "mom_gymDinner",
     	title: "The Crawl",
@@ -1294,7 +1300,7 @@
     	/* 5.7 OPTIONAL: only if I sent her to the gym dinner (main_gymDinner sets $mom.flags.gymDinner).
     	   Her report when she comes home that night: Was that right?
     	   STAGE1-STUB: a plain event for now. The end-of-day report exists (Define NPCs): when the scene is written,
-    	   decide whether it stays an event or becomes a report entry (setup.dayReports and <<LogDay>>) */
+    	   decide whether it stays an event or becomes a report entry (setup.dayReports and the LogDay widget) */
     	id: "mom_gymDinner",
     	next: "mom_waitCatalystNight",
     	title: "Was That Right?",
@@ -1330,7 +1336,8 @@
     },
     {
     	/* 5.9 Milestone into stage 3 (Complicit). The choice sets $mom.flags.calendarChoice ("truth" or "anchor").
-    	   Sets $mom.flags.freeUse. STAGE1-STUB: the Whenever interaction it unlocks is not built */
+    	   Sets $mom.flags.freeUse, which unlocks the Whenever card (Define Interactions). On the anchor path the scene
+    	   uses the Anchor through setup.useDevice (key valenxAnchor, target mom, impact 10) */
     	id: "mom_calendar",
     	next: "mom_afterHours",
     	title: "The Calendar",
@@ -1345,11 +1352,13 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "setup.projectDone('project_company_anchor')",
+            "setup.deviceUsesLeft($company.devices.valenxAnchor) > 0",
             "$date.dayCount >= setup.getQuestById('main_catalystNight').doneDay + 3",
             "setup.corruptionReady('mom') || setup.corruptionStage('mom') >= 3",
         ],
         requirementsText: [
             "Finish the Anchor project",
+            "The $company.devices.valenxAnchor.name has a use left",
             "Give her a few days after the Catalyst",
             "$mom.callName's corruption is full",
         ],
@@ -2097,19 +2106,198 @@
 
 /* Quests that use the device: device: { target, impact [, key] [, minQuality] }
    key:        a device in $company.devices (Stage 1). Without it the Stage 0 prototype is used.
-   target:     the calibration the scene needs (mom, sister, general, or a preset of that device)
+   target:     the calibration the scene needs (mom, sister, general, or a preset of that device). A device with
+               anyTarget: true (the Catalyst) only needs a calibration of good enough quality, whatever its target
    impact:     1-10, the charge it costs (see $company.impactCost)
    minQuality: optional, the calibration quality needed. Without it any successful calibration counts.
+   A scene that uses the device on two people gives a list instead: device: [ { key, target, impact }, { ... } ]
+   (the Catalyst Night). Every entry costs its own charge (entries on the same device add up), and the scene
+   switches each one on with <<UseQuestDevice $player "sister">> / <<UseQuestDevice $player "mom">>.
+   A device with maxUses (the Anchor) also needs a use left.
    Checked separately from "requirements" (event check, eligible glow) and shown as pills on the sidebar quest.
    The scene spends the charge itself with <<UseQuestDevice $mom>> (see "Quest Widgets").
-   setup.questDevice(device) returns { dev, cost, calOk, chargeOk, ok } for the current state. */
+
+   setup.questDeviceEntries(device)   the entries as a list (a single object becomes a list of one)
+   setup.questDevice(device)          { dev, cost, calOk, chargeOk, usesOk, ok, entries } for the current state.
+                                      dev is the device of the first entry, cost the charge it needs for all its entries
+   setup.questDeviceTarget(device)    who it is for, as the player reads it ("$mom.callName & $sister.callName")
+   setup.deviceUsesLeft(dev)          uses left on a device with maxUses, Infinity without
+   setup.useDevice(key, target, impact [, questId])
+                                      switches a device on outside the quest check (the Anchor in The Calendar) and
+                                      inside it (UseQuestDevice calls it): spends the charge, counts a use and writes a
+                                      spike on a device with maxUses, sets lastUsed, and raises the resistance of mom or
+                                      sister by impact * $statInfluence.resistancePerImpact. Returns the device */
+<<set setup.questDeviceEntries = (device) => (!device ? [] : (Array.isArray(device) ? device : [ device ]))>>
+
+<<set setup.deviceUsesLeft = (dev) => {
+    if (!dev || !dev.maxUses) { return Infinity; }
+    return Math.max(0, dev.maxUses - (Number(dev.uses) || 0));
+}>>
+
 <<set setup.questDevice = (device) => {
     const v = State.variables;
-    const dev = device.key ? v.company.devices[device.key] : v.company.prototype;
-    const cost = v.company.impactCost[device.impact] || 0;
-    const calOk = !!dev && dev.calibration === device.target && dev.calibrationQuality >= (device.minQuality || 1);
-    const chargeOk = !!dev && dev.charge >= cost;
-    return { dev, cost, calOk, chargeOk, ok: calOk && chargeOk };
+    const entries = setup.questDeviceEntries(device);
+    const devOf = (e) => (e.key ? v.company.devices[e.key] : v.company.prototype);
+    const costOf = (e) => (v.company.impactCost[e.impact] || 0);
+    let calOk = entries.length > 0;
+    let chargeOk = entries.length > 0;
+    let usesOk = entries.length > 0;
+    const needs = {};
+    entries.forEach((e) => {
+        const dev = devOf(e);
+        const quality = !!dev && dev.calibrationQuality >= (e.minQuality || 1);
+        if (!dev || !quality || (!dev.anyTarget && dev.calibration !== e.target)) { calOk = false; }
+        const k = e.key || "prototype";
+        needs[k] = needs[k] || { dev: dev, cost: 0, count: 0 };
+        needs[k].cost += costOf(e);
+        needs[k].count += 1;
+    });
+    Object.keys(needs).forEach((k) => {
+        const n = needs[k];
+        if (!n.dev || n.dev.charge < n.cost) { chargeOk = false; }
+        if (setup.deviceUsesLeft(n.dev) < n.count) { usesOk = false; }
+    });
+    const first = entries[0];
+    const firstNeed = first ? needs[first.key || "prototype"] : null;
+    return {
+        dev: firstNeed ? firstNeed.dev : undefined,
+        cost: firstNeed ? firstNeed.cost : 0,
+        calOk: calOk,
+        chargeOk: chargeOk,
+        usesOk: usesOk,
+        ok: calOk && chargeOk && usesOk,
+        entries: entries,
+    };
+}>>
+
+<<set setup.questDeviceTarget = (device) => {
+    const entries = setup.questDeviceEntries(device);
+    const labels = entries.map((e) => setup.presetLabel(e.target)).filter((l, i, all) => all.indexOf(l) === i);
+    return labels.join(" & ");
+}>>
+
+<<set setup.useDevice = (key, target, impact, questId) => {
+    const v = State.variables;
+    const dev = key ? v.company.devices[key] : v.company.prototype;
+    if (!dev) { console.error("setup.useDevice: there is no device " + key); return undefined; }
+    const cost = v.company.impactCost[impact] || 0;
+    dev.charge = Math.max(0, dev.charge - cost);
+    dev.lastUsedAtDay = v.date.dayCount;
+    dev.lastUsedOnWho = target;
+    if (dev.maxUses) {
+        dev.uses = (Number(dev.uses) || 0) + 1;
+        if (!Array.isArray(dev.spikes)) { dev.spikes = []; }
+        dev.spikes.push({ day: v.date.dayCount, target: target, quest: questId || null });
+    }
+    /* using the device on her raises her resistance (once per use). A toast instead of an UpdateStat line, because
+       this usually happens in the middle of a sentence */
+    if (["mom", "sister"].includes(target)) {
+        const npc = v[target];
+        const rise = Math.min(npc.stats.max.resistance - npc.stats.resistance, impact * v.statInfluence.resistancePerImpact);
+        if (rise > 0) {
+            npc.stats.resistance += rise;
+            Notification.show(npc.name + "'s Resistance has increased by " + rise + ".", { type: Notification.NEGATIVE });
+        }
+    }
+    return dev;
+}>>
+
+/* Family offers ===============================================================
+   STAGE1_PROPOSAL.md 3.1. A deal has a plain price (money, time, a worse contract), and the player may put mom or the
+   sister on the table instead. The choice lives in the scene itself (and optionally in a mail answer), never on the
+   interaction screen: the scene shows a row of offer cards with the <<Offer>> macro (StoryScript).
+
+       <<Offer>>
+       <<plain "I'll go myself" "20% off the contract">>          ...what happens if I go...
+       <<plain "Pay the broker" "-$15,000" 15000>>                 the third argument is money: the card is locked
+                                                                   while the account can't cover it, and clicking it
+                                                                   takes the money (setup.spend, Define Company)
+       <<family $mom 2 "Send $mom.callName" "the full contract">>  her card, locked with the reason until she is ready
+                                                                   for that level (setup.offerReady)
+       <<stall "Let me get back to you" "main_gymDinner">>         ends the scene without a decision. Hidden once the
+                                                                   deal has no stalls left (setup.canStall)
+       <</Offer>>
+
+   Each card runs its own block when clicked (like <<linkreplace>>) and the row disappears. A family branch should end
+   with what it does (flags, <<NextQuest>>, <<ReturnFromEvent>>), a stall branch with <<ReturnFromEvent>> only: the
+   stall keeps the event alive, and it comes back after setup.offerStallDays days (CheckForEvent skips it until then).
+   The scene can read setup.offerStalls(questId) to play a shorter version and to make the plain price a little worse
+   for every stall.
+
+   Mail answers: an answer option may have offer: { who: "mom", level: 2 } (locked like the card) and money: 15000
+   (locked while the account can't cover it, paid when chosen). The Mail widget reads setup.mailOptionLock(option).
+
+   The levels (proposal 3.1). STAGE1-STUB: the corruption and exhibition values are placeholders, the author sets them.
+   corruption is her total over all stages (setup.corruptionTotal): 140 = "stage 1, 40".
+   setup.offerLevels[level] = { name, corruption, exhibition }
+
+   setup.offerReady(who, level)        { ok, reason }: reason is the text on a locked card
+   setup.offerStallDays                days a stalled deal waits before it comes back
+   setup.offerMaxStalls                stalls per deal (a quest may set its own maxStalls)
+   setup.offerStalls(questId)          how often that deal has been stalled
+   setup.canStall(questId)             another stall is allowed
+   setup.stallOffer(questId [, days])  counts the stall and keeps the deal waiting (quest and event stalledUntil)
+   setup.offerStalled(item)            a quest or event that is waiting after a stall
+   setup.mailOptionLock(option)        the reason a mail answer is locked, or null */
+<<set setup.offerLevels to [
+    { name: "Charm",       corruption: 0,   exhibition: 0  },
+    { name: "Warm-up",     corruption: 40,  exhibition: 10 },
+    { name: "Entertain",   corruption: 140, exhibition: 25 },
+    { name: "Handed over", corruption: 300, exhibition: 50 },
+]>>
+
+<<set setup.offerStallDays to 3>>
+<<set setup.offerMaxStalls to 2>>
+
+<<set setup.offerReady = (who, level) => {
+    const npc = setup.corruptionNpc(who);
+    const lv = setup.offerLevels[Math.clamp(Number(level) || 0, 0, setup.offerLevels.length - 1)];
+    if (!npc || !npc.stats) { return { ok: false, reason: "Nobody to ask" }; }
+    const needs = [];
+    if (setup.corruptionTotal(npc) < lv.corruption) {
+        const stage = Math.floor(lv.corruption / 100);
+        needs.push(lv.corruption % 100 === 0 && stage > 0 ? "Corruption stage " + stage : "Corruption " + setup.corruptionNeedText(lv.corruption));
+    }
+    if ((Number(npc.stats.exhibition) || 0) < lv.exhibition) { needs.push("Exhibition " + lv.exhibition); }
+    if (needs.length === 0) { return { ok: true, reason: "" }; }
+    return { ok: false, reason: "She isn't ready for that · needs " + needs.join(", ") };
+}>>
+
+<<set setup.offerStalls = (questId) => {
+    const quest = setup.getQuestById(questId);
+    return quest ? (Number(quest.stalls) || 0) : 0;
+}>>
+
+<<set setup.canStall = (questId) => {
+    const quest = setup.getQuestById(questId);
+    if (!quest) { return false; }
+    const max = quest.maxStalls !== undefined ? quest.maxStalls : setup.offerMaxStalls;
+    return (Number(quest.stalls) || 0) < max;
+}>>
+
+<<set setup.stallOffer = (questId, days) => {
+    const v = State.variables;
+    const quest = setup.getQuestById(questId);
+    if (!quest) { return; }
+    const until = v.date.dayCount + (days !== undefined ? days : setup.offerStallDays);
+    quest.stalls = (Number(quest.stalls) || 0) + 1;
+    quest.stalledUntil = until;
+    if (quest.eventId !== undefined && v.events[quest.eventId]) {
+        v.events[quest.eventId].stalledUntil = until;
+        v.events[quest.eventId].stalledDay = v.date.dayCount;
+    }
+}>>
+
+<<set setup.offerStalled = (item) => !!item && (Number(item.stalledUntil) || 0) > State.variables.date.dayCount>>
+
+<<set setup.mailOptionLock = (option) => {
+    if (!option) { return null; }
+    if (option.offer) {
+        const ready = setup.offerReady(option.offer.who, option.offer.level);
+        if (!ready.ok) { return ready.reason; }
+    }
+    if (option.money && !setup.canAfford(option.money)) { return "The account can't cover it"; }
+    return null;
 }>>
 
 
@@ -2140,7 +2328,8 @@
                 && quest.whenDay && quest.whenDay.includes(day)
                 && quest.whenTime && quest.whenTime.includes(time)
                 && setup.questRequirementsMet(quest)
-                && (!quest.device || setup.questDevice(quest.device).ok)) {
+                && (!quest.device || setup.questDevice(quest.device).ok)
+                && !setup.offerStalled(quest)) {
                 result.push(quest);
             }
         });

@@ -1,0 +1,97 @@
+:: Morning Routine [interaction] {"position":"275,1900","size":"100,100"}
+/* The morning routine (STAGE1_PROPOSAL.md 5.6), unlocked by The Crawl ($mom.flags.morningRoutine): she brings my coffee in
+   the morning, and that with it. It replaces the old wake-up with coffee (Morning Wakeup): Activity Sleep offers it as the
+   way to wake up, with a "Not this morning" link next to it to skip it. Not during The Silence (setup.morningRoutineReady
+   in Define NPCs).
+   Variants: the first time (the morning after The Crawl; her thanks come at breakfast, meal crawl_thank_you), a weekday (dressed for work, quick, the coffee to
+   take with me) or the weekend (her robe, slow, she stays), her corruption stage (from stage 2 on she climbs in, from
+   stage 3 on she starts before the coffee is even down), and now and then a near miss: $sister.callName at the door.
+   Effects are small; $mom.flags.morningRoutines counts them.
+   Videos: images/characters/mom/events/morning_routine/<weekday|weekend>_<0-1>.mp4 */
+<<silent>>
+<<set _mrCount to $mom.flags.morningRoutines || 0>>
+<<set _mrWeekend to $date.today.value >= 5>>
+<<set _mrStage to setup.corruptionStage("mom")>>
+<<set _mrSisterHome to ($sister.location and $sister.location.id <= 6)>>
+<<set _mrNearMiss to (_mrSisterHome and _mrCount > 0 and random(1, 4) == 1)>>
+<<SetBackground $locations[1].img>>
+<</silent>>
+<<if _mrCount == 0>>
+Two soft knocks and a third. The door opens before I've answered, and the smell of coffee comes in ahead of her.
+
+$mom.callName is in her robe, with her hair still damp from the shower and my mug in both hands. She sets it on the nightstand, handle toward me, the way she has a thousand times. Then she stands next to the bed, and I can see her remembering, all at once, what else she promised to bring with it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Good morning, honey." },
+{ text: "She sits down on the edge of the bed and pulls the blanket back, carefully, like a nurse checking a bandage." },
+{ who: $mom, text: "Every morning. That's what you said." },
+{ who: $player, text: "That's what I said." },
+{ text: "She nods, as if she's writing it into the calendar in her head, right between breakfast and the client calls. Then she leans down." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _mrWeekend>>
+It's late enough that the sun has made it all the way across the floor. She knocks the old way and comes in without waiting, in her robe and slippers, with two mugs this time instead of one.
+
+<<if _mrStage >= 3>>
+She puts both mugs on the nightstand without a word, lets the robe drop, and gets under the blanket with me. The coffee can wait. She has decided that the coffee can always wait now.
+<<elseif _mrStage >= 2>>
+She sets the mugs down, sits on the bed, and then, after a moment of thinking about it, swings her legs up and lies down next to me on top of the blanket, her head on my shoulder, her hand already sliding down under it.
+<<else>>
+She sets my mug on the nightstand and hers next to it and sits down on the edge of the bed, smoothing the blanket over my knees. She takes her time. It's Saturday, or Sunday, and there's nowhere either of us has to be.
+<</if>>
+<<else>>
+Six-forty. The knock, the coffee, the door. $mom.callName is already dressed for work, blouse and skirt and stockings, with her hair up and her lipstick on, and she checks the time on her phone as she sets the mug down.
+
+<<if _mrStage >= 3>>
+She doesn't wait for me to wake up properly. She pulls the blanket back and is on her knees beside the bed before I've reached for the coffee, her hands steadying herself on my thighs.
+<<elseif _mrStage >= 2>>
+She kneels down beside the bed, careful of her stockings, and folds the blanket back, and gives me a small, crooked smile before she starts.
+<<else>>
+She kneels beside the bed and pulls the blanket back. She's careful of her stockings. She's careful of her lipstick too, at first.
+<</if>>
+<</if>>
+
+<<if _mrNearMiss>>
+/* MEDIA: images/characters/mom/events/morning_routine/near_miss.mp4 | Mom kneeling beside the bed, frozen, looking at the door, his hand on her head */
+Halfway through, there's a knock on my door. Not hers. Two quick raps, impatient.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hey, are you up? Is there coffee? The machine's making the noise again, the dying-whale noise." },
+{ text: "$mom.callName goes completely still. Her eyes come up to mine, enormous. She doesn't move her mouth." },
+{ who: $player, text: "There's coffee in the kitchen. $mom.callName made a pot." },
+{ who: $sister, text: "Oh, thank God. Have you seen her? Her car's still here." },
+{ who: $player, text: "She's around." },
+{ who: $sister, text: "Cool. Tell her the machine's dying." },
+{ text: "Her footsteps go off down the stairs. $mom.callName stays frozen for another few seconds, listening, and then, very slowly, her eyes still on the door, she starts again." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+/* MEDIA: images/characters/mom/events/morning_routine/weekday_0.mp4 | Morning light, Mom beside the bed, his coffee steaming on the nightstand */
+<</if>>
+
+<<if _mrWeekend>>
+Afterwards she stays. She lies next to me for a while with her head on my chest, drinking her coffee, which has gone lukewarm, and talks about the weekend: the grocery list, the gutters, whether $sister.callName is ever going to clean her room. She doesn't mention what she just did. She doesn't need to. It's just part of the morning now, like the coffee.
+<<else>>
+Afterwards she wipes the corner of her mouth with her thumb, checks her lipstick in the mirror on my closet door, fixes it, and picks up her purse from the floor where she put it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Drink your coffee before it gets cold. And eat something, honey. There's toast." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then she's gone, and I hear her heels on the stairs and her keys at the front door, and her car backing out of the driveway at exactly six fifty-five, like every weekday.
+<</if>>
+
+<<set $mom.flags.morningRoutines to _mrCount + 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 10>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _mrNearMiss>><<UpdateStat "+" "MomExhibition" 1>><</if>>
+
+[[Get up|Bedroom]]

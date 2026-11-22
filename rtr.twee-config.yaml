@@ -45,6 +45,21 @@ sugarcube-2:
     ReturnFromEvent: {}
     StageTitle:
       container: true
+    Offer:
+      container: true
+      children:
+        - plain
+        - family
+        - stall
+    plain:
+      parents:
+        - Offer
+    family:
+      parents:
+        - Offer
+    stall:
+      parents:
+        - Offer
     SbMeter: {}
     SbNpc: {}
     SbQuest: {}

@@ -126,11 +126,17 @@
             <<for _j = 0; _j < _mail.answerOptions.length; _j++>>
                 <<set _opt to _mail.answerOptions[_j]>>
                 /* capture: the link runs on click, when the loop has long moved _opt on to the last option */
+                /* an answer with an offer or a price can be locked ("Family offers" in Define Quests) */
+                <<set _optLock to setup.mailOptionLock(_opt)>>
+                <<if _optLock>>
+                <span class="mail-answer-locked"><<= _opt.short>> <small><<= _optLock>></small></span>
+                <<else>>
                 <<capture _mail, _opt>>
                 <<link _opt.short>>
                     <<run handleMailReply(_mail.id, _opt.id)>>
                 <</link>>
                 <</capture>>
+                <</if>>
                 <br>
             <</for>>
         </div>

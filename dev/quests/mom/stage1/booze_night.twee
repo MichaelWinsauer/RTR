@@ -2,7 +2,7 @@
 /* Quest "The Booze Night" (mom_boozeNight), STAGE1_PROPOSAL.md 5.1. The breather after A Knock at Night: a weeknight, a bottle
    of wine in the living room, no device. She talks about $dad.callName and how long it has been since anyone chose her. I don't
    do anything. I listen and let her wait, her lust climbs, and she goes to bed having asked for nothing.
-   What it unlocks (her masturbating in more places, the catch-her scene) is not built yet, see STAGE1_TODO.md. */
+   It unlocks catching her at home (micro events 46 to 48, Mom Catch Couch/Kitchen/Shower). */
 <<silent>><<SetBackground $locations[2].img>><</silent>>
 The living room is dark except for the lamp by the couch and the TV, which is on with the sound off. Some cooking show. A man is folding egg whites into something with the solemn face of a surgeon.
 

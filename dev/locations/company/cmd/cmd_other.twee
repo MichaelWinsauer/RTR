@@ -7,6 +7,8 @@
           <div class="cmd-valenx-device-name"><<print _proto.name>></div>
           <<= _proto.design>>
           <div @class="'cmd-valenx-device-charge ' + (_proto.charge > 66 ? 'green' : (_proto.charge > 33 ? 'yellow' : 'red'))"><<print _proto.charge>>%</div>
+          /* a device with a limited number of uses (the Anchor): how many are left */
+          <<if _proto.maxUses>><div class="cmd-valenx-device-uses"><<= setup.deviceUsesLeft(_proto)>> of <<= _proto.maxUses>> uses left</div><</if>>
         </div>
       <</capture>>
     <</if>>
@@ -71,6 +73,10 @@ window.openValenxDialog = function(key) {
                 <span class="stat-label">Last Used</span>
                 <span class="stat-value">${lastUsedText}</span>
               </div>
+              ${proto.maxUses ? `<div class="stat-item">
+                <span class="stat-label">USES LEFT</span>
+                <span class="stat-value">${setup.deviceUsesLeft(proto)} of ${proto.maxUses}</span>
+              </div>` : ""}
               <div class="stat-item">
                 <span class="stat-label">CHARGE</span>
                 <span class="charge-num ${proto.charge > 66 ? 'green' : proto.charge > 33 ? 'yellow' : 'red'}">${proto.charge}%</span>
@@ -314,6 +320,13 @@ setTimeout(() => {
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.cmd-valenx-device-uses {
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .7;
 }
 
 .device-name {

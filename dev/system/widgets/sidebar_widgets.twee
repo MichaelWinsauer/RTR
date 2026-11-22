@@ -112,10 +112,10 @@
 					<div class="sb-quest-title"><<= _sbShow.title>></div>
 					<<if _sbQ.device and !_sbShow.locked>>
 						<<set _sbDev to setup.questDevice(_sbQ.device)>>
-						<<set _sbDevWho to setup.presetLabel(_sbQ.device.target)>>
+						<<set _sbDevWho to setup.questDeviceTarget(_sbQ.device)>>
 						<<set _sbDevName to _sbDev.dev ? _sbDev.dev.name : $company.prototype.name>>
 						<div class="sb-pills">
-							<span @class="'sb-pill ' + (_sbDev.calOk ? 'ok' : 'no')" @title="_sbDevName + ' calibrated for ' + _sbDevWho + (_sbQ.device.minQuality ? ' (' + _sbQ.device.minQuality + '%+)' : '') + (_sbDev.calOk ? '' : ' - now: ' + (_sbDev.dev and _sbDev.dev.calibrationQuality > 0 ? setup.presetLabel(_sbDev.dev.calibration) + ' ' + _sbDev.dev.calibrationQuality + '%' : 'not calibrated'))">◎ <<= _sbDevWho>></span>
+							<span @class="'sb-pill ' + (_sbDev.calOk ? 'ok' : 'no')" @title="_sbDevName + ' calibrated for ' + _sbDevWho + (setup.questDeviceEntries(_sbQ.device)[0].minQuality ? ' (' + setup.questDeviceEntries(_sbQ.device)[0].minQuality + '%+)' : '') + (_sbDev.calOk ? '' : ' - now: ' + (_sbDev.dev and _sbDev.dev.calibrationQuality > 0 ? setup.presetLabel(_sbDev.dev.calibration) + ' ' + _sbDev.dev.calibrationQuality + '%' : 'not calibrated'))">◎ <<= _sbDevWho>></span>
 							<span @class="'sb-pill ' + (_sbDev.chargeOk ? 'ok' : 'no')" @title="_sbDevName + ' needs ' + _sbDev.cost + '% charge - now: ' + (_sbDev.dev ? _sbDev.dev.charge : 0) + '%'">ϟ  <<= _sbDev.cost>>%</span>
 						</div>
 					<</if>>

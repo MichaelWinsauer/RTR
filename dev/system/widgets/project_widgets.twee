@@ -47,6 +47,8 @@
 					for (const member of assigned) {
 						const employee = v[member.sysName];
 						if (!employee || employee.stats.morale <= 0) continue;
+						/* a project with a staff list only takes their work (setup.projectAllows, Define Projects) */
+						if (!setup.projectAllows(project, member.sysName)) continue;
 
 						const skills = employee.skills;
 						if (!skills || typeof skills !== "object" || Array.isArray(skills)) continue;

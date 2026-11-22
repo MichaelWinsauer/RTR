@@ -1002,7 +1002,124 @@
         lastSeenDay: -1,
         lastSeenAP: 0,
     },
+    /* After The Booze Night (setup.momCanBeCaught): her alone at home, touching herself, and me walking in on it.
+       The chance grows with her Lust (setup.momCatchChance), watching or being noticed lowers it again */
+    {
+        id: 46,
+        passage: "Mom Catch Couch",
+        where: [ "Living Room" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [ "Living Room" ],
+            npcPreviousLocation: [],
+            whenTime: [ 5, 6 ],
+            eval: [ () => setup.momCanBeCaught(), () => random(1, 100) <= setup.momCatchChance() ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 47,
+        passage: "Mom Catch Kitchen",
+        where: [ "Kitchen" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [ "Kitchen" ],
+            npcPreviousLocation: [],
+            whenTime: [ 5 ],
+            eval: [ () => setup.momCanBeCaught(), () => random(1, 100) <= setup.momCatchChance() ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 48,
+        passage: "Mom Catch Shower",
+        where: [ "Hallway" ],
+        conditions: {
+            npc: "mom",
+            npcLocation: [ "Bathroom" ],
+            npcPreviousLocation: [],
+            whenTime: [ 0, 1, 4, 5 ],
+            eval: [ () => setup.momCanBeCaught(), () => setup.activityIs("mom", State.variables.mom.activity, [ "showering" ]), () => random(1, 100) <= setup.momCatchChance() ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    /* Whenever (after The Calendar, $mom.flags.freeUse): desk visitors where she offers before I ask */
+    {
+        id: 49,
+        passage: "Mom Desk Blinds",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "mom",
+            teaser: "$mom.callName is standing at the door of the meeting room with a folder against her chest. She looks at me, then at the blinds, then at me again.",
+            decline: "I shook my head. $mom.callName went back to her desk, put the folder down very neatly, and didn't stop smiling for an hour.",
+        },
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 1, 2, 3 ],
+            eval: [ () => setup.momWorksHere(), () => State.variables.mom.flags.freeUse === true ],
+        },
+        chance: 25,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 50,
+        passage: "Mom Desk Note",
+        where: [ "My Desk" ],
+        visitor: {
+            who: "mom",
+            teaser: "$mom.callName walks past my desk without stopping and leaves a yellow sticky note on my keyboard.",
+            decline: "I folded the note and put it in my pocket. When I looked up, $mom.callName was watching me from her desk, and she went pink and looked away.",
+        },
+        conditions: {
+            npc: "mom",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 2, 3 ],
+            eval: [ () => setup.momWorksHere(), () => State.variables.mom.flags.freeUse === true ],
+        },
+        chance: 20,
+        oncePerDay: true,
+        dayCooldown: 4,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
 ]>>
+
+/* Catching her (after The Booze Night) =========================================
+   Micro events 46 to 48: she's alone at home and touches herself on the couch, at the kitchen counter, in the shower
+   with the door not quite shut, and I walk in on it. Each offers watching quietly, letting her notice me, or walking away.
+   setup.momCanBeCaught()   after The Booze Night (mom_boozeNight), with her Lust at 30 or more
+   setup.momCatchChance()   the chance in percent that it happens when I come in: grows with her Lust, at most 70 */
+<<set setup.momCanBeCaught = () => setup.questDone("mom_boozeNight") && State.variables.mom.stats.lust >= 30>>
+
+<<set setup.momCatchChance = () => Math.clamp(Math.round((State.variables.mom.stats.lust - 20) * 0.9), 0, 70)>>
 
 /* A normal workday ===========================================================
    Stage 1: small moments at the office while the staff is in (micro events 32 to 44): desk visitors from $mom, the

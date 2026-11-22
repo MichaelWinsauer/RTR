@@ -185,14 +185,16 @@
     handjobs: 0,            /* times the Handjob interaction was played (Mom Handjob), after A Knock at Night */
     officePlants: 0,        /* Stage 1: times Mom Office Plants played (the first time she brings them in) */
     /* STAGE1-STUB: set by the Stage 1 quests and their stub scenes (Define Quests). null = not decided yet.
-       Nothing reads morningRoutine and freeUse yet: the systems behind them are not built */
+       morningRoutine is read by Activity Sleep (Morning Routine), freeUse by the Whenever card */
     gymDinner: null,        /* The Gym Dinner: true = I sent her (mom_gymDinner plays), false = I went myself */
     offeredToBoss: false,   /* The Arrangement of the boss line: true = After Hours plays. Start it at null once that line exists */
     calendarChoice: null,   /* The Calendar: "truth" or "anchor" */
     silence: false,         /* true during The Silence (Not Enough to the end of that week), see The Silence below */
     silenceNote: false,     /* The Silence: her note on my pillow was found (Mom Silence Note) */
     morningRoutine: false,  /* The Crawl: the morning routine is unlocked */
-    freeUse: false,         /* The Calendar: the Whenever interaction is unlocked */
+    freeUse: false,         /* The Calendar: the Whenever interaction is unlocked (Mom Whenever) */
+    whenever: 0,            /* times the Whenever interaction was played */
+    morningRoutines: 0,     /* times the morning routine played (Morning Routine, after The Crawl) */
 }>>
 
 /*Dad*/
@@ -899,3 +901,11 @@
     mom.stats.morale = Math.clamp(mom.stats.morale - t.moraleLoss, mom.stats.min.morale, mom.stats.max.morale);
     mom.stats.resistance = Math.clamp(mom.stats.resistance - t.resistanceLoss, mom.stats.min.resistance, mom.stats.max.resistance);
 }>>
+
+
+/* The morning routine =========================================================
+   After The Crawl ($mom.flags.morningRoutine) she brings my coffee in the morning, and that with it (STAGE1_PROPOSAL.md
+   5.6). Activity Sleep offers it as the way to wake up (passage Morning Routine), next to a "Not this morning" link,
+   instead of the old wake-up with coffee. Not during The Silence. $mom.flags.morningRoutines counts the mornings.
+   setup.morningRoutineReady()   the routine is unlocked and nothing stops it tonight */
+<<set setup.morningRoutineReady = () => State.variables.mom.flags.morningRoutine === true && !setup.momSilent()>>

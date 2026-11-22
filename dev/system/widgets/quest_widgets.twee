@@ -78,44 +78,41 @@
 <</widget>>
 
 /* Usage: =====================================================================
-	<<UseQuestDevice $mom [power] ["keep"]>>
-	Put it where the scene switches the device on. Spends the charge of the active quest's
-	"device" field (once per quest), and sets _vxQuality (the calibration quality) for text variants.
-	It also starts the screen pulse (<<DevicePulse>>) with the quest's impact, or with power if given
+	<<UseQuestDevice $mom ["sister"] [power] ["keep"]>>
+	Put it where the scene switches the device on. Spends the charge of the active quest's "device" field (once per
+	entry and quest, through setup.useDevice in Define Quests), and sets _vxQuality (the calibration quality) for text
+	variants. A quest with a device list (two targets) names the entry to use by its target: <<UseQuestDevice $player "mom">>.
+	It also starts the screen pulse (<<DevicePulse>>) with the entry's impact, or with power if given
 	(a number 0-10, "+1"/"-1", or 0 for no pulse). Turn the dial later in the scene with <<DevicePulse "+2">>.
 	"keep" keeps the pulse over passage changes (multi-part scenes) until <<DevicePulse "off">>.
 */
 <<widget "UseQuestDevice">>
-	<<set _uqdQuest to setup.getCurrentQuest($args[0])>>
+	<<set _uqdQuest to setup.getCurrentQuest(_args[0])>>
 	<<if _uqdQuest and _uqdQuest.device>>
-		<<set _uqdState to setup.questDevice(_uqdQuest.device)>>
-		<<set _uqdDevice to _uqdState.dev>>
-		<<if !_uqdQuest.deviceUsed>>
-			<<set _uqdDevice.charge to Math.max(0, _uqdDevice.charge - _uqdState.cost)>>
-			<<set _uqdDevice.lastUsedAtDay to $date.dayCount>>
-			<<set _uqdDevice.lastUsedOnWho to _uqdQuest.device.target>>
-			<<set _uqdQuest.deviceUsed to true>>
-			/* using the device on her raises her resistance by impact * $statInfluence.resistancePerImpact (once per quest).
-			   A toast instead of an UpdateStat line, because the widget usually sits in the middle of a sentence. */
-			<<if ["mom", "sister"].includes(_uqdQuest.device.target)>>
-				<<set _uqdNpc to State.variables[_uqdQuest.device.target]>>
-				<<set _uqdRes to Math.min(_uqdNpc.stats.max.resistance - _uqdNpc.stats.resistance, _uqdQuest.device.impact * $statInfluence.resistancePerImpact)>>
-				<<if _uqdRes > 0>>
-					<<set _uqdNpc.stats.resistance += _uqdRes>>
-					<<run Notification.show(_uqdNpc.name + "'s Resistance has increased by " + _uqdRes + ".", { type: Notification.NEGATIVE })>>
-				<</if>>
-			<</if>>
-		<</if>>
-		<<set _vxQuality to _uqdDevice.calibrationQuality>>
-		<<set _uqdPower to _uqdQuest.device.impact>>
+		<<set _uqdEntries to setup.questDeviceEntries(_uqdQuest.device)>>
+		<<set _uqdEntry to _uqdEntries[0]>>
+		<<set _uqdPower to null>>
 		<<set _uqdKeep to false>>
-		<<for _uqdI = 1; _uqdI < $args.length; _uqdI++>>
-			<<if $args[_uqdI] == "keep">>
+		<<for _uqdI = 1; _uqdI < _args.length; _uqdI++>>
+			<<set _uqdArg to _args[_uqdI]>>
+			<<if _uqdArg == "keep">>
 				<<set _uqdKeep to true>>
+			<<elseif typeof _uqdArg == "string" and _uqdEntries.some(function (e) { return e.target == _uqdArg; })>>
+				<<set _uqdEntry to _uqdEntries.find(function (e) { return e.target == _uqdArg; })>>
 			<<else>>
-				<<set _uqdPower to $args[_uqdI]>>
+				<<set _uqdPower to _uqdArg>>
 			<</if>>
 		<</for>>
+		/* once per entry and quest: deviceUsedFor holds the targets that were already switched on */
+		<<if !Array.isArray(_uqdQuest.deviceUsedFor)>><<set _uqdQuest.deviceUsedFor to []>><</if>>
+		<<if !_uqdQuest.deviceUsedFor.includes(_uqdEntry.target)>>
+			<<run _uqdQuest.deviceUsedFor.push(_uqdEntry.target)>>
+			<<set _uqdQuest.deviceUsed to true>>
+			<<run setup.useDevice(_uqdEntry.key, _uqdEntry.target, _uqdEntry.impact, _uqdQuest.id)>>
+		<</if>>
+		<<set _uqdDevice to (_uqdEntry.key ? $company.devices[_uqdEntry.key] : $company.prototype)>>
+		<<set _vxQuality to _uqdDevice.calibrationQuality>>
+		<<if _uqdPower === null>><<set _uqdPower to _uqdEntry.impact>><</if>>
 		<<run setup.devicePulse(_uqdPower, { keep: _uqdKeep })>>
 	<</if>>
 <</widget>>

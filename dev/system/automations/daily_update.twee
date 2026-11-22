@@ -20,7 +20,7 @@
 <<set $company.finances.money += $company.finances.income.revenue>>
 
 /* Monday morning: the staff gets paid for the week (setup.payWages, Define Company) */
-<<if $date.today.value == 0 && $company.stage >= 1>><<run setup.payWages()>><</if>>
+<<if $date.today.value == 0 && $company.stage >= 1>><<run setup.payWages()>><<run setup.payDebts()>><</if>>
 
 /* the finance chart (CMD Finances): the account balance, and what actually left the account that day
    (rent and wages, counted in spentToday); then the day starts again at 0 */

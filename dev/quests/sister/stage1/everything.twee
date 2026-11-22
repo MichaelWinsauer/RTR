@@ -165,7 +165,7 @@ I hold it and look at the blue dot for a while. Then I put it in my pocket.
 <<UpdateStat "-" "SisterLust" 40>>
 <<UpdateStat "-" "SisterResistance" 8>>
 <<UpdateStat "+" "Corruption" 4>>
-<<set $sister.stats.exhibition to Math.clamp($sister.stats.exhibition + 3, $sister.stats.min.exhibition, $sister.stats.max.exhibition)>>
+<<UpdateStat "+" "SisterExhibition" 3>>
 <<Feel $sister "player" 3 "lasting">>
 <<AdvanceCorruptionStage $sister "I told her my love belongs to the company and gave her a choice: everything, or leave. She looked at the door for a long time. Then she chose everything.">>
 <<ProfileLog $sister "Everything" "She asked what she is to me. I switched the $company.devices.valenxCatalyst.name on, told her I might feel something like love, and that it belongs to the company, and gave her a choice: everything, or leave. She chose everything. Her first time, on the couch in the dark office. Afterwards she gave me her phone, her passwords and her location, and asked me to choose her clothes every morning. I told her: soon.">>

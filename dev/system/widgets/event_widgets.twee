@@ -20,6 +20,10 @@
         <<if _requirementsOk and _cfe_event.device and !setup.questDevice(_cfe_event.device).ok>>
             <<set _requirementsOk = false>>
         <</if>>
+        /* a deal that was stalled waits a few days ("Family offers" in Define Quests) */
+        <<if _requirementsOk and setup.offerStalled(_cfe_event)>>
+            <<set _requirementsOk = false>>
+        <</if>>
 
         <<if _cfe_event.where.some(function (place) { return ((typeof place === "object") ? place.passage : place) == _cfe_passage; }) &&
         	 _cfe_event.whenDay.includes($date.today.value) && 
@@ -68,14 +72,16 @@
 */
 <<widget "ReturnFromEvent">>
 	<<set _rfe_event to $events[$currentEvent]>>
-    <<if _rfe_event.once == true>>
+	/* a deal that was stalled in this scene stays alive and comes back later ("Family offers" in Define Quests) */
+	<<set _rfe_stalled to (_rfe_event.stalledDay === $date.dayCount && setup.offerStalled(_rfe_event))>>
+    <<if _rfe_event.once == true and !_rfe_stalled>>
     	<<set $events[$currentEvent].active to false>>
     <</if>>
     <<if _rfe_event.cooldown > 0>>
     	<<set $events[$currentEvent].active to false>>
     <</if>>
     <<set $events[$currentEvent].completedAtDay to $date.dayCount>>
-    <<set $events[$currentEvent].finished to true>>
+    <<if !_rfe_stalled>><<set $events[$currentEvent].finished to true>><</if>>
     <<set _passageToReturnTo to ($args[1] != undefined ? $args[1] : _rfe_event.returnPassage)>>
     <<set _text to ($args[0] != undefined ? $args[0] : "Continue")>>
     <div class="navigation-link"><<link _text>><<goto _passageToReturnTo>><</link>></div>

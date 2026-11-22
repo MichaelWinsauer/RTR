@@ -17,8 +17,9 @@
 <h3>Placing a task</h3>
 <ol>
 	<li>Click a free cell. A window opens with the <a href="#" data-help="Help Company Tasks">tasks</a> that person can do. Tasks that aren't unlocked yet are not listed.</li>
-	<li>Each row shows a picture of the place with who she does it with, the title, the place, a short description, and on the right what it pays, how many actions it takes and the energy it costs right now. Badges next to the title mark a task you have to be there for (<b>With me</b>), a task that needs a break between days (<b>Every other day</b>, ...) and <b>Low energy</b>.</li>
-	<li>The tasks that fit come first, sorted by place. The ones that don't are listed below <b>Not possible here</b>, greyed out, with the reason: the wrong time of day, an overlap with another task, a locked cell, or the end of the day.</li>
+	<li>The tasks are sorted into <b>columns by who she does them with</b>: you first, then everyone else she works for. Each column's head shows how many of its tasks fit the cell you clicked.</li>
+	<li>Each row shows a picture of the place, the title, the place, a short description, and on the right what it pays, how many actions it takes and the energy it costs right now. Badges next to the title mark a task you have to be there for (<b>With me</b>), a task that needs a break between days (<b>Every other day</b>, ...) and <b>Low energy</b>.</li>
+	<li>In each column the tasks that fit come first, sorted by place. The ones that don't are listed below <b>Not possible here</b>, greyed out, with the reason: the wrong time of day, an overlap with another task, a locked cell, or the end of the day.</li>
 	<li>Click a row and the task is placed. It fills as many cells as its duration.</li>
 </ol>
 <p><b>Low energy</b> means she has less energy than the task needs to start. You can still place it; it just won't start when its time comes if she is still too tired.</p>

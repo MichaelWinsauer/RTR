@@ -779,6 +779,18 @@
 			effect: { corruption: 2, lust: 3, relation: 1, resistance: -1 },
 			passage: "{npc} Handjob"
 		},
+		{
+			/* free use (STAGE1_PROPOSAL.md 5.9): after The Calendar ($mom.flags.freeUse) she gives me whatever I need,
+			   whenever I want it, without the device. One action, no daily limit, private for now (Stage 2 may drop
+			   that). The passage changes with the place and with $mom.flags.whenever, and applies the stat changes */
+			id: "whenever", group: "intimate", text: "Whenever I want", cost: 1,
+			who: ["mom"],
+			requires: "$mom.flags.freeUse === true",
+			private: true,
+			blocked: _busy.concat(["working_boss"]),
+			effect: { corruption: 1, relation: 1, lust: -15 },
+			passage: "{npc} Whenever"
+		},
 
 		/* ———————————————————— Other ———————————————————— */
 		{

@@ -78,6 +78,9 @@ window.handleMailReply = function(mailId, optionId) {
 
     const option = mail.answerOptions.find(opt => opt.id === optionId);
     if (!option) return;
+    /* a locked answer (an offer she isn't ready for, a price the account can't cover) can't be sent */
+    if (setup.mailOptionLock(option)) return;
+    if (option.money) setup.spend(option.money, mail.title);
 
     /* Add player reply to body */
     mail.body.push({
