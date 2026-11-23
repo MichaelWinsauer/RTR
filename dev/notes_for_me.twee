@@ -22,6 +22,26 @@ Todo List:
     ✔ Add Micro events for M & S (talk_with_employees, talk_with_player, phone_call, bored)
     ✔ Ask C: S-Quest 1, how should it appear? With micro_events or something different?
     ✔ next S Quest Content (It makes a difference) or smth. Unsure how the night part should work. Maybe new quest?
+    - Analyze language and talk profiles
+    - report back:
+        - show end of day report in sidebar quicklinks
+        - report back can always (at the same day) be requested, not only >evening
+        - visually rework report back
+    - visually rework npc is at the same location
+    - visually rework meal showing 
+    - cmd micro event with cctv overlay fix
+    - highlight projects panel if unstarted available 
+    - device pulse visual tendrils + show on scroll
+    - add important meals for stage 1
+    - more tasks
+    - add locations
+    - remove npc has to be there requirements from quests 
+    - improve interaction blockers for working etc
+    - cmd actions rework 
+    - money balancing 
+    - energy and morale balancing
+    - ask for cmd improvements 
+    - ask for management balancing improvements
 
 Stage 0:
 
