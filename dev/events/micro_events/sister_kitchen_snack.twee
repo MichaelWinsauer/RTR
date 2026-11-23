@@ -12,9 +12,9 @@
 	<<set _msgs to [
 		{ who: $sister, text: "Remember when you took my cereal?" },
 		{ who: $player, text: "Vaguely." },
-		{ who: $sister, text: "I put salt in your coffee jar. Enjoy your morning." },
-		{ who: $player, text: "That's war, you know." },
-		{ who: $sister, text: "Good. I was getting bored." }
+		{ who: $sister, text: "Good, because I didn't forget. There's salt in your coffee jar now, so good luck tomorrow morning." },
+		{ who: $player, text: "You know that means war." },
+		{ who: $sister, text: "Bring it. It's been way too quiet around here anyway." }
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -24,7 +24,7 @@
 	<p>I walk into the kitchen. $sister.callName is pouring cereal at the counter, humming, with a few strands of hair falling across her face.</p>
 	<<silently>>
 	<<set _msgs to [
-		{ who: $sister, text: "Oh my god, this cereal is actually amazing today. Want some, little $sister.callPlayerShort?" }
+		{ who: $sister, text: "Somebody finally bought the good cereal. Want some, little $sister.callPlayerShort?" }
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -34,8 +34,8 @@
 				<<replace "#choice1">>
 					<<silently>>
 					<<set _msgs to [
-						{ who: $player, text: "I'll make toast. We can split everything." },
-						{ who: $sister, text: "Look at you being useful for once." }
+						{ who: $player, text: "I'll make some toast and we can split everything." },
+						{ who: $sister, text: "Look at you, being useful in a kitchen. I should take a picture." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -51,8 +51,8 @@
 					<<set _msgs to [
 						{ text: "I reach over and grab a handful straight from the box." },
 						{ who: $sister, text: "Oh, you did not just do that." },
-						{ who: $player, text: "Too late." },
-						{ who: $sister, text: "You're on, little $sister.callPlayerShort. This is not over." }
+						{ who: $player, text: "Already did. It really is the good stuff." },
+						{ who: $sister, text: "Enjoy it while you can, little $sister.callPlayerShort, because you're going to regret that." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -74,13 +74,13 @@
 							<<set _vx.lastUsedOnWho to "sister">>
 							<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
 								<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-								<p>She squints at me. "Why are you being so weird?" she says, and takes her bowl to her room.</p>
+								<p>She squints at me. "Why are you being so weird today?" she says, and takes her bowl to her room.</p>
 								<<UpdateStat "-" "SisterRelation" 3>>
 								<<UpdateStat "+" "SisterResistance" 4>>
 							<<else>>
 								<<set _gain to 1 + _vxLevel>>
 								<<set _lustGain to 4 + 4 * _vxLevel>>
-								<p>I turn the prototype on in my pocket. <<DevicePulse `_vxLevel + 1`>> She keeps talking longer than usual, laughing at my jokes and not noticing how close she is standing to me.</p>
+								<p>I turn the prototype on in my pocket. <<DevicePulse `_vxLevel + 1`>> She stays at the counter after her bowl is empty, laughing at my jokes, even the bad ones, and she doesn't seem to notice how close she's standing to me.</p>
 								<<UpdateStat "-" "SisterRelation" 1>>
 								<<UpdateStat "+" "SisterCorruption" _gain>>
 								<<UpdateStat "+" "SisterLust" _lustGain>>

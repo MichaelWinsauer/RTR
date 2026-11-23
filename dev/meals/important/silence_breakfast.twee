@@ -24,7 +24,7 @@
 */
 The kitchen smells of butter and vanilla before I'm halfway down the stairs.
 
-$mom.callName is at the stove in her robe with the heavy pan, the one that only comes out for birthdays, and there's already a stack waiting on the plate at my place. Blueberry. On the top one she has pressed the berries into a lopsided smile, the way she did when I was home sick from school and wouldn't eat anything else.
+$mom.callName is at the stove in her robe with the heavy pan, the one that only comes out for birthdays, and there's already a stack waiting on the plate at my place. They're blueberry, and on the top one she has pressed the berries into a lopsided smile, the way she did when I was home sick from school and wouldn't eat anything else.
 
 /* IMAGE: images/meals/important/silence_breakfast.jpg | Mom at the stove in her robe, spatula raised, looking over her shoulder; a stack of blueberry pancakes with a berry smile on the table, Sister in pajamas eyeing it. */
 
@@ -34,10 +34,10 @@ She turns around when she hears my chair. The spatula stays where it is, halfway
 <<set _msgs = [
 { who: $mom, text: "Good morning, sweetie. I made the..." },
 { text: "I sit down and reach for the coffee. She lets the rest of the sentence go." },
-{ who: $mom, text: "There's more batter, if you want more. I made too much. I always make too much." },
-{ who: $sister, text: "Okay, why are there pancakes? Nobody has a birthday. Did somebody die?" },
+{ who: $mom, text: "There's more batter if you want more, I made way too much, but then I always make too much." },
+{ who: $sister, text: "Why are there birthday pancakes? It's nobody's birthday, and as far as I know nobody died." },
 { who: $mom, text: "Nobody died, honey. I just felt like making pancakes." },
-{ who: $sister, text: "You felt like it. At this hour. With a face on them." },
+{ who: $sister, text: "You just felt like making smiley-face pancakes at this hour of the morning. Sure." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -50,7 +50,7 @@ I eat two pancakes from the bottom of the stack. The one with the face stays on 
 <<set _msgs = [
 { who: $player, text: "$sister.callName, pass the syrup?" },
 { text: "The bottle is right next to $mom.callName's hand. $sister.callName has to lean across her to get it, and $mom.callName moves her hand out of the way a second late, like she was about to pass it herself and caught it in time." },
-{ who: $sister, text: "Here. Wow. Okay. Great breakfast, everyone. Really warm in here." },
+{ who: $sister, text: "Here you go. Wow, what a fun breakfast this is, everybody. I'm so glad we're all doing this." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

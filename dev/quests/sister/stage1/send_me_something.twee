@@ -5,41 +5,41 @@
    is for her to choose to show me.
    Part 2: the two videos that night, each one with an apology before it. Part 3: I walk in on her. */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
-She comes in without knocking now. That's new since the photos. She just opens the door, slips through, closes it behind her and leans on it, in the gray hoodie and a pair of shorts, with her hair down and her face scrubbed and pink from the shower.
+She comes in without knocking now, which is new since the photos. She opens the door, slips through, closes it behind her and leans on it, in the gray hoodie and a pair of shorts, with her hair down and her face scrubbed and pink from the shower.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Hi. Is it... is tonight a sometimes?" },
-{ text: "She says it like a joke, but she's already walking over. She's already sitting down next to me on the bed with her hand on my knee." },
+{ who: $sister, text: "Hi. So, is tonight a sometimes?" },
+{ text: "She says it like a joke, but she's already crossing the room, and a second later she's sitting next to me on the bed with her hand on my knee." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-It's the third time this week. She's good at it now. She's proud of being good at it, the same way she's proud of her journal and her coffee tray, and if I let her she'd make it a habit, then a routine, then something comfortable.
+It's the third time this week. She's gotten good at it, and she's proud of that the same way she's proud of her journal and her coffee tray. If I let her, it would turn into a routine before long, something easy and comfortable that she does for me after her shower.
 
 I take her hand off my knee.
 
 <<linkreplace "Stop her">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh. Okay. Not tonight. That's fine, that's totally fine, I'll just..." },
-{ who: $player, text: "Stay a second." },
+{ who: $sister, text: "Oh. Not tonight, okay, that's totally fine, I'll just go..." },
+{ who: $player, text: "Hey, stay a second. I didn't say go." },
 { text: "She stays, half up, half sitting, with her hand hovering in the air between us like it doesn't know where it belongs anymore." },
-{ who: $player, text: "I don't want you to touch me tonight." },
+{ who: $player, text: "I'm not in the mood to be touched tonight." },
 { who: $sister, text: "Okay." },
-{ who: $player, text: "I want to see you." },
+{ who: $player, text: "What I'd like tonight is to look at you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She doesn't get it at first. I watch her turn it over. Then her eyes go wide, and her ears go red, and she pulls the sleeves of the hoodie down over both hands.
+She doesn't get it at first, and I watch her turn it over until it clicks. Her eyes go wide, her ears go red, and she pulls the sleeves of the hoodie down over both hands.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "See me. Like... see me see me." },
-{ who: $player, text: "Go back to your room. Send me something." },
+{ who: $sister, text: "Look at me. Like, look at me look at me?" },
+{ who: $player, text: "Go back to your room, and when you're ready, send me something." },
 { who: $sister, text: "Like a picture? You want me to send you a picture? I'm so bad at pictures, I have like a two percent success rate, I always look like I'm being arrested." },
-{ who: $player, text: "Not a picture." },
+{ who: $player, text: "I wasn't thinking of a picture." },
 { text: "That takes her a second too. When she gets there, she puts both sleeves over her face." },
 { who: $sister, text: "Oh my God." },
 ]>>
@@ -47,22 +47,22 @@ She doesn't get it at first. I watch her turn it over. Then her eyes go wide, an
 <<Chat _msgs>>
 
 <<linkreplace "Wait for her answer">>
-She doesn't say yes. She doesn't say no. She sits there with her face in her sleeves for a while, and then she drops her hands into her lap and looks at me, really looks, the way she looked at the photos on my phone.
+She doesn't say yes, and she doesn't say no either. She sits there with her face in her sleeves for a while, and then she drops her hands into her lap and looks at me, really looks, the way she looked at the photos on my phone.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "You really want that? Me? You want to look at me?" },
-{ who: $player, text: "I want to look at you." },
-{ who: $sister, text: "Nobody's ever... okay. Okay. I mean, I'm not saying I'm going to. I'm just saying I heard you." },
-{ who: $player, text: "Goodnight." },
-{ who: $sister, text: "Goodnight. I heard you. I'm just... I heard you." },
+{ who: $sister, text: "You really want that? You want to look at me?" },
+{ who: $player, text: "Yes. I'd like that a lot." },
+{ who: $sister, text: "Nobody's ever... okay. I'm not saying I'm going to do it. I'm just saying I heard you." },
+{ who: $player, text: "That's all I wanted. Goodnight." },
+{ who: $sister, text: "Night. I really did hear you, by the way." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She goes. She closes my door very carefully, and then her own door, a little less carefully.
+She closes my door very carefully on her way out, and then her own door, a little less carefully.
 
-The camera I hid in her room weeks ago would show me everything she does in there tonight. I could open it on my phone right now. I don't. A camera only shows me what she does when she thinks nobody's looking. I want to see what she does when she knows I am.
+The camera I hid in her room weeks ago would show me everything she does in there tonight, and I could open the feed on my phone right now. I don't. I've watched her through that camera plenty of times, and none of it was ever meant for me. Tonight I want whatever I see to be something she chose to show me.
 
 I put my phone face up on the nightstand and turn off the light.
 

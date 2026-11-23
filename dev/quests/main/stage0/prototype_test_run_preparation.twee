@@ -1,5 +1,5 @@
 :: Prototype Test-Run Preparation [event main_quest] {"position":"3025,250","size":"100,100"}
-I lean back from the desk and stare at the screen for a full minute before I let myself believe it. The thing runs. It's held together with duct tape and stubbornness, and I still have to babysit half its parameters by hand, but it runs, and it might actually be ready for a real test.
+I lean back from the desk and stare at the screen for a full minute before I let myself believe it. The thing runs. It's held together with electrical tape and about four hundred if-statements, and I still have to babysit half its parameters by hand, but it runs, and it might actually be ready for a real test.
 
 The question is who to test it on. This version can't do much by itself yet. It needs a profile, a set of numbers tuned to one specific person, which rules out strangers. It has to be someone I know inside out, so $mom.callName or $sister.callName. If something goes wrong, I'm also the one person who could talk his way out of it with them.
 

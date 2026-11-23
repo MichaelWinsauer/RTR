@@ -1,21 +1,21 @@
 :: Struggling Student [event sister_quest] {"position":"3025,1525","size":"100,100"}
 I'm halfway down the hallway on my way to borrow $sister.callName's charger, mine having finally died after three years of being bent at the same angle, when I hear her voice through the door. It's low and a little shaky. She's on the phone.
 
-That stops me. $sister.callName doesn't do quiet. She talks to her friends like the whole street is invited. This sounds smaller, like she's worried someone might be listening. Someone is. I nudge the door open a crack, just far enough to see the edge of her bed.
+That stops me. $sister.callName doesn't do quiet. She talks to her friends like the whole street is invited. This sounds smaller, like she's worried someone might be listening, which, to be fair, someone is. I nudge the door open a crack, just far enough to see the edge of her bed.
 
 <<linkreplace "Listen to her">>
 <<Video "images/characters/sister/events/struggling student/call.webm" "" "" 500>>
 
 <<silently>>
 <<set _msgs = [
-    { text: "I only catch part of it. Her voice keeps snagging on the words." },
-    { who: $sister, text: "...yeah, I know, but I'm actually freaking out. If I fail this test, I'm done. Like, done done. My GPA is hanging on by one fingernail." },
+    { text: "I only catch part of it. Her voice keeps catching on the words." },
+    { who: $sister, text: "Yeah, I know, but I'm actually freaking out. If I fail this test I'm done, my GPA is hanging on by one fingernail as it is." },
     { text: "A pause while whoever's on the other end tries to help." },
     { who: $sister, text: "No, it's not like high school, I can't just smile at the teacher and walk out with a B. This prof hates me. I swear he does. Every time I ask a question, he looks at me like I just asked what a number is. And it's all derivatives and integrals and I used to be good at math, remember? I didn't even have to try. Now I stare at the book and it slides right off my brain." },
     { text: "Another pause. Her voice drops." },
     { who: $sister, text: "What if I'm just not smart anymore? What if I peaked at sixteen and this is it? If I bomb this, I lose the scholarship, and then I'm stuck back here forever with no degree, and $mom.callName is already counting every dollar. I can't do that to her." },
     { text: "She laughs, but there's nothing funny in it." },
-    { who: $sister, text: "Yeah, yeah. 'You got this.' I wish. I don't even know what to do. Study more? Beg him? Everybody thinks I have my whole life together, and I'm sitting here crying over a math test." },
+    { who: $sister, text: "Yeah, yeah, 'you got this.' I wish. I don't even know what I'm supposed to do, study more, go beg him? Everybody thinks I have my whole life together, and I'm sitting here crying over a math test." },
     { text: "Then nothing for a while, except a sniffle she tries to hide by clearing her throat." },
 ]>>
 <</silently>>
@@ -31,21 +31,21 @@ I wait until she's saying her goodbyes, then push the door open like I just walk
 <<set _msgs = [
     { who: $sister, text: "Oh, shit. Hold on, I gotta go. Yeah. Later. Bye." },
     { text: "She ends the call and drops the phone on the bed like it's hot, then puts on a smile that doesn't make it anywhere near her eyes." },
-    { who: $sister, text: "Hey. Didn't hear you. What's up?" },
+    { who: $sister, text: "Hey. I didn't hear you come up. What's up?" },
     { who: $player, text: "My charger died. Can I borrow yours? You okay? That sounded intense." },
-    { who: $sister, text: "Me? Pfft. Totally fine. Friend drama. You wouldn't get it, it involves having friends." },
-    { who: $player, text: "Wow." },
+    { who: $sister, text: "Me? I'm fine. Friend drama. You wouldn't get it, it involves having friends." },
+    { who: $player, text: "Wow. Okay." },
     { who: $sister, text: "Sorry. That was mean. I'm just tired." },
     { who: $player, text: "It didn't sound like friend drama." },
-    { who: $sister, text: "Okay, fine. School stuff. One class is kicking my ass. It's not a big deal, I'll figure it out." },
+    { who: $sister, text: "Fine, it's school stuff. One class is kicking my ass. It's not a big deal, I'll figure it out." },
     { text: "She winds a strand of hair around her finger until the tip goes white. She's done that since she was eight, every time she lied about who broke something." },
     { who: $player, text: "If you want help, just ask. I'm not completely useless." },
-    { who: $sister, text: "Debatable. But... maybe. Thanks. Charger's on the desk." },
+    { who: $sister, text: "That's debatable. But maybe, yeah. Thanks. The charger's on the desk." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I take the charger and stop in the doorway for a second. She's already picked her phone back up and is scrolling without reading anything, eyes still wet. She'll ask. Maybe not tomorrow, but she will, and I'm going to make sure I'm the easiest person in this house to ask.
+I take the charger and stop in the doorway for a second. She's already picked her phone back up and is scrolling without reading anything, eyes still wet. I think she'll ask. Maybe not tomorrow, but soon, and when she does I want to be the easiest person in this house to ask.
 
 <<UpdateStat "+" "SisterRelation" 3>>
 <<set setup.getMealById("struggling_student").isActive to true>>

@@ -19,14 +19,12 @@ The doors open on floor 6 and the noise rolls in: keyboards, phones, someone lau
 He's red in the face and stabbing a finger at her monitor, and half the floor has suddenly found something fascinating on their own screens.
 <<silently>>
 <<set _msgs to [
-{ who: $boss, text: "Incompetent! Fix this now or start packing your desk!" },
+{ who: $boss, text: "I asked for the regional numbers broken out by quarter, $mom.name, not this... whatever this is. You have until lunch, or I find someone who can read an email." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$mom.callName just nods. Her hair falls forward over her face, which I think is the point. I've seen her tired plenty of times, and sad a few, but I've never watched her fold herself up this small.
-
-What bothers me most is that it isn't me doing it.
+$mom.callName just nods. Her hair falls forward over her face, which I think is the point. I've seen her tired plenty of times, and sad a few, but I've never watched her fold herself up this small, and what bothers me most, if I'm honest, is that it isn't me doing it.
 
 He storms off to his corner office and slams the door hard enough to rattle the glass. $mom.callName wipes under her eyes with the side of her finger, careful not to smudge anything, and goes back to typing. I don't go to her. I go after him instead, knock once, and walk in before he can answer.
 
@@ -34,18 +32,18 @@ The office is all city view and leather, and it smells like someone emptied a bo
 
 <<silently>>
 <<set _msgs to [
-{ who: $boss, text: "Who the hell are you?" },
-{ who: $player, text: "I'm $mom.name's $mom.playerRelation. I saw what you just did out there, and it's going to stop." },
-{ who: $boss, text: "Her kid? Oh, that's adorable. Get out before I call security. I don't do family drama." },
-{ who: $player, text: "I'll leave when you back off. Talk to her like that one more time and you're going to regret it." },
-{ text: "I slide $company.prototype.name out of my pocket, thumb it on and turn the dial toward agreeable. Toward quiet." },
+{ who: $boss, text: "Can I help you? Because I don't remember booking a meeting with a teenager." },
+{ who: $player, text: "I'm $mom.name's $mom.playerRelation. I just saw what you did out there, and I'd really like you to stop talking to her like that." },
+{ who: $boss, text: "Her kid. Wonderful. Does she know you're here? Because this is exactly the kind of thing that ends up in a personnel file, and it won't be yours." },
+{ who: $player, text: "I'll go in a minute. I just want you to listen first." },
+{ text: "I slide $company.prototype.name out of my pocket, thumb it on and turn the dial toward agreeable and quiet, as far as I dare." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<silently>>
 <<UseQuestDevice $mom>>
 <<set _msgs to [
-{ who: $boss, text: "What is that, a toy? Kid, you've got some nerve walking in here with a toy." },
+{ who: $boss, text: "What is that, a garage door opener? Put it away, kid, before you embarrass yourself." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -58,16 +56,16 @@ He watches all of this with growing amusement, then leans back in his chair and 
 
 <<silently>>
 <<set _msgs to [
-{ who: $boss, text: "Cute gadget. No idea what it's supposed to do, but I like the guts, kid. Most people can't look me in the eye, and here you are threatening me with a calculator." },
-{ who: $boss, text: "Just remember that everything has consequences. Especially for someone with a $mom.relation like yours. She keeps the office... interesting. If you catch my drift." },
-{ text: "He finishes it off with a wink. I keep my hands flat against my jeans, because I'm not sure what they'd do otherwise." },
-{ who: $player, text: "Leave her alone." },
-{ who: $boss, text: "We'll see. Now scram, I've got actual work to do." },
+{ who: $boss, text: "Well, whatever that was supposed to do, it didn't. I'll give you this much, kid, half the people on that floor can't look me in the eye, and you walk in here and point a calculator at me." },
+{ who: $boss, text: "So here's how this goes. You go home, and tomorrow your $mom.relation comes in and does her job, and maybe she wears that blue dress from the Christmas party, because that was the one day this year she didn't look like she was dressed for a funeral. And if I see you on my floor again, she's the one who pays for it. Not you." },
+{ text: "He smiles when he says the part about the dress. I keep my hands flat against my jeans, because I'm not sure what they'd do otherwise." },
+{ who: $player, text: "Just leave her alone." },
+{ who: $boss, text: "Close the door on your way out. Quietly, she's got work to do." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I put the prototype away and walk out. My face burns all the way down to the lobby, but somewhere under the anger I'm almost pleased. He laughed at me. People who laugh at you don't watch you very closely.
+I put the prototype away and walk out. My face burns all the way down to the lobby, and I keep replaying it and coming up with better things I should have said. The only comfort I can find is that he laughed, and a guy who's laughing at you probably isn't too worried about you.
 
 That error bugs me, though. It has never refused anyone before. Either he's built different or I've been calibrating it wrong, and I'd like to know which before I set foot on floor 6 again.
 

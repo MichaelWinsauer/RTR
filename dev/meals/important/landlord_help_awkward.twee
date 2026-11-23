@@ -20,15 +20,13 @@
    Activated by: "Family Landlord Help 2" (main_familyLandlordHelp). The dinner after we went to
    $landlord.callName together and promised him their weekly "help" for the third floor office.
 */
-Nobody has changed.
-
-That's the first thing I notice. $mom.callName is still in the silk blouse, $sister.callName is still in the short skirt, and both of them have kicked their heels off under the table, but neither went upstairs to put on something normal. As if changing would mean admitting why they dressed up in the first place.
+The first thing I notice is that nobody has changed. $mom.callName is still in the silk blouse, $sister.callName is still in the short skirt, and both of them have kicked their heels off under the table, but neither went upstairs to put on something normal. As if changing would mean admitting why they dressed up in the first place.
 
 /* IMAGE: images/meals/important/landlord_help_awkward.jpg | A quiet dinner table. Mom and Sister still in their dressed-up outfits, heels kicked off underneath. Nobody talking. A pot of soup in the middle, the TV on mute in the background. */
 
 $mom.callName made soup. It's the soup she makes when somebody is sick.
 
-The spoons are loud. The fridge hums. The TV in the living room is on mute, a weatherman pointing at a map with great enthusiasm and no sound. $mom.callName salts her soup, tastes it, and salts it again. Then a third time.
+The spoons are loud and the fridge hums, and the TV in the living room is on mute, a weatherman pointing at a map with great enthusiasm and no sound. $mom.callName salts her soup, tastes it, and salts it again. Then a third time.
 
 <<silently>>
 <<set _msgs = [
@@ -47,11 +45,11 @@ Then $sister.callName puts her spoon down.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "His office smelled like a cologne factory exploded inside a bigger cologne factory." },
+{ who: $sister, text: "His office smelled like somebody spilled a whole bottle of cologne and then tried to cover it up with a second bottle." },
 { who: $mom, text: "$sister.callName." },
-{ who: $sister, text: "I'm just saying. I can still smell it. It's in my hair, $mom.callName. I'm going to smell like him until Tuesday." },
+{ who: $sister, text: "I'm just saying, I can still smell it. It's in my hair, $mom.callName, I'm going to smell like him until Tuesday." },
 { text: "$mom.callName presses her lips together very hard. Her shoulders start to shake. For one terrible second I think she's about to cry. Then she snorts into her napkin." },
-{ who: $mom, text: "He had a toothpick. Did you see the toothpick? Behind his ear. For later." },
+{ who: $mom, text: "Did you see the toothpick behind his ear? Like he was saving it for later." },
 { who: $sister, text: "For later!" },
 ]>>
 <</silently>>
@@ -63,7 +61,7 @@ They laugh until $sister.callName has tears in her eyes and $mom.callName has to
 <<set _msgs = [
 { who: $mom, text: "We're not talking about it at dinner. Agreed?" },
 { who: $sister, text: "Agreed." },
-{ who: $mom, text: "We did it for the family. That's all there is to it." },
+{ who: $mom, text: "We did it for the family, and that's really all there is to it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

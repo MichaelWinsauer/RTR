@@ -1,38 +1,38 @@
 :: Mom Has It Tough Again [event mom_quest] {"position":"3150,1200","size":"100,100"}
-The dishes are done and the TV is off, and in the quiet I can hear it from the hallway: $mom.callName, crying in her room, trying very hard to do it quietly. She has no idea that her boss's mood swing a few days ago had a lot to do with me walking into his office. I'd like to keep it that way.
+The dishes are done and the TV is off, and in the quiet I can hear it from the hallway: $mom.callName, crying in her room, trying very hard to do it quietly. She has no idea that her boss's mood swing a few days ago had a lot to do with me walking into his office, and I'd like to keep it that way.
 
 I knock softly and ease the door open. Only her bedside lamp is on. She's curled up under the covers with her face pressed into the pillow, and when she lifts her head her eyes are swollen and her nose is pink. She tries to smile at me. It doesn't go very well.
 
 <<silently>>
 <<set _msgs to [
     { who: $player, text: "$mom.callName? I heard you from the hallway. Are you okay?" },
-    { who: $mom, text: "Oh, honey... no. Not really. Today was just... it was awful." },
-    { who: $player, text: "Scoot over. Tell me." },
+    { who: $mom, text: "Oh, honey... no. Not really. Today was just awful." },
+    { who: $player, text: "Scoot over and tell me." },
     { text: "She sits up, pulls the blanket around her shoulders and wipes her face with the heel of her hand." },
-    { who: $mom, text: "He was on a rampage. Every little thing I did was wrong. He made me redo hours of work while he stood behind my chair. And the comments, god. 'Bend over and grab that file, $mom.name, I could watch that all day.' 'Wear something with a bit more leg tomorrow, might help your productivity.' In front of everyone. Because I won't laugh at his jokes." },
+    { who: $mom, text: "He was on a rampage all day, every single thing I did was wrong, and he made me redo the whole quarterly summary while he stood behind my chair breathing down my neck. And the comments, god... 'Bend over and grab that file, $mom.name, I could watch that all day.' 'Wear something with a bit more leg tomorrow, might help your productivity.' In front of everybody, and all because I won't laugh at his stupid jokes." },
     { who: $player, text: "That's disgusting. Why is it suddenly so much worse?" },
-    { who: $mom, text: "I don't know. He muttered something about nosy kids who think they can interfere. It didn't make any sense." },
+    { who: $mom, text: "I have no idea. He said something about nosy kids who think they can march into his office, which didn't make any sense at all, unless he meant the interns." },
     { text: "I keep my face very still." },
-    { who: $mom, text: "I'd quit tomorrow if I could. But I signed that contract, and if I walk out before it's up, the penalty alone would ruin us. So I just... sit there and take it." },
+    { who: $mom, text: "I'd quit tomorrow if I could, you know that. But you remember that contract they had me sign when I got promoted, the one I was so proud of? If I leave before it runs out, I'd owe them more than we've got. So I smile and I sit there, and it's fine, honey, really. It's another year and a half, and then I'm never wearing pantyhose again." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She stares at the blanket, picking at a loose thread. And while she does, an idea settles into my head, so simple I almost feel bad for her. He wants her to dress for him. Fine. Let her. Let him see her walk in tomorrow looking exactly the way he asked, and let him wonder who made that happen.
+She stares at the blanket, picking at a loose thread. While she does, an idea starts to take shape, and it's so simple I almost feel bad about it. He wants her to dress for him, so maybe she should, once, and he can spend the day wondering why the woman who wouldn't laugh at his jokes walked in looking exactly the way he asked, and who changed her mind.
 
 <<silently>>
 <<set _msgs to [
     { who: $player, text: "Okay, hear me out, because this is going to sound strange. What if you gave him a little of what he wants?" },
     { who: $mom, text: "...What?" },
-    { who: $player, text: "Just for a while. Dress up a bit tomorrow. Make him think you're playing along. Guys like him calm down the second they think they're winning. It could buy you some peace." },
+    { who: $player, text: "Just for a while. Dress up a bit tomorrow and make him think you're playing along. Guys like him calm down the second they think they're winning, and it could buy you some peace." },
     { who: $mom, text: "Sweetie, no. That's exactly the kind of thing I don't want to encourage. I'm not going to..." },
-    { who: $player, text: "I know how it sounds. But you can't fight him and you can't leave, so you might as well make the days easier. Hang on, let me get the prototype. It'll help you think about it with a clear head." },
+    { who: $player, text: "I know how it sounds. But you can't fight him and you can't leave, so you might as well make the days easier. Hang on, let me get the prototype, it'll help you think about it with a clear head." },
     { who: $mom, text: "Wait, I didn't say I..." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<linkreplace "Activate the prototype...">>
-I already have it out. I set it on her nightstand, next to a crumpled tissue and her reading glasses, and turn it on before she finishes the sentence. The dial goes up two notches. Then a third. <<UseQuestDevice $mom>>
+I already have it out. I set it on her nightstand, next to a crumpled tissue and her reading glasses, and turn it on before she finishes the sentence. The dial goes up two notches, and after a second, a third. <<UseQuestDevice $mom>>
 
 <<Video "images/characters/player/prototype/on.mp4" "" "" 500>>
 
@@ -40,9 +40,9 @@ It takes a minute. Her breathing slows down first, then her hands stop fidgeting
 
 <<silently>>
 <<set _msgs to [
-    { who: $mom, text: "I suppose... a shorter skirt wouldn't kill me. Maybe the blouse with the lower neckline. It still feels a little wrong, but if it keeps him off my back..." },
-    { who: $player, text: "It will. And I'll have another word with him myself. Sort things out for good." },
-    { who: $mom, text: "Please be careful, $player.name. He's not a nice man." },
+    { who: $mom, text: "I suppose a shorter skirt wouldn't kill me. And there's that blouse I always pin shut, the one your $sister.relation says makes me look like a librarian... it still feels a little wrong, honey, but if it keeps him off my back for a while..." },
+    { who: $player, text: "It will. And I'll go talk to him again myself and see if I can sort it out for good." },
+    { who: $mom, text: "Please be careful, $player.name, I mean it. He's not a nice man, and he knows everybody." },
     { who: $player, text: "I know. Don't worry about me." },
     { text: "She reaches out and squeezes my hand, like I'm the one who needs comforting." },
 ]>>
@@ -51,7 +51,7 @@ It takes a minute. Her breathing slows down first, then her hands stop fidgeting
 
 I switch the prototype off, tuck it back into my pocket and tell her to get some sleep. She actually thanks me.
 
-Out in the hallway I stand still for a moment and listen to her turn off the lamp. Tomorrow she'll walk into that office dressed for him, and she'll believe it was her own decision. I'm surprised by how little that bothers me.
+Out in the hallway I stand still and listen to the click of her lamp. Tomorrow she'll put on that blouse without the pin and believe she decided it herself, and I keep waiting to feel bad about that. So far I mostly want to see what he does.
 
 <<UpdateStat "+" "Corruption" 4>>
 <<UpdateStat "+" "MomCorruption" 3>>

@@ -4,13 +4,13 @@
 <div class="activity-image-wrapper" style="max-height: 400px">
 	<<DisplayActivity $sister>>
 </div>
-<p>The printer by the window is jammed, and $sister.callName is kneeling in front of it with the side panel open, talking to it in a low, reasonable voice, the way hostage negotiators do in movies.</p>
+<p>The printer by the window is jammed, and $sister.callName is kneeling in front of it with the side panel open, talking to it in the low, patient voice people use on a dog that has run off with a sock.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Listen to me. I know you're scared. Just give me the paper and nobody has to get hurt." },
+	{ who: $sister, text: "Come on, just give it back. I'm asking nicely, and I won't be asking nicely for much longer." },
 	{ who: $player, text: "How's it going?" },
-	{ who: $sister, text: "It took my internship report. All eleven pages. It's holding them somewhere in its guts where my hand doesn't fit." },
-	{ who: $sister, text: "Printers can smell fear, you know. I've been at war with the one at college since September. I think they talk to each other." },
+	{ who: $sister, text: "It ate my internship report, all eleven pages, and now it's keeping them somewhere in there where my hand doesn't fit." },
+	{ who: $sister, text: "I've been feuding with the one at college since September, and I'm starting to think they talk to each other." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -22,10 +22,10 @@
 				<p>I crouch down next to her, pull the green lever she was very carefully not touching and slide out page seven, folded into a perfect little accordion. She takes it from me with both hands.</p>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $sister, text: "My hero. My printer whisperer." },
+					{ who: $sister, text: "Thank you. I was about two minutes away from kicking it." },
 					{ text: "Then she sees me reading the upside-down page over her hands, and she flips it against her chest." },
 					{ who: $player, text: "'My supervisor is demanding but fair'?" },
-					{ who: $sister, text: "That's a direct quote from the evaluation form. It's a template. I didn't write that. Go away." },
+					{ who: $sister, text: "That's from the evaluation template, I didn't come up with it. Stop reading over my hands." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -41,9 +41,9 @@
 				<<set _msgs to [
 					{ who: $player, text: "$brian.name? Printer emergency." },
 					{ text: "He's there in about four seconds. He doesn't look at her. He looks at the printer, reaches past her without touching her, pulls the green lever and hands her page seven, all in one movement." },
-					{ who: $brian, text: "Uh. Green parts are for pulling. On printers. If it's green, you can, uh, pull it." },
-					{ who: $sister, text: "That's beautiful. Is that true of everything?" },
-					{ who: $brian, text: "Just printers. I think. I haven't, uh. I haven't checked everything." },
+					{ who: $brian, text: "Um. The green parts. You can pull those." },
+					{ who: $sister, text: "Good to know. Does that work on everything, or just printers?" },
+					{ who: $brian, text: "Hm. Printers. Mostly." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

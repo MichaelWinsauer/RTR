@@ -6,57 +6,57 @@
    the shared sheet and says nothing. The quest's set unlocks project_company_anchor (only $brian.name works on it) and ends
    her Extra Friendly task. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-$brian.name has changed this week. It's small. He says good morning to people now, to their faces, or at least to their shoulders. He's started wearing shirts that have buttons. Yesterday $ethan.name told a joke about a capacitor and $brian.name laughed out loud and then looked around, startled, as if somebody else had done it.
+$brian.name has changed a little this week. He says good morning to people now, to their faces, or at least to their shoulders, and he's started wearing shirts that have buttons. Yesterday $ethan.name told a joke about a capacitor and $brian.name laughed out loud and then looked around, startled, as if somebody else had done it.
 
-A week of $sister.callName pulling up a chair to his desk did that. I asked her to be nice to him, and she was, and now he's the most approachable he's going to get.
+A week of $sister.callName pulling up a chair to his desk did that. I asked her to be nice to him, and she was, and now he's about as approachable as he's ever going to get.
 
 So I pull up the same chair.
 
 <<linkreplace "Talk to $brian.name">>
 <<silently>>
 <<set _msgs = [
-{ who: $brian, text: "Oh. Hi. Hey. Uh, is something broken?" },
-{ who: $player, text: "Nothing's broken. I want you to build me something." },
+{ who: $brian, text: "Oh, hey. Um. Is something broken?" },
+{ who: $player, text: "Nope, nothing's broken. I actually want you to build me something." },
 { text: "He sits up a little. Behind his glasses his eyes do the thing they do when a problem walks into the room: they get bright." },
-{ who: $player, text: "Small. Handheld. Something that fits in a jacket pocket. One emitter, not an array. Focused, short range. And it doesn't need to run for hours. It needs to run for a minute, at full output, and then it can rest." },
-{ who: $brian, text: "Full output." },
-{ who: $player, text: "Everything the emitter can give, in one burst. I'll write the profile myself." },
+{ who: $player, text: "Something small, handheld, that fits in a jacket pocket. One emitter instead of an array, focused and short range. It doesn't need to run for hours either, just a minute or so at full output, and then it can rest." },
+{ who: $brian, text: "Full output. Like, all of it?" },
+{ who: $player, text: "Yeah, everything the emitter can give, in one burst. I'll write the profile for it myself." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I wait for the question. Any engineer would ask it. What's it for? Why full output? What happens to whoever's standing in front of it?
+I wait for the question, because I'm pretty sure any engineer would ask it: what's it for, why full output, and what happens to whoever's standing in front of it?
 
-$brian.name pushes his glasses up his nose and pulls a notepad toward him and starts drawing.
+Instead, $brian.name pushes his glasses up his nose, pulls a notepad toward him and starts drawing.
 
 <<linkreplace "Let him draw">>
 <<silently>>
 <<set _msgs = [
-{ who: $brian, text: "Okay. Okay. So one emitter at full output, that's, uh, that's a lot of current through a very small coil. It'll get hot. Really hot." },
-{ who: $brian, text: "You'd need a capacitor bank to dump it all at once. That's most of the charge, gone. One burst, full drain. Maybe two, if the coil holds up, but I wouldn't, uh, I wouldn't count on more than two before it cooks." },
-{ who: $player, text: "Two is enough." },
-{ who: $brian, text: "Two is enough. Okay. Then I'd put the bank here, and the coil here, and a ceramic shield on this side so it doesn't, uh. So it points the right way." },
-{ text: "He draws an arrow on the sketch, pointing away from the handle. He doesn't draw anything at the other end of the arrow. He doesn't ask what goes there." },
+{ who: $brian, text: "Okay. So one emitter at full output is a lot of current through a very small coil. It's going to get hot, like, really hot." },
+{ who: $brian, text: "You'd need a capacitor bank to dump it all at once, and that's most of the charge gone in one burst. Maybe two bursts if the coil holds up. Ehh, I wouldn't count on more than two before it cooks, though." },
+{ who: $player, text: "Two would be enough." },
+{ who: $brian, text: "Okay, two. Then the bank goes here, the coil here, and a ceramic shield on this side so it doesn't... hm. So it points the right way." },
+{ text: "He draws an arrow on the sketch, pointing away from the handle. He doesn't draw anything at the other end of the arrow, and he doesn't ask what goes there." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He talks for ten minutes about coils. I understand about half of it, and I don't need to understand the rest. What I need is the thing he isn't doing, which is asking. He's happy. He's been given a hard, interesting problem by the boss whose $sister.relation has been bringing him coffee all week, and the last thing he wants to do is make it complicated.
+He talks for ten minutes about coils and heat, and he's actually good at explaining it; I follow maybe half, which is more than I expected to. The whole time I'm waiting for him to ask, and he never does. He looks happy. He's been handed a hard, interesting problem by the boss whose $sister.relation has been bringing him coffee all week, and I'm guessing the last thing he wants is to make it complicated.
 
 <<linkreplace "Give him the project">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "It's yours. Just you. Not the team. Not $ethan.name. I want one person who knows exactly how it's built." },
-{ who: $brian, text: "Just me." },
+{ who: $player, text: "It's your project, just yours. Not the team, not even $ethan.name. I'd like there to be exactly one person who knows how it's built." },
+{ who: $brian, text: "Just me? Huh. Okay." },
 { text: "He goes very slightly red. I think it's the nicest thing anyone has said to him in this building." },
-{ who: $brian, text: "Okay. I'll, uh. I'll order the parts today. It's mostly stuff we have. The coil's custom. Two weeks, maybe less." },
-{ who: $player, text: "What do we call it?" },
-{ who: $brian, text: "I don't know. It's, uh. It holds one thing in place. Really hard. Like an anchor." },
+{ who: $brian, text: "I'll order the parts today. Most of it we have already, only the coil's custom. Two weeks, maybe less." },
+{ who: $player, text: "Cool. So what do we call it?" },
+{ who: $brian, text: "Um. I don't know. It holds one thing in place, really hard, for about a minute. Like an anchor, I guess." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-Like an anchor. He has no idea how right he is.
+I say the name to myself a couple of times, and I like it a lot more than I let him see.
 
 He tears the sketch off the pad, folds it in quarters and puts it in his shirt pocket, behind his pens, and goes back to his screen to start the parts list.
 
@@ -67,7 +67,7 @@ Across the office, $ethan.name has the sheet open. I can see it reflected in the
 
 Then he scrolls back up, closes the tab, and puts his headphones on. He doesn't say a word about it, to $brian.name or to me.
 
-I go back to my email. It's a reasonable order for a hardware company. Anybody could have a reason.
+I go back to my email. It's a perfectly reasonable order for a hardware company, and anybody could have a reason for it. That's what I tell myself, anyway.
 
 <<run State.variables.brian.stats.morale = Math.clamp(State.variables.brian.stats.morale + 10, State.variables.brian.stats.min.morale, State.variables.brian.stats.max.morale)>>
 <<UpdateStat "+" "Corruption" 2>>

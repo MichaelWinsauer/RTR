@@ -4,33 +4,33 @@ I find $sister.callName on her bed, half watching reels, half arguing with a com
 <<silently>>
 <<set _msgs = [
   { who: $player,  text: "Hey, quick question. I'm a little short this week. Any chance you could spot me enough to cover the rest of the rent?" },
-  { who: $sister,  text: "I wish. I'm broke until Sunday. Just do a lap of chores and ask $mom.callName after. That always works." },
-  { who: $player,  text: "I would, but I'm buried today. If I burn two hours on dishes and vacuuming, I'm cooked for my deadline." },
-  { who: $sister,  text: "Yeah, but that's kind of the deal around here. Be useful, get goodwill." },
-  { text: "I wake the prototype with a thumb press. The little hum is barely there, like an AC you only notice when it stops. I keep my tone easy." },
+  { who: $sister,  text: "I wish, but I'm broke until Sunday. Do a round of chores and ask $mom.callName afterwards, that works every single time." },
+  { who: $player,  text: "I would, but I'm buried today. If I spend two hours on dishes and vacuuming, I'm never going to make my deadline." },
+  { who: $sister,  text: "Well, that's how it works around here. You make yourself useful and people are nice to you. Welcome home." },
+  { text: "I wake the prototype with a thumb press. The hum is barely there, like an air conditioner you only notice once it stops. I keep my voice easy." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<silently>>
 <<UseQuestDevice $player>>
 <<set _msgs = [
-  { who: $player,  text: "Look, I'm not trying to dodge anything. I really need the time. You know I've been grinding on the prototype, and I just had a breakthrough. If I stop now, I lose the thread. And you love me, whether you admit it or not. We've always covered for each other when it mattered." },
-  { who: $sister,  text: "I mean... yeah, we look out for each other. I still don't have any cash, though." },
-  { who: $player,  text: "Then how about this. Could you do the house chores for me? Dishes, counters, recycling, a quick vacuum... so it all looks done when $mom.callName gets home. I'll leave a note with my name and some checkmarks. She'll relax, probably float me a little, and I keep my head above water." },
-  { who: $sister,  text: "So I do the chores and you take the credit?" },
-  { who: $player,  text: "I take the pressure off $mom.callName and finish what I need to finish. You're doing it because you actually care, and because it's us. Say yes!" },
-  { text: "I nudge the dial down a notch. Her shoulders unclench, and she's actually thinking about it instead of deflecting." },
+  { who: $player,  text: "I'm not trying to dodge anything, I swear, I really need the time. I finally had a breakthrough with the prototype, and if I stop now I'm going to lose the thread. And come on, we've always covered for each other when it mattered." },
+  { who: $sister,  text: "We have, sure. That still doesn't magically put any money in my account." },
+  { who: $player,  text: "Then how about this. Could you do the chores for me instead? Dishes, counters, recycling, a quick vacuum, so it all looks done when $mom.callName gets home. I'll leave a note with my name on it. She'll relax, maybe float me a little, and I get to keep my head above water." },
+  { who: $sister,  text: "So I do the chores, and you take the credit." },
+  { who: $player,  text: "I take some pressure off $mom.callName, and I get to finish what I'm working on. And you'd be doing it because you're a good person and you secretly like me. Please?" },
+  { text: "I nudge the dial down a notch. Her shoulders loosen, and for the first time she's actually thinking about it instead of looking for a way out." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<silently>>
 <<DevicePulse "-1">>
 <<set _msgs = [
-  { who: $sister,  text: "You're so annoying when you're sincere, you know that? This is going to make me roll my eyes for a week." },
-  { who: $player,  text: "You can roll them while the dishwasher runs. Very efficient." },
-  { who: $sister,  text: "Fine. I'll do your chores. You write the list and sign it so $mom.callName sees it. If she hands you anything, great. If not, you still owe me a thank-you and zero gloating." },
-  { who: $player,  text: "Deal on the thank-you. No gloating. I really appreciate it." },
-  { who: $sister,  text: "I don't even know why I'm agreeing to this. Whatever, hand me the towel before I change my mind." }
+  { who: $sister,  text: "You're so annoying when you're sincere, you know that? I'm going to be rolling my eyes about this for a week." },
+  { who: $player,  text: "Roll them all you want. I'll owe you a big one." },
+  { who: $sister,  text: "Fine, I'll do your chores. You write the note and sign it so $mom.callName sees it. If she gives you anything, great, and if she doesn't, you still owe me a proper thank-you and absolutely no gloating." },
+  { who: $player,  text: "Thank you. That's the proper one. And no gloating, I promise." },
+  { who: $sister,  text: "I honestly have no idea why I'm agreeing to this. Hand me the dish towel and get out of here before I come to my senses." }
 ]>>
 <</silently>>
 <<Chat _msgs>>

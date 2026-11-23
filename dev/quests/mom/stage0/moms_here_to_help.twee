@@ -7,10 +7,10 @@ $mom.callName is sitting at her vanity in the lamplight, putting on makeup, when
 <<set _msgs = [
 { who: $player, text: "$landlord.callName is screwing me over with the rent again. Every single week, like he's trying to bury me." },
 { text: "She gets up, takes me by the arm and sits me down on the edge of the bed." },
-{ who: $mom, text: "Hey. Come here, sit. Tell me what happened." },
-{ who: $player, text: "I just paid it. <<if $debtMissed>>Or I tried to. I couldn't cover all of it this time, and if that happens again, I'm out.<<else>>I scraped it together... barely. It's taking everything I have.<</if>> How am I supposed to build a company when he takes all of it?" },
-{ who: $mom, text: "I know. I know it's hard. You've been working so hard, and it isn't fair." },
-{ who: $player, text: "If I lose the office, that's it. Everything I've put in, gone." },
+{ who: $mom, text: "Hey, hey, come here and sit down, you look like you're about to put your fist through something. What happened?" },
+{ who: $player, text: "I just paid it. <<if $debtMissed>>Or I tried to. I couldn't cover all of it this time, and if that happens again, I'm out.<<else>>I scraped it together, barely, and it took everything I had.<</if>> How am I supposed to build a company when he takes all of it?" },
+{ who: $mom, text: "Oh, honey. I know it's hard, and you've been working so hard on all of this, it just isn't fair that he gets to take it." },
+{ who: $player, text: "And if I lose the office, that's it. Everything I've put into this is just gone." },
 { text: "She keeps a hand on my back, rubbing slow circles. I turn the dial up a notch in my pocket and watch her face soften." },
 ]>>
 <</silently>>
@@ -18,21 +18,21 @@ $mom.callName is sitting at her vanity in the lamplight, putting on makeup, when
 <<silently>>
 <<DevicePulse "+1">>
 <<set _msgs = [
-{ who: $mom, text: "What can I do? Tell me how I can help." },
-{ who: $player, text: "I need you to cover part of it. Five hundred a week. It's the only way I can keep going, $mom.callName." },
-{ who: $mom, text: "Five hundred? That's a lot, honey. What if you took a few more shifts at the diner until things pick up? That way it isn't all on me." },
-{ who: $player, text: "More shifts? I'm already there until I can barely stand, and then I come home to build something real. If I take more, there's no time left for the prototype or for clients. I'd be stuck there for good." },
-{ who: $player, text: "Please don't make me choose between getting by and getting somewhere." },
+{ who: $mom, text: "Okay. So what can I do? There has to be something, tell me how I can help." },
+{ who: $player, text: "I need you to cover part of it. Five hundred a week. It's the only way I can keep going." },
+{ who: $mom, text: "Five hundred a week? Honey, that's... that's a lot. What if you picked up a few more shifts at the diner, just until things get better, and I help out with whatever's still missing?" },
+{ who: $player, text: "More shifts? I'm already there until I can barely stand, and then I come home and try to build something real. If I take more, there's no time left for the prototype or for clients, and I'll be stuck refilling ketchup bottles for good." },
+{ who: $player, text: "I'm so close, $mom.callName. Please don't make me give it up now." },
 { text: "She bites her lip and her hands tighten on my arms. The guilt shows on her face before the answer does." },
-{ who: $mom, text: "I didn't mean it like that. Okay... okay, you're right. I still have a little put aside. I suppose this is what it was for." },
-{ who: $mom, text: "We'll manage somehow. We always do. What kind of $mom.relation would I be if I let my $mom.playerRelation give up now..." },
-{ who: $player, text: "Thank you. I knew you'd understand." },
+{ who: $mom, text: "No, no, I didn't mean it like that. Okay. You're right, you're right. I still have a little put aside from... well, it doesn't matter what it was for. I suppose this is what it's for now." },
+{ who: $mom, text: "We'll manage, we always do somehow. And what kind of $mom.relation would I be if I let my $mom.playerRelation give up right when it's getting good?" },
+{ who: $player, text: "Thank you. Really. I didn't know who else to ask." },
 { text: "She pulls me into a hug, and this time the little double pat on my back that usually means it's over doesn't come." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I pull back and let out a long, relieved breath for her benefit. Underneath it, I'm completely calm. Five hundred a week, and she thanked me for letting her pay it.
+I pull back and let out a long, relieved breath, mostly for her benefit. Underneath it I'm a lot calmer than I'm letting on. Five hundred a week, and I didn't even have to turn the dial all the way up.
 
 <<ProfileLog $mom "Helping with the Rent" "She agreed to chip in $500 every week to help me cover the rent, so I can keep focusing on the company instead of picking up more shifts.">>
 <<NextQuest $mom>>

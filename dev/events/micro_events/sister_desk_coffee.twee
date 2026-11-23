@@ -6,13 +6,13 @@
 <<Media "images/characters/sister/activities/bringing_coffee_0.mp4" 300>>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Okay. Before you say no..." },
-	{ who: $player, text: "I haven't said anything." },
-	{ who: $sister, text: "You're making the no face. You're making it right now. It's very subtle, you do a thing with your left eyebrow." },
+	{ who: $sister, text: "Before you say no..." },
+	{ who: $player, text: "I haven't said anything yet." },
+	{ who: $sister, text: "You're making the no face. You do a thing with your left eyebrow, you've done it since you were about eight." },
 	{ text: "I put my eyebrow back where it belongs. She takes that as permission." },
-	{ who: $sister, text: "I want to sit in on the next client call. I'll be quiet. I'll be furniture. Very professional furniture, the expensive kind." },
-	{ who: $player, text: "Why?" },
-	{ who: $sister, text: "Because I've watched $darius.name do spreadsheets for two weeks and I still don't know what he actually does. Also, I brought you coffee, which is basically a contract. I'm pretty sure that holds up in court." },
+	{ who: $sister, text: "I'd like to sit in on the next client call. I won't say a word, I just want to see how you actually handle these people." },
+	{ who: $player, text: "How come? I thought you had plenty to do out there." },
+	{ who: $sister, text: "I've watched $darius.name build spreadsheets for two weeks and I still couldn't tell you what he actually does. Besides, I brought you coffee, so you're more or less obligated now." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -24,8 +24,8 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Fine. You sit in the corner and you don't laugh at anybody's tie." },
-					{ who: $sister, text: "Yes! I mean... thank you. I will be so quiet. You won't even know I'm a person." },
-					{ text: "She lets the second coffee go too, which I'm fairly sure was never part of the plan, and backs away from my desk doing a small victory dance that she clearly thinks nobody else in the office can see." },
+					{ who: $sister, text: "Deal. I've seen some of the ties on those video calls, so I can't promise anything, but I'll be good." },
+					{ text: "She lets go of the second coffee too, which I'm fairly sure was never part of the plan, and walks back to her desk looking extremely pleased with herself." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -38,13 +38,13 @@
 			<<replace "#desk-coffee-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "You can sit in if you take the minutes. Every word. Typed up and in my inbox the same day." },
+					{ who: $player, text: "You can sit in if you take the minutes. Everything anybody says, typed up and in my inbox the same day." },
 					{ who: $sister, text: "That's not sitting in, that's homework." },
-					{ who: $player, text: "That's the job. And next time the coffee is black." },
-					{ who: $sister, text: "You drink it with three sugars. You've had three sugars since you were twelve." },
-					{ who: $player, text: "Not at work." },
+					{ who: $player, text: "Welcome to the job. Oh, and next time the coffee is black." },
+					{ who: $sister, text: "You've taken three sugars since you were twelve." },
+					{ who: $player, text: "Not at work I don't." },
 					{ text: "She snorts, takes a sip of my coffee to make a point, makes a face at how sweet it is, and puts it back down in front of me." },
-					{ who: $sister, text: "Fine. Minutes. But I'm using a really unprofessional font." },
+					{ who: $sister, text: "Fine, you'll get your minutes. In Comic Sans." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -58,16 +58,16 @@
 				<<replace "#desk-coffee-choice">>
 					<<silently>>
 					<<set _msgs to [
-						{ who: $player, text: "And what do I get? Besides the coffee." },
-						{ text: "She opens her mouth for a joke, and for once there isn't one. Instead she glances over her shoulder at the office, at $darius.name's back and $brian.name's headphones, the way people look both ways before they cross against a red light." },
-						{ text: "She leans down as if she wants to point at something on my screen, and kisses me at the corner of my mouth. It's quick, and it's very deliberate." },
-						{ who: $sister, text: "That's the deposit." },
+						{ who: $player, text: "And what do I get out of it, apart from the coffee?" },
+						{ text: "She has a comeback ready, I can see it on her face, and then she doesn't use it. Instead she glances over her shoulder at the office, at $darius.name's back and $brian.name's headphones, the way people look both ways before they cross against a red light." },
+						{ text: "She leans down as if she wants to point at something on my screen and kisses me at the corner of my mouth. It's quick, and it's very deliberate." },
+						{ who: $sister, text: "Consider that a deposit." },
 						{ who: $player, text: "And the rest?" },
-						{ who: $sister, text: "Depends how the call goes, doesn't it?" },
+						{ who: $sister, text: "Depends on how the call goes, doesn't it?" },
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
-					<p>She walks back to her desk without looking back once, which takes more effort than walking normally. When she sits down, she pulls her hair over the side of her face that's turned toward me.</p>
+					<p>She walks back to her desk without looking back once, which seems to take more effort than walking normally. When she sits down, she pulls her hair over the side of her face that's turned toward me.</p>
 					<<UpdateStat "+" "SisterLust" 3>>
 					<<UpdateStat "+" "SisterCorruption" 1>>
 				<</replace>>

@@ -5,27 +5,27 @@
    it. Relieved and terrified. From here on she stops using $sister.callPlayerShort in private (a note for later scenes, nothing
    reads a flag for it). */
 <<silent>><<SetBackground $locations[3].img>><</silent>>
-She's at the kitchen table when I come down, already dressed, which never happens before eight. There's a bowl of cereal in front of her that she hasn't touched. The flakes have gone soft and sunk. Her phone is face down next to the bowl, and she's turning her spoon over and over between her fingers like a coin.
+She's at the kitchen table when I come down, already dressed, which never happens before eight. There's a bowl of cereal in front of her that she hasn't touched, the flakes gone soft and sunk to the bottom, and her phone is face down next to it. She's turning her spoon over and over between her fingers like a coin.
 
 Upstairs the shower is running. $mom.callName sings in the shower, badly, and today it's something from a musical.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Hi. Morning. Hi." },
+{ who: $sister, text: "Oh. Hi. Morning." },
 { who: $player, text: "You're up early." },
-{ who: $sister, text: "I didn't really sleep. I mean, I slept. After. For a while. And then I woke up and I couldn't stop thinking, so I came down here to think somewhere with snacks." },
+{ who: $sister, text: "I didn't really sleep. I mean, I slept, after, for a while. And then I woke up and couldn't stop thinking, so I came down here to think somewhere with snacks." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I pour a coffee and sit down across from her. She watches me do every part of it: the mug, the coffee, the milk, the sitting, as if she's memorizing the order for a test.
+I pour a coffee and sit down across from her. She watches me do every part of it, the mug and the coffee and the milk and the sitting, as if she's memorizing the order for a test.
 
 <<linkreplace "Wait for it">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. I've been practicing this, so just let me get through it, okay? Don't say anything until I'm done or I'll lose my place." },
-{ who: $player, text: "Okay." },
-{ who: $sister, text: "So. Last night. And the photos. And the thing in your room, the sometimes. And before that, the kiss. And before that, like, my entire life." },
+{ who: $sister, text: "I've been practicing this, so just let me get through it, all right? If you say anything before I'm done I'll lose my place." },
+{ who: $player, text: "I'm listening." },
+{ who: $sister, text: "So, last night happened, and the photos, and the thing in your room that we do sometimes, and before that the kiss, and before that, honestly, my entire life." },
 { text: "She stops, takes a breath, and looks at a spot on the table about a foot in front of my coffee." },
 { who: $sister, text: "What are we?" },
 ]>>
@@ -37,37 +37,36 @@ She lets it sit there between us, next to the soggy cereal. Upstairs, $mom.callN
 <<linkreplace "Let her keep going">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Because I know what we're supposed to be. I've known my whole life. I used to introduce you to people. 'This is my...'" },
-{ text: "She stops on the word. She tries it again, and her mouth just doesn't do it." },
-{ who: $sister, text: "I can't say it anymore. Isn't that crazy? It's like, one syllable, and I can't. It feels like lying." },
-{ who: $sister, text: "But I can't say anything else either. There isn't another word. There's no word for this. I looked." },
+{ who: $sister, text: "Because I know what we're supposed to be. I've known my whole life. I used to introduce you to people, 'this is my...'" },
+{ text: "She stops on the word. She tries it again, and her mouth just won't do it." },
+{ who: $sister, text: "I can't say it anymore. Isn't that crazy? It's one syllable and I can't get it out, because it feels like lying. But there isn't another word either. There's no word for this at all, I looked." },
 { who: $player, text: "You looked?" },
-{ who: $sister, text: "At three in the morning. On my phone. Don't make fun of me." },
+{ who: $sister, text: "At three in the morning, on my phone. Don't you dare make fun of me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She finally looks up at me, and her eyes are already wet, and she's furious at them for it.
+When she finally looks up at me, her eyes are already wet, and she's furious at them for it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I just need to know if I'm making it up. If it's just me. Because if it's just me, I can... I'll deal with it. I'll stop. I'll go back to being normal, I'll date some guy with a tailored shirt, I'll be fine. But I need you to tell me." },
+{ who: $sister, text: "I just need to know if I'm making it up. If it's only me, I can deal with that, I'll stop, I'll go back to being normal and date some guy in a tailored shirt and be completely fine. But you have to tell me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She won't stop. She couldn't if she tried, and we both know it. But she needs to believe she could, and she needs me to be the one who tells her she doesn't have to.
+I don't think she could stop if she tried. But she needs to believe she could, and she needs to hear from me that she doesn't have to.
 
 <<linkreplace "Answer her">>
-I reach across the table and take the spoon out of her hand, because she's going to bend it, and hold her hand instead.
+I reach across the table and take the spoon out of her hand before she bends it, and hold her hand instead.
 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You're not making it up." },
-{ text: "Her breath catches. That's all, a little catch, like a hiccup." },
-{ who: $player, text: "I don't have a word for it either. Maybe there isn't one. But I know this: what we have doesn't have to be wrong. It can be something beautiful. If we both want it." },
+{ text: "Her breath catches, just a little, like a hiccup." },
+{ who: $player, text: "I don't have a word for it either. Maybe there isn't one. But I don't think what we have has to be wrong. I think it could be something really beautiful, if we both want it." },
 { who: $sister, text: "If we both want it." },
-{ who: $player, text: "Do you want it?" },
+{ who: $player, text: "Do you?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -76,11 +75,10 @@ She stares at our hands for a long time. Her thumb moves over my knuckles, back 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "So much. So much it's scary. I'm so scared, and I'm so happy, and I can't tell which one is louder." },
-{ who: $player, text: "You don't have to tell. You just have to want it." },
-{ who: $sister, text: "Okay." },
-{ text: "Then, almost too quiet to hear:" },
-{ who: $sister, text: "Okay. Yeah. I want it." },
+{ who: $sister, text: "So much it's scary. I'm so scared and so happy at the same time, and I honestly can't tell which one is louder." },
+{ who: $player, text: "Then let it be both for a while. You don't need to sort it all out before breakfast." },
+{ text: "She laughs, wetly, and nods at the table." },
+{ who: $sister, text: "Yeah. Yes. I want it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -90,17 +88,17 @@ The pipes knock as the shower turns off. $sister.callName yanks her hand back so
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh my God. Okay. Act normal. How do people act normal? What do I usually do with my hands?" },
-{ who: $player, text: "You eat cereal." },
-{ who: $sister, text: "Right. Cereal. I'm a normal person who eats cereal." },
-{ text: "She shovels a spoonful of soggy flakes into her mouth and immediately makes a face, and swallows anyway, and grins at me with her cheeks full." },
+{ who: $sister, text: "Act normal. What do I normally do with my hands? I genuinely can't remember." },
+{ who: $player, text: "Usually you're eating cereal." },
+{ who: $sister, text: "Right. I'm a completely normal person eating her cereal." },
+{ text: "She shovels a spoonful of soggy flakes into her mouth, makes a face, swallows anyway, and grins at me with her cheeks full." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$mom.callName comes in with a towel around her hair, asks why there's milk all over the table, and $sister.callName says she sneezed, which is a terrible lie, and $mom.callName believes it completely, because why wouldn't she.
+$mom.callName comes in with a towel around her hair and asks why there's milk all over the table. $sister.callName says she sneezed, which is a terrible lie, and $mom.callName believes it completely, because why wouldn't she.
 
-When $mom.callName turns to the coffee maker, $sister.callName catches my eye over her bowl. She mouths something. It isn't the word she used to call me. It's my name.
+When $mom.callName turns to the coffee maker, $sister.callName catches my eye over her bowl and mouths something. It isn't the word she used to call me. It's my name.
 
 <<UpdateStat "+" "SisterRelation" 4>>
 <<UpdateStat "+" "SisterCorruption" 4>>

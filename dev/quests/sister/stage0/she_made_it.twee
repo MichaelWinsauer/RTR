@@ -4,7 +4,7 @@ I'm on the couch, half watching a video about soldering techniques, when the fro
 <<set _msgs = [
 { who: $sister, text: "$player.name! Oh my god. Oh my god, look at this!" },
 { text: "She drops the bag where she stands and practically climbs over the armrest to shove the paper in my face." },
-{ who: $sister, text: "B plus! I got a B plus in calculus! And look, he wrote 'much improved' at the top. In pen! The man doesn't even own a red pen that says nice things!" },
+{ who: $sister, text: "A B plus! In calculus! And look, he wrote 'much improved' at the top, which coming from that man is practically a love letter." },
 { who: $player, text: "Wait, seriously? Let me see that." },
 { who: $sister, text: "I was so sure I'd bombed it. I walked out of there planning what I'd tell $mom.callName. And then this!" },
 ]>>
@@ -13,9 +13,9 @@ I'm on the couch, half watching a video about soldering techniques, when the fro
 Before I can get a proper look at the test she throws both arms around my neck and squeezes. The paper crinkles somewhere behind my head. She smells like the cold outside and the vanilla stuff she always wears, and she doesn't let go for a long time.
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Seriously, thank you. I was losing my mind over this, and you just... sat with me and made it make sense. I don't know what I would've done otherwise. Cried, probably. A lot." },
+{ who: $sister, text: "Seriously, thank you. I was losing my mind over this, and you just... sat with me and made it make sense. I don't know what I would have done otherwise. Cried a lot, probably." },
 { who: $player, text: "Hey, you're the one who took the test. I just gave you a little push." },
-{ who: $sister, text: "A little push. Sure. Mister Modest over here." },
+{ who: $sister, text: "A little push. Sure, Mister Modest." },
 { text: "She leans back just far enough to look at me. Her eyes are shiny, and she laughs at herself for it and wipes them with her sleeve." },
 { who: $sister, text: "I mean it, though. Whatever you need, I'm there. Remember I said that, because I'm only saying it while I'm this happy." },
 { who: $sister, text: "Anyway! I'm going out to celebrate <<if $date.today.value == 4>>tonight<<else>>on Friday<</if>>. There's a party at a friend's place, and after the month I've had, I am going to dance like an idiot." },
@@ -23,7 +23,7 @@ Before I can get a proper look at the test she throws both arms around my neck a
 ]>>
 <</silently>>
 <<Chat _msgs>>
-She grabs her bag and heads for the stairs, already on the phone, telling someone the news at a volume the whole street can hear. I flatten the test out on my knee where she left it. 'Much improved,' in the professor's cramped handwriting. He kept his end. I fold the paper once and set it on the coffee table where she'll find it. Whatever I need, she said. I believe she meant every word.
+She grabs her bag and heads for the stairs, already on the phone, telling someone the news at a volume the whole street can hear. I flatten the test out on my knee where she left it. 'Much improved,' in the professor's cramped handwriting. He kept his end. I fold the paper once and set it on the coffee table where she'll find it. Whatever I need, she said, and I think she even meant it.
 <<UpdateStat "+" "SisterRelation" 5>>
 <<ProfileLog $sister "She Passed" "She passed her calculus test with a B+ and thinks it's all thanks to me. She told me that whatever I need, she's there.">>
 <<set setup.getMealById("sister_exam_passed").isActive to true>>

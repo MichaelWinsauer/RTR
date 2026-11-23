@@ -31,13 +31,13 @@ I hold out my phone with the notes from this morning. Table times, average check
 He leans back until the chair creaks, and for the first time since I started here, he doesn't look like he wants me out of his office.
 <<silently>>
 <<set _msgs = [
-{ who: $manager, text: "Keep this up and we'll talk about making it permanent. Good work, kid. Now go mop something before I change my mind about you." },
+{ who: $manager, text: "Keep this up and we'll talk about making it permanent. Good work, kid. Now go mop something, the floor doesn't care how smart you are." },
 { who: $player, text: "I'll have the write-up for you tomorrow." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I close his door behind me and stand in the narrow hallway for a second, between the mop bucket and a stack of ketchup crates. A year of emails nobody answered, and the first person to say yes is the guy who laughed out loud when he heard I used to call myself a founder. I'm going to enjoy cashing his checks.
+I close his door behind me and stand in the narrow hallway for a second, between the mop bucket and a stack of ketchup crates. A year of emails nobody answered, and the first person to say yes is the guy who laughed out loud when he heard I used to call myself a founder. I have no idea yet what I'm going to charge him, but I already know I'll enjoy every one of those checks.
 
 <<UpdateStat "+" "Corruption" 4>>
 

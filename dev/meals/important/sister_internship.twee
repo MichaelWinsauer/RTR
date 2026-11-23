@@ -28,7 +28,7 @@ It's a form from her college. INTERNSHIP AGREEMENT, it says at the top, and near
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Sign here, please. And here. And initial there. Boss." },
+{ who: $sister, text: "Sign here, please, and here, and initial that one. Thank you, boss." },
 { who: $mom, text: "What's this?" },
 { who: $sister, text: "My internship! I'm doing it at his company. The advisor said it counts as long as I get real business experience and somebody signs off on my hours." },
 { who: $mom, text: "At the company? With your $sister.playerRelation?" },
@@ -40,7 +40,7 @@ It's a form from her college. INTERNSHIP AGREEMENT, it says at the top, and near
 <<if setup.questDone("mom_falseSympathy")>>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "So it'll be the three of us. Every day." },
+{ who: $mom, text: "So it'll be all three of us there, every day. That's... well, I'll just have to make more sandwiches, won't I." },
 { who: $sister, text: "Family business! We should get matching polo shirts." },
 { who: $mom, text: "We are not getting matching polo shirts." },
 { who: $sister, text: "You'd look so good in teal, $mom.callName." },
@@ -51,8 +51,8 @@ It's a form from her college. INTERNSHIP AGREEMENT, it says at the top, and near
 <<else>>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "That's... actually a lovely idea. You two working together." },
-{ who: $sister, text: "Right? I'll make him look professional. He'll make me look smart. Everybody wins." },
+{ who: $mom, text: "Oh, that's actually a lovely idea, you two working together. I always hoped you'd find something you could do side by side." },
+{ who: $sister, text: "Right? I'll make him look professional and he'll make me look smart." },
 { who: $mom, text: "Just don't let him work you to death, sweetie. He gets that from me." },
 ]>>
 <</silently>>
@@ -61,12 +61,12 @@ It's a form from her college. INTERNSHIP AGREEMENT, it says at the top, and near
 
 I read the form properly, all of it, while she bounces her knee under the table. Twenty hours a week. Duties as assigned by the supervisor. Evaluation at the end of the semester, which I'll write.
 
-Duties as assigned. I like that part.
+I read the line about duties as assigned by the supervisor a second time.
 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You know you'll have to make the coffee. That's what interns do." },
-{ who: $sister, text: "I'll make the best coffee you've ever had. I'll make coffee people write poems about." },
+{ who: $sister, text: "I make excellent coffee. People are going to write poems about my coffee." },
 { who: $player, text: "And you'll have to listen to your boss." },
 { who: $sister, text: "I always listen to you." },
 { text: "She says it lightly, as a joke. Then she seems to hear it, and she doesn't take it back." },

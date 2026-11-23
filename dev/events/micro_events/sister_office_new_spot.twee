@@ -11,9 +11,9 @@
 <<silently>>
 <<set _msgs to [
 	{ who: $player, text: "Did your desk get lonely over by the window?" },
-	{ who: $sister, text: "There was a glare. On my screen. A really bad glare." },
+	{ who: $sister, text: "There was a glare on my screen over there, a really bad one." },
 	{ text: "The blinds over there have been down since the day we moved in." },
-	{ who: $sister, text: "And there's a draft. And over here I'm closer to the printer, so really, it's an efficiency thing. You love efficiency." },
+	{ who: $sister, text: "And a draft. Plus I'm closer to the printer here, so really it's an efficiency thing, and you love efficiency." },
 	{ text: "The printer is on the far side of the room, right next to where her desk used to be. She knows I know that. She keeps typing anyway." },
 ]>>
 <</silently>>
@@ -28,7 +28,7 @@
 			<<replace "#new-spot-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Efficiency. Sure." },
+					{ who: $player, text: "Right, efficiency. Sure." },
 					{ who: $sister, text: "Thank you. Finally, somebody around here who respects logistics." },
 				]>>
 				<</silently>>
@@ -43,8 +43,8 @@
 			<<replace "#new-spot-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Put it back where it was. That's a walkway now." },
-					{ who: $sister, text: "The walkway. Right. Of course. The very important walkway." },
+					{ who: $player, text: "You'll have to put it back. That's where people walk." },
+					{ who: $sister, text: "Oh, of course, the walkway. Heaven forbid anybody has to walk around a desk." },
 					{ text: "She drags it back across the carpet herself, one loud scrape at a time, and waves off anyone who tries to help." },
 				]>>
 				<</silently>>

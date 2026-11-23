@@ -14,10 +14,10 @@ $sister.callName is sitting across from a lanky freshman named Kevin, with a she
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Hi. No. We're in session." },
+{ who: $sister, text: "Hi, and no, we're in session." },
 { who: $player, text: "I just wanted to ask..." },
-{ who: $sister, text: "It's twenty-five dollars an hour, $sister.callPlayer. If you want to sit in, you're paying, too. Kevin's paying. Right, Kevin?" },
-{ text: "Kevin nods. Kevin seems scared of her, and I can't say I blame him." },
+{ who: $sister, text: "It's twenty-five dollars an hour, $sister.callPlayer, and if you want to sit in, you pay like everybody else. Kevin's paying. Right, Kevin?" },
+{ text: "Kevin nods. He seems a little scared of her, and I can't say I blame him." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -30,9 +30,9 @@ She's tutoring a girl with a ponytail and a highlighter-yellow sweater, and they
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "This is $player.name. He lives here. Sometimes. Like a cat." },
+{ who: $sister, text: "This is $player.name, my little $sister.callPlayerShort. He lives here, in roughly the way a cat lives somewhere." },
 { text: "The girl laughs. She asks me what I do, and I've barely started answering before $sister.callName taps her pen on the worksheet, twice, very loudly." },
-{ who: $sister, text: "Problem six, Megan. It's not going to solve itself. Unless he's going to solve it for you? No? Then he's going." },
+{ who: $sister, text: "Problem six, Megan, it isn't going to solve itself. Unless he's offering to solve it for you? No? Then he's leaving." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -45,14 +45,14 @@ She's wrapping up a session with a guy in a varsity jacket who keeps checking hi
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Ten more minutes. I can tell from your face you want something. It's going to have to wait ten minutes." },
-{ who: $player, text: "I don't want anything." },
-{ who: $sister, text: "You always want something. Ten minutes. Go make yourself a sandwich. Make me one too, while you're at it." },
+{ who: $sister, text: "I can tell from your face that you want something, and it's going to have to wait ten minutes." },
+{ who: $player, text: "I don't want anything. I just came down for a snack." },
+{ who: $sister, text: "You always want something. Go make yourself a sandwich, and make me one while you're at it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-The guy in the jacket looks from her to me and back, clearly trying to work out how the household works. She snaps her fingers in front of his worksheet, and his attention goes straight back to it. I didn't know she could do that. Somebody should put it to use.
+The guy in the jacket looks from her to me and back, clearly trying to work out how the household works. She snaps her fingers in front of his worksheet, and his attention goes straight back to it. I had no idea she could do that, and it seems like a waste to only use it on freshmen.
 
 <</switch>>
 

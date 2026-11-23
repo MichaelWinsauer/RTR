@@ -26,20 +26,20 @@ $sister.callName is lying on her stomach across the bed with her chin on her fis
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Shh. Shh. He's about to do the handle." },
-{ who: $player, text: "Who is this?" },
-{ who: $sister, text: "No idea. I call him Kevin. He buys rusty old knives at flea markets and makes them beautiful again, and he never says a single word. I've watched forty-three of these." },
+{ who: $sister, text: "Shh, he's about to do the handle." },
+{ who: $player, text: "Who is this guy?" },
+{ who: $sister, text: "No idea, I call him Kevin. He buys rusty old knives at flea markets and makes them beautiful again without saying a single word, and I've watched forty-three of these." },
 { who: $player, text: "You don't even cook." },
-{ who: $sister, text: "I don't even own a knife! I own one butter knife, and I stole it from the college cafeteria. That's not the point. The point is Kevin." },
+{ who: $sister, text: "I don't even own a knife, unless you count the butter knife I stole from the cafeteria. That's not the point. The point is Kevin." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-There's no way to see the screen except to lie down next to her, so I do. Kevin glues two pieces of dark wood onto the blade, clamps them, and the video skips ahead a whole day. Kevin oils the steel. Kevin cuts a tomato so thin you could read through it, and $sister.callName grabs my arm and squeezes it like we're watching a penalty shootout.
+There's no way to see the screen except to lie down next to her, so I do. Kevin glues two pieces of dark wood onto the handle, clamps them, and the video skips ahead a whole day. He oils the steel, and then he cuts a tomato so thin you could read through it, and $sister.callName grabs my arm and squeezes it like we're watching a penalty shootout.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Every time. Every single time, the tomato. He knows exactly what he's doing to me." },
+{ who: $sister, text: "It's always the tomato at the end, and it gets me every single time. He knows exactly what he's doing." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -54,9 +54,9 @@ My phone buzzes in my pocket while I'm knocking. It buzzes again while I'm openi
 <<set _msgs = [
 { who: $sister, text: "Did you get them?" },
 { who: $player, text: "Get what?" },
-{ who: $sister, text: "The reels! I've sent you nine today. You haven't opened a single one. I can see that, by the way. It just says 'delivered'. It's like yelling down a well." },
-{ who: $player, text: "I was busy." },
-{ who: $sister, text: "Doing what? No, don't answer. Open them. Now, in front of me. I want to watch your face." },
+{ who: $sister, text: "The reels! I've sent you nine today and you haven't opened a single one. I can see that, you know. It just says 'delivered' under every one of them, like I'm yelling down a well." },
+{ who: $player, text: "I was busy. Some of us have a company to run." },
+{ who: $sister, text: "Doing what, exactly? No, don't answer that. Open them right now, in front of me, I want to see your face." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -83,12 +83,12 @@ The rest of the house went quiet hours ago. The only light in her room comes fro
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "It's the middle of the night." },
-{ who: $sister, text: "I know. I'm going to sleep. I've been going to sleep since eleven." },
+{ who: $sister, text: "I know, I'm going to sleep. I've been going to sleep since eleven." },
 { who: $player, text: "How's that going?" },
-{ who: $sister, text: "Great. Really great. I'm just finishing this one. And then the one after it, because the one after it is always better, that's how they get you. And then I'm asleep." },
+{ who: $sister, text: "Really well, thank you. I'm just finishing this one, and then the one after it, because the next one is always better, that's how they get you. And then I'm asleep." },
 { text: "The one after it is a man explaining why you should never put grapes in the microwave. She watches the whole thing with total seriousness." },
-{ who: $sister, text: "Did you know that? About grapes? That's important. I'm a safer person now. You can't sleep without knowing stuff like that." },
-{ who: $sister, text: "Lie down for one. Just one, and then I'll stop. Promise." },
+{ who: $sister, text: "Did you know that about grapes? That feels important. I'm a safer person than I was a minute ago." },
+{ who: $sister, text: "Lie down and watch one with me. Just one, and then I'll stop, I promise." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -101,18 +101,18 @@ I take it out of her hand, plug it in on the nightstand and switch the screen of
 
 /* 4: The favorite child (before sister_conflictingFeelings) */
 <<case 4>>
-$sister.callName is sitting cross-legged on her bed with her phone in one hand and a pen in the other, writing numbers on the back of her hand.
+$sister.callName is sitting cross-legged on her bed with her phone in her hand and the smug little smile she gets whenever the internet agrees with her.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay, this reel says the oldest kid is always the favorite. Scientifically. So I'm making a list. With evidence." },
-{ who: $player, text: "Evidence of what?" },
-{ who: $sister, text: "That I'm $mom.callName's favorite. Point one. She cuts the crusts off my sandwiches and not yours." },
-{ who: $player, text: "I asked her to stop when I was nine." },
-{ who: $sister, text: "Point two. My baby pictures are on the fridge. Yours are in a drawer." },
+{ who: $sister, text: "This reel says the oldest child is always the parents' favorite. There's a study and everything. I just thought you should hear it from me first." },
+{ who: $player, text: "What study?" },
+{ who: $sister, text: "A real one, with graphs. Not that I needed it. $mom.callName still cuts the crusts off my sandwiches, and she's never once cut them off yours." },
+{ who: $player, text: "Because I asked her to stop when I was nine." },
+{ who: $sister, text: "That's a very convenient story. My baby pictures are on the fridge, and yours are in a drawer somewhere." },
 { who: $player, text: "Because in all of mine I'm holding a pigeon." },
-{ who: $sister, text: "It's a beautiful pigeon. That's not the pigeon's fault. Point three. When I call her, she picks up on the first ring. When you call her, she says 'is everything all right?' like you're calling from jail." },
-{ text: "She writes a 3 on her knuckle and holds the hand up for me to see, very pleased with herself." },
+{ who: $sister, text: "It's a beautiful pigeon, that's hardly the pigeon's fault. And when I call her, she picks up on the first ring, but when you call, the first thing she says is 'is everything all right?', like you're calling her from jail." },
+{ text: "She leans back against the headboard with her arms crossed, very pleased with herself, and waits for me to argue." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -121,16 +121,16 @@ I let her have the win. She's right about the phone, though. I decide to start c
 
 /* 5: Study with me (before sister_sheMadeIt) */
 <<case 5>>
-Her calculus book is open on the desk. She isn't at the desk. She's on the bed watching a girl in a very clean apartment study, in real time, with soft music and a candle burning next to her laptop.
+Her calculus book is open on the desk, but she's on the bed, watching a girl in a very clean apartment study in real time, with soft music and a candle burning next to her laptop.
 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Shouldn't you be..." },
-{ who: $sister, text: "I am. This is a study-with-me video. She studies, I study. It's very motivating." },
+{ who: $sister, text: "I am. It's a study-with-me video, she studies and I study along with her. It's supposed to be very motivating." },
 { who: $player, text: "You're not studying." },
-{ who: $sister, text: "I'm absorbing the energy. Look how calm she is. Look at her highlighters, they all have their caps on." },
+{ who: $sister, text: "I'm absorbing her energy first. Look how calm she is, and look at her highlighters, every single one of them has its cap on." },
 { who: $player, text: "How long have you been absorbing?" },
-{ who: $sister, text: "...Two of her sessions. She's on her third. She's a machine, honestly. I think she's in med school. Or she's a robot. Maybe both, they have robots in med school now." },
+{ who: $sister, text: "Two of her sessions. She's on her third now, which is frankly inhuman. I think she's in med school, or she's a robot, or both. They probably have robots in med school by now." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -149,7 +149,7 @@ I knock and open the door at the same time, which she hates, and she locks her p
 <<set _msgs = [
 { who: $sister, text: "Knock! You have to knock and then wait! The waiting is the important part!" },
 { who: $player, text: "What are you watching?" },
-{ who: $sister, text: "Nothing. Horoscope stuff. Dream stuff. It's dumb." },
+{ who: $sister, text: "Nothing, just horoscope stuff. Dream stuff. It's dumb." },
 { text: "She turns the phone over and lays her hand flat on top of it." },
 { who: $sister, text: "Do you ever dream about people you know? Like, real people, and it's really... vivid, and then you have to see them at breakfast?" },
 { who: $player, text: "Sometimes. Who've you been dreaming about?" },
@@ -190,15 +190,15 @@ She's watching an office tour of some tech company in California, the kind with 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay, look at this. They have a slide. A slide, $sister.callPlayer. Between floors." },
+{ who: $sister, text: "Look at this. They have a slide between floors, $sister.callPlayer, an actual slide." },
 { who: $player, text: "Our office is one floor." },
-{ who: $sister, text: "So we put it in the meeting room. Corner to corner. You come in on the slide for important meetings. It'd be so intimidating." },
-{ who: $sister, text: "And they have a dog. An office dog. His name is Biscuit and he has his own lanyard." },
-{ who: $player, text: "Who'd look after it?" },
-{ who: $sister, text: "$brian.name. Obviously. He'd never talk to any of us again, he'd only talk to the dog. He'd be so happy." },
-{ text: "She has a list in her notes app called OFFICE DEMANDS, and I'm allowed to read it. It starts with a nap pod and real coffee, then the dog, then a plant that isn't plastic, then 'make $darius.name wear a hat, once, any hat'. Number six just says 'snacks??' with two question marks, like she wasn't sure she was allowed to ask." },
+{ who: $sister, text: "So we put it in the meeting room, corner to corner, and you arrive on it for important meetings. Imagine how intimidating that would be." },
+{ who: $sister, text: "They also have an office dog called Biscuit, and he has his own lanyard." },
+{ who: $player, text: "And who's going to look after a dog?" },
+{ who: $sister, text: "$brian.name, obviously. He'd stop talking to the rest of us completely and only talk to the dog, and he'd be the happiest man alive." },
+{ text: "She has a note on her phone called OFFICE DEMANDS, and I'm allowed to read it. There's a nap pod on it and real coffee, the dog, a plant that isn't plastic, and 'make $darius.name wear a hat, once, any hat'. At the very bottom it just says 'snacks??', with two question marks, like she wasn't sure she was allowed to ask." },
 { who: $player, text: "You can have the plant." },
-{ who: $sister, text: "One plant. Wow. Okay. I'll take it. It's a start." },
+{ who: $sister, text: "One whole plant, how generous. I'll take it, but you should know that's only your opening offer." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

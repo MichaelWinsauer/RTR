@@ -3,9 +3,9 @@
 <<set _momActivity to (setup.npcNow("mom").activity == "showering" ? 2 : 3)>>
 <</silently>>
 <<Image "images/misc/closed_door.jpg">>
-As I was about to enter the Bathroom, I noticed that someone is in there. 
+I've got my hand on the bathroom door when I realize somebody's already in there.
 <<if _momActivity == 2>>
-	I can hear $mom.callName taking a shower. Should I enter?
+	The shower's running, and over the water I can hear $mom.callName humming something off-key. I could come back later. Or I could just go in.
     
 	<<nobr>>
     <div class="navigation-link">
@@ -16,7 +16,7 @@ As I was about to enter the Bathroom, I noticed that someone is in there.
     </div>
     <</nobr>>
 <<else>>
-	I can hear $mom.callName sitting on the toilet. Should I enter?
+	It's $mom.callName, and from the sound of it she's on the toilet. I could wait in the hallway like a normal person. Or I could just go in.
 
     <<nobr>>
     <div class="navigation-link">

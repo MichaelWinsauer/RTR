@@ -6,14 +6,14 @@
 <p>$sister.callName lays the sheet across my keyboard, right on top of the keys, so I can't pretend to keep typing. It's her internship hours log, the one her college wants signed by a supervisor. She's brought it over often enough by now that I could probably forge my own signature on it from memory.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Signature, please. Right there on the line. The line's very excited to meet you." },
+	{ who: $sister, text: "Signature, please, right there on the line." },
 	{ who: $player, text: "I signed that yesterday." },
-	{ who: $sister, text: "You signed yesterday's line. Today has its own line. That's how days work, I didn't invent them." },
+	{ who: $sister, text: "You signed yesterday's line. Today gets its own line, that's how days work." },
 	{ text: "She already has a pen out for me, uncapped. There's a small plastic flamingo glued to the end of it, and the flamingo is looking at me too." },
 	{ who: $player, text: "How often does your college actually want this?" },
 	{ who: $sister, text: "End of the month." },
-	{ text: "It's out before she can stop it. She hears it about a second after I do, and the tips of her ears go pink." },
-	{ who: $sister, text: "But it's good practice! Keeping records, being organized... you like organized people. You have a whole folder just for receipts." },
+	{ text: "It's out before she can stop it. She hears it about a second after I do, and suddenly the flamingo is very interesting to her." },
+	{ who: $sister, text: "But it's good practice, keeping proper records. You like organized people, you have an entire folder just for receipts." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -25,9 +25,9 @@
 				<<silently>>
 				<<set _msgs to [
 					{ text: "I sign. She doesn't take the sheet back right away. She looks at my signature for a moment, as if there's more written there than my name." },
-					{ who: $sister, text: "It used to have a loop, you know. At the end. You did a little loop." },
+					{ who: $sister, text: "You used to do a little loop at the end, you know." },
 					{ who: $player, text: "I was twelve." },
-					{ who: $sister, text: "It was a good loop. I'm just saying, standards around here have slipped." },
+					{ who: $sister, text: "It was a good loop. Standards around here have really slipped." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -48,8 +48,8 @@
 					{ who: $sister, text: "Then hi." },
 					{ text: "She drops into the chair across from me as if that settles it, and starts picking at the flamingo on her pen." },
 					{ who: $sister, text: "It's nicer over here, okay? It's calmer. At my desk I read the same email four times and I still don't know what it says, and over here I just..." },
-					{ text: "She stops and frowns at the pen, as if it was the one that said something stupid. She doesn't finish." },
-					{ who: $sister, text: "Anyway. Sign the thing." },
+					{ text: "She stops and frowns at the pen as if it had said something stupid, and doesn't finish." },
+					{ who: $sister, text: "Anyway, just sign the thing." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -65,12 +65,12 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Leave it with me. I'll sign the whole month in one go, at the end." },
-					{ who: $sister, text: "You can't do that. That's... that's fraud, probably." },
-					{ who: $player, text: "It's efficient." },
+					{ who: $sister, text: "You can't do that, that's probably fraud." },
+					{ who: $player, text: "It's called being efficient." },
 					{ text: "She opens her mouth to argue, and I can practically watch her do the math behind her eyes. No sheet, no reason to walk over here tomorrow." },
-					{ who: $sister, text: "No. I'm keeping it. You'll sign it every day like a normal supervisor." },
+					{ who: $sister, text: "No, I'm keeping it, and you're signing it every day like a normal supervisor." },
 					{ who: $player, text: "Why?" },
-					{ who: $sister, text: "Because I'm thorough. Shut up." },
+					{ who: $sister, text: "Because I'm thorough, that's why. Stop looking at me like that." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

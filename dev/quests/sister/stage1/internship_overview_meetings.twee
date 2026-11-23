@@ -7,16 +7,16 @@
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 For two days $sister.callName has been carrying a blue notebook around the office as if it holds the launch codes. She writes in it at her desk with one arm curled around the page, the way people guard a test from the guy next to them, and whenever I walk past she closes it on her pen.
 
-She also hasn't looked me straight in the eye since the night she sent me that text. I know why. She has no idea that I do.
+She also hasn't looked me straight in the eye since the night she sent me that text. I'm fairly sure I know why, and she has no idea that I do.
 
 Today the notebook comes to my desk. She sets it down next to my keyboard and then doesn't let go of it, so for a moment we're both just looking at her hand.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. So. I need a favor, and it's a boring favor, so you're not allowed to say no just because it's boring." },
-{ who: $player, text: "That's usually my best reason." },
-{ who: $sister, text: "My college wants an internship journal. Weekly entries. What did you do, what did you learn, how does it connect to the company's processes. And I've been writing it, I swear, I just..." },
-{ text: "She gives up on the sentence, flips the notebook open to the first page and turns it toward me." },
+{ who: $sister, text: "I need a favor. It's a boring one, so you're not allowed to turn it down just for being boring." },
+{ who: $player, text: "That rules out my favorite excuse, but go on." },
+{ who: $sister, text: "My college wants an internship journal, one entry a week on what I did, what I learned and how it connects to the company's processes. I have been writing it, in my defense. You'll see the problem." },
+{ text: "She flips the notebook open to the first page and turns it toward me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -32,22 +32,22 @@ Under Wednesday somebody has written in red pen, in the small, tired hand of a p
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I don't know the company's processes! I know where the good stapler is. Well, I know where it isn't." },
-{ who: $player, text: "So what do you want from me?" },
-{ who: $sister, text: "Meetings. Real ones, in the calendar. Every couple of days you tell me what's going on around here, the clients, the projects, whatever I'm allowed to know, and I write it down so it sounds like I understood it. An internship overview." },
+{ who: $sister, text: "In fairness, nobody has ever told me what the company's processes are. I know where the good stapler isn't, and that's roughly the extent of my institutional knowledge." },
+{ who: $player, text: "So you want me to give you some processes." },
+{ who: $sister, text: "I want meetings. Real ones, in the calendar. Every couple of days you tell me what's going on around here, the clients, the projects, whatever I'm allowed to know, and I write it down so it sounds like I understood it. An internship overview." },
 { text: "She says 'internship overview' very carefully, like a phrase she found online and practiced in the bathroom mirror." },
-{ who: $sister, text: "Fifteen minutes. Twenty, tops. I'll bring the coffee. You won't even notice I'm there." },
+{ who: $sister, text: "Twenty minutes, tops, and I'll bring the coffee. You'll barely notice I'm there." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She could get every bit of that from $mom.callName, who keeps the calendar and knows every client down to the names of their kids. She knows that too. She came to my desk anyway, and what she's asking for is a room with a door, every couple of days, booked under her name.
+She could get every bit of that from $mom.callName, who keeps the calendar and knows every client down to the names of their kids, and she must know that as well as I do. She came to my desk anyway. What she's really asking for is a room with a door, every couple of days, booked under her name.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Let's do the first one now. Meeting room." },
-{ who: $sister, text: "Now now? I didn't bring the coffee." },
-{ who: $player, text: "Bring the journal." },
+{ who: $player, text: "Why wait? Grab your journal and we'll do the first one right now, in the meeting room." },
+{ who: $sister, text: "Right now? I haven't even made the coffee yet, and the coffee was my whole pitch." },
+{ who: $player, text: "I think I'll survive one meeting without it. Bring the journal, and a pen that works." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

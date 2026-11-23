@@ -2,52 +2,61 @@
 /* POV passage, her side of the task Extra Friendly (task_sister_be_nice_to_brian), stage 0: the first time she keeps the
    hardware guy company because I asked her to. Opened with the CCTV arrow while the task runs, or from her end-of-day
    report. Effects are in the task's onComplete.
-   Proposal 6.5b: a comedy with a small sting. Her first order about another man. Coffee, ten minutes of capacitors, and
-   the soldering iron collection her report line is about. Under the jokes: he asked her to be nice to another guy, and
-   she does it because he asked.
+   Proposal 6.5b: a comedy with a small sting. Her first order about another man. Coffee, a lot of silence that she fills
+   herself (he goes quiet around her), and the soldering iron collection her report line is about. Under the jokes: he
+   asked her to be nice to another guy, and she does it because he asked.
    Clips (images/characters/sister/tasks/, activity extra_friendly0): she brings the coffee; she listens with her chin in
    her hand; the soldering irons */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 <<PovHeader $sister>>
-Okay. Be nice to $brian.name. I can be nice to $brian.name. I'm nice to everybody, it's basically my whole personality, ask anyone, ask the guy at the bagel place who gets a smiley face on his tip receipt every single morning.
+Be nice to $brian.name. Fine. I'm nice to everybody, it's one of my better qualities, and the guy at the bagel place gets a smiley face on his receipt every single morning whether he deserves it or not.
 
-It's just that nobody has ever had to ask me before.
+Nobody's ever had to ask me before, though.
 
-$player.name said it like it was nothing. Like asking me to water a plant. Be extra friendly to $brian.name for a while, he needs a little attention, and then he went back to his screen. And I said sure, of course, because what am I going to say? No, I don't want to, because I'd rather you were the one who wanted my attention?
+$player.name said it the way you'd ask someone to water the plants: be extra friendly to $brian.name for a while, he needs a little attention, and then straight back to his screen. I said sure, of course. What was I supposed to say, no thanks, I'd rather you wanted my attention yourself?
 
-So. Coffee. I asked $mom.callName how $brian.name takes it, because apparently she knows that, she knows everybody's coffee, it's a little terrifying. Two sugars. I carry it over with both hands like it's an offering, and I pull the spare chair up to his desk, and I sit.
+So, coffee. I asked $mom.callName how $brian.name takes it, because of course she knows, she knows everybody's coffee, which is a little terrifying. Two sugars. I carry it over, pull the spare chair up to his desk and sit down as if I do this every day.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Hi! I brought you a coffee. Two sugars. I have sources." },
-{ who: $brian, text: "Oh. Uh. Thank you. You didn't, uh. Thank you." },
-{ text: "He takes it without looking at me and puts it down on the far side of his keyboard, very carefully, like it might go off." },
-{ who: $sister, text: "So what are you making? It looks important. It has a lot of little... things." },
-{ who: $brian, text: "Capacitors." },
-{ who: $sister, text: "Capacitors. Sure. Love those. What do they do?" },
+{ who: $sister, text: "Hi. I brought you a coffee, two sugars. I asked around." },
+{ who: $brian, text: "Oh. Um. Thanks." },
+{ text: "He takes it without looking at me and sets it down on the far side of his keyboard, very carefully, as if it might go off." },
+{ who: $sister, text: "What are you working on? It looks complicated." },
+{ who: $brian, text: "Hm. Sensor board." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-That was a mistake. A sweet mistake, but a mistake.
+That's the whole answer. I wait for more, and there isn't any more. He just looks at the board, and the tips of his ears go pink.
 
-For ten minutes $brian.name tells me about capacitors. He tells the circuit board, mostly, but I'm the one listening. They store charge and let it go when you need it, and some of them are ceramic, and some of them can kill you if you touch them wrong, even when everything's unplugged, which he says with the first real enthusiasm I've ever heard from him. I understand maybe a third of it. I put my chin in my hand and nod in the right places, and halfway through I notice I'm not pretending anymore. He's just so into it.
+So I do the talking, which is fine, I'm good at that part. I tell him about my statistics professor, and the vending machine on the second floor that eats dollar bills, and the time it gave me two bags of pretzels for the price of none. He nods at the board and says "hm" in the right places. At the pretzels he actually laughs, a short, surprised sound, and then looks embarrassed about it.
+
+I put my chin in my hand, and somewhere around there I notice I've stopped performing. It's kind of nice, sitting here. He doesn't need me to be anything.
 
 <<silently>>
 <<set _msgs = [
-{ who: $brian, text: "...and that's why you discharge it first. Always. Uh. Sorry. That was a lot." },
-{ who: $sister, text: "No! No, it was great. I didn't know electricity could be scary. I mean, I did. But like, sneaky scary." },
-{ who: $brian, text: "It's very sneaky. Do you, uh. Do you want to see something?" },
+{ who: $brian, text: "Do you, ehh... want to see something?" },
+{ who: $sister, text: "Always." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He opens his bottom drawer, and it's soldering irons. Seven of them, in a row, on a folded towel. Each one has a little label in his handwriting. One of them is labeled <i>do not lend</i>, and he tells me the whole story of why, and it involves a cousin and a model train and a fire department, and I laugh so hard I snort, and he almost looks at me.
+He opens his bottom drawer, and it's soldering irons. Seven of them, lined up on a folded towel, each with a little label in his handwriting. One of them says <i>do not lend</i>, so of course I ask.
 
-I think, where $brian.name is from, that drawer was a proposal.
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "My cousin borrowed it. Once. There was a model train, and then, um. The fire department." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That's all I get, and it's somehow better than any story he could have told. I laugh so hard I snort, and he almost looks at me.
+
+I think where $brian.name is from, that drawer was a proposal.
 
 When I get up, he says thank you for the coffee three times, once while I'm still standing there, once when I'm a few steps away and once to my empty chair.
 
-On the way back to my desk I look over at $player.name, just to see if he saw any of it. He's on the phone. Maybe he saw. I can't tell, and I hate that I want to know.
+On the way back to my desk I look over at $player.name, just to see if he saw any of it. He's on the phone. Maybe he saw, maybe he didn't, and I hate how much I want to know.
 
 <<EndPov>>

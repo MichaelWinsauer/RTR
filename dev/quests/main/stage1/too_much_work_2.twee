@@ -9,14 +9,14 @@ $ethan.name $ethan.surname shows up ten minutes early, backpack slung over one s
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Would you look at that. A real office. With chairs that aren't held together by duct tape and hope." },
+{ who: $ethan, text: "Would you look at that, a real office, with chairs that aren't held together by duct tape and hope." },
 { who: $player, text: "Good to see you too, $ethan.name. Sit down before you start inspecting the furniture." },
 { who: $ethan, text: "So the rumors are true? You actually kept tinkering with our old headset?" },
 { who: $player, text: "Tinkering is underselling it a bit. Let's say it grew up. It does things now we wouldn't have dared to put in our project report." },
 { who: $ethan, text: "Ha! I told you it had potential. Nobody ever listens to me." },
 { who: $player, text: "Well, I'm listening now. I've got two clients and one very tight deadline, and I need somebody who writes clean code fast and doesn't need me to explain how my brain works." },
 { who: $ethan, text: "Your brain? Man, nobody can explain how your brain works. But honestly, your timing is perfect. The startup I was contracting for went belly-up last month. I've been on a strict instant noodle diet ever since." },
-{ who: $player, text: "Then consider this your rescue from the noodles." },
+{ who: $player, text: "Then let's get you off the noodles. I can't pay you a fortune yet, but I can definitely pay you more than noodle money." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -47,13 +47,13 @@ $darius.name $darius.surname is the last one, and he walks in like he's the one 
 
 <<silently>>
 <<set _msgs = [
-{ who: $darius, text: "Thanks for having me. I tried to read up on your company beforehand, but there isn't a whole lot out there yet." },
-{ who: $player, text: "We're new. That's more or less why you're here." },
-{ who: $darius, text: "Makes sense. For the last three years I did performance analytics for a sports franchise. Player tracking, fatigue models, crowd behavior. Mostly I took mountains of numbers nobody wanted to look at and turned them into decisions people could actually make." },
+{ who: $darius, text: "Thank you for making the time. I tried to read up on the company beforehand, but the public record is, let's say, admirably concise." },
+{ who: $player, text: "Yeah, we're pretty new. That's more or less why you're here." },
+{ who: $darius, text: "That's fair. For the past three years I ran performance analytics for a sports franchise, mostly player tracking and fatigue modeling, with some work on crowd behavior on the side. In practice the job was taking a volume of data nobody wanted to look at and turning it into decisions that people with very little patience could actually make." },
 { who: $player, text: "Then you'll feel right at home. I've got a diner owner who'd love to know why some days are packed and others are dead. And soon I'll have a lot of sensor data that needs to make sense to people without an engineering degree." },
-{ who: $darius, text: "What kind of sensor data are we talking about?" },
-{ who: $player, text: "Behavioral stuff. Mood, focus, engagement. I'll walk you through the details once you've signed." },
-{ who: $darius, text: "Mysterious. I can work with that. Problems I've already seen tend to bore me." },
+{ who: $darius, text: "What kind of sensor data, if you don't mind my asking?" },
+{ who: $player, text: "Behavioral stuff, mostly. Mood, focus, how engaged people are. It's honestly easier to explain once you've signed, there's an NDA and everything." },
+{ who: $darius, text: "Then I'll look forward to signing it. Frankly, a problem I can't fully see yet appeals to me a great deal more than one I've already solved twice." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -66,20 +66,20 @@ By the time the last candidate is out the door it's already evening, and $mom.ca
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay, so. The tall one. $darius.name? Just putting it out there, he's cute." },
-{ who: $player, text: "He's an analyst, $sister.callName. Not a dating profile." },
+{ who: $sister, text: "So, the tall one. $darius.name, was it? I'm just going to say it, he's cute." },
+{ who: $player, text: "He's an analyst, $sister.callName, not a dating profile. I'd like him to stick around long enough to actually analyze something." },
 { who: $sister, text: "I don't see why he can't be both." },
-{ who: $mom, text: "The one with the glasses walked straight past me. He didn't even say hello." },
-{ who: $player, text: "That's $brian.name. He's not here to make friends, he's here to build hardware, and he's the best I've come across." },
+{ who: $mom, text: "The one with the glasses walked right past me without so much as a hello, and I'd even put out cookies." },
+{ who: $player, text: "That's $brian.name. I don't think he meant anything by it, he's just like that. And he's the best hardware guy I've come across, so he's allowed to skip the hellos." },
 { who: $mom, text: "But $ethan.name seemed lovely, honey. Is that the same boy who used to empty our whole fridge when you two were working on that helmet thing?" },
-{ who: $player, text: "Same one. He's the only one I'd trust with the code. He was there right at the beginning." },
-{ who: $mom, text: "So... which one are you going to pick?" },
+{ who: $player, text: "Same one, and yes, he'll probably empty the office fridge too. He wrote most of the code back then. There's nobody I'd rather have on it." },
+{ who: $mom, text: "So which one are you going to pick? I liked $ethan.name, but I suppose that's not really how you decide these things." },
 { who: $player, text: "All of them. They start Monday." },
 { who: $mom, text: "All three? Honey, wouldn't it be smarter to start with one and see how it..." },
-{ who: $player, text: "$mom.callName. I didn't put it to a vote. I'm telling you how it is." },
+{ who: $player, text: "$mom.callName, I already made the offers. I wasn't really asking." },
 { text: "The room goes very quiet. $mom.callName holds my gaze for a long moment, then her shoulders sink and she nods." },
-{ who: $mom, text: "You're right. It's your company. I'm sorry, I shouldn't have..." },
-{ who: $player, text: "You don't have to apologize. You just have to be ready. Monday morning I want fresh coffee waiting when they walk in, and I want the two of you looking the part. People remember first impressions." },
+{ who: $mom, text: "No, you're right, of course you're right, it's your company. I'm sorry, honey, I didn't mean to..." },
+{ who: $player, text: "It's fine. Just help me make Monday go well, okay? I want fresh coffee waiting when they walk in, and I want the two of you looking the part. They're going to remember the first day." },
 { who: $sister, text: "Yes, boss." },
 { who: $player, text: "Exactly." },
 { text: "She says it like a joke. Then she waits for one of us to laugh, and neither of us does." },

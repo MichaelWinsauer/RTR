@@ -11,12 +11,12 @@
 <<silently>>
 <<set _msgs to [
 	{ who: $player, text: "You know you're allowed to go home, right? You were done two hours ago." },
-	{ who: $sister, text: "Somebody had to sort these. They were a nest. Something could have been living in there." },
+	{ who: $sister, text: "Somebody had to sort these, they were basically a nest. I'm pretty sure something was living in there." },
 	{ text: "The cables were fine. I sorted them myself the week we moved in." },
 	{ who: $player, text: "And the real reason?" },
-	{ who: $sister, text: "The real reason is that this building makes noises at night, and I didn't like the idea of you sitting up here alone with them. That's a perfectly normal reason. Very supportive." },
+	{ who: $sister, text: "The real reason is that this building makes noises at night, and I didn't love the idea of you sitting up here alone with them. Which is a perfectly normal, supportive reason, by the way." },
 	{ text: "She ties off a bag and drops it into the box with the others. She doesn't look up for the next part." },
-	{ who: $sister, text: "Also, I can't focus at home anymore. I sit at my desk and I just... drift. Here I'm fine. Here it's quiet in my head. That's weird, right? Don't answer that." },
+	{ who: $sister, text: "And I can't focus at home anymore. I sit down at my desk and twenty minutes later I've read one paragraph, but here it's just... quiet in my head. That's weird, isn't it? Don't answer that." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -30,8 +30,8 @@
 					{ who: $player, text: "Bring your notes over here, then. The light's better." },
 					{ text: "She doesn't need to be asked twice. She sits down on the floor next to my chair with her back against the side of the desk and a highlighter between her teeth, and reads through her lecture notes while I work. For a long while the only sounds are my keyboard, the squeak of her highlighter and the building ticking as it cools down." },
 					{ who: $sister, text: "Can I ask you something?" },
-					{ who: $player, text: "Mm." },
-					{ who: $sister, text: "...Never mind. It's dumb." },
+					{ who: $player, text: "Mm-hm." },
+					{ who: $sister, text: "Never mind, it's nothing. Forget I said anything." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -46,12 +46,12 @@
 			<<replace "#desk-late-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Go home. I mean it. You have a life outside this office, allegedly." },
-					{ who: $sister, text: "I know. I know, I'm going. One more bag." },
+					{ who: $player, text: "Go home, seriously. You have a life outside this office, or at least you used to." },
+					{ who: $sister, text: "I know, I'm going. Just one more bag." },
 					{ text: "It's three more bags. Then she gets up, brushes the carpet fluff off her knees and hovers next to my desk with her jacket half on." },
-					{ who: $sister, text: "Don't stay too late, okay? You get that face when you stay too late." },
-					{ who: $player, text: "What face?" },
-					{ who: $sister, text: "The one you're making right now." },
+					{ who: $sister, text: "Don't stay too late, okay? You always say twenty more minutes and then it's midnight." },
+					{ who: $player, text: "That happened once." },
+					{ who: $sister, text: "That happened every night last week." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -83,20 +83,20 @@
 						<<UpdateStat "-" "SisterRelation" 1>>
 						<<UpdateStat "+" "SisterResistance" 3>>
 					<<else>>
-						<p>I switch $company.prototype.name on in my jacket pocket, one notch and then a second. <<DevicePulse 2>> I leave everything else in her alone and warm up the one thing she just told me, the part about how quiet it gets in her head when she's near me.</p>
+						<p>I switch $company.prototype.name on in my jacket pocket, one notch and then a second. <<DevicePulse 2>> I leave everything else in her alone and try to warm up the one thing she just told me, the part about how quiet it gets in her head when she's near me.</p>
 						<<silently>>
 						<<set _msgs to [
 							{ text: "Her hands slow down. She ties off the bag she's holding, then just sits there with it in her lap." },
-							{ who: $sister, text: "Is it okay if I come sit over there? Just for a bit. I'll be quiet." },
+							{ who: $sister, text: "Is it okay if I come sit over there for a bit? I'll be quiet, I promise." },
 							{ text: "She doesn't wait for an answer. She shuffles across the carpet on her knees and settles against my leg with her cheek on my knee, as if she's been doing it every night for years." },
-							{ who: $sister, text: "This is so stupid. When I'm next to you, everything goes... soft. Like when you're a kid and you fall asleep in the car, and somebody carries you inside." },
+							{ who: $sister, text: "This is so stupid. When I'm next to you, everything goes kind of soft, like when you're little and you fall asleep in the car and somebody carries you inside." },
 							{ who: $player, text: "That's not stupid." },
-							{ who: $sister, text: "It's a little stupid. I'm older than you. I'm supposed to be the one who carries people inside." },
+							{ who: $sister, text: "It's a little stupid. I'm the older one, I'm supposed to be the one who carries people inside." },
 							{ text: "She doesn't move, though. When I put my hand on her hair she lets out a long breath and goes very still." },
 						]>>
 						<</silently>>
 						<<Chat _msgs>>
-						<p>I give it ten minutes before I switch it off. She stays exactly where she is for a long time after that, and that's the part I was really waiting to see.</p>
+						<p>I give it ten minutes before I switch it off. She stays exactly where she is long after that, which is more than I'd dared to hope for.</p>
 						<<UpdateStat "+" "SisterCorruption" 2>>
 						<<UpdateStat "+" "SisterLust" 3>>
 						<<UpdateStat "+" "SisterResistance" 1>>

@@ -27,36 +27,36 @@ This morning she comes to my desk with a single sheet of paper and puts it face 
 <<Chat _msgs>>
 
 <<linkreplace "Turn it over">>
-It's a printout of the company calendar. Three months of it, shrunk down to fit one page, every day a little colored box. She's gone over it by hand with three highlighters.
+It's a printout of the company calendar, three months of it shrunk down to fit one page, every day a little colored box. She's gone over it by hand with three highlighters.
 
-Yellow: the days the office felt "warm", her word, written in the margin. The days everyone worked late without complaining. Orange: the evening test sessions in the meeting room. Pink: what she's labeled, in tiny careful letters, <i>bad days</i>. The days she came home and cleaned the kitchen until midnight. The days she knocked on my door.
+Yellow is for the days the office felt "warm", her word, written in the margin: the days everyone worked late without complaining. Orange is the evening test sessions in the meeting room. Pink is what she's labeled, in tiny careful letters, <i>bad days</i>, the days she came home and cleaned the kitchen until midnight, and the days she knocked on my door.
 
-The pink is almost always on an orange day. Or the day after a yellow one. She has drawn neat little lines between them, and circled the clusters, the way she'd circle a scheduling conflict for a client.
+The pink is almost always on an orange day, or on the day after a yellow one. She has drawn neat little lines between them, and circled the clusters, the way she'd circle a scheduling conflict for a client.
 
 /* MEDIA: images/characters/mom/events/the_calendar/printout.jpg | A calendar printout on a desk, highlighted in yellow, orange and pink, neat circles and lines drawn between the days */
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I'm a project manager, sweetie. Or I was. I notice patterns. It's the one thing I'm actually good at." },
+{ who: $mom, text: "I've spent a lot of years keeping other people's calendars, sweetie, and if there's one thing I'm good at, it's noticing when something keeps landing on the same days." },
 { text: "She isn't angry. That's the strange part. Her voice is perfectly calm, and very gentle, the voice she'd use to tell a client their budget doesn't add up." },
 { who: $mom, text: "Is it the box?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-For the first time since this started, she's ahead of me. She sat at her desk for three nights and did the work, quietly, the way she does everything, and walked into my office with the proof in her hand. She's waiting to see what I'll do with it.
+For the first time since this started, she's ahead of me. She sat at her desk for three nights and did the work, quietly, the way she does everything, and walked into my office with the proof in her hand. She's waiting to see what I'll do with it, and for a moment I honestly don't know.
 
 <<linkreplace "Decide">>
 <div id="cal-choice">
 <div><<link "Tell her part of the truth">><<replace "#cal-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Yes. It's the box. Not the white one in the meeting room. A stronger one. It makes people feel what they're already close to feeling. A little more easily." },
+{ who: $player, text: "Yes. It's the box, though not the white one in the meeting room, there's a stronger one. It makes people feel what they're already close to feeling, just a little more easily." },
 { text: "I tell her about the evenings, the sessions, the unit in the office. I don't tell her about her old job, or the sabotage, or why she was fired. She doesn't need that part. Nobody does." },
-{ who: $mom, text: "The nights I came to your room." },
+{ who: $mom, text: "And the nights I came up to your room?" },
 { who: $player, text: "Some of them." },
 { who: $mom, text: "Which ones?" },
-{ who: $player, text: "I don't know anymore. Honestly. I stopped keeping track." },
+{ who: $player, text: "Honestly, I don't know anymore. I stopped keeping track at some point." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -65,12 +65,12 @@ She takes the printout back and looks at it for a long time. Then she folds it i
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I need to think. Can I... I'm going to go sit in the meeting room for a while. Don't come in." },
+{ who: $mom, text: "I need to think about this, honey. I'm going to go sit in the meeting room for a while, and I'd like it if you didn't come in." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She's in there for two hours. Through the glass I can see her sitting at the end of the table, very straight, with the folded paper in front of her. She doesn't cry. She doesn't call anyone. At one point she gets up and waters Gerald through the doorway, and sits down again.
+She's in there for two hours. Through the glass I can see her sitting at the end of the table, very straight, with the folded paper in front of her. She doesn't cry, and she doesn't call anyone. At one point she gets up and waters Gerald through the doorway, and sits down again.
 
 At lunch she comes back to my desk and sits down in the same chair.
 
@@ -79,7 +79,7 @@ At lunch she comes back to my desk and sits down in the same chair.
 { who: $mom, text: "I can't tell how much of this is me and how much is the box." },
 { text: "She turns the folded paper over in her fingers." },
 { who: $mom, text: "And I think... I think I've decided I don't care." },
-{ who: $player, text: "You don't care." },
+{ who: $player, text: "You don't care?" },
 { who: $mom, text: "I sat in there and tried to be angry, honey. I really tried. And all I could think was that I've never been this happy. Not even close. If a box did that, then thank God for the box." },
 ]>>
 <</silently>>
@@ -123,10 +123,10 @@ Then a thin line of blood runs out of her left nostril and over her lip, and she
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Oh. Silly. It's so dry in here. It's the air conditioning, it always does this to me." },
+{ who: $mom, text: "Oh, look at that, how silly of me. I haven't been drinking enough water again, I always get these when I forget." },
 { text: "I hand her a tissue. She dabs her lip and smiles at me over it, a soft, clear, untroubled smile. The printout is still lying on the table between us. She glances at it as if it's somebody else's grocery list." },
-{ who: $mom, text: "What did I want to show you? It doesn't matter. Nothing that can't wait." },
-{ who: $mom, text: "I love working here, you know that? I chose this. I'd choose it again." },
+{ who: $mom, text: "What was it I wanted to show you? Oh, it doesn't matter, it's nothing that can't wait." },
+{ who: $mom, text: "I love working here, you know that, honey? I chose all of this, and I'd choose it again tomorrow." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -141,7 +141,7 @@ Back at my desk, my hands are still not completely steady. I take out my phone a
 
 The answer takes four minutes.
 
-<i>Nope. Remember? I like not knowing. Also the coffee machine is making the dying-whale noise again. Priorities, boss.</i>
+<i>Nope, and I'd like to keep it that way. More pressing issue: the coffee machine is making the dying-whale noise again, boss.</i>
 
 He sends a whale emoji. I look across the office. He's looking at his screen. His screen is the device log, and I can see the shape of a single tall spike on it, reflected in the window behind him, before he clicks it away.
 
@@ -149,7 +149,7 @@ He sends a whale emoji. I look across the office. He's looking at his screen. Hi
 <<UpdateStat "+" "Corruption" 5>>
 <<Feel $mom "player" 2 "lasting">>
 <<AdvanceCorruptionStage $mom "She worked out the pattern on her own and asked me if it was the box. I took her into the meeting room and used the Anchor. Now she believes it's her choice, and that she loves it.">>
-<<ProfileLog $mom "The Calendar" "She found the pattern in the company calendar on her own and asked me if it was the box. I took her into the meeting room and used the Anchor: this is your choice, and you love it. Her nose bled. She blamed the air conditioning, threw the printout away and told me she'd choose this again.">>
+<<ProfileLog $mom "The Calendar" "She found the pattern in the company calendar on her own and asked me if it was the box. I took her into the meeting room and used the Anchor: this is your choice, and you love it. Her nose bled. She said she hadn't been drinking enough water, threw the printout away and told me she'd choose this again.">>
 <div class="navigation-link"><<link "That night" "The Calendar 2">><<AdvanceTimeTo 5>><</link>></div>
 <</replace>><</link>><<else>><span class="offer-card locked" style="display:inline-flex"><span class="offer-label">Use the Anchor</span><span class="offer-lock"><<if !_calAnchor.owned>>I don't have it yet<<elseif setup.deviceUsesLeft(_calAnchor) <= 0>>It has no uses left<<else>>It needs a full charge<</if>></span></span><</if>></div>
 </div>

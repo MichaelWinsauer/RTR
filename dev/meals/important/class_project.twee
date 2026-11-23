@@ -38,11 +38,11 @@ I've barely sat down in front of my _cpFood when $sister.callName stands up, pic
 <</silently>>
 <<Chat _msgs>>
 
-$mom.callName is laughing, but she's also looking at me with an expression I haven't seen since high school graduation. Like I've done something she can tell her friends about.
+$mom.callName is laughing, but she's also looking at me with an expression I haven't seen since high school graduation, like I've finally done something she can tell her friends about.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "He really let you borrow it? For your class?" },
+{ who: $mom, text: "He let you borrow it for your class? Honey, he won't even let me dust near that desk." },
 { who: $sister, text: "He did a whole demo for me. It reads you, $mom.callName. Your pulse and how you're sitting and stuff. And then it just... takes the edge off. I felt amazing afterwards. Like after a spa day, except I didn't have to pay for a spa." },
 { who: $mom, text: "I know. It's very relaxing." },
 { text: "She says it before she thinks about it. Then she reaches for her glass and drinks from it for quite a long time." },

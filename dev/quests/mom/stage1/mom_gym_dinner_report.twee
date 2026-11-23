@@ -14,8 +14,8 @@ She comes in eventually. She doesn't go upstairs. She comes and stands in the do
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "He signed. Right there at the table, on the back of the wine list, and then again on the real one when his assistant sent it. Full price, honey. Not a cent off." },
-{ who: $player, text: "Sit down. Tell me." },
+{ who: $mom, text: "He signed, right there at the table on the back of the wine list, and then again on the real one when his assistant sent it over. Full price, honey, not a cent off." },
+{ who: $player, text: "That's great. Come sit down and tell me how it went." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -25,24 +25,24 @@ She sits on the arm of the couch, which she has told me not to do my entire life
 <<if $mom.flags.gymDinnerLetHim === true>>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "It was fine. At first. He talked about his ice baths for, I swear, forty minutes. I laughed at everything. I did the arm thing." },
-{ who: $mom, text: "And then after the second bottle he moved his chair. Around the corner of the table, so he was next to me instead of across. And he put his hand on my knee." },
+{ who: $mom, text: "It was fine at first, honestly. He talked about his ice baths for forty minutes, I swear, and I laughed at everything and did the arm thing, the way you showed me." },
+{ who: $mom, text: "And then after the second bottle he moved his chair around the corner of the table, so he was sitting next to me instead of across, and he put his hand on my knee." },
 { text: "She looks down at her knee as if it's still there. She smooths the dress over it, slowly, twice." },
-{ who: $mom, text: "And it stayed there. Through dessert. Through the coffee. He was talking about retention rates, and his thumb kept... moving. Just a little. And I kept smiling." },
-{ who: $mom, text: "I did what you said. I let him. Within reason. He never went higher than... it was within reason." },
+{ who: $mom, text: "And it stayed there, through dessert and all through the coffee. He was going on about retention rates the whole time, and his thumb kept... moving, just a little, and I kept smiling." },
+{ who: $mom, text: "I did what you said, honey, I let him. Within reason. He never went any higher than... it was within reason." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I listen to all of it and keep my face still. Something in my chest isn't still at all. It isn't guilt. It's simpler and older than that: another man had his hand on something of mine for an hour and a half, and he only had it because I lent it to him. I tell myself it was an investment. It was. The contract is signed, at full price.
+I listen to all of it and keep my face still. Something in my chest isn't still at all, and it isn't guilt. It's simpler and older than that: another man had his hand on something of mine for an hour and a half, and he only had it because I lent it to him. I tell myself it was an investment, which it was, and the contract is signed at full price.
 
 I tell myself that twice.
 <<else>>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "It was nice, actually. He's a lot. He talked about his ice baths for, I swear, forty minutes. But he was a gentleman, mostly." },
-{ who: $mom, text: "Once, after the second bottle, his hand sort of... wandered. Onto my knee. And I did what you said. I put it back on the table, and I smiled, and I asked him about his twelfth location. He loves talking about the twelfth location." },
-{ who: $mom, text: "He looked a little disappointed. Just for a second. Then he ordered the cheesecake." },
+{ who: $mom, text: "It was nice, actually. He's a lot, he talked about his ice baths for forty minutes, I swear, but he was a gentleman. Mostly." },
+{ who: $mom, text: "Once, after the second bottle, his hand sort of wandered onto my knee, and I did what you said. I put it back on the table and smiled and asked him about his twelfth location, because he loves talking about the twelfth location." },
+{ who: $mom, text: "He looked a little disappointed for about a second, and then he ordered the cheesecake." },
 { text: "She laughs, and it's a real laugh, loose and a little tipsy. Then it fades, and she looks at me, and I can see her checking something." },
 ]>>
 <</silently>>
@@ -64,9 +64,9 @@ She isn't asking if the contract is good. She knows the contract is good. She's 
 <div><<link "Tell her it was exactly right">><<replace "#gdr-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "That was exactly right. You did perfectly." },
-{ text: "It goes through her like warm water. Her shoulders come down from somewhere near her ears. She closes her eyes for a second." },
-{ who: $mom, text: "Okay. Good. I wasn't sure. I kept thinking, what would he want, and then I just... did that." },
+{ who: $player, text: "It was exactly right. I don't think anybody else could have pulled that off." },
+{ text: "It goes through her like warm water. Her shoulders come down from somewhere near her ears, and she closes her eyes for a second." },
+{ who: $mom, text: "Oh, good. I wasn't sure, honey. I kept sitting there thinking, what would he want me to do, and then I just did that." },
 { who: $player, text: "That's all you ever have to do." },
 ]>>
 <</silently>>
@@ -86,11 +86,11 @@ She picks up her heels and kisses the top of my head on her way past, and goes u
 <div><<link "Tell her next time she can do more">><<replace "#gdr-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "It was fine. Next time you can do more." },
-{ text: "She waits for the rest of the sentence. There isn't any. Her finger stops twisting the strap." },
-{ who: $mom, text: "More." },
-{ who: $player, text: "He signed tonight. The next one might not, unless they get a reason to." },
-{ who: $mom, text: "Right. No, you're right. Of course." },
+{ who: $player, text: "It was fine. Next time, though, you can do more." },
+{ text: "She waits for the rest of the sentence, and there isn't any. Her finger stops twisting the strap." },
+{ who: $mom, text: "More?" },
+{ who: $player, text: "He signed tonight. The next one might not, unless somebody gives him a reason to." },
+{ who: $mom, text: "Right. No, of course, you're right, honey. I just didn't... no, you're right." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

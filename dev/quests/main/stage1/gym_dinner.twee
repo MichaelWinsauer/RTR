@@ -18,16 +18,16 @@ The email from $gymOwner.name's assistant has three exclamation marks in the sub
 
 <i>Looking forward to meeting the team properly. Let's talk numbers like humans. R.</i>
 
-I read it twice. The team. He doesn't mean $ethan.name and a pizza box. He means whoever sits across that table from him tonight and decides how much of the contract survives dessert.
+I read it twice. I'm pretty sure that by "the team" he doesn't mean $ethan.name and a pizza box. He means whoever sits across that table from him tonight and decides how much of the contract survives dessert.
 <<else>>
-$gymOwner.name's assistant has rebooked the steakhouse. Again. The new email is shorter than the last one, and the subject line has lost its exclamation marks. Underneath, $gymOwner.name has written: <i>Third time's the charm? I'm starting to think you don't like steak. R.</i>
+$gymOwner.name's assistant has rebooked the steakhouse again. The new email is shorter than the last one, and the subject line has lost its exclamation marks. Underneath, $gymOwner.name has written: <i>Third time's the charm? I'm starting to think you don't like steak. R.</i>
 
-$darius.name stopped by my desk this morning to tell me, very politely, that his friend has started talking about "flexibility on the price" again, and that he means it as a number.
+$darius.name stopped by my desk this morning to let me know, very politely, that his friend has started talking about "flexibility on the price" again, and that he's fairly sure the man has a number in mind.
 <</if>>
 
 /* MEDIA: images/events/gym_dinner/email.jpg | A laptop screen with a restaurant reservation in an email, the office behind it */
 
-I look across the office. $mom.callName is at her desk on the phone with a client, laughing at something, the low little laugh she learned at this desk a few weeks ago. $gymOwner.name liked that laugh. He thanked her for the coffee on his way out and looked back at her desk twice. He never asked about her. He doesn't have to.
+I look across the office. $mom.callName is at her desk on the phone with a client, laughing at something, that low little laugh she's picked up here over the last few weeks. $gymOwner.name liked that laugh. He thanked her for the coffee on his way out and looked back at her desk twice before the elevator doors closed. He never asked a single thing about her, but I have a feeling he remembers her better than he remembers me.
 
 <<Offer>>
 <<plain "I'll take him to dinner myself" `"a stiff evening and " + _gdDiscount + "% off the contract"`>>
@@ -37,21 +37,21 @@ I look across the office. $mom.callName is at her desk on the phone with a clien
 <</silently>>
 I write back that I'll be there, and I am, at five to eight, in my only good jacket.
 
-It's a long dinner. $gymOwner.name orders for both of us without asking, a bone-in rib-eye the size of a hubcap, and spends the first hour talking about his morning routine, which starts at four-thirty and involves an ice bath. I nod a lot. When the dessert menus come, he leans back and gets down to it.
+It's a long dinner. $gymOwner.name orders for both of us without asking, a bone-in rib-eye the size of a hubcap, and spends the first hour telling me about his morning routine, which starts at four-thirty and involves an ice bath. I nod a lot. When the dessert menus come, he leans back and finally gets down to it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $gymOwner, text: "Here's the thing, $player.name. I love the product. I do. But you're a young company, and eleven locations is a lot of trust for a young company." },
-{ who: $player, text: "It's a pilot price already." },
-{ who: $gymOwner, text: "And I appreciate that. I'm thinking a little lower. Call it a partnership discount. You get a big name on your client list, I get to sleep at night." },
-{ text: "He names a number. It's exactly as much lower as I thought it would be, and he smiles at me while he says it, like a man who has done this at a hundred tables and won at ninety of them." },
+{ who: $gymOwner, text: "Here's the thing, $player.name. I love the product, I really do. But you're a young company, and eleven locations is a lot of trust to put in a young company." },
+{ who: $player, text: "I get that. But the price we sent you is already a pilot price, we came down quite a bit for it." },
+{ who: $gymOwner, text: "And I appreciate that. I'm just thinking a little lower. Call it a partnership discount. You get a big name on your client list, and I get to sleep at night." },
+{ text: "He names a number. It's almost exactly as much lower as I was afraid it would be, and he smiles at me while he says it, like a man who has done this at a hundred tables and won at ninety of them." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I take it. It's a fair price for being nineteen and alone at the table. He shakes my hand in the parking lot, slaps my shoulder twice, and tells me I've got guts, which is what people say when they've beaten you and want you to feel fine about it.
+I take it. It's a fair price for being nineteen and alone at the table. He shakes my hand in the parking lot, slaps my shoulder twice and tells me I've got guts, which is what people say when they've just beaten you and want you to feel fine about it.
 
-On the drive home I do the math on what I gave away. Then I do the math on what it would have cost me to send someone else. I'm not sure yet which number I like less.
+On the drive home I do the math on what I gave away, and then, because I can't help myself, on what it would have cost me to send someone else instead. I honestly can't tell which number bothers me more.
 
 <<UpdateStat "+" "Reputation" 2>>
 <<NextQuest $player>>
@@ -61,11 +61,11 @@ On the drive home I do the math on what I gave away. Then I do the math on what 
 <<family $mom 2 `"Send " + $mom.callName` "the full contract" _gdLock>>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "$mom.callName. Got a minute?" },
-{ text: "She finishes her call, writes something on a sticky note and comes over with her tablet, the way she always does, ready to write down whatever's wrong." },
-{ who: $player, text: "$gymOwner.name wants a dinner before he signs. Tonight. Somebody has to sit across from him, keep him happy and keep the price where it is." },
-{ who: $mom, text: "Oh. Well, you'll be wonderful, honey. Wear the blue shirt, he'll..." },
-{ who: $player, text: "Not me. You." },
+{ who: $player, text: "Hey, $mom.callName, do you have a minute?" },
+{ text: "She finishes her call, writes something on a sticky note and comes over with her tablet, the way she always does, ready to write down whatever's gone wrong." },
+{ who: $player, text: "So $gymOwner.name wants to have dinner before he signs, tonight, at some steakhouse downtown. Somebody has to sit across from him for three hours, keep him happy and keep him from chewing the price down." },
+{ who: $mom, text: "Oh, well, you'll be wonderful at that, honey, you always are with the older ones. Wear the blue shirt, the one that makes you look like you've been doing this for years, and he'll..." },
+{ who: $player, text: "Actually, I was thinking you should go." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -74,38 +74,38 @@ She lowers the tablet very slowly.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Me? To dinner? With him?" },
-{ who: $player, text: "You're my client consultant. You know the accounts better than I do. You know the numbers. And he liked you." },
+{ who: $mom, text: "Me? You want me to have dinner with him, just the two of us?" },
+{ who: $player, text: "You're my client consultant, and you know his account better than I do anyway. And he liked you." },
 { who: $mom, text: "He liked the coffee, sweetie." },
-{ who: $player, text: "He liked you." },
-{ text: "She opens her mouth to argue and doesn't, because she was there, and she saw him look back at her desk twice too." },
-{ who: $mom, text: "What do I even wear to a dinner like that? I haven't been to a steakhouse since your $dad.relation's fortieth." },
-{ who: $player, text: "The green dress." },
+{ who: $player, text: "He looked back at your desk twice on his way out. I don't think that was about the coffee." },
+{ text: "She opens her mouth to argue and then doesn't, because she was standing right there when he did it." },
+{ who: $mom, text: "And what would I even wear to something like that? The last time I was in a steakhouse was your $dad.relation's fortieth, and I wore a cardigan, which I don't think is going to cut it." },
+{ who: $player, text: "I'd go with the green dress." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She goes pink so fast it's almost funny. The green dress has only been worn twice in twenty years, and the second time was on her knees on this carpet.
+She goes pink so fast it's almost funny. She's worn that dress twice in twenty years, and the second time she ended up on her knees on this carpet.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Okay. Okay. I can do a dinner. I've done a hundred client dinners. This is just one more client dinner." },
-{ who: $mom, text: "But honey... what if he, you know. Gets friendly. Men at dinners get friendly after the second glass." },
+{ who: $mom, text: "Okay, okay. I can do a dinner, I've done a hundred client dinners in my life and this is just one more of them, with a nicer steak." },
+{ who: $mom, text: "But honey, what if he gets... you know how men get at these dinners after the second glass of wine. Friendly." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She's asking me how far. She wants me to be the one who decides.
+It takes me a second to understand that she's asking me how far she should let it go, and that she would much rather I decide that than her.
 
 <div id="gd-choice">
 <div><<link "Let him">><<replace "#gd-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Then let him. Within reason. A hand on your knee won't kill you, and it'll keep the price where it is." },
-{ text: "She doesn't say anything for a moment. She looks at her tablet, at the calendar on it, at tonight." },
-{ who: $mom, text: "Within reason." },
-{ who: $player, text: "You'll know." },
-{ who: $mom, text: "I'll know. Okay." },
+{ who: $player, text: "Then let him be friendly, within reason. A hand on your knee isn't going to kill you, and if it keeps the price where it is, I think that's worth it." },
+{ text: "She doesn't say anything for a moment. She looks down at her tablet, at the calendar on it, at tonight." },
+{ who: $mom, text: "And what counts as within reason, exactly?" },
+{ who: $player, text: "You'll know when you get there. I trust you." },
+{ who: $mom, text: "Okay. No, you're right, I'm sure it'll be fine, he's a businessman, he's not going to... it'll be fine." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -126,11 +126,11 @@ She goes back to her desk and sits there for a while, perfectly still, and then 
 <div><<link "Keep it light">><<replace "#gd-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Keep it light. Laugh at his stories, let him talk about his ice baths. If his hand wanders, move it back and smile. He'll sign anyway." },
-{ who: $mom, text: "I can do that. I've been doing that since I was twenty-two." },
-{ text: "The relief comes off her like heat from a radiator. She actually laughs." },
-{ who: $mom, text: "Ice baths?" },
-{ who: $player, text: "You'll hear about them." },
+{ who: $player, text: "Just keep it light. Laugh at his stories, let him tell you about his ice baths, and if his hand wanders, move it back and smile at him. He'll sign anyway, he mostly wants to feel important for an evening." },
+{ who: $mom, text: "Oh, that I can do, honey. I've been doing that since I was twenty-two and answering phones for a dentist who thought he was God's gift." },
+{ text: "The relief comes off her like heat off a radiator, and then she actually laughs." },
+{ who: $mom, text: "Wait, ice baths?" },
+{ who: $player, text: "Oh, you'll hear all about them. Maybe bring a sweater." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -149,7 +149,7 @@ She spends the rest of the afternoon working a little faster than usual and humm
 </div>
 
 <<stall "Ask him to move the dinner" "main_gymDinner" "he'll expect a bigger discount">>
-I write back that something's come up tonight, with apologies, and could we find another evening this week. The answer comes in eleven minutes and is two words long: <i>Sure thing.</i> No exclamation marks.
+I write back that something's come up tonight, with apologies, and could we find another evening this week. The answer comes in eleven minutes and is two words long: <i>Sure thing.</i> No exclamation marks this time.
 
 <<ReturnFromEvent>>
 <</Offer>>

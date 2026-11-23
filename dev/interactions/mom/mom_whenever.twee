@@ -23,26 +23,26 @@
 <<if _wTier == "first">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Now." },
-{ text: "She looks at me for a second, as if she's checking the word against something she promised. Then her face settles." },
-{ who: $mom, text: "I did say whenever, didn't I." },
-{ who: $player, text: "You did." },
-{ who: $mom, text: "Then I meant it. Whatever you need, honey." },
+{ who: $player, text: "I want you. Not tonight, I mean right now." },
+{ text: "She looks at me for a second, as if she's checking it against something she promised, and then her face settles." },
+{ who: $mom, text: "I did say whenever, didn't I?" },
+{ who: $player, text: "That was the word you used." },
+{ who: $mom, text: "Well, I'm not going to be the kind of woman who says whenever and really means 'except on Tuesdays'. Whatever you need, honey." },
 ]>>
 <</silently>>
 <<elseif _wTier == "routine">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Come here." },
-{ who: $mom, text: "Mm-hm." },
-{ text: "That's all. She puts down whatever she was holding, wherever she is, and comes." },
+{ who: $player, text: "Come here a minute." },
+{ who: $mom, text: "Mm-hm. Just let me put this down." },
+{ text: "That's all it takes now. She sets down whatever she was holding, wherever she is, and comes." },
 ]>>
 <</silently>>
 <<else>>
 <<silently>>
 <<set _msgs = [
 { text: "I don't get to say anything. She's seen me look at her, and she knows that look now better than she knows her own handwriting." },
-{ who: $mom, text: "I know, sweetheart. I know. Let me." },
+{ who: $mom, text: "I know, sweetheart, you don't have to say a thing. Let me." },
 ]>>
 <</silently>>
 <</if>>
@@ -57,15 +57,15 @@ I take her right there, on the side of the bed that used to be his. She holds on
 
 <<case "bedroom">>
 /* MEDIA: images/characters/mom/interactions/whenever/bedroom_0.mp4 | My room, Mom kneeling on my bed, her robe on the floor */
-She comes into my room as if she has been called in to clean it, closes the door with her hip, and drops her robe over my desk chair. There's nothing underneath. There usually isn't anymore, when she comes up here.
+She comes into my room as if she has been called in to clean it, closes the door with her hip, and drops her robe over my desk chair. There's nothing underneath, and there usually isn't anymore when she comes up here.
 
 She climbs onto my bed on her hands and knees and looks back over her shoulder at me, a little shy about it even now, and waits. It doesn't take long. She's already wet, and she pushes back against me with a small, grateful sound, and afterwards she lies next to me for a minute with her hand on my chest before she gets up and picks up a sock from the floor, out of habit.
 
 <<case "livingroom">>
 /* MEDIA: images/characters/mom/interactions/whenever/livingroom_0.mp4 | The living room couch, the TV on, Mom on her knees on the rug between his feet */
-The TV is still on. Some home renovation show, a couple arguing about tiles. She doesn't turn it off. She glances once at the front door, and once at the stairs, and then she gets down on the rug between my knees and opens my jeans.
+The TV is still on, some home renovation show where a couple is arguing about tiles, and she doesn't turn it off. She glances once at the front door, and once at the stairs, and then she gets down on the rug between my knees and opens my jeans.
 
-She's good at this now. She's had practice every morning since the night she crawled across the office. She takes her time, and she hums a little, the way she does in the kitchen, and halfway through the couple on the TV decide on the gray tiles and she laughs around me, softly, and keeps going.
+She's good at this now, which is no surprise after every single morning since the night she crawled across the office. She takes her time, and she hums a little, the way she does in the kitchen, and halfway through the couple on the TV decide on the gray tiles and she laughs around me, softly, and keeps going.
 
 When I'm done she wipes her mouth with the back of her hand, straightens the cushion beside me and asks if I want anything from the kitchen.
 
@@ -84,7 +84,7 @@ I push her skirt up. She's careful not to knock the salt over. She keeps very qu
 
 <<case "meeting">>
 /* MEDIA: images/characters/mom/interactions/whenever/meeting_0.mp4 | The meeting room, blinds down, Mom kneeling under the table, a folder on the chair beside her */
-The blinds are already down, because she put them down when she saw me get up from my desk. On the other side of the glass, the office carries on: keyboards, $ethan.name laughing at something, the coffee machine. She brought a folder, in case anybody asks. She sets it on a chair.
+The blinds are already down, because she put them down when she saw me get up from my desk. On the other side of the glass the office carries on, keyboards and the coffee machine and $ethan.name laughing at something. She brought a folder in case anybody asks, and she sets it on a chair.
 
 Then she gets down under the table.
 
@@ -98,7 +98,7 @@ I take her on the desk where I sign the contracts. She holds on to the edge with
 
 <<default>>
 /* MEDIA: images/characters/mom/interactions/whenever/other_0.mp4 | A quiet corner, Mom pressed close, her hand between them */
-There's nobody around. She checks that anyway, both ways, the way you check before crossing the street. Then she steps close, closer than a $mom.relation stands, and slips her hand down the front of my jeans.
+There's nobody around, but she checks anyway, both ways, the way you check before crossing the street. Then she steps close, closer than a $mom.relation stands, and slips her hand down the front of my jeans.
 
 She does it right there, standing, with her forehead against my shoulder and her other hand flat on my chest, talking to me the whole time in the soft voice she used to use when I couldn't sleep. When I come, she holds me through it and kisses my cheek.
 

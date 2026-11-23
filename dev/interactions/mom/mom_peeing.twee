@@ -43,15 +43,15 @@
 	<</silently>>
 	<<Chat _msgs>>
 
-	When she comes out she can't quite look at me. She says the lock has been sticking since spring and she's going to call somebody about it this week. I nod. Nobody in this house has called anybody about that lock in six years.
+	When she comes out she can't quite look at me. She says the lock has been sticking since spring and she's going to call somebody about it this week, and I nod, even though nobody in this house has called anybody about that lock in six years.
 
 	<<case 2>>
 	The lock hasn't caught properly since I was in middle school, and she's never once remembered that. She's reaching for the paper when I walk in, and she moves faster than I'd have thought possible: one arm flat across her lap, the other pointing at the door like it's the emergency exit on a plane.
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "$player.name. Door." },
-	{ who: $player, text: "I'm going." },
+	{ who: $mom, text: "$player.name! The door, honey, the door!" },
+	{ who: $player, text: "I'm going, I'm going." },
 	{ who: $mom, text: "Then go faster, sweetie!" },
 	{ text: "I go. She waits until the door clicks shut before she says anything else, and what she says, muffled, is 'knock next time.' Then, after a moment: 'Please.'" },
 	]>>
@@ -68,12 +68,12 @@
 	{ who: $mom, text: "Are you kidding me? Out!" },
 	{ text: "She hisses it, so the hold music doesn't hear." },
 	{ who: $player, text: "I just need my charger." },
-	{ who: $mom, text: "Your charger can wait. Honey. Out." },
+	{ who: $mom, text: "Your charger can wait, honey. Out, please, before they pick up!" },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
 
-	I take the charger off the sink anyway on my way out. She makes a sound I haven't heard from her since I put a baseball through the kitchen window, and a second later, through the door, I hear her come back on the line, bright and polite. "Yes, hi! Still here!" She's always been good at that.
+	I take the charger off the sink anyway on my way out. She makes a sound I haven't heard from her since I put a baseball through the kitchen window, and a second later, through the door, I hear her come back on the line, bright and polite as anything. "Yes, hi! Still here!"
 	<</switch>>
 	<<UpdateStat "+" "Corruption" 1>>
 	<<UpdateStat "+" "MomLust" 3>>
@@ -87,13 +87,11 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Oh. It's you." },
-	{ who: $player, text: "It's me." },
-	{ who: $mom, text: "Well, come in or go out, honey, the draft's terrible with the door open." },
-	{ text: "I come in and lean against the sink. She goes back to the shampoo bottle. Her ears have gone pink." },
-	{ who: $mom, text: "You know, a year ago I would have thrown this at you." },
+	{ who: $mom, text: "Oh, it's you. Well, come in or go out, honey, the draft is terrible with that door open." },
+	{ text: "I come in and lean against the sink. She goes back to the shampoo bottle, and her ears go pink." },
+	{ who: $mom, text: "You know, a year ago I'd have thrown this at you." },
 	{ who: $player, text: "And now?" },
-	{ who: $mom, text: "Now I'm reading it. It says it adds volume. I have my doubts." },
+	{ who: $mom, text: "Now I'm reading it, apparently. It says it adds volume, and I have my doubts." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -122,11 +120,11 @@
 	<<set _msgs = [
 	{ who: $mom, text: "We really need to fix that lock." },
 	{ who: $player, text: "Do we?" },
-	{ who: $mom, text: "Don't. Don't do the thing with your voice." },
+	{ who: $mom, text: "Oh, don't do the thing with your voice, you know exactly what I mean." },
 	{ text: "I stay in the doorway. She tugs her robe down over her knees, which doesn't cover much of anything, then gives up and folds her hands in her lap." },
-	{ who: $mom, text: "You've seen... well. You've seen all of it, haven't you. I suppose there's no point shrieking now. I'd only feel silly." },
-	{ who: $player, text: "You'd feel silly." },
-	{ who: $mom, text: "Very. Hand me the towel, sweetie, and then look at the ceiling. Humor me." },
+	{ who: $mom, text: "Well, you've seen... you've seen all of it by now, haven't you? I suppose there's no point in shrieking anymore. I'd only feel silly." },
+	{ who: $player, text: "You could shriek a little. For old times' sake." },
+	{ who: $mom, text: "Hand me the towel, sweetie, and then look at the ceiling for a minute. Humor me." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -147,11 +145,11 @@
 	<<set _msgs = [
 	{ who: $mom, text: "That thing hasn't locked since you were in middle school." },
 	{ who: $player, text: "Then I'll stand in front of it." },
-	{ who: $mom, text: "My own bodyguard." },
+	{ who: $mom, text: "Well, aren't I lucky. My own personal bodyguard." },
 	{ text: "She doesn't hurry for me. She sits with her chin up a little and lets me look, and when she reaches for the paper she does it slowly, without turning away." },
 	{ who: $mom, text: "Is this what you came in for, honey? To keep me company?" },
-	{ who: $player, text: "I came in to see you." },
-	{ who: $mom, text: "Well. You've seen me." },
+	{ who: $player, text: "Mostly I came in to see you." },
+	{ who: $mom, text: "Well, here I am. It's not exactly my best angle, but here I am." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -164,8 +162,8 @@
 	<<silently>>
 	<<set _msgs = [
 	{ who: $mom, text: "You could knock, you know." },
-	{ who: $player, text: "I could." },
-	{ who: $mom, text: "But then I'd say wait, and you'd have to wait, and you've never liked waiting. I know." },
+	{ who: $player, text: "Then you'd tell me to wait." },
+	{ who: $mom, text: "And you've never liked waiting, not since you were tiny. I know, honey, I know." },
 	{ text: "She sets the phone face down on the edge of the sink. Her robe has fallen open over her knees, and she leaves it that way." },
 	]>>
 	<</silently>>
@@ -174,8 +172,8 @@
 	<<if _nightVisitDone>>
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Is it bad today? You've got that look." },
-	{ who: $player, text: "Maybe a little." },
+	{ who: $mom, text: "How's your day been? Honestly, I mean, not the version you tell everybody at dinner." },
+	{ who: $player, text: "Honestly? Not great." },
 	{ who: $mom, text: "Then come and find me tonight. Not in here, honey, not like... tonight. You know where." },
 	]>>
 	<</silently>>
@@ -187,7 +185,7 @@
 	<<set _msgs = [
 	{ who: $mom, text: "You've been looking at me like that ever since the handover, you know. At the office. At dinner." },
 	{ who: $player, text: "Like what?" },
-	{ who: $mom, text: "Like that." },
+	{ who: $mom, text: "Like you're doing right now, honey. Like you're waiting for something and you've decided you can be patient about it." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -200,14 +198,13 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Of course. Of course it's you. Who else would it be." },
-	{ who: $mom, text: "Well, come in, don't hover. And shut the door, your $sister.relation could walk past." },
+	{ who: $mom, text: "Well, of course it's you, who else would it be? Come in, then, don't hover in the doorway, and shut that door behind you, your $sister.relation could walk past." },
 	{ text: "So that's the one rule left, apparently: nobody else gets to see. Me sitting in here with her is fine." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
 
-	I sit on the edge of the tub. She crosses her ankles, very primly, which is funny all things considered, and tells me about her day at $boss.callName's office: the coffee machine on the sixth floor that still doesn't work, the meeting that should have been an email, the way he looked at her blouse in the elevator. She watches my face while she tells that last part, to see what it does to me.
+	I sit on the edge of the tub. She crosses her ankles, very primly, which is funny all things considered, and tells me about her day at $boss.callName's office: the coffee machine on the sixth floor that still doesn't work, the meeting that should have been an email, the way he looked at her blouse in the elevator. That last part she tells a little more slowly, with her eyes on my face.
 
 	<<if _nightVisitDone>>
 	When she's done she stands up right in front of me, close enough that her knees brush mine, and fixes my collar with both hands. "Don't make that face at dinner," she says quietly. "Save it for me."

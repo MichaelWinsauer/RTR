@@ -7,33 +7,33 @@
 <<silent>><<SetBackground $locations[15].img>><</silent>>
 Her text came in just before lunch: <i>meeting room when u have a sec?? GOOD news. probably good. mostly good</i>
 
-When I open the door she's sitting cross-legged on the table with her laptop on her knees, and she spins it around to face me before I've even closed the door behind me. It's her college portal. A list of courses, and next to nearly every one of them, a green check mark.
+When I open the door she's sitting cross-legged on the table with her laptop on her knees, and she spins it around to face me before I've even closed the door behind me. It's her college portal, a list of courses with a green check mark next to nearly every one of them.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Look. Look at all the green." },
-{ who: $player, text: "You finished early?" },
+{ who: $sister, text: "Look at all that green." },
+{ who: $player, text: "Wait, is that all of them? You finished early?" },
 { who: $sister, text: "Most of it! Two finals I took early, one paper I handed in at three in the morning, the timestamp is very embarrassing, and the only thing left is one seminar that meets once a week in the evening and is honestly mostly vibes." },
-{ who: $sister, text: "So I was thinking. I could come in at noon. Every day. Every weekday, I mean, I'm not insane." },
+{ who: $sister, text: "So I was thinking I could start coming in at noon. Every weekday, I mean, I haven't lost my mind." },
 { text: "She says it fast, and then she watches my face, the way she watched it from the edge of my bed when she pitched me the internship." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Think about it">>
-Three more hours a day. That's more of her week than her college gets now, and she's holding it out to me like a present she wrapped herself. She'd spend every one of those hours at the corner of my desk if I let her. I have better uses for them.
+Three more hours a day. That's more of her week than her college gets now, and she's holding it out to me like a present she wrapped herself. She'd spend every one of those hours at the corner of my desk if I let her, and I think they'd be worth a lot more somewhere else.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Noon works. But you're not spending it at my desk." },
+{ who: $player, text: "Noon works for me. I just don't want you spending those hours at my desk." },
 { who: $sister, text: "I don't spend time at your desk." },
 { who: $player, text: "You've spent more time at my desk this month than I have." },
-{ who: $sister, text: "That's a statistic. Statistics can say anything." },
-{ who: $player, text: "Here's the problem. Everybody out there works hard, nobody talks to anybody, and the mood gets a little worse every week. Nobody's in charge of that." },
-{ who: $sister, text: "And you want me to be in charge of... vibes." },
-{ who: $player, text: "Morale. Go round. Talk to people, keep them company, bring them coffee. Learn how everybody takes it." },
+{ who: $sister, text: "That's a statistic, and you know what they say about statistics." },
+{ who: $player, text: "Seriously, though. Everybody out there works hard and nobody talks to anybody, and the mood gets a little worse every week. Nobody's in charge of that, and I think you'd be really good at it." },
+{ who: $sister, text: "You want me to be in charge of the vibes." },
+{ who: $player, text: "Of morale, if you want it to sound official. Go round, talk to people, keep them company and bring them coffee. Learn how everybody takes it." },
 { who: $sister, text: "So I'm the office golden retriever." },
-{ who: $player, text: "You're the reason people like coming in." },
+{ who: $player, text: "You'd be the reason people actually like coming in." },
 { text: "She tries not to let that one show on her face. It shows anyway, all the way up to her ears." },
 ]>>
 <</silently>>
@@ -43,9 +43,9 @@ Then it catches up with her. She looks down at the laptop, at all that green, an
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay, but... if I'm out there with everybody all day..." },
-{ who: $sister, text: "More time here was supposed to mean more time, you know. Here." },
-{ who: $player, text: "The overview meetings stay. Those are ours." },
+{ who: $sister, text: "But if I'm out there with everybody all day..." },
+{ who: $sister, text: "I thought more time here would mean more time, you know. Here." },
+{ who: $player, text: "The overview meetings aren't going anywhere. Those are still ours." },
 { text: "She repeats 'ours' under her breath, as if she's checking the word for cracks. Then she closes the laptop." },
 ]>>
 <</silently>>
@@ -54,16 +54,16 @@ Then it catches up with her. She looks down at the laptop, at all that green, an
 <<linkreplace "Brief her on the staff">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Fine. Then give me the cheat sheet. What do I even talk to $brian.name about? He talks to his soldering iron. I've heard him apologize to it." },
-{ who: $player, text: "$brian.name gets nervous around people, and around you, very nervous. Don't make him look at you. Ask him about whatever's on his desk and let him explain it, and he'll be fine." },
+{ who: $sister, text: "Fine. Then I want a cheat sheet. What am I supposed to talk to $brian.name about? The only conversation I've ever seen him have was with his soldering iron, and he was apologizing to it." },
+{ who: $player, text: "$brian.name gets nervous around people, and around you he gets really nervous. Don't make him look at you. Ask about whatever's on his desk, and don't mind if the answer is three words long." },
 { who: $sister, text: "And $ethan.name?" },
 { who: $player, text: "$ethan.name wants an audience. Laugh at one joke in three, or he'll never get any work done." },
 { who: $sister, text: "And $darius.name?" },
 { text: "She asks that one to the lid of her laptop instead of to me." },
-{ who: $player, text: "$darius.name wants somebody to notice how smart he is. Notice it. Don't overdo it." },
+{ who: $player, text: "$darius.name likes it when somebody notices how smart he is. You can notice it, just don't overdo it." },
 { who: $sister, text: "I would never overdo it." },
-{ who: $player, text: "You overdo everything." },
-{ who: $sister, text: "That's called enthusiasm. It's literally on my evaluation form." },
+{ who: $player, text: "You overdo everything, it's kind of your thing." },
+{ who: $sister, text: "It's called enthusiasm, and it says so right on my evaluation form." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -72,7 +72,7 @@ She writes all three down in the journal, under a heading she underlines twice: 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Starting tomorrow. Noon. I'm going to need a tray. A really nice tray." },
+{ who: $sister, text: "I'll start tomorrow at noon. I'm going to need a tray, and I mean a really nice one." },
 { text: "She hops off the table and gets as far as the door before she turns around." },
 { who: $sister, text: "And I'm still bringing you yours first. That's not negotiable." },
 ]>>

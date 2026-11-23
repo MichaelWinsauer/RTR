@@ -7,7 +7,7 @@
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 For a couple of weeks now I've been keeping count. Her internship hours sheet has my signature on it more often than her college will ever bother to check. Her desk is a lot closer to mine than it was the week we moved in, and I never once asked her to move it. She brings me coffee I didn't order and questions she already knows the answers to, and on the evenings she stays late, she has a different reason every time.
 
-None of it has anything to do with the work. She thinks it does, or she's decided to think so, and that holds up fine as long as nobody says otherwise out loud. So far the little camera I tucked between the paperbacks on her shelf has shown me string lights, a lot of scrolling and nothing else. She's been giving me a lot of attention lately. I think it's time she got some back.
+None of it has anything to do with the work. She thinks it does, or she's decided to think so, and that holds up fine as long as nobody says otherwise out loud. So far the little camera I tucked between the paperbacks on her shelf has shown me string lights, a lot of scrolling and nothing else. She's been giving me a lot of attention lately, and I think it's time she got some back.
 
 She's at her desk with her headphones half on, one ear in and one ear out, typing with a pen clamped between her teeth. There's a small plastic flamingo on the end of it, bobbing every time she hits the space bar.
 
@@ -16,23 +16,19 @@ She's at her desk with her headphones half on, one ear in and one ear out, typin
 <<set _msgs = [
 { who: $player, text: "Got a minute?" },
 { text: "She pulls the pen out of her mouth so fast she nearly flings the flamingo across the room." },
-{ who: $sister, text: "For you? I've got like six. What's up?" },
-{ who: $player, text: "Meeting room. Five minutes." },
-{ who: $sister, text: "Sure, let me just finish this... wait. The meeting room? The one with the door?" },
-{ who: $player, text: "That's usually how rooms work." },
-{ who: $sister, text: "Am I in trouble? Is this about the printer? Because I swear it was already making that noise when I got there." },
+{ who: $sister, text: "For you, I have several. What do you need?" },
+{ who: $player, text: "Could you come to the meeting room in five minutes? There's something I want to talk to you about." },
+{ who: $sister, text: "Sure, let me just finish this. Wait, the meeting room? Since when do we need a door to talk?" },
+{ who: $player, text: "Since today. Five minutes." },
+{ who: $sister, text: "Am I in trouble? If this is about the printer, I want it on the record that it was making that noise before I ever touched it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I don't answer. I head for the meeting room and leave her sitting there with the question, and I can feel her watching me the whole way across the office. Five minutes of her wondering what she did wrong will do more for the next part than anything I could say at her desk.
+I don't answer. I head for the meeting room and leave her sitting there with the question, and I can feel her watching me the whole way across the office. I'm hoping five minutes of wondering what she did wrong will make the next part land harder than anything I could say at her desk.
 
 She shows up in three. She's brought a notepad, which she's holding flat against her chest like a riot shield, and the flamingo pen.
 
 [[Go into the meeting room|It Makes A Difference 2]]
 <</linkreplace>>
-
-
-
-
 

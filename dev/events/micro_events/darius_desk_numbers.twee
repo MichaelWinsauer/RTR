@@ -6,16 +6,16 @@
 <p>$darius.name puts the printout down in front of me and turns it so it faces the right way. One chart, two lines. One of them is labeled <i>benchmark</i>. The other one isn't labeled at all, and it sits a long way above the first.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $darius, text: "Do you have five minutes? It's about us, not a client." },
-	{ who: $player, text: "Go ahead." },
-	{ who: $darius, text: "I've been tracking our own output. Closed tickets, finished hardware revisions, report turnaround. Compared to teams of our size and funding, we're thirty-eight percent above where we should be. I checked the benchmark three different ways." },
-	{ who: $player, text: "So we're good." },
-	{ who: $darius, text: "We're anomalous. That's not the same thing. Nobody has called in sick. Nobody is ever late. $ethan.name closed more tickets this month than in his entire last job. He told me that himself, and he seemed slightly alarmed by it." },
-	{ who: $darius, text: "I'd like to run a proper study. Hours, desk positions, light, air quality, who sits near whom. If it's reproducible, it's worth more than anything in our pipeline." },
+	{ who: $darius, text: "Do you have five minutes? It concerns us rather than a client, which is why I didn't want to put it in an email." },
+	{ who: $player, text: "Sure, go ahead." },
+	{ who: $darius, text: "I've been tracking our own output: closed tickets, hardware revisions, report turnaround. Measured against teams of comparable size and funding, we're thirty-eight percent above where we ought to be, and I checked the benchmark three different ways to make sure I wasn't flattering us." },
+	{ who: $player, text: "So... we're good?" },
+	{ who: $darius, text: "We're anomalous, which isn't quite the same thing. Nobody has called in sick, nobody is ever late, and $ethan.name closed more tickets this month than in the whole of his last job. He told me that himself, and he seemed slightly alarmed by it." },
+	{ who: $darius, text: "I'd like to run a proper study: hours, desk positions, lighting, air quality, who sits near whom. If the effect turns out to be reproducible, it's worth more than anything currently in our pipeline." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-<p>Air quality. He puts it in the middle of the list with no particular weight on it, and I take a second to look at his face and check whether he meant to.</p>
+<p>Air quality. He puts it in the middle of the list with no particular weight on it, and I catch myself studying his face, trying to tell whether that was on purpose. I honestly can't.</p>
 <br>
 <div id="darius-numbers-choice">
 	<div>
@@ -23,11 +23,11 @@
 			<<replace "#darius-numbers-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "It's the team. Small company, everybody owns their work, and nobody gets to hide in meetings. Write that down." },
-					{ who: $darius, text: "That's a culture explanation. Culture explanations are what people give when they haven't measured anything." },
-					{ who: $player, text: "Then measure something a client is paying for." },
-					{ text: "He smiles slightly. He knows what a no sounds like, even when it's dressed up." },
-					{ who: $darius, text: "Understood." },
+					{ who: $player, text: "Honestly? I think it's just the team. We're small, everybody owns their stuff, nobody can hide in meetings... that kind of thing." },
+					{ who: $darius, text: "That's a cultural explanation. In my experience, those are what people offer when nothing has been measured yet." },
+					{ who: $player, text: "Then maybe measure something a client is paying for? I'd rather have you on that." },
+					{ text: "He smiles a little. I don't think I dressed that no up nearly as well as I meant to." },
+					{ who: $darius, text: "Understood. I'll put it aside." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -41,13 +41,13 @@
 			<<replace "#darius-numbers-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Make it a slide. Thirty-eight percent more output. Clients love a number they can repeat at dinner." },
-					{ who: $darius, text: "That's not what the data says, though. The data says our team produces more. We don't use our own product in here." },
-					{ who: $player, text: "We're the pilot site. Have been since we moved in." },
+					{ who: $player, text: "You know what, make it a slide. Thirty-eight percent more output, clients love a number they can repeat at dinner." },
+					{ who: $darius, text: "That isn't quite what the data says, though. It says our team produces more, and as far as I'm aware, we don't use our own product in here." },
+					{ who: $player, text: "We, uh... we kind of do. We've sort of been the pilot site since we moved in." },
 					{ text: "He goes very still for a moment, the way he does when a column doesn't add up and he's working out which cell lied to him." },
-					{ who: $darius, text: "Then I'd want the logs." },
-					{ who: $player, text: "You'll get a summary." },
-					{ who: $darius, text: "A summary." },
+					{ who: $darius, text: "Then I'd want to see the logs." },
+					{ who: $player, text: "I can get you a summary." },
+					{ who: $darius, text: "A summary. Of course." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

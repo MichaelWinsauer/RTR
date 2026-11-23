@@ -5,7 +5,7 @@
 <p>$mom.callName sets the lunch bag down next to my keyboard and unzips it as far as the broken zipper will go, which is about halfway. The blue container comes out first. Then a fork wrapped in a paper napkin, then a second napkin, because in her opinion one has never been enough for me.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $mom, text: "You didn't have breakfast. And don't tell me you did, honey, I counted the eggs." },
+	{ who: $mom, text: "You didn't have breakfast, and don't tell me you did, honey, because I counted the eggs." },
 	{ who: $player, text: "You counted the eggs." },
 	{ who: $mom, text: "There were six this morning and there are still six. That's not snooping, sweetie, it's math." },
 	{ text: "She peels the lid off. It's the lasagna again, and she's given me the corner piece, the crispy one she used to save for me when I was little, swearing nobody else had asked for it." },
@@ -24,8 +24,8 @@
 					{ who: $player, text: "Pull up a chair, then." },
 					{ text: "There's a second container in the bag, a smaller one, and she has a chair pulled around to my side of the desk before I've finished the sentence. She had obviously planned on that part too." },
 					{ who: $mom, text: "Did you know $brian.name eats the same granola bar every day? The same flavor. I offered him some soup once and he looked at me like I'd offered him a kidney." },
-					{ who: $player, text: "He's shy." },
-					{ who: $mom, text: "He's hungry, is what he is. I'm working on him." },
+					{ who: $player, text: "He's just shy, $mom.callName. Give him a few weeks." },
+					{ who: $mom, text: "He's hungry, is what he is, and shy people still have to eat. I'm working on him." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -57,7 +57,7 @@
 				<<replace "#mom-lunch-choice">>
 					<<silently>>
 					<<set _msgs to [
-						{ who: $player, text: "My hands are busy." },
+						{ who: $player, text: "I'd love to, but my hands are kind of busy right now." },
 						{ text: "I keep typing. She looks at my hands, then at the fork, then over her shoulder at the office. $ethan.name has his headphones on. $darius.name has his back to us." },
 						{ who: $mom, text: "Honey, I'm not going to... you're a grown man. Here, in front of..." },
 						{ text: "She doesn't finish, because she's already cutting off a corner with the side of the fork. She cups her free hand under it to catch the sauce and holds it up to my mouth." },

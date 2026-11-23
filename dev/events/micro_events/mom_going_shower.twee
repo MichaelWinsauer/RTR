@@ -18,11 +18,11 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "How was your day?" },
-					{ who: $mom, text: "Same as always. They moved a deadline again and nobody told me. Don't worry about it." }
+					{ who: $mom, text: "Oh, same as always. They moved a deadline again and of course nobody bothered to tell me, but don't you worry about it, honey, I'll survive." }
 				]>>
 				<<if $mom.flags.rentHelp>>
-					<<run _msgs.push({ who: $mom, text: "And I'm watching every dollar now that I'm helping with your office. Not that I mind." })>>
-					<<run _msgs.push({ who: $player, text: "I know. Thank you." })>>
+					<<run _msgs.push({ who: $mom, text: "And I'm watching every dollar a little more closely now that I'm helping with your office, which I'm happy to do, so don't make that face." })>>
+					<<run _msgs.push({ who: $player, text: "I'm not making a face. I just... thanks, really." })>>
 				<</if>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -37,7 +37,7 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Take your time. I'll keep an eye on dinner." },
-					{ who: $mom, text: "You're sweet. Just don't let the pot boil over." }
+					{ who: $mom, text: "Aren't you sweet. Just watch the big pot, okay? It boils over the second anyone turns their back on it, I swear it does it on purpose." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -59,7 +59,7 @@
 						<<set _vx.lastUsedOnWho to "mom">>
 						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
 							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She stops mid-sentence and looks at my pocket, then at me. "Are you okay? You're being strange," she says, and goes to the bathroom a little faster than before.</p>
+							<p>She stops mid-sentence and looks at my pocket, then at me. "Honey, are you okay? You're acting a little strange," she says, and goes to the bathroom a little faster than before.</p>
 							<<UpdateStat "-" "MomRelation" 3>>
 							<<UpdateStat "+" "MomResistance" 4>>
 						<<else>>

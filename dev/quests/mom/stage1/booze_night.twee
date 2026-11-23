@@ -14,7 +14,7 @@ $mom.callName is in her corner of the couch with her feet tucked under her and a
 <<set _msgs = [
 { who: $mom, text: "Oh. Hi, honey. I didn't hear you come down." },
 { text: "She looks at the bottle as if somebody else had left it there." },
-{ who: $mom, text: "It was open. Well, it wasn't open. But it would have gone bad eventually. Do you want a glass? You don't have to. You probably have work." },
+{ who: $mom, text: "It was open. Well, it wasn't, but it was sitting in the cupboard behind the olive oil and it would have gone bad eventually, so really I'm saving it. Do you want a glass? You probably have work, you don't have to keep me company." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -26,30 +26,29 @@ For a while we watch the man with the egg whites. His soufflé collapses. She ma
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Your $dad.relation used to cook on Sundays. Did you know that? Before you were born. He made this awful chili. So much cumin, sweetie, you could smell it on the curtains for a week." },
-{ who: $player, text: "I didn't know he cooked." },
-{ who: $mom, text: "He stopped. When you came, and then your $sister.relation, there wasn't time for chili. There wasn't time for a lot of things. And then he was traveling so much, and then..." },
+{ who: $mom, text: "Your $dad.relation used to cook on Sundays, did you know that? Before you two came along. He made this awful chili with so much cumin in it, sweetie, you could smell it on the curtains for a week." },
+{ who: $player, text: "Wait, he cooked? I don't think I ever saw him do more than stand next to the grill." },
+{ who: $mom, text: "He stopped when your $sister.relation came, and then you, and there just wasn't time for chili anymore, or for a lot of things, and then he was traveling so much, and then..." },
 { text: "She waves her glass at the rest of the sentence. A little wine slops up the side and she watches it slide back down." },
-{ who: $mom, text: "Anyway. That's ancient history. That's like talking about the Romans." },
+{ who: $mom, text: "Anyway, that's ancient history, honey. I might as well be telling you about the Romans." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Let her keep going">>
-I don't say anything. I've noticed that if I don't fill the quiet, she will, and she does.
+I don't say anything. With her, if I leave a quiet long enough, she fills it, and after a minute she does.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "You know what I was thinking about today? At my desk. It's so silly." },
-{ who: $mom, text: "When I met your $dad.relation, I was at a party with my roommate, and I was in the kitchen, because I'm always in the kitchen at parties. And he walked all the way across the room. Past all these girls who were much prettier and much more interesting. Right to the kitchen. To me." },
-{ who: $mom, text: "He picked me. Out of a whole room." },
-{ text: "She smiles into her glass. Then the smile goes somewhere else." },
-{ who: $mom, text: "I don't think anybody has picked me since. Isn't that a funny thing to realize at my age? Not picked for a job. Not picked to organize something. Just... picked." },
+{ who: $mom, text: "You know what I was thinking about today, at my desk? It's so silly." },
+{ who: $mom, text: "When I met your $dad.relation I was at a party with my roommate, and I was in the kitchen, because I'm always in the kitchen at parties, somebody has to make sure there's ice. And he walked all the way across that room, past all these girls who were so much prettier than me and so much more interesting, right into the kitchen. To me. He picked me out of a whole room." },
+{ text: "She smiles into her glass, and then the smile goes somewhere else." },
+{ who: $mom, text: "And I don't think anybody has picked me since. Isn't that a funny thing to figure out at my age? People pick me to organize the bake sale, or to take the minutes, or to call the caterer, and that's nice, I like being useful, but that's not... that isn't what I mean." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She laughs at herself, because that's what she does when she's said too much, and drinks to cover the laugh. Her cheeks are pink. The cardigan has slipped off one shoulder and she hasn't fixed it, which is unusual. She fixes everything.
+She laughs at herself, because that's what she does when she's said too much, and drinks to cover the laugh. Her cheeks are pink, and the cardigan has slipped off one shoulder without her fixing it, which is unusual for a woman who fixes everything, other people's collars included.
 
 <<linkreplace "Say nothing">>
 I could tell her that I picked her. That I pick her all the time now: for the sixth floor, for the meeting room, for the test sessions in the evening. That I picked her out of a whole house. She'd hear it as something sweet, and it would be the kindest thing anyone has said to her in a year.
@@ -58,11 +57,11 @@ I drink my wine instead and keep looking at her, and let her wonder what I'm thi
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "What? Why are you looking at me like that?" },
-{ who: $player, text: "Like what?" },
-{ who: $mom, text: "Like... I don't know. Like you're waiting for something." },
-{ who: $player, text: "I'm just listening." },
-{ who: $mom, text: "Well. Nobody listens to me this long. You'll give me a big head." },
+{ who: $mom, text: "What? Why are you looking at me like that, do I have wine on my chin?" },
+{ who: $player, text: "No, you're fine. I'm just listening." },
+{ who: $mom, text: "Well, you're looking at me like you're waiting for something, honey." },
+{ who: $player, text: "Maybe I'm waiting for the rest of the story. You stopped right in the middle." },
+{ who: $mom, text: "Nobody listens to me this long, you know that? Your $sister.relation gets about two sentences in before her phone buzzes. You'll give me a big head." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -74,19 +73,19 @@ The bottle goes down. She does most of the work. She tells me about the roommate
 
 Every time she stops talking she looks at me, and every time I just wait, and every time she starts talking again a little faster. She keeps touching her own collarbone. She keeps crossing and uncrossing her legs. At one point she gets up to get water, and stands at the kitchen counter for a long time with the glass in her hand and her back to me, and doesn't drink any of it.
 
-She knows what she wants. The night she came up to my room, she told me to come and find her whenever it gets bad. Tonight it's bad for her, not for me, and there's no rule for that. If I reached over now she'd let me, and tomorrow she'd tell herself it was the wine.
+I'm fairly sure I know what she wants. The night she came up to my room, she told me to come and find her whenever it gets bad. Tonight it's bad for her, not for me, and she never made a rule for that. If I reached over now, I think she'd let me, and tomorrow she'd tell herself it was the wine.
 
-So I don't reach over.
+I'd rather she didn't have the wine to blame, so I keep both hands on my glass.
 
 <<linkreplace "Say goodnight">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "It's late. You have the client call at nine." },
-{ who: $mom, text: "Right. Yes. Of course. Nine." },
+{ who: $player, text: "It's getting late, and you've got that client call at nine." },
+{ who: $mom, text: "Oh, God, nine, you're right, and I haven't even looked at their file again." },
 { text: "She stands up too fast, steadies herself on the armrest and laughs about it. She picks up both glasses and the empty bottle and stands there holding them, looking at me." },
-{ who: $mom, text: "This was nice, honey. Just talking. We should... it was nice." },
-{ who: $player, text: "Goodnight, $mom.callName." },
-{ who: $mom, text: "Goodnight." },
+{ who: $mom, text: "This was nice, honey, just sitting here talking like this. We should do it more often, we should... well. It was nice." },
+{ who: $player, text: "It was. Drink a glass of water before you go to sleep, okay?" },
+{ who: $mom, text: "Listen to you. Goodnight, sweetheart." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -95,7 +94,7 @@ She takes the glasses to the kitchen. I hear her rinse them, slowly, and set the
 
 Her door closes. A while later, through the ceiling, I hear her bed creak once, and then again, and then for a long time in a rhythm she probably thinks is quiet.
 
-I turn the TV off and sit in the dark a while, finishing my glass. I didn't need $company.prototype.name tonight. I didn't need to do anything at all.
+I turn the TV off and finish my glass in the dark. Somewhere around the last sip it occurs to me that $company.prototype.name has been sitting in my desk drawer all evening, switched off, and I never once thought about it.
 
 <<UpdateStat "+" "MomLust" 15>>
 <<UpdateStat "+" "MomRelation" 2>>

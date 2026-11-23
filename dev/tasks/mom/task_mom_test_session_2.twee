@@ -18,19 +18,19 @@ I don't write anything at the top of a page to explain it. When $mom.callName si
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "What's this?" },
+{ who: $mom, text: "Oh, what's this? Is this for me?" },
 { who: $player, text: "You're wearing it tonight." },
 { who: $mom, text: "I'm going to look like one of those women on a plane who paid for the good seat." },
-{ who: $player, text: "Put it on." },
+{ who: $player, text: "Put it on, please." },
 { who: $mom, text: "But what's it for, sweetie? What does it do for the...?" },
 { text: "I don't answer. I put my phone on my knee and wait, and after a while she stops waiting for an explanation." },
-{ who: $mom, text: "Your $dad.relation used to do that. Just sit there until I gave in." },
+{ who: $mom, text: "Your $dad.relation used to do that, you know. Just sit there and say nothing until I gave in." },
 { text: "She turns the mask over in her hands once more. Then she puts it on, adjusts the strap twice so it won't pull her hair, and lays her hands flat on the table without being told." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<else>>
-The mask is out of her purse before I've got my phone on my knee. She washed it, she tells me. She doesn't ask whether we'll need it. She puts it on, settles the strap behind her ears, and lays her hands flat on either side of the clipboard, and then she sits there blind and waits for me to say the word.
+The mask is out of her purse before I've got my phone on my knee. She washed it, she tells me, on the delicate cycle, inside a pillowcase so it wouldn't snag. She doesn't ask whether we'll need it. She puts it on, settles the strap behind her ears, and lays her hands flat on either side of the clipboard, and then she sits there blind and waits for me to say the word.
 <</if>>
 
 <<linkreplace "Tell her it's on">>
@@ -46,9 +46,9 @@ I skip $darius.name's twelve questions and the body map tonight and go straight 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "When was the last time somebody touched you? Not a handshake. Really touched you." },
+{ who: $player, text: "When was the last time somebody touched you? I don't mean a handshake. Really touched you." },
 { who: $mom, text: "Is that on the sheet?" },
-{ who: $player, text: "Answer it." },
+{ who: $player, text: "It's on mine. Answer it, please." },
 { text: "She tilts her head toward my voice, as if she could read the page through the satin." },
 { who: $mom, text: "Your $dad.relation, I suppose. Near the end. And that wasn't... honestly, honey, that wasn't much." },
 { who: $player, text: "And since then?" },
@@ -68,18 +68,18 @@ Somewhere around question nine she unbuttons her blouse, all the way this time, 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Arms down." },
+{ who: $player, text: "Put your arms down, $mom.callName." },
 { who: $mom, text: "Sweetheart, I'm sitting here in my..." },
-{ who: $player, text: "On the table. Where they were." },
+{ who: $player, text: "Back on the table, where they were." },
 { text: "It takes her a while. When they come down, she puts them back exactly where they were, palms flat. The flush has spread down her throat and across her chest, all the way to the lace, and now there's nothing in front of it." },
 { who: $player, text: "Arousal, one to ten." },
-{ who: $mom, text: "$darius.name wrote that? That young man needs a girlfriend." },
-{ who: $player, text: "Out loud. The whole sentence." },
-{ who: $mom, text: "The whole... what am I supposed to say?" },
+{ who: $mom, text: "$darius.name wrote that one? Oh, that young man needs a girlfriend." },
+{ who: $player, text: "I want this one as a whole sentence, out loud." },
+{ who: $mom, text: "A whole sentence? What on earth am I supposed to say?" },
 { who: $player, text: "'My arousal is', and then the number." },
-{ text: "The pause is long enough for the vacuum cleaner downstairs to start up and stop again." },
+{ text: "The pause goes on while the vacuum cleaner downstairs starts up and stops again." },
 { who: $mom, text: "My arousal is... nine." },
-{ who: $player, text: "Again." },
+{ who: $player, text: "Say it again, so I can actually hear it." },
 { who: $mom, text: "My arousal is a nine." },
 { text: "Louder this time. She fixes the volume and leaves the number alone." },
 ]>>
@@ -91,8 +91,8 @@ I write it down. Her right hand is still flat on the table, but the fingers keep
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You can take your right hand off the table." },
-{ who: $mom, text: "Why?" },
-{ who: $player, text: "Because I said you can." },
+{ who: $mom, text: "Why? Where am I supposed to put it?" },
+{ who: $player, text: "Wherever you like. I'm only saying you can." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -102,8 +102,8 @@ It goes to her lap first, unsure of itself. Then to her thigh, on top of her ski
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Do you think about these sessions when you're not here?" },
-{ who: $mom, text: "Sometimes. In the bath. Don't write that down." },
-{ who: $player, text: "I'm writing it down." },
+{ who: $mom, text: "Sometimes. In the bath, mostly, when the house is quiet and I... don't write that down, honey. Please don't write that down." },
+{ who: $player, text: "It's already written down." },
 { text: "She bites her lip under the edge of the mask, and the hand on her skirt goes a little higher." },
 ]>>
 <</silently>>
@@ -114,7 +114,7 @@ I switch off the box and tell her it's off, and under the table I bring the rest
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Leave it on." },
+{ who: $player, text: "Leave the mask on for now." },
 { text: "The hand stops halfway to her face and goes back down to the table." },
 ]>>
 <</silently>>
@@ -124,13 +124,13 @@ I take a full minute with the sheet. I make the pen loud on the paper, so she ca
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Now." },
+{ who: $player, text: "Okay. You can take it off now." },
 { text: "She pushes the mask up onto her forehead, squints at the ceiling lights, and looks down at herself." },
 { who: $mom, text: "Oh. Oh, my goodness." },
 { text: "Her arms start to cross over her chest. Halfway there they remember, and uncross, and go for the blouse instead." },
 { who: $mom, text: ["I don't even remember taking this off. Isn't that silly? I must be more tired than I thought.", "Well, that's a first. I haven't done that since... I don't know that I've ever done that.", "Please tell me the blinds were closed this whole time."][_ts2] },
-{ who: $player, text: ["It was warm. You said so.", "It was warm. You said so.", "They're always closed. That's why we use this room."][_ts2] },
-{ who: $mom, text: ["I did say so. Didn't I.", "I did. I did say that.", "Right. Of course. You think of everything."][_ts2] },
+{ who: $player, text: ["You said it was getting warm, around question nine.", "You did it all by yourself. I didn't say a word.", "They're always closed. That's why we use this room."][_ts2] },
+{ who: $mom, text: ["Did I? I suppose I must have, if you wrote it down.", "All by myself. Well. I suppose I did, didn't I.", "Of course they are. You think of everything, honey."][_ts2] },
 ]>>
 <</silently>>
 <<Chat _msgs>>

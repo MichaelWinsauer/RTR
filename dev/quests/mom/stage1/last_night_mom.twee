@@ -11,11 +11,11 @@ She sees me in the mirror and doesn't turn around.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Is it right? You said black. I only have this one." },
-{ who: $player, text: "It's right." },
-{ who: $mom, text: "Okay." },
+{ who: $mom, text: "Is it right? You said black, and this is the only black one I have." },
+{ who: $player, text: "It's right. You look really good, $mom.callName." },
+{ who: $mom, text: "Okay. Good." },
 { text: "She smooths the dress over her hips with both hands, slowly, as if she's ironing it on her body." },
-{ who: $mom, text: "I'm ready, honey. Whatever tonight is. I'm ready." },
+{ who: $mom, text: "I'm ready, honey, whatever tonight turns out to be." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -24,12 +24,12 @@ She doesn't ask what tonight is. She asked once, in the kitchen, and I said a cl
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "One more thing. Tonight, look after $sister.callName." },
+{ who: $player, text: "One more thing. Tonight, I want you to look after $sister.callName." },
 { text: "She turns around for the first time." },
 { who: $mom, text: "$sister.callName? Why would I need to..." },
-{ who: $player, text: "Just look after her." },
+{ who: $player, text: "Just stay close to her tonight, okay? Keep an eye on her for me." },
 { text: "She looks at me for a long moment. Then she nods, slowly, the way she nods when she's decided not to ask a question because she might not like the answer." },
-{ who: $mom, text: "Always. You know that. Always." },
+{ who: $mom, text: "Always, sweetheart. You know I always do." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

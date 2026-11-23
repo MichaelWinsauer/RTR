@@ -22,7 +22,7 @@
 */
 $sister.callName sees her first.
 
-I'm pouring orange juice, so I only hear it: a sharp intake of breath, then a cough, then the sound of someone trying very hard not to choke on cereal.
+I'm pouring orange juice, so I only hear it: a sharp intake of breath, a cough, and then the sound of someone trying very hard not to choke on cereal.
 
 /* IMAGE: images/meals/important/mom_has_it_tough_again.jpg | Mom in the kitchen doorway in a shorter skirt and a lower-cut blouse, purse on her arm, looking self-conscious. Sister mid-cough at the table, spoon frozen. */
 
@@ -30,28 +30,28 @@ $mom.callName is standing in the doorway with her purse already on her arm. The 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Whoa. Okay. Good morning to you too." },
-{ who: $mom, text: "Is it too much? It's too much. I'll change." },
-{ who: $sister, text: "No! No, don't. It's... you look hot, honestly. I'm just confused. Is there a date? Is it a work date? Do we need to have a talk?" },
-{ who: $mom, text: "There's no date. It's a new... approach. At the office." },
+{ who: $sister, text: "Well. Good morning to you too." },
+{ who: $mom, text: "Is it too much? It's too much, isn't it, I knew it. I'll go change, it'll take two minutes." },
+{ who: $sister, text: "Don't you dare, you look great. I'm just trying to work out whether there's a date nobody told me about, because if there is, I have questions." },
+{ who: $mom, text: "There's no date, it's for work. It's a new sort of... approach." },
 { who: $sister, text: "A new approach." },
 { who: $mom, text: "Somebody suggested that if I seem a bit more relaxed, a bit more... agreeable, maybe certain people will leave me alone." },
-{ text: "She doesn't look at me when she says somebody. She doesn't have to." },
+{ text: "She very carefully doesn't look at me when she says somebody." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$sister.callName looks at me, then back at $mom.callName, and I can see her deciding not to ask the next question. She's not stupid. She just doesn't have any of the pieces.
+$sister.callName looks at me, then back at $mom.callName, and I can see her deciding not to ask the next question. She isn't stupid, she just doesn't have any of the pieces.
 
-$mom.callName sits down at the very edge of her chair, keeps tugging at the hem of the skirt and eats her toast standing up halfway through, like she might have to run. When she reaches for the coffee, the blouse shifts and she catches it with her free hand without even noticing she did it.
+$mom.callName sits down at the very edge of her chair, keeps tugging at the hem of the skirt, and halfway through her toast she stands up to finish it, like she might have to run. When she reaches for the coffee, the blouse shifts and she catches it with her free hand without even noticing she did it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "You look great, $mom.callName. Really. He won't know what hit him." },
-{ who: $mom, text: "That's... kind of what I'm afraid of, honey." },
+{ who: $player, text: "You look great, $mom.callName, really. He won't know what hit him." },
+{ who: $mom, text: "That's kind of what I'm afraid of, honey." },
 { who: $player, text: "It'll work. And if it doesn't, you can go back to the pin tomorrow." },
-{ who: $mom, text: "You're right. One day. I can do one day." },
-{ who: $sister, text: "Text me a picture of his face. For science." },
+{ who: $mom, text: "You're right, it's one day, I can do one day. People wear a lot worse than this to the grocery store." },
+{ who: $sister, text: "I want a picture of his face when you walk in. I'm serious, text me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

@@ -21,9 +21,9 @@
 				<<silently>>
 				<<set _msgs to [
 					{ text: "I grab my toothbrush and wedge myself in beside her. We bump hips at the sink and both start laughing through the foam." },
-					{ who: $mom, text: "Ow, you're taking up the whole mirror!" },
-					{ who: $player, text: "There's plenty of room." },
-					{ who: $mom, text: "There is not." }
+					{ who: $mom, text: "Hey, you're taking up the whole mirror, I can't even see what I'm doing!" },
+					{ who: $player, text: "You've done this every morning for twenty years. You could do it with your eyes closed." },
+					{ who: $mom, text: "Well, apparently I'll have to, now that my own $mom.playerRelation is hogging the sink." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -52,9 +52,9 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Do you need anything from the store? I'm heading out later." },
-					{ who: $mom, text: "Coffee. And bread. Coffee costs a fortune now, I don't know how people do it." },
-					{ who: $player, text: "I'll get it." },
-					{ who: $mom, text: "Keep the receipt. Don't spend your money on us." }
+					{ who: $mom, text: "Oh, coffee, and bread if they still have the good kind. Have you seen what coffee costs now? I honestly don't know how anyone can still afford to be awake." },
+					{ who: $player, text: "Sure, I'll grab both." },
+					{ who: $mom, text: "Keep the receipt, okay? I don't want you spending your own money on us." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

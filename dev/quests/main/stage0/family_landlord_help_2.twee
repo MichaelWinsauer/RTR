@@ -14,7 +14,7 @@ His office is the same mess as always, invoices stacked halfway to the ceiling a
 <<linkreplace "Enter the office">>
 <<silently>>
 <<set _msgs = [
-{ who: $landlord, text: "Well, well, well. Look who brought company this time. Damn, kid. You've been holding out on me." },
+{ who: $landlord, text: "Now look at this. You brought company, kid. Damn, and here I thought you didn't have any friends. You've been holding out on me." },
 { who: $player, text: "This is my $mom.relation, $mom.name, and my $sister.relation, $sister.name. We'd like to talk about the unit on the third floor." },
 { who: $landlord, text: "The third floor. Still? I told you, kid, that's for real tenants." },
 { text: "He says it to me, but he's looking at them." },
@@ -27,7 +27,7 @@ $mom.callName steps forward first. She's wearing her polite office smile, the on
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "$landlord.callName, we know the space is in demand. But it would mean so much to us, to the whole family. We're happy to work with you, on the rent and... on anything else you might need." },
-{ who: $sister, text: "Yeah. We could help out around the building. Cleaning, errands, carrying stuff... whatever." },
+{ who: $sister, text: "We could help out around the building, too. Cleaning, running errands, whatever you need a hand with." },
 { who: $landlord, text: "Anything, huh? That's a big word, sweetheart." },
 { text: "He leans back until the chair groans, folds his hands over his gut and takes his time looking at them." },
 { who: $landlord, text: "Your boy here said something about making it worth my while. Is that what this is? You two here to make it worth my while?" },
@@ -39,8 +39,9 @@ $mom.callName steps forward first. She's wearing her polite office smile, the on
 $sister.callName's smile slips for a second. I step half in front of her before he can see it.
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "That's exactly what it is. You give us the unit and a small break on the rent, and they'll come by regularly and help with whatever needs doing around here. Dressed nicely, friendly, whatever makes your week easier." },
-{ who: $mom, text: "We'd be happy to. Really." },
+{ who: $player, text: "Pretty much, yeah. You give us the unit and a small break on the rent, and they'll come by regularly and help with whatever needs doing around here. Dressed nicely, friendly, whatever makes your week easier." },
+{ who: $mom, text: "We'd be happy to, really. And I'm very good with paperwork, if you ever want some help with all of... this." },
+{ text: "She gestures at the stacks of invoices with her free hand. He doesn't look at them." },
 { who: $sister, text: "And if it takes a little off the rent every time we come by, everybody wins. Right?" },
 { text: "He looks at $mom.callName's blouse for a long time, then at $sister.callName's legs, and runs his tongue over his bottom lip like he's tasting the deal." },
 { who: $landlord, text: "Let me get this straight. Your $mom.relation and your $sister.relation, coming up here dressed like that, helping me out whenever I ask?" },
@@ -57,7 +58,7 @@ $mom.callName and $sister.callName put on matching polite smiles, the kind you g
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Thank you. We appreciate it." },
-{ who: $landlord, text: "Don't thank me yet. I expect those visits regular. And friendly. Real friendly. Now get out of my office before I change my mind." },
+{ who: $landlord, text: "Don't thank me yet. I expect those visits regular, and friendly. Real friendly. Now get outta my office, I got a game on at seven." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

@@ -9,11 +9,11 @@ The fairy lights are on. She's on the bed exactly where the video left her, with
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh my God. Oh my God, you can't... I sent that like two minutes ago, you weren't supposed to..." },
-{ who: $player, text: "Don't stop." },
+{ who: $sister, text: "Oh my God, you can't just... I sent that like two minutes ago, you weren't supposed to actually come over!" },
+{ who: $player, text: "Hey, it's okay. Don't stop." },
 { who: $sister, text: "What?" },
 { text: "I close the door behind me and sit down on the edge of her bed. The blanket is pulled up to her nose. Above it, her eyes are enormous." },
-{ who: $player, text: "You were doing fine. Don't stop because I'm here." },
+{ who: $player, text: "You were doing fine before I walked in. I'd like to watch you finish." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -25,16 +25,16 @@ For a long moment nothing moves except her chest under the blanket. Then she let
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "This is the most embarrassing moment of my entire life. Just so you know. I'm going to be thinking about this when I'm eighty." },
-{ who: $player, text: "Good." },
-{ who: $sister, text: "That's not... you're supposed to say it's not embarrassing." },
-{ who: $player, text: "It's very embarrassing. Keep going." },
+{ who: $sister, text: "Just so you know, this is the most embarrassing moment of my entire life, and I'm still going to be thinking about it when I'm eighty." },
+{ who: $player, text: "Good, then you'll remember it." },
+{ who: $sister, text: "You're supposed to tell me it's not embarrassing." },
+{ who: $player, text: "It's pretty embarrassing, honestly. Keep going anyway." },
 { text: "She laughs, a strangled, helpless laugh, and it turns into a gasp halfway through." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She keeps going. She keeps her eyes on me, because she can't seem to look anywhere else, and she bites her lip so hard it goes white, and she gets close, and then she gets stuck there. I can see it happen: she's too nervous, too watched, too aware of every sound she's making. Her hand slows. Her face crumples a little.
+She keeps going. She keeps her eyes on me, because she can't seem to look anywhere else, and she bites her lip so hard it goes white, and she gets close, and then she gets stuck there. I can see it happen. She's too nervous and too aware of being watched, of every sound she's making, and her hand slows, and her face twists up in frustration.
 
 <<silently>>
 <<set _msgs = [
@@ -49,7 +49,7 @@ I slide my hand under the blanket and lay it over hers. She goes completely stil
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Oh." },
-{ who: $player, text: "Stop thinking." },
+{ who: $player, text: "Stop thinking about how you look and let me do it." },
 { text: "I move her hand away and put mine where it was. She's soaked. She makes a small, high, broken sound and grabs a fistful of my shirt." },
 ]>>
 <</silently>>
@@ -62,7 +62,7 @@ I don't hurry. I keep it slow, and keep my other arm around her shoulders, and l
 When she comes, it's very quiet. Her whole body goes tight against mine and stays that way for a few seconds, trembling, and then everything goes out of her at once and she just holds on.
 
 <<linkreplace "Hold her">>
-I take my hand back, and pull the blanket up over both of us, and stay.
+I take my hand back, pull the blanket up over both of us, and stay.
 
 She doesn't say anything for a long time. She just breathes against my neck, slower and slower, with her fingers still twisted in my shirt. Her hair smells like the strawberry shampoo she's used since forever. The fairy lights blink in their lazy pattern on the ceiling. Somewhere downstairs the fridge hums.
 

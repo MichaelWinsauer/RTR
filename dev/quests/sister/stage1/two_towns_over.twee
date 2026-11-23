@@ -11,14 +11,14 @@
 <<silent>><<SetBackground $locations[2].img>><</silent>>
 She's been ready since six. I know, because she's come downstairs four times to ask me if she's overdressed, and gone back up three times to change her earrings.
 
-When she comes down the last time, she's in a dress I've never seen, dark red, with her hair pinned up on one side and a little more makeup than she wears to the office. She stops at the bottom of the stairs and does a small, awkward turn, and then stands there with her hands clasped behind her back like a kid at a recital.
+When she comes down the last time, she's in a dark red dress I've never seen before, with her hair pinned up on one side and a little more makeup than she wears to the office. She stops at the bottom of the stairs, does a small, awkward turn, and then stands there with her hands clasped behind her back as if she's waiting for a verdict.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. Be honest. Is it too much? It's too much. It's a Tuesday dress on a Friday. Wait, that doesn't make sense, that's the wrong way round." },
+{ who: $sister, text: "Be honest. Is it too much for a place with checkered tablecloths? Because I can still change, I've got the black one laid out on the bed just in case." },
 { who: $player, text: "You look beautiful." },
-{ text: "She opens her mouth to argue, and nothing comes out, and she closes it again and goes pink from the collarbones up." },
-{ who: $sister, text: "Okay. Okay. Then let's go before $mom.callName asks where we're going." },
+{ text: "She opens her mouth to argue, nothing comes out, and she closes it again and goes pink from the collarbones up." },
+{ who: $sister, text: "Then let's go, before I talk myself into the black one." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -28,9 +28,9 @@ When she comes down the last time, she's in a dress I've never seen, dark red, w
 $mom.callName is at the office tonight, catching up on invoices. $sister.callName told her we're going to see a movie with some people from her seminar. She had the lie ready a day in advance, and she still said it too fast.
 
 <<linkreplace "Drive two towns over">>
-It's forty minutes on the highway. She spends the first ten with her hands in her lap, looking out the window, and the next thirty talking nonstop about nothing, because the further we get from home the more she relaxes, as if the town line were a door closing behind us.
+It's forty minutes on the highway. She spends the first ten with her hands in her lap, looking out the window, and the next thirty talking about nothing at all, relaxing a little more with every exit, as if the town line were a door closing behind us.
 
-The restaurant is exactly what she wanted. Small, dim, a little shabby, with checkered tablecloths and candles stuck in old wine bottles crusted with wax from a thousand other dinners. The waiter is about sixty and has a mustache you could hang a coat on.
+The restaurant is exactly what she wanted: small, dim and a little shabby, with checkered tablecloths and candles stuck in old wine bottles crusted with wax from a thousand other dinners. The waiter is about sixty and has a mustache you could hang a coat on.
 
 /* MEDIA: images/characters/sister/events/two_towns_over/restaurant.jpg | A small dim Italian restaurant, checkered tablecloth, a candle in a wax-crusted wine bottle, Sister across the table smiling */
 
@@ -38,22 +38,22 @@ The restaurant is exactly what she wanted. Small, dim, a little shabby, with che
 <<set _msgs = [
 { text: "He pulls out her chair for her and then turns to me with a little bow." },
 { text: "'And what can I bring for your girlfriend tonight?'" },
-{ text: "$sister.callName knocks her water glass with her elbow. I catch it before it goes over. She looks at me over the candle with her eyes enormous, and she doesn't correct him." },
-{ who: $sister, text: "I'll... I'll order for both of us. If that's okay. I've been wanting to order for both of us my whole life." },
+{ text: "$sister.callName knocks her water glass with her elbow, and I catch it before it goes over. She looks at me over the candle with her eyes enormous, and she doesn't correct him." },
+{ who: $sister, text: "I'll order for both of us, if that's all right. I've wanted to do that my whole life." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Let her order">>
-She orders me the mushroom risotto, which she knows I don't like, and herself the lasagna, and when the food comes she looks at my plate in mock horror and says oh no, there must have been a mistake, and starts eating off it with her fork before I can answer.
+She orders me the mushroom risotto, which she knows I don't like, and herself the lasagna, and when the food comes she looks at my plate in mock horror, says oh no, there must have been a mistake, and starts eating off it before I can answer.
 
-It's the easiest hour I've had with her in months. No office, no tray, no journal. No device in my pocket. She tells me about a professor who wears the same sweater every day and might be a ghost. She steals all my mushrooms and then complains about the mushrooms. She reaches across the table halfway through dessert and puts her hand on mine and leaves it there, on the checkered cloth, in a room full of strangers, and nobody looks twice, because to them we're just a couple on a date.
+It's the easiest hour I've had with her in months. There's no office and no coffee tray, and for once there's no device in my pocket either. She tells me about a professor who wears the same sweater every day and might be a ghost. She steals all my mushrooms and then complains about the mushrooms. Halfway through dessert she reaches across the table, puts her hand on mine and leaves it there on the checkered cloth, in a room full of strangers, and nobody looks twice, because to them we're just a couple on a date.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "This is what it would be like. If we were... normal. If we were just two people." },
+{ who: $sister, text: "So this is what it would be like. If we were just two normal people." },
 { who: $player, text: "Do you like it?" },
-{ who: $sister, text: "I love it. I'm going to remember this risotto for the rest of my life. And I hate risotto." },
+{ who: $sister, text: "I love it. I'm going to remember this risotto for the rest of my life, and I don't even like risotto." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -63,19 +63,19 @@ The bell over the door jingles.
 
 $sister.callName glances up, the way you do, and her hand goes stiff on mine. Then it's gone, back in her lap, and she's sitting up very straight.
 
-A girl about her age is standing in the doorway, shaking rain off her umbrella, with a tall guy in a varsity jacket behind her. She sees $sister.callName at the same moment. Her face lights up.
+A girl about her age is standing in the doorway, shaking rain off her umbrella, with a tall guy in a varsity jacket behind her. She spots $sister.callName at the same moment, and her face lights up.
 
 <<silently>>
 <<set _msgs = [
-{ text: "'Oh my God! Hi! What are you doing all the way out here?'" },
-{ who: $sister, text: "Kayla! Hi! Wow. Hi. What are... you're... hi." },
-{ text: "Kayla from her statistics class. She has already crossed the room. She's already hugging $sister.callName, half bent over the table, and her boyfriend is already standing behind her, and then she straightens up and looks at me with a bright, curious smile." },
+{ text: "'Oh my God, hi! What are you doing all the way out here?'" },
+{ who: $sister, text: "Kayla! Hi! I could ask you the same thing. Don't tell me you drove forty minutes for the tiramisu too." },
+{ text: "Kayla from her statistics class. She crosses the room in about four steps and hugs $sister.callName, half bent over the table, while her boyfriend hovers behind her. Then she straightens up and looks at me with a bright, curious smile." },
 { text: "'And who's this?'" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$sister.callName opens her mouth. Nothing comes out. She looks at me, and there's a half-second where I can see her deciding, and failing to decide, and waiting for me.
+$sister.callName starts to answer as easily as she said hi. She gets as far as "This is my...", and stops, and looks at me. For half a second I can see her deciding, and failing to decide, and waiting for me.
 
 I answer first.
 
@@ -86,16 +86,16 @@ I answer first.
 <<set _msgs = [
 { who: $player, text: "Her boyfriend. Nice to meet you." },
 { text: "I hold out my hand. Kayla shakes it, delighted, and turns to $sister.callName with her mouth open." },
-{ text: "'Shut up! You never said! Babe, look, she has a boyfriend. Oh my God, you guys are so cute. We have to get a picture. Tyler, take a picture.'" },
+{ text: "'Shut up! You never said! Babe, look, she has a boyfriend. You guys are so cute, we have to get a picture. Tyler, take a picture.'" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$sister.callName is staring at me. She doesn't say anything at all. She doesn't need to. Her whole face says it.
+$sister.callName is staring at me. She doesn't say anything at all, and she's smiling so hard she has to look down at the tablecloth to get it under control.
 
 Tyler takes the picture: the four of us crammed together behind the candle, Kayla making a peace sign, $sister.callName with her head on my shoulder and a smile so big it looks like it hurts.
 
-On the drive home she doesn't let go of my hand once. She holds it on the gearshift the whole forty minutes, and every few miles she says it under her breath, testing it, "boyfriend", like a word in a language she's just started learning. Near the exit to our town her phone buzzes. Kayla has posted the picture. $sister.callName looks at it for a very long time, and then turns the screen off and holds the phone against her chest.
+On the drive home she doesn't let go of my hand once. She holds it on the gearshift the whole forty minutes, and every few miles she says it under her breath, testing it, "boyfriend", like a word in a language she's just started learning. Near the exit to our town her phone buzzes. Kayla has posted the picture. $sister.callName looks at it for a very long time, then turns the screen off and holds the phone against her chest.
 
 <<set $sister.flags.datePhoto to true>>
 <<UpdateStat "+" "SisterRelation" 5>>
@@ -113,22 +113,22 @@ On the drive home she doesn't let go of my hand once. She holds it on the gearsh
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Her $sister.playerRelation. She dragged me out for her birthday dinner, two weeks late." },
-{ text: "I hold out my hand, friendly, easy. Kayla shakes it and laughs." },
-{ text: "'Aw! That's so sweet. My cousin wouldn't drive me to the end of the driveway, and he owes me money.'" },
-{ who: $sister, text: "Ha. Yeah. He's... yeah. He's the best." },
+{ text: "I hold out my hand, friendly and easy. Kayla shakes it and laughs." },
+{ text: "'Aw, that's so sweet! My cousin wouldn't drive me to the end of the driveway, and he owes me money.'" },
+{ who: $sister, text: "He has his moments. Don't tell him I said that, it'll go straight to his head." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She laughs along. She laughs at everything Kayla says, at the umbrella story and the varsity jacket and the professor who might be a ghost, which Kayla also has, and she keeps laughing until Kayla and Tyler have been seated across the room and she's waved at them twice.
+She laughs along. She laughs at everything Kayla says, at the umbrella story and the varsity jacket and the professor who might be a ghost, whom Kayla also has, and she keeps laughing until Kayla and Tyler have been seated across the room and she's waved at them twice.
 
-Then she eats the rest of her dessert in silence.
+Then she eats the rest of her dessert without a word.
 
-In the car she sits with her hands in her lap and looks out the window. Forty minutes. She doesn't say a word. When I put my hand on her knee at a red light she lets it stay there, and she doesn't put hers on top of it.
+In the car she sits with her hands in her lap and looks out the window for the whole forty minutes. When I put my hand on her knee at a red light she lets it stay there, but she doesn't put hers on top of it.
 
 At home she says goodnight at the bottom of the stairs. It's the first time in weeks that she goes up without stopping by my room.
 
-She'll be fine by morning. She'll bring my coffee and laugh at my jokes. But tonight she learned that I decide when we're allowed to be a couple, and where, and in front of whom. That's worth one quiet car ride.
+She'll probably be fine by morning, bringing my coffee and laughing at my jokes. I tell myself it's better she finds out now that I'm the one who decides where we get to be a couple, and in front of whom. It still makes for a very long drive.
 
 <<set $sister.flags.datePhoto to false>>
 <<UpdateStat "+" "SisterRelation" 1>>

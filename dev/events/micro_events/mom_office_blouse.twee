@@ -10,7 +10,7 @@
 <<silently>>
 <<set _msgs to [
 	{ who: $mom, text: "...so if we move the invoice to the fifteenth, they'll still pay on time, they just won't notice they're paying on time. Does that make sense, honey?" },
-	{ who: $darius, text: "It does. Yes. Absolutely." },
+	{ who: $darius, text: "It makes perfect sense. It's a very elegant solution, actually. The invoice, I mean." },
 	{ text: "She straightens up and catches me watching. Her hand goes to the open button at her collar, rests there for a second and doesn't do anything with it." },
 ]>>
 <</silently>>
@@ -23,9 +23,9 @@
 				<p>I catch her later at the coffee machine, where nobody can hear us over the grinder.</p>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $mom, text: "Is it too much? It's been in the back of my closet for years. I just thought, this morning... why not." },
-					{ who: $player, text: "It suits you. Wear it again." },
-					{ who: $mom, text: "...Okay." },
+					{ who: $mom, text: "Is it too much? It's been hanging in the back of my closet for years with the tags still on, and this morning I just thought, well, why not, you know?" },
+					{ who: $player, text: "It's not too much. It looks really good on you. You should wear it again." },
+					{ who: $mom, text: "Oh. Okay, then." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -34,7 +34,7 @@
 					<<set _msgs to [
 						{ text: "She keeps stirring her coffee, around and around, though she hasn't put anything in it. Her voice drops." },
 						{ who: $mom, text: "Is that for work, sweetie? Or is that for..." },
-						{ text: "She doesn't finish. She doesn't need to. She picks up her mug and walks back to her desk, and she doesn't fix the button." },
+						{ text: "She doesn't finish the question, and I don't answer the half she asked. She picks up her mug and walks back to her desk, and she doesn't fix the button." },
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -52,7 +52,7 @@
 				<<silently>>
 				<<set _msgs to [
 					{ text: "I wait until she passes my desk." },
-					{ who: $player, text: "Button it." },
+					{ who: $player, text: "Do that button up, would you?" },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

@@ -4,7 +4,7 @@
    seat, and sees $mom.callName. They both stop. They know. $mom.callName takes her hand. Neither says a word, and I watch it in
    the rearview mirror. Silence. Advances her line. */
 <<silent>><<SetBackground $locations[7].img>><</silent>>
-$mom.callName is already in the back seat when $sister.callName comes out of the house. I told them both to sit in the back. I didn't tell either of them why.
+$mom.callName is already in the back seat when $sister.callName comes out of the house. I told them both to sit in the back, and I didn't tell either of them why.
 
 $sister.callName walks down the driveway in the dress from the rehearsal and the heels she practiced in, with her coat over her arm, calm and quiet, the way we ran it. She opens the rear door on the other side, bends down to get in, and stops.
 
@@ -12,11 +12,11 @@ $sister.callName walks down the driveway in the dress from the rehearsal and the
 
 The dome light is on. They look at each other across the back seat, both in black, both made up for the same evening, and nobody says anything.
 
-I watch it in the rearview mirror. I watch $sister.callName understand, all at once, why she was told to wear that and sit there, and I watch $mom.callName understand why she was told to look after her. I watch them both work out, in the same second, what the other one has been doing all these months, and with whom.
+I watch it in the rearview mirror. $sister.callName understands first, I think, why she was told to wear that and sit there, and a second later $mom.callName understands why she was told to look after her. Then I can see them both working out what the other one has been doing all these months, and with whom.
 
-$sister.callName gets in. She closes the door very quietly. The dome light goes out.
+$sister.callName gets in and closes the door very quietly, and the dome light goes out.
 
-In the dark, $mom.callName reaches across the seat and takes her hand. $sister.callName holds on. They sit like that, looking straight ahead, not at each other, not at me.
+In the dark, $mom.callName reaches across the seat and takes her hand, and $sister.callName holds on. They sit like that, looking straight ahead, not at each other and not at me.
 
 I start the car.
 

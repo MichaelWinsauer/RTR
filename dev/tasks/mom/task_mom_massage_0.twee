@@ -22,10 +22,10 @@ $mom.callName stays by the door with her hand still on the handle, as if she isn
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I wasn't sure you meant it. The calendar thing." },
-{ who: $player, text: "I put it in myself. Of course I meant it." },
-{ who: $mom, text: "Well, I changed the name. It said 'massage', sweetie, anybody could have seen that. Now it says 'ergonomics check'. I didn't know what else to call it." },
-{ who: $player, text: "That's perfect." },
+{ who: $mom, text: "I wasn't sure you actually meant it, the calendar thing." },
+{ who: $player, text: "I put it in there myself. Of course I meant it." },
+{ who: $mom, text: "Well, I changed the name, because it said 'massage', sweetie, and anybody could have seen that. Now it says 'ergonomics check'. I didn't know what else to call it." },
+{ who: $player, text: "Ha. No, that's actually perfect." },
 { text: "It really is. Nobody in this office is ever going to ask a single question about an ergonomics check." },
 ]>>
 <</silently>>
@@ -43,8 +43,8 @@ I don't stop, and she doesn't ask me to. She steps in behind the chair and rests
 <<set _msgs = [
 { who: $mom, text: "You're doing it again." },
 { who: $player, text: "Doing what?" },
-{ who: $mom, text: "The question mark. Shoulders up by your ears. Honestly, honey, you feel like a coat hanger." },
-{ who: $player, text: "I'm working." },
+{ who: $mom, text: "Sitting like a question mark, with your shoulders up by your ears. Honestly, honey, you feel like a coat hanger." },
+{ who: $player, text: "I'm working, $mom.callName." },
 { who: $mom, text: "You can work sitting up straight. Millions of people manage it every day." },
 { text: "I sit up straight. She makes a small, satisfied noise and digs her thumbs in under my shoulder blades, which I'm fairly sure is meant as my reward." },
 ]>>
@@ -59,15 +59,15 @@ Once her hands have something to do, her mouth goes along with them. When I was 
 <<silently>>
 <<if _ms0 == 0>>
 <<set _msgs = [
-{ who: $mom, text: "$darius.name asked me what perfume I wear. Today, at the coffee machine. For his girlfriend, he said." },
+{ who: $mom, text: "$darius.name asked me what perfume I wear, today, right there at the coffee machine, and he said it was for his girlfriend." },
 { who: $player, text: "Does he have a girlfriend?" },
-{ who: $mom, text: "That's what I thought! I didn't say it, of course. I just thought it very loudly." },
+{ who: $mom, text: "That's exactly what I thought! I didn't say it, of course, I just thought it very loudly." },
 { who: $mom, text: "I told him it's from the drugstore, which it is. He looked so disappointed, sweetie, you should have seen his face." },
 { text: "$darius.name asks careful questions about everything in this office. I suppose it was only a matter of time before he got around to her." },
 ]>>
 <<elseif _ms0 == 1>>
 <<set _msgs = [
-{ who: $mom, text: "Do you know where $brian.name eats his lunch? In the stairwell. Between the second and the third floor. Every single day." },
+{ who: $mom, text: "Do you know where $brian.name eats his lunch? In the stairwell, between the second and the third floor, every single day." },
 { who: $player, text: "Maybe he likes the stairwell." },
 { who: $mom, text: "Nobody likes a stairwell, honey. I asked him if he wanted to eat with me, and he said 'uh, no, thank you', and then he said 'uh, sorry', and then he walked into the door." },
 { who: $mom, text: "I'm going to bring him a sandwich tomorrow. Don't tell him." },
@@ -75,18 +75,18 @@ Once her hands have something to do, her mouth goes along with them. When I was 
 ]>>
 <<else>>
 <<set _msgs = [
-{ who: $mom, text: "I counted the mugs on $ethan.name's windowsill this morning. Seven. There's something growing in the blue one, sweetie. I think it has roots." },
-{ who: $player, text: "Leave it. It might be a science project." },
+{ who: $mom, text: "I counted the mugs on $ethan.name's windowsill this morning, and there are seven, sweetie, and something is growing in the blue one. I'm fairly sure it has roots." },
+{ who: $player, text: "Leave it, it might be one of his science projects." },
 { who: $mom, text: "It's a health hazard, is what it is. I'm going to put a note on it." },
-{ who: $player, text: "Nobody reads your notes." },
-{ who: $mom, text: "Nobody reads my notes. I know." },
+{ who: $player, text: "Nobody reads your notes, though." },
+{ who: $mom, text: "I know they don't. I keep writing them anyway, it's a sickness." },
 { text: "She sighs like that's the great tragedy of her working life and presses a little harder, as if my shoulders are the ones ignoring her notes." },
 ]>>
 <</if>>
 <</silently>>
 <<Chat _msgs>>
 
-She moves on to the next thing without a pause, and the one after that. Who comes in late, who takes long lunches, who complained about the air conditioning and who complained about the people who complained about it. She has no idea she's giving me a report. She thinks we're chatting. Ten minutes of this tells me more about my own company than a week of meetings, and all I have to do is grunt now and then.
+She moves on to the next thing without a pause, and the one after that: who comes in late, who takes long lunches, who complained about the air conditioning and who complained about the people who complained about it. I don't think it has occurred to her that she's giving me a report; as far as she's concerned, we're chatting. Ten minutes of this tells me more about my own company than a week of meetings, and all I have to do is grunt now and then.
 
 <<linkreplace "Close your eyes">>
 <<Video "images/characters/mom/tasks/massage_0_2.mp4" "" "" 600>>
@@ -95,7 +95,7 @@ Her fingers move up into my neck and slow down. She works in small circles, one 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "You used to fall asleep like this. When you had a fever. You'd lie with your head in my lap, and I'd do your neck until you were out." },
+{ who: $mom, text: "You used to fall asleep like this when you had a fever, do you remember? You'd lie with your head in my lap, and I'd do your neck until you were out." },
 { who: $player, text: "I don't remember that." },
 { who: $mom, text: "You were six. You called it 'the squeezing'. 'Do the squeezing', you'd say, and you wouldn't let me stop." },
 { who: $player, text: "So I've always been a good negotiator." },
@@ -115,9 +115,9 @@ I keep typing. I want to know whether she'll let go if I do, and she doesn't. Sh
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "You need a haircut. That's all. I was just looking at your hair." },
+{ who: $mom, text: "You need a haircut, that's all, I was just looking at your hair." },
 { who: $player, text: "With your eyes closed?" },
-{ who: $mom, text: "...Same time tomorrow, sweetie. It's in the calendar." },
+{ who: $mom, text: "Well, you're in the calendar for tomorrow, same time, so don't go booking anything over it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

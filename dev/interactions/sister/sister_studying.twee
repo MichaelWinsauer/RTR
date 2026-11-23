@@ -1,6 +1,6 @@
 :: Sister studying [interaction] {"position":"400,2100","size":"100,100"}
 /* Talk scene ("Chat with her", Define Interactions): $sister studying in her room at home.
-   1 (the focus tree) and 2 (the posh voice) always.
+   1 (the focus tree) and 2 (out loud) always.
    3 (the calculus wall): before sister_fakingIt. The last line changes once sister_planningAhead is done.
    4 (sleeping better): after sister_focusIsKey, before sister_partyAnimal. The deal from Focus Is Key holds, so nobody says it.
    5 (a math person now): after sister_sheMadeIt, before sister_conflictingFeelings. Mentions her tutoring if $sister.flags.isTutoring.
@@ -28,12 +28,12 @@ $sister.callName is at her desk with a textbook open in front of her and her pho
 <<set _msgs = [
 { who: $sister, text: "Don't make me touch my phone. If I touch my phone, the tree dies." },
 { who: $player, text: "What tree?" },
-{ who: $sister, text: "My focus tree. You study for twenty-five minutes and it grows. You pick up the phone and it dies, and the app shows you a sad little stump. It's so judgmental. I love it." },
-{ text: "She nudges the screen sideways with one knuckle, very carefully, so it doesn't count as touching. Her forest is a grid of tiny trees. About a third of them are brown stumps." },
+{ who: $sister, text: "My focus tree. If I study for twenty-five minutes it grows, and if I pick up the phone it dies and the app shows me a sad little stump. It's incredibly judgmental, and I love it." },
+{ text: "She nudges the screen sideways with one knuckle, very carefully, so it doesn't count as touching. Her forest is a grid of tiny trees, and about a third of them are brown stumps." },
 { who: $player, text: "What happened to those?" },
-{ who: $sister, text: "That one was the group chat. That one was a sale on boots. That one..." },
+{ who: $sister, text: "That one was the group chat, and that one was a sale on boots, and that one..." },
 { text: "She squints at it." },
-{ who: $sister, text: "I don't even remember. Something stupid. They all died for something stupid. It's a graveyard of my bad decisions, and it's honestly very motivating." },
+{ who: $sister, text: "Honestly, no idea. Something stupid, they all died for something stupid. It's a graveyard of my bad decisions, and somehow that's the most motivating thing on my phone." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -42,37 +42,38 @@ I sit down on her bed and keep my mouth shut, which she seems to think is the ni
 
 When the timer runs out, the sapling turns into a fat little pine with a squirrel in it. She holds the phone up for me to admire like she grew it herself. Then she spends the next ten minutes on that same phone, as a reward.
 
-/* 2: The posh voice */
+/* 2: Out loud */
 <<case 2>>
-I can hear her before I open the door. She's reading out loud in an accent that's trying very hard to be British and keeps drifting somewhere around a pirate who went to boarding school.
+I can hear her before I open the door. She's reading to herself, quietly and fast, and every few sentences she stops, shuts her eyes and says the same thing again without looking at the page.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "The four Ps of marketing are product, price, place and promotion, darling. Promotion. Jolly good. Pip pip." },
-{ who: $player, text: "What is happening in here?" },
-{ who: $sister, text: "Oh, hello. I'm revising. Things stick better if I say them like a duchess." },
-{ who: $player, text: "Does it work?" },
-{ who: $sister, text: "I got a ninety-one on the last quiz, so you tell me, peasant." },
-{ who: $player, text: "Fine. What's a target market?" },
-{ who: $sister, text: "A target market, my good man, is the... the group of people who... okay, hang on. I only know it posh. If I say it normal, it falls out of my head." },
-{ text: "She closes her eyes, puts the accent back on and gets it word for word." },
+{ who: $player, text: "Who are you talking to in here?" },
+{ who: $sister, text: "Myself. If I say something out loud three times, it stays put. Don't laugh, I got a ninety-one on the last quiz doing exactly this." },
+{ who: $player, text: "I'm not laughing. Want me to quiz you?" },
+{ who: $sister, text: "God, yes, please. Ask me anything from chapter six, except the pricing part. I haven't gotten to the pricing part yet." },
+{ text: "She hands me her index cards. She gets the first four before I've finished reading the questions out, and she looks a little insulted that I bothered to ask." },
+{ who: $player, text: "What's a target market?" },
+{ who: $sister, text: "A target market is the group of people who... no, wait, it's the specific group of... hang on. I knew this an hour ago." },
+{ text: "She closes her eyes, mutters her way back to the start of the paragraph and gets it word for word." },
+{ who: $sister, text: "See? It's all in there. Sometimes I just have to take the scenic route to get to it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-<<linkreplace "Try the accent yourself">>
-I take the book off her desk and read the next paragraph in my best voice. I get about four words into pricing strategy before she slides off her chair and onto the carpet, laughing so hard she has to hold onto the desk leg.
+<<linkreplace "Read her the pricing part">>
+I take the book off her desk and read her the next section out loud, and because it's the driest thing I've ever held in my hands, I read it like a movie trailer. I get about four lines into penetration pricing before she slides off her chair and onto the carpet, laughing so hard she has to hold onto the desk leg.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Stop. Stop! You sound like a butler who's about to poison the whole family." },
-{ who: $player, text: "That was a very good butler." },
-{ who: $sister, text: "That's what I'm saying! He's so good at it! Nobody suspects him until the will is read!" },
+{ who: $sister, text: "Stop, please. It does not say 'in a world where margins are thin'. I'm looking at the page, it doesn't say that." },
+{ who: $player, text: "It's implied. You have to read between the lines." },
+{ who: $sister, text: "If that voice is how I end up remembering this, I'm going to hear it in the middle of the exam and laugh out loud, and it'll be your fault." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She makes me read the rest of the chapter as the butler. By the end she's mouthing the words along with me, and she knows the whole section on pricing, which is more than she knew when I walked in.
+She makes me read the rest of the chapter in my normal voice. She still mouths 'in a world' at me every time a new term comes up, and by the end she knows the whole section on pricing, which is more than she knew when I walked in.
 <</linkreplace>>
 
 /* 3: The calculus wall (before sister_fakingIt) */
@@ -83,7 +84,7 @@ Her calculus book is open on the desk. $sister.callName is lying on the floor ne
 <<set _msgs = [
 { who: $player, text: "Is the book winning?" },
 { who: $sister, text: "The book won an hour ago. I'm only lying down here so it can't take the floor too." },
-{ who: $sister, text: "Do you know what $prof.callName said today? He said limits are 'intuitive'. Out loud. To a room full of humans." },
+{ who: $sister, text: "Do you know what $prof.callName said today? He called limits 'intuitive', out loud, to a room full of actual human beings." },
 { who: $player, text: "Want me to take a look?" },
 { who: $sister, text: "If you explain it and I still don't get it, I'll have to move to another state and change my name. Just so you know what's at stake." },
 ]>>
@@ -95,8 +96,8 @@ I lie down next to her with the book held up over both of us and a pen I find un
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Wait. Wait. So it doesn't matter what happens at the actual number. Only what happens on the way there?" },
-{ who: $player, text: "That's it. That's the whole thing." },
+{ who: $sister, text: "Wait. So it doesn't matter what happens at the actual number, only what happens on the way there?" },
+{ who: $player, text: "That's it, that's the whole trick." },
 { who: $sister, text: "That's so stupid. Why didn't he just say that? Why did he say 'intuitive' and then write a whole wall of Greek?" },
 { text: "She snatches the flyer and writes it down in her own words, under the pizza coupon, and draws a little arrow walking up to a door." },
 ]>>
@@ -117,14 +118,13 @@ She's actually working. Her notes are in neat rows for once, every problem boxed
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You look awake." },
-{ who: $sister, text: "I am awake! I slept nine hours last night. Nine! I haven't slept nine hours since I had the flu in middle school." },
-{ who: $sister, text: "I just lay down and boom, gone. Like somebody pulled my plug out of the wall." },
+{ who: $sister, text: "I am awake! I slept nine hours last night, which hasn't happened since I had the flu in middle school. I just lay down and that was it, gone, like somebody pulled my plug out of the wall." },
 { text: "Then she hears herself. Her ears go pink first, then her neck, and she turns back to her notes very fast." },
 { who: $sister, text: "Don't." },
 { who: $player, text: "I didn't say anything." },
-{ who: $sister, text: "You were about to say something with your face. We have a deal. The deal is forever." },
+{ who: $sister, text: "You were about to, I could see it on your face. We made a deal, and that deal doesn't expire." },
 { who: $player, text: "I was going to say nice work on problem six." },
-{ who: $sister, text: "...Oh. Thank you. It's a very good problem six." },
+{ who: $sister, text: "Oh. Well, thank you. It is a very good problem six." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -137,12 +137,12 @@ The calculus test is stuck to the wall above her desk with four strips of washi 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Ah. Welcome. You may approach the math person." },
+{ who: $sister, text: "Don't say anything about the crown, the crown was earned. I'm a math person now." },
 { who: $player, text: "Since when are you a math person?" },
-{ who: $sister, text: "Since the B plus. It's documented. It's on the wall. Legally, that makes me a math person." },
+{ who: $sister, text: "Since the B plus, and it's on the wall, which makes it official. You can't argue with the wall." },
 { text: "She's doing economics homework now, a supply and demand graph, and she walks me through it with total confidence. The demand curve is going the wrong way." },
 { who: $player, text: "Your demand curve is upside down." },
-{ who: $sister, text: "Math people make mistakes all the time. That's how you know we're real. Fake math people never make mistakes, because they don't do any math." },
+{ who: $sister, text: "Real math people make mistakes constantly, that's how you can tell they're doing math. The ones who never make mistakes just aren't doing any." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -150,9 +150,9 @@ The calculus test is stuck to the wall above her desk with four strips of washi 
 <<if $sister.flags.isTutoring>>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Also, I have a student now. A freshman. His name is Tyler and he calls derivatives 'the little guys'." },
+{ who: $sister, text: "Also, I have a student now, a freshman named Tyler, and he calls derivatives 'the little guys'." },
 { who: $player, text: "Did you correct him?" },
-{ who: $sister, text: "No! It's working for him! He got a C on the last quiz. A C, from Tyler. I'm basically a miracle worker." },
+{ who: $sister, text: "Why would I? It's working for him. He got a C on the last quiz, and if you'd met Tyler, you'd know that a C from him is close to a miracle." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -170,10 +170,10 @@ She's reading, or at least she's holding a book open at the right height for rea
 { who: $player, text: "Weirder than usual?" },
 { who: $sister, text: "The night of the party. When I got home. Did I... say anything? Do anything stupid? Because I remember the shots, and I remember the Uber guy had a bobblehead of a goat on his dashboard, and after that it's just... nothing. And then it's morning." },
 { text: "She's trying to make it sound like a joke. Her thumb is working at the corner of the page, folding it down and smoothing it out again." },
-{ who: $player, text: "You told me you loved me. Then you told the fridge you loved it more. Then you fell asleep with one shoe on." },
-{ who: $sister, text: "Oh my god. The fridge?" },
+{ who: $player, text: "You told me you loved me, and then you told the fridge you loved it more, and then you fell asleep with one shoe on." },
+{ who: $sister, text: "The fridge? Seriously?" },
 { who: $player, text: "You were very sincere with the fridge." },
-{ who: $sister, text: "Okay. Okay, that's embarrassing, but that's fine. That's normal drunk stuff. Everybody loves a fridge at two in the morning." },
+{ who: $sister, text: "Okay, that's embarrassing, but that's fine. That's normal drunk stuff, everybody loves a fridge at two in the morning." },
 { text: "She laughs, and her shoulders come down a little. She opens the book again." },
 { who: $sister, text: "It's just, I keep having these... never mind. It's stupid." },
 ]>>
@@ -230,16 +230,16 @@ She's at her desk with her internship lanyard still around her neck, which she's
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Perfect timing. Sit. I'm interviewing you." },
+{ who: $sister, text: "Perfect timing, sit down. I need to interview you." },
 { who: $player, text: "For what?" },
 { who: $sister, text: "For my small business class. We have to analyze a local company, and everybody else picked the bakery on Main Street. Six people! That poor woman is going to get interviewed to death." },
 { text: "She picks up a highlighter and holds it under my chin like a microphone." },
-{ who: $sister, text: "So. Mister CEO. What would you say your company's mission is?" },
-{ who: $player, text: "We help people feel better at work. Calmer, and a lot easier to get along with." },
-{ who: $sister, text: "Ooh. Okay, that's good. I'm writing that down." },
+{ who: $sister, text: "So, Mister CEO, what would you say your company's mission is?" },
+{ who: $player, text: "I guess we help people feel better at work. They're calmer, and they're a lot easier to get along with." },
+{ who: $sister, text: "Ooh, that's actually good. I'm writing that down." },
 { text: "She types it word for word, reads it back to me, and then adds a line of her own about employee wellbeing being at the heart of everything we do. She asks if that part's true. I tell her it's very true." },
-{ who: $sister, text: "Last question. What's your secret ingredient? Everybody has one. The bakery lady said hers is butter." },
-{ who: $player, text: "Good people. And good air conditioning." },
+{ who: $sister, text: "Last question, and I asked the bakery lady too, so you have to answer: what's your secret ingredient? Hers is butter." },
+{ who: $player, text: "Good people, and really good ventilation." },
 { who: $sister, text: "That's so boring. I'm putting butter." },
 ]>>
 <</silently>>

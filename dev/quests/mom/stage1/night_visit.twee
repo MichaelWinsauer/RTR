@@ -10,12 +10,12 @@ $mom.callName comes in with a mug in each hand and nudges the door shut behind h
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I saw your light. I made you some tea. It's chamomile, it's... it's for sleeping." },
-{ who: $player, text: "Thanks." },
+{ who: $mom, text: "I saw your light was still on, so I made you some tea. It's chamomile, for sleeping, not that you ever listen to me about sleeping." },
+{ who: $player, text: "Thanks, $mom.callName. You didn't have to." },
 { text: "She sets one mug down by my keyboard. Then, instead of leaving, she sits down on the edge of my bed with the other one held in both hands, and doesn't drink from it." },
 { who: $mom, text: "How are you, honey? Really. You've been at that office day and night since the handover." },
-{ who: $player, text: "I'm fine." },
-{ who: $mom, text: "Good. That's good. That's..." },
+{ who: $player, text: "I'm okay. Tired, mostly." },
+{ who: $mom, text: "Good, that's... well, tired isn't good, but you know what I mean." },
 { text: "She turns the mug a quarter turn in her hands. Then another quarter turn." },
 { who: $mom, text: "Sweetheart, I need to talk to you about that morning." },
 ]>>
@@ -43,12 +43,12 @@ There's no sound I can hear. There's only her, a second later, not standing up. 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Can I say something?" },
+{ who: $player, text: "Can I say something? It'll probably come out wrong." },
 { who: $mom, text: "Of course, honey. Always." },
-{ who: $player, text: "You've taken care of us my whole life. When I was sick, you sat up with me all night. When the company went under, you cleared out my old room and had dinner on the table the night I came home, and you never once said you'd told me so." },
-{ who: $player, text: "That's what you do. You see one of us hurting and you fix it. You don't stop and ask whether it's allowed." },
+{ who: $player, text: "You've taken care of us my whole life. When I had the flu that one winter, you sat up with me all night, and when the company went under, you had my old room cleared out and dinner on the table the night I came home, and you never once said you'd told me so." },
+{ who: $player, text: "That's just what you do, right? One of us is hurting and you fix it, and you don't go and check first whether you're allowed to." },
 { who: $mom, text: "That's different, sweetheart. That's... being a $mom.relation." },
-{ who: $player, text: "So was that morning." },
+{ who: $player, text: "Okay, but so was that morning. Wasn't it? I mean, I don't know what else you'd call it." },
 { text: "She opens her mouth, and nothing comes out." },
 ]>>
 <</silently>>
@@ -57,44 +57,44 @@ There's no sound I can hear. There's only her, a second later, not standing up. 
 <<linkreplace "Keep going">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "I'm not a little boy anymore. The things that wear me down aren't scraped knees. I've got a whole office that depends on me, and there are nights I can hardly breathe for it. The only time this month I felt like I could was in that meeting room. With you." },
+{ who: $player, text: "I'm not a little kid anymore. It's not scraped knees now, it's a whole office full of people who get paid because of me, and some nights I can hardly breathe for it. And the one time this month I actually could was in that meeting room, with you." },
 { who: $mom, text: "Honey..." },
-{ who: $player, text: "It isn't wrong. Wrong would be you lying awake down the hall, knowing I'm up here falling apart, and doing nothing, because of a rule somebody made up for other families." },
+{ who: $player, text: "I don't think it was wrong. I think it'd be worse if you lay awake down the hall knowing I'm up here falling apart and did nothing about it, just because of some rule that's meant for... I don't know. Other families. Normal ones." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I can see it land. She takes the thought and turns it over, looking for the flaw in it, and the drawer next to my knee takes the edge off every flaw she finds. Under the robe her knees have drawn together, and she's breathing through her mouth.
+It isn't much of an argument, and I know it while I'm still making it. But she takes it and turns it over anyway, looking for the flaw, and I'd bet the drawer next to my knee is taking the edge off every flaw she finds. Under the robe her knees have drawn together, and she's breathing through her mouth.
 
 Then she shakes her head, hard, like a swimmer coming up for air.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "No. No, you're twisting it, honey. I know what you're doing, you were always so clever. But it isn't the same thing. I can't." },
+{ who: $mom, text: "No, no, you're twisting it, honey. You were always so clever with words, you could talk your way out of anything, but it isn't the same thing, and I can't." },
 { text: "She stands up so fast that the bed creaks. She makes it as far as the nightstand, where she puts down her untouched mug with a rattle, and then she just stays there with her back to me and one hand flat on the wood, like the room is moving." },
 { who: $mom, text: "I'm going to go to bed. We're going to forget this conversation, and in the morning I'll make pancakes." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She means it. Her feet are already pointed at the door. A cooler head would let her go, and she'd spend the next week cleaning things that were already clean.
+She means it, too. Her feet are already pointed at the door. If I let her go now, she'll make the pancakes and spend the next week cleaning things that are already clean, and whatever happened in the meeting room will turn into something we both pretend we can't remember.
 
 <<linkreplace "Don't let her leave">>
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Sit down, $mom.callName." },
 { who: $mom, text: "$player.name..." },
-{ who: $player, text: "Sit down." },
-{ text: "I don't raise my voice. I don't need to. Her shoulders flinch at it anyway, the same way they used to when I was the one in trouble and she was the one trying not to laugh." },
-{ who: $player, text: "I'm not asking you to like it. I'm telling you what it is. Taking care of me is your job. It's been your job since the day I was born, and you didn't stop being my $mom.relation when I turned nineteen." },
+{ who: $player, text: "I said sit down. I'm not finished." },
+{ text: "I don't raise my voice, and I don't smile either, which I think she notices more. Her shoulders flinch anyway, the same way they used to when I was the one in trouble and she was the one trying not to laugh." },
+{ who: $player, text: "Maybe you don't like it, fine. But taking care of me has been your job since the day I was born, and I'm pretty sure you didn't stop being my $mom.relation the day I turned nineteen. Did you?" },
 { who: $mom, text: "It isn't supposed to be this kind of care." },
-{ who: $player, text: "It's the kind I need. So it's the kind you give." },
+{ who: $player, text: "Well, it's the kind I need right now. I don't know what else to tell you." },
 { text: "She doesn't answer. Her hand is still pressed against the nightstand, and I can see her fingers tightening on the edge of it." },
 { who: $mom, text: "I haven't been able to think straight all week. I lie in bed and I..." },
-{ text: "She stops. Her whole neck has gone red." },
-{ who: $player, text: "I know what you lie in bed and think about. It's why you came up here with tea." },
+{ text: "She stops, and her whole neck goes red." },
+{ who: $player, text: "I think I can guess. I think it's why you came up here with tea in the first place." },
 { who: $mom, text: "That isn't why I..." },
-{ who: $player, text: "Sit." },
+{ who: $player, text: "Come and sit down, $mom.callName." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -103,10 +103,9 @@ It takes her a while. Then she turns around, slowly, and sits down on the very e
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Only when it gets bad." },
-{ who: $mom, text: "If it gets bad. Only then, and only if you really need it. You'll promise me that." },
-{ who: $player, text: "Only when I need it." },
-{ text: "She nods, small and stiff, the way she nodded in the meeting room that morning, right before she did what I asked. She's looking for a rule to hold onto, so I hand her one. She never asks who gets to decide what bad means." },
+{ who: $mom, text: "Only when it gets bad. If it gets bad, I mean, and only if you really, truly need it, and you'll promise me that, honey. You have to promise me." },
+{ who: $player, text: "I promise. Only when I need it." },
+{ text: "She holds on to that like a railing on a staircase in the dark. It's a rule, and she seems to need a rule right now more than anything else, and she doesn't ask who gets to decide what bad means. I'm not going to be the one who brings it up." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

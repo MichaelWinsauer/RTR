@@ -9,25 +9,25 @@ The call comes in at 10:02. She said whenever it suits her, and apparently what 
 
 <<silently>>
 <<set _msgs = [
-{ who: $marketingOwner, text: "$player.name? $marketingOwner.name $marketingOwner.surname. You have twenty minutes, I have nineteen, so let's not waste the one." },
-{ who: $player, text: "Good morning. Thanks for calling." },
-{ who: $marketingOwner, text: "Don't thank me yet. I've read your website. Did an intern write it? It has a lot of exclamation marks for a product that's supposed to calm people down." },
-{ who: $player, text: "My $sister.relation. She's very enthusiastic about calm." },
-{ who: $marketingOwner, text: "Clearly. Okay. Tell me what it does. No brochure words. If you say 'wellness' I'm hanging up." },
+{ who: $marketingOwner, text: "$player.name? It's $marketingOwner.name $marketingOwner.surname. I've got about twenty minutes before my next thing, so let's skip the warm-up, if that's all right with you." },
+{ who: $player, text: "Sure, works for me. Thanks for calling." },
+{ who: $marketingOwner, text: "Don't thank me yet. I read your website, by the way. Did an intern write it? Because it has a lot of exclamation marks for a product that's supposed to calm people down." },
+{ who: $player, text: "Technically, yes. She's also my $sister.relation, and she's very enthusiastic about calm." },
+{ who: $marketingOwner, text: "I can tell. Okay, so tell me what it actually does, and please skip the brochure words, because if you say 'wellness' I'm hanging up." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I like her immediately, which is inconvenient. People I like are harder to sell to. They notice things.
+I like her immediately, which doesn't help. I've always been worse at selling to people I like, probably because I care too much what they think of me.
 
 <<linkreplace "Tell her">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "It reads the room. Light, sound, how people are sitting, how they're breathing. And it nudges the room a little toward calm. Not sleepy. Calm. Like the feeling after a good lunch." },
+{ who: $player, text: "Okay. It reads the room, the light and the noise and how people are sitting and breathing, and then it nudges everyone a little toward calm. The kind you get after a good lunch, when you're relaxed but still awake." },
 { who: $marketingOwner, text: "And my friend's little box does that for her desk." },
-{ who: $player, text: "For her desk. A few feet. It's made for one person having a long day." },
+{ who: $player, text: "For her desk, yeah, a few feet around it. It's really made for one person having a long day." },
 { who: $marketingOwner, text: "My problem isn't one person having a long day. My problem is a conference room. Twelve of my people on one side of the table, a client on the other side, and everyone so tense you could hear a pen click from the parking lot." },
-{ who: $marketingOwner, text: "We lose accounts in that room. Good pitches. I watch my people walk in knowing their stuff and walk out having talked too fast and smiled too hard. And then the client says they'll think about it, which means no." },
+{ who: $marketingOwner, text: "We lose accounts in that room, and on good pitches, too. I watch my people walk in knowing their stuff and walk out having talked too fast and smiled too hard, and then the client says they'll think about it, which means no." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -37,11 +37,11 @@ That's a sales pitch, and she doesn't know she's giving it. It's also the exact 
 <<linkreplace "Offer her the Veil">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Then you don't want the desk unit. You want the room." },
+{ who: $player, text: "Then I don't think the desk unit is what you're after. It sounds like you want something for the whole room." },
 { who: $marketingOwner, text: "There's a room one?" },
-{ who: $player, text: "As of this week, there's a room one. We built it for a lecture hall at the college. A research pilot. One unit in the ceiling, eight emitters, even coverage from wall to wall. A conference room is easier than a lecture hall. Fewer people, smaller space, nobody's asleep in the back row." },
+{ who: $player, text: "As of this week there is, yeah. We built it for a lecture hall at the college, as a research pilot, one unit in the ceiling with eight emitters so the whole room gets the same amount. A conference room is honestly easier. It's smaller, there are fewer people, and nobody's asleep in the back row." },
 { who: $marketingOwner, text: "And what does it do to my client? I don't want them drugged. I want them to say yes because my people are good, not because they're high on the ceiling." },
-{ who: $player, text: "It does the same thing to everyone in the room. Your people, your client, the guy who brings the coffee. Nobody's high. Everybody's just a little less afraid of each other. Your people stop talking too fast. Your client stops waiting for the catch." },
+{ who: $player, text: "The same thing it does to everyone else in there, your people, your client, the guy who brings in the coffee. Nobody gets high. Everyone's just a bit less afraid of each other, so your people stop talking too fast and your client stops waiting for the catch." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -50,10 +50,10 @@ There's a pause on the line, long enough that I check the screen to make sure th
 
 <<silently>>
 <<set _msgs = [
-{ who: $marketingOwner, text: "Okay. That's a good answer. Most people would have told me it makes clients say yes." },
-{ who: $player, text: "It doesn't. Your pitch has to be good. It just makes sure they hear it." },
+{ who: $marketingOwner, text: "Okay, that's a good answer. Most people would've told me it makes clients say yes." },
+{ who: $player, text: "It doesn't, though. Your people still have to be good, it just makes sure the client actually hears them." },
 { who: $marketingOwner, text: "Hm." },
-{ text: "I can hear her tapping a pen on something. Glass, maybe. A desk with a glass top. She seems like a woman with a glass desk." },
+{ text: "I can hear her tapping a pen on something that sounds like glass. I'd bet money it's a desk. She sounds like a woman with a glass desk." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -66,21 +66,21 @@ She asks about installation, and I tell her: one day, after hours, nobody has to
 { who: $marketingOwner, text: "That's a lot of money for a smoke detector." },
 { who: $player, text: "It's less than one lost account. You told me yourself, you lose them in that room." },
 { who: $marketingOwner, text: "I did tell you that, didn't I. That was careless of me." },
-{ who: $player, text: "It was honest of you." },
-{ who: $marketingOwner, text: "In my business those are the same thing." },
+{ who: $player, text: "I'd have called it honest." },
+{ who: $marketingOwner, text: "In my line of work there isn't much of a difference, unfortunately." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-Another pause. The tapping stops.
+There's another pause, and the tapping stops.
 
 <<silently>>
 <<set _msgs = [
-{ who: $marketingOwner, text: "Send me the contract. The pilot one. If my lawyer doesn't find anything stupid in it, we'll sign by Friday." },
+{ who: $marketingOwner, text: "Send me the contract for the pilot. If my lawyer doesn't find anything stupid in it, we'll sign by Friday." },
 { who: $player, text: "You'll have it within the hour." },
-{ who: $marketingOwner, text: "And $player.name? If this thing works, I know a lot of people with conference rooms. And a lot of people who'd pay to be told about things before everyone else. Keep that in mind." },
-{ who: $player, text: "I will." },
-{ who: $marketingOwner, text: "Good. That was seventeen minutes. I like you already." },
+{ who: $marketingOwner, text: "And $player.name? If this thing works, I know a lot of people with conference rooms, and a lot of people who'd pay good money to hear about something before everyone else does. Keep that in mind." },
+{ who: $player, text: "I will, definitely." },
+{ who: $marketingOwner, text: "Good. That was seventeen minutes, by the way, which is a record for a sales call." },
 { text: "She hangs up without saying goodbye. I suspect she never says goodbye." },
 ]>>
 <</silently>>
@@ -89,13 +89,13 @@ Another pause. The tapping stops.
 <<linkreplace "Let it sink in">>
 I sit there with the phone in my hand.
 
-It's the first one that didn't know me. Not $boss.callName, not $manager.callName, not somebody who used to yell at $mom.callName or make me wipe tables. A stranger found our website, picked up the phone and bought the thing because of what it does. I didn't charm her face to face, and I didn't have $company.prototype.name in my coat nudging her toward yes. It was just me and a phone line and a good product.
+She's the first client who didn't already know me, the first one who isn't $boss.callName or $manager.callName or anyone else who used to yell at $mom.callName or make me wipe tables. A stranger found our website, picked up the phone and bought the thing because of what it does. I didn't charm her face to face, and I didn't have $company.prototype.name in my coat nudging her toward yes. It was just me and a phone line and a product that's actually good.
 
-It feels better than I expected. That's annoying too.
+It feels a lot better than I thought it would, and I have to sit there for a minute before I trust myself to type anything.
 
 I send the contract to $darius.name to check the numbers and to $mom.callName to check the commas. Then I take my phone out again and text $ethan.name, who's sitting about forty feet away with his headphones on.
 
-<i>We did it. A real one. A stranger. Drinks on me tonight.</i>
+<i>We just sold one to a complete stranger. Drinks are on me tonight.</i>
 
 Across the office, $ethan.name reads it, takes his headphones off, stands up on his chair and starts slow-clapping. $brian.name looks up in alarm. $darius.name doesn't look up at all, but he's smiling at his screen.
 

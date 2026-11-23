@@ -3,7 +3,7 @@
 <p>I run into $sister.callName in the hallway. Her hair is going in every direction, her eyes are half closed, and she's wearing only one sock.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Mmgh. No talking. Coffee first. Then talking." }
+	{ who: $sister, text: "Mmgh. No talking until coffee." }
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -19,10 +19,10 @@
 				]>>
 				<<if $sister.stats.relation >= 40>>
 					<<run _msgs.push({ who: $sister, text: either(
-						"I had a dream I missed the exam, and when I woke up it felt worse that it wasn't real.",
-						"$mom.callName is so tired all the time. I wish I could help more.",
-						"Don't tell anyone, but I don't know what I want to do after college.",
-						"It's good having you back. It's too loud in my head when the house is quiet."
+						"I dreamed I slept through the exam, and the weird part is that I was almost relieved.",
+						"$mom.callName looks so tired all the time lately. I wish I could do more for her.",
+						"Don't tell anyone, but I have no idea what I want to do after college.",
+						"It's nice having you back home, you know. The house was way too quiet without you."
 					) })>>
 				<</if>>
 				<</silently>>
@@ -37,7 +37,7 @@
 				<<silently>>
 				<<set _msgs to [
 					{ text: "I step aside and let her shuffle past." },
-					{ who: $sister, text: "Smart." }
+					{ who: $sister, text: "Smart choice." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -50,8 +50,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "You look like a ghost." },
-					{ who: $sister, text: "Then I'll haunt you. Starting now." }
+					{ who: $player, text: "Rough night? You look like a ghost." },
+					{ who: $sister, text: "Keep talking and I'll haunt you for the rest of the day." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

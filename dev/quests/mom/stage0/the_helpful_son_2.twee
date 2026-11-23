@@ -3,18 +3,18 @@
 <<set _msgs to [
     { who: $player, text: "Hey. You okay? You're white as a sheet." },
     { text: "She drops into her chair and stares at the screen without seeing it. Her hands are shaking, so she tucks them under her thighs." },
-    { who: $mom, text: "God, I hate that man. I hate him. In front of everyone, $player.name. Like I'm some intern who spilled coffee on his shoes." },
+    { who: $mom, text: "All these years I've been on this floor, $player.name, and he talks to me like I'm some intern who spilled coffee on his shoes, in front of everybody. And it was his numbers that were wrong, not mine." },
     { who: $player, text: "What did he even say?" },
-    { who: $mom, text: "It's not even what he says, it's how. That tone. And the jokes he makes to the women in here, and then the second one of the guys walks in he's suddenly everybody's buddy. Yesterday he told me maybe I'd be more useful as his personal assistant." },
+    { who: $mom, text: "Oh, it's not even what he says, it's the tone, like he's explaining something to a dog. And the jokes he makes with the women in here, and then the second one of the guys walks in he's suddenly everybody's buddy. Yesterday he told me I might be more useful as his personal assistant." },
     { who: $player, text: "He said that? Out loud?" },
-    { who: $mom, text: "With a smile. Half this floor would fall apart without me, and he wants me fetching his dry cleaning. How does somebody like that even end up running a place like this?" },
+    { who: $mom, text: "With a big smile, like it was a compliment. Half this floor would fall apart without me, and he wants me picking up his dry cleaning. How does somebody like that even end up running a place like this?" },
     { who: $player, text: "Golf buddies?" },
-    { who: $mom, text: "...Probably golf buddies." },
+    { who: $mom, text: "Golf buddies, probably." },
     { text: "That gets a short, wet laugh out of her. She wipes under one eye with a knuckle, careful of her mascara." },
     { who: $player, text: "Hey, listen. This is actually the perfect time to try the prototype. You're wound up so tight right now, it'll have something to work with." },
-    { who: $mom, text: "Right now? Here? I don't know, honey..." },
-    { who: $player, text: "Nobody's going to notice. It just sits there and hums. You don't have to do anything except breathe." },
-    { who: $mom, text: "Well... we did say we'd try it. Okay. I trust you." },
+    { who: $mom, text: "Right now? Here, at my desk? I don't know, honey, what if somebody asks what it is?" },
+    { who: $player, text: "Then you tell them it's a speaker. Nobody's going to notice, it just sits there and hums, and all you have to do is breathe." },
+    { who: $mom, text: "Well, we did say we'd try it, didn't we. Okay. Okay, I trust you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -22,14 +22,14 @@
 <<linkreplace "Take out the prototype">>
 <<Video "images/characters/player/prototype/pocket_pull_out.mp4" "" "" 500>>
 
-I get the prototype out of my pocket before she can change her mind and set it on her desk, half hidden behind her monitor. She shifts in her chair and keeps her elbow well clear of it. I turn it on and spend a moment on the dials. It settles into a hum so faint the air conditioning drowns it out. <<UseQuestDevice $mom>>
+I get the prototype out of my pocket before she can change her mind and set it on her desk, half hidden behind her monitor. She shifts in her chair and keeps her elbow well clear of it. I turn it on and spend a moment on the dials until it settles into a hum so faint the air conditioning drowns it out. <<UseQuestDevice $mom>>
 
 <<silently>>
 <<set _msgs to [
-    { who: $player, text: "Okay. It needs a minute to read you, so don't fight it." },
+    { who: $player, text: "Okay. It needs a minute to read you, so try not to fight it." },
     { who: $mom, text: "How do I not fight something? I don't even know what it's doing." },
     { who: $player, text: "Just look at it and let your shoulders drop. I'll give you some space so it doesn't pick me up instead." },
-    { who: $mom, text: "Okay..." },
+    { who: $mom, text: "I'll try. Look at me, relaxing at my desk in the middle of a workday, this has to be a first." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -37,30 +37,28 @@ I get the prototype out of my pocket before she can change her mind and set it o
 <<linkreplace "Let it work">>
 <<Video "images/characters/player/prototype/on.mp4" "" "" 500>>
 
-I lean against the next desk over and watch. At first nothing happens. Then she takes a deeper breath than she means to, and a little color comes back into her cheeks. Then a little more. She crosses her legs, uncrosses them, and pretends to read her mail. All that adrenaline from the meeting has to go somewhere, and I've given it somewhere to go.
+I lean against the next desk over and watch. At first nothing happens. Then she takes a deeper breath than she means to, and a little color comes back into her cheeks, and then a little more. She crosses her legs, uncrosses them, and pretends to read her mail. I had a guess about where all that adrenaline from the meeting would end up. I didn't think it would get there this fast.
 
 I keep my voice low when I lean back in.
 
 <<silently>>
-<<set _msgs to [
+<<set _msgs = [
 { who: $player, text: "How's it feel? Anything yet?" },
-{ who: $mom, text: "It's... warm. Like the tension's moving somewhere else. Is it supposed to do that?" },
-{ who: $player, text: "That's exactly what it's supposed to do. All that stress from him has to go somewhere. $company.prototype.name just gives it a better place to go." },
-{ who: $mom, text: "Sweetie, I'm not sure about this. I'm feeling things I really shouldn't be feeling at my desk." },
-{ who: $player, text: "That's just your body letting go. Can you feel the anger fading?" },
-{ who: $mom, text: "I... yes. A little. Should I be worried?" },
-{ who: $player, text: "Not at all. Let it happen and you'll feel a lot better afterwards." },
-{ who: $mom, text: "If you say so. It's getting... stronger. It's all tingly, and it's not in my shoulders anymore, if you know what I mean." },
-{ who: $player, text: "Good. That means it's working." },
-{ who: $mom, text: "But what if someone notices? I'm starting to..." },
-{ who: $player, text: "Nobody's looking at you. Everyone's way too busy not looking at that meeting room." },
-{ text: "She opens her mouth to answer and doesn't manage it. Her fingers tighten around the edge of the desk." },
-{ who: $mom, text: "Oh god. I'm so hot. I need a minute. The restroom. I need... oh my god." },
-{ text: "She's up before she finishes the sentence, knees pressed together, walking much too fast for someone who's just freshening up. Her face is bright red." },
+{ who: $mom, text: "It's warm, sort of. Like the knot in my shoulders came undone and wandered off somewhere. Is it supposed to do that?" },
+{ who: $player, text: "That's exactly what it's supposed to do. All that stress from him has to go somewhere, and $company.prototype.name just gives it a better place to go." },
+{ who: $mom, text: "Well, I'd like a word with whoever picked the place, because it isn't my shoulders anymore." },
+{ text: "She says it to her screen, not to me, and then her eyes go wide when she hears what she just said out loud." },
+{ who: $mom, text: "Sweetie, I don't think this is... I'm at my desk. I have a call with accounting at two." },
+{ who: $player, text: "Can you still feel the anger, though?" },
+{ who: $mom, text: "No, that's the strange part, it's just gone. But the rest of it... honey, I'm going to have to ask you to turn that thing down a little." },
+{ who: $player, text: "It works better if you let it finish. Nobody's looking at you, they're all way too busy not looking at that meeting room." },
+{ text: "She opens her mouth to answer and doesn't manage it. Her fingers tighten around the edge of the desk, and she presses her knees together so hard her chair creaks." },
+{ who: $mom, text: "Okay. Okay, I'm just going to go and freshen up for a minute. Watch my desk. And don't touch the stapler, it jams." },
+{ text: "She's up before she finishes the sentence, purse clutched against her hip, walking much too fast for someone who's just freshening up. Her face is bright red." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-When I reach over to switch the prototype off, I notice the faint damp mark she's left on her chair. <<DevicePulse "off">> I roll a spare chair over to her desk, put the device back in my pocket, and get comfortable. I have a feeling she'll be gone for a while. I also have a feeling she'll be asking me to bring it again.
+When I reach over to switch the prototype off, I notice the faint damp mark she's left on her chair. <<DevicePulse "off">> I roll a spare chair over to her desk, put the device back in my pocket, and get comfortable. I'd bet she'll be gone for a while, and I'd bet she'll ask me to bring it again.
 
 <<link "Wait for $mom.callName" "The Helpful Son 3">><</link>>
 <</linkreplace>>

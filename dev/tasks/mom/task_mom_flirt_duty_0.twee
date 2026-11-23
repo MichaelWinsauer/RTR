@@ -10,9 +10,9 @@
 <<PovHeader $mom>>
 I check my lipstick in the black screen of the spare monitor by the printer, which is silly, because nobody in this office has ever looked at my lipstick and I'm not sure I want them to start.
 
-Three things. $player.name made me say them back to him this morning, twice, like a phone number. Look them in the eye. A hand on the arm, only for a second. Laugh at their jokes, especially the ones that aren't funny.
+There are three things, and $player.name made me say them back to him this morning, twice, like a phone number: look them in the eye, put a hand on their arm for only a second, and laugh at their jokes, especially the ones that aren't funny.
 
-I raised two children. I can remember three things.
+I raised two children, so I can certainly remember three things.
 
 $ethan.name first, because $ethan.name is easy. He could make a parking meter feel interesting. He's tipped back in his chair with his feet on the wastebasket and a coffee balanced on his stomach, and he smiles when he sees me coming, which helps.
 
@@ -20,36 +20,36 @@ $ethan.name first, because $ethan.name is easy. He could make a parking meter fe
 <<set _msgs = [
 { who: $mom, text: "Hi! Hello. How's the... how's the code?" },
 { who: $ethan, text: "The code is a disaster, thanks for asking. How's everything that isn't code?" },
-{ text: "Hand on the arm. I put my hand on his arm. It's the arm with the coffee." },
+{ text: "Hand on the arm, I think, so I put my hand on his arm, and of course it's the arm with the coffee." },
 { who: $ethan, text: "Whoa, okay, I've got it, I've got it. Mostly." },
 { text: "Mostly is a brown splash on his shirt in roughly the shape of Florida. I've got a tissue out of my sleeve and I'm dabbing at it before my brain has caught up with my hands." },
 { who: $mom, text: "Oh, honey, I'm so sorry. Hold still. If you get cold water on it right away, it comes out, I promise, it's only the milk that sets." },
-{ who: $ethan, text: "Did you just pull a tissue out of your sleeve? My grandma does that. That's a grandma move." },
+{ who: $ethan, text: "Did you just pull a tissue out of your sleeve? My grandma does that. I'm pretty sure she keeps a whole supply up there for emergencies." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He's laughing, at least. Not at the thing I meant him to laugh at, but laughing is laughing. I tell myself that all the way to the next desk.
+He's laughing, at least, even if it isn't at anything I meant to be funny, and laughing is laughing. I tell myself that all the way to the next desk.
 
 $darius.name is harder. He sits so straight, and his shirts always look like someone ironed them for money. Look them in the eye, $player.name said. So I stand next to his desk and look at him, and I keep looking, and I count in my head the way you count between lightning and thunder. At four he rolls his chair back about an inch.
 
 <<silently>>
 <<set _msgs = [
-{ who: $darius, text: "Is something wrong with my screen?" },
-{ who: $mom, text: "No! No. Your screen is lovely." },
-{ who: $darius, text: "...Thank you. I'll pass that on to the manufacturer." },
+{ who: $darius, text: "Is there something on my screen I ought to be worried about?" },
+{ who: $mom, text: "No! No, your screen is lovely." },
+{ who: $darius, text: "Thank you. I'll be sure to pass that along to the manufacturer." },
 { text: "I laugh, because I'm supposed to laugh. It comes out an octave too high, and he nods slowly, the way he nods at a number in a spreadsheet that he plans to come back to later." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I never even make it to $brian.name. He sees me coming from across the room, stands up for no reason at all, says something to his monitor and leaves for the kitchen at a speed that's very nearly a jog. On his way through the doorway he apologizes to the frame.
+I never even make it to $brian.name. He sees me coming from across the room, stands up for no reason at all, says something to his monitor and leaves for the kitchen at a speed that's very nearly a jog, and he stays in there until I'm safely back at my own desk.
 
-So I go back to my own desk and sit down and straighten my keyboard, which was already straight, and wait for my face to cool off.
+So I sit down and straighten my keyboard, which was already straight, and wait for my face to cool off.
 
-When I look over, $player.name is watching me from his desk. He doesn't smile. He just gives me one small nod, the kind his teachers used to give him at recitals when he'd played every single note wrong and finished anyway.
+When I look over, $player.name is watching me from his desk. He doesn't smile, he only gives me one small nod, the kind I used to give him at his piano recitals when he'd played every note wrong and finished anyway.
 
-I decide the nod means I did fine. I didn't do fine. But I decide it.
+I decide that the nod means I did fine, which I didn't, but I'm deciding it anyway.
 
 On my way to the copier I catch myself checking whether $brian.name has eaten anything today, and I have to make myself keep walking.
 

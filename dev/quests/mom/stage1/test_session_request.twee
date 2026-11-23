@@ -2,7 +2,7 @@
 <<silent>><<SetBackground $locations[15].img>><</silent>>
 By half past six the office is down to the two of us, plus a vacuum cleaner droning away somewhere on the floor below, which $landlord.callName insists on calling 'the cleaning service'.
 
-I asked $mom.callName to stay after the others left, and she said yes before I'd finished the sentence. She's been like that since our talk in her room. She even beat me to the meeting room. She's sitting at the far end of the table with a fresh legal pad, two pens in case one of them dies on her, and a glass of water she hasn't touched. Her reading glasses are pushed up into her hair, which means she's expecting paperwork.
+I asked $mom.callName to stay after the others left, and she said yes before I'd finished the sentence. She's been like that since our talk in her room. She even beat me to the meeting room, and she's sitting at the far end of the table with a fresh legal pad, two pens in case one of them dies on her, and a glass of water she hasn't touched. Her reading glasses are pushed up into her hair, which means she's expecting paperwork.
 
 I put the demo unit down in front of her. It's a matte white box about the size of a hardcover book, with one blue light on top that $brian.name added because, in his words, people like a light. It's the official build, the gentle one we're going to sell. Right now it's also switched off. The one that matters is in my laptop bag under the table, and her profile has been loaded on my phone since lunch.
 
@@ -12,16 +12,16 @@ I put the demo unit down in front of her. It's a matte white box about the size 
 { who: $mom, text: "Is this about the evenings? Because I've already started a list. The supply closet alone, sweetie, you would not believe what's in there..." },
 { who: $player, text: "It's not about the supply closet." },
 { who: $mom, text: "It's a little bit about the supply closet." },
-{ who: $player, text: "It's about this." },
+{ who: $player, text: "Okay, it's a little bit about the supply closet. But mostly it's about this." },
 { text: "I tap the top of the box. She looks at it the way she'd look at a casserole somebody brought to a funeral, politely and without any idea what's inside." },
-{ who: $player, text: "We're going to put the official version on the market soon. Before we do, I need test data. Real sessions with a real person, every week, written down properly." },
+{ who: $player, text: "We're going to put the official version on the market soon, and before we do, I need test data. Real sessions with a real person, every week, written down properly." },
 { who: $mom, text: "Well, can't you test it on the boys? You're all in the same room all day." },
-{ who: $player, text: "That's the problem. $brian.name built it. $ethan.name wrote half the code. $darius.name has a spreadsheet of how it's supposed to make you feel before it's even switched on. They all know what it should do, so that's exactly what they feel." },
+{ who: $player, text: "That's the problem. $brian.name built it, $ethan.name wrote half the code, and $darius.name had a spreadsheet of how it's supposed to make you feel before it was even switched on. They all know what it should do, so that's what they feel." },
 { who: $player, text: "$brian.name rated every session a seven. Every single one. I'm not sure he was awake for the last two." },
 { who: $mom, text: "Oh, he was asleep, honey. I walked past. He was holding a cable like a teddy bear." },
-{ who: $player, text: "You're different. You don't know how it works." },
-{ who: $mom, text: "I really don't. I thought the light was the important part." },
-{ who: $player, text: "Which is why you're perfect for it. You'd just tell me how you feel, without trying to get it right." },
+{ who: $player, text: "You're different, though. No offense, but you have no idea how it works." },
+{ who: $mom, text: "None taken, I really don't. I thought the light was the important part." },
+{ who: $player, text: "Which is why you'd be perfect. You'd just tell me how you feel, without trying to get it right." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -31,7 +31,7 @@ She turns her water glass a quarter turn on the table, then another quarter turn
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Is it safe? It's not going to... I don't know. Read my thoughts?" },
-{ who: $player, text: "It doesn't read thoughts. It reads the room. Your pulse, how you're sitting, how often you blink. Then it nudges things a little. A bit calmer, a bit more focused. That's the whole trick." },
+{ who: $player, text: "No, nothing like that. It picks up things like your pulse and how you're sitting and how often you blink, and then it nudges you a little, a bit calmer or a bit more focused. It's honestly less exciting than it sounds." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -41,10 +41,10 @@ Which is true, as far as it goes. I just leave out the part where 'a little' mea
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "And you'd be there the whole time?" },
-{ who: $player, text: "Every time. The two of us, a questionnaire, an hour in the evening. You'd be doing the company a real favor." },
+{ who: $player, text: "Every time. It'd be the two of us and a questionnaire, an hour in the evening, and you'd be doing the company a huge favor." },
 { who: $mom, text: "A favor..." },
 { text: "She picks up one of the pens, clicks it, and puts it down again." },
-{ who: $mom, text: "Well. I did say I wanted to do more. I can't very well go on about the baseboards and then say no to the first thing you ask me, can I?" },
+{ who: $mom, text: "Well, I did say I wanted to do more. I can't very well go on about the baseboards and then say no to the first thing you ask me, can I?" },
 { who: $mom, text: "All right, sweetheart. Yes. Of course, yes. When do we start?" },
 { who: $player, text: "Now, if you've got an hour." },
 { who: $mom, text: "I've got nothing but hours. That was the whole complaint." },
@@ -62,7 +62,7 @@ Under the table, I put my phone on my knee and wake up the real thing. <<UseQues
 { who: $player, text: "First question. On a scale from one to ten, how calm do you feel right now?" },
 { who: $mom, text: "Oh. Um... a six? I had three coffees today. Four, if you count the one I didn't finish." },
 { text: "I write down six. With my other thumb I slide calm up two notches." },
-{ who: $player, text: "How focused?" },
+{ who: $player, text: "And how focused?" },
 { who: $mom, text: "Seven. No, six. Is it bad that I keep changing my answer?" },
 { who: $player, text: "That's what the pen is for." },
 ]>>
@@ -73,11 +73,11 @@ $darius.name wrote the questionnaire. It's twelve questions long and has a littl
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Calm?" },
-{ who: $mom, text: "Eight." },
+{ who: $player, text: "Calm, one to ten?" },
+{ who: $mom, text: "Eight, I think." },
 { text: "She hears herself say it and blinks." },
-{ who: $mom, text: "Huh. Eight. Is that the box?" },
-{ who: $player, text: "Could be the box. Could be the coffee wearing off. That's why we test." },
+{ who: $mom, text: "Huh. That's two more than before. Is that the box doing that, or am I just making things up now?" },
+{ who: $player, text: "Could be the box, could be the coffee wearing off. That's kind of why we're doing this." },
 { who: $mom, text: "That's very scientific of you, honey." },
 ]>>
 <</silently>>
@@ -88,13 +88,13 @@ Question nine is about physical comfort. $darius.name put it in because he says 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Comfortable. Warm. It's warm in here, isn't it? Did somebody turn up the heating?" },
+{ who: $mom, text: "Comfortable, I'd say. And warm. Is it warm in here, or is that me? Did somebody turn the heating up?" },
 { who: $player, text: "It's the same as always." },
 { text: "She takes her reading glasses out of her hair and folds them on the legal pad, then undoes the top button of her blouse with two fingers, without really looking at what she's doing." },
-{ who: $player, text: "When was the last time you felt really relaxed? Not tired. Relaxed." },
+{ who: $player, text: "When was the last time you felt really relaxed? Not tired, relaxed." },
 { who: $mom, text: "Relaxed..." },
 { text: "She gives it real thought. She's taking the questionnaire much more seriously than $brian.name ever did." },
-{ who: $mom, text: "Before your $dad.relation left, maybe? No. Not then either, if I'm honest. Some Sunday, a long time ago. I don't even know which one." },
+{ who: $mom, text: "Before your $dad.relation left, maybe? No, not then either, if I'm honest. Some Sunday, a long time ago, and I don't even know which one." },
 { who: $mom, text: "Sorry, sweetie. That's not a number, is it?" },
 { who: $player, text: "It's a better answer than a number." },
 ]>>
@@ -105,13 +105,13 @@ The last question is mine. It's not on the sheet; I wrote it underneath in penci
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Last one. One to ten. How attractive do you feel right now?" },
+{ who: $player, text: "Last one. One to ten, how attractive do you feel right now?" },
 { who: $mom, text: "Honey! That's not a real question." },
 { who: $player, text: "It's on the sheet." },
 { text: "She leans over to look. I tilt the clipboard toward her, just enough for her to see the handwriting but not enough for her to see that it's mine." },
-{ who: $mom, text: "Well, that's... Who even thinks of a question like that? That's $darius.name, isn't it. He's a very strange young man." },
+{ who: $mom, text: "Well, that's... who even thinks of a question like that? That's $darius.name, isn't it. He's a very strange young man, and I say that with love." },
 { text: "She laughs, and then she stops laughing, and looks at the blue light for a while." },
-{ who: $mom, text: "...Seven." },
+{ who: $mom, text: "Seven." },
 { text: "She says it quietly, to the box rather than to me, and then she drinks half her water in one go." },
 ]>>
 <</silently>>
@@ -125,7 +125,7 @@ I switch the box off, and under the table I let everything else drift back down 
 { who: $mom, text: "That was... nice? Is it supposed to be nice?" },
 { who: $player, text: "That's what we're testing." },
 { who: $mom, text: "Well, then I think it works. You can tell $brian.name I said so." },
-{ who: $player, text: "I'll put more sessions in the schedule. Evenings, after everyone's gone. It's better if nobody walks in in the middle." },
+{ who: $player, text: "I'll put more sessions in the schedule. Evenings, after everyone's gone, because it's better if nobody walks in in the middle." },
 { who: $mom, text: "Of course. I know, I know. Whenever you put me in the schedule." },
 ]>>
 <</silently>>

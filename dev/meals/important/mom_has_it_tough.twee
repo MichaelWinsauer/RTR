@@ -20,7 +20,7 @@
    Activated by: "Mom Has It Tough" (mom_hasItTough). The morning after the wine on the couch,
    when she told me about her boss and agreed to let me bring the prototype to her work.
 */
-Breakfast is quieter than usual. $mom.callName is wearing her sunglasses. Indoors. At the kitchen table.
+Breakfast is quieter than usual. $mom.callName is wearing her sunglasses, indoors, at the kitchen table.
 
 /* IMAGE: images/meals/important/mom_has_it_tough.jpg | Mom at the breakfast table in work clothes and sunglasses, both hands around a huge mug of coffee. Sister looking at her with open amusement. An empty wine bottle visible in the recycling bin by the door. */
 
@@ -28,16 +28,16 @@ Nobody comments on it for almost a full minute, which in this family is some kin
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Are we expecting paparazzi?" },
-{ who: $mom, text: "The sun is very bright this morning." },
+{ who: $sister, text: "Are we expecting paparazzi this morning, or is this a new look?" },
+{ who: $mom, text: "The sun is very bright today, $sister.callName." },
 { who: $sister, text: "It's cloudy." },
-{ who: $mom, text: "It's very bright behind the clouds, $sister.callName." },
+{ who: $mom, text: "Well, it's very bright behind the clouds." },
 { text: "$sister.callName looks over at the recycling bin by the back door, where a single wine bottle is sitting on top of the cereal boxes like a trophy. She opens her mouth. I shake my head at her, just slightly, and for once she closes it again." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$mom.callName drinks her coffee in long, careful sips and eats half a piece of toast. She's dressed for work already, blouse ironed, hair pinned up, everything exactly where it's supposed to be. If you didn't know about last night, you'd think she was fine. That's the whole trick with her. She's been doing it for years.
+$mom.callName drinks her coffee in long, careful sips and eats half a piece of toast. She's already dressed for work, blouse ironed, hair pinned up, everything exactly where it's supposed to be. If you didn't know about last night, you'd think she was fine, and that's always been the trick with her.
 
 When $sister.callName goes upstairs to get her bag, $mom.callName finally pushes the sunglasses up into her hair. Her eyes are still a little puffy.
 
@@ -45,15 +45,15 @@ When $sister.callName goes upstairs to get her bag, $mom.callName finally pushes
 <<set _msgs = [
 { who: $mom, text: "About last night... I'm sorry you had to see me like that, honey. I don't usually..." },
 { who: $player, text: "You don't have to apologize. You had a terrible day." },
-{ who: $mom, text: "I had a terrible month. But still. I'm the grown-up here, I'm supposed to be the one holding it together." },
-{ who: $player, text: "You still want me to come by your work? With the prototype?" },
-{ text: "She hesitates. I watch her think about her boss's office door, and whatever is waiting behind it today." },
-{ who: $mom, text: "...Yes. If you have time. Maybe just once, to see if it helps." },
-{ who: $player, text: "I'll make time." },
+{ who: $mom, text: "I've had a terrible month, honestly. But still, I'm the grown-up here, I'm supposed to be the one holding it together, not you pouring me wine at eleven at night." },
+{ who: $player, text: "Do you still want me to come by your work? With the prototype, I mean. It's fine if you changed your mind." },
+{ text: "She hesitates, and I can almost watch her think about his office door and whatever is waiting behind it today." },
+{ who: $mom, text: "Yes. I think so, if you have the time. Just once, to see if it helps... and bring a sweater, they keep that floor like a meat locker." },
+{ who: $player, text: "I'll make time. And I'll bring a sweater." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She puts the sunglasses back on, kisses the top of my head on her way out, and tells me there's leftover lasagna in the fridge. The front door closes. Her coffee cup is still on the table, a lipstick mark on the rim, almost full. She couldn't finish it.
+She puts the sunglasses back on, kisses the top of my head on her way out, and tells me there's leftover lasagna in the fridge. The front door closes. Her coffee cup is still on the table with a lipstick mark on the rim, almost full.
 
 <<UpdateStat "+" "MomRelation" 2>>

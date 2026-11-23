@@ -15,13 +15,13 @@ Before she comes, I take my phone out of my pocket, look at her profile one last
 <<if _csSisterHome>>$sister.callName's music comes through the wall, something with a lot of bass and not much else. <</if>>At a quarter past ten there's a knock, two knuckles, soft, the way she used to knock when she thought I was already asleep.
 
 <<linkreplace "Let her in">>
-She's still in her office clothes. No, that's not right. She's back in her office clothes: the blouse and the gray skirt, fresh ones, and her hair pinned up again. Somewhere between dinner and now she went upstairs and got dressed for work, because to her that's what this is. She has the clipboard and both pens.
+She's still in her office clothes. No, that's not right: she's back in her office clothes, the blouse and the gray skirt, fresh ones, and her hair pinned up again. Somewhere between dinner and now she went upstairs and got dressed for work, because to her that's what this is. She has the clipboard and both pens.
 
-She stops two steps inside the door and takes in the room. The laundry on the chair, the three mugs on the windowsill, the bed I haven't made since the weekend.
+She stops two steps inside the door and takes in the room, the laundry on the chair, the three mugs on the windowsill, the bed I haven't made since the weekend.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Sweetheart. Those mugs have been there since Thursday. I counted." },
+{ who: $mom, text: "Sweetheart, those mugs have been there since Thursday. I counted." },
 { who: $player, text: "They're part of the baseline." },
 { who: $mom, text: "They're part of a science experiment, is what they are." },
 { text: "She moves the laundry from the chair to the bed, folds two shirts while she's at it because she can't not, and then looks around for something else." },
@@ -29,9 +29,9 @@ She stops two steps inside the door and takes in the room. The laundry on the ch
 { who: $player, text: "At the office. No box tonight." },
 { who: $mom, text: "Oh. So I just... answer the questions? With nothing on?" },
 { text: "She hears it a second after she's said it and goes pink to the ears." },
-{ who: $mom, text: "Switched on. With nothing switched on. You know what I meant." },
-{ who: $player, text: "With nothing switched on. That's the whole point. I need to know what you're like without it." },
-{ who: $mom, text: "Well, that's easy. I'm boring. You can write that down right now and save us both the hour." },
+{ who: $mom, text: "Switched on! With nothing switched on, you know what I meant, don't you dare laugh." },
+{ who: $player, text: "With nothing switched on, yes. That's the whole point. I need to know what you're like without it." },
+{ who: $mom, text: "Well, that's easy, I'm boring. You can write that down right now and save us both the hour." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -45,13 +45,13 @@ I go through $darius.name's questions in order. Without the box she's quick and 
 <<set _msgs = [
 { who: $player, text: "Calm, one to ten." },
 { who: $mom, text: "Five? Your room makes me want to vacuum. Is that a number?" },
-{ who: $player, text: "Focus?" },
-{ who: $mom, text: "Six. Seven. Six." },
+{ who: $player, text: "Close enough. And focus?" },
+{ who: $mom, text: "Six, I suppose. Ask me again when I'm not staring at your socks." },
 { text: "Same as always. Her focus has never cared much about the box." },
 { who: $player, text: "How attractive do you feel right now?" },
 { who: $mom, text: "Honey. Here? In my work blouse, in your room, with your socks on the floor?" },
 { who: $player, text: "One to ten." },
-{ who: $mom, text: "...Five. And that's generous. Five." },
+{ who: $mom, text: "Five, and that's me being generous with myself." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -61,11 +61,12 @@ Five. In the meeting room she hasn't said anything under seven for weeks.
 <<linkreplace "Ask her">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "In every session, around question nine, you take your blouse off." },
+{ who: $player, text: "In every session, somewhere around question nine, you take your blouse off." },
 { text: "Her hands go still on the clipboard." },
 { who: $mom, text: "That's... sweetie, it gets warm in there. You know it does. The heating in that building is a disgrace, I've said so to $landlord.callName twice." },
 { who: $player, text: "It's not warm in here." },
-{ who: $mom, text: "No. No, it isn't." },
+{ who: $mom, text: "No. No, it isn't. You should really keep a sweater in here, honey, you'll catch your death one of these..." },
+{ text: "She hears where she's going with that and stops." },
 { who: $player, text: "So I need to know whether that's the box or whether that's you. Stand up and take your clothes off." },
 ]>>
 <</silently>>
@@ -76,9 +77,9 @@ She laughs. It's a short, bright laugh, the one she does at dinner when $sister.
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Honey, I can't... I'm your $mom.relation. You can't ask your $mom.relation to..." },
-{ who: $player, text: "I'm not asking my $mom.relation. I'm asking my test subject. The same one who's been doing it twice a week without anybody asking." },
-{ who: $mom, text: "That's not the same. That was... I didn't even notice half the time." },
-{ who: $player, text: "That's exactly why I need to see it when you do notice." },
+{ who: $player, text: "Tonight you're my test subject. The same one who's been doing it twice a week without anybody asking her to." },
+{ who: $mom, text: "That's not the same thing at all, and you know it. In there it just sort of happens, I don't even notice half the time, it's like taking your earrings off in the car without thinking about it." },
+{ who: $player, text: "Which is why I need to see what happens when you do notice." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -90,9 +91,8 @@ She laughs. It's a short, bright laugh, the one she does at dinner when $sister.
 <<set _msgs = [
 { who: $player, text: "You said you wanted to do more for the company." },
 { who: $mom, text: "I did say that. I know I did." },
-{ text: "She says it to her knees. Then, more quietly, to nobody." },
-{ who: $mom, text: "It's for the test." },
-{ who: $mom, text: "And it's only... I mean, you've seen me at the pool. It's not so different from the pool, is it? It's just the pool without the pool." },
+{ text: "She says it to her knees. Then, more quietly, to nobody in particular, she starts talking herself through it." },
+{ who: $mom, text: "It's for the test. And it's only... I mean, you've seen me at the pool. It's not so different from the pool, is it? It's just the pool without the pool." },
 { who: $player, text: "It's just the pool without the pool." },
 { who: $mom, text: "Don't repeat me, honey, it makes it worse." },
 ]>>
@@ -101,14 +101,14 @@ She laughs. It's a short, bright laugh, the one she does at dinner when $sister.
 
 She stands up. She puts the clipboard on the bed, face down, and lays her hand flat on it for a second, the way she did with the body map, before she straightens up.
 
-The buttons take her a long time. In the meeting room she undoes that blouse in one smooth go without looking; here her fingers keep slipping, and twice she stops halfway and just stands there holding the edges together. When it's finally off she folds it, of course she does, and puts it on the bed next to the laundry. The skirt has a zip at the back. She has to reach for it twice. It slides down, and she steps out of it, and picks it up, and folds that too.
+The buttons take her a long time. In the meeting room she undoes that blouse in one smooth go without looking; here her fingers keep slipping, and twice she stops halfway and just stands there holding the edges together. When it's finally off she folds it, of course she does, and puts it on the bed next to the laundry. The skirt has a zip at the back, and she has to reach for it twice. It slides down, and she steps out of it, and picks it up, and folds that too.
 
 Then she's standing on my rug in a white bra and white panties, with her arms crossed over her stomach, looking at a spot on the wall about a foot to the left of my head.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "There. Happy? Write down... whatever you write down." },
-{ who: $player, text: "And the rest." },
+{ who: $mom, text: "There. Happy? Write down whatever it is you write down, and don't you dare look at my stomach, I had seconds of the lasagna tonight." },
+{ who: $player, text: "I said your clothes, $mom.callName. That means the rest too." },
 { text: "That one takes longer. Long enough that I can hear the clock in the hallway, and the fridge downstairs, and my own pen tapping against the edge of the clipboard, which I make myself stop." },
 ]>>
 <</silently>>
@@ -120,28 +120,28 @@ Her hands go to the waistband of her panties, and stay there.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Not these. Please, sweetie. Not these." },
-{ who: $player, text: "Those too." },
+{ who: $mom, text: "Not these, sweetie, please. You can see everything else, and I'll answer every question twice if you want me to, just let me keep these." },
+{ who: $player, text: "Those too. You knew that when you stood up." },
 { who: $mom, text: "Honey, I'm asking you..." },
-{ who: $player, text: "And I'm waiting." },
+{ who: $player, text: "I know you are. I'll wait." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I don't say anything else. I don't have to. I sit there with the pen over the sheet, the same way I sit in the meeting room while she makes up her mind about question four, and I let the quiet do the rest.
+After that I don't say anything else. I sit there with the pen over the sheet, the same way I sit in the meeting room while she makes up her mind about question four, and I let the quiet do the rest.
 
 It takes her a while. Then her thumbs hook under the waistband. She pushes them down in one go, fast, the way you'd pull off a bandage, and steps out of them, and for once in her life she doesn't fold anything. She just holds them balled up in her fist.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Put them with the others. Then sit down." },
+{ who: $player, text: "Put them with the rest of your things and sit back down." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 She lays them on top of the folded blouse, very carefully, like that makes it neater, and sits back down on the edge of my bed.
 
-She doesn't know how to sit. I watch her try every way there is. Knees together, then crossed, then together again. She puts her hands in her lap, takes them out of her lap, and finally plants them flat on the mattress on either side of her, which leaves nothing covered at all, and she realizes that a second too late and doesn't move them back, because moving them back would mean admitting it. She shifts her weight, and the bed creaks, and she freezes at the sound as if somebody downstairs might have heard it. Then she reaches over and straightens the stack of her clothes, which is already straight.
+She doesn't know how to sit. I watch her try every way there is. Knees together, then crossed, then together again. She puts her hands in her lap, takes them out of her lap, and finally plants them flat on the mattress on either side of her, which leaves nothing covered at all. By the time she realizes it, moving them back would mean admitting it, so she leaves them where they are. She shifts her weight, and the bed creaks, and she freezes at the sound as if somebody downstairs might have heard it. Then she reaches over and straightens the stack of her clothes, which is already straight.
 
 <<linkreplace "Finish the sheet">>
 I go back to the top of the page and read the questions again, in the same voice as always, and she answers them sitting naked on the edge of my bed, her knees pressed so tightly together that her calves have started to shake a little.
@@ -149,18 +149,18 @@ I go back to the top of the page and read the questions again, in the same voice
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Calm?" },
-{ who: $mom, text: "Calm? Honey, I'm sitting on your bed with... Three. Put three." },
-{ who: $player, text: "Physical comfort." },
+{ who: $mom, text: "Calm? Honey, I'm sitting on your bed with... three. Put three." },
+{ who: $player, text: "Physical comfort?" },
 { text: "The room is cool. I keep it that way. Her body doesn't seem to have heard about it: there's a flush climbing her chest, and her nipples have gone tight and dark, and she knows I can see that, and she can't do a thing about it." },
-{ who: $mom, text: "It's cold. I'm cold. Write down cold." },
+{ who: $mom, text: "Cold. It's freezing in here, sweetie, write down that I'm cold." },
 { who: $player, text: "And how attractive do you feel?" },
 { text: "She opens her mouth to say five. I watch her decide not to." },
-{ who: $mom, text: "...Seven." },
+{ who: $mom, text: "Seven." },
 { text: "She looks at me for the first time since the blouse came off." },
 { text: "Her eyes don't stay on my face. They drop, the way eyes do when they're trying hard not to, and land in my lap, where the clipboard on my knee isn't covering nearly as much as I'd like it to." },
 { text: "She sees it. I watch her see it. Her breath stops halfway in, and a new wave of red climbs from her chest all the way up to her hairline, and she looks back at the spot on the wall so fast that her hair swings." },
-{ text: "I don't move the clipboard. I don't shift in the chair either." },
-{ who: $mom, text: "Nine. I don't know why. Nine." },
+{ text: "I don't move the clipboard, and I don't shift in the chair either." },
+{ who: $mom, text: "Nine. I don't... I have no idea why, honey, just put nine." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -174,13 +174,12 @@ I tell her that's all, and she's dressed again before I've capped the pen. Panti
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Was that... did I do all right?" },
-{ who: $player, text: "You gave me exactly what I needed." },
-{ who: $mom, text: "Good. That's good." },
+{ who: $mom, text: "Is that enough for $darius.name's grid? Please tell me that's enough, sweetie." },
+{ who: $player, text: "It's enough. That's the whole column, right there." },
 { text: "She picks up her clipboard and holds it against her chest, both arms, like she wants to be wearing it." },
 { who: $mom, text: "Is that going in the folder?" },
 { who: $player, text: "It's one row. Nobody looks at one row." },
-{ who: $mom, text: "Okay. Okay." },
+{ who: $mom, text: "Well, good, because I don't want $darius.name reading it over his lunch. He eats at his desk, you know, every single day, it can't be good for his digestion..." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

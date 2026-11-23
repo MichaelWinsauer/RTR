@@ -3,20 +3,20 @@
 <<silently>>
 <<set _calls to [
 	[
-		{ who: $sister, text: "No, I can't do Thursday, I have the lab report. Okay, Friday? Fine. Bring snacks." },
-		{ who: $sister, text: "And please read the chapter this time." }
+		{ who: $sister, text: "No, Thursday's no good, I have that lab report. Friday works, though, and you're bringing the snacks this time." },
+		{ who: $sister, text: "And actually read the chapter before you come, please. I'm not summarizing it for you again." }
 	],
 	[
-		{ who: $sister, text: "Saturday? Whose place? Okay, I'll text you when I'm ready." },
-		{ who: $sister, text: "Not before ten, I'm not a kid." }
+		{ who: $sister, text: "Saturday at whose place? ...Okay, fine, I'll text you when I'm ready." },
+		{ who: $sister, text: "And I'm not showing up before ten. Nobody shows up before ten." }
 	],
 	[
-		{ who: $sister, text: "No way. He did not. That is so awkward, I can't even." },
-		{ who: $sister, text: "Okay, tell me everything. From the start." }
+		{ who: $sister, text: "No way, he did not. That's so awkward, I would have died right there on the spot." },
+		{ who: $sister, text: "Okay, start from the beginning and don't leave anything out." }
 	],
 	[
-		{ who: $sister, text: "No, stop. I'm not telling you who. Because you'll tell everyone." },
-		{ who: $sister, text: "Okay, maybe I like someone. Maybe." }
+		{ who: $sister, text: "No, stop, I'm not telling you who, because you'd tell everyone by lunch." },
+		{ who: $sister, text: "Fine, maybe I like someone. Maybe. That's all you're getting." }
 	]
 ]>>
 <<set _call to _calls.random()>>
@@ -30,9 +30,9 @@
 					<p>She catches my reflection in the dark TV screen and spins around.</p>
 					<<silently>>
 					<<set _msgs to [
-						{ who: $sister, text: "Excuse me? Private call!" },
+						{ who: $sister, text: "Excuse me, this is a private call!" },
 						{ who: $player, text: "I was just getting a glass of water." },
-						{ who: $sister, text: "In the living room? Nice try, weirdo." }
+						{ who: $sister, text: "From the living room? Nice try." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -53,7 +53,7 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Tell your friend I said hi!" },
-					{ who: $sister, text: "He says hi. Now get out!" }
+					{ who: $sister, text: "My little $sister.callPlayerShort says hi. Now get out!" }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

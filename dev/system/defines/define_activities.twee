@@ -531,7 +531,7 @@
             ],
             cctv: [],
         },
-        /* task Extra Friendly (task_sister_be_nice_to_brian), stage 0: coffee and ten minutes of capacitors */
+        /* task Extra Friendly (task_sister_be_nice_to_brian), stage 0: coffee and a lot of quiet company */
         extra_friendly0: {
             id: "extra_friendly0",
             base: "extra_friendly",

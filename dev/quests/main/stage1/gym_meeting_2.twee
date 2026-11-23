@@ -7,8 +7,8 @@ By three, $ethan.name has dragged a whiteboard over to his desk and covered it i
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Okay. So. The problem with routers is that they are, as a species, ugly. Look at this one. Look at the antennas. It looks like a dead bug." },
-{ who: $player, text: "We don't need antennas." },
+{ who: $ethan, text: "Okay, so the problem with routers is that they are, as a species, ugly. Look at this one, look at the antennas, it looks like a dead bug." },
+{ who: $player, text: "Do we even need antennas? It's not actually a router." },
 { who: $ethan, text: "We need antennas. Fake ones. A router without antennas is just a box, and a box makes people ask questions. Antennas say, 'I am boring, I make the internet happen, please ignore me'." },
 ]>>
 <</silently>>
@@ -21,14 +21,14 @@ Then we spend another hour on the color.
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "White. Everything in a ceiling is white. White is invisible." },
-{ who: $player, text: "White gets yellow. Have you seen a gym ceiling? It's sweat and protein powder all the way down." },
-{ who: $ethan, text: "Then off-white. Eggshell." },
+{ who: $ethan, text: "White. Everything in a ceiling is white, white is basically invisible." },
+{ who: $player, text: "White goes yellow, though. Have you ever looked at a gym ceiling? It's sweat and protein powder all the way down." },
+{ who: $ethan, text: "Fine, then off-white. Eggshell." },
 { who: $player, text: "Eggshell is just white that gave up." },
-{ who: $ethan, text: "Okay, what do you want? Black? You want a black box in the ceiling of a gym? That's a camera, man. That's literally what a camera looks like." },
-{ who: $player, text: "Gray." },
-{ who: $ethan, text: "Gray is the color of a man who's given up." },
-{ who: $player, text: "Gray is the color of a router." },
+{ who: $ethan, text: "Okay, so what do you want, black? You want a black box hanging in the ceiling of a gym? That's a camera, man, that's literally what a camera looks like." },
+{ who: $player, text: "I was thinking gray." },
+{ who: $ethan, text: "Gray. Wow. Gray is what you paint an apartment when you've stopped having hope." },
+{ who: $player, text: "It's also what color most of the routers on your board are, if you take a look." },
 { text: "He opens his mouth, closes it, looks at the photos on the whiteboard, which are about seventy percent gray, and throws a marker at me." },
 ]>>
 <</silently>>
@@ -43,10 +43,10 @@ $brian.name comes over when I wave and stands behind us, looking at the board wi
 <<set _msgs = [
 { who: $brian, text: "It needs vents." },
 { who: $ethan, text: "It doesn't get hot. That's the whole point of the emitters, they barely draw anything." },
-{ who: $brian, text: "Real routers have vents. People know that. Even if they don't know they know. If it doesn't have vents, it looks... wrong. Like a fake." },
+{ who: $brian, text: "Real routers have vents. People know that, even if they don't know they know it. Without vents it looks, hm... wrong. Fake." },
 { text: "There's a pause while $ethan.name and I both look at the drawing and slowly realize he's right." },
-{ who: $ethan, text: "Fake vents. On the fake router. With the fake antennas." },
-{ who: $brian, text: "Uh. Yes. Also, the light should blink. Not all the time. Every few seconds. Real ones blink when they're doing nothing. It's, uh, comforting." },
+{ who: $ethan, text: "So, fake vents on the fake router, next to the fake antennas." },
+{ who: $brian, text: "Um, yes. And the light should blink every few seconds, not all the time. Real ones blink when they're doing nothing. It's kind of comforting." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -56,15 +56,15 @@ He takes the marker off the floor, draws a row of thin slits along the side of t
 <<linkreplace "Send it off">>
 By six it's a render on $ethan.name's screen: a gray box, two stubby antennas, a row of vents that do nothing, a little green light that blinks every four seconds for no reason at all. It's the most boring object I have ever seen. If I hung it over my own bed I'd never look at it again.
 
-Inside it, the same eight emitters, the same field, the same profile called <i>FINAL_final_actually_final</i>.
+Inside it are the same eight emitters and the same profile, still called <i>FINAL_final_actually_final</i>.
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "I hate it. It's perfect. I hate that it's perfect." },
-{ who: $player, text: "Send it to $gymOwner.name." },
+{ who: $ethan, text: "God, I hate how good this is." },
+{ who: $player, text: "Okay, send it to $gymOwner.name before we start changing it again." },
 { who: $ethan, text: "Done. Want to bet on how many exclamation points he uses?" },
 { text: "The answer comes back in under four minutes. $ethan.name reads it out loud in his best gym voice." },
-{ who: $ethan, text: "'LOVE IT. Looks like nothing!!! Exactly what we need. Let's do dinner, my assistant will send dates.' Three. Three exclamation points, and he put them all in the middle." },
+{ who: $ethan, text: "'LOVE IT. Looks like nothing!!! Exactly what we need. Let's do dinner, my assistant will send dates.' That's three exclamation points, and he put all of them in the middle." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

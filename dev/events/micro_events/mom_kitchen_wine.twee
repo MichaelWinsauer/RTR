@@ -6,7 +6,7 @@
 <p>I step into the kitchen. $mom.callName is at the table with a glass of red wine, shoes off, looking tired but a little more relaxed than usual.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $mom, text: "Evening, sweetheart. Rough day. This is my little treat." }
+	{ who: $mom, text: "Hi, sweetheart. It was one of those days, so this is my little treat, and don't look at me like that, it's one glass." }
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -16,7 +16,7 @@
 			<<silently>>
 			<<set _msgs to [
 				{ who: $player, text: "How's work?" },
-				{ who: $mom, text: "A new deadline every week and a boss who never reads the emails he asks for. I do the work of two people. It's fine." }
+				{ who: $mom, text: "Oh, you know. A new deadline every week, and a boss who asks for an email and then never reads it, and I'm doing the work of about two people, but it's fine. Honestly, it's fine." }
 			]>>
 			<</silently>>
 			<<Chat _msgs>>
@@ -29,10 +29,10 @@
 			<<silently>>
 			<<set _msgs to [
 				{ who: $player, text: "Are we okay? With money, I mean." },
-				{ who: $mom, text: "We're okay. We're always okay. I just count more than I used to." }
+				{ who: $mom, text: "We're okay, honey, we're always okay. I just count a little more carefully than I used to, that's all." }
 			]>>
 			<<if $mom.flags.rentHelp>>
-				<<run _msgs.push({ who: $mom, text: "And the money for your office is my choice. Don't feel bad about it." })>>
+				<<run _msgs.push({ who: $mom, text: "And the money for your office was my choice, so don't you dare feel bad about it." })>>
 			<</if>>
 			<</silently>>
 			<<Chat _msgs>>
@@ -44,7 +44,7 @@
 			<<silently>>
 			<<set _msgs to [
 				{ who: $player, text: "Do you ever talk to $dad.callName?" },
-				{ who: $mom, text: "Your $dad.relation isn't something I want to talk about over wine. Maybe another day." }
+				{ who: $mom, text: "Oh, sweetie, your $dad.relation isn't something I want to talk about over a glass of wine. Maybe another day, okay?" }
 			]>>
 			<</silently>>
 			<<Chat _msgs>>
@@ -54,8 +54,8 @@
 		<<linkreplace "Ask how she's really doing">>
 			<<silently>>
 			<<set _msgs to [
-				{ who: $player, text: "How are you doing? Really." },
-				{ who: $mom, text: "Tired. But I'm glad you're home. Don't tell your $sister.relation I said that." }
+				{ who: $player, text: "But how are you actually doing?" },
+				{ who: $mom, text: "Tired, mostly. But I'm really glad you're home, you know that? Just don't tell your $sister.relation I said so, she'll think I have a favorite." }
 			]>>
 			<</silently>>
 			<<Chat _msgs>>
@@ -76,7 +76,7 @@
 						<<set _vx.lastUsedOnWho to "mom">>
 						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
 							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She puts her glass down and studies me. "You've been quiet and watchful lately," she says. "Is something going on?" The evening goes cold after that.</p>
+							<p>She puts her glass down and studies me. "You've been so quiet lately, honey, and you keep watching me like you're waiting for something," she says. "Is something going on?" I tell her I'm just tired, and she doesn't believe me, and she takes her glass upstairs.</p>
 							<<UpdateStat "-" "MomRelation" 3>>
 							<<UpdateStat "+" "MomResistance" 4>>
 						<<else>>

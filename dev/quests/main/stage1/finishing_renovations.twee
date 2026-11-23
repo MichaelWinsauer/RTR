@@ -4,7 +4,7 @@ The last screw is the worst one. It was stripped long before I got here, and I'm
 
 Behind the slats, wedged into the duct on two strips of foam and more zip ties than any real engineer would sign off on, sits the ugliest thing I've ever built. It's the guts of my old test rig, the first board that ever actually worked, wired to a coil much too big for the neat little case the portable $company.prototype.name lives in. It doesn't need charging, because it runs off the building's power, and it doesn't need to look good, because nobody is ever going to see it. When I click the last connector into place, three blue LEDs wake up behind the grille and settle into a slow, lazy pulse.
 
-The screw finally bites. I climb down, fold up the ladder and look at my handiwork from the middle of the room. It's a vent. A slightly dusty one, with something faintly blue behind it if you know where to look, and in my experience nobody in an office ever looks at the ceiling.
+The screw finally bites. I climb down, fold up the ladder and look at my handiwork from the middle of the room. It's a vent, a slightly dusty one with something faintly blue behind it if you know where to look, and in my experience nobody in an office ever looks at the ceiling.
 
 <<linkreplace "Walk through the main room">>
 A week ago this room was bare floorboards and a ticking radiator. Now there are five desks in two neat rows, each with a monitor, a wireless keyboard and a chair with actual lumbar support, which after assembling every single one of them myself I'm counting as a personal achievement. Two of those desks are for $mom.callName and $sister.callName. The other three don't belong to anybody yet.
@@ -28,7 +28,7 @@ Back at my desk by the window I finally sit down, and every muscle I used this w
 <<Mail $company.mails[1] "false">>
 <<Mail $company.mails[2] "false">>
 
-$boss.callName wants a $company.prototype.name of his own, brand new, in two to three weeks. And while we build it, he'd like $mom.callName on-site at his office as a consultant. He actually put that in writing, in a business mail, as if it were the most normal request in the world. I read that paragraph twice. He was always going to ask for her, and to be honest, I'd have been a little disappointed if he hadn't.
+$boss.callName wants a $company.prototype.name of his own, brand new, in two to three weeks. And while we build it, he'd like $mom.callName on-site at his office as a consultant. He actually put that in writing, in a business mail, as if it were the most normal request in the world. He was always going to ask for her, though, and to be honest, I'd have been a little disappointed if he hadn't.
 
 $manager.callName's mail is shorter. He expects $sister.callName at the diner this week, as agreed, and on top of that he wants a full analysis of his place, with the prototype running on-site to collect the data. This is the man who once made me scrub the grill a second time because he didn't like the way I scrubbed it the first time. Now he'd like my professional opinion on his business. I am going to enjoy writing that report.
 

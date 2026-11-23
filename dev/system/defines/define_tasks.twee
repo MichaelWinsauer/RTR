@@ -489,7 +489,7 @@
     	id: "task_sister_be_nice_to_brian",
     	who: $sister,
         title: "Extra Friendly",
-        description: "She spends some extra time at the desk of $brian.name: coffee, a shoulder rub, and ten minutes of capacitors. Lifts his <b class='accent'>morale</b>, the company <b class='accent'>Efficiency</b> a little, and her <b class='accent'>Exhibition</b>.",
+        description: "She spends some extra time at the desk of $brian.name: coffee, a shoulder rub, and a lot of quiet company. Lifts his <b class='accent'>morale</b>, the company <b class='accent'>Efficiency</b> a little, and her <b class='accent'>Exhibition</b>.",
         location: $locations[13], /*Stage 1 Office*/
         apCost: 2,
         active: false, /* activated by the quest Be Nice to Brian (sister_beNiceToBrian), switched off by The Anchor (main_anchor), which waits for 3 */

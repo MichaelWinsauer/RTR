@@ -7,13 +7,13 @@ Her room smells like vanilla body spray and the fruity vape she thinks nobody kn
 <<set _msgs to [
 { who: $sister, text: "If you're here for the charger again, I'm going to start charging rent." },
 { who: $player, text: "Mine's alive, thanks. I actually wanted to ask about the other day. The phone call." },
-{ who: $sister, text: "Ugh. You heard that? Great. Perfect. Look, it's nothing, it's school stuff. Don't worry about it." },
-{ who: $player, text: "$sister.callName. You don't have to do the whole 'I'm fine' routine with me. I know what drowning in a class feels like." },
+{ who: $sister, text: "Ugh, you heard that? Great. Look, it's nothing, it's school stuff, don't worry about it." },
+{ who: $player, text: "You don't have to do the whole 'I'm fine' thing with me, you know. I know what drowning in a class feels like." },
 { text: "She gives me a long sideways look, like she's deciding whether I'm worth the effort of a real answer." },
-{ who: $sister, text: "...Fine. It's calculus. I used to be good at math. Like, annoyingly good, I never even studied. Now I look at a problem and my brain just leaves the building. And the prof treats every question like a personal insult. I'm pretty sure he hates me." },
+{ who: $sister, text: "Fine. It's calculus. I used to be annoyingly good at math, I never even had to study, and now I look at a problem and my brain just leaves the building. And the professor treats every question like a personal insult. I'm fairly sure he hates me." },
 { who: $player, text: "I believe you. For most of high school I was convinced I was just dumb. Math, chemistry, all of it. Everybody else seemed to get it and I was faking my way through. It took me way too long to figure out that half my teachers couldn't explain anything." },
 { who: $sister, text: "Wait, you? You were the smart one. The weird smart one, but still." },
-{ who: $player, text: "I was the one who hid it well. I spent a lot of nights thinking something was wrong with me. Then I figured out how to actually focus, cleared my head, and it started to click. I wasn't dumb. I was stuck." },
+{ who: $player, text: "I was the one who hid it well. I spent a lot of nights thinking something was wrong with me. Then I figured out how to actually focus, and once my head was clear it started to click. Turns out I was just stuck." },
 { text: "She pulls the sleeves of her hoodie down over her hands and doesn't make a single joke. That alone tells me she's listening." },
 { who: $sister, text: "I keep telling myself it's him. And then I sit down to study and think, okay, but what if it's me?" },
 { who: $player, text: "It's not you. You've always been quick once something clicks. This is a block, that's all. And I might be able to help with that. Remember the demo? I could tune the prototype for focus instead of just calm, and we go through the material together." },
@@ -22,7 +22,7 @@ Her room smells like vanilla body spray and the fruity vape she thinks nobody kn
 { who: $sister, text: "My only $sister.playerRelation." },
 { who: $player, text: "Still counts." },
 { text: "She chews on her lip, then nods slowly, like she's agreeing to a dare." },
-{ who: $sister, text: "Okay. Fine. Let's try it. But if I still suck at this, you're not allowed to make that face." },
+{ who: $sister, text: "Fine, let's try it. But if I still suck at this, you're not allowed to make that face." },
 { who: $player, text: "What face?" },
 { who: $sister, text: "That one. Your 'I'm being very patient' face." },
 ]>>
@@ -38,9 +38,9 @@ We start with derivatives, the easy problems first, so she gets a few right befo
 { who: $sister, text: "Wait. Wait, that actually makes sense. Why does that make sense now?" },
 { who: $player, text: "Because you're not panicking. Do the next one." },
 { text: "She does the next one, and the one after that. Somewhere around the fifth problem she starts tapping her pen against her teeth, which she only does when she's enjoying herself." },
-{ who: $sister, text: "Okay, wow. I think I actually get this. Like, actually actually." },
-{ who: $player, text: "Told you." },
-{ who: $sister, text: "Don't be smug. ...Okay, you can be a little smug. Thanks, little $sister.callPlayerShort. Seriously." },
+{ who: $sister, text: "Okay. I think I actually get this. Properly, I mean, not just nodding along." },
+{ who: $player, text: "See? Told you." },
+{ who: $sister, text: "Don't look so smug. Fine, a little smug is allowed. Thanks, little $sister.callPlayerShort, really." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

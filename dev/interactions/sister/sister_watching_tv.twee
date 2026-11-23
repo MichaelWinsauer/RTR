@@ -26,11 +26,11 @@ $sister.callName is on the couch with her knees pulled up and a bag of pretzels 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "He's going home. Look at him. That man is going home and he knows it." },
+{ who: $sister, text: "Look at him. That man is going home, and he knows it." },
 { who: $player, text: "What did he do?" },
-{ who: $sister, text: "Mango. In the risotto. Who does that? You don't do that to a risotto." },
+{ who: $sister, text: "He put mango in a risotto. You don't do that to a risotto, nobody does that." },
 { who: $player, text: "Have you ever made a risotto?" },
-{ who: $sister, text: "I've made toast. I've seen a risotto. I know enough." },
+{ who: $sister, text: "No, but I've eaten plenty of them, and I know a crime when I see one." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -40,9 +40,9 @@ I take the other end of the couch. She pushes the pretzels at me and her socked 
 <<silently>>
 <<set _msgs = [
 { text: "The tall judge tastes the mango risotto, closes his eyes for a while and calls it 'a bold choice'." },
-{ who: $sister, text: "Bold means bad. Bold always means bad. Watch this." },
+{ who: $sister, text: "When a judge says 'bold', he means bad. They always do, just watch." },
 { text: "Bold does not mean bad. The mango man wins the round, and the woman with the perfect rack of lamb is sent home." },
-{ who: $sister, text: "No. No! This show is rigged. I'm writing a letter." },
+{ who: $sister, text: "No! Are you serious? This show is rigged, I'm writing a letter." },
 { who: $player, text: "To who?" },
 { who: $sister, text: "To the lamb lady. To tell her she was robbed, and that I'd eat her lamb any day." },
 ]>>
@@ -59,7 +59,7 @@ The living room is dark except for the TV, and the TV is showing a lake at night
 <<set _msgs = [
 { who: $sister, text: "Sit down. Don't come up behind me like that. Sit where I can see you." },
 { who: $player, text: "What are you watching?" },
-{ who: $sister, text: "A documentary. A man in Ohio. Or Iowa. One of the ones with all the vowels. Nobody suspected a thing for eleven years." },
+{ who: $sister, text: "A documentary about a man in Ohio, or Iowa, one of the ones with all the vowels. Nobody suspected a thing for eleven years." },
 { text: "On the screen, a neighbor in a fleece vest stands in his driveway and shakes his head. 'He was always so polite,' he says. 'Waved every morning. Helped us move our piano once.'" },
 { who: $sister, text: "See, that's how you know. It's always the polite ones. If I ever disappear, tell the police to check the guy in my stats class who holds the door for everyone." },
 { who: $player, text: "He holds the door?" },
@@ -80,7 +80,7 @@ $sister.callName and $mom.callName are sharing the couch and one blanket that's 
 <<set _msgs = [
 { who: $sister, text: "Shh. She's out. Don't wake her, she'll say she wasn't sleeping and then she'll rewind it." },
 { who: $player, text: "How far?" },
-{ who: $sister, text: "All the way back. Every time. I've seen this first scene four times this week. I know the main doctor's whole life. His wife left him for a pilot." },
+{ who: $sister, text: "All the way back to the start, every time. I've seen this first scene four times this week, so by now I know the main doctor's whole life story. His wife left him for a pilot." },
 { text: "I squeeze in on $sister.callName's other side. The blanket doesn't reach me, so she peels a corner off $mom.callName's knees and passes it over, as slowly as somebody defusing a bomb." },
 { who: $sister, text: "If she wakes up, it was you." },
 { who: $mom, text: "I'm watching, sweetie. I'm just resting my eyes." },
@@ -103,12 +103,12 @@ $sister.callName is watching a dating show where everybody lives in a villa and 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "The game's on." },
-{ who: $sister, text: "So is this. And this was on first. That's the law." },
+{ who: $player, text: "Come on, the game's on." },
+{ who: $sister, text: "So is this, and this was on first. That's how the TV works in this house, you know the rules." },
 { who: $player, text: "Where's the remote?" },
-{ who: $sister, text: "No idea. It's lost. Very sad for everyone." },
+{ who: $sister, text: "No idea, I think it's lost. It's a real tragedy." },
 { text: "She's sitting on it. I can see the outline through the cushion, and she can see me seeing it, and she just settles in harder." },
-{ who: $player, text: "Halftime. I get the game at halftime." },
+{ who: $player, text: "Fine, but I get the game at halftime." },
 { who: $sister, text: "You get the commercials. And you have to watch this part with me, because Jake is about to choose between Kayla and the other Kayla, and I need a witness." },
 ]>>
 <</silently>>
@@ -121,7 +121,7 @@ I sit down, mostly to make a point. Twenty minutes later I know more about both 
 <<set _msgs = [
 { text: "Jake picks the first Kayla." },
 { who: $player, text: "Are you kidding me? After the airport?" },
-{ who: $sister, text: "I KNOW. I know! Welcome. Now you see what I've been dealing with." },
+{ who: $sister, text: "I know! Welcome to my life, now you see what I've been dealing with all season." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -174,7 +174,7 @@ Twenty minutes in, something bursts out of a closet on screen and she grabs my h
 { who: $player, text: "Okay." },
 { who: $sister, text: "It's still a reflex. Some reflexes take a while, okay? Science doesn't know everything." },
 { text: "Upstairs, a door opens. $mom.callName's footsteps cross the landing and start down the stairs, and $sister.callName's hand is back in her own lap before the second step. By the time $mom.callName leans in the doorway, she's sitting a whole cushion away with her mug in both hands." },
-{ who: $mom, text: "Is this the scary one? Don't keep each other up all night, you two." },
+{ who: $mom, text: "Oh, is this the scary one? Don't keep each other up all night, you two, and put those mugs in the sink before you go up, they stain." },
 { who: $sister, text: "We won't! It's not even that scary. It's mostly closets." },
 ]>>
 <</silently>>
@@ -193,12 +193,12 @@ $sister.callName is watching one of those shows where nervous people pitch their
 <<set _msgs = [
 { who: $sister, text: "This guy wants two hundred thousand dollars for a water bottle that reminds you to drink water." },
 { who: $player, text: "Doesn't your mouth do that?" },
-{ who: $sister, text: "That's what the bald one said! Okay, he gets a four. He has nice shoes, though. Five." },
-{ who: $sister, text: "Would you ever go on one of these? You'd be so good. You'd do the thing where you don't blink." },
+{ who: $sister, text: "That's exactly what the bald one said! He gets a four. Well, he has nice shoes, so a five." },
+{ who: $sister, text: "Would you ever go on one of these? You'd be good at it, you'd do that thing where you don't blink." },
 { who: $player, text: "What thing?" },
-{ who: $sister, text: "The thing! Where you just look at somebody until they agree with you. You do it in meetings. You do it to $mom.callName all the time." },
+{ who: $sister, text: "That thing where you just look at somebody until they agree with you. You do it in meetings, and you do it to $mom.callName all the time." },
 { text: "She shows me. She props her chin on her hand and stares at me without blinking until her eyes water, and it's a better impression than I'd like." },
-{ who: $player, text: "I don't need their money." },
+{ who: $player, text: "I don't do that. And I don't need their money anyway." },
 { who: $sister, text: "You'd go on for the fame, then. People would know who you are." },
 ]>>
 <</silently>>

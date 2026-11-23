@@ -4,7 +4,7 @@
    If I offered them ($flags.supplierOffered), the night runs through Last Night Mom (5.11) and Last Night Sister (6.9),
    which advance those lines, and then Night Shift 2. If I paid, it goes straight to Night Shift 2. Mode: silence. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-The office empties out at six like any other Thursday. $brian.name leaves with a box of parts under his arm. $darius.name says goodnight at exactly five past. $mom.callName and $sister.callName went home early, separately, an hour apart, each with an excuse the other didn't hear.
+The office empties out at six like any other Thursday. $brian.name leaves with a box of parts under his arm, $darius.name says goodnight at exactly five past, and $mom.callName and $sister.callName went home early, separately, an hour apart, each with an excuse the other didn't hear.
 
 $ethan.name stays.
 
@@ -12,21 +12,21 @@ He's at his desk with his headphones on and two monitors full of something that 
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Big night?" },
-{ who: $player, text: "A meeting. A supplier." },
-{ who: $ethan, text: "At night. Very mysterious. Very boss." },
-{ text: "He grins. It looks almost exactly like his usual grin. Behind him on the screen, the scrolling stops, and he minimizes the window without looking at it." },
-{ who: $ethan, text: "I'll lock up. Don't worry about the office. Go do your mysterious thing." },
+{ who: $ethan, text: "Heading out? You've got your big-night face on." },
+{ who: $player, text: "Yeah, I'm meeting a supplier. It's kind of a whole thing." },
+{ who: $ethan, text: "A supplier, at night. That's very mysterious of you, boss." },
+{ text: "He grins, and it looks almost exactly like his usual grin. Behind him on the screen the scrolling stops, and he minimizes the window without looking at it." },
+{ who: $ethan, text: "Don't worry about the office, I'll lock up. Go do your mysterious thing." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I tell him thanks. I mean it. He's the only one I'd leave here alone tonight.
+I tell him thanks, and I mean it. He's the only one I'd leave here alone tonight.
 
 <<if $flags.supplierOffered === true>>
 <div class="navigation-link"><<link "Drive home" "Last Night Mom">><<AdvanceTimeTo 5>><</link>></div>
 <<else>>
-In my bag there's an envelope with a bank receipt in it, and a number I've memorized, and the address of $club.name. Ten o'clock. Come alone.
+In my bag there's an envelope with a bank receipt in it, and a number I've memorized, and the address of $club.name, where I'm supposed to be at ten, alone.
 
 <div class="navigation-link"><<link "Drive downtown" "Night Shift 2">><<AdvanceTimeTo 5>><</link>></div>
 <</if>>

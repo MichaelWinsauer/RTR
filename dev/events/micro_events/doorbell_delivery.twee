@@ -65,7 +65,7 @@
 				<p>I stay where I am and listen to the muffled exchange. A minute later she comes back down the hall.</p>
 				<<silently>>
 				<<set _msgs to [
-					{ who: _npc, text: "Nothing important. Some mix-up with the address." }
+					{ who: _npc, text: "Nothing important, just some mix-up with the address." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

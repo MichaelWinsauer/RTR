@@ -18,7 +18,7 @@ Same stacks of paper, same dusty lamp, same scowl. $landlord.callName looks up a
 <<silently>>
 <<set _msgs = [
 { who: $landlord, text: "What now, kid? Rent's not due yet." },
-{ who: $player, text: "I'm here to swap keys. The old office for the new one. And I brought the ten thousand." },
+{ who: $player, text: "I'm here to swap keys, the old office for the new one. And I brought the ten thousand." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -30,7 +30,7 @@ I set the envelope on his desk and slide the old keys over next to it. He licks 
 { who: $landlord, text: "Ten grand. All there. Well, would you look at that. The third floor's yours, kid." },
 { who: $landlord, text: "And don't you forget our other arrangement. Your $mom.relation and your $sister.relation, next week. Like you promised." },
 { who: $player, text: "They'll be there. We'll keep our end." },
-{ who: $landlord, text: "You'd better. Come on, then. I'll show you around before I change my mind." },
+{ who: $landlord, text: "You'd better. Come on, then, I'll show you around while my knees still work." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -71,7 +71,7 @@ He jerks his chin at a narrow door in the back.
 <<silently>>
 <<set _msgs = [
 { who: $landlord, text: "Bathroom's back there. It's tiny. You clog it, you pay for the plumber." },
-{ who: $player, text: "Noted." },
+{ who: $player, text: "Got it. I'll buy a plunger before I buy a desk." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

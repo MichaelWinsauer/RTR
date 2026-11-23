@@ -8,8 +8,8 @@ $brian.name drives. He has both hands on the wheel at ten and two the whole way,
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Do you want me to turn the AC down, $brian.name? You look warm." },
-{ who: $brian, text: "No. Uh. No, it's, uh, it's good. The AC. Good AC." },
+{ who: $mom, text: "Are you all right, $brian.name? You look a little warm, sweetie, I can open my window if you like." },
+{ who: $brian, text: "Um. No. I'm fine. Thanks." },
 { text: "He hasn't looked to his right once since she got in. I don't think he's going to look to his right for the rest of the year." },
 ]>>
 <</silently>>
@@ -47,7 +47,7 @@ She laughs. It's his first joke, and she laughs at it, the way we practiced. She
 
 <<silently>>
 <<set _msgs = [
-{ who: $boss, text: "Kid. You look like you haven't slept since the contract." },
+{ who: $boss, text: "And you, kid. You look like you haven't slept since we signed." },
 { who: $player, text: "I slept fine." },
 { who: $boss, text: "Sure you did. Let's see what my twenty-five grand bought me." },
 ]>>
@@ -63,7 +63,7 @@ $mom.callName runs the demo from the tablet, just like I told her: she sits besi
 <<set _msgs = [
 { who: $mom, text: "So this here is the... the room overview. It shows you how your people are feeling, in real time, and then..." },
 { who: $boss, text: "Mm-hm. Go on." },
-{ text: "His thumbs move. Not much. Enough for her to stop in the middle of the word 'calibration' and start it over again from the beginning." },
+{ text: "His thumbs move, not much, just enough for her to stop in the middle of the word 'calibration' and start it over again from the beginning." },
 { who: $mom, text: "...And then it gently adjusts the room. Calmer, more focused. Whatever you need it to be." },
 { who: $boss, text: "Whatever I need it to be. I like the sound of that." },
 ]>>
@@ -80,12 +80,12 @@ She glances at me once over $boss.callName's shoulder. I give her nothing, so sh
 { who: $boss, text: "Okay, kid. It works, I'll give you that. Now tell me what happens when it stops working." },
 { who: $player, text: "It won't stop working. But it needs looking after. Recalibration, updates, somebody on site who knows how to read it." },
 { who: $boss, text: "Somebody on site." },
-{ text: "He doesn't look at me when he says it. He looks at her." },
+{ text: "He says it to her, not to me." },
 { text: "She looks at me, exactly like we practiced, and that's when I settle on the price." },
-{ who: $player, text: "Five thousand a week, plus her time. She stays your consultant." },
-{ who: $boss, text: "Five thousand. For a box with a light on it." },
-{ who: $player, text: "For a box that does what the light says. And for her." },
-{ who: $boss, text: "Ha. Okay. Okay, kid, that's fair. Done. Same arrangement as before, she keeps coming over. Every week." },
+{ who: $player, text: "Five thousand a week, and that includes her time. She'd stay on as your consultant." },
+{ who: $boss, text: "Five grand a week for a box with a light on it." },
+{ who: $player, text: "Mostly you'd be paying for her. The box just comes along with it." },
+{ who: $boss, text: "Ha! Okay, kid, okay, that's fair. Done. Same arrangement as before, then, she keeps coming over every week." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -107,12 +107,10 @@ In the elevator $brian.name stands as far into the corner as the hand truck allo
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Did I do all right?" },
-{ who: $player, text: "You did exactly what I told you." },
-{ who: $mom, text: "He grabbed me, honey. Three times. I counted." },
-{ who: $player, text: "And he signed." },
-{ text: "She thinks about that until the doors open. Then she nods, the same small, stiff nod she gave me in the meeting room this morning, and steps out ahead of me." },
-{ who: $mom, text: "He did sign. Didn't he." },
+{ who: $mom, text: "I counted, you know. He grabbed me three times, honey, and the last one while he was signing his name, as if he needed something to lean on." },
+{ who: $player, text: "I saw. He also signed up for the support, which I honestly didn't think he'd do today." },
+{ text: "She thinks about that until the doors open. Then she straightens her shoulders, the way she does at the end of a long day when there's still dinner to make, and steps out ahead of me." },
+{ who: $mom, text: "Well, he did sign. That's something, isn't it? That's actually quite a lot, when you think about it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

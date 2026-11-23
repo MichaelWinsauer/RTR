@@ -31,10 +31,10 @@ $sister.callName is at the table in her pajamas with her chin on her fist, looki
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. Are we done? Is it over? Are we allowed to talk again?" },
+{ who: $sister, text: "So are we done? Is it over, and are we allowed to talk to each other again?" },
 { who: $mom, text: "Talk about what, sweetie?" },
-{ who: $sister, text: "The cold war. The thing. Whatever it was. I had to eat lasagna in a demilitarized zone. I'm traumatized." },
-{ who: $mom, text: "There's no cold war. Eat your eggs." },
+{ who: $sister, text: "The cold war, or whatever that was. I spent a whole week eating dinner in a demilitarized zone, and I think it's left a mark." },
+{ who: $mom, text: "There's no cold war, honey. Eat your eggs before they get cold." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -47,9 +47,9 @@ She brings the pan over and serves me first. She gives me the eggs the way I lik
 { who: $player, text: "For what?" },
 { text: "She knows I know. She says it anyway, with $sister.callName sitting right there, because she wants to say it out loud." },
 { who: $mom, text: "For letting me make it up to you." },
-{ who: $sister, text: "Ugh. Okay. Whatever it was, I'm glad you guys made up. Truly. Never do that again. I'm serious. I almost moved out." },
+{ who: $sister, text: "Well, whatever it was, I'm glad you two made up, because I was about one more silent dinner away from moving out." },
 { who: $mom, text: "You'd last two days, sweetheart. You don't know where we keep the laundry detergent." },
-{ who: $sister, text: "I could learn. I'm very adaptable." },
+{ who: $sister, text: "I'd find it eventually. I'm a college-educated woman." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

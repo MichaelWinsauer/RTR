@@ -17,13 +17,13 @@ $mom.callName has the desk phone clamped between her ear and her shoulder and bo
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Twenty-two minutes. I've been on hold with their accounting department for twenty-two minutes, sweetie. I think they're hoping I'll die of old age." },
-{ who: $player, text: "Hang up and call back tomorrow." },
-{ who: $mom, text: "And lose my place in line? Absolutely not. I'm fourth. I've been fourth for ten minutes, but I'm fourth." },
+{ who: $mom, text: "I've been on hold with their accounting department for twenty-two minutes now, sweetie, and I'm pretty sure they're hoping I'll just give up and go away." },
+{ who: $player, text: "So hang up and call back tomorrow." },
+{ who: $mom, text: "And lose my place in line? Absolutely not, I'm fourth. I've been fourth for about ten minutes, but I'm fourth." },
 { text: "She pulls a folder across the desk and flips it open without looking, and the invoice she wants is right there on the first page." },
-{ who: $mom, text: "They paid March twice and April not at all. Which, honestly, I almost respect. It's creative." },
-{ who: $player, text: "So tell them to keep the extra as credit." },
-{ who: $mom, text: "That's exactly what I'm going to do. Nicely, though. They have to think it was their idea." },
+{ who: $mom, text: "They paid March twice and April not at all, which is honestly so creative that I almost respect it." },
+{ who: $player, text: "Can't you just tell them to keep the extra as credit?" },
+{ who: $mom, text: "That's exactly what I'm going to do, only nicely, so they think it was their idea." },
 { text: "The panpipes stop mid-note. She sits up, and her voice changes completely, bright and warm, like somebody opened a window in a stuffy room." },
 { who: $mom, text: "Hi! Yes, hi, thank you so much for picking up. No, no, please, I know exactly how it is..." },
 ]>>
@@ -34,13 +34,13 @@ I stay and watch her work. Inside a minute she has the woman on the other end la
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Did you see that? Did you hear her? She said I was a lifesaver." },
-{ who: $player, text: "I heard." },
+{ who: $mom, text: "Did you hear her? She said I was a lifesaver, honey, and she's the one who owes us money!" },
+{ who: $player, text: "I heard. If you'd asked, I think she'd have paid May twice, too." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-What I don't say is that I'm already making a list of the people I'd like her to call next, and what I'd like her to say to them.
+She laughs and waves that away, pleased. I'm already thinking about who else I'd like her to call, and what I'd like her to say to them.
 
 /* ——— 2: The two screens ——— */
 <<case 2>>
@@ -62,7 +62,7 @@ She has the company bank account open on one monitor and a spreadsheet on the ot
 <</silently>>
 <<Chat _msgs>>
 
-That works better on her than any number on either screen. Her shoulders come down an inch. She closes the bank tab, opens it again right away, and this time she laughs at herself.
+That works better on her than any number on either screen, and her shoulders come down an inch. She closes the bank tab, opens it again right away, and this time she laughs at herself.
 
 <<silently>>
 <<set _msgs = [
@@ -81,40 +81,40 @@ $mom.callName is going from desk to desk with a notepad, and it takes me a secon
 <<set _msgs = [
 { who: $mom, text: "The Thai place on the corner delivers, sweetie. I'm putting you down for the green curry unless you stop me." },
 { who: $player, text: "Since when do we do team lunch?" },
-{ who: $mom, text: "Since $brian.name told me he had a granola bar for breakfast and another one for lunch. And I can hear $ethan.name's stomach from my desk." },
+{ who: $mom, text: "Since $brian.name told me he had a granola bar for breakfast and another one for lunch, and since I can hear $ethan.name's stomach all the way from my desk." },
 { who: $ethan, text: "That's slander. That was the printer." },
-{ who: $mom, text: "The printer doesn't growl at eleven-thirty every day, honey." },
+{ who: $mom, text: "The printer doesn't growl at eleven-thirty every single day, honey." },
 { text: "She turns the notepad around for me. There's a name next to every order, and some of them have little notes in her neat, slanted handwriting. '$darius.name: no peanuts, don't make a thing of it.' '$brian.name: asked for the default. Gave him pad thai.'" },
-{ who: $brian, text: "Uh. Pad thai is fine. It's a, uh, it's a reasonable default." },
-{ who: $darius, text: "Quick question. Who's paying for this?" },
+{ who: $brian, text: "Um. Pad thai's fine. It's a reasonable default." },
+{ who: $darius, text: "Forgive me for asking the indelicate question, but who's paying for this?" },
 { who: $mom, text: "Well, the company is. Isn't it, honey?" },
 { text: "Every head in the room turns toward me at once." },
-{ who: $player, text: "The company is." },
+{ who: $player, text: "Yeah, the company is. Apparently." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 $ethan.name starts a slow clap in his corner, and $brian.name joins in a little late and stops before anybody else does. $mom.callName beams at me as if I've done something generous, writes 'curry' next to my name and goes off to call it in.
 
-It costs me about a hundred dollars. I watch them all lean back in their chairs, a bit happier and a bit more settled, and with nobody in any hurry to go out for lunch, they'll be sitting right under that vent for the whole of it. Cheap, all things considered.
+It costs me about a hundred dollars. I watch them all lean back in their chairs, a bit happier and a bit more settled, and since nobody's in any hurry to go out for lunch now, they'll be sitting right under that vent for the whole of it. I've spent a hundred dollars on worse.
 
 <<UpdateStat "+" "Morale" 1>>
 
 /* ——— 4: Behind her chair (after The Briefing) ——— */
 <<case 4>>
-I come up behind her chair instead of sitting down. She knows it's me without turning around. Her typing slows, then stops in the middle of a word.
+I come up behind her chair instead of sitting down. She knows it's me without turning around, and her typing slows and then stops in the middle of a word.
 
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Hi, honey." },
 { text: "She says it to the screen." },
 { who: $player, text: "What are you working on?" },
-{ who: $mom, text: "The schedule for $boss.callName's office. Next week. I'm trying to..." },
+{ who: $mom, text: "The schedule for $boss.callName's office, for next week. I'm trying to..." },
 { text: "I've rested one hand on the back of her chair, nowhere near her, and she's sitting up very straight, the way people sit in job interviews." },
-{ who: $mom, text: "I'm trying to put my days over there on Tuesday and Thursday. So they're not back to back. It's easier with a day in between." },
+{ who: $mom, text: "I'm trying to put my days over there on Tuesday and Thursday, so they're not back to back. It's easier when there's a day in between." },
 { who: $player, text: "Easier how?" },
-{ who: $mom, text: "Just easier, sweetheart. To get back to... normal." },
-{ text: "She reaches for her mug. It's empty. She holds on to it anyway." },
+{ who: $mom, text: "Oh, just easier, sweetheart. To get back to... well, to normal, you know." },
+{ text: "She reaches for her mug, finds it empty and holds on to it anyway." },
 { who: $player, text: "Put them wherever you like. You're the one who has to be there." },
 { who: $mom, text: "Thank you." },
 ]>>

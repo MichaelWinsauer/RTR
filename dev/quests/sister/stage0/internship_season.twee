@@ -5,7 +5,7 @@ She stops just inside the door with her hand still on the handle. The last time 
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Hey, $player.name... got a minute? I want to pitch you something. Like, a real pitch. A work thing. Totally a work thing." },
-{ who: $player, text: "A pitch. Okay, I'm intrigued. Go." },
+{ who: $player, text: "A pitch? Okay, now I'm curious. Go ahead." },
 { text: "She sits down on the very end of my bed, about as far from the pillow as she can get without sitting on the floor, and folds her hands in her lap. Very formal, like she's at a job interview. It doesn't suit her at all." },
 ]>>
 <</silently>>
@@ -13,7 +13,7 @@ She stops just inside the door with her hand still on the handle. The last time 
 She takes a breath and looks at me with that determined crease between her eyebrows.
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "So. You know I need an internship for college, right? It's a requirement this semester, and everyone in my program is fighting over the same three places downtown. I've been thinking about it a lot, and I think I found the perfect one." },
+{ who: $sister, text: "So, you know I need an internship for college, right? It's a requirement this semester, and everyone in my program is fighting over the same three places downtown. I've been thinking about it a lot, and I think I found the perfect one." },
 { who: $player, text: "Oh yeah? Where?" },
 { who: $sister, text: "Here. With you. At your company." },
 { text: "It comes out fast, like she practiced it in the mirror and wanted to get it over with." },
@@ -25,13 +25,13 @@ She watches me while I think about it. There's a little pink in her cheeks, and 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You really want to intern at my startup? You know it barely pays anything yet." },
-{ who: $sister, text: "I know. I don't care. You got me through that test when I was falling apart. Let me be useful for once instead of just being the one who needs help." },
+{ who: $sister, text: "I know, and I don't care. You got me through that test when I was falling apart. Let me be useful for once instead of just being the one who needs help." },
 { text: "She leans forward, and the formal posture is gone." },
-{ who: $sister, text: "And I heard you talking to $mom.callName about the office. You're about to hire people, right? I could start right away. Filing, scheduling, making coffee. I make very good coffee, ask anyone. I just... really want to be part of this. With you." },
+{ who: $sister, text: "And I heard you talking to $mom.callName about the office. You're about to hire people, right? I could start right away with the filing and the scheduling and whatever else nobody wants to do. I just... really want to be part of this. With you." },
 { text: "The last two words hang in the room. She hears them too, and the tips of her ears go red." },
 { who: $sister, text: "Professionally. With you, professionally. God, I should have made cue cards." },
 { who: $player, text: "You're sure? It won't be glamorous. Long hours, terrible pay, a boss who's very demanding." },
-{ who: $sister, text: "The boss is my $sister.playerRelation, I think I can handle him. And yes, I'm sure. It's been all I've thought about for days. It feels right, not just for the credits." },
+{ who: $sister, text: "The boss is my $sister.playerRelation, I think I can handle him. And yes, I'm sure. I've thought about it for days, and it feels right, and not just because of the credits." },
 { text: "She reaches for my arm, stops halfway like she has to check whether that's still allowed, and then squeezes it anyway, quick and light." },
 { who: $sister, text: "Please, $player.name. Let me help you build this." },
 ]>>
@@ -46,8 +46,8 @@ I already know my answer. I take a sip from the water glass on my desk anyway, a
 { who: $sister, text: "Then the bar is on the floor and I'm going to step right over it." },
 { text: "She laughs and throws her arms around me in a quick, tight hug, and then forgets to let go until I pat her back twice, like somebody tapping out of a wrestling hold." },
 { text: "When she finally pulls back, her face is right in front of mine. She blinks, clears her throat and puts a careful foot of air between us." },
-{ who: $sister, text: "Okay. So. That was a colleague hug. Very normal, very HR-approved. I'm actually excited. Working with you every day. Who would've thought." },
-{ who: $player, text: "We'll sort out the details soon." },
+{ who: $sister, text: "So, that was a colleague hug. Completely normal, very HR-approved. I'm actually really excited, though. Working with you every day, who would've thought?" },
+{ who: $player, text: "I'm glad you asked. We'll sort out the details once the move is done." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

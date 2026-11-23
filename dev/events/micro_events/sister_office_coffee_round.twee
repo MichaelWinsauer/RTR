@@ -6,12 +6,12 @@
 <p>Then she does the rounds, and she says every order out loud as she sets it down, like a waitress who's proud of her memory.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Black, no sugar, for $darius.name, because he hates joy." },
-	{ who: $darius, text: "I prefer to think I respect the bean." },
-	{ who: $sister, text: "Hot chocolate for $brian.name, because coffee makes his hands shake, and he holds a three-hundred-degree pen for a living." },
-	{ who: $brian, text: "Uh. Thanks. That's... yeah. That's correct." },
-	{ who: $sister, text: "And oat milk for $ethan.name. Don't worry, I won't tell anyone. It's very embarrassing for you." },
-	{ who: $ethan, text: "This is the best thing that's happened to me all week, and I found five dollars in a jacket on Monday." },
+	{ who: $sister, text: "Black, no sugar, for $darius.name, who apparently hates joy." },
+	{ who: $darius, text: "I'd rather say I respect good coffee too much to drown it, but I'll accept the characterization." },
+	{ who: $sister, text: "Hot chocolate for $brian.name, since coffee makes his hands shake and he holds a very hot pen for a living." },
+	{ who: $brian, text: "Oh. Um, thanks." },
+	{ who: $sister, text: "And oat milk for $ethan.name, which I promise not to tell anyone about." },
+	{ who: $ethan, text: "Tell whoever you want. This is the best thing that's happened to me all week, and on Monday I found five bucks in an old jacket." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

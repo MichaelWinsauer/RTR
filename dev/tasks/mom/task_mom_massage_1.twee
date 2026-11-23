@@ -47,14 +47,14 @@ When I finally look up, she's still by the whiteboard, but she's given up preten
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You're early." },
-{ who: $mom, text: "I'm not early. You're... well, all right, I'm a little early. I had a gap. Between things." },
+{ who: $mom, text: "I'm not early, you're... well, all right, I'm a little early. I had a gap between things." },
 { who: $player, text: "What things?" },
 { who: $mom, text: "Things, honey. Work things. Are you going to be much longer with that?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I toss the folder onto the table and swivel the chair around until my back is to her. I don't say anything, because I don't need to. She's behind me before the chair has stopped turning.
+I toss the folder onto the table and swivel the chair around until my back is to her. I don't say anything, and it turns out I don't need to. She's behind me before the chair has stopped turning.
 
 <<linkreplace "Lean back">>
 <<Video "images/characters/mom/tasks/massage_1_2.mp4" "" "" 600>>
@@ -67,15 +67,15 @@ A few minutes in she bends lower to get at the base of my neck, and she doesn't 
 <<if _ms1 == 0>>
 <<set _msgs = [
 { text: "Somebody knocks, and the door opens before either of us can answer. $ethan.name leans in with a mug in his hand." },
-{ who: $ethan, text: "Hey, boss, quick question about the... okay. Wow. Is there a waitlist for that? Because I would like to be on it." },
-{ who: $mom, text: "Sorry, $ethan.name. Family discount." },
-{ who: $ethan, text: "Story of my life. I'll come back." },
+{ who: $ethan, text: "Hey, quick question about the... oh. Okay. Is there a waitlist for that? Because I'd like to put my name down." },
+{ who: $mom, text: "Sorry, sweetie, it's family only." },
+{ who: $ethan, text: "Story of my life. I'll come back later." },
 { text: "He pulls the door shut. $mom.callName laughs too, a little late, and in all that time she doesn't straighten up an inch. A month ago she'd have jumped back like she'd touched a hot stove." },
 ]>>
 <<elseif _ms1 == 1>>
 <<set _msgs = [
 { text: "Footsteps come down the hall and stop right outside the door." },
-{ who: $brian, text: "Uh... no, the other one. The, uh, the gray cable. No, the other gray cable." },
+{ who: $brian, text: "Hm, no. The other one. The gray cable... no, the other gray cable." },
 { text: "Her hands freeze on my shoulders. The footsteps move on toward the kitchen, and she listens until they're gone. Then she settles back in, a little lower than before." },
 ]>>
 <<else>>
@@ -100,10 +100,10 @@ She'd go on all afternoon, and she leaves it to me to decide that she won't. Whe
 { who: $mom, text: "Same time tomorrow?" },
 { who: $player, text: "You keep the calendar." },
 { who: $mom, text: "I know. I just like to hear you say it." },
-{ who: $player, text: "Same time tomorrow. And keep the nail polish." },
+{ who: $player, text: "Same time tomorrow, then. And leave the nail polish on." },
 { text: "She glances down at the new color on her nails, then tucks her hands behind her back." },
 { who: $mom, text: "Oh, that. It was a sample, at the drugstore. I just thought I'd try it." },
-{ who: $player, text: "Keep it." },
+{ who: $player, text: "Keep it anyway." },
 { text: "'All right,' she says, to the carpet." },
 ]>>
 <<else>>

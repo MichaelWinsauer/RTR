@@ -5,7 +5,7 @@
 <<set _msgs to [
 	{ who: $sister, text: "Mmf. Mmff mm mmf-mm." },
 	{ who: $player, text: "Sorry, what?" },
-	{ who: $sister, text: "(spits) I said you look terrible. Did you sleep at all?" }
+	{ who: $sister, text: "(spits) I said you look terrible. Did you sleep at all last night?" }
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -15,8 +15,9 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Says the girl with toothpaste on her chin." },
-					{ who: $sister, text: "That's a style." }
+					{ who: $player, text: "Big words from someone with toothpaste on her chin." },
+					{ text: "She checks the mirror, wipes it off with the back of her hand and points the toothbrush at me anyway." },
+					{ who: $sister, text: "Still true, though. Go drink some water or something, you look half dead." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

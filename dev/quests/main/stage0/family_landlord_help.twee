@@ -22,7 +22,7 @@ $mom.callName puts her fork down, which in this house is the equivalent of turni
 { who: $player, text: "Apparently it's for 'real tenants'. But that wasn't even the worst part. It was the way he talked." },
 { who: $sister, text: "Oh no. Worst how?" },
 { who: $player, text: "There's some young woman who wants the space too, and he kept going on about how good she looks, and how she might get a discount if she 'asks nicely'. He kept winking at me. Like I was in on it." },
-{ who: $sister, text: "Ew. Ew, ew, ew." },
+{ who: $sister, text: "Oh, that's disgusting. He said that out loud? To you, like you'd think it was funny?" },
 { who: $mom, text: "That man. I always find a reason to check my mailbox when I see him coming." },
 ]>>
 <</silently>>
@@ -51,8 +51,8 @@ They look at each other across the coffee table. It's a whole conversation in on
 { who: $sister, text: "I did say I'd make it up to you. If it helps you and the company... fine. I can be nice to a creep for half an hour. I've survived worse frat parties." },
 { who: $mom, text: "$sister.callName!" },
 { who: $sister, text: "What? It's true." },
-{ who: $mom, text: "...If it really helps you, sweetie, then I suppose I can be friendly too. Friendly. That's all." },
-{ who: $player, text: "That's all I'm asking. Thank you. Both of you." },
+{ who: $mom, text: "Well... if it really helps you, sweetie, I suppose I can be friendly for half an hour. I'm friendly to the man at the DMV, and he's not much better. But friendly is all it's going to be." },
+{ who: $player, text: "That's all I'm asking. Thank you, both of you, really." },
 { who: $sister, text: "I've got that black skirt and a top I never get to wear anywhere. Might as well get some use out of them." },
 { who: $mom, text: "And I still have that silk blouse from the company party..." },
 { text: "She says it quietly, almost to herself, like she's already standing in front of her closet." },
@@ -65,15 +65,15 @@ $mom.callName gets up and starts stacking plates, which is what she does wheneve
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "If we're doing this tonight, we should get changed before I lose my nerve." },
-{ who: $sister, text: "Tonight? Okay. Okay, sure. Give me twenty minutes." },
-{ who: $player, text: "Take thirty. Thanks, you two. Really." },
+{ who: $sister, text: "Tonight? Sure, why not, let's just get it over with. Give me twenty minutes." },
+{ who: $player, text: "Take thirty, there's no rush. Believe me, he isn't going anywhere." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-They disappear down the hallway, $mom.callName into her room and $sister.callName into hers, and a moment later I hear two closet doors slide open almost at the same time. I stay on the couch with my plate and the muted TV. Ten minutes ago they were both disgusted by him. Now they're picking out outfits for him.
+They disappear down the hallway, $mom.callName into her room and $sister.callName into hers, and a moment later I hear two closet doors slide open almost at the same time. I stay on the couch with my plate and the muted TV, half waiting for one of them to come back out and say she's changed her mind. Nobody does. Ten minutes ago they were telling me how much he creeps them out, and now they're standing in front of their closets picking out something to wear for him. I honestly didn't think it would go this easily.
 
-I finish the last of my pasta. It's still warm.
+I finish my pasta. Somewhere down the hall a hanger clatters to the floor, and $sister.callName swears at it.
 
 <<UpdateStat "+" "Corruption" 4>>
 <<UpdateStat "+" "MomCorruption" 8>>

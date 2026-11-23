@@ -5,17 +5,17 @@ $mom.callName's door is open a few inches, the way she always leaves it. The nig
 
 She's lying on her side with one arm over the blanket, her reading glasses folded on the nightstand next to the laptop. Even asleep she looks tired. I'm aware of how easy it would be to do something else while I'm in here, and I let that thought sit for a second before I put it away. That's not what I came here for.
 
-I pick up the laptop, sit on the floor with my back against the bed frame, and turn the volume off before the screen wakes up. I know the password. I've watched her type it a hundred times: '$player.name-$sister.name-123'. Of course it is. The thing she cares about most, and it's the way in.
+I pick up the laptop, sit on the floor with my back against the bed frame, and turn the volume off before the screen wakes up. I know the password, because I've watched her type it a hundred times: '$player.name-$sister.name-123'. Of course that's her password. She'd never pick anything else, and it's the first thing anyone who knows her would try.
 
-Her work folder is neat, like everything she does. Budget projections, client reports, a long email thread with her boss. I don't wreck anything. I delete a spreadsheet, overwrite a forecast with an older version, move a few emails somewhere she won't think to look. Nothing that looks like sabotage. Just enough small mistakes that tomorrow she looks careless, and her boss, who is already looking for a reason, will find plenty.
+Her work folder is neat, like everything she does: budget projections, client reports, a long email thread with her boss. I don't wreck anything. I delete a spreadsheet, overwrite a forecast with an older version, and move a few emails somewhere she won't think to look. None of it looks like sabotage, just enough small mistakes that tomorrow she looks careless, and her boss, who is already looking for a reason, will find plenty.
 
 When I'm done, the folder looks almost exactly like it did before. You'd have to know where to look, and she won't.
 
-I glance up at her one more time, and for a second my hand hovers over the trackpad, ready to undo it all. Then I picture her tomorrow evening, coming home with her desk in a cardboard box and no idea what to do next. The second passes.
+I glance up at her one more time, and for a second my hand hovers over the trackpad, ready to undo it all. Then I picture her tomorrow evening, coming home with her desk in a cardboard box and no idea what to do next, and the second passes.
 
 I close the laptop, put it back exactly where it was and plug the charger in. At the door I look back once. She hasn't moved. I pull the door shut until the latch clicks.
 
-Her boss will find the mess first thing in the morning, and he's been waiting for an excuse. By tomorrow evening $mom.callName will have lost her job, and I'll be the one waiting at home with an offer. She'll be the first person I ever hire. She'll think I'm rescuing her.
+Her boss will find the mess first thing in the morning, and he's been waiting for an excuse. If he does what he said he would, she'll come home tomorrow without a job, and I'll be here with an offer. The part I can't stop chewing on, back in my room, is whether he'll actually go through with it.
 
 <<UpdateStat "+" "Corruption" 5>>
 <<UpdateStat "+" "MomCorruption" 3>>

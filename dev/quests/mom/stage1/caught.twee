@@ -4,9 +4,9 @@
    of me, while I watch and don't touch her. Halfway through, $brian.name opens the door to ask me about a part order and
    never looks up. A near miss, and a joke afterwards. Public risk, and the start of his flustered reactions to her. */
 <<silent>><<SetBackground $locations[15].img>><</silent>>
-Third time this week. $mom.callName gets up from her desk with a folder under her arm, tells nobody in particular that she's going to go over the quarterly numbers where it's quiet, and walks to the meeting room. Twenty minutes later she comes back with the same folder, closed, and pink in the face, and she drinks a whole glass of water at the cooler before she sits down.
+It's the third time this week. $mom.callName gets up from her desk with a folder under her arm, tells nobody in particular that she's going to go over the quarterly numbers where it's quiet, and walks to the meeting room. Twenty minutes later she comes back with the same folder, closed, and pink in the face, and she drinks a whole glass of water at the cooler before she sits down.
 
-The folder is the same one every time. I checked. It's last month's catering invoices.
+It's the same folder every time, too. I looked yesterday while she was in there, and it's last month's catering invoices.
 
 Today I give her five minutes. Then I get up, pick up my coffee so I'm a man on his way to the kitchen, and walk the long way round.
 
@@ -22,9 +22,9 @@ She doesn't hear the door. She hears it close.
 <<silently>>
 <<set _msgs = [
 { text: "Her eyes fly open. The hand comes out from under the skirt so fast that the chair spins half a turn, and she grabs the table to stop it." },
-{ who: $mom, text: "Oh God. Oh my God. Honey, I was... I was just..." },
-{ who: $player, text: "Going over the quarterly numbers." },
-{ who: $mom, text: "I... yes. No. I'm so sorry. I don't know what's wrong with me lately, I can't... it's like I'm back in college. I'll go. I'll go back to my desk, I'm so sorry, I'll..." },
+{ who: $mom, text: "Oh my God. Honey, I was just... I was..." },
+{ who: $player, text: "Going over the quarterly numbers? That's what you told everybody." },
+{ who: $mom, text: "Yes. No. Oh, sweetie, I'm so sorry, I don't know what's gotten into me lately, it's like I'm back in college and I can't sit still for five minutes, and I'll go, I'll go right back to my desk and we never have to..." },
 { text: "She's already tugging her skirt down, already reaching for the folder, already halfway out of the chair." },
 ]>>
 <</silently>>
@@ -33,11 +33,11 @@ She doesn't hear the door. She hears it close.
 <<linkreplace "Sit down">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Sit down." },
+{ who: $player, text: "Sit down, $mom.callName." },
 { text: "She sits. It takes her a second to realize she's done it." },
-{ who: $player, text: "You've been doing this all week. On my time, in my meeting room, with my staff on the other side of that glass." },
-{ who: $mom, text: "I know. I know, it was stupid, it won't happen again, I promise..." },
-{ who: $player, text: "I didn't say stop." },
+{ who: $player, text: "You've been coming in here all week, with the whole team sitting on the other side of that glass, and you thought nobody would notice?" },
+{ who: $mom, text: "I know, I know, it was stupid and it won't happen again, I promise, I'll just..." },
+{ who: $player, text: "I didn't say it had to stop." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -46,15 +46,15 @@ It takes her a moment. I watch her get there: her mouth opens, closes, and her e
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Here? Now? Sweetheart, everybody's right..." },
-{ who: $player, text: "You were fine with everybody right there two minutes ago." },
-{ who: $mom, text: "That was different. I was alone. You're... you'd be watching." },
-{ who: $player, text: "Yes." },
+{ who: $mom, text: "Here? Sweetheart, they're all right out there, $ethan.name is maybe twenty feet from that door..." },
+{ who: $player, text: "They were right out there two minutes ago, too, and you didn't seem to mind." },
+{ who: $mom, text: "That was different, I was by myself. You'd be... you'd be standing there watching me." },
+{ who: $player, text: "I would. I'm not going anywhere." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I lean against the edge of the table, a few feet from her, and drink my coffee, and wait. I don't touch her. I don't need to. I just have to be the one who decides what happens in this room, and we both already know that I am.
+I lean against the edge of the table, a few feet from her, and drink my coffee, and wait. I don't touch her, and I don't say anything else to help her along. Honestly, I'm not sure she'll do it. Part of me expects her to grab the folder and walk out past me.
 
 <<linkreplace "Wait">>
 She looks at the door one more time. Then she closes her eyes, as if that makes her alone again, and her hand goes back under the skirt.
@@ -63,8 +63,8 @@ It's slow at first. Small, careful circles, her knees pressed together, her whol
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Don't look at me. Please. Can you just... look at the window or something..." },
-{ who: $player, text: "No." },
+{ who: $mom, text: "Please don't look at me, honey, can you just look at the window or something, just for a..." },
+{ who: $player, text: "No. You don't get to hide from me in my own meeting room." },
 { text: "She makes a small sound into her other hand, and her fingers move faster." },
 ]>>
 <</silently>>
@@ -79,50 +79,50 @@ $mom.callName freezes so hard I can hear the chair creak. I step sideways, one s
 
 <<silently>>
 <<set _msgs = [
-{ who: $brian, text: "Uh. Sorry. Is... are you in here? $ethan.name said you were in here." },
+{ who: $brian, text: "Um. Sorry. $ethan.name said you were in here." },
 { text: "He's talking to the floor. He always talks to the floor, and I have never been so grateful for it. His eyes are fixed on a spot about two feet in front of his shoes." },
-{ who: $player, text: "I'm in here." },
-{ who: $brian, text: "Okay. So, the array. The emitters. The supplier has the forty-millimeter ones but not the thirty-two, and the forty won't fit the housing, so either we change the housing or we wait two weeks, and I didn't want to... uh, decide that. Without asking." },
-{ text: "Behind me I can hear $mom.callName breathing through her nose, very slowly, very carefully. She hasn't taken her hand away. I can tell, because I can hear the fabric." },
-{ who: $player, text: "Change the housing." },
-{ who: $brian, text: "Change the housing. Okay. Yes. That's what I would have... okay. Thank you. Sorry. Hi, $mom.callName." },
+{ who: $player, text: "I'm here. What's up?" },
+{ who: $brian, text: "The emitters. The supplier only has the forty-millimeter ones, and those won't fit the housing. So we change the housing or we wait two weeks. I didn't want to pick without asking." },
+{ text: "Behind me I can hear $mom.callName breathing through her nose, very slowly and very carefully. She hasn't taken her hand away. I can tell, because I can hear the fabric." },
+{ who: $player, text: "Change the housing. Two weeks is too long." },
+{ who: $brian, text: "Okay. Yeah, that's what I'd have done. Thanks. Hi, $mom.callName." },
 { who: $mom, text: "Hi, sweetie." },
-{ text: "It comes out almost normal. Almost." },
+{ text: "It comes out sounding nearly normal, which might be the most impressive thing I've ever seen her do." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He nods at the floor and backs out, and on his way he catches his shoulder on the door frame, says sorry to it, and pulls the door shut behind him with exaggerated care, the way you close the door on a sleeping baby.
+He nods at the floor and backs out, and pulls the door shut behind him with exaggerated care, the way you close the door on a sleeping baby.
 
 <<linkreplace "Finish">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Finish." },
-{ who: $mom, text: "Honey, he almost... he almost saw..." },
-{ who: $player, text: "He didn't. Finish." },
+{ who: $player, text: "Go on. You were nearly there before he knocked." },
+{ who: $mom, text: "Honey, he was right there, he almost saw..." },
+{ who: $player, text: "He was looking at his shoes the whole time. Finish it, $mom.callName. I'm not going to ask you twice." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-And she does. It doesn't take long. Whatever the last minute did to her, it didn't put her off, and that's going to bother her later much more than it bothers her now. She comes with her hand clamped over her mouth and her heels pressed into the carpet and her eyes open, looking straight at me, because I told her to and because by then she's stopped arguing.
+And she does, and it doesn't take long. Whatever that last minute did to her, it didn't put her off, and I suspect that's going to bother her later much more than it bothers her now. She comes with her hand clamped over her mouth and her heels pressed into the carpet and her eyes open, looking straight at me. I never asked her to keep them open. By then she's stopped arguing with anything.
 
 Afterwards she sits very still with her hand in her lap. Then she pulls her skirt down, smooths it twice, and picks up the folder of catering invoices and holds it against her chest.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I can't believe I just did that. With $brian.name right outside. With you watching. What kind of $mom.relation..." },
-{ who: $player, text: "Relax. $brian.name walks into doors whenever you're in a room. He wasn't going to see anything. He was too busy saying hi to the carpet." },
+{ who: $mom, text: "I can't believe I just did that, with $brian.name standing right there in the door and you watching me the whole time, what kind of $mom.relation would... oh, God, my lipstick is all over my hand." },
+{ who: $player, text: "Relax. $brian.name can barely look at you on a normal day, he wasn't going to start in here. He was too busy saying hi to the carpet." },
 { text: "She laughs. It's a shaky, horrified laugh, the kind that wants to turn into crying and changes its mind. She covers her face with the folder." },
-{ who: $mom, text: "Oh, that poor boy. He said hi to me. He said hi." },
-{ who: $player, text: "Go fix your lipstick. And next time you need the meeting room, you ask me first." },
-{ who: $mom, text: "Ask you." },
-{ who: $player, text: "Ask me." },
+{ who: $mom, text: "Oh, that poor boy, he said hi to me. He stood there and said hi like it was any other afternoon." },
+{ who: $player, text: "Go fix your face before somebody else comes looking for me. And next time you want the meeting room, you come and ask me first." },
+{ who: $mom, text: "Ask you? Ask you what, honey, how am I supposed to even..." },
+{ who: $player, text: "You'll figure out a way to say it." },
 { text: "She nods slowly, as if she's filing it with all the other rules: the one about taking care of me when it gets bad, the one about the test sessions. Then she goes." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-When she walks past $brian.name's desk on the way to the bathroom, he sits up very straight and stares at his monitor and doesn't breathe until she's gone. I don't think he knows why. He's going to spend the next month not knowing why.
+When she walks past $brian.name's desk on the way to the bathroom, he sits up very straight and stares at his monitor and doesn't breathe until she's gone. I don't think he knows why, and I'm certainly not going to be the one who tells him.
 
 <<UpdateStat "+" "MomExhibition" 3>>
 <<UpdateStat "-" "MomLust" 30>>

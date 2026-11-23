@@ -17,17 +17,17 @@ She comes in at seven, after her seminar, and stands in the doorway with her bag
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Can we talk? About last night?" },
-{ text: "Last night she stood on a rooftop in a dress I chose, and laughed at $investor.callName's stories, and let him introduce her to people as 'the charming young lady from that clever little company', and later stood very still while a man from $retailChain.name kept his hand on her bare back. She did everything I asked. She did it well. She hasn't said a word about it all day." },
-{ who: $sister, text: "I did it. All of it. For you. And on the way home I kept thinking, what am I? To you? Like, what am I actually, that I'd do that?" },
+{ text: "Last night she stood on a rooftop in a dress I chose, laughed at $investor.callName's stories, and let him introduce her to people as 'the charming young lady from that clever little company'. Later she stood very still while a man from $retailChain.name kept his hand on her bare back. She did everything I asked, and she did it well, and she hasn't said a word about it all day." },
+{ who: $sister, text: "I did all of it, for you. And the whole way home I kept thinking, what am I to you, actually, that I'd do something like that?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<else>>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Can we talk? Like, actually talk?" },
-{ text: "She's been quiet since the afternoon with the group chat. She isn't sad, she's thoughtful, which on her is rarer." },
-{ who: $sister, text: "I gave up the lake. I gave up $bestFriend.name, kind of. I don't even miss it, which is the scary part. And I keep thinking, okay, but what am I giving it up for? What am I? To you?" },
+{ who: $sister, text: "Can we talk? Actually talk, I mean." },
+{ text: "She's been quiet since the afternoon with the group chat. Not sad, more thoughtful, which on her is rarer." },
+{ who: $sister, text: "I gave up the lake, and kind of $bestFriend.name too, and the scary part is that I don't even miss it. So I keep wondering what I'm giving it all up for. What am I to you?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -38,14 +38,14 @@ I reach over and press the button on the gray box while she's still talking. The
 
 <<DevicePulse 4>>
 
-The Catalyst doesn't make anybody want anything new. It can't. It finds what's already there, whatever she's been holding back with both hands, and it makes it a little harder to hold. In her case it doesn't have to search very long.
+The Catalyst doesn't make anybody want anything new. It can't. It finds what's already there, whatever she's been holding back with both hands, and makes it a little harder to hold. In her case I doubt it has to search for long.
 
-She doesn't notice the light. She notices that she's suddenly closer to my desk than she was. She doesn't remember walking.
+She doesn't notice the light. She notices that she's suddenly closer to my desk than she was, and she doesn't remember walking.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Close the door." },
-{ text: "She closes it and drops her bag on the floor next to it and comes over and stands in front of my chair, close, with her hands twisted together." },
+{ who: $player, text: "Close the door, would you?" },
+{ text: "She closes it, drops her bag on the floor next to it and comes over to stand in front of my chair, close, with her hands twisted together." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -55,11 +55,11 @@ She doesn't notice the light. She notices that she's suddenly closer to my desk 
 <<set _msgs = [
 { who: $player, text: "You want to know what you are to me." },
 { who: $sister, text: "Yes." },
-{ who: $player, text: "I think I might feel something like what you feel. Something like love. I don't say that to anyone." },
-{ text: "Her breath catches. Her eyes fill instantly, as if they'd been waiting." },
-{ who: $player, text: "But my love belongs to the company. To what I'm building. That comes first, and it always will. Everything I have goes into it. Everyone I have goes into it." },
-{ who: $sister, text: "I know. I know that. I've seen it." },
-{ who: $player, text: "So here's what you are, if you want to be. You stop being my $sister.relation and my intern. You're mine. All of you, here, tonight, and after tonight. Whatever I need, whenever I need it." },
+{ who: $player, text: "I think I feel something like what you feel. Something close to love, maybe. I've never said that to anybody." },
+{ text: "Her breath catches. Her eyes fill instantly, as if they'd been waiting for permission." },
+{ who: $player, text: "But my love, or whatever it is, belongs to the company. What I'm building comes first and it always will, and it's going to take everything I have and everyone I have. I'm not going to pretend otherwise, not to you." },
+{ who: $sister, text: "I know that. I've watched it happen." },
+{ who: $player, text: "So if you want to be something to me, you'd stop being my $sister.relation who happens to work for me. You'd be mine, all of you, tonight and every night after, whatever I need and whenever I need it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -68,16 +68,16 @@ She's trembling. The amber light hums on the corner of my desk.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Or you can pick up your bag and go home, and tomorrow you're my intern, and you bring me coffee, and nothing else. I won't be angry. I'll never ask again." },
-{ who: $player, text: "Everything, or leave. You choose." },
+{ who: $player, text: "Or you pick up your bag and go home, and tomorrow you're my intern again and you bring me coffee and that's all it is. I won't be angry about it, and I won't ask you again." },
+{ who: $player, text: "So it's everything, or you leave. Your call." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Let her choose">>
-She looks at the door. It's closed. Her bag is on the floor next to it.
+She looks at the door. It's closed, and her bag is on the floor next to it.
 
-For a long moment she really does look at it, and I can see her imagining it: picking up the bag, walking out, the elevator, the bus, her room, her old life, $bestFriend.name, the lake, the group chat she could unmute. A normal girl with a normal $sister.playerRelation. It's right there. It's twelve steps away.
+For a long moment she really does look at it, and I can see her imagining it: picking up the bag, walking out, the elevator and the bus and her room, her old life, $bestFriend.name and the lake and the group chat she could unmute. A normal girl with a normal $sister.playerRelation. It's all right there, about twelve steps away.
 
 Then she looks back at me.
 
@@ -85,8 +85,8 @@ Then she looks back at me.
 <<set _msgs = [
 { who: $sister, text: "I'm scared." },
 { who: $player, text: "I know." },
-{ who: $sister, text: "I don't know if I... I don't know if I'm ready for everything. I don't even know what everything is." },
-{ who: $player, text: "You don't have to know. You just have to choose." },
+{ who: $sister, text: "I don't know if I'm ready for everything. I don't even know what everything is." },
+{ who: $player, text: "Honestly, neither do I. I just know I'm not going to ask twice." },
 { text: "She closes her eyes. When she opens them again, she's stopped crying." },
 { who: $sister, text: "Everything." },
 { text: "It comes out very small. Then she says it again, louder, like she's signing her name." },
@@ -95,31 +95,31 @@ Then she looks back at me.
 <</silently>>
 <<Chat _msgs>>
 
-I don't think she ever really had a choice. I don't think she knows that. That's what makes it hers.
+I'd like to think she could have walked out. With the light on my desk still glowing amber, I'm honestly not sure, and I don't spend very long wondering about it.
 
 <<linkreplace "Take her">>
 I stand up. She flinches, very slightly, and then she's in my arms and kissing me, hard and clumsy, the way she kissed me the first time, months ago in my room, except that this time she doesn't stop and she doesn't apologize.
 
-I take her clothes off myself, slowly, one piece at a time, and she lets me. The blouse. The skirt. The plain cotton things underneath, which she didn't choose for tonight because she didn't know there would be a tonight. She stands in front of my desk in the lamplight with her arms at her sides, not covering anything, because I haven't told her to, and her skin is goosebumps from her collarbones to her knees.
+I take her clothes off myself, slowly, and she lets me: the blouse first, then the skirt, then the plain cotton things underneath, which she didn't pick for tonight because she didn't know there would be a tonight. She stands in front of my desk in the lamplight with her arms at her sides, not covering anything, because I haven't told her to, and she has goosebumps from her collarbones to her knees.
 
 /* MEDIA: images/characters/sister/events/everything/standing.jpg | Sister standing naked in the lamplight in front of the desk, arms at her sides, the amber light of the gray box behind her */
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I've never... you know I've never. Not all the way. Not with anyone." },
+{ who: $sister, text: "You know I've never... not all the way. Not with anyone." },
 { who: $player, text: "I know." },
-{ who: $sister, text: "I'm glad. I'm glad it's you. I always wanted it to be..." },
+{ who: $sister, text: "I'm glad it's you. I always kind of wanted it to be..." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 I lay her down on the couch in the corner of the office, the one where $ethan.name naps after lunch, and she pulls me down with her.
 
-She's nervous and she's ready, both at once. It hurts her at first. She tells me so in a whisper, and tells me not to stop in the same breath, and holds on to my shoulders with both hands until it stops hurting, and then she holds on for a different reason.
+She's nervous and ready at the same time. It hurts her at first. She tells me so in a whisper, and tells me not to stop in the same breath, and holds on to my shoulders with both hands until it stops hurting, and then she holds on for a different reason.
 
 /* MEDIA: images/characters/sister/events/everything/sex_0.mp4 | On the office couch, her arms around his neck, her face turned into his shoulder */
 
-I take my time with her, and it has nothing to do with being gentle. I want her to remember every minute of it, and to know who gave it to her. She says my name over and over, and once, near the end, she says she loves me, and once she says she's mine, as if she's practicing it, and I make her say it again until her voice doesn't shake.
+I take my time with her, and it has nothing to do with being gentle. I want her to remember every minute of it, and to know who gave it to her. She says my name over and over, and once, near the end, she says she loves me, and once she says she's mine, as if she's trying it out, and I make her say it again until her voice doesn't shake.
 
 /* MEDIA: images/characters/sister/events/everything/sex_1.mp4 | Closer, faster, her heels digging into the backs of his legs, the amber light on the desk behind them */
 
@@ -128,17 +128,17 @@ When she comes, she clings to me so hard it hurts, and cries a little, and laugh
 <<DevicePulse "off" "3s">>
 
 <<linkreplace "Afterwards">>
-She lies against me on the narrow couch for a long time with her ear on my chest, drawing little circles on my stomach with one finger. On the desk, I switch the Catalyst back to standby. The light goes green again. She doesn't notice that either.
+She lies against me on the narrow couch for a long time with her ear on my chest, drawing little circles on my stomach with one finger. On the desk, I switch the Catalyst back to standby. The light goes green again, and she doesn't notice that either.
 
 Then she sits up, suddenly, as if she's remembered something important.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Wait. Hold on. Everything means everything, right?" },
-{ text: "She climbs off the couch, wrapped in my jacket, pads over to her bag, digs out her phone and comes back. She unlocks it and holds it out to me." },
-{ who: $sister, text: "Here. The code's my birthday, you know that already. My email password is the name of our first cat with a two and an exclamation mark. And I'm turning on location sharing. For you. Always on." },
+{ who: $sister, text: "Wait. Everything means everything, right?" },
+{ text: "She climbs off the couch in my jacket, pads over to her bag, digs out her phone and comes back. She unlocks it and holds it out to me." },
+{ who: $sister, text: "Here. The code's my birthday, you know that already, and my email password is the name of our first cat with a two and an exclamation mark. And I'm turning on location sharing, for you, always on." },
 { who: $player, text: "You don't have to do that." },
-{ who: $sister, text: "I want to. I don't want there to be anything you can't see. I don't want to have a single secret from you. Not one." },
+{ who: $sister, text: "I want to. I don't want there to be a single thing you can't see." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -147,17 +147,17 @@ I take the phone. Her location turns on while I'm holding it, a little blue dot 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "And can I ask for something? A weird something." },
-{ who: $player, text: "Ask." },
-{ who: $sister, text: "Could you pick my clothes? In the mornings? Like, tell me what to wear. I stand in front of my closet for half an hour every day, and I keep thinking, what would he want. I'd rather just know." },
+{ who: $sister, text: "Can I ask for something? It's a weird one." },
+{ who: $player, text: "Sure, go ahead." },
+{ who: $sister, text: "Could you pick my clothes in the mornings? Just tell me what to wear. I stand in front of my closet for half an hour every day thinking about what you'd want, and I'd honestly rather just know." },
 { text: "She says it to my chest, not to my face, and her ears go red." },
-{ who: $player, text: "Soon." },
-{ who: $sister, text: "Soon. Okay. Soon is good. I can wait for soon." },
+{ who: $player, text: "Not yet. Soon, though." },
+{ who: $sister, text: "Soon is good. I can wait for soon." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She lies back down on top of me and sighs, a long, contented sigh, like someone getting into a warm bath. A few minutes later she's asleep, on the couch in the dark office, wearing my jacket, with her phone in my hand.
+She lies back down on top of me and lets out a long, contented sigh, like someone getting into a warm bath. A few minutes later she's asleep on the couch in the dark office, wearing my jacket, with her phone in my hand.
 
 I hold it and look at the blue dot for a while. Then I put it in my pocket.
 

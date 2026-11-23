@@ -28,10 +28,10 @@ Her chair has moved to my side of the table for good. Today her knee ends up aga
 <<case "money">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay, today's question. Where does the money actually come from? Because I see it leave. Rent, wages, the coffee. Mostly the coffee." },
+{ who: $sister, text: "Today's question is where the money actually comes from, because so far I've only ever seen it leave. Rent, wages, and a slightly alarming amount of coffee." },
 { who: $player, text: "Clients pay for projects. Some pay once, some pay every week for support. Everything else is me making sure we spend less than that." },
 { who: $sister, text: "So basically you're $mom.callName with the grocery budget." },
-{ who: $player, text: "With more zeros." },
+{ who: $player, text: "Pretty much, just with a few more zeros and a lot less coupon clipping." },
 { text: "She writes 'like $mom.callName with the grocery budget, but with zeros' and underlines 'zeros' twice." },
 ]>>
 <</silently>>
@@ -39,10 +39,10 @@ Her chair has moved to my side of the table for good. Today her knee ends up aga
 <<case "device">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "My advisor wants me to describe our product. In my own words. So what does $company.prototype.name actually do? For real, not the brochure." },
+{ who: $sister, text: "My advisor wants me to describe our product. In my own words. So what does $company.prototype.name actually do? I mean really, not the brochure version." },
 { who: $player, text: "It reads a room. Light, noise, how people move, how tense they are. Then it helps the room feel a little better." },
 { who: $sister, text: "So it's a really expensive scented candle." },
-{ who: $player, text: "Write that down and I'll fire you." },
+{ who: $player, text: "If that ends up in your journal, I'm cutting your coffee budget." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -50,10 +50,10 @@ She writes 'expensive scented candle' in very small letters in the margin anyway
 <<case "college">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Can we do college stuff for five minutes? My advisor wants a paragraph about transferable skills. What did I transfer? Coffee. From the machine. To people." },
+{ who: $sister, text: "Can we do college stuff for five minutes? My advisor wants a paragraph on transferable skills, and so far the only thing I've transferred is coffee, from the machine to people." },
 { who: $player, text: "You keep half the office's calendar in your head and nobody asked you to. That's coordination." },
-{ who: $sister, text: "Coordination. Oh, that's good. That's a real word, advisors love that." },
-{ who: $player, text: "You keep everybody's mood up when a deadline gets ugly. That's team morale." },
+{ who: $sister, text: "Coordination. Oh, that's good, advisors love a word like that." },
+{ who: $player, text: "And when a deadline gets ugly, you're the one keeping everybody's mood up. Call it team morale." },
 { who: $sister, text: "Stop it. I'm going to put this on my resume, and then I'll have to actually be like that." },
 ]>>
 <</silently>>
@@ -61,18 +61,18 @@ She writes 'expensive scented candle' in very small letters in the margin anyway
 <<case "landlord">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Can I write about the building? Like, a 'community relations' section?" },
+{ who: $sister, text: "Can I write about the building? I'm thinking a section on community relations." },
 { who: $player, text: "You mean $landlord.callName." },
-{ who: $sister, text: "I mean $landlord.callName. He made me carry a box of his old magazines down to the basement, and he watched me the whole way. From the top of the stairs. Very supervisory." },
-{ who: $player, text: "He keeps our rent low. That's community relations." },
-{ who: $sister, text: "Then the section is called 'community relations' and it's one line long and nobody is ever reading it." },
+{ who: $sister, text: "I mean $landlord.callName, yes. He had me carry a box of his old magazines down to the basement and supervised the whole trip from the top of the stairs, very closely." },
+{ who: $player, text: "He's also the reason our rent is that low, so I'd call that community relations." },
+{ who: $sister, text: "Then the section is called community relations, it's one line long, and nobody is ever going to read it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<case "darius">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Is it unprofessional to write that $darius.name is very good at his job? Because he is. Objectively. It's an observation." },
+{ who: $sister, text: "Would it be unprofessional to write that $darius.name is very good at his job? Because objectively he is. I'm just making an observation." },
 { who: $player, text: "An observation about his job." },
 { who: $sister, text: "Mostly about his job." },
 ]>>
@@ -84,9 +84,9 @@ She glances up while she says it, quickly, to see what my face does. My face doe
 <<set _msgs = [
 { who: $sister, text: "Can I ask something that's not for the journal?" },
 { who: $player, text: "Depends on the question." },
-{ who: $sister, text: "When $mom.callName comes back from $boss.callName's office, she goes straight to the bathroom. Every time. Ten minutes. And then she comes out totally fine and wants to talk about lunch." },
-{ who: $player, text: "He's a difficult client." },
-{ who: $sister, text: "Yeah. That's what she says too. Word for word, actually." },
+{ who: $sister, text: "Every time $mom.callName comes back from $boss.callName's office, she goes straight to the bathroom for about ten minutes, and then she comes out totally fine and wants to talk about lunch." },
+{ who: $player, text: "He's a difficult client. She doesn't love going over there." },
+{ who: $sister, text: "Funny, that's exactly what she says. Almost word for word." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -98,8 +98,8 @@ She keeps her eyes on me for a while after that. Then she writes 'client relatio
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: either("Same time, day after tomorrow? It's in the calendar. I checked. Twice.", "I'm leaving the good pen in here, by the way. It lives in this room now.", "My advisor is going to think I'm a genius. Or that I got kidnapped by a consultant.") },
-{ who: $player, text: "Go on. Your desk misses you." },
+{ who: $sister, text: either("Same time the day after tomorrow? It's in the calendar, I checked twice.", "I'm leaving the good pen in here, by the way. It lives in this room now.", "My advisor is going to think I'm a genius. Or that I got kidnapped by a consultant.") },
+{ who: $player, text: "Go on, your desk is starting to miss you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

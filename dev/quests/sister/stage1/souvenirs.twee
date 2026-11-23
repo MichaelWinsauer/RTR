@@ -11,11 +11,11 @@ She's there in under a minute, in the gray hoodie and sleep shorts, with her hai
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "You rang? Is it a spider? Please tell me it's a spider, I've been training for this my whole life." },
-{ who: $player, text: "Close the door." },
+{ who: $sister, text: "You rang? If this is about a spider, little $sister.callPlayerShort, I'm charging you for it." },
+{ who: $player, text: "Close the door for a second, would you?" },
 { text: "She closes it. Something about the way I said it takes the bounce out of her, and she sits down on the end of my bed with her hands tucked into the sleeves." },
-{ who: $sister, text: "Okay, you're being weird. Is it the internship? Did I mess something up with the journal?" },
-{ who: $player, text: "You didn't mess anything up. I want to show you something. I've been thinking about whether I should for a while." },
+{ who: $sister, text: "You're being weird. Is this about the internship? Did I mess something up in the journal?" },
+{ who: $player, text: "You didn't mess anything up. I want to show you something. I've been going back and forth for a while on whether I should." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -23,7 +23,7 @@ She's there in under a minute, in the gray hoodie and sleep shorts, with her hai
 <<linkreplace "Hand her the phone">>
 I open the album and hand her my phone.
 
-She looks at the first photo for a long time without understanding it. Her room, from the doorway. The fairy lights over her bed. A shape on the bed, all bare skin and loose hair, one arm thrown over its face.
+She looks at the first photo for a long time without understanding it. It's her room, taken from the doorway, with the fairy lights over the bed and a shape on the bed that's all bare skin and loose hair, one arm thrown over its face.
 
 Then she swipes, and the shape is her.
 
@@ -31,12 +31,12 @@ Then she swipes, and the shape is her.
 
 <<silently>>
 <<set _msgs = [
-{ text: "Her thumb stops. Her whole body stops. For a few seconds she doesn't breathe, and then she does, too fast." },
-{ who: $sister, text: "What is... when is this? When did you..." },
+{ text: "Her thumb stops, and so does the rest of her. For a few seconds she doesn't breathe at all, and then she does, too fast." },
+{ who: $sister, text: "When is this from? When did you..." },
 { who: $player, text: "The night of the party. You came home and you came to find me." },
-{ who: $sister, text: "No. No, that was... I dreamed that. I dream about that night all the time, I thought it was a dream, I thought I made it up because I'm a disgusting person and my brain is broken..." },
-{ text: "She swipes again. Her hand is shaking. She swipes again." },
-{ who: $sister, text: "Oh my God. Oh my God, it was real. I was... I did..." },
+{ who: $sister, text: "No. No, I dreamed that. I dream about that night all the time, I thought I made it up because I'm a disgusting person and my brain is broken..." },
+{ text: "She swipes again, and again, and her hand is shaking now." },
+{ who: $sister, text: "Oh my God, it was real. I actually..." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -44,28 +44,28 @@ Then she swipes, and the shape is her.
 She drops the phone on the comforter like it's hot and presses both sleeves over her mouth. For a second I think she's going to be sick right there on my bed.
 
 <<linkreplace "Wait">>
-I don't touch her. I don't take the phone back. I sit on my desk chair and wait while she breathes into her sleeves, and I let her get all the way to the bottom of it on her own, because the bottom is where she'll look for something to hold on to, and I'm going to be the only thing there.
+I don't touch her, and I don't take the phone back. I sit in my desk chair and let her breathe into her sleeves. Part of me wants to go over there and say something soothing, and I'm fairly sure that would ruin it. I want her to get to the bottom of this on her own and look around for something to hold on to, and find me sitting there.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Why do you have these? Why would you... are you going to... is this a..." },
-{ who: $player, text: "Hey. Look at me." },
+{ who: $sister, text: "Why do you have these? Why would you keep... are you going to do something with them?" },
+{ who: $player, text: "Hey. Look at me for a second." },
 { text: "She does. Her eyes are wet and enormous." },
-{ who: $player, text: "Nobody has ever seen them. Nobody ever will. I didn't take them to hurt you." },
+{ who: $player, text: "Nobody has ever seen them, and nobody ever will. I didn't take them to hurt you." },
 { who: $sister, text: "Then why?" },
-{ who: $player, text: "Because that night you told me things nobody has ever told me. And you'd forgotten them by morning. I didn't want to be the only one who remembered. They're special. They're memories. That's all they are." },
+{ who: $player, text: "Because that night you told me things nobody has ever said to me, and the next morning you'd forgotten every one of them. I didn't want to be the only one who remembered. To me they're a memory of something special, that's all they are." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-It's almost the truth, which makes it the best kind of lie. I watch it work on her: the fear first, then confusion, then something warm creeping up underneath that she doesn't want to be there.
+It's close enough to the truth that I almost believe it myself. I watch it reach her in stages: the fear first, then confusion, and then something warm creeping up underneath that she clearly doesn't want there.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "You kept them. All this time. You kept them and you never said anything, you never..." },
-{ who: $sister, text: "You never made me feel weird about it. I've been feeling weird about it every single day and you just... let me pretend." },
-{ who: $player, text: "I thought you weren't ready." },
-{ who: $sister, text: "I'm not ready. I'm so not ready. I'm wearing a face mask." },
+{ who: $sister, text: "You kept them all this time and never said a word." },
+{ who: $sister, text: "You never once made me feel weird about it. I've been feeling weird about it every single day, and you just let me pretend." },
+{ who: $player, text: "I didn't think you were ready." },
+{ who: $sister, text: "I'm still not ready. I'm wearing a face mask, for God's sake." },
 { text: "She touches her chin, finds the mask, and laughs, horribly, wetly, and starts picking it off in little pieces." },
 ]>>
 <</silently>>
@@ -76,12 +76,12 @@ She picks the phone back up. She doesn't swipe this time. She just looks at the 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I remember bits. Like, flashes. The lights. Your belt. I remember thinking I had to thank you, like it was the most important thing in the whole world." },
-{ who: $sister, text: "And I remember how it felt. Not the... not the drunk part. Just. Being that close to you, and you letting me." },
+{ who: $sister, text: "I remember bits of it. The lights, your belt, and thinking I had to thank you, as if that was the most important thing in the whole world." },
+{ who: $sister, text: "And I remember how it felt. Not the drunk part, just being that close to you, and you letting me." },
 { text: "She puts the phone down, face down, very carefully, and looks at her hands instead of at me." },
-{ who: $sister, text: "Can I... is it okay if I ask something terrible?" },
+{ who: $sister, text: "Can I ask you something terrible?" },
 { who: $player, text: "You can ask me anything." },
-{ who: $sister, text: "Can I touch you? Like that night. But I want to remember it this time." },
+{ who: $sister, text: "Can I touch you, like that night? Only this time I want to remember it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -97,10 +97,10 @@ She's slow about it, and shaky, and completely serious. She pushes the sleeves o
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Is this... am I doing it right? I can't remember if I was good at it. I was probably terrible. I was drunk." },
+{ who: $sister, text: "Is this right? I can't remember if I was any good at it that night. I was probably terrible, I was drunk." },
 { who: $player, text: "You're doing fine." },
-{ who: $sister, text: "Fine. Wow. Okay. I'll take fine." },
-{ text: "But she watches my face the whole time, the way she watched it when she read her grades out loud, and every time I breathe a little differently she adjusts, and learns, and gets better. She's a fast learner. She always has been, when it's something she cares about." },
+{ who: $sister, text: "Fine. Wow. I'll take fine, I guess." },
+{ text: "But she watches my face the whole time, the way she watched it when she read her grades out loud, and every time I breathe a little differently she adjusts, and learns, and gets better. She's always been a fast learner when it's something she cares about." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -109,16 +109,16 @@ Halfway through she stops talking. Her breathing has changed. She's leaning agai
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I've thought about this so much. Every night. And I hated myself every time. And now it's real and it's you and I don't hate anything." },
-{ who: $player, text: "Don't stop." },
-{ who: $sister, text: "I'm not going to stop. I'm not going to stop." },
+{ who: $sister, text: "I've thought about this so much, every night, and I hated myself every single time. And now it's real, and it's you, and I don't hate any of it." },
+{ who: $player, text: "Then don't stop now." },
+{ who: $sister, text: "I'm not going to." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 /* MEDIA: images/characters/sister/events/souvenirs/hj_1.mp4 | Close, faster, her forehead against his shoulder */
 
-When I come, she gasps like she's the one who did, and doesn't let go, and stares down at her hand and my stomach with an expression I can't name. Wonder, maybe. Like someone who has just watched something hatch.
+When I come, she gasps as if she's the one who did, and doesn't let go, and stares down at her hand and my stomach with an expression I can't quite read. Wonder, maybe, like someone who has just watched something hatch.
 
 <<linkreplace "Afterwards">>
 She cleans us both up with the tissues on my nightstand, carefully, thoroughly, the way she does everything when it matters to her. Then she sits back on her heels on the bed and looks at me with her hands in her lap.
@@ -126,13 +126,13 @@ She cleans us both up with the tissues on my nightstand, carefully, thoroughly, 
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "That was real. That one counts." },
-{ who: $player, text: "That one counts." },
+{ who: $player, text: "And this time you'll remember it." },
 { text: "She nods, slowly. Then she takes a deep breath, and I can see her working up to it, the same way she worked up to asking about the internship." },
-{ who: $sister, text: "Can I... can I do that more often?" },
+{ who: $sister, text: "Could I do that more often?" },
 { text: "She hurries on before I can answer." },
-{ who: $sister, text: "Not like, all the time. I'm not a... I just mean. Sometimes. When you want. I'd like to be the one who does that. For you." },
-{ who: $player, text: "Sometimes. When I want." },
-{ who: $sister, text: "Okay. Okay. Yeah. That's... yes." },
+{ who: $sister, text: "Not all the time, I'm not some kind of... I just mean sometimes, when you want. I'd like to be the one who does that for you." },
+{ who: $player, text: "Sometimes, then. I'll let you know when." },
+{ who: $sister, text: "Okay. Yeah, okay. That's good." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -141,7 +141,7 @@ She leaves my phone on the nightstand, face down, without asking me to delete an
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Keep them. The pictures. I think... I think I like that you have them." },
+{ who: $sister, text: "Keep the pictures, by the way. I think I like that you have them." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

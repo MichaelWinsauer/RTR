@@ -10,29 +10,29 @@ She's at the kitchen table with a cup of tea she's stopped drinking and the comp
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "There you are. Your $sister.relation came in singing. Did something good happen at the office?" },
-{ who: $player, text: "Something good happened." },
-{ who: $mom, text: "Well, I'm glad. You both work too hard." },
+{ who: $mom, text: "There you are, honey. Your $sister.relation came in singing, and I mean really singing, she did the high part and everything. Did something good happen at the office?" },
+{ who: $player, text: "Yeah. We finished the Catalyst today." },
+{ who: $mom, text: "Oh, that's wonderful! Although you've both been working much too hard on that thing, and don't think I haven't noticed you living on crackers from the vending machine." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-The Catalyst is in my jacket pocket. It still has half its charge. I sit down across from her at the table, and while she's telling me about the client who wants everything in triplicate, I reach into my pocket and press the button.
+The Catalyst is in my jacket pocket, with about half its charge left. I sit down across from her at the table, and while she's telling me about the client who wants everything in triplicate, I reach into my pocket and press the button.
 
 <<UseQuestDevice $player "mom">>
 
 <<linkreplace "Tell her">>
-In $sister.callName the Catalyst found love. In $mom.callName it finds something else, something older and quieter: the wish to be wanted, which is a different thing from being needed. She's been needed her whole life, by $dad.callName, by us, by her old boss, by this company. Wanted is different. Nobody has wanted her in a long time, and she knows exactly how long.
+In $sister.callName the Catalyst found love. In $mom.callName, if I'm reading her right, it finds something older and quieter: the wish to be wanted, which is a different thing from being needed. She's been needed her whole life, by $dad.callName, by us, by her old boss, by this company, but I don't think anybody has wanted her in a long time, and I'd bet she knows exactly how long.
 
 <<if $mom.flags.gymDinner === true>>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "I keep thinking about the gym dinner." },
+{ who: $player, text: "I keep thinking about that dinner with $gymOwner.name." },
 { text: "Her pen stops on the screen." },
-{ who: $player, text: "A man had his hand on your knee for an hour, and the whole time you were thinking about whether I'd approve." },
-{ who: $mom, text: "Honey..." },
-{ who: $player, text: "You were." },
-{ who: $mom, text: "I was. Yes." },
+{ who: $player, text: "You sat across from that man for a whole evening, and I'd bet the entire time you were wondering whether I'd be happy with how you handled him." },
+{ who: $mom, text: "Honey, that's not... well." },
+{ who: $player, text: "Were you?" },
+{ who: $mom, text: "Of course I was. I kept thinking, what would he want me to do now, is this all right, and then the waiter came with the bread basket and I nearly knocked my wine into his lap." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -40,47 +40,47 @@ In $sister.callName the Catalyst found love. In $mom.callName it finds something
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "You've been so good. For weeks. The rounds, the mornings, everything I've asked for. You've been perfect." },
+{ who: $player, text: "You've been so good these last few weeks. The rounds, the mornings, everything I asked you for, you just did it, and you never once made me feel bad for asking." },
 { text: "She puts the tablet down. Her hands find each other on the table." },
-{ who: $mom, text: "I've only been doing what you needed." },
-{ who: $player, text: "It's not about what I need. I want you." },
+{ who: $mom, text: "Well, I've only been doing what you needed, honey. That's all I ever want to do." },
+{ who: $player, text: "I know. But that's not what I'm trying to say. What I'm trying to say is that I want you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 She goes completely still.
 
-I watch it land. I watch the Catalyst take a feeling that's been sitting at the bottom of her for twenty years and turn the volume up on it, slowly, until it's all she can hear. Her lips part. Her eyes fill. She looks at me the way she looked at the photo of $dad.callName walking across a party to find her in a kitchen.
+I can see it land. Whatever the Catalyst is doing in her, it looks like it's taking a feeling that's been sitting at the bottom of her for twenty years and turning it up, slowly, until it's all she can hear. Her lips part and her eyes fill, and she looks at me the way she looks at that old photo of $dad.callName, the one from the party where he walked all the way across the house to find her in the kitchen.
 
 <<linkreplace "Wait">>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "You can't say that to me. You can't say things like that, honey, I'm your..." },
-{ who: $player, text: "You're the most beautiful woman I know, and I want you, and I'm tired of pretending I don't." },
+{ who: $mom, text: "Sweetheart, you can't say things like that to me, I'm your... it's late, and you've had such a long day, let me at least heat you up some of the..." },
+{ who: $player, text: "I don't want anything heated up, $mom.callName. You're the most beautiful woman I know, and I want you, and I'm tired of pretending I don't." },
 { text: "She makes a sound that's half a laugh and half something else, and covers her mouth with her hand." },
-{ who: $mom, text: "Nobody's said that to me in... I don't even know. Years. Years and years." },
-{ who: $player, text: "I'm saying it." },
+{ who: $mom, text: "Nobody's said anything like that to me in, oh, I don't even know how long. Years and years, honey." },
+{ who: $player, text: "Well, I'm saying it now, and I mean it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She takes her hand away from her mouth. She looks at the stairs, toward $sister.callName's room, where the shower has stopped. Then she looks back at me, and she stands up, and she holds out her hand.
+She takes her hand away from her mouth and looks at the stairs, toward $sister.callName's room, where the shower has stopped. Then she looks back at me, stands up and holds out her hand.
 
 <<linkreplace "Take her hand">>
 /* MEDIA: images/characters/mom/events/catalyst_night/bed_0.mp4 | Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
-She leads me up the stairs and into her bedroom, past my own door, past $sister.callName's door with the light still on under it, and closes hers very quietly. She turns the lamp down to its lowest setting. Then she stands at the foot of the bed she shared with $dad.callName and unties the robe, twice-knotted, and lets it fall.
+She leads me up the stairs and into her bedroom, past my own door, past $sister.callName's door with the light still on under it, and closes hers very quietly. She turns the lamp down to its lowest setting. Then she stands at the foot of the bed she shared with $dad.callName, unties the robe, which she's knotted twice, and lets it fall.
 
-She's never stood in front of me like this without being told to. She doesn't cover anything.
+She's never stood in front of me like this without being told to, and she doesn't cover anything.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Is this... do you really..." },
-{ who: $player, text: "Come here." },
+{ who: $mom, text: "Do you really... like this? Me?" },
+{ who: $player, text: "I really do. Come here." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She lies back on her own bed and pulls me down with her, and for a moment she just holds my face in both hands and looks at me, as if she's memorizing something. Then she kisses me, and it isn't the kiss she puts on my forehead. It's the way a woman kisses someone she wants.
+She lies back on her own bed and pulls me down with her, and for a moment she just holds my face in both hands and looks at me, as if she's memorizing something. Then she kisses me, and it's nothing like the kiss she puts on my forehead. She kisses me like a woman who wants someone.
 
 /* MEDIA: images/characters/mom/events/catalyst_night/bed_1.mp4 | In her bed, her arms around his neck, her face turned toward him */
 
@@ -89,16 +89,16 @@ It's slow. She's careful at first, the way she's careful with everything, and th
 When she comes, she pulls me down against her and holds on with her whole body, shaking, and doesn't let go for a long time.
 
 <<linkreplace "Afterwards">>
-She lies against me with her head on my chest. The lamp is still on. Her hair is all over the pillow, and she's tracing slow circles on my stomach with one finger, the same way $sister.callName did a few hours ago on the office couch, though neither of them will ever know that.
+She lies against me with her head on my chest. The lamp is still on. Her hair is all over the pillow, and she's tracing slow circles on my stomach with one finger, the same idle way $sister.callName played with my fingers on the gearshift a few hours ago, though neither of them will ever know that.
 
-I wait for it. The rule. Only when it gets bad. Just this once. Only in my room. She always makes a rule afterwards, a little fence around what happened so she can live next to it.
+I wait for the rule. There's always one afterwards, just this once, or only when it gets bad, or only in my room, some little fence around what happened so she can live next to it.
 
 She doesn't make one.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Stay a little. Until I fall asleep." },
-{ who: $player, text: "I'll stay." },
+{ who: $mom, text: "Stay a little while, will you? Just until I fall asleep." },
+{ who: $player, text: "Sure. I'm not going anywhere." },
 { who: $mom, text: "Good." },
 ]>>
 <</silently>>
@@ -106,7 +106,7 @@ She doesn't make one.
 
 That's all she says. She falls asleep holding my hand against her heart, and I lie there in the low light and listen to the house: the fridge, the old pipes, my $sister.relation turning over in bed on the other side of the wall.
 
-In my jacket on her floor, the Catalyst has gone dark. It didn't create anything tonight. It only turned up what was already there, in both of them, and there was more of it than I'd guessed.
+In my jacket on her floor, the Catalyst has gone dark. If $brian.name's label is right, it didn't create anything tonight and only turned up what was already there, in both of them. I just didn't expect there to be so much of it.
 
 <<UpdateStat "+" "MomRelation" 4>>
 <<UpdateStat "-" "MomLust" 40>>
@@ -114,7 +114,7 @@ In my jacket on her floor, the Catalyst has gone dark. It didn't create anything
 <<UpdateStat "+" "Corruption" 3>>
 <<Feel $mom "player" 3 "lasting">>
 <<AdvanceCorruptionStage $mom "With the Catalyst on, I told her she's been good for weeks, and that I want her. She led me up to her own bed. Afterwards she didn't make a rule.">>
-<<ProfileLog $mom "The Catalyst Night" "I switched the Catalyst on at the kitchen table and told her I want her, not need her. Nobody had said that to her in years. She took my hand, led me past both our doors to her own bed, and let the robe fall. Afterwards she didn't make a rule. She asked me to stay until she fell asleep.">>
+<<ProfileLog $mom "The Catalyst Night" "I switched the Catalyst on at the kitchen table and told her that I want her, which isn't the same as needing her. Nobody had said that to her in years. She took my hand, led me past both our doors to her own bed, and let the robe fall. Afterwards she didn't make a rule. She asked me to stay until she fell asleep.">>
 <<ProfileMemory $mom "Wanted" "She said nobody had told her that in years and years. Then she stood up from the kitchen table and held out her hand.">>
 <<NextQuest $player>>
 <<ReturnFromEvent "Continue" "Bedroom">>

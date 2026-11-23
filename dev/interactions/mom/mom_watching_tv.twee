@@ -26,9 +26,9 @@ On the TV, a man with a lot of forearm tattoos is making a deconstructed shepher
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Look at him. Look at what he's doing to that potato, honey." },
+{ who: $mom, text: "Look at him, honey, look at what he's doing to that poor potato." },
 { who: $player, text: "He's deconstructing it." },
-{ who: $mom, text: "He's ruining it. A shepherd's pie isn't supposed to be deconstructed. That's the entire point of a pie, it's all in one place. Sit, you're blocking the judges." },
+{ who: $mom, text: "He's ruining it, is what he's doing. A shepherd's pie isn't supposed to be deconstructed, the whole point of a pie is that it's all in one place. Sit down, sweetie, you're blocking the judges." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -37,26 +37,26 @@ I sit. She hands me the apple bowl without taking her eyes off the screen, and f
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Bet you the tattoo guy wins." },
-{ who: $mom, text: "Loser does the dishes tomorrow." },
+{ who: $player, text: "I bet you the tattoo guy wins." },
+{ who: $mom, text: "Oh, you're on. Loser does the dishes tomorrow." },
 { who: $player, text: "Deal." },
-{ text: "The judges take a bite of the deconstructed pie. One of them closes his eyes. $mom.callName grips my arm." },
+{ text: "The judges take a bite of the deconstructed pie. One of them closes his eyes, and $mom.callName grips my arm." },
 { who: $mom, text: "No. No, don't you dare close your eyes, you traitor." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-The tattooed man wins. $mom.callName stares at the screen in silence while the confetti comes down, then gets up, takes the apple bowl back out of my hands, and goes to the kitchen to start the dishes tonight, so she won't have to hear about it tomorrow.
+The tattooed man wins. $mom.callName stares at the screen in silence while the confetti comes down, then gets up, takes the apple bowl back out of my hands, and goes to the kitchen to do the dishes tonight, so she won't have to hear about it tomorrow.
 
 /* ——— 2: Previously on ——— */
 <<case 2>>
-The TV has stopped and is politely asking whether anybody is still watching. $mom.callName is still watching. She is glaring at the screen, remote in hand, as if she's been accused of something.
+The TV has stopped and is politely asking whether anybody is still watching. $mom.callName is still watching. She's glaring at the screen with the remote in her hand, as if she's been accused of something.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Of course I'm still watching. Who else would be watching? It's very judgmental, this thing." },
-{ who: $player, text: "How many episodes?" },
-{ who: $mom, text: "That's none of its business. Or yours. Sit down, you can catch up, I'll tell you everything." },
+{ who: $mom, text: "Of course I'm still watching, who else would be watching? It's very judgmental, this thing." },
+{ who: $player, text: "How many episodes have you seen today?" },
+{ who: $mom, text: "That's none of its business, and it's none of yours either. Sit down, you can catch up, I'll tell you everything." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -68,7 +68,7 @@ It's some Scandinavian crime show where everyone wears very nice sweaters and no
 { who: $player, text: "So who did it?" },
 { who: $mom, text: "The pastor." },
 { who: $player, text: "There's a pastor?" },
-{ who: $mom, text: "He's in one scene, sweetie. In episode two. He was holding a cup of coffee in a very suspicious way." },
+{ who: $mom, text: "He's in one scene, sweetie, in episode two, and he was holding a cup of coffee in a very suspicious way." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -81,14 +81,14 @@ They've taken one end of the couch each, with a single blanket stretched across 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh, thank god. $sister.callPlayerShort, sit. We need a male opinion. A bad one, ideally, so we can ignore it." },
+{ who: $sister, text: "Oh, thank god. Sit down, little $sister.callPlayerShort, we need a male opinion, preferably a bad one so we can ignore it." },
 { who: $mom, text: "Be nice to your $sister.playerRelation." },
-{ who: $sister, text: "I am being nice. I said 'ideally'." },
+{ who: $sister, text: "I am being nice. I said 'preferably'." },
 { text: "On the screen, a man named Tanner is showing the woman on the yacht his abs and explaining that he's 'really into honesty'." },
-{ who: $sister, text: "Okay. Tanner. Yes or no?" },
-{ who: $player, text: "No." },
-{ who: $sister, text: "Correct. That's the right answer, he's a seven at best and he has a podcast. $mom.callName gave him a nine." },
-{ who: $mom, text: "I did not give him a nine! I said he had nice teeth. Teeth matter, sweetheart. You'll see when you're older." },
+{ who: $sister, text: "So, Tanner. Yes or no?" },
+{ who: $player, text: "No way. Anybody who has to tell you he's into honesty is lying about something." },
+{ who: $sister, text: "Thank you. He's a seven at best, he has a podcast, and $mom.callName gave him a nine." },
+{ who: $mom, text: "I did not give him a nine! I said he had nice teeth, and teeth matter, sweetheart. You'll see when you're older." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -101,18 +101,18 @@ At the end, the woman on the yacht picks Tanner. $sister.callName throws her pho
 <<case 4>>
 She's fallen asleep sitting up. The TV is murmuring something about mortgage rates, her head has slid sideways onto the armrest, and there's a laptop on her knees that is slowly, very slowly, slipping toward the floor.
 
-I catch it. The screen wakes up under my hand. It's her work mail, open on a message from $boss.callName, sent at 9:47 in the evening. The subject line is in capitals: THIS IS NOT ACCEPTABLE. The mail itself is two lines long, and the second line just says 'Fix it before you come in.' There's no 'please' and no name at the bottom. She was halfway through typing her answer. It starts with 'I'm so sorry' and is already three paragraphs long.
+I catch it. The screen wakes up under my hand, and it's her work mail, open on a message from $boss.callName sent at 9:47 in the evening. The subject line is in capitals, THIS IS NOT ACCEPTABLE, and the mail itself is two lines long. The second line just says 'Fix it before you come in.' There's no 'please' and no name at the bottom. She was halfway through typing her answer. It starts with 'I'm so sorry' and is already three paragraphs long.
 
 I read his mail twice. The second time I read it slowly, the way you read the small print in a contract, and I look at the time stamp and the list of people he copied in. Then I close the laptop, very gently, so the click won't wake her, and set it on the coffee table.
 
 <<silently>>
 <<set _msgs = [
 { text: "When I pull the throw over her, she stirs." },
-{ who: $mom, text: "Mm. I'm awake. I'm just resting my eyes, honey." },
-{ who: $player, text: "I know." },
-{ who: $mom, text: "Did I send it? The mail. I have to send the mail." },
-{ who: $player, text: "You can send it in the morning." },
-{ who: $mom, text: "In the morning. Okay." },
+{ who: $mom, text: "Mm. I'm awake, honey, I'm just resting my eyes." },
+{ who: $player, text: "I know you are." },
+{ who: $mom, text: "Did I send it? I have to send him that mail before..." },
+{ who: $player, text: "You can send it in the morning. Go back to sleep." },
+{ who: $mom, text: "In the morning. Okay, sweetie." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -125,12 +125,12 @@ It's the middle of a weekday, and $mom.callName is on the couch in her robe, wat
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "You can switch it back." },
-{ who: $mom, text: "Switch what back? I was watching the news. I'm very informed." },
+{ who: $player, text: "You can switch it back, you know. I won't tell anybody." },
+{ who: $mom, text: "Switch what back? I was watching the news, I'm very informed." },
 { text: "On the news, a man is talking about soybean futures. She nods along seriously for about fifteen seconds. Then she sighs and switches back." },
-{ who: $mom, text: "Her dog's name is Biscuit. The host. She brings him on every Wednesday. I know that, honey. I know what day the dog comes." },
-{ who: $player, text: "That's not so bad." },
-{ who: $mom, text: "I've watched four episodes of a show about people who buy houses in Portugal. I don't want a house in Portugal. I don't even know where Portugal is, exactly. I know it's next to Spain." },
+{ who: $mom, text: "The host has a dog called Biscuit, and she brings him on every Wednesday, and I know that, honey. I know what day the dog comes." },
+{ who: $player, text: "That's not so bad. Biscuit sounds like a good dog." },
+{ who: $mom, text: "I've also watched four episodes of a show about people who buy houses in Portugal, and I don't even want a house in Portugal. I couldn't find it on a map. I know it's next to Spain, but that's as far as I get." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -139,9 +139,9 @@ I sit down with her. She tucks her feet under her robe and tells me which of the
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "When will there be something for me to do? At the company, I mean. I don't want to rush you, sweetie." },
-{ who: $player, text: "Soon. I'm working on it." },
-{ who: $mom, text: "I know you are. Just... I'd like somewhere to be, that's all. I was always somewhere." },
+{ who: $mom, text: "When do you think there'll be something for me to do? At the company, I mean. I don't want to rush you, sweetie." },
+{ who: $player, text: "Soon, I promise. I've got a couple of things lined up, I just need one of them to actually say yes." },
+{ who: $mom, text: "I know you're working on it, and I'm not complaining, honey, I'd just like to have somewhere to be again. I was always somewhere." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -154,12 +154,12 @@ She's found an old office sitcom, the kind with the shaky camera and people look
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I've been casting it. With our people. Don't tell anybody." },
-{ who: $player, text: "Go on." },
-{ who: $mom, text: "That one, with the tie, who keeps a stapler in the jelly, he's $ethan.name. Obviously." },
-{ who: $player, text: "Obviously." },
-{ who: $mom, text: "And the quiet one with the beard who fixes the copier and never says anything, that's $brian.name. And the clever one in the nice shirts who's too good for the place is $darius.name." },
-{ who: $player, text: "And who's the boss?" },
+{ who: $mom, text: "I've been casting it with our people, but you can't tell anybody." },
+{ who: $player, text: "Oh no. Okay, go on, who's who?" },
+{ who: $mom, text: "The one with the tie who keeps finding his stapler in the jelly, that's $ethan.name, obviously." },
+{ who: $player, text: "Yeah, that's fair." },
+{ who: $mom, text: "And the quiet one with the beard who fixes the copier and never says anything, that's $brian.name, and the clever one in the nice shirts who's much too good for the place is $darius.name." },
+{ who: $player, text: "So who am I? Please don't say the boss." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -168,9 +168,9 @@ On the screen, the boss is standing in the middle of the office giving a speech 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Nobody. There isn't one for you on this show, honey. The boss on this show is a nice man who doesn't know what he's doing." },
-{ who: $player, text: "And I'm not nice?" },
-{ who: $mom, text: "You know what you're doing. That's different." },
+{ who: $mom, text: "Nobody. There isn't anybody for you on this show, honey. The boss on this show is a nice man who doesn't know what he's doing." },
+{ who: $player, text: "So I'm not nice?" },
+{ who: $mom, text: "You know what you're doing, sweetie, that's not the same thing at all." },
 { text: "She says it lightly, and writes something on the notepad, and turns it face down on the armrest before I can see it." },
 ]>>
 <</silently>>
@@ -182,16 +182,16 @@ We watch two more episodes. Every time somebody on the show does something stupi
 <<case 7>>
 It's some romantic drama with a lot of rain in it. When I sit down next to her, the old cushion sags and tips her half an inch toward me, and she rearranges the throw over her knees until there's a neat fold of blanket between us.
 
-On the screen, the rain has driven the couple into a barn. The music swells. He pushes the wet hair off her face. She pulls his shirt up over his head, and he starts on the buttons of her dress, and $mom.callName finds the remote faster than I've ever seen her find anything.
+On the screen, the rain has driven the couple into a barn. The music swells. He pushes the wet hair off her face, she pulls his shirt up over his head, he starts on the buttons of her dress, and $mom.callName finds the remote faster than I've ever seen her find anything.
 
 The channel changes. A very cheerful man is now crushing ice in a blender.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Oh, look. A blender." },
+{ who: $mom, text: "Oh, look, a blender." },
 { who: $player, text: "We have a blender." },
-{ who: $mom, text: "Not like this one, sweetie. Look. It does soup." },
-{ text: "She watches the blender do soup with tremendous concentration. Her cheeks are red. The remote is still in her hand, pointed at the TV, and her thumb is resting on the channel button just in case." },
+{ who: $mom, text: "Not like this one, sweetie, look at that, it does soup." },
+{ text: "She watches the blender do soup with tremendous concentration. Her cheeks are red, and the remote is still in her hand, pointed at the TV, with her thumb resting on the channel button just in case." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -204,9 +204,9 @@ I switch back to the barn. They've made good progress without us. $mom.callName 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "We could watch something else, honey. There's a documentary about bees." },
-{ who: $player, text: "I'm watching this." },
-{ who: $mom, text: "...Okay." },
+{ who: $mom, text: "We could watch something else, honey. There's a documentary about bees on, I think, or there was earlier." },
+{ who: $player, text: "No, leave it. I want to see how it ends." },
+{ who: $mom, text: "Oh. Okay, then." },
 { text: "She doesn't get up. After a while, her eyes slide back to the screen, and they stay there. I don't look at her, and she doesn't look at me, and when the scene finally ends with the two of them asleep in the hay, she reaches for her tea, which went cold an hour ago, and drinks the whole mug without stopping." },
 ]>>
 <</silently>>
@@ -219,8 +219,8 @@ I leave her the blender. We watch the cheerful man make soup, smoothies, almond 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Eighty-nine dollars, honey. In three easy payments." },
-{ who: $player, text: "We have a blender." },
+{ who: $mom, text: "It's only eighty-nine dollars, honey, in three easy payments." },
+{ who: $player, text: "We still have a blender." },
 { who: $mom, text: "Our blender can't do almond butter. Our blender can barely do a banana." },
 ]>>
 <</silently>>
@@ -235,19 +235,19 @@ She has her phone out before the ad is over. I talk her out of it, which takes t
 <<if setup.questDone("mom_nightVisit")>>
 She's in her robe, with her hair still damp from the shower, a mug of tea on the coffee table and her feet up on the couch. When she sees me, she pulls her feet in to make room for me, and then, after a moment, she stretches them back out across my lap. She doesn't say anything about it.
 
-The show is something about antiques. A man with a magnifying glass is explaining to a woman that her vase is worth less than she thought. At the first commercial, $mom.callName mutes it, and the living room is very quiet.
+The show is something about antiques. A man with a magnifying glass is explaining to a woman that her vase is worth less than she thought. At the first commercial, $mom.callName mutes it, and the living room goes very quiet.
 
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Is it bad tonight?" },
-{ text: "She asks the muted TV. Very softly, very matter-of-fact, the way she used to ask whether I had homework." },
-{ who: $player, text: "Not tonight." },
-{ who: $mom, text: "Good. That's good, sweetie." },
+{ text: "She asks the muted TV, very softly and very matter-of-fact, the way she used to ask whether I had homework." },
+{ who: $player, text: "No, not tonight. I'm okay." },
+{ who: $mom, text: "Good. I'm glad, sweetie." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She nods and unmutes the TV. Her feet stay in my lap. She doesn't like antiques shows; she's told me so a dozen times. She watches this one all the way to the end anyway, and the next one after that, and she doesn't go up to bed until I do.
+She nods and unmutes the TV. Her feet stay in my lap. She doesn't like antiques shows, she's told me so a dozen times, but she watches this one all the way to the end anyway, and the next one after that, and she doesn't go up to bed until I do.
 <<else>>
 She's sitting at the far end of the couch with her knees drawn up and a cooking magazine she isn't reading. When I sit down in the middle, she doesn't move away. She doesn't move at all.
 
@@ -258,9 +258,9 @@ The show is something about antiques. A man with a magnifying glass is explainin
 { who: $mom, text: "Honey, about that morning..." },
 { who: $player, text: "What about it?" },
 { text: "She opens her mouth, and closes it, and turns a page of the magazine she isn't reading." },
-{ who: $mom, text: "Nothing. Nothing, sweetie. Did you eat? There's soup." },
-{ who: $player, text: "I ate." },
-{ who: $mom, text: "Good. Good." },
+{ who: $mom, text: "Nothing, sweetie, it's nothing. Did you eat? There's soup in the fridge." },
+{ who: $player, text: "I ate at the office, thanks." },
+{ who: $mom, text: "Oh, good. That's good." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

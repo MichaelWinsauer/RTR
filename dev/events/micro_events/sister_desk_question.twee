@@ -7,14 +7,14 @@
 <<DisplayActivity $sister 300>>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Okay, I need a professional opinion. A boss opinion. The real kind, with the frowny face." },
+	{ who: $sister, text: "I need a second opinion on something, and it has to be the boss kind." },
 	{ who: $player, text: "Is something on fire?" },
-	{ who: $sister, text: "Sort of? The cleaning company skipped the meeting room again. So I wrote them an email. Three emails, actually. You pick." },
+	{ who: $sister, text: "Kind of. The cleaning company skipped the meeting room again, so I wrote them an email. Well, three versions of one, and I can't decide." },
 	{ text: "She turns the laptop toward me. The first one apologizes four times for bothering them. The second one says 'frankly unacceptable' and has two exclamation marks in the subject line. The third one is the second one plus a GIF of a cat pushing a glass off a table." },
 	{ who: $player, text: "You know $mom.callName handles the building stuff." },
-	{ who: $sister, text: "I didn't want to bother her with it." },
+	{ who: $sister, text: "She's got enough on her plate." },
 	{ who: $player, text: "But me you'll bother." },
-	{ who: $sister, text: "You're different. You're... you've got the nicer chair. It's very calming over here. I think it's the armrests." },
+	{ who: $sister, text: "You're different. Also, you have the nicer chair, and it's very calming over here on the important side of the office." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -27,8 +27,8 @@
 				<<set _msgs to [
 					{ text: "I take the laptop and start on a fourth version. She leans in to read along, her chin almost on my shoulder, and every time I delete a line she makes a small wounded noise on behalf of her exclamation marks." },
 					{ who: $sister, text: "You're taking all the feelings out." },
-					{ who: $player, text: "That's what makes it scary. Nobody's scared of a cat GIF." },
-					{ who: $sister, text: "I would be. From a stranger? Terrifying." },
+					{ who: $player, text: "That's the point. A boring email sounds like a lawyer might be next, and nobody's scared of a cat GIF." },
+					{ who: $sister, text: "I would be, from a stranger. That GIF is practically a threat." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -44,7 +44,7 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Ask $mom.callName. It's her department, and she's better at scary emails than I am." },
-					{ who: $sister, text: "Right. No, totally. That makes sense." },
+					{ who: $sister, text: "Sure. Yeah, that makes sense." },
 					{ text: "She closes the laptop and smiles at me. It's a perfectly nice smile that doesn't go anywhere near her eyes." },
 				]>>
 				<</silently>>
@@ -59,10 +59,10 @@
 			<<replace "#desk-question-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Send the second one and lose the cat. And if it's that calming over here, stay and work from here." },
-					{ who: $sister, text: "Wait, really? Here here?" },
-					{ who: $player, text: "Take the corner. Don't touch my coffee." },
-					{ who: $sister, text: "I would never touch your coffee. Your coffee is basically syrup." },
+					{ who: $player, text: "Send the second one and lose the cat. And if it's that calming over here, you might as well stay and work from here." },
+					{ who: $sister, text: "Wait, really? At your desk?" },
+					{ who: $player, text: "Take the corner. Just don't touch my coffee." },
+					{ who: $sister, text: "Deal. I'll even pretend you're not here." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

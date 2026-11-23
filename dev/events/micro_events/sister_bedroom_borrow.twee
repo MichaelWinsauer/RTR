@@ -3,7 +3,7 @@
 <<silently>>
 <<set _item to either("phone charger", "headphones", "black hoodie", "car keys")>>
 <<set _msgs to [
-	{ who: $sister, text: ("Hey, little $sister.callPlayerShort. Can I borrow your " + _item + "? I can't find mine.") }
+	{ who: $sister, text: ("Hey, little $sister.callPlayerShort, can I borrow your " + _item + "? I've looked everywhere for mine and I'm already running late.") }
 ]>>
 <</silently>>
 <p>$sister.callName leans around my door frame without knocking.</p>
@@ -14,8 +14,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Sure. Bring it back in one piece." },
-					{ who: $sister, text: "I always do. Mostly." }
+					{ who: $player, text: "Sure, just bring it back this time." },
+					{ who: $sister, text: "I always bring your stuff back. Eventually." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -32,8 +32,8 @@
 				<<replace "#choice1">>
 					<<silently>>
 					<<set _msgs to [
-						{ who: $player, text: "You can borrow it. But you owe me one." },
-						{ who: $sister, text: "Fine. One favor. Don't make it weird." }
+						{ who: $player, text: "You can have it, but then you owe me one." },
+						{ who: $sister, text: "Fine, one favor. Within reason, and I get to decide what's reasonable." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -48,8 +48,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Sorry, I need it." },
-					{ who: $sister, text: "Wow. Okay. Cold." }
+					{ who: $player, text: "Sorry, I actually need it today." },
+					{ who: $sister, text: "Wow, okay. I'll remember that the next time you need something from me." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

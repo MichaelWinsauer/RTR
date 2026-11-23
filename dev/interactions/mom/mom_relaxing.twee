@@ -24,12 +24,12 @@ $mom.callName is propped up against her headboard with the newspaper folded into
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Oh, good. Sit. Eight letters, 'when connections matter more than effort'." },
+{ who: $mom, text: "Oh, good, you're just in time, come sit. Eight letters, 'when connections matter more than effort'." },
 { who: $player, text: "Nepotism." },
-{ text: "She counts the boxes with the tip of the pen. It fits. She gives me a look over the top of her reading glasses." },
-{ who: $mom, text: "That was very fast, honey." },
-{ who: $player, text: "I've thought about it a lot." },
-{ who: $mom, text: "Well, don't. It's bad for your face. You get a little line, right here." },
+{ text: "She counts the boxes with the tip of the pen. It fits, and she gives me a look over the top of her reading glasses." },
+{ who: $mom, text: "Well, that was very fast, honey." },
+{ who: $player, text: "I've had a lot of time to think about that one." },
+{ who: $mom, text: "Then stop thinking about it, it's bad for your face. You get a little line, right here." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -38,14 +38,14 @@ She taps the spot between her own eyebrows and writes NEPOTISM into the boxes in
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Three letters. 'Greek letter'." },
-{ who: $player, text: "Could be a few." },
-{ who: $mom, text: "Then pick one. I'm committing." },
+{ who: $mom, text: "Three letters, 'Greek letter'." },
+{ who: $player, text: "That could be like four different things." },
+{ who: $mom, text: "Then just pick one, sweetie, I'm feeling lucky tonight." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I say 'rho'. She writes it in. It's wrong, and we find out four clues later, and she looks at the ruined corner of the grid and then at me as if I did it on purpose. I offer her a coin.
+I say 'rho', and she writes it in. It's wrong, and we find out four clues later, and she looks at the ruined corner of the grid and then at me as if I did it on purpose. I offer her a coin.
 
 /* ——— 2: The sheet mask ——— */
 <<case 2>>
@@ -54,11 +54,11 @@ There's a ghost lying on $mom.callName's bed. It's wearing her pajamas and has a
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Don' make me laugh. If I laugh, it slides." },
-{ who: $player, text: "What is that?" },
-{ who: $mom, text: "Hyaluronic. Something. I found a whole box in $sister.callName's bathroom drawer. She won' miss one." },
-{ who: $player, text: "She counts them." },
+{ who: $player, text: "Okay, what is happening right now?" },
+{ who: $mom, text: "It's hyaluronic something. I found a whole box in $sister.callName's bathroom drawer, she won' miss one." },
+{ who: $player, text: "She counts them, you know." },
 { who: $mom, text: "She does not count them." },
-{ text: "A pause. The mask frowns, as much as a mask can." },
+{ text: "There's a pause, and the mask frowns, as much as a paper mask can." },
 { who: $mom, text: "Does she count them?" },
 ]>>
 <</silently>>
@@ -68,7 +68,7 @@ I tell her $sister.callName keeps a list on her phone, which isn't true, and the
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Out. Get out. You're ruining my skin, I paid nothing for this." },
+{ who: $mom, text: "Out, get out of here, you're ruining my skin, and I paid nothing for this!" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -79,9 +79,9 @@ On my way out, I hear her peel the rest of it off, and a minute later, very quie
 <<case 3>>
 The laundry basket is on her bed, tipped over, and $mom.callName is sitting cross-legged in front of a pile of socks, pairing them by a system I've never understood. As far as I can tell, it has nothing to do with color or size. She holds each one up to the light for a second, as if it might tell her something.
 
-I sit down on the other side of the pile without being asked. She hands me a sock without looking up, which is how I know I'm allowed to help. I find its partner. She takes them both, says 'no', and pulls them apart again.
+I sit down on the other side of the pile without being asked. She hands me a sock without looking up, which is how I know I'm allowed to help. I find what I think is its partner. She takes them both, says 'no', and pulls them apart again.
 
-We do it like that for a while. She tells me about the woman at the bank who has started calling her by her first name, which she hasn't decided how she feels about, and about a podcast she listened to in the car about a man who walked across the whole country backward. I mostly listen. Every so often I hold up a sock and she nods or doesn't.
+We do it like that for a while. She tells me about the woman at the bank who has started calling her by her first name, which she hasn't decided how she feels about, and about a podcast she listened to in the car about a man who walked across the whole country backward. I mostly listen, and every so often I hold up a sock and she nods or doesn't.
 
 When we're done there's a neat row of balled-up pairs along the edge of the quilt and a small pile of orphans. Most of the orphans go in the trash. One doesn't: a gray wool one with a red heel, much bigger than anything she or $sister.callName would wear. It's been in the orphan pile every laundry day since $dad.callName left. She smooths it flat, folds it once and puts it back at the bottom of the empty basket, where it will wait for next week.
 
@@ -89,34 +89,34 @@ When we're done there's a neat row of balled-up pairs along the edge of the quil
 <<set _msgs = [
 { who: $mom, text: "Don't say anything." },
 { who: $player, text: "I wasn't going to." },
-{ who: $mom, text: "I know, sweetie. That's why I let you help." },
+{ who: $mom, text: "I know, sweetie. That's why you get to help with the socks." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 /* ——— 4: Garamond (Stage 0, she still works for him) ——— */
 <<case 4>>
-She's lying on top of the covers in her work clothes with her shoes kicked off on the rug, a bag of frozen peas balanced on her right wrist. The TV in the corner is on with the sound off. She isn't watching it.
+She's lying on top of the covers in her work clothes with her shoes kicked off on the rug and a bag of frozen peas balanced on her right wrist. The TV in the corner is on with the sound off. She isn't watching it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Peas?" },
-{ who: $mom, text: "My wrist hurts. I typed all day. I retyped all day, actually, which is worse, because you already know how it ends." },
+{ who: $player, text: "Why are you wearing peas?" },
+{ who: $mom, text: "My wrist hurts, I typed all day. Well, I retyped all day, actually, which is worse, because you already know how it ends." },
 { who: $player, text: "Retyped what?" },
-{ who: $mom, text: "Everything I typed last week. $boss.callName wants all the client letters in the new template. The new template is the old template with his photo at the top." },
+{ who: $mom, text: "Everything I typed last week, because $boss.callName wants all the client letters in the new template, and the new template is the old template with his photo at the top." },
 { text: "She lifts the peas off her wrist, looks at the red mark underneath and puts them back." },
-{ who: $mom, text: "He stood behind my chair the whole afternoon, honey. Just stood there. Every time I made a typo, he breathed." },
+{ who: $mom, text: "He stood behind my chair the whole afternoon, honey, just standing there, and every time I made a typo he'd let out this big heavy breath, like I'd backed over his car." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I sit down on the end of the bed. She moves her feet over to make room, and I ask her about the office. Who sits where. Which door is his. Whether he takes his lunch at his desk or goes out. She answers between little sighs, with her eyes shut, glad that somebody wants to hear about her day, and it doesn't cross her mind to ask why I'm suddenly so interested in the floor plan of her office.
+I sit down on the end of the bed. She moves her feet over to make room, and I ask her about the office: who sits where, which door is his, whether he takes his lunch at his desk or goes out. She answers between little sighs, with her eyes shut, glad that somebody wants to hear about her day, and it doesn't cross her mind to ask why I'm suddenly so interested in the floor plan.
 
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "You're sweet to ask. Your $sister.relation just says 'quit' and goes back to her phone." },
-{ who: $player, text: "She's not wrong." },
-{ who: $mom, text: "She's twenty, honey. Twenty-year-olds are never wrong. It's their whole thing." },
+{ who: $player, text: "She's not wrong, though." },
+{ who: $mom, text: "She's twenty, honey, and twenty-year-olds are never wrong about anything. That's their whole thing." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -129,26 +129,26 @@ It's the middle of the day and she's in bed with her laptop on a pillow, a notep
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Don't laugh at me." },
-{ who: $player, text: "I'm not laughing. Part three?" },
-{ who: $mom, text: "I'm your first employee, sweetie. I can't be your first employee and not know what you make. What if somebody asks me at a party?" },
-{ who: $player, text: "You don't go to parties." },
-{ who: $mom, text: "What if I start?" },
+{ who: $mom, text: "Don't you laugh at me." },
+{ who: $player, text: "I'm not laughing! I'm honestly impressed you made it to part three." },
+{ who: $mom, text: "I'm your first employee, sweetie, and I can't be your first employee and not know what you make. What if somebody asks me about it at a party?" },
+{ who: $player, text: "You don't go to parties, though." },
+{ who: $mom, text: "Well, what if I start?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She turns the notepad toward me. She's taken notes the way she takes everything: headings, underlinings, a little box around the word SIGNAL with an arrow pointing at the word NOISE and a question mark next to it.
+She turns the notepad toward me. She's taken notes the way she takes everything, with headings and underlinings and a little box around the word SIGNAL, with an arrow pointing at the word NOISE and a question mark next to it.
 
 <<linkreplace "Explain it to her">>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "So what does it actually do? Your box. In one sentence. Pretend I'm a client." },
-{ who: $player, text: "It reads a room. Light, sound, movement, how many people in it are paying attention." },
-{ who: $mom, text: "Reads a room. Like a good waitress." },
-{ who: $player, text: "Exactly like a good waitress." },
+{ who: $mom, text: "So what does it actually do, your box? Tell me in one sentence, like I'm a client." },
+{ who: $player, text: "It reads a room. The light, the noise, who's moving around, and how many of the people in there are actually paying attention." },
+{ who: $mom, text: "Oh, so it reads a room, like a good waitress does." },
+{ who: $player, text: "Yeah, actually, pretty much exactly like a good waitress. That's a better pitch than mine." },
 { text: "She writes it down word for word, 'reads a room (like a waitress)', and underlines it twice, and looks very pleased with herself." },
-{ who: $mom, text: "That's not so hard. I don't know why the turtleneck man needs eleven parts for that." },
+{ who: $mom, text: "That's not so hard. I don't know why the turtleneck man needs eleven parts for it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -162,22 +162,22 @@ Her planner is open on the quilt in front of her, and next to it there's a penci
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Green is clients. Yellow is the office. Pink is $boss.callName's building. And orange is..." },
+{ who: $mom, text: "Green is clients, yellow is the office, pink is $boss.callName's building, and orange is..." },
 { text: "She squints at the orange." },
-{ who: $mom, text: "I don't remember what orange is. I think orange is 'feelings'." },
+{ who: $mom, text: "I don't remember what orange is. I think orange might be 'feelings'." },
 { who: $player, text: "You put feelings in your planner?" },
-{ who: $mom, text: "Birthdays, honey. Orange is birthdays. Everybody at the office has one, and I'm not having anybody find out on the day." },
+{ who: $mom, text: "Birthdays, honey, orange is birthdays! Everybody at the office has one, and I'm not going to let anybody sit at their desk on their birthday without a cake." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-There's an orange mark on the twelfth of next month with $ethan.name's name next to it, and a little drawing of a cake. Further down there's an orange mark with a question mark.
+There's an orange mark on the twelfth of next month with $ethan.name's name next to it and a little drawing of a cake. Further down there's an orange mark with a question mark.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "That's $brian.name. I asked him when his birthday is, and he said he doesn't celebrate it. He said it like I'd asked for his blood type." },
-{ who: $player, text: "So leave it." },
-{ who: $mom, text: "I'm going to find out from his file. You won't mind if I look in his file, will you? It's for a cake." },
+{ who: $mom, text: "That's $brian.name. I asked him when his birthday is, and he told me he doesn't celebrate it, and he said it like I'd asked him for his blood type." },
+{ who: $player, text: "Maybe he just doesn't want a fuss." },
+{ who: $mom, text: "Everybody wants a fuss, sweetie, some people just don't know it yet. I'll find it in his file. You don't mind if I take a little peek at his file, do you? It's for a cake." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -191,21 +191,21 @@ She's reading on top of the covers with her legs stretched out and a cup of tea 
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Hi, honey." },
-{ text: "She draws her knees up, slowly, and pulls the corner of the quilt over them. Her book stays open in her lap. She hasn't turned a page since I came in." },
-{ who: $mom, text: "Could you leave the door open? It gets stuffy in here." },
+{ text: "She draws her knees up, slowly, and pulls the corner of the quilt over them. Her book stays open in her lap, and she hasn't turned a page since I came in." },
+{ who: $mom, text: "Could you leave the door open? It gets so stuffy in here." },
 { who: $player, text: "It's already open." },
-{ who: $mom, text: "Oh. So it is. Good." },
+{ who: $mom, text: "Oh, so it is. Well, good, then it can just stay like that." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-So we talk with the door open. About the gutters, which need doing, and about a show she wants me to watch with her, and about the new neighbors, who have a dog that barks only at the mailman and only on Thursdays. She has a lot to say about the dog. Her voice is perfectly normal. Her hand, the one on the quilt, keeps smoothing the same fold flat over and over, right above her knee.
+So we talk with the door open. About the gutters, which need doing, and about a show she wants me to watch with her, and about the new neighbors, who have a dog that barks only at the mailman and only on Thursdays. She has a lot to say about the dog, and her voice is perfectly normal. Her hand, the one on the quilt, keeps smoothing the same fold flat over and over, right above her knee.
 
 When I get up, the bed creaks again, and she flinches again, and this time she can't pretend she didn't, so she laughs instead.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "This old bed. I should get that fixed." },
+{ who: $mom, text: "This old bed, honestly. I really should get that fixed." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -218,8 +218,8 @@ She's sitting on her bed with one foot up on a folded towel, painting her toenai
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Perfect timing. Pick one. I can never decide, I always end up with the middle one." },
-{ who: $player, text: "None of those." },
+{ who: $mom, text: "Oh, you can help me, come and pick one. I can never decide, and I always end up with the middle one." },
+{ who: $player, text: "Honestly? None of those." },
 { who: $mom, text: "Well, those are the colors I have, sweetie." },
 { who: $player, text: "There's a red one in the bathroom. In the cabinet, behind the almond oil." },
 ]>>
@@ -230,8 +230,8 @@ She's sitting on her bed with one foot up on a folded towel, painting her toenai
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "That's... that's $sister.callName's. That red isn't really a color for a woman my age, honey." },
-{ who: $player, text: "Get it." },
+{ who: $mom, text: "That's... that one's $sister.callName's, honey. And that red isn't really a color for a woman my age, I'd look like I was on my way somewhere." },
+{ who: $player, text: "I'd like to see it on you. Go and get it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -244,8 +244,8 @@ When she's done, she stretches her leg out on the quilt to let them dry and flex
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Well? Is it... do you like them?" },
-{ who: $player, text: "I like them." },
-{ who: $mom, text: "Good. Then I'll keep them like that." },
+{ who: $player, text: "I really do. They look good on you." },
+{ who: $mom, text: "Good, then I'll keep them like that." },
 { text: "She says it as if we've agreed on something practical, like a grocery list. She leaves her leg where it is, stretched out toward my chair, until the polish is dry and for a while after." },
 ]>>
 <</silently>>
@@ -255,9 +255,9 @@ When she's done, she looks down at her feet for a while and wiggles her toes onc
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I'll take it off tomorrow. Before work. Nobody needs to see that at the office." },
-{ who: $player, text: "Nobody will. You wear closed shoes." },
-{ who: $mom, text: "...That's true. I do." },
+{ who: $mom, text: "I'll take it off tomorrow before work. Nobody at the office needs to see that." },
+{ who: $player, text: "Nobody's going to see it. You always wear closed shoes." },
+{ who: $mom, text: "Well... that's true, I suppose I do." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

@@ -4,7 +4,7 @@ Steam beads on the range hood and the pan hisses on low heat. $mom.callName is p
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "$mom.callName, got a minute? Could we talk in my room? It's kind of important." },
-{ who: $mom, text: "Of course, honey. Are you okay? You look tired. I can make you some tea once these are done." },
+{ who: $mom, text: "Of course, honey. Are you okay? You look tired, I can make you some tea once these are done. I think we still have that chamomile your $sister.relation says tastes like hay." },
 { who: $player, text: "I'm fine, really. It's actually about you. Two minutes, I promise." },
 { who: $mom, text: "About me? Well, now I'm curious. Let me get this off the heat before it burns." },
 { who: $player, text: "Thanks." }

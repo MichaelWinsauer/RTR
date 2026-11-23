@@ -36,11 +36,11 @@ He leaves that hanging and waits. He remembers the conversation in his office we
 <<linkreplace "Make him an offer">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "You don't need more tutors. You need a whole lecture hall that actually wants to learn." },
-{ who: $prof, text: "Don't we all." },
-{ who: $player, text: "Our product reads a room and settles it down. Calmer people, better focus. I can build a version for a lecture hall. Two hundred students instead of five people and a coffee machine, tuned for attention instead of comfort." },
+{ who: $player, text: "Tutoring only ever reaches a handful of them. I think I might be able to do something about the whole lecture hall." },
+{ who: $prof, text: "Every salesman with a tablet app has told me the same thing, Mr. $player.surname, and the lecture hall remains as it was. But go on." },
+{ who: $player, text: "What we build reads a room and calms it down. People stop fidgeting and actually focus. I could make a version for a lecture hall, for two hundred students instead of five people and a coffee machine, and tune it for attention instead of comfort." },
 { who: $prof, text: "You're proposing to install a gadget in my lecture hall." },
-{ who: $player, text: "I'm proposing a study. A lecture hall full of data, and a device that makes it easier to pay attention. Nobody ever got hurt paying attention." },
+{ who: $player, text: "More like a study. You'd get a whole hall's worth of data, and your students would have an easier time paying attention. I honestly don't see the downside for you." },
 { who: $prof, text: "And what does this marvel cost?" },
 { who: $player, text: "Time and money. A unit that covers a whole hall isn't something I solder together over a weekend. It's months of work and a lot of hardware." },
 ]>>
@@ -64,11 +64,11 @@ He does have a list. It's in the folder, under the form, and a few of the names 
 
 <<silently>>
 <<set _msgs = [
-{ who: $prof, text: "And she'll be the face of the thing. The students like her. God knows why, she's late to everything. But they line up to talk to her. If a pretty girl tells them the study group is the place to be, they'll go. If I tell them, they'll drop the course." },
+{ who: $prof, text: "And she will be the face of the thing. The students like her, God knows why, since she is late to everything, but they line up to talk to her. If an attractive young woman informs them that the study group is where one ought to be seen, they will go. If I inform them, they will drop the course." },
 { who: $prof, text: "She does dress rather... well these days. I assume that's still your doing." },
 { who: $player, text: "I told you she would." },
 { who: $prof, text: "You also told me there would be more. I trust that hasn't slipped your mind." },
-{ who: $player, text: "This is the start of it. Your numbers go up, you get your chair, and you get to watch her stand in front of your students twice a week. The rest comes once the unit is hanging in your hall." },
+{ who: $player, text: "It hasn't. This is the start of it. Your numbers go up, you get your chair, and you get to watch her stand in front of your students twice a week. The rest comes once the unit is hanging in your hall." },
 { text: "He looks at me over his glasses for a long moment. Then he closes the folder." },
 { who: $prof, text: "Acceptable. Send me something with a letterhead. The dean is very fond of letterheads." },
 ]>>

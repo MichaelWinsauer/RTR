@@ -1,17 +1,17 @@
-:: Party Animal [event sister_quest scene] {"position":"3150,1650","size":"100,100"}
-The house is completely quiet when I hear the front door open around 2 a.m. A loud giggle echoes down the hallway, followed by clumsy footsteps. I'm sitting on the stairs in the dark hallway, just waiting. I already knew she was going to celebrate hard tonight.
+:: Party Animal [event sister_quest] {"position":"3150,1650","size":"100,100"}
+It's a little after two when the front door finally opens. I've been sitting on the stairs in the dark for most of an hour, telling myself I just couldn't sleep, but I knew she'd celebrate hard tonight and I wanted to be here when she got back. The lock takes her three tries. Then there's a giggle, a thump, and her voice telling the coat rack to be quiet.
 
-A moment later $sister.callName stumbles into view, her long hair messy, cheeks flushed, eyes glassy and unfocused. She's clearly blackout drunk, swaying on her heels, a big stupid smile on her face.
+A moment later $sister.callName wobbles into view on her heels, her long hair a mess, her cheeks flushed and her eyes glassy and not quite pointed at anything. She's drunk, properly drunk, the kind where tomorrow morning is going to have big holes in it, and she's wearing the biggest, silliest smile I've seen on her in months.
 
 <<linkreplace "Watch her from the stairs">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh my god… $player.name! You're still up? Perfect!" },
-{ text: "She drops her bag on the floor and almost trips over it, laughing at herself." },
-{ who: $sister, text: "I had the best night ever! Everyone was cheering when I told them I passed! Shots for everyone!" },
-{ who: $player, text: "Sounds like you really celebrated." },
-{ who: $sister, text: "I did! But… but I kept thinking about you the whole time. You helped me so much. I need to thank you properly tonight." },
-{ text: "She grabs my hand with surprising strength and starts pulling me toward her room." },
+{ who: $sister, text: "$player.name! Why are you sitting in the dark like a creep? No, wait, that's perfect, you're exactly who I wanted. I was thinking about you the whole way home. The Uber had a dog in it, did you know that? That's not important. Hi." },
+{ text: "She drops her bag in the middle of the hallway and nearly trips over it, and that sets her off laughing all over again." },
+{ who: $sister, text: "I told everybody I passed and the whole kitchen cheered for me, like I'd won something. And then somebody made me do a shot for every letter in calculus, which is a lot more letters than you'd think." },
+{ who: $player, text: "I can tell. You want some water before you go up?" },
+{ who: $sister, text: "No. No water. Listen to me. Every time someone said congratulations I wanted to tell them it was you, that my little $sister.callPlayerShort sat with me for hours and fixed my brain, and I didn't, because they wouldn't get it. So I'm telling you instead. You helped me so much. And I want to thank you properly, tonight, right now, before I forget how." },
+{ text: "She grabs my hand with a lot more strength than I expected and starts pulling me toward her room." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -20,75 +20,75 @@ A moment later $sister.callName stumbles into view, her long hair messy, cheeks 
 <<SetLocation "sisterroom">>
 <<CheckLocation>>
 <</silent>>
-She drags me down the hallway, giggling the whole way, and pushes her bedroom door open. The fairy lights are still on, casting a soft pink glow over everything. As soon as the door clicks shut behind us she turns around and looks at me with heavy, drunk eyes.
+She drags me down the hallway, shushing herself every few steps and then giggling at the shushing, and shoves her door open with her shoulder. The fairy lights are still on from whenever she got ready, so the whole room is soft and pink. The door clicks shut behind us, and she leans back against it and looks at me with heavy, swimming eyes.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I owe you everything, $player.name. Everything. You have no idea how much this means to me." },
-{ who: $player, text: "You don't owe me anything. You worked hard." },
-{ who: $sister, text: "No… I do. And I'm gonna show you right now." },
+{ who: $sister, text: "You know what you are? You're the only person who didn't think I was stupid. Even I thought I was stupid. And you just sat there with your little gadget and your patient face... I owe you everything. Is that too dramatic? It's true, though, I checked." },
+{ who: $player, text: "You don't owe me anything, $sister.callName. You're the one who passed." },
+{ who: $sister, text: "Shh. Don't be humble at me, it's so annoying. I'm going to show you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-She reaches for the hem of her tight party top and slowly pulls it up over her head, revealing a black lace bra. She tosses the top aside and kicks off her heels, almost losing balance.
+She grabs the hem of her tight party top and drags it up over her head, gets stuck in it for a second and fights her way out, laughing, her hair everywhere. Underneath she's wearing a black lace bra. She flings the top somewhere behind her and kicks off her heels, one and then the other, and almost goes over with the second one.
 
 <<linkreplace "Keep watching">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I wore this cute outfit tonight… but I want you to see everything. You deserve it." },
-{ text: "She reaches behind her back and unhooks her bra, letting it fall to the floor. Her perky breasts are on full display, nipples already hard from the cool air." },
-{ who: $sister, text: "See? This is all for you tonight." },
+{ who: $sister, text: "Somebody in the bathroom told me this top was a lot. It's not a lot. Nothing's a lot tonight. I want you to see all of it, okay? You earned it. You earned the whole... all of it." },
+{ text: "She reaches behind her back, misses the hook twice, and finally gets the bra open and lets it fall to the floor. Her perky breasts are bare in the pink light, her nipples already hard from the cool air." },
+{ who: $sister, text: "There. That's for you. All of it's for you tonight." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<Media "images/characters/sister/events/party_animal/undress.mp4" "" "" "" "night">>
-She wiggles out of her short skirt next, then hooks her thumbs into her panties and slides them down her smooth legs, stepping out of them completely. She's now fully naked in front of me, swaying slightly, a drunk but very eager smile on her face.
+The skirt is next, which takes some wiggling and one hand on the dresser. Then she hooks her thumbs into her panties, pushes them down her smooth legs and steps out of them with a little flourish, like she just finished a hard problem. She's completely naked in front of me now, swaying a little, smiling at me like this is the best idea she's ever had.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I've been thinking about this all night… how I can thank you. Let me make you feel good, okay?" },
-{ text: "She steps closer, her hands reaching for my belt. She fumbles a little but manages to open it and pull my pants down just enough." },
+{ who: $sister, text: "I've been thinking about this all night. Not this exactly. Okay, kind of this. How to thank you. I figured it all out in the Uber and then I forgot most of it, but I remember the important part. Let me make you feel good. Can I? I really want to." },
+{ text: "She steps closer and goes for my belt. She fumbles with the buckle, frowns at it like it's cheating, and finally gets it open and tugs my pants down just far enough." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<Media "images/characters/sister/events/party_animal/handjob.mp4" "" "" "" "night">>
-She drops to her knees in front of me, looking up with glassy eyes. Her soft hand wraps around my cock and starts stroking slowly, then faster. She's breathing heavy, clearly turned on by her own drunken boldness.
+She sinks onto her knees in front of me, a little too fast, and looks up at me with those glassy eyes. Her hand is soft and warm when it wraps around my cock. She starts slow, almost careful, then speeds up, and her breathing speeds up with it, like doing this is getting to her as much as it's getting to me.
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "You're so hard already… that's because of me, right? I want to make you cum. I need to." },
-{ who: $player, text: "That's it… just like that." },
-{ text: "While she strokes me I quietly pull $company.prototype.name out of my pocket and activate it on the highest suggestibility setting. She's so drunk that it takes hold almost at once." },
+{ who: $sister, text: "You're so hard. Is that me? That's me, isn't it. I did that. I want to make you cum, I really, really want to, and I don't even know why I want it this much, I just do." },
+{ who: $player, text: "Yeah. Just like that, keep going." },
+{ text: "While she's busy with me, I slide $company.prototype.name out of my pocket and turn it all the way up, to the suggestibility setting I've never dared to use on anyone. I have no idea what it'll do to someone this drunk. It takes hold almost right away." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<silently>>
 <<UseQuestDevice $sister>>
 <<set _msgs = [
-{ who: $sister, text: "Mmm… I feel so weird but good… I can't stop thinking about you now. I need you so much…" },
+{ who: $sister, text: "Oh. Oh, everything just went warm. Is it hot in here? It's not, is it. It's you. I can't think about anything except you, there's nothing else in my head anymore, and I need... I don't even know. You. I think it's you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-Her hand moves faster, slick and eager. She leans in and kisses the tip a few times, moaning softly. The combination of alcohol and $company.prototype.name is working perfectly. Her eyes are half-lidded, completely lost in lust and gratitude.
+Her hand moves faster, slick now, and she leans in and kisses the tip, once and then again, humming against me. Her eyes are half closed. Whatever the alcohol left of her, the device has found it and turned it toward me, and she doesn't seem to mind at all.
 <<Media "images/characters/sister/events/party_animal/cum.mp4" "" "" "" "night">>
-I can't hold back anymore. With a low groan I cum hard, thick ropes landing across her chest and neck. She gasps, looking almost proud as she watches it happen.
+I don't last much longer. I groan and cum hard, thick ropes of it landing across her chest and up her neck, and she gasps and then looks down at herself with an expression that's almost proud.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh my god… that was so much… I did that for you." },
-{ text: "She stays on her knees for a moment, breathing hard, my cum still glistening on her skin. $company.prototype.name is still running, cementing the new feelings deep inside her." },
-{ who: $sister, text: "I can't stop thinking about you now… I need to keep making it up to you. Every day. Promise me I can, okay?" },
-{ who: $player, text: "Yeah… you can." },
+{ who: $sister, text: "Oh my god, that's so much. I did that. For you. Good... good, I'm glad." },
+{ text: "She stays on her knees for a moment, breathing hard, my cum still shining on her skin. $company.prototype.name is still running in my hand, and I leave it on while whatever she's feeling right now settles in somewhere deep." },
+{ who: $sister, text: "I want to do it again. Not this, I mean, yes, this, but... making it up to you. I want to keep making it up to you, every day. Can I? Promise me I can. Say it so I remember." },
+{ who: $player, text: "I promise. You can." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-She slowly gets up, still wobbly, and collapses onto her bed with a happy, exhausted sigh. Her eyes are already closing as the alcohol and the new obsession take over.
-Before I go, I pull out my phone and snap a few pictures of her lying there, sprawled out under the fairy lights. A souvenir of tonight. I don't know yet what I'll do with them.
+She gets up slowly, wobbling, and collapses onto her bed with a long, happy sigh. Her eyes are closing before her head has properly landed on the pillow.
+Before I go, I take out my phone and snap a few pictures of her sprawled there under the fairy lights. I don't know yet what I'll do with them. I just don't want to be the only one who remembers tonight.
 <<set $sister.flags.photoTaken to true>>
-I quietly leave her room, closing the door behind me. She's going to wake up tomorrow already craving more of me, and she won't even understand why.
+I pull her door shut behind me as quietly as I can. I have no idea how much of this she'll remember in the morning. I'm curious how much of it she'll feel anyway.
 
 <<UpdateStat "+" "SisterCorruption" 10>>
 <<UpdateStat "+" "SisterRelation" 8>>
-<<ProfileLog $sister "Making It Up to Me" "She came home drunk from her party and 'thanked' me in her room. With $company.prototype.name on its highest setting, she's hooked on me now and wants to keep making it up to me. Every day.">>
+<<ProfileLog $sister "Making It Up to Me" "She came home drunk from her party and 'thanked' me in her room. I had $company.prototype.name on its highest setting the whole time, and I think it stuck: she made me promise she can keep making it up to me, every day.">>
 <<set setup.getMealById("party_animal").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>

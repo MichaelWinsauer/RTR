@@ -11,13 +11,13 @@ $sister.callName leans in around the door before I've actually said it, ponytail
 { who: $sister, text: "Since I opened your door last week and walked straight into a cable. I'm still traumatized. How's the diner, by the way? Still employee of the month?" },
 { who: $player, text: "Every month. The manager says nobody mops with as much hatred as I do." },
 { text: "She laughs, then picks at the edge of her nail polish instead of coming in properly. For her, that's practically a confession." },
-{ who: $player, text: "Okay. What do you want?" },
-{ who: $sister, text: "Wow. Rude. Accurate, but rude." },
+{ who: $player, text: "Okay, what's up? You didn't knock just to ask about my mopping." },
+{ who: $sister, text: "Rude. Accurate, but rude." },
 { who: $sister, text: "So... $mom.callName told me about your thingy. $company.prototype.name? She said it can tell what kind of mood a room is in, which honestly sounds like witchcraft. And I kind of have a presentation coming up." },
-{ who: $player, text: "A presentation." },
+{ who: $player, text: "A presentation?" },
 { who: $sister, text: "Business communication. We have to pitch a product to the class, show how it works, make everybody want one. Half of them are doing phone cases. One guy is doing a water bottle. A water bottle, little $sister.callPlayerShort." },
 { who: $player, text: "And you want to show up with mine." },
-{ who: $sister, text: "I want to show up with something that isn't a water bottle. Could you demo it for me? Pretty please? I'll owe you. Like, a small owe. Not a kidney." },
+{ who: $sister, text: "I want to show up with something that isn't a water bottle. Could you demo it for me? I'll owe you one. A small one, not a kidney." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -27,7 +27,7 @@ I lean back in my chair and make her watch me think about it. She came to me, sh
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Fine. Sit down before you change your mind about knocking." },
-{ who: $sister, text: "Yes! You're the best. Mostly. On a good day." },
+{ who: $sister, text: "Yes! You're the best. On a good day, anyway." },
 { text: "She drops onto the edge of my bed and crosses her legs, phone already out for notes. I set the prototype on the desk between us and turn it toward her." },
 { who: $player, text: "Easiest way to explain it is to run it on you. It reads you, your pulse, how fidgety you are, and then it tries to take the edge off. You okay with that?" },
 { who: $sister, text: "Is it going to zap me?" },

@@ -6,16 +6,16 @@
 <p>$brian.name stops a few feet from my desk, which for him is practically sitting in my lap. He's holding the multimeter like a candle, both hands, and talking to a spot on the ceiling somewhere above my head.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $brian, text: "Uh. So. The circuit for the ceiling." },
-	{ who: $player, text: "What about it?" },
-	{ who: $brian, text: "It draws power. When everything's off. I, uh, I turned everything off last night after you left. Lights, the servers, the coffee machine. It was still pulling forty-something watts. Steady. Very steady." },
+	{ who: $brian, text: "Um, hey. Got a minute? It's about the ceiling circuit." },
+	{ who: $player, text: "Sure, what about it?" },
+	{ who: $brian, text: "It draws power when everything's off. I turned it all off last night after you left, lights, servers, the coffee machine, and it was still pulling forty-something watts. Really steady, too." },
 	{ text: "He pushes his glasses up. His eyes go to the vent grille at the far end of the room and stay there." },
-	{ who: $brian, text: "Forty watts is not nothing. It's a lot of watts. For nothing. Could be a bad ballast. Could be somebody's old router up there in the duct. People do that. I could open it up, it's ten minutes. I have a ladder in my car." },
+	{ who: $brian, text: "Forty watts is a lot for nothing. Could be a bad ballast, or somebody's old router left up there in the duct, people do that. Hm. I could open it up, it'd take ten minutes. I have a ladder in my car." },
 	{ text: "Of course he has a ladder in his car." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-<p>He wouldn't ask, either. I know exactly how it would go. He'd climb up, unscrew the grille, point his flashlight at a board that's very obviously mine, because nobody else in this building routes a trace the way I do, and he'd climb back down and say nothing at all. Then he'd go on saying nothing about it, every day, from the desk right underneath it.</p>
+<p>And he wouldn't ask questions, either, which is almost worse. I can picture it: he climbs up, unscrews the grille, points his flashlight at a board that's very obviously mine, because I'm pretty sure nobody else alive routes a trace the way I do, and climbs back down without a word. Then he keeps not saying anything about it, every day, from the desk right underneath it.</p>
 <br>
 <div id="brian-vent-choice">
 	<div>
@@ -23,11 +23,11 @@
 			<<replace "#brian-vent-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "That's $landlord.callName's air purifier. It's wired into the duct. He made me sign something saying we wouldn't touch it." },
+					{ who: $player, text: "Oh, that. That's, uh, $landlord.callName's air purifier. It's wired into the duct somehow, and he made me sign something saying we wouldn't touch it." },
 					{ who: $brian, text: "An air purifier. In the duct." },
-					{ who: $player, text: "He has allergies. And a lawyer." },
-					{ who: $brian, text: "Uh. Okay. That's... that's a really bad way to install an air purifier." },
-					{ who: $player, text: "Take it up with him." },
+					{ who: $player, text: "He's got allergies. And a lawyer, apparently." },
+					{ who: $brian, text: "Huh. Okay. That's a really bad way to install an air purifier." },
+					{ who: $player, text: "I know, right? Feel free to take it up with him." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -40,10 +40,10 @@
 			<<replace "#brian-vent-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Leave the ceiling to the building. I've got a test board that draws forty watts when it should be drawing four. That one's actually ours." },
-					{ who: $brian, text: "Wait. Four? At idle?" },
-					{ who: $player, text: "At idle." },
-					{ who: $brian, text: "That's... uh. That's terrible. Where is it?" },
+					{ who: $player, text: "Leave the ceiling to the building people. I've got a test board here that pulls forty watts when it should be pulling four, and that one's actually ours." },
+					{ who: $brian, text: "Wait, four? At idle?" },
+					{ who: $player, text: "At idle. I've been staring at it for two days." },
+					{ who: $brian, text: "Ehh, that's terrible. Where is it?" },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

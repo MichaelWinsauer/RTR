@@ -34,20 +34,20 @@ He leans back, and his chair lets out a groan that sounds personally offended. T
 <</silently>>
 <<Chat _msgs>>
 
-I catch his drift. It's hard not to, it's coming off him along with the cologne. He's leaning forward now with both elbows on the ledger, one of them in the sandwich, and I keep my face polite and a little bored while I work it out. Money isn't really what he's shopping for, and that makes this a lot easier for me.
+I catch his drift. It's hard not to, it's coming off him along with the cologne. He's leaning forward now with both elbows on the ledger, one of them in the sandwich, and I keep my face polite and a little bored while I work it out. If I'm reading him right, money isn't really what he's shopping for, and that might make this a lot easier.
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Then maybe I can offer you something more personal than a bigger check." },
 { text: "He laughs until it turns into a cough, and then coughs until he has to wipe his eyes with his thumb." },
 { who: $landlord, text: "Personal. From you. Kid, the only personal thing you could give me is your notice. Spit it out, my lunch is getting warm." },
-{ who: $player, text: "My $mom.relation and my $sister.relation. They're both very... capable. They could make life around here a lot more comfortable for you. Help out with whatever you need." },
+{ who: $player, text: "My $mom.relation and my $sister.relation. They're both pretty... capable, and I bet they could make life around here a lot more comfortable for you. Help out with whatever you need." },
 { text: "That gets his attention. He forgets the sandwich completely." },
 { who: $landlord, text: "Your $mom.relation and your $sister.relation. Well, now. I've seen 'em drop you off out front. Your $mom.relation's still got a real nice figure for a woman her age. And the young one..." },
 { text: "He licks his lips. There's a crumb on the lower one, and it stays there. I keep my eyes on his and my voice level." },
 { who: $landlord, text: "...the young one's a real looker. So when you say 'help', kid. What kind of 'help' are we talking about here?" },
 { who: $player, text: "The kind that makes it worth your while. You give me the third floor, and I make sure you're taken care of." },
 { who: $landlord, text: "Tempting. Real tempting. But that young lady's already giving me plenty just walking up those stairs in her little skirts. You'd have to beat that. By a lot." },
-{ who: $player, text: "I will. Give me the space and I'll prove it." },
+{ who: $player, text: "Then I'll beat it. Just don't promise her the unit yet." },
 { who: $landlord, text: "I'll think about it. Come back in a few days with something better than promises. And kid? Bring your $mom.relation next time. Or your $sister.relation. I make much better decisions when I've got something pretty to look at." },
 ]>>
 <</silently>>
@@ -55,7 +55,7 @@ I catch his drift. It's hard not to, it's coming off him along with the cologne.
 
 He picks the sandwich back up, which I take to mean we're done here.
 
-Out in the hallway the cologne is waiting for me. I hold my breath down the first flight of stairs. If I asked $mom.callName and $sister.callName about this tonight, they'd both laugh me out of the kitchen, so I won't ask them tonight. I'll get them ready for it first.
+Out in the hallway the cologne is waiting for me. I hold my breath down the first flight of stairs. If I asked $mom.callName and $sister.callName about this tonight, they'd laugh me out of the kitchen, and honestly, they'd be right to. I need to figure out how to even bring it up first, and I need to catch them on a better night than the ones when I come home asking for things.
 
 <<UpdateStat "+" "Corruption" 5>>
 <<NextQuest $player>>

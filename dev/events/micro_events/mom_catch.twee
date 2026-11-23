@@ -16,10 +16,10 @@
 		<p>I come down the last step on purpose, so the stair creaks. Her eyes fly open. For a second she just stares at me over the back of the couch, with her hand frozen under the blanket.</p>
 		<<silently>>
 		<<set _msgs to [
-			{ who: $mom, text: "Honey. I... I couldn't sleep." },
-			{ text: "I sit down in the armchair across from her and wait. She knows what that means. She learned it in the meeting room." },
+			{ who: $mom, text: "Honey, I didn't hear you come down. I couldn't sleep, and the TV was..." },
+			{ text: "I sit down in the armchair across from her and wait. She knows what that means by now; she learned it in the meeting room." },
 			{ who: $mom, text: "You want me to keep going." },
-			{ text: "It isn't a question. She looks at me for a long moment, and then the hand under the blanket starts moving again, slowly, while she keeps her eyes on my face." },
+			{ text: "She doesn't say it like a question. She looks at me for a long moment, and then the hand under the blanket starts moving again, slowly, while she keeps her eyes on my face." },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>
@@ -51,14 +51,14 @@
 		<p>I pull out a chair at the kitchen table. The legs scrape on the tiles. She spins around with both hands clutching the front of her robe shut, and her face goes from white to red in about a second.</p>
 		<<silently>>
 		<<set _msgs to [
-			{ who: $mom, text: "Oh God. How long have you been... I was just getting some wine. I was just..." },
-			{ who: $player, text: "Turn around." },
-			{ text: "She stares at me. Then, slowly, she turns back to the counter. She lets go of her robe. It falls open." },
+			{ who: $mom, text: "Oh God, honey, how long have you been sitting there? I only came down for a glass of wine, and the dishwasher was so loud, and I was just..." },
+			{ who: $player, text: "It's okay. Turn back around." },
+			{ text: "She stares at me, and then, slowly, she turns back to the counter and lets go of her robe, and it falls open." },
 			{ who: $mom, text: "Like this?" },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>
-		<p>I don't answer, and she doesn't need me to. She finishes with her back to me and her head bowed over the sink, and every time she makes a sound she looks back over her shoulder to see if I'm still watching. I am.</p>
+		<p>I don't answer, and she doesn't need me to. She finishes with her back to me and her head bowed over the sink, and every time she makes a sound she looks back over her shoulder to check that I'm still sitting there.</p>
 		<<UpdateStat "+" "MomExhibition" 2>>
 		<<UpdateStat "+" "MomCorruption" 1>>
 		<<UpdateStat "-" "MomLust" 25>>
@@ -86,9 +86,9 @@
 		<<silently>>
 		<<set _msgs to [
 			{ who: $mom, text: "Honey! The door, the... I'm in the shower!" },
-			{ who: $player, text: "I can see that." },
-			{ text: "She covers herself with both arms, and then, when I don't leave, she slowly takes them away again. The water keeps running." },
-			{ who: $mom, text: "You could at least close the door. The steam is going everywhere." },
+			{ who: $player, text: "I know. You didn't close it." },
+			{ text: "She covers herself with both arms, and then, when I don't leave, she slowly takes them away again while the water keeps running." },
+			{ who: $mom, text: "Well, you could at least close it now, the steam is going all over the hallway, and the wallpaper out there is already peeling as it is..." },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>

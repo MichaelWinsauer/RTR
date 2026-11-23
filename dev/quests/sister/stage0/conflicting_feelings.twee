@@ -12,9 +12,8 @@ A few days have passed since $sister.callName promised to start at the diner and
 The door opens about halfway, and $sister.callName slips through the gap sideways, like she's sneaking into a movie she didn't pay for, then leans back against it until it clicks shut. She's in an oversized sweater and leggings, her hair piled on top of her head in a knot that gave up hours ago, and she's pulled both sleeves down over her hands.
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Hey. Hi. Oh, you're working. I can come back later. Or never. Never also works for me." },
-{ who: $player, text: "Sit down." },
-{ who: $sister, text: "Wow, okay, bossy. Sitting." },
+{ who: $sister, text: "Hey. Oh, you're working. I can come back later, it's not important. Well, it's kind of important. But it can wait." },
+{ who: $player, text: "I'm not working, I'm staring at code and hoping it fixes itself. Come on, sit down." },
 { text: "She drops onto the edge of my bed, pulls her knees up and wraps both sleeves around them, then studies the poster on my wall like it's going to be on the exam." },
 ]>>
 <</silently>>
@@ -23,50 +22,50 @@ The door opens about halfway, and $sister.callName slips through the gap sideway
 I turn my chair around to face her and don't say anything. She lasts about ten seconds.
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "So. Funny story. It's not funny. It's a story." },
-{ who: $player, text: "Okay." },
-{ who: $sister, text: "You know how after the party I said I didn't remember anything? That's still... mostly true. Except I keep having these dreams." },
-{ who: $player, text: "Dreams." },
-{ who: $sister, text: "Don't do the voice. You're doing the voice, the one from when I told you I was going to be a marine biologist." },
+{ who: $sister, text: "So this is going to sound insane, and I need you to let me get all the way through it before you say anything." },
+{ who: $player, text: "Okay. I'm listening." },
+{ who: $sister, text: "You know how after the party I said I didn't remember anything? That's still mostly true. Except I keep having these dreams." },
+{ who: $player, text: "Dreams?" },
+{ who: $sister, text: "Don't do the voice. You're doing the voice, the one from when I told everyone I was going to be a marine biologist." },
 { who: $player, text: "There's no voice. What kind of dreams?" },
 { text: "She picks at a loose thread on her sleeve until it comes off in her fingers, and then she clearly has no idea what to do with it." },
-{ who: $sister, text: "The kind where I'm in my room, with the fairy lights on, and you're there, and I'm... taking my top off. For you. And then it gets worse. Or better? That's kind of the problem, I honestly can't tell which." },
-{ who: $sister, text: "And they're so real, $sister.callPlayerShort. I wake up with my heart going like I sprinted here, all warm and gross, and then I remember who you are and I want to crawl under my bed and live there. I'd pay rent. I'd be a great under-the-bed tenant." },
-{ text: "She laughs at her own joke. It comes out thin." },
-{ who: $sister, text: "And the really messed up part is I don't even... hate them? Which, cool, great, totally normal thing to say to your $sister.playerRelation at midnight." },
+{ who: $sister, text: "The kind where I'm in my room with the fairy lights on, and you're there, and I'm taking my top off. For you. And then it goes further than that, and I honestly can't tell you if it gets worse or better, which is sort of the whole problem." },
+{ who: $sister, text: "And they feel so real, $sister.callPlayerShort. I wake up with my heart pounding like I ran here, all hot and confused, and then I remember who was in it and I want to crawl under my bed and never come out again." },
+{ text: "She tries to laugh. It comes out thin." },
+{ who: $sister, text: "And the really messed up part is that I don't even hate them. Which is a lovely thing to tell your little $sister.playerRelation at midnight, I know." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 <<Video "images/characters/sister/events/conflicting_feelings/confession.mp4" "" "" 500>>
-For a second something in my chest goes cold. The fairy lights, the top coming off. She isn't dreaming up some random room, she's remembering that one, in pieces, and calling the pieces a dream because it's the only word that still lets her sleep. If that word ever stops working, the rest of the night comes back with it. I keep my face soft and a little worried, the face of a guy whose $sister.relation is upset at midnight, and wait to see which way she leans.
+For a second something in my chest goes cold. The fairy lights, the top coming off. She isn't dreaming up some random room, she's remembering that one, in pieces, and calling the pieces a dream because it's the only word that still lets her sleep. I don't know what happens if that word ever stops working, and I'd rather not find out tonight. I keep my face soft and a little worried, the face of a guy whose $sister.relation is upset at midnight, and wait to see which way she leans.
 <<linkreplace "Stay calm and listen">>
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Hey. Nobody's mad at you." },
-{ who: $sister, text: "You should be. I'd be so mad at me. I'd write me a strongly worded letter." },
-{ who: $player, text: "Just tell me the rest of it." },
+{ who: $sister, text: "Maybe you should be. I'm pretty mad at me." },
+{ who: $player, text: "What else? There's more, I can tell." },
 { text: "She tucks her chin down onto her knees, and her voice drops so low I have to lean in to catch it." },
-{ who: $sister, text: "It's not even just the dreams. It's daytime stuff too. You've been so good to me lately, with the class, and the diner thing, and... I don't know. I feel safe around you. And then I feel weird about feeling safe, and then I feel weird about feeling weird, and it just keeps going. Like a Russian doll of being a freak." },
-{ who: $sister, text: "I keep wanting to be wherever you are. That's it. That's the whole embarrassing thing." },
+{ who: $sister, text: "It's not even just the dreams. It's during the day too. You've been so good to me lately, with the class and the diner and everything, and I feel safe around you, and then I feel weird about feeling safe, and then I lie awake feeling weird about that." },
+{ who: $sister, text: "Mostly I just keep wanting to be wherever you are. That's it, that's the embarrassing part." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-My hand is already in my hoodie pocket. I find $company.prototype.name by feel and switch it on without taking it out. <<UseQuestDevice $sister>> I ease the dial up under my thumb, toward the warm part of what she just said, the safe and the close and the wanting to be near me, and I leave the guilt exactly where it is. Guilt with nowhere to go keeps sending her back to me for answers. The hum is too faint to hear over her breathing.
+My hand is already in my hoodie pocket. I find $company.prototype.name by feel and switch it on without taking it out. <<UseQuestDevice $sister>> I ease the dial up under my thumb, toward the warm part of what she just said, the safe and the close and the wanting to be near me, and I leave the guilt alone. I'm not sure what guilt does on its own, but my guess is it keeps her coming back to me for answers. The hum is too faint to hear over her breathing.
 <<linkreplace "Guide the conversation">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "That doesn't make you a freak. Feelings don't come with instructions. Sometimes they just show up, and you figure it out from there." },
+{ who: $player, text: "There's nothing wrong with you. Feelings show up whether you invited them or not, and then you just sort of figure it out from there." },
 { who: $sister, text: "Wow. Did you get that off a tea bag?" },
-{ who: $player, text: "Fortune cookie. Doesn't make it wrong." },
+{ who: $player, text: "Fortune cookie, actually. Doesn't mean it's wrong." },
 { text: "She snorts into her knees, and some of the stiffness goes out of her shoulders." },
-{ who: $sister, text: "It is wrong, though. I'm your $sister.relation. There's this whole list of people I'm not supposed to think about like that, and you're pretty much at the top. Right under... no, actually, you're the top." },
+{ who: $sister, text: "It is wrong, though. I'm your $sister.relation. There's a pretty short list of people I'm not supposed to think about like that, and you're right at the top of it." },
 { who: $player, text: "You can tell me anything. You know that. I'm not going anywhere." },
 { text: "Her sleeves have stopped twisting. She's breathing faster, and for the first time since she sat down she's looking at me instead of the poster." },
-{ who: $sister, text: "I know. That's what's so scary. You're the one person I'd actually tell, and you're also the... subject. Of the telling." },
+{ who: $sister, text: "I know. That's what's so scary. You're the one person I'd actually tell, and you're also the person it's about, and that's not how this is supposed to work." },
 { who: $sister, text: "And when I think about the dream I get this warm, stupid feeling right here, and I just want to be close. Make you happy. Make you feel good, like in the..." },
 { text: "She stops, and her face does something complicated, and she presses the back of her wrist against her mouth." },
 { who: $player, text: "It's okay. You don't have to fight it this hard." },
-{ who: $sister, text: "Easy for you to say, you're not the one who... ugh. Okay. Okay okay okay." },
+{ who: $sister, text: "Easy for you to say. You're not the one who... never mind." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -74,16 +73,16 @@ My hand is already in my hoodie pocket. I find $company.prototype.name by feel a
 She gets up off the bed, takes the two steps over to my chair and stops in front of me with her sleeves balled up in her fists. She leans down and stops halfway, close enough that I can smell her strawberry shampoo, and I get the feeling she's giving herself one last chance to bail. She doesn't take it. The kiss is soft and clumsy, her nose bumps mine, and her hand lands flat on my chest like she needs something to hold on to. Then she straightens up so fast she nearly takes my lamp with her.
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh my god. I just did that. I actually just... did that." },
-{ who: $sister, text: "Okay, in my defense, I wanted to. Which is not a defense. That's the opposite of a defense, that's a confession. Great. Love that for me." },
+{ who: $sister, text: "Oh my god. I just did that. I actually just did that." },
+{ who: $sister, text: "In my defense, I wanted to. Which isn't really a defense, is it? That's more of a confession." },
 { text: "She's hugging her own elbows now, and she still looks scared, but she hasn't backed away from my chair either." },
-{ who: $sister, text: "I don't know what's happening to me, $player.name. I just know I really don't want to be anywhere else right now. Can we... not make it weird? Weirder." },
-{ who: $player, text: "It's not weird. Go get some sleep." },
-{ who: $sister, text: "Sleep. Yeah. That's definitely happening." },
+{ who: $sister, text: "I don't know what's happening to me, $player.name. I just know I really don't want to be anywhere else right now. Can we not make this weird? Weirder, I mean." },
+{ who: $player, text: "Nobody's making anything weird. Go get some sleep, okay?" },
+{ who: $sister, text: "Sleep. Sure. That's definitely going to happen." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-At the door she turns around, opens her mouth, closes it again and gives me a little wave with one sleeve instead. I listen to her footsteps down the hall and her door closing. She came in here to confess that something was wrong with her, and she's going back to bed sure that I'm the only person in the world who understands it. In my pocket the prototype is still humming. I let it run until I hear her bed creak through the wall.
+At the door she turns around, opens her mouth, closes it again and gives me a little wave with one sleeve instead. I listen to her footsteps down the hall and her door closing. She came in here to confess that something was wrong with her, and I think she's going back to bed believing I'm the only person who'd understand it. In my pocket the prototype is still humming. I let it run until I hear her bed creak through the wall.
 
 <<UpdateStat "+" "SisterCorruption" 2>>
 <<UpdateStat "+" "SisterRelation" 3>>

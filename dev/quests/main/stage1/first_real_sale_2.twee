@@ -12,8 +12,8 @@ He orders for both of us without asking: two of something dark from a tap with a
 <<silently>>
 <<set _msgs = [
 { who: $ethan, text: "To the first stranger. May she have many friends with many conference rooms." },
-{ who: $player, text: "She does. She said so." },
-{ who: $ethan, text: "Of course she does. She runs a marketing firm. Her whole job is having friends." },
+{ who: $player, text: "She does, apparently. She told me." },
+{ who: $ethan, text: "Of course she does, she runs a marketing firm. Having friends is basically her whole job." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -25,11 +25,11 @@ Around the second round he gets quieter, the good kind of quiet, the kind where 
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "You know what I keep thinking about? The night with the field strength. When we got it right and every corner read the same." },
-{ who: $player, text: "Me too." },
-{ who: $ethan, text: "I've built a lot of things that worked. That one felt like something. Like when the first plane stayed up." },
-{ text: "He turns his glass in a slow circle on the coaster." },
-{ who: $ethan, text: "And today some lady at a glass desk bought it over the phone. That's insane, boss. That's really insane." },
+{ who: $ethan, text: "You know what I keep thinking about? That night with the field strength, when we finally got it right and every corner read the same." },
+{ who: $player, text: "Yeah, me too." },
+{ who: $ethan, text: "I've built a lot of stuff that worked, but that one felt different. Like I imagine it felt when the first plane stayed up, you know?" },
+{ text: "He turns his glass on the coaster." },
+{ who: $ethan, text: "And today some lady at a glass desk bought it over the phone. That's insane, man, when you actually think about it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -38,23 +38,23 @@ Around the second round he gets quieter, the good kind of quiet, the kind where 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "You set the dial on that thing. You know better than anyone what it does." },
-{ who: $ethan, text: "Nope. No. I know what the profile does. I know what eight emitters at that setting do to a meter $brian.name built out of a multimeter and spite." },
+{ who: $ethan, text: "Nope, I really don't. I know what the profile does, and I know what eight emitters at that setting do to a meter $brian.name built out of a multimeter and spite." },
 { who: $ethan, text: "Don't tell me what the dial does, boss. I like not knowing. It's the nicest part of the job." },
 { text: "He grins when he says it. Then he takes a sip and holds the glass against his lip for a while without drinking any more, looking at the bottles behind the bar." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He's a programmer. Programmers always want to know what the dial does. It's practically the definition of the job. I let it go, because it's a good night, and because he's let it go too, or he's decided to.
+Programmers always want to know what the dial does, that's practically the definition of the job. I let it go, because it's a good night, and because he's let it go too, or he's decided to.
 
 <<linkreplace "Last round">>
 At eleven he tries to pay, and I don't let him, and we argue about it in front of the bartender until she takes my card just to make us stop. Outside, the air is cold and smells like rain that hasn't started yet. He hugs me on the sidewalk, the full kind with a slap on the back, the way you hug someone at a wedding.
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Proud of you, man. Seriously. You did that." },
-{ who: $player, text: "We did that." },
-{ who: $ethan, text: "Yeah, okay, we did. But you picked up the phone. Get home safe. Don't sleep at your desk." },
+{ who: $ethan, text: "I'm proud of you, man, seriously. A couple of months ago I was living on instant noodles, and now look at us." },
+{ who: $player, text: "You did half the work." },
+{ who: $ethan, text: "Yeah, yeah, the good half. But you're the one who picked up the phone. Get home safe, and don't sleep at your desk." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

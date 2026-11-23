@@ -17,12 +17,12 @@ I start with $darius.name this time, while I still have the nerve. I don't stand
 <<set _msgs = [
 { who: $darius, text: "...so the retention curve flattens around week six, which is either very good news or a reporting error." },
 { who: $mom, text: "Which one do you think it is?" },
-{ who: $darius, text: "Honestly? I think it's good news, and I don't trust it. Good news usually means I've missed something." },
-{ who: $mom, text: "That sounds exhausting, honey. You're allowed to be right sometimes." },
-{ text: "He looks up at me properly then, for the first time all week, and I see him notice the blouse. He's polite about it. He notices it anyway." },
-{ who: $darius, text: "That's a good color on you. Objectively. It's a good color." },
-{ who: $mom, text: "Objectively." },
-{ who: $darius, text: "I just mean that it's... yes. Objectively." },
+{ who: $darius, text: "If I'm honest, I suspect it's good news, which is precisely why I don't trust it. In my experience, good news mostly means I've overlooked something." },
+{ who: $mom, text: "That sounds exhausting, honey. You're allowed to be right once in a while, you know." },
+{ text: "He looks up at me properly then, for the first time all week, and I see him notice the blouse. He's very polite about it, and he notices it anyway." },
+{ who: $darius, text: "That's an objectively good color on you, if you don't mind my saying so." },
+{ who: $mom, text: "Objectively?" },
+{ who: $darius, text: "It was meant as a compliment. It seems to have come out as a finding. But yes. Objectively." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -31,20 +31,22 @@ I leave him there with his curve and his ears turning pink, and it's all I can d
 
 $ethan.name tells me a joke about a programmer who got stuck in the shower because the shampoo said lather, rinse, repeat. It's an awful joke. I laugh anyway, and then I really laugh, because he's so pleased with himself, and I touch his arm while I do it, the arm without the coffee this time. He stops halfway through his next sentence and has to start it again.
 
-For $brian.name I've brought a coffee, two sugars, which I found out by watching him. I set it down by his elbow without a word and leave my hand on his shoulder for a moment while he says thank you to his soldering iron.
+For $brian.name I've brought a coffee, two sugars, which I found out by watching him. I set it down by his elbow without a word and leave my hand on his shoulder for a moment while he stares very hard at his soldering iron.
 
 <<silently>>
 <<set _msgs = [
-{ who: $brian, text: "Uh. Thank you. That's, uh. That's exactly how I... how did you..." },
+{ who: $brian, text: "Oh. Um. Thanks." },
+{ text: "He picks the cup up and looks at it, and I can see him working out that it's the right color, which means the right amount of sugar." },
+{ who: $brian, text: "How did you..." },
 { who: $mom, text: "I pay attention, sweetie." },
-{ who: $brian, text: "Right. Yes. Okay. Thank you. I said that. Thank you." },
+{ text: "He doesn't say anything else. His ears go red, and he holds the cup in both hands without drinking from it until I've walked away." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 When I get back to my desk, my cheeks are warm again, but it's a different warm than yesterday.
 
-I can't remember the last time a man looked at me the way $darius.name looked at that blouse. I was probably twenty. I was probably wearing something I had borrowed.
+I can't remember the last time a man looked at me the way $darius.name looked at that blouse. I was probably twenty, and probably wearing something I'd borrowed.
 
 I glance over at $player.name, and he's watching, of course he's watching, and there's that smile pulling at the corner of my mouth that I can't seem to do anything about. I put my head down and type something, anything, until it goes away. It takes a while.
 

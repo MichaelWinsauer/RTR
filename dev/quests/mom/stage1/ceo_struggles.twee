@@ -1,10 +1,10 @@
 :: CEO Struggles [event mom_quest] {"position":"3700,700"}
 <<silent>><<SetBackground $locations[13].img>><</silent>>
-By seven the office has emptied out. $ethan.name was the last of the three to leave, walking backward toward the elevator while he finished a story about a vending machine that I stopped following halfway through. Then the doors slid shut, and now it's just the air conditioning, one ceiling panel that flickers every few seconds ($brian.name has promised to look at it 'eventually'), and the soft clack of $mom.callName's keyboard on the other side of the room.
+By seven the office has emptied out. $ethan.name was the last of the three to leave, walking backward toward the elevator while he finished a story about a vending machine that I stopped following halfway through. Then the doors slid shut, and now it's just the hum of the ventilation, one ceiling panel that flickers every few seconds ($brian.name has promised to look at it 'eventually'), and the soft clack of $mom.callName's keyboard on the other side of the room.
 
-She doesn't have to be here this late. Nobody asked her to stay. She just doesn't go home while I'm still working, and she's been like that since I was twelve and had a volcano due for the science fair.
+She doesn't have to be here this late, and nobody asked her to stay. She just doesn't go home while I'm still working. She's been like that since I was twelve and had a volcano due for the science fair.
 
-I've had the same spreadsheet open for an hour. Three salaries, the rent, the parts $brian.name ordered on Monday, and a second order from Wednesday with a comment that just says 'sorry'. The numbers work. I've checked them four times and they work every time, but they work the way a ladder works while somebody is still holding the bottom of it.
+I've had the same spreadsheet open for an hour: three salaries, the rent, the parts $brian.name ordered on Monday, and a second order from Wednesday with a comment that just says 'sorry'. The numbers work. I've checked them four times and they work every time, but they work the way a ladder works while somebody is still holding the bottom of it.
 
 I roll my neck slowly, once to each side, and knead my own shoulder with a small wince, the kind you can see from across a room. Then I go back to typing.
 
@@ -13,17 +13,17 @@ It takes her less than a minute.
 <<linkreplace "Let her come over">>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Sweetheart, you're going to grind your teeth down to nothing. I can hear it from my desk." },
-{ who: $player, text: "That's the air conditioning." },
-{ who: $mom, text: "The air conditioning doesn't sigh every two minutes." },
+{ who: $mom, text: "Sweetheart, you're going to grind your teeth down to nothing. I can hear it all the way over at my desk." },
+{ who: $player, text: "I'm not grinding anything. That's my chair, it squeaks." },
+{ who: $mom, text: "Your chair doesn't sigh every two minutes, honey." },
 { text: "She rolls $darius.name's chair over and sits down next to me, close enough to see the screen. She doesn't read it. She looks at me instead, the same way she used to check my forehead for a fever before she'd even said good morning." },
-{ who: $mom, text: "Talk to me, honey. What's going on?" },
+{ who: $mom, text: "Talk to me. What's going on?" },
 { who: $player, text: "Nothing's going on. That's kind of the problem. Everything's fine." },
-{ who: $mom, text: "That isn't a problem, sweetie. That's the opposite of a problem." },
-{ who: $player, text: "It's fine today. A month ago it was just me and a soldering iron. If I screwed up, the only person who had to live on ramen about it was me." },
-{ who: $player, text: "Now $ethan.name has rent. $darius.name walked out of a real job for this. $brian.name has... honestly, I have no idea what $brian.name has going on, but whatever it is, it's on my dime now. And then there's you." },
+{ who: $mom, text: "Well, that doesn't sound like much of a problem to me, sweetie. That sounds like a good day." },
+{ who: $player, text: "It's fine today. A month ago it was just me and a soldering iron, and if I screwed up, the only person who had to live on ramen about it was me." },
+{ who: $player, text: "Now $ethan.name has rent, and $darius.name walked out of a real job for this, and $brian.name has... honestly, I have no idea what $brian.name has going on, but whatever it is, it's on my dime now. And then there's you." },
 { who: $mom, text: "Me?" },
-{ who: $player, text: "You came here when you had nowhere else to go. If this place goes sideways, it doesn't just go sideways for me." },
+{ who: $player, text: "You came here because you had nowhere else to go. If this place goes sideways, you go sideways with it, and that's the part I keep thinking about." },
 { text: "She looks down at her hands. I don't think she's ever really gone back over how she ended up here. She only remembers that I was the one sitting next to her on the stairs that night." },
 ]>>
 <</silently>>
@@ -34,8 +34,8 @@ She's quiet for a while. When she speaks again it's in the voice she saves for s
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "You're allowed to be overwhelmed, you know. I'm overwhelmed half the time, and I've had a lot more practice at it than you." },
-{ who: $mom, text: "But you're doing it, sweetheart. Three people came in this morning because of you. That's not nothing." },
-{ who: $player, text: "I know. I'm fine. My back just thinks I'm eighty." },
+{ who: $mom, text: "But you're doing it, sweetheart. Three people came in this morning and sat down at desks you paid for, and that's not nothing, that's a whole company." },
+{ who: $player, text: "I know. I'm fine, really. My back just thinks I'm eighty." },
 { who: $mom, text: "That's because you sit like a question mark. I've been telling you that since middle school." },
 ]>>
 <</silently>>
@@ -47,9 +47,9 @@ My phone is lying face down next to the keyboard. I flip it over like I'm checki
 <<silently>>
 <<set _msgs = [
 { text: "For a little while nothing happens. She keeps talking, about the binder she's started for the employee files and about $ethan.name leaving his mugs on the windowsill like he's growing something in them. Somewhere in the middle of a sentence her eyes drift to my shoulders and stay there." },
-{ who: $mom, text: "Here. Turn your chair around." },
+{ who: $mom, text: "Here, turn your chair around." },
 { who: $player, text: "What for?" },
-{ who: $mom, text: "Just turn around, honey. Humor your $mom.relation for once." },
+{ who: $mom, text: "Just turn around, honey. Humor your $mom.relation for once in your life." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -62,30 +62,31 @@ I make a noise I'm not proud of.
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Oh, sweetie. You've got a whole rope tied up in here." },
-{ who: $player, text: "Don't stop." },
+{ who: $player, text: "Please don't stop." },
 { text: "She doesn't." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-It's dark outside by now, and the window gives the two of us back to me like a mirror. Me slumped in the chair with my eyes half closed, her bent over me with her hair falling forward, working her way down my spine and back up again, a little slower each time. At some point she stops talking. Her breathing has gone slow and even, the way it does right before she dozes off on the couch, except she's wide awake and rubbing her $mom.playerRelation's shoulders.
+It's dark outside by now, and the window gives the two of us back to me like a mirror: me slumped in the chair with my eyes half closed, her bent over me with her hair falling forward, working her way down my spine and back up again, a little slower each time. At some point she stops talking. Her breathing has gone slow and even, the way it does right before she dozes off on the couch, except she's wide awake and rubbing her $mom.playerRelation's shoulders.
 
-Once, she pauses with both hands flat on my back. In the glass I watch a small frown form on her face, the kind you get when you walk into a room and can't remember what you came in for. I lean back into her hands, just slightly. The frown goes away, and so does the pause.
+Once, she pauses with both hands flat on my back. In the glass I watch a small frown form on her face, the kind you get when you walk into a room and can't remember what you came in for. I lean back into her hands, just slightly, and hope. The frown goes away, and so does the pause.
 
 <<linkreplace "Let her finish">>
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Better?" },
-{ who: $player, text: "Much better. You could charge for this." },
+{ who: $player, text: "So much better. You could charge for this, you know." },
 { who: $mom, text: "Oh, stop it." },
-{ who: $player, text: "I'm serious. Ten minutes of that and I could get through another week of payroll. Maybe we make it a regular thing." },
+{ who: $player, text: "I'm serious. Ten minutes of that and I could get through another week of payroll. Maybe we should make it a regular thing." },
 { who: $mom, text: "A regular thing? What, like a standing appointment?" },
 { text: "She laughs, but her hands are still on my shoulders, and she doesn't take them away." },
 { who: $player, text: "Something like that. I'll put you in the schedule." },
 { who: $mom, text: "Sweetheart, you can't just put your $mom.relation in the schedule for..." },
 { text: "She trails off. Her thumbs make one more slow circle." },
-{ who: $mom, text: "...Well. I suppose it's for the company, isn't it? If the boss can't think straight, nobody gets paid." },
-{ who: $player, text: "That's exactly right." },
+{ who: $mom, text: "Well, I suppose it is for the company, isn't it? If the boss can't think straight, nobody gets paid, and then where would we all be." },
+{ who: $player, text: "Out on the street, probably. So really you'd be saving jobs." },
+{ who: $mom, text: "Saving jobs. Listen to you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

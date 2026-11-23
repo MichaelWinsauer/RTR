@@ -28,11 +28,11 @@ She's at one of the big tables in the student lounge with two classmates, a guy 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Guys, this is $player.name. My $sister.playerRelation. He runs a company, so be nice to him, he might hire you someday. Probably not, though." },
+{ who: $sister, text: "Guys, this is $player.name, my little $sister.callPlayerShort. He runs a company, so be nice to him and maybe he'll hire you someday. Probably not, though." },
 { text: "The guy in the cap says 'hey, man'. The girl with the highlighters looks me up and down with open interest, and $sister.callName notices that and moves her coffee cup about an inch to the left, into the girl's line of sight." },
-{ who: $sister, text: "So, what's up? Because we've got, like, forty minutes to learn an entire semester." },
-{ who: $player, text: "Nothing. Just passing by." },
-{ who: $sister, text: "Great. Love that. See you at home!" },
+{ who: $sister, text: "So what's up? We have about forty minutes left to learn an entire semester." },
+{ who: $player, text: "Nothing, I was just passing by." },
+{ who: $sister, text: "Great, love that. See you at home!" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -47,9 +47,9 @@ She's sitting on the floor in the hallway, back against the wall and legs stretc
 <<set _msgs = [
 { who: $sister, text: "Don't talk to me. If I stop now, the chain rule falls out of my head and I'll have to start all over." },
 { who: $player, text: "$prof.callName's class?" },
-{ who: $sister, text: "Who else's? He gave us a 'small' problem set. Thirty problems. He used air quotes himself, $sister.callPlayer, I'm not even exaggerating, he made the little air quotes with his own hands." },
+{ who: $sister, text: "Who else's? He gave us a 'small' problem set of thirty problems, and I'm not exaggerating, $sister.callPlayer, he made the little air quotes himself, with his own hands." },
 { text: "She writes something, crosses it out and writes it again, harder." },
-{ who: $sister, text: "Okay, I have to go. I mean you have to go. I'm staying. Bye. Love you. Go." },
+{ who: $sister, text: "I have to go. I mean, you have to go, I'm staying right here. Love you, bye." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

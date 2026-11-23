@@ -28,13 +28,13 @@ On the first night I let her talk as much as she liked, because I needed her to 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "One change from last time. I ask, you give me a number. Nothing else." },
-{ who: $mom, text: "Nothing else? Sweetie, half of what I say is context." },
-{ who: $player, text: "There's no column for context." },
+{ who: $player, text: "I want to change one thing from last time. When I ask you something, just give me the number, okay? No story to go with it." },
+{ who: $mom, text: "No story? Sweetie, half of what I say is context." },
+{ who: $player, text: "I know, and I like the context, but there's no column for it on the sheet." },
 { who: $mom, text: "Well, there should be. How is anybody supposed to tell one six from another six?" },
-{ who: $player, text: "A number, $mom.callName." },
+{ who: $player, text: "Just the number, $mom.callName. Please." },
 { text: "She has something to say about my tone. I watch her fold it up and put it away for later, the same way she folds the dish towels, corners first." },
-{ who: $mom, text: "A number. Fine. Yes, sir." },
+{ who: $mom, text: "Fine, a number it is. Yes, sir." },
 { text: "She says it as a joke, with a little salute of the pen. I don't correct her." },
 ]>>
 <</silently>>
@@ -44,8 +44,8 @@ She remembers the rule. I can tell because she sits down, opens her mouth, and c
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: either("Am I allowed to say hello, or is that context?", "I'm not going to talk. Look. This is me, not talking.", "I practiced in the car. Six. Seven. Eight. See?") },
-{ who: $player, text: either("Hello.", "Good.", "Save it for the sheet.") },
+{ who: $mom, text: either("Am I allowed to say hello, or is that context?", "I'm not going to talk. Look at me, this is me not talking, and I'm very good at it.", "I practiced in the car, you know. Six. Seven. Eight. See? Not a single word in between.") },
+{ who: $player, text: either("Hello is fine. Anything after hello is context.", "Very convincing. Let's see how long it lasts.", "I'll count that as your warm-up.") },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -60,8 +60,8 @@ The blue light comes on and starts its slow pulse. Under the table, my phone is 
 { who: $mom, text: either("Five.", "Six.", "Seven.") },
 { text: "And then, because she can't help herself:" },
 { who: $mom, text: either("Somebody parked across my spot this morning, and I've been...", "$boss.callName's office put me on hold for twenty minutes, and the music was...", "$sister.callName sent me a picture of a dog, and it had these...") },
-{ who: $player, text: "Number." },
-{ who: $mom, text: "...That was the number. The rest was free." },
+{ who: $player, text: "That was a lot more than a number." },
+{ who: $mom, text: "The number came first, honey. The rest was free." },
 { text: "I write it down and nudge the slider up. Not far. The point of a test is the difference." },
 ]>>
 <</silently>>
@@ -69,7 +69,7 @@ The blue light comes on and starts its slow pulse. Under the table, my phone is 
 <<silently>>
 <<DevicePulse "+1">>
 <<set _msgs = [
-{ who: $player, text: "Focus." },
+{ who: $player, text: "How focused?" },
 { who: $mom, text: "Six. Seven. Six." },
 { text: "The 'sorry' is right there, I can see it coming. She catches it and presses her lips together." },
 ]>>
@@ -85,12 +85,12 @@ It reaches her from the outside in, the way it always does. Her cheeks go first,
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Put that down." },
-{ who: $mom, text: "Honey, it's like a greenhouse in here." },
-{ who: $player, text: "Clipboard down. Both hands on the table." },
+{ who: $player, text: "Put the clipboard down, please." },
+{ who: $mom, text: "Honey, it's like a greenhouse in here. I'm not fanning myself for fun, you could grow tomatoes on this table." },
+{ who: $player, text: "I know it's warm. Put it down anyway, and keep both hands on the table." },
 { text: "She looks at me over the top of the clipboard for a long second. Then she lays it down and puts her hands flat on either side of it, fingers spread, like she's waiting for her nail polish to dry." },
-{ who: $mom, text: "Like this?" },
-{ who: $player, text: "Like that." },
+{ who: $mom, text: "Like this? Or is that too much finger?" },
+{ who: $player, text: "That's good. Just leave them there." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -100,8 +100,8 @@ She gets the top button of her blouse open before she remembers where her hands 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Go on." },
-{ text: "She undoes the second button too. Then the hand goes back to the table, exactly where it was, and smooths the sheet flat, as if that's what it got up to do in the first place." },
+{ who: $player, text: "Go on, that one too." },
+{ text: "She undoes the second button. Then the hand goes back to the table, exactly where it was, and smooths the sheet flat, as if that's what it got up to do in the first place." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -110,9 +110,9 @@ She lasts two more questions.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Can I at least undo a button? Just the top one. I'm melting." },
+{ who: $mom, text: "Can I at least undo a button? Just the top one, honey, I'm melting, and it's only you, you've seen me in my bathrobe with that green mask on my face." },
 { text: "I let her wait. I write something on the sheet that doesn't need writing, and I take my time over it." },
-{ who: $player, text: "One." },
+{ who: $player, text: "One button. The top one." },
 { text: "She undoes one, puts her hand back on the table, and says thank you. I don't think she hears herself say it." },
 ]>>
 <</silently>>
@@ -124,12 +124,12 @@ That leaves the last question, the one in pencil at the bottom of the sheet.
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "How attractive do you feel right now?" },
-{ who: $mom, text: either("Honey. $darius.name should be ashamed of himself.", "Oh, this one again. Can we skip this one?", "In this blouse? After the day I've had? Ask me on a Saturday.") },
-{ who: $player, text: "That's not a number." },
+{ who: $mom, text: either("Honey, $darius.name should be ashamed of himself for that one.", "Oh, this one again. Can't we skip this one, just once?", "In this blouse? After the day I've had? Ask me on a Saturday.") },
+{ who: $player, text: "That's very nice, but it isn't a number." },
 { text: "She laughs and turns to the box, the way she did on the first night, like it might answer for her." },
-{ who: $player, text: "Not to the box. To me." },
+{ who: $player, text: "Look at me when you say it, not at the box." },
 { text: "Her eyes come off the blue light and find mine, and it takes her a moment to get them to stay there." },
-{ who: $mom, text: either("...Seven.", "Seven. Seven and a half?", "...Eight. Is that too high? That feels too high.") },
+{ who: $mom, text: either("Seven.", "Seven. Seven and a half?", "Eight. Is that too high? That feels too high, doesn't it?") },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -143,10 +143,10 @@ Her hands stay on the table until I tell her she can have her pens back.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: ["Did I do all right? With the numbers?", "Same time next week?", "Is it bad that I look forward to these?"][_ts0] },
-{ who: $player, text: ["Better than last time.", "Whenever it's in the schedule. I'll tell you.", "It's good for the data."][_ts0] },
-{ who: $mom, text: ["Better. I'll take better.", "You'll tell me. Right. Of course you will.", "Good. Then good."][_ts0] },
-{ who: $player, text: either("And next time, be here at seven. Not ten to.", "And next time, come straight from your desk. Don't go home to change first.", "And next time, your phone stays in your bag. I could hear it buzzing.") },
+{ who: $mom, text: ["Was that better? I only slipped twice, and one of those was a sneeze.", "Same time next week, then? I could bring those lemon bars from the bakery, the ones $sister.callName always steals...", "Is it terrible that I look forward to these? I catch myself checking the clock at my desk around four."][_ts0] },
+{ who: $player, text: ["Much better. I didn't count the sneeze.", "Whenever it's in the schedule. I'll let you know.", "It's not terrible. It's actually good for the data."][_ts0] },
+{ who: $mom, text: ["Oh, good. I was sure you were going to dock me for question four.", "Of course you'll let me know. I'll bring the lemon bars anyway, they don't count as context.", "Well, then I'll keep doing it. For the data."][_ts0] },
+{ who: $player, text: either("And next time, be here at seven, not ten to. I'd like to start on time.", "And next time, come straight from your desk. Don't go home to change first.", "And next time, your phone stays in your bag. I could hear it buzzing the whole time.") },
 { who: $mom, text: "Yes, sir." },
 { text: "She's made that joke before. This time she forgets the salute." },
 ]>>

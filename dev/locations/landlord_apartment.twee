@@ -94,7 +94,7 @@ I knock twice. The TV doesn't get any quieter, but the door opens anyway, and he
 	<<if $company.stage > 0>>
 		<<run _msgs.push(
 			{ who: $landlord, text: "And tell those two I'm looking forward to their next visit. Lot of dusty shelves in here. Low ones, mostly." },
-			{ text: "He grins at me over the money, and I grin right back. He thinks he got the better end of that deal. I let him think it." }
+			{ text: "He grins at me over the money, and I grin right back. I'm pretty sure we both think we got the better end of that deal." }
 		)>>
 	<</if>>
 <<else>>

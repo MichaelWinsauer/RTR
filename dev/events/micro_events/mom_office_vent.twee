@@ -39,9 +39,9 @@
 			<<replace "#mom-vent-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Then stay there. Nobody's timing you." },
+					{ who: $player, text: "Then stay there for a minute. Nobody's timing you." },
 					{ who: $mom, text: "Don't tease me, sweetie." },
-					{ who: $player, text: "I'm not." },
+					{ who: $player, text: "I'm not teasing, I mean it. The folders can wait five minutes." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -51,7 +51,7 @@
 					<<set _msgs to [
 						{ who: $mom, text: "I keep thinking about the meeting room." },
 						{ text: "She says it to nobody, eyes still closed. Then she hears herself, and they open." },
-						{ who: $mom, text: "The folders, I mean. They go in the meeting room. That's where they go." },
+						{ who: $mom, text: "The folders, I mean, they're supposed to go in the meeting room, that's where we keep the... the client folders." },
 					]>>
 					<</silently>>
 					<<Chat _msgs>>

@@ -22,26 +22,26 @@
 */
 $mom.callName is humming.
 
-That's the first thing I notice when I come down. Not the smell of coffee or the pan of eggs, but the humming, some old song from the radio that she gets half the words wrong to. She's standing at the stove in her robe with her hair still damp, flipping eggs with a little flourish, and she looks like someone who slept nine hours and woke up before the alarm.
+That's the first thing I notice when I come down, before the smell of coffee or the pan of eggs: some old song from the radio that she gets half the words wrong to. She's standing at the stove in her robe with her hair still damp, flipping eggs with a little flourish, and she looks like someone who slept nine hours and woke up before the alarm.
 
 /* IMAGE: images/meals/important/prototype_test_run_effect.jpg | Morning kitchen. Mom at the stove in her robe, damp hair, relaxed smile. Sister at the table squinting at her suspiciously over a mug. */
 
-$sister.callName is already at the table, both hands around her mug, watching her like she's a nature documentary.
+$sister.callName is already at the table with both hands around her mug, watching her over the rim like a puzzle she can't quite solve.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay, what happened to you?" },
+{ who: $sister, text: "What happened to you?" },
 { who: $mom, text: "What do you mean? Nothing happened. Eggs?" },
-{ who: $sister, text: "You're humming. You never hum. You made eggs on a weekday. Your face looks... rested. It's honestly a little scary." },
+{ who: $sister, text: "You're humming, you made actual eggs, and you look like you slept through the night for the first time since spring. It's a little unsettling, honestly." },
 { who: $mom, text: "Can't a woman get a good night's sleep without being interrogated in her own kitchen?" },
-{ who: $sister, text: "Not when she's been a zombie for three months, no." },
+{ who: $sister, text: "Not when she's been walking around like a zombie for three months, no." },
 { text: "$mom.callName slides a plate in front of me. Our eyes meet for exactly one second before she looks at the toaster like it just said something interesting. The color starts at her collarbone and climbs." },
-{ who: $mom, text: "I just... took some time for myself last night. That's all. Somebody suggested I should do that more often." },
+{ who: $mom, text: "I just took a little time for myself last night, that's all. Somebody suggested I should do that more often, and, well... who wants toast?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$sister.callName looks from her to me and back, eyebrows up, then shrugs and goes back to her phone. She's decided it's a boring grown-up thing. She's half right.
+$sister.callName looks from her to me and back, eyebrows up, then shrugs and goes back to her phone. She's filed it under boring grown-up things, which is about half right.
 
 I eat my eggs. They're perfect, which they never are, and I can't remember the last time $mom.callName burned nothing at all.
 
@@ -49,9 +49,9 @@ I eat my eggs. They're perfect, which they never are, and I can't remember the l
 <<link "Ask her if the relaxation helped">><<replace "#mtre-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "So that relaxation thing we talked about. Did it help?" },
+{ who: $player, text: "So, that relaxation thing we talked about... did it help at all?" },
 { text: "The spatula stops in mid-air. $sister.callName doesn't look up from her phone, thank god." },
-{ who: $mom, text: "It... yes. It did. Eat your breakfast, $player.name." },
+{ who: $mom, text: "It did, yes, very much, thank you for asking, and now eat your breakfast before it gets cold, $player.name." },
 { text: "She turns back to the stove and doesn't hum again until I've left the kitchen. But when I glance back from the doorway, she's smiling at the pan." },
 ]>>
 <</silently>>
@@ -62,8 +62,8 @@ I eat my eggs. They're perfect, which they never are, and I can't remember the l
 <<link "Just compliment the eggs">><<replace "#mtre-choice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "These are really good, $mom.callName. Like, restaurant good." },
-{ who: $mom, text: "Oh, stop. They're just eggs." },
+{ who: $player, text: "These are really good, $mom.callName. Like, actual restaurant good." },
+{ who: $mom, text: "Oh, stop it, they're just eggs." },
 { who: $sister, text: "They're suspiciously good eggs." },
 { text: "$mom.callName flicks a dish towel at her, and the humming starts up again, a little louder than before." },
 ]>>

@@ -1,5 +1,5 @@
 :: The Helpful Son [event mom_quest] {"position":"3150,700","size":"100,100"}
-The glass doors slide apart before I'm even close to them, like the building has already decided I'm allowed in. Inside, LED strips run along the ceiling, and the marble floor throws their light back up so the whole lobby glows. There's a lounge corner with leather chairs nobody is sitting in and a coffee machine that probably costs more than my car. I try not to look impressed. I look impressed anyway.
+The glass doors slide apart before I'm even close to them, like the building has already decided I'm allowed in. Inside, LED strips run along the ceiling, and the marble floor throws their light back up so the whole lobby glows. There's a lounge corner with leather chairs nobody is sitting in and a coffee machine that probably costs more than my car. I try not to look impressed, and I'm pretty sure it doesn't work.
 
 Behind the reception desk a young woman in a blazer is already smiling at me with professional patience.
 
@@ -35,14 +35,13 @@ The sixth floor is one big open office, all keyboards and murmured phone calls a
     { who: $player, text: "I told the receptionist I had to bring you something for a meeting. She believed me." },
     { who: $mom, text: "Oh, $player.name. You and your little white lies." },
     { who: $player, text: "It's only half a lie. I did bring you something. The prototype, remember?" },
-    { who: $mom, text: "Of course I remember. Today's actually been quieter than yesterday. Mostly because he hasn't come out of his office yet." },
+    { who: $mom, text: "Of course I remember, I've been thinking about it all morning. And today's actually been quieter than yesterday, mostly because he hasn't come out of his office yet, so knock on wood." },
     { who: $player, text: "Then let's use the quiet. Do you have a few minutes?" },
-    { who: $mom, text: "Sure, just let me send this off and then we can..." },
+    { who: $mom, text: "Sure, just let me send this off to Mr. Blackwell and then we can..." },
     { text: "Across the room a door bangs open, hard enough that half the office looks up." },
     { who: $boss, text: "$mom.surname! Meeting room. Now." },
     { text: "She goes still. Her hand stays frozen over the mouse, and I watch the color drain out of her face in the time it takes him to turn around." },
-    { who: $mom, text: "I... it'll only take a minute, sweetie." },
-    { who: $mom, text: "Stay here, okay? I'll be right back." },
+    { who: $mom, text: "It's fine, it'll only take a minute, sweetie. Stay right here, okay? There's a granola bar in my top drawer if you get hungry." },
     { who: $player, text: "Sure. Good luck." },
 ]>>
 <</silently>>
@@ -56,7 +55,7 @@ I can't make out the words through the glass, only the shape of them. He's jabbi
 
 Around me, people very carefully keep typing. A guy two desks over puts his headphones on. Nobody looks at the meeting room for longer than a second, and nobody gets up. It goes on for more than ten minutes, and I watch every one of them.
 
-The anger is there, but it's quiet, and mostly I'm paying attention. To how small she makes herself in that chair, how fast she agrees with whatever he says, how easily one man with a loud voice can make her do exactly what he wants. I catch myself memorizing it. It's useful to know what it looks like when she gives in.
+I'm angry, but it's a quiet kind of angry, and mostly I just watch: how small she makes herself in that chair, how fast she agrees with whatever he says, how easily one man with a loud voice gets her to do what he wants. I don't love that I'm paying such close attention to that last part. I keep doing it anyway.
 
 Eventually the door opens. He walks off toward his office without looking at anyone, and $mom.callName comes back to her desk, where I'm already waiting.
 

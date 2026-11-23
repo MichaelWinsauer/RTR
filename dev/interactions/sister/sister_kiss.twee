@@ -8,12 +8,12 @@ She sees me coming and tilts her head, half amused and half wary, like she's wai
 <<silently>>
 <<set _msgs = [
   { who: $sister, text: "You're staring." },
-  { who: $player, text: "Yeah." },
+  { who: $player, text: "Yeah, I am." },
   { who: $sister, text: "Are you going to say something or just keep doing that?" },
   { text: "I close the last of the distance instead. She goes still for a second, then kisses me back, quick and a little clumsy, like she's daring herself." },
   { who: $sister, text: "Okay. Wow. That was... okay." },
   { who: $player, text: "Just okay?" },
-  { who: $sister, text: "Don't push it. And don't tell anyone." }
+  { who: $sister, text: "Don't push your luck. And obviously, not a word to anyone." }
 ]>>
 <</silently>>
 <<Chat _msgs>>

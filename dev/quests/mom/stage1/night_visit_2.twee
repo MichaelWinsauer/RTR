@@ -16,10 +16,10 @@ I switch off the desk lamp myself, and the only light left comes in from the hal
 <<set _msgs = [
 { who: $player, text: "Lie down with me." },
 { who: $mom, text: "I... honey, I don't know if..." },
-{ who: $player, text: "It's your job, remember?" },
+{ who: $player, text: "It's all right. Remember what we just talked about?" },
 { text: "She closes her eyes. When she opens them, something has changed in her face, a softness that wasn't there before, the one she always wore when one of us woke up from a bad dream. She starts to swing her legs up onto the bed, robe and all." },
-{ who: $player, text: "Not in that. Take it off." },
-{ who: $mom, text: "Sweetheart, there's hardly anything under it." },
+{ who: $player, text: "Not in the robe. Take it off first." },
+{ who: $mom, text: "Sweetheart, I've hardly got anything on under it." },
 { who: $player, text: "Then it won't take long." },
 ]>>
 <</silently>>
@@ -33,22 +33,22 @@ She sees me looking and crosses her arms over her chest. Then she uncrosses them
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Don't look at me like that. It's laundry day tomorrow, that's all. Everything else is in the hamper." },
+{ who: $mom, text: "Don't look at me like that, it's laundry day tomorrow and everything else is in the hamper, that's all it is." },
 { who: $player, text: "What's in the pocket?" },
 { text: "She bends down, fishes a small bottle out of the robe and holds it up, very pink in the face. Almond oil, the one from the bathroom cabinet." },
-{ who: $mom, text: "It's for my hands. They get dry. At night." },
+{ who: $mom, text: "It's for my hands, they get so dry at night, you know they do." },
 { who: $player, text: "Of course they do." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She lies down on her side next to me, lower than I expect, propped up on one elbow by my hip, with her braid falling forward over her shoulder and the bottle still in her hand. She's close enough that I can smell the vanilla hand cream she keeps in her desk drawer at the office. She puts her free hand flat on my stomach first and looks up at my face, as if she wants to check that my heart is really going as fast as I said.
+She lies down on her side next to me, lower than I expect, propped up on one elbow by my hip, with her braid falling forward over her shoulder and the bottle still in her hand. She's close enough that I can smell the vanilla hand cream she keeps in her desk drawer at the office. She puts her free hand flat on my stomach first and looks up at my face, as if she wants to check whether my heart is really going as fast as it looks.
 
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "You're all tense. You've been like this for weeks, haven't you?" },
-{ who: $player, text: "Yes." },
-{ who: $mom, text: "Shh. I've got you." },
+{ who: $player, text: "Pretty much since the handover, yeah." },
+{ who: $mom, text: "Well, you can stop now, honey. I've got you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -60,7 +60,7 @@ She pushes my waistband down without looking at what she's doing. Then she does 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Sorry, sorry. It's cold. I should have warmed it in my hands first." },
+{ who: $mom, text: "Oh, sorry, sorry, it's cold, I should have warmed it in my hands first." },
 { who: $player, text: "It's fine." },
 { who: $mom, text: "It isn't fine, I know better than that. I just wasn't... I didn't plan any of this, honey." },
 { text: "The bottle in her hand says otherwise. I let her keep the lie. She needs it a lot more than I need to take it from her." },
@@ -76,9 +76,9 @@ She sets the bottle down on the mattress and takes me in her hand. She's careful
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Is this alright? Tell me what you need, honey. I want to do it right." },
-{ who: $player, text: "Slower. Hold it tighter." },
+{ who: $player, text: "Slower. And you can hold it tighter than that." },
 { who: $mom, text: "Like this?" },
-{ who: $player, text: "Like that." },
+{ who: $player, text: "Yeah. Just like that." },
 { text: "She does exactly that, and keeps doing it, looking up at my face the whole time and reading it the way she's always read it, for fever, for lies, for bad report cards." },
 ]>>
 <</silently>>
@@ -94,7 +94,7 @@ She talks the whole time, softly, in the same voice she used for thunderstorms.
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "That's it. Just breathe. You don't have to carry everything all by yourself." },
-{ who: $mom, text: "I'm right here. I'm not going anywhere." },
+{ who: $mom, text: "I'm right here, I'm not going anywhere, you know that." },
 { who: $mom, text: "Let go, sweetheart. It's alright. Let me take care of it." },
 ]>>
 <</silently>>
@@ -103,10 +103,10 @@ She talks the whole time, softly, in the same voice she used for thunderstorms.
 <<linkreplace "Take the bra off">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Take that off." },
+{ who: $player, text: "Take the bra off too." },
 { text: "Her hand stops. She glances down at the two little white triangles, and then at the door, which is closed and has been closed the whole time." },
 { who: $mom, text: "Honey... that isn't part of..." },
-{ who: $player, text: "Off." },
+{ who: $player, text: "I want to see you. Take it off." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -124,20 +124,20 @@ It doesn't take long before her free hand starts to wander. First it rests flat 
 <<set _msgs = [
 { who: $player, text: "What are you doing?" },
 { text: "She looks down at her own hand and watches it work, with the same small frown she gives the grocery receipt. It doesn't stop." },
-{ who: $mom, text: "I don't... I don't know, sweetheart. It just... don't look." },
-{ who: $player, text: "I'm looking." },
+{ who: $mom, text: "I don't know, sweetheart, I really don't, it just... Don't look at me." },
+{ who: $player, text: "Too late. I'm looking." },
 { text: "She makes a small sound in the back of her throat and keeps going, with both hands." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-For a moment I wonder how much of this is still the dials in my desk drawer and how much is her. Then I decide I don't care.
+For a moment I wonder how much of this is still the dials in my desk drawer and how much is her, and I honestly can't tell, and I'm not sure I want to.
 
 <<linkreplace "Faster">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Faster." },
-{ who: $mom, text: "Yes. Okay. Okay." },
+{ who: $player, text: "Faster, $mom.callName." },
+{ who: $mom, text: "Okay. Okay, honey, I can do that." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -152,11 +152,11 @@ She gets the tissues from my nightstand and cleans me up, then her hand, then he
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "There. Better?" },
-{ who: $player, text: "Much better." },
+{ who: $player, text: "Yeah. A lot." },
 { text: "She pulls the blanket up over me, tucks it in along my side and kisses my forehead, exactly where she always has." },
 { who: $mom, text: "Get some sleep. You have a long day tomorrow." },
 { text: "At the door she stops, with her hand on the frame and her back to me." },
-{ who: $mom, text: "Whenever it gets bad... you come and find me. Alright? You don't have to wait until it's that bad. You just come and find me." },
+{ who: $mom, text: "Whenever it gets bad, you come and find me, all right? You don't have to wait until it's that bad, either. You just come and find me." },
 { who: $player, text: "I will." },
 ]>>
 <</silently>>
@@ -164,7 +164,7 @@ She gets the tissues from my nightstand and cleans me up, then her hand, then he
 
 She goes. Down the hall her door clicks shut, and a minute later I hear the shower run for a long time.
 
-The chamomile on my desk has gone cold. I drink it anyway.
+The chamomile on my desk has gone cold. I drink it anyway, all of it, because she'll check the mug in the morning.
 
 <<UpdateStat "+" "Corruption" 3>>
 <<UpdateStat "+" "MomCorruption" 5>>

@@ -4,14 +4,14 @@
    Before she leaves I tell her I'm staying late at the office tonight, and send her home when she offers to stay.
    The link to part 3 jumps the clock to the Night (<<AdvanceTimeTo 5>>) and puts me at My Desk. */
 <<silent>><<SetBackground $locations[15].img>><</silent>>
-She sits down across the table from me instead of next to me and puts the notepad down between us, lined up neatly with the edge of the table. She clicks the pen. Then she clicks it again.
+She sits down across the table from me instead of next to me and puts the notepad down between us, lined up neatly with the edge of the table. She clicks the pen, and then she clicks it again.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. Whatever it is, I can fix it. Just say it fast, like ripping off a band-aid." },
-{ who: $player, text: "It's nothing you need to fix." },
+{ who: $sister, text: "Whatever it is, I can fix it, so just say it fast. Like a band-aid." },
+{ who: $player, text: "You're not in trouble. There's nothing to fix." },
 { text: "Click. She glances at the closed door, then back at me, and her voice drops, even though there's nobody out there to hear it." },
-{ who: $sister, text: "Is it about... you know. Before. At home. Because I haven't said anything to anybody, I swear, and we don't have to... I mean, if you want to talk about it we can, but we also really, really don't have to..." },
+{ who: $sister, text: "Is it about, you know, before? At home? Because I haven't said a word to anybody, I swear, and we don't have to talk about it. I mean, we can if you want to, but we also really, really don't have to." },
 { who: $player, text: "It's not about that either." },
 { text: "Something crosses her face, and she gets rid of it quickly. It looks like relief. Most of it does." },
 ]>>
@@ -22,9 +22,8 @@ She sits down across the table from me instead of next to me and puts the notepa
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "I wanted to say thank you. Properly, and not in passing at the coffee machine." },
-{ who: $sister, text: "...For what?" },
-{ who: $player, text: "You come in every afternoon straight from class. You stay late when nobody asks you to. You take every boring little job in this place and somehow turn it into something people actually want to look at." },
-{ who: $player, text: "I notice all of it. I just never said so." },
+{ who: $sister, text: "For what?" },
+{ who: $player, text: "You come in every afternoon straight from class and stay late when nobody asks you to, and you take every boring little job in this place and somehow turn it into something people actually want to look at. I see all of it. I just never told you, and I should have." },
 { text: "The pen stops clicking." },
 ]>>
 <</silently>>
@@ -36,15 +35,15 @@ Some of it is even true. Half of what she does, anybody with a spreadsheet could
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Wow. Okay. That's..." },
+{ who: $sister, text: "That is not what I thought you were going to say." },
 { text: "She laughs, and it comes out about an octave too high. Her eyes have gone bright and wet, and she blinks hard at the ceiling, as if the rest of the sentence is written up there." },
-{ who: $sister, text: "You can't just say stuff like that in a room with a door. There should be a warning. A sign, or something." },
-{ who: $player, text: "I mean it." },
-{ who: $sister, text: "I know you do, that's the problem! Oh my god. It's the air in here. The air's really dry. Somebody should look at the air in this room." },
+{ who: $sister, text: "You can't just say things like that to someone in a closed room without some kind of warning first." },
+{ who: $player, text: "I meant every word of it." },
+{ who: $sister, text: "I know you did, that's what makes it so much worse! Give me a second. I'm not crying, my face is just doing something without asking me." },
 { text: "She presses the heel of her hand under one eye, then under the other, laughing at herself the whole time." },
-{ who: $sister, text: "I just like helping. That's all it is. I like being useful to you. And being... where you are." },
+{ who: $sister, text: "I just like helping, that's all it is. I like being useful to you, and being where you are." },
 { text: "She hears it about a second after it's out." },
-{ who: $sister, text: "With the company, I mean. Being where the company is. Which is here. Obviously." },
+{ who: $sister, text: "With the company, I mean. Being where the company is, which happens to be here, so." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -56,15 +55,15 @@ I don't let go first, and neither does she. Her fingers curl into the back of my
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. Okay! Back to work. I have very important... things. On my desk. That need me." },
-{ who: $player, text: "Go. And don't wait up for me tonight, I'm staying late." },
+{ who: $sister, text: "Right. Work. I have a whole pile of extremely important things on my desk, and I'm told they need me." },
+{ who: $player, text: "Go on. And don't wait up for me tonight, I'm going to be here late." },
 { who: $sister, text: "Again? What is it this time?" },
 { who: $player, text: "Month-end. Invoices, payroll, and a server backup that somebody has to sit next to until it's done, because the last time nobody did, it wasn't." },
-{ who: $sister, text: "I could stay. I'm great at sitting next to things. I sat next to you in the back of the car for fifteen years." },
-{ who: $player, text: "Go home. Eat something. Tell $mom.callName I'm still alive." },
+{ who: $sister, text: "I could stay. I'm very good at sitting next to things, I sat next to you in the back of the car for fifteen years." },
+{ who: $player, text: "Go home and eat something, and tell $mom.callName I'm still alive." },
 { text: "She opens her mouth to argue, the way she argues every evening, and then, for once, she doesn't." },
 { text: "At the door she stops with her hand on the handle and turns halfway around, not quite all the way." },
-{ who: $sister, text: "Thanks for... yeah. Just, thanks." },
+{ who: $sister, text: "And thanks. For saying it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

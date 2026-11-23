@@ -6,14 +6,14 @@
 <p>$sister.callName drops into the chair across from me and slaps a stack of index cards onto my desk. They're held together with a hair tie. Some are written in blue pen, some in green, and one in what looks like eyeliner.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Quiz me. Five minutes. I have a stats midterm on Friday and my brain is basically a screensaver right now." },
-	{ who: $player, text: "Don't you have a study group?" },
-	{ who: $sister, text: "I have a group chat called 'study group'. It's ninety percent memes and one guy asking if anybody has the slides. Nobody ever has the slides." },
+	{ who: $sister, text: "Quiz me for five minutes? I have a stats midterm on Friday and I've read these so many times that the words have stopped meaning anything." },
+	{ who: $player, text: "Don't you have a study group for that?" },
+	{ who: $sister, text: "I have a group chat called 'study group'. It's mostly memes, plus one guy who asks every night if anybody has the slides, and nobody ever has the slides." },
 	{ text: "I pull the first card off the stack." },
 	{ who: $player, text: "What's a p-value?" },
-	{ who: $sister, text: "It's the... probability... that you're wrong. On purpose?" },
-	{ who: $player, text: "No." },
-	{ who: $sister, text: "Okay, but in spirit?" },
+	{ who: $sister, text: "The probability that your result is wrong. No, wait, that's what everybody thinks it is and it isn't. Hang on." },
+	{ who: $player, text: "Clock's ticking." },
+	{ who: $sister, text: "The probability of getting data at least that extreme if the null hypothesis is true. See? It's in there somewhere." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -22,12 +22,12 @@
 	<div>
 		<<link "Quiz her properly">>
 			<<replace "#sister-flashcards-choice">>
-				<p>I go through the whole stack with her. The first ten are a massacre. Somewhere around card fifteen she stops guessing and starts thinking, and by card twenty-five she's answering before I've finished reading the question and slapping the desk every time she's right.</p>
+				<p>I go through the whole stack with her. The first ten are rough. Somewhere around card fifteen she stops guessing and starts thinking, and by card twenty-five she's answering before I've finished reading the question and slapping the desk every time she's right.</p>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $sister, text: "Standard deviation! How far things wander off from the average! Like $ethan.name in a meeting!" },
+					{ who: $sister, text: "Standard deviation, how far things typically wander off from the average. Like $ethan.name's attention in a meeting." },
 					{ who: $ethan, text: "I heard that." },
-					{ who: $sister, text: "You were meant to!" },
+					{ who: $sister, text: "Good, you were supposed to." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -36,7 +36,7 @@
 				<<set _msgs to [
 					{ who: $sister, text: "Same time tomorrow?" },
 					{ who: $player, text: "Your midterm's on Friday." },
-					{ who: $sister, text: "So, yes." },
+					{ who: $sister, text: "Which comes after tomorrow, so that's a yes." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -49,9 +49,9 @@
 			<<replace "#sister-flashcards-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Every card you miss, you stand up and say 'my $sister.playerRelation is a genius'. Loud enough for the whole office." },
-					{ who: $sister, text: "Absolutely not. That's psychological warfare." },
-					{ who: $player, text: "Then don't miss." },
+					{ who: $player, text: "Every card you miss, you stand up and say 'my $sister.playerRelation is a genius', loud enough for the whole office." },
+					{ who: $sister, text: "Absolutely not. I have a reputation in this office." },
+					{ who: $player, text: "Then don't miss any." },
 					{ text: "She narrows her eyes at me, and I can see the exact moment the competitive streak kicks in. It's the same face she used to make at Monopoly, right before she flipped the board." },
 				]>>
 				<</silently>>
@@ -59,9 +59,10 @@
 				<p>She misses three. The first time she mumbles it into her collar. The second time it's at normal volume, through her teeth. The third time she gets up, faces the room and announces it like a town crier, and $ethan.name gives her a standing ovation from his chair while $brian.name claps twice, very quietly, without looking up from his board.</p>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $sister, text: "I hate you. You're a terrible tutor and a worse person." },
+					{ who: $sister, text: "I want you to know I'm never forgiving you for that." },
 					{ who: $player, text: "You got thirty-one out of thirty-four." },
-					{ who: $sister, text: "...I did, didn't I?" },
+					{ text: "She looks down at the stack, then back at me, and tries very hard not to look pleased about it." },
+					{ who: $sister, text: "Huh. I did, didn't I?" },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -76,17 +77,17 @@
 				<<replace "#sister-flashcards-choice">>
 					<<silently>>
 					<<set _msgs to [
-						{ who: $player, text: "New rules. Every one you get right, you can ask me anything. Every one you miss, I get to ask you." },
-						{ who: $sister, text: "Anything anything?" },
+						{ who: $player, text: "New rules. Every one you get right, you can ask me anything you want. Every one you miss, I get to ask you." },
+						{ who: $sister, text: "Anything at all?" },
 						{ who: $player, text: "Anything." },
 						{ text: "She gets the next six right. Her questions are easy ones, at first: my worst date, whether I still have the dinosaur sheets, if I cried at the end of that movie we watched when she was home with the flu. Then card seven comes up. It's the p-value again, and she knew that one two minutes ago." },
-						{ who: $sister, text: "No idea. Totally blank. Your turn." },
+						{ who: $sister, text: "Hm, no idea, it's completely gone. Your turn, I guess." },
 						{ text: "She sits very straight in her chair with her hands in her lap and waits." },
 						{ who: $player, text: "Why'd you miss that one?" },
-						{ text: "Her mouth opens, closes. The tips of her ears go pink." },
-						{ who: $sister, text: "That's... you can't ask that. Ask a better question." },
+						{ text: "She opens her mouth and shuts it again, and the tips of her ears go pink." },
+						{ who: $sister, text: "That's not... you can't ask that, it's not a real question. Ask me something else." },
 						{ who: $player, text: "That's the one I want." },
-						{ who: $sister, text: "Then I'm going to need way more flashcards." },
+						{ who: $sister, text: "Then I'm going to need a lot more flashcards." },
 					]>>
 					<</silently>>
 					<<Chat _msgs>>

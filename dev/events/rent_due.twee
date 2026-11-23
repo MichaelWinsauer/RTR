@@ -129,7 +129,7 @@ I have $<<= _funds>>. He wants $<<= _due>>.
 <<if _home>>
 	<<run _msgs.push(
 		{ who: $landlord, text: "Next time, bring it over before I have to come looking. My knees aren't what they used to be, and your street's got a hill." },
-		{ who: $player,   text: "Noted." }
+		{ who: $player,   text: "I'll keep the hill in mind." }
 	)>>
 <<else>>
 	<<run _msgs.push(

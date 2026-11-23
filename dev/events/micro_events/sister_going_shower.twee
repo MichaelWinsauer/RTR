@@ -2,13 +2,13 @@
 /* Insult teasing: she complains about the player hanging around the hallway. A pool of remarks, a few replies. */
 <<silently>>
 <<set _remark to either(
-	"Why are you always hovering out here? Pervert.",
-	"If you're going to stand there, at least pretend to be useful.",
-	"Stop looking at me like you're plotting something. It's creepy.",
-	"You know the hallway isn't a spectator sport, right? Weirdo."
+	"Why are you always hovering out here? It's a little creepy, you know.",
+	"If you're just going to stand there, you could at least make yourself useful and start the coffee.",
+	"And stop looking at me like you're plotting something. You've had that face since you were ten and it didn't work back then either.",
+	"You know the hallway isn't a place where people hang out, right? Normal people have rooms for that."
 )>>
 <<set _msgs to [
-	{ who: $sister, text: "Out of the way, little $sister.callPlayerShort. I need the bathroom before my plans." },
+	{ who: $sister, text: "Out of the way, little $sister.callPlayerShort, I need the bathroom before I head out." },
 	{ who: $sister, text: _remark }
 ]>>
 <</silently>>
@@ -20,8 +20,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Relax. You're not that interesting." },
-					{ who: $sister, text: "Wow. Hilarious. Get out of my way." }
+					{ who: $player, text: "Relax, you're really not that interesting." },
+					{ who: $sister, text: "Oh, that's adorable. Now move." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -39,8 +39,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Just passing through." },
-					{ who: $sister, text: "Sure you are. Sure." }
+					{ who: $player, text: "I'm just passing through." },
+					{ who: $sister, text: "Mm-hm. Sure you are." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -52,8 +52,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Sorry. Go ahead." },
-					{ who: $sister, text: "Thank you. Was that so hard?" }
+					{ who: $player, text: "Sorry, go ahead." },
+					{ who: $sister, text: "Thank you. That wasn't so hard, was it?" }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

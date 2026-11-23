@@ -5,18 +5,18 @@
 
 I lean against the doorframe and wait. She turns, sees me, and lifts one finger without breaking her sentence. From what I catch, a project is running late and somehow she's the one apologizing for it. <<if $time.current.value == 0>>The sun's barely up and work already has her on the phone.<<else>>It doesn't sound like this is her first call like this today.<</if>> The air smells of her perfume and <<if $time.current.value == 0>>fresh coffee<<else>>whatever was for dinner<</if>>, and every time she agrees to something she clearly doesn't agree with, her shoulders creep up another inch.
 
-We've been getting along better these past days. Small favors, longer talks in the kitchen, me actually listening when she tells me about her day. She's been softer with me because of it. Good. I'll need that in a minute.
+We've been getting along better these past days: small favors, longer talks in the kitchen, me actually listening when she tells me about her day. She's been softer with me since, and I'm hoping that makes the next part easier.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Hey... got a minute? It's kind of important. In my room, maybe?" },
+{ who: $player, text: "Hey, do you have a minute? It's kind of important, and I'd rather do it in my room, if that's okay." },
 { text: "She covers the phone with her palm and gives me the look she used to give me when I interrupted her during tax season." },
 { who: $mom, text: "Hold on a second, Karen, my $mom.playerRelation needs something. Yes, I'll have the numbers for you, don't worry. ...What is it, $player.name?" },
-{ who: $player, text: "It's about my mornings. Long story. I've got the prototype set up in my room, it'll make more sense there." },
+{ who: $player, text: "It's about my mornings. It's kind of a long story, and I've got the prototype set up in there, so it'll make more sense if I can show you." },
 { text: "Her eyes go from me to the phone and back, like she's weighing which one of us is more likely to sulk." },
-{ who: $mom, text: "Karen? I'm so sorry, I have to run. Family emergency. A small one. I'll call you right back, I promise." },
+{ who: $mom, text: "Karen? I'm so sorry, I have to run, it's a family emergency. A very small one, nobody's bleeding. I'll call you right back, I promise." },
 { who: $player, text: "Thanks. I owe you one." },
-{ who: $mom, text: "You owe me about four hundred by now, sweetie. But who's counting." },
+{ who: $mom, text: "You owe me about four hundred by now, sweetie, but who's counting." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

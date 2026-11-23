@@ -4,7 +4,7 @@ I walk into the lobby with a thick envelope in the inside pocket of my jacket, a
 <<silently>>
 <<set _msgs = [
 { who: "Receptionist", text: "Floor 6? I'd say give her my best, but... well. You probably heard." },
-{ who: $player, text: "I heard." },
+{ who: $player, text: "Yeah, I heard." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -18,7 +18,7 @@ I walk straight past it to the corner office. The prototype is on in my pocket, 
 <<silently>>
 <<set _msgs = [
 { who: $boss, text: "Right on time, kid. I had a feeling you'd show up today. You bring my stuff?" },
-{ who: $player, text: "The five thousand and the video. Like we said." },
+{ who: $player, text: "The five thousand and the video, like we said." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -30,15 +30,15 @@ I put the envelope on his desk. He doesn't count it, which somehow feels more in
 <<set _msgs = [
 { who: $boss, text: "Well, would you look at that. Nice and clear, too. You really came through, kid." },
 { text: "He watches it to the end, then plays it again before he hands the phone back. I wipe the screen on my jeans." },
-{ who: $player, text: "Now let's talk about the other thing. I want you as a client. $company.prototype.name can do for your business what it did for your floor out there. You've seen it up close." },
-{ who: $boss, text: "A client. Of your little gadget company. You even have any other customers?" },
-{ who: $player, text: "A diner, ten minutes from here. Sales went up the first day it ran." },
-{ who: $boss, text: "A diner. Wow." },
-{ who: $player, text: "You saw how calm she was out there the last few weeks. That wasn't yoga." },
+{ who: $player, text: "There's one more thing I wanted to ask you. I'd like you as a client. You've seen what $company.prototype.name did on your floor out there." },
+{ who: $boss, text: "A client. Of your little gadget company. Do you even have any other customers?" },
+{ who: $player, text: "One. A diner, ten minutes from here. Sales went up the first day it ran." },
+{ who: $boss, text: "A diner. Wow. Stop, you're making me nervous." },
+{ who: $player, text: "You saw how calm she was out there these last few weeks, though. That wasn't yoga." },
 { text: "He opens his mouth, closes it again, and then laughs, a short bark that makes the window behind him rattle." },
-{ who: $boss, text: "Fair enough. It did something, I'll give you that. Okay, kid, one condition. Your $mom.relation runs the account. She's the one who comes here, she's the one who reports to me, every step of the way. Close contact." },
-{ who: $player, text: "She already works for me. She'll be your project manager. You'll see plenty of her." },
-{ who: $boss, text: "Then we've got a deal. Send me the contract and I'll sign it." },
+{ who: $boss, text: "Fair enough, it did something, I'll give you that. Okay, kid, one condition. Your $mom.relation runs the account. She's the one who comes here and the one who reports to me, every step of the way, in person." },
+{ who: $player, text: "She already works for me, so she'll be your project manager. You'll see plenty of her." },
+{ who: $boss, text: "Then we've got a deal. Send me the contract, and tell $mom.name I said welcome back." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -46,9 +46,9 @@ I put the envelope on his desk. He doesn't count it, which somehow feels more in
 <<linkreplace "Leave the office">>
 He's already turning back to his screen when I close the door behind me. On the way to the elevator I walk past her old desk again. Someone has put a coffee mug on it.
 
-Two clients. One of them is a diner that still thinks I'm the guy who mops the floors, and the other is the man who fired my $mom.relation this week, for reasons she'll never know. And right in the middle of both, smiling and taking notes and trying her best, will be $mom.callName.
+Two clients now. One of them is a diner whose manager still thinks of me as the guy who mops the floors, and the other is the man who fired my $mom.relation this week, for reasons she'll never know. And right in the middle of both, smiling and taking notes and trying her best, there's going to be $mom.callName.
 
-I press the button for the lobby and find that I'm whistling.
+I press the button for the lobby, and it takes me a few floors to notice I'm whistling.
 <<UpdateStat "+" "Corruption" 5>>
 <<UpdateStat "+" "MomCorruption" 4>>
 <<ProfileLog $mom "Project Manager" "She's now the project manager between my company and her old boss, my second client. He wants her in close contact every step of the way.">>

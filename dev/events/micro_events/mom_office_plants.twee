@@ -12,7 +12,7 @@
 	<<set _msgs to [
 		{ who: $mom, text: "Don't help, don't help, I've got it... okay. Help a little." },
 		{ text: "I take one side. We walk it over to the corner by the window together, and she has me turn it three times until the good side faces the room. As far as I can tell it doesn't have a bad side. It's a fern." },
-		{ who: $mom, text: "This place needed something alive in it. Besides you boys." },
+		{ who: $mom, text: "This place needed something alive in it, besides you boys, I mean." },
 		{ who: $ethan, text: "I resent that. I'm barely alive." },
 		{ who: $mom, text: "Which is exactly why you need a plant, $ethan.name." },
 	]>>
@@ -27,7 +27,7 @@
 		<<set _msgs to [
 			{ who: $mom, text: "There you go. Look at you, Gerald. Look at those new leaves, you show-off." },
 			{ who: $player, text: "You know it can't hear you." },
-			{ who: $mom, text: "You don't know that, honey. Nobody knows that. And it's working, isn't it?" },
+			{ who: $mom, text: "You don't know that, honey, nobody knows that for sure. And it's working, isn't it?" },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>
@@ -37,9 +37,9 @@
 		<<silently>>
 		<<set _msgs to [
 			{ who: $mom, text: "$brian.name, sweetie, did you take my pothos?" },
-			{ who: $brian, text: "Uh. It was. It was getting too much sun. Over there. Sorry. It's, uh, it's doing better now. I measured." },
+			{ who: $brian, text: "Um. Yeah, sorry. It was getting too much sun by the window. It's doing better here. I measured." },
 			{ who: $mom, text: "You measured my plant?" },
-			{ who: $brian, text: "Just the light. In lux. And the soil. A little." },
+			{ who: $brian, text: "Just the light. And, hm, the soil a little." },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>
@@ -51,7 +51,7 @@
 			{ who: $mom, text: "$ethan.name." },
 			{ who: $ethan, text: "Why do you assume it was me?" },
 			{ who: $mom, text: "Because $darius.name would never, and $brian.name would have glued them on straight." },
-			{ who: $ethan, text: "...It's his birthday. Probably. Nobody knows when Gerald's birthday is. That's the tragedy." },
+			{ who: $ethan, text: "Okay, in my defense, it could be his birthday. Nobody actually knows when Gerald's birthday is, which if you think about it is the saddest part." },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>

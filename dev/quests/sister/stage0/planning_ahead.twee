@@ -3,9 +3,9 @@ I close my door with a quiet click and the hallway light disappears, leaving jus
 
 I rub my face with both hands. She's never had to try at anything, and now she's walked into the first wall that doesn't move when she smiles at it.
 
-I can't just stroll in there with the prototype again. She isn't stupid, and two 'demos' in one week would feel strange even to her. So I go slow. I play the worried little $sister.playerRelation and get her talking about the class again. I tell her some of my own high school misery, the parts that are actually true: the grades nobody saw, the lunches in the computer lab, the nights I was sure something in my head was broken. Let her feel like we're in the same trench. Then, once she's talking to me instead of at me, I remind her how relaxed she felt during the demo and wonder out loud whether it might help her focus, too.
+I can't just stroll in there with the prototype again. She isn't stupid, and two 'demos' in one week would feel strange even to her. So I'll go slow. I'll be the worried little $sister.playerRelation and get her talking about the class again, and I'll tell her some of my own high school misery, the parts that are actually true: the grades nobody saw, the lunches in the computer lab, the nights I was sure something in my head was broken. If she feels like we're in the same trench, she might actually talk to me instead of at me, and then I can remind her how relaxed she felt during the demo and wonder out loud whether it would help her focus, too.
 
-She'll hesitate. She has too much pride not to. But she liked how she felt that evening, and she'll remember that before she remembers to be suspicious. This time it won't just be calm. It'll be confidence, the feeling that she's good at this after all and the problem is the professor, not her. And if she ends up connecting that feeling with sitting next to me, I'm not going to talk her out of it.
+She'll probably hesitate, she has too much pride not to. But she liked how she felt that evening, and I'm hoping she remembers that before she remembers to be suspicious. If the settings do what I think they do, this time it won't just be calm, it'll be confidence, the feeling that she's good at this after all and the problem is the professor. And if she ends up connecting that feeling with sitting next to me, I'm not going to talk her out of it.
 
 There's still the professor, though. If he really does have it in for her, no amount of studying will fix that, and I'll have to deal with him myself. I should find out who he is.
 
@@ -14,7 +14,7 @@ I grab a pen and the back of an old printout and start writing it down.
 <<linkreplace "Start scribbling">>
 <<Image "images/characters/sister/events/planning ahead/note.jpg" "" "" 500>>
 
-I fold the paper twice and slide it under my keyboard. My reflection in the dark corner of the monitor looks a little too pleased with itself. For years I've been the one she rolls her eyes at. Give it a few weeks and I'll be the first person she calls when something goes wrong, and after that, I doubt she'll remember how she ever managed without me.
+I fold the paper twice and slide it under my keyboard. My reflection in the dark corner of the monitor looks a little too pleased with itself. For years I've been the one she rolls her eyes at. If this works, maybe in a few weeks I'll be the first person she calls when something goes wrong, and I like the idea of that more than I probably should.
 
 <<UpdateStat "+" "Corruption" 5>>
 <<NextQuest $sister>>

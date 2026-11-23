@@ -28,11 +28,11 @@ Her food is untouched. She's cut it into very small pieces and moved them around
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Studying at the table now? Look at you." },
+{ who: $mom, text: "Studying at the table now? Look at you, sweetie. I'm going to have to start setting a place for the book." },
 { who: $sister, text: "Mm-hm." },
-{ who: $mom, text: "How are your classes going? You haven't said much lately." },
+{ who: $mom, text: "How are your classes going, anyway? You haven't said much lately, and usually I can't get you to stop talking about that campus." },
 { who: $sister, text: "Fine. Good. Busy." },
-{ who: $mom, text: "And the math one? You said the professor was a little strict." },
+{ who: $mom, text: "And the math one, with the strict professor? You were so annoyed with him the last time you brought him up." },
 { who: $sister, text: "He's fine. It's fine. Everything's fine, $mom.callName. Can I have the ketchup?" },
 { text: "There isn't anything on her plate that needs ketchup. $mom.callName passes it anyway." },
 ]>>
@@ -43,16 +43,16 @@ I know exactly what's going on behind that face. I heard all of it through her d
 
 $sister.callName looks up and finds me watching her. For a second her eyes go wide. She's working out whether I heard. Then she looks back at the textbook.
 
-I could fix this for her right now. I could also make it worse.
+I could help her out of this right now, or I could let it get a little worse first.
 
 <div id="ss-choice">
 <<link "Cover for her">><<replace "#ss-choice">>
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "She's been studying like crazy, $mom.callName. I hear her through the wall at night. Calculus is just brutal, everybody struggles with it at first." },
-{ who: $mom, text: "Oh, I know, I know. I just worry. You'd tell me if something was wrong, right, sweetie?" },
+{ who: $mom, text: "Oh, I know, honey, I remember crying over my own math homework at that age, I just worry, that's all. You'd tell me if something was wrong, wouldn't you, sweetie?" },
 { who: $sister, text: "Course." },
-{ text: "Under the table, her foot finds mine and presses against it once. A thank-you. Or a warning. With her it's often both." },
+{ text: "Under the table, her foot finds mine and presses against it once. It could be a thank-you or a warning, and with her it's usually a bit of both." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -67,7 +67,7 @@ Later, when $mom.callName is at the sink, $sister.callName leans over and whispe
 { who: $mom, text: "Honey... is something wrong with that class?" },
 { who: $sister, text: "No! God. It's just a test coming up. Can everybody stop staring at me?" },
 { text: "She closes the book, grabs her plate and leaves it on the counter, still full. Upstairs, her door closes, not quite a slam, just loud enough for both of us to hear it." },
-{ who: $mom, text: "Did I say something?" },
+{ who: $mom, text: "Did I say something wrong? I only asked about the class." },
 { who: $player, text: "I think she's just stressed. I'll talk to her." },
 { who: $mom, text: "Would you? She listens to you more than to me lately." },
 ]>>

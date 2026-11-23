@@ -27,26 +27,26 @@ $sister.callName is at the sink in yellow rubber gloves that go all the way up t
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh, good. Grab a towel. You dry." },
+{ who: $sister, text: "Oh, perfect timing. Grab a towel, you're drying." },
 { who: $player, text: "I was just passing through." },
-{ who: $sister, text: "Nobody passes through a kitchen. That's not a thing. Towel." },
-{ text: "I grab a towel. She has a system, and she explains it while she hands me the first glass." },
-{ who: $sister, text: "Glasses first, while the water's still clean. Then cutlery. Then plates. And then, at the very end, when all hope is gone... the pan." },
-{ who: $player, text: "What pan?" },
+{ who: $sister, text: "Nobody just passes through a kitchen, that's not a thing people do. The towel's on the oven door." },
+{ text: "I grab the towel. She has a system, and she explains it while she hands me the first glass: glasses while the water is still clean, then the cutlery and the plates, and the worst thing last, when there's nothing left to lose." },
+{ who: $player, text: "What's the worst thing?" },
 { text: "She points with her chin. On the stove sits my lasagna pan from Sunday, crusted at the corners and soaking in water that has turned a color I don't have a name for." },
-{ who: $sister, text: "The pan of shame. It's been soaking for three days. I think it's started soaking us back." },
+{ who: $sister, text: "That's been soaking for three days, and I'm pretty sure at this point it's soaking us back. $mom.callName won't touch it either. She says whoever made the lasagna knows what he did." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Take on the pan">>
-I trade her the towel for the gloves. They're still warm inside and much too small for me. While I scrub, she leans against the counter and narrates in a hushed, very serious voice.
+I trade her the towel for the gloves. They're still warm inside and much too small for me. While I scrub, she leans against the counter with the dish towel over her shoulder and keeps me company, which mostly means eating grapes out of the fruit bowl and watching me suffer.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "And here we see the male, at last, facing the consequences of his own lasagna. It has taken him three days. The pan has grown strong in that time." },
-{ who: $player, text: "You could help." },
-{ who: $sister, text: "The narrator cannot interfere with nature. That's the first rule of narrating." },
+{ who: $player, text: "You could help, you know. You ate half of this lasagna." },
+{ who: $sister, text: "I ate two pieces of a gift. Cleaning up after a gift is the giver's job, that's just basic etiquette." },
+{ who: $player, text: "That's not etiquette, you made that up just now." },
+{ who: $sister, text: "I did, and it's still true. You missed a spot in the corner, by the way." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -62,7 +62,7 @@ The vacuum is roaring when I come in. $sister.callName is pushing it around the 
 <<set _msgs = [
 { who: $sister, text: "Feet up! Up, up, up." },
 { text: "I drop onto the couch and lift my feet. She vacuums under them with a lot more care than the carpet needs, then switches the machine off, pulls the cushions off the couch next to me and starts digging in the gap with both hands." },
-{ who: $sister, text: "Okay, this is the best part. Couch treasure. Whatever I find, I keep. Finders keepers, it's in the Constitution." },
+{ who: $sister, text: "This is the only good part of vacuuming. Whatever comes out of the couch is mine, and before you say anything, I'm the one holding the vacuum, so I make the rules." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -71,9 +71,9 @@ The couch gives up a dollar thirty-five in change, two hair ties, the cap of a p
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Rex! Oh my god! Do you remember Rex?" },
+{ who: $sister, text: "No way. Is that Rex? Do you remember Rex?" },
 { who: $player, text: "I remember you flushing Rex." },
-{ who: $sister, text: "Allegedly. And look at him, he's clearly fine. He's been living in our couch for ten years. He's thriving. He has a whole life in there." },
+{ who: $sister, text: "That was never proven. And look at him, he's been living in our couch for ten years and he looks better than either of us." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -86,12 +86,11 @@ $sister.callName has a pen between her teeth and the chore chart in her hands, t
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. Business proposal." },
-{ who: $player, text: "No." },
-{ who: $sister, text: "You haven't even heard it! It's a good one. You take the bathroom this week, and I take your trash. And I'll throw in the recycling." },
+{ who: $sister, text: "There you are. I have a business proposal for you." },
+{ who: $player, text: "Whatever it is, the answer's no." },
+{ who: $sister, text: "You haven't even heard it, and it's a good one. You take the bathroom this week, I take your trash, and I'll throw in the recycling on top." },
 { who: $player, text: "The recycling's already yours." },
-{ who: $sister, text: "Is it? Says who? Says the chart? The chart is more of a suggestion." },
-{ who: $sister, text: "Plus one favor. Anything you want. Within reason. Within, like, $sister.relation reason." },
+{ who: $sister, text: "Says who, the chart? The chart is more of a suggestion than a law. Fine, then the bathroom for your trash, plus one favor. Anything you want, within reason. Within $sister.relation reason, I mean." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -104,11 +103,11 @@ $sister.callName has a pen between her teeth and the chore chart in her hands, t
 
 				<<silently>>
 				<<set _msgs = [
-				{ who: $sister, text: "Pleasure doing business with you. So what's the favor? What do you want?" },
+				{ who: $sister, text: "Pleasure doing business with you. So what's the favor going to be?" },
 				{ who: $player, text: "I'll let you know." },
-				{ who: $sister, text: "Ew. Why does that sound so ominous? Say it normal." },
-				{ who: $player, text: "I'll let you know." },
-				{ who: $sister, text: "That's the same! You said the exact same thing!" },
+				{ who: $sister, text: "Why does that sound like a threat? Try saying it nicer." },
+				{ who: $player, text: "I'll let you know, my dear $sister.relation, at a time of my choosing." },
+				{ who: $sister, text: "That's so much worse. Forget I asked." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -120,8 +119,8 @@ $sister.callName has a pen between her teeth and the chore chart in her hands, t
 			<<replace "#sister-chores-chart">>
 				<<silently>>
 				<<set _msgs = [
-				{ who: $player, text: "The bathroom's yours. It says so right there." },
-				{ who: $sister, text: "Wow. A man of the chart. Okay. I see how it is." },
+				{ who: $player, text: "Sorry, the chart says the bathroom's yours, and I've always been a big believer in the chart." },
+				{ who: $sister, text: "Since when? You've never looked at that chart in your life. Fine, I see how it is." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -139,9 +138,9 @@ Every cabinet in the kitchen is open. Everything that used to be in them is line
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "What happened in here?" },
-{ who: $sister, text: "Nothing happened. I'm cleaning. People clean." },
+{ who: $sister, text: "Nothing happened, I'm cleaning. People do that sometimes, you should try it." },
 { who: $player, text: "You're cleaning the inside of a cabinet." },
-{ who: $sister, text: "Did you know we have three cumins? Three! One of them expired when I was in middle school. $mom.callName buys cumin like it's about to go extinct." },
+{ who: $sister, text: "Did you know we own three jars of cumin? One of them expired when I was in middle school. $mom.callName buys cumin like it's about to go extinct." },
 { who: $player, text: "When's your calculus test?" },
 { text: "She stops wiping." },
 { who: $sister, text: "That's a very rude thing to ask somebody who's doing something nice for the family." },
@@ -160,12 +159,12 @@ $sister.callName is folding laundry on the <<if _kitchen>>kitchen table<<else>>c
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Are those mine?" },
-{ who: $sister, text: "They were in the basket. I'm being nice. It's a phase. Enjoy it while it lasts." },
+{ who: $sister, text: "They were in the basket, so I folded them. I'm being nice, it's a phase, enjoy it while it lasts." },
 { who: $player, text: "You've never folded my laundry in your life." },
-{ who: $sister, text: "Well, I'm folding it now. It's not a big deal. Do you want them in your room? I can take them up to your room." },
+{ who: $sister, text: "Well, now I have, and it's not a big deal. Do you want them in your room? I can take them up to your room." },
 { text: "She's already lifting the stack. I tell her to leave them, and she puts them down again, but she keeps one hand flat on top of the pile." },
 { who: $sister, text: "Is there anything else? That you need, I mean. I'm doing stuff anyway. I could make you a sandwich. Or iron something. Do we even own an iron?" },
-{ who: $player, text: "Get me a glass of water." },
+{ who: $player, text: "Well, if you're offering, I wouldn't say no to a glass of water." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -184,7 +183,7 @@ $sister.callName is standing on a kitchen chair on her tiptoes, trying to wipe d
 { text: "The chair rocks. I put my hands on her hips to steady her, and she goes completely still." },
 { who: $sister, text: "Okay. That's... you can do that. That's a safety thing." },
 { who: $player, text: "It's a safety thing." },
-{ text: "She goes back to wiping. Slowly. The same spot, over and over, long after it's clean." },
+{ text: "She goes back to wiping, very slowly, the same spot over and over, although it was clean the first time." },
 { who: $sister, text: "You can let go now. I'm fine." },
 { text: "I don't let go, and she doesn't ask again." },
 ]>>
@@ -212,15 +211,15 @@ $sister.callName is sitting cross-legged in front of a laundry basket that's not
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Sit. Match. Every sock in this house has lost its partner, and I'm running a support group." },
-{ who: $player, text: "I've been at work all day." },
-{ who: $sister, text: "So have I! I filed for five hours. $mom.callName says I have a real gift for filing. Of all the gifts. Some people get to sing." },
-{ who: $player, text: "It's a useful gift." },
-{ who: $sister, text: "It's the worst gift. It's the gift you get from a coworker who doesn't know your name. Here. This one's yours, it has a hole in it." },
+{ who: $sister, text: "Sit down and help me. Every sock in this house has lost its partner, and I refuse to do this alone." },
+{ who: $player, text: "I've been at work all day, you know." },
+{ who: $sister, text: "So have I! I filed for five straight hours, and then $mom.callName told me I have a real gift for filing, which is a horrible thing to find out about yourself. Other people find out they can sing." },
+{ who: $player, text: "It's a useful gift. Half the office can't find anything." },
+{ who: $sister, text: "It's the kind of gift you get from a coworker who doesn't know your name. Here, this one's yours, it has a hole in it." },
 { text: "She throws a sock at my face. It has a hole in the heel, and it's mine." },
-{ who: $sister, text: "Can interns get a raise? For domestic services?" },
-{ who: $player, text: "Interns don't get a raise. Interns get experience." },
-{ who: $sister, text: "I'm getting so much experience. I'm drowning in experience. Look at all this experience." },
+{ who: $sister, text: "Do interns get paid extra for domestic services?" },
+{ who: $player, text: "No, but you're gaining valuable experience. That's what it said in the job posting." },
+{ who: $sister, text: "Then I must be the most experienced person in this family by now." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

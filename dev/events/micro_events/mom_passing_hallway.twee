@@ -4,9 +4,9 @@
 <<silently>>
 <<set _pool to [
 	[
-		{ who: $mom, text: "Long day. I'm going to sit down for five minutes and not move." },
+		{ who: $mom, text: "What a day. I'm going to sit down for five minutes and not move a single muscle." },
 		{ who: $player, text: "Want me to bring you some tea?" },
-		{ who: $mom, text: "Maybe later, sweetheart." }
+		{ who: $mom, text: "Oh, that would be lovely, sweetheart. Maybe in a little bit." }
 	],
 	[
 		{ text: "She walks past with her phone against her ear, nodding along and not saying a word." },
@@ -22,19 +22,19 @@
 		{ who: $mom, text: "You always say that." }
 	],
 	[
-		{ who: $mom, text: "Are you eating enough? You look thin." },
+		{ who: $mom, text: "Are you eating enough, honey? You look a little pale." },
 		{ who: $player, text: "I'm fine." },
 		{ who: $mom, text: "That's what you said last week, too." }
 	],
 	[
-		{ who: $mom, text: "The neighbors' dog learned to sit. Only for sausages, though." },
-		{ who: $player, text: "Smart dog." }
+		{ who: $mom, text: "Oh, guess what, the neighbors' dog finally learned to sit, but only when somebody's holding a sausage, so I'm honestly not sure who trained who." },
+		{ who: $player, text: "Sounds like the dog's the smart one." }
 	]
 ]>>
 <<if $mom.flags.rentHelp>>
 	<<run _pool.push([
 		{ text: "She is counting something on her fingers as she walks. This week's bills, probably." },
-		{ who: $mom, text: "Oh, hi. Sorry, I was somewhere else." }
+		{ who: $mom, text: "Oh, hi, honey. Sorry, I was miles away." }
 	])>>
 <</if>>
 <<set _msgs to _pool.random()>>
@@ -47,7 +47,7 @@
 			<<silently>>
 			<<set _msgs to [
 				{ who: $player, text: "Do you have a minute?" },
-				{ who: $mom, text: "For you? Always. Though I'm not very interesting company right now." },
+				{ who: $mom, text: "For you, always. I'm warning you, though, I'm not very interesting company right now." },
 				{ who: $player, text: "I'll take what I can get." }
 			]>>
 			<</silently>>

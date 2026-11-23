@@ -7,9 +7,9 @@ His office door has a laminated sign that says OFFICE HOURS TUE 2-3, and it is v
 
 <<silently>>
 <<set _msgs to [
-{ who: $prof, text: "Can I help you? Office hours are over. If you have a question about class, you can email me like everyone else." },
-{ who: $player, text: "I'm not here about class. I'm here about $sister.name $sister.surname. Your calculus student." },
-{ who: $prof, text: "$sister.surname? What about her? If you're another friend come to beg for extra credit, save your breath. She'll earn her grade like everyone else, or she won't." },
+{ who: $prof, text: "May I help you? Office hours, as the sign on the door makes abundantly clear, are on Tuesdays. If you have a question about the course, you may email me like everyone else." },
+{ who: $player, text: "I'm not here about class. I'm here about $sister.name $sister.surname, one of your calculus students." },
+{ who: $prof, text: "Miss $sister.surname. And what about her? If you are yet another friend come to plead for extra credit, spare us both the embarrassment. She will earn her grade like everyone else, or she will not." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -20,17 +20,17 @@ I slide the prototype out of my pocket and switch it on while he's still glaring
 <<silently>>
 <<set _msgs to [
 { who: $player, text: "She's been really stressed lately, and you've been pretty hard on her. I'd like you to make sure she passes the next test." },
-{ who: $prof, text: "Make sure she passes? Absolutely not. I don't hand out grades. If she can't handle the material, that is her problem, not mine." },
+{ who: $prof, text: "Make sure she passes? Absolutely not. I do not hand out grades, young man. If she cannot handle the material, that is her problem and not mine." },
 { text: "He leans back and folds his arms. There's a particular kind of sourness in his face, the kind a man collects over decades of being a little less important than he thinks he should be." },
 { who: $player, text: "I'm not asking you to hand her anything. I'm offering a trade. I can get her to dress a lot more... memorably in your class. Shorter skirts, lower tops, the kind of outfits I'm guessing you already notice. Every single day." },
 { who: $prof, text: "Excuse me?" },
 { text: "His eyes narrow, but they don't leave mine, and he doesn't tell me to get out. The hum keeps working on him, smoothing the edges off his outrage before it can turn into anything useful." },
 { who: $player, text: "And if you help her pass, there'll be more for you later. More than you'd believe if I told you now." },
-{ who: $prof, text: "You're serious. You're actually standing in my office offering me that." },
+{ who: $prof, text: "You are serious. You are actually standing in my office, uninvited, and making me that offer." },
 { text: "He stares at me for a long moment. Then he lets out a short, tired laugh, like a man who has been waiting years for the world to finally prove him right." },
-{ who: $prof, text: "Eighteen years I've taught here. Eighteen years of kids who couldn't care less about the subject, and the girls are the worst of them, convinced a smile and a short skirt should open every door. And here you are, offering me exactly that. Fine. She passes the next exam. But I expect to see a difference in the wardrobe. And if this 'more' of yours ever turns up... I'll remember who promised it." },
+{ who: $prof, text: "I have taught at this institution for eighteen years, Mr...? No, don't tell me, I would rather not know. Eighteen years of students who could not care less about the subject, and the young women are the worst of them, convinced that a smile and a short skirt ought to open every door. And now here you are, offering me precisely that. Very well. She passes the next examination. I shall, however, expect a noticeable improvement in the wardrobe, and should this 'more' of yours ever materialize, I will remember who promised it." },
 { who: $player, text: "You'll get what you want. Just make sure her grade holds up." },
-{ who: $prof, text: "Then we understand each other. Now get out of my office." },
+{ who: $prof, text: "Then we understand each other. Now kindly get out of my office." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

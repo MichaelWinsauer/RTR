@@ -11,9 +11,9 @@ $mom.callName comes to my desk with her tablet and her morning face, the cheerfu
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Good morning, sweetie. So, today, the $diner.name invoice went out, $boss.callName wants Thursday instead of Wednesday, and somebody keeps putting fish in the office microwave and I have my suspicions." },
-{ who: $player, text: "Sit down for a minute." },
-{ who: $mom, text: "Is something wrong? Is it the fish? I didn't say anything to anybody yet." },
-{ who: $player, text: "It's not the fish." },
+{ who: $player, text: "Got a minute? Sit down, it's nothing bad." },
+{ who: $mom, text: "Is it the fish? Because I haven't said anything to anybody yet, I want to be sure first." },
+{ who: $player, text: "It's not the fish. Although now I really want to know who it is." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -23,13 +23,13 @@ She sits on the edge of the chair next to my desk with the tablet on her knees, 
 <<linkreplace "Give her the new job">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "The team's working hard. The new project's going to be a lot harder, and I need them happy. Not just paid. Happy. Coming in early, staying late, feeling good about it." },
-{ who: $mom, text: "Oh, I can do that. I'll bring in muffins. The lemon ones, everyone likes those. Except $brian.name, he doesn't like anything with a texture." },
-{ who: $player, text: "Not muffins." },
+{ who: $player, text: "The team's working really hard, and the new project is going to be a lot harder, so I need them happy. Not only paid, actually happy, the kind where they come in early and stay late and don't even mind." },
+{ who: $mom, text: "Oh, I can do that! I'll bring in muffins, the lemon ones, everybody likes those. Well, except $brian.name, he doesn't like anything with a texture, but I'll find something for him." },
+{ who: $player, text: "I was thinking of something besides muffins." },
 { who: $mom, text: "Cookies?" },
-{ who: $player, text: "You. I want you to do a round every day. Talk to them. Make each of them feel like the most interesting man in the room." },
-{ who: $mom, text: "I do talk to them, honey. I talk to them all the time." },
-{ who: $player, text: "You fuss over them. You sew on their buttons and take away their noodles. I want you to flirt with them." },
+{ who: $player, text: "You. I want you to do a round through the office every day and talk to them, and make each one of them feel like the most interesting guy in the room for a few minutes." },
+{ who: $mom, text: "But I do talk to them, honey, I talk to them all the time." },
+{ who: $player, text: "You fuss over them. You sew their buttons back on and confiscate their noodles. I want you to flirt with them a little." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -38,12 +38,12 @@ She looks at me as if I've asked her to do their taxes in Latin.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Flirt." },
-{ who: $player, text: "A little. Harmless. A smile, some attention." },
-{ who: $mom, text: "Sweetheart, I haven't flirted since college. I don't think I even did it then. I think I just stood in kitchens until your $dad.relation found me." },
-{ who: $mom, text: "And they're boys. I mean, they're grown men, but they're... I'm old enough to be..." },
-{ who: $player, text: "You're old enough to be very good at it." },
-{ text: "That one gets through. I watch it land, and watch her pretend it didn't." },
+{ who: $mom, text: "Flirt? With the boys?" },
+{ who: $player, text: "A little. Nothing crazy, a smile and some attention." },
+{ who: $mom, text: "Sweetheart, I haven't flirted since college, and I'm not sure I did it then either. I think I mostly stood around in kitchens until your $dad.relation found me." },
+{ who: $mom, text: "And they're boys! Well, they're grown men, I know that, but they're... I mean, I'm old enough to be..." },
+{ who: $player, text: "You're old enough to be really good at it, is what you are." },
+{ text: "That one gets through. I can see it land, and I can see her decide to pretend it didn't." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -51,13 +51,15 @@ She looks at me as if I've asked her to do their taxes in Latin.
 <<linkreplace "Coach her">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Three things. Write them down if you have to." },
-{ who: $mom, text: "I'm not writing down 'flirt' on the company tablet." },
-{ who: $player, text: "One. Look them in the eye. Not at their screen, not at their coffee. At them." },
-{ who: $player, text: "Two. A hand on the arm. Only for a second. Then take it back." },
-{ who: $player, text: "Three. Laugh at their jokes. Especially the ones that aren't funny." },
+{ who: $player, text: "It's not complicated, I promise. There are really only three things, and if you remember those you'll be fine." },
+{ who: $mom, text: "Should I write them down? Actually, no, I'm not typing the word 'flirt' into the company tablet, honey, it syncs with everything." },
+{ who: $player, text: "The first one is eye contact. When you talk to them, look at them, not at their screen or their coffee or whatever's on their shirt." },
+{ who: $mom, text: "There's always something on $ethan.name's shirt." },
+{ who: $player, text: "Ignore it. Second, a hand on the arm, but only for a second, and then you take it back. If you leave it there it turns into comforting them, and you're not there to comfort anybody." },
+{ who: $mom, text: "Hand on the arm, one second. Okay. And the third?" },
+{ who: $player, text: "Laugh at their jokes. Especially the ones that aren't funny." },
 { who: $mom, text: "Even $ethan.name's?" },
-{ who: $player, text: "Especially $ethan.name's." },
+{ who: $player, text: "Especially his. He'll know if you fake it, though, so you'll have to find something in there that's actually funny." },
 { who: $mom, text: "That's going to take a lot out of me, honey." },
 ]>>
 <</silently>>
@@ -66,9 +68,9 @@ She looks at me as if I've asked her to do their taxes in Latin.
 <<linkreplace "Make her practice">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Try it on me. I'm $darius.name. I'm at my desk, I'm very busy, I'm very handsome." },
+{ who: $player, text: "Try it on me. Pretend I'm $darius.name. I'm at my desk, I'm very busy, and I'm extremely handsome." },
 { who: $mom, text: "Oh, this is ridiculous." },
-{ who: $player, text: "Go." },
+{ who: $player, text: "Come on, humor me. Walk over like you just happen to be passing by." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -78,9 +80,9 @@ She stands up, smooths her skirt, walks three steps away from my desk, turns aro
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Hello, $darius.name. You look tired. Are you sleeping enough? You need to eat more than that salad." },
-{ who: $player, text: "Stop." },
+{ who: $player, text: "Okay, hang on, stop there." },
 { who: $mom, text: "What? I looked him in the eye!" },
-{ who: $player, text: "You asked him if he's sleeping enough." },
+{ who: $player, text: "You did, and then you asked him if he's sleeping enough." },
 { who: $mom, text: "Well, he doesn't look like he is!" },
 ]>>
 <</silently>>
@@ -93,10 +95,10 @@ The third try she gets through the eye contact and the hand on the arm and then 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "You're patting me." },
-{ who: $mom, text: "I know! I can feel it! I can't make it stop!" },
+{ who: $player, text: "$mom.callName. You're patting me." },
+{ who: $mom, text: "I know! I can feel it, and I can't make it stop!" },
 { text: "She snatches the hand back and holds it against her chest as if it bit her, and then she starts laughing, helplessly, with her other hand over her mouth, and I laugh too, because it's impossible not to." },
-{ who: $mom, text: "Every time I open my mouth, a $mom.relation comes out. I don't know how to turn it off. I've had it on for twenty years." },
+{ who: $mom, text: "Every time I open my mouth a $mom.relation comes out, honey, and I don't know how to turn it off, it's been switched on for twenty years." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -104,7 +106,7 @@ The third try she gets through the eye contact and the hand on the arm and then 
 <<linkreplace "One more time">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "One more. And this time don't think about him. Think about how you'd want someone to look at you." },
+{ who: $player, text: "One more try. And this time, don't think about $darius.name at all. Think about how you'd want somebody to look at you, if somebody finally did." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -115,7 +117,7 @@ This time she takes her time coming back. She doesn't lean on the desk. She stop
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I read your report last night. All of it. You're much funnier on paper than you let anybody see, did you know that?" },
+{ who: $mom, text: "I read your whole report last night, you know. You're much funnier on paper than you let anybody see." },
 { text: "And then she smiles, a slow, private kind of smile I have genuinely never seen on her face before, and walks off toward the copier without waiting for an answer." },
 ]>>
 <</silently>>
@@ -125,10 +127,10 @@ She gets four steps before she turns around, completely pink.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Was that... was that okay? That felt okay. Was it too much?" },
-{ who: $player, text: "That was it. That's exactly it." },
-{ who: $mom, text: "Really?" },
-{ who: $player, text: "Do that, every day, to all three of them, and I'll be very happy with you." },
+{ who: $mom, text: "Oh, God. Was that too much? It felt like... I honestly don't know what that felt like." },
+{ who: $player, text: "If I were $darius.name, I'd be staring at the copier right now trying to work out what just happened to me." },
+{ who: $mom, text: "You're just saying that." },
+{ who: $player, text: "I'm not. Do that every day, with all three of them, and I'll be very happy with you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -138,13 +140,13 @@ There it is: a small smile at the corner of her mouth that she presses flat as s
 <<linkreplace "Send her off">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Say them back to me. The three things." },
-{ who: $mom, text: "Eye contact. Hand on the arm, one second. Laugh at the bad jokes." },
-{ who: $player, text: "Again." },
-{ who: $mom, text: "Eye contact. Hand on the arm, one second, honey, I know. Laugh at the bad jokes. I've got it. I'm not senile." },
-{ who: $player, text: "I'm putting your first round in the schedule. I'll be watching." },
-{ who: $mom, text: "Oh, God. Don't watch. Please don't watch." },
-{ who: $player, text: "I'll be watching." },
+{ who: $player, text: "Before you go, tell me the three things again. Humor me." },
+{ who: $mom, text: "Look them in the eye, a hand on the arm for one second, and laugh at the bad jokes." },
+{ who: $player, text: "Once more, because I know you, and by lunch it's going to be 'look them in the eye and ask if they've eaten.'" },
+{ who: $mom, text: "Eye contact, hand on the arm, one second, I know, honey, and laugh at the bad jokes. I've got it. I'm not senile yet." },
+{ who: $player, text: "I'm putting your first round in the schedule, then. And I'll be watching." },
+{ who: $mom, text: "Oh, God, please don't watch, I'll be so much worse if I know you're watching." },
+{ who: $player, text: "Sorry. I wouldn't miss it for anything." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

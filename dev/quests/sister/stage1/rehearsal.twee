@@ -6,67 +6,67 @@
    there?" "Outside." "Then I can do it." We run it once more from the top, and she's good, which is the worst part.
    The mirror of the rooftop: there she waited for my signal, here she learns to do it without one. */
 <<silent>><<SetBackground $locations[15].img>><</silent>>
-I've set the meeting room up like a club booth. Two chairs pushed together on one side of the table, a bottle of wine I won't open, two glasses, the lights turned down to the dimmest setting the dimmer allows. It looks less like a club than like a very sad date. It'll do.
+I've set the meeting room up like a club booth: two chairs pushed together on one side of the table, a bottle of wine I won't open, two glasses, and the lights turned down as far as the dimmer goes. It looks less like a club than like a very sad date, but it'll do.
 
 She comes in at seven in the dress I told her to wear tomorrow, so she can practice walking in it, and stops in the doorway when she sees the room.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. Either this is the world's most depressing candlelit dinner, or we're doing a drill." },
-{ who: $player, text: "A drill. Tomorrow night you're a hostess again. A private club, an important client. I want you ready." },
+{ who: $sister, text: "So either this is the world's most depressing candlelit dinner, or we're doing a drill." },
+{ who: $player, text: "A drill. Tomorrow night you're a hostess again, at a private club, for a client who matters a lot. I'd like you to be ready for him." },
 { who: $sister, text: "Like the rooftop?" },
-{ who: $player, text: "Like the rooftop. A little more." },
+{ who: $player, text: "Like the rooftop, only a little more." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 She doesn't ask what "a little more" means. She sets her purse down, smooths the dress, and sits where I point.
 
-The Catalyst is in my desk drawer. I don't take it out. She doesn't look for it.
+The Catalyst is in my desk drawer. I don't take it out, and she doesn't look for it.
 
 <<linkreplace "Play the client">>
-I sit down next to her, close, closer than I'd sit to anyone at a business dinner, and put my arm along the back of her chair. I make my voice slower, softer, the way $supplier.callName's sounded on the phone.
+I sit down next to her, closer than I'd sit to anyone at a business dinner, and put my arm along the back of her chair. I make my voice slower and softer, the way $supplier.callName's sounded on the phone.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "So you're the famous hostess. They told me you were charming. They didn't say beautiful." },
-{ who: $sister, text: "Oh my God. Is this what he's like?" },
-{ who: $player, text: "Stay in it." },
-{ who: $sister, text: "Sorry. Sorry. Okay." },
+{ who: $player, text: "So you're the famous hostess. They told me you were charming. Nobody said anything about beautiful." },
+{ who: $sister, text: "Wow. Is that really what he's like?" },
+{ who: $player, text: "Pretty much. Stay in it." },
+{ who: $sister, text: "Sorry, sorry. I'm in it." },
 { text: "She takes a breath, and her face changes. The smile comes up, bright and easy, the rooftop smile." },
-{ who: $sister, text: "They told me you were difficult. Nobody said you were funny." },
+{ who: $sister, text: "They told me you were difficult. Nobody said anything about funny." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-It's good. It's very good. I keep going.
+She's good at this, much better than I expected, so I keep going.
 
-I teach her where to sit: always with the client between her and the room, so he feels like he's got her to himself. How to laugh: not at the joke, at him, a little before the punch line, so he thinks he's even funnier than he is. How to keep a glass full without seeming to. How to say no.
+I show her where to sit, always with the client between her and the room, so he feels like he's got her to himself. How to laugh, not at the joke but at him, a little before the punch line, so he thinks he's even funnier than he is. How to keep a glass full without seeming to. How to say no.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "He'll ask you to stay after. He'll ask you to come to the back. You don't say no. You say 'not yet', and you touch his arm when you say it." },
+{ who: $player, text: "At some point he'll ask you to stay after, or to come to the back with him. You don't say no. You say 'not yet', and you touch his arm when you say it." },
 { who: $sister, text: "Not yet." },
-{ who: $player, text: "And you smile like you mean later." },
+{ who: $player, text: "And smile like you mean later." },
 { who: $sister, text: "Not yet." },
-{ text: "She does it, and touches my arm, and smiles. It's perfect. It's the most dangerous thing I've ever seen her do." },
+{ text: "She does it, touches my arm and smiles, and it's perfect. It's the most dangerous thing I've ever seen her do." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "His hand">>
-I put my hand on her knee. The way he'll do it, probably: casually, while making a point about something else, and leaving it there to see what happens.
+I put my hand on her knee, the way he'll probably do it: casually, in the middle of making a point about something else, and then leaving it there to see what happens.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "If he does this?" },
-{ who: $sister, text: "Then I... I let it stay?" },
-{ who: $player, text: "For as long as he's spending money. He'll be spending a lot." },
+{ who: $player, text: "And if he does this?" },
+{ who: $sister, text: "Then I... let it stay?" },
+{ who: $player, text: "For as long as he's spending money. And he'll be spending a lot." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She looks down at my hand on her knee. Then she looks at the two glasses, and the bottle, and the dim lights, and the way I've pushed the chairs together, and I watch her put it together, piece by piece, the way she puts together a proof in calculus. She's not stupid. She's never been stupid. She just used to not have the pieces.
+She looks down at my hand on her knee. Then she looks at the two glasses, and the bottle, and the dim lights, and the way I've pushed the chairs together, and I watch her put it together piece by piece, the way she works through a proof in calculus. She was never slow. She just didn't have all the pieces before.
 
 Her smile goes away.
 
@@ -74,8 +74,8 @@ Her smile goes away.
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "This isn't like the rooftop." },
-{ who: $player, text: "No." },
-{ who: $sister, text: "This is... the back room. And not yet. And later." },
+{ who: $player, text: "No, it isn't." },
+{ who: $sister, text: "This is about the back room. That's what all the not-yets are for." },
 { text: "She isn't crying. She's very quiet and very still, with my hand still on her knee, and she doesn't move it." },
 { who: $sister, text: "Will you be there?" },
 ]>>
@@ -86,16 +86,16 @@ Her smile goes away.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Outside." },
+{ who: $player, text: "I'll be outside, in the car. The whole time." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She thinks about it. I can see her thinking about it, turning the word over, the way she turned over the word ours in this same room, months ago, checking it for cracks.
+She thinks about it. I can see her turning the word over, outside, the way she turned over the word ours in this same room, months ago, checking it for cracks.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Outside. Okay." },
+{ who: $sister, text: "Outside." },
 { text: "She takes a long breath, and lets it out." },
 { who: $sister, text: "Then I can do it." },
 ]>>
@@ -105,18 +105,17 @@ She thinks about it. I can see her thinking about it, turning the word over, the
 <<linkreplace "From the top">>
 We run it again from the top, all of it: the door and the coat, the walk to the booth, the joke and the laugh a little before the punch line, the hand on the knee, the glass she keeps full without seeming to, the back room, not yet, the touch on the arm.
 
-She's good. She's better than good. She doesn't look at me once for a signal, because tomorrow there won't be one, and she's already learned to do it without.
+This time she doesn't look at me once for a signal, because tomorrow there won't be one, and she's already learned to manage without it.
 
-That's the worst part. I know it's the worst part. I make her run it one more time anyway, and she does, perfectly, and at the end she gives me the not-yet smile, and I can't tell if it's for the client or for me.
+I know that's the worst part. I make her run it one more time anyway, and she does, without a single mistake, and at the end she gives me the not-yet smile, and I can't tell if it's for the client or for me.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Was that good?" },
-{ who: $player, text: "That was perfect." },
-{ who: $sister, text: "Okay. Good." },
-{ text: "She stands up, smooths the dress, picks up her purse. At the door she stops with her hand on the frame, the way she did after the first meeting in this room, when she told me I was kind of good at the boss thing." },
-{ who: $sister, text: "You'll be right outside." },
-{ who: $player, text: "Right outside." },
+{ who: $sister, text: "What time do we leave tomorrow?" },
+{ who: $player, text: "Half past nine. I'll drive." },
+{ text: "She nods, stands up, smooths the dress and picks up her purse. At the door she stops with her hand on the frame, the way she did after the first meeting in this room, when she told me I was kind of good at the boss thing." },
+{ who: $sister, text: "And you'll be right outside." },
+{ who: $player, text: "Right outside. I'm not going anywhere." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

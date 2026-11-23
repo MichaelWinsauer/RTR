@@ -11,21 +11,21 @@ $gymOwner.name $gymOwner.surname walks into the office at ten sharp in a quarter
 
 <<silently>>
 <<set _msgs = [
-{ who: $gymOwner, text: "Look at this guy. Look at him. Still dressing like he's about to testify in front of Congress." },
-{ who: $darius, text: "It's good to see you too. You look exactly the same." },
+{ who: $gymOwner, text: "Look at this guy. Look at him! Still dressing like he's about to testify in front of Congress." },
+{ who: $darius, text: "It's good to see you as well, $gymOwner.name. You haven't changed in the slightest." },
 { who: $gymOwner, text: "Body fat's down two percent since last time, but I'll take it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$mom.callName is crossing the office with a tray of coffee at exactly the moment they come through the door, which I would call a coincidence if I didn't know she watched the elevator for four minutes. She offers him a cup. She asks how he takes it. She looks him in the eye and laughs at something he says about the stairs, which isn't funny, and touches his arm for exactly one second.
+$mom.callName is crossing the office with a tray of coffee at exactly the moment they come through the door, which I would call a coincidence if I hadn't seen her watching the elevator for four minutes. She offers him a cup and asks how he takes it, and then she looks him in the eye and laughs at something he says about the stairs, which isn't funny, and touches his arm for exactly one second.
 
-He forgets about the cup in his hand until she's back at her desk. Then he remembers why he's here.
+He forgets about the cup in his hand until she's back at her desk, and then he seems to remember why he's here.
 
 <<silently>>
 <<set _msgs = [
 { who: $gymOwner, text: "Great energy in here. Really great energy. Who's that?" },
-{ who: $player, text: "My client consultant. She runs our accounts." },
+{ who: $player, text: "That's our client consultant. She runs our accounts." },
 { who: $gymOwner, text: "Love that. Love a people person. Okay! Let's talk shop." },
 ]>>
 <</silently>>
@@ -49,7 +49,7 @@ He sits down, puts both hands flat on the table, and looks me straight in the ey
 $darius.name is writing in his notebook. I glance at it upside down. It says: <i>January signups, March churn. He wants them to keep coming.</i>
 
 <<linkreplace "Answer in kind">>
-I've read three of his company's press releases this morning, and I'm ready.
+I read three of his company's press releases over breakfast this morning, mostly to find out which words he likes, and I'm as ready as I'm going to get.
 
 <<silently>>
 <<set _msgs = [
@@ -63,7 +63,7 @@ I've read three of his company's press releases this morning, and I'm ready.
 <</silently>>
 <<Chat _msgs>>
 
-I haven't said a single true thing about what it does. Neither has he, about what he wants. We're both perfectly happy.
+I haven't said a single true thing about what it does, and he hasn't said one about what he wants, and we both seem perfectly happy with that. What bothers me is how easily it came out. I've made fun of people who talk like this at every job I've ever had, and here I am saying "flow" to a grown man with a straight face. I make a mental note to never tell $ethan.name about this meeting.
 
 <<linkreplace "Let $darius.name do the numbers">>
 <<silently>>
@@ -71,15 +71,15 @@ I haven't said a single true thing about what it does. Neither has he, about wha
 { who: $gymOwner, text: "Okay, but give me data. I love a feeling, but my board loves a spreadsheet." },
 { who: $darius, text: "Our pilot at a diner showed an eleven percent rise in average visit length and a nine percent rise in repeat visits over eight weeks. At an office client, self-reported job satisfaction went up fourteen points." },
 { who: $gymOwner, text: "Repeat visits. That's retention. That's literally retention, $darius.name." },
-{ who: $darius, text: "I know. That's why I mentioned it." },
+{ who: $darius, text: "I'm aware. That's precisely why I mentioned it." },
 { who: $gymOwner, text: "So if I put this in my locations, my members stick around longer and come back more." },
-{ who: $darius, text: "If your locations behave like the pilot sites, yes. I'd want to run it in two locations first and compare against two without it." },
-{ who: $gymOwner, text: "See, this is why I love this guy. A control group. In my gym. He's a scientist. He's always been a scientist." },
+{ who: $darius, text: "Provided your locations behave the way the pilot sites did, yes. Though I'd strongly suggest running it in two locations first and comparing them against two without it, so that both of us are looking at evidence rather than enthusiasm." },
+{ who: $gymOwner, text: "See, this is why I love this guy. A control group, in my gym! He's a scientist, he's always been a scientist." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-$darius.name doesn't smile at the compliment, but he doesn't hate it either. He also doesn't look at me once while he gives the numbers. They're the cleaned numbers, the ones I gave him. He's presenting them exactly as they are, precisely, and he's leaving it to me to know what they are.
+$darius.name doesn't smile at the compliment, but he doesn't hate it either. He also doesn't look at me once while he gives the numbers, which are the cleaned ones I handed him. He presents them exactly as they are, very precisely, and leaves it to me to know what they are.
 
 <<linkreplace "Hear his condition">>
 <<silently>>
@@ -95,7 +95,7 @@ $darius.name doesn't smile at the compliment, but he doesn't hate it either. He 
 <</silently>>
 <<Chat _msgs>>
 
-That's true. And it's a far better disguise than he knows.
+He's right about that, and it's a better disguise than he realizes. Nobody asks what a router is doing, either.
 
 <<linkreplace "Close the meeting">>
 <<silently>>
@@ -103,20 +103,20 @@ That's true. And it's a far better disguise than he knows.
 { who: $player, text: "We can do that. I'll have a design to you this week." },
 { who: $gymOwner, text: "Love it. I love all of it. Honestly, I'm in. I'm basically in." },
 { who: $player, text: "Basically?" },
-{ who: $gymOwner, text: "Here's how I work. I don't sign with a company. I sign with people. I want to sit down, have a steak, have a drink, get to know the folks behind the product. Look them in the eye. Talk numbers, sure, haggle a little, that's half the fun. But over dinner. Like humans." },
+{ who: $gymOwner, text: "Here's how I work. I don't sign with a company, I sign with people. I want to sit down, have a steak and a drink and get to know the folks behind the product, look them in the eye. Talk numbers, sure, haggle a little, that's half the fun, but over dinner, like humans." },
 { who: $player, text: "We can do dinner." },
 { who: $gymOwner, text: "Perfect. Let's get something on the calendar once I've seen the design. You pick the place. I'll pick the wine." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-On the way out he shakes my hand, hugs $darius.name again, and stops by $mom.callName's desk to thank her for the coffee. She laughs at whatever he says. It's the new laugh. He leaves looking like a man who has just had a very good workout.
+On the way out he shakes my hand, hugs $darius.name again, and stops by $mom.callName's desk to thank her for the coffee. She laughs at whatever he says, the new laugh, and he leaves looking like a man who has just had a very good workout.
 
 <<silently>>
 <<set _msgs = [
-{ who: $darius, text: "He'll sign. He always signs if he likes the dinner." },
-{ who: $player, text: "And if he doesn't like the dinner?" },
-{ who: $darius, text: "Then he asks for a discount. A big one. He's very good at that part. It's how he got to eleven locations." },
+{ who: $darius, text: "He'll sign. In my experience he always does, provided he enjoys the dinner." },
+{ who: $player, text: "And if he doesn't enjoy the dinner?" },
+{ who: $darius, text: "Then he asks for a discount, and a substantial one. He's remarkably good at that part. It's more or less how he got to eleven locations." },
 { text: "He tucks his notebook under his arm and goes back to his desk. Over his shoulder he adds, without turning around:" },
 { who: $darius, text: "He liked your consultant." },
 ]>>

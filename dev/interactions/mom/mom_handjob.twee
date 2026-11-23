@@ -30,31 +30,31 @@ The blinds in the meeting room are already down. On the other side of the door t
 <<case "office">>
 The office is dark apart from the strip of light over my desk. Everyone else went home a while ago. $mom.callName is still here, tidying files that don't need tidying, and she knows why she stayed as well as I do.
 <<default>>
-For once there's nobody else around. $mom.callName notices that at the same moment I do. She looks past me, both ways, the way you look before crossing a street.
+For once there's nobody else around, and $mom.callName notices it at the same moment I do. She looks past me, down the hall and back again, before she looks at me.
 <</switch>>
 
 <<silently>>
 <<if _hjTier == "first">>
 	<<set _msgs = [
-	{ who: $player, text: "It's bad today." },
-	{ who: $mom, text: "Oh, honey. How bad?" },
-	{ who: $player, text: "Bad." },
+	{ who: $player, text: "Remember what you told me the other night? About coming to find you when it gets bad?" },
+	{ who: $mom, text: "Oh, honey. Of course I remember. Is it... is today one of those days?" },
+	{ who: $player, text: "It's been bad since this morning, and it isn't getting any better." },
 	{ text: "She closes her eyes for a second, and when she opens them again she's already decided. I can tell from the way she pushes her sleeves up." },
-	{ who: $mom, text: "Alright. Only because it's bad. Come here." },
+	{ who: $mom, text: "Alright. I said you could come to me, and I'm not going to take that back the first time you actually do. Come here, sweetie." },
 	]>>
 <<elseif _hjTier == "routine">>
 	<<set _msgs = [
-	{ who: $player, text: "I need you." },
-	{ who: $mom, text: either("Bad day?", "Is it that board meeting stuff again? You look like you swallowed a spreadsheet.", "I could tell when you came in. You had your shoulders up around your ears.") },
-	{ who: $player, text: "Bad day." },
-	{ who: $mom, text: either("Then let me take care of it. That's what I'm here for.", "Come here, sweetie. Let me make it better.", "Of course. Of course, honey. Come here.") },
+	{ who: $player, text: either("Have you got a few minutes for me?", "It's been one of those days again.", "Can I steal you for a bit?") },
+	{ who: $mom, text: either("I could tell the second you walked in, sweetie, you had your shoulders up around your ears again.", "Is it the board stuff again? You look like somebody made you eat a spreadsheet for lunch.", "Oh, honey, of course. Was it the clients, or just everything?") },
+	{ who: $player, text: either("A bit of everything.", "It's been a long one.", "I don't even want to talk about it.") },
+	{ who: $mom, text: either("Then come here and let me take care of it, that's what I'm here for.", "Well, come here, then, and let's see what I can do about that.", "Come here, honey. You can tell me about it after, or not at all, whichever you like.") },
 	]>>
 <<else>>
 	<<set _msgs = [
 	{ text: "I haven't said anything yet. She's already looking at me, the way she used to look at me over the breakfast table when she knew I hadn't done my homework." },
-	{ who: $mom, text: either("You've got that look again. Come here, I'll take care of it.", "You don't even have to ask anymore, sweetheart. You know that, right? Come here.", "Was it a long day? It was a long day. I can see it from here.") },
-	{ who: $player, text: "You always know." },
-	{ who: $mom, text: "Of course I know. I'm your $mom.relation." },
+	{ who: $mom, text: either("There's that face again. Come here, I know what it means by now.", "You don't even have to ask anymore, sweetheart, you know that, right? Come here.", "Long day? Don't bother answering, I can see it from over here.") },
+	{ who: $player, text: "How do you always know?" },
+	{ who: $mom, text: "Honey, I've been reading that face since it was covered in mashed carrots. Give me a little credit." },
 	]>>
 <</if>>
 <</silently>>
@@ -82,22 +82,22 @@ She keeps her body between me and the door, as if that would hide anything, and 
 <<if _hjTier == "first">>
 	<<set _msgs = [
 	{ text: "She's slow about it, and very careful, and she keeps checking my face as if she's afraid of getting it wrong." },
-	{ who: $mom, text: "Tell me if it's not right. I want to do it right." },
-	{ who: $player, text: "It's right." },
-	{ who: $mom, text: "Good. Good. Just breathe for me." },
+	{ who: $mom, text: "You'll tell me if I'm doing it wrong, won't you? I'd much rather you just said so." },
+	{ who: $player, text: "You're not doing anything wrong." },
+	{ who: $mom, text: "Good. That's good. Then lie back and breathe for me, and don't think about anything." },
 	]>>
 <<elseif _hjTier == "routine">>
 	<<set _msgs = [
-	{ text: "She knows how I like it now. She doesn't ask anymore, she just does it, firm and steady, with that small crease between her eyebrows she gets when she concentrates on a recipe." },
-	{ who: $mom, text: either("There we go. Let it all out.", "Shh. You're alright. I've got you.", "You work so hard, honey. You deserve this.") },
+	{ text: "She knows how I like it by now and doesn't bother asking, she just does it, firm and steady, with the little crease between her eyebrows that she gets when she's following a recipe." },
+	{ who: $mom, text: either("There you go, honey, just let it all out.", "Shh, you're alright, I've got you.", "You work so hard, sweetie. You're allowed to have this.") },
 	{ text: either("Every so often she shifts on the spot, pressing her knees together, and pretends she didn't.", "Her breathing has gone short and quiet. She keeps it under control better than she did the first time, but not by much.", "She bites her lip at one point, hard, and lets it go before I can say anything about it.") },
 	]>>
 <<else>>
 	<<set _msgs = [
 	{ text: "She's good at it now, and she knows it. She takes her time on purpose, slows down whenever I get close and smiles to herself when I make a sound." },
-	{ who: $mom, text: either("Not yet. Let me take care of you properly.", "Look at me, sweetheart. There you are.", "Does that feel good? Tell me it feels good.") },
-	{ who: $player, text: "It feels good." },
-	{ who: $mom, text: "I know it does." },
+	{ who: $mom, text: either("Not yet, I'm not done taking care of you.", "Look at me, sweetheart. There you are.", "Does that feel good? Tell me it feels good.") },
+	{ who: $player, text: "You know it does." },
+	{ text: "She looks very pleased with herself about that, and slows down even more, just to prove she can." },
 	{ text: "Her other hand has drifted down to her own lap. She holds it there, pressed flat, very still, and doesn't move it the whole time. The effort that takes is all over her face." },
 	]>>
 <</if>>
@@ -113,39 +113,33 @@ She doesn't stop until I'm completely done. Then she cleans up, with the tissues
 <<switch _hjPlace>>
 <<case "momroom">>
 	<<set _msgs = [
-	{ who: $mom, text: "Better?" },
-	{ who: $player, text: "Better." },
+	{ who: $mom, text: "You can stay a minute, you know, you don't have to run straight off." },
+	{ who: $player, text: "I wasn't going to." },
 	{ text: "She smooths her bedspread where we were lying, twice, until there isn't a single crease left in it." },
 	]>>
 <<case "livingroom">>
 	<<set _msgs = [
-	{ who: $mom, text: "Better?" },
-	{ who: $player, text: "Better." },
+	{ who: $mom, text: "If anybody asks, we've been watching this the whole time, and it was very good." },
 	{ text: "She turns the TV back up to where it was, exactly two notches, and goes back to her show as if she never stopped watching. Ten minutes later she still hasn't laughed at any of it." },
 	]>>
 <<case "bedroom">>
 	<<set _msgs = [
-	{ who: $mom, text: "Better?" },
-	{ who: $player, text: "Better." },
-	{ text: "She picks my shirt back up and finishes folding it. Her hands are perfectly steady. She folds it a second time, anyway." },
+	{ who: $mom, text: "You should open a window in here once in a while, honey. I'm only saying." },
+	{ text: "She picks my shirt back up and finishes folding it. Her hands are perfectly steady, and she folds it a second time anyway." },
 	]>>
 <<case "meeting">>
 	<<set _msgs = [
-	{ who: $mom, text: "Better?" },
-	{ who: $player, text: "Better." },
+	{ who: $mom, text: "Give it a minute before you come out, sweetie. And do something about your collar." },
 	{ text: "She closes the folder, tucks it under her arm and opens the blinds again, all the way, before she opens the door. On her way back to her desk she stops to ask somebody whether they need anything from the printer." },
 	]>>
 <<case "office">>
 	<<set _msgs = [
-	{ who: $mom, text: "Better?" },
-	{ who: $player, text: "Better." },
 	{ text: "She gets up off the carpet, brushes off her knees, and puts my chair back where it was, lined up with the desk, before she goes to get her coat." },
-	{ who: $mom, text: "Don't stay much longer, honey. I'll keep your dinner warm." },
+	{ who: $mom, text: "Don't stay too much longer, honey. I'll keep a plate warm for you, and I'll hide it from your $sister.relation this time, I promise." },
 	]>>
 <<default>>
 	<<set _msgs = [
-	{ who: $mom, text: "Better?" },
-	{ who: $player, text: "Better." },
+	{ who: $mom, text: "There. You look about ten pounds lighter." },
 	{ text: "She glances at the door one more time, then pats my cheek, the way she used to after a haircut, and goes back to what she was doing." },
 	]>>
 <</switch>>

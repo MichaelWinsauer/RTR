@@ -17,9 +17,9 @@
 	<<set _suLock to ((setup.questReached("mom_lastNight") and setup.questReached("sister_rehearsal")) ? "" : "They aren't there yet")>>
 <</silent>>
 <<if _suStalls == 0>>
-Since the night at $diner.name I've read everything. Papers, forums, a textbook on neurochemistry I bought used and annotated in three colors. The Veil doesn't create anything, it amplifies. In most people that's calm. In a few, the wrong few, it's whatever they were already carrying, made sharper. The fix isn't in the device. It's in the people in the room, and in a handful of compounds you can't buy in a pharmacy.
+Since the night at $diner.name I've read everything I could find: papers, forums, and a used textbook on neurochemistry that I've annotated in three colors by now. As far as I can tell, the Veil doesn't create anything, it amplifies. In most people that comes out as calm, but in a few, the wrong few, it's whatever they were already carrying, only sharper. If I've understood it right, the fix isn't in the device at all. It's in the people in the room, and in a handful of compounds you can't buy in a pharmacy.
 
-$boss.callName gave me the name over a whiskey he didn't offer me. A man who sells to people who don't ask questions, and who owns a club downtown called $club.name.
+$boss.callName gave me the name over a whiskey he didn't offer me: a man who sells to people who don't ask questions, and who owns a club downtown called $club.name.
 
 I call the number at two.
 <<else>>
@@ -30,27 +30,27 @@ I call $supplier.callName back. He picks up on the first ring this time, and he 
 
 <<silently>>
 <<set _msgs = [
-{ who: $supplier, text: "$player.name. $boss.callName said you'd call. He also said you were young. He undersold it." },
-{ who: $player, text: "He said you could get me what I need." },
-{ who: $supplier, text: "I can get anybody what they need. That's never the question. The question is always the price." },
+{ who: $supplier, text: "$player.name. $boss.callName said you'd call, and he said you were young, although I think he undersold it." },
+{ who: $player, text: "He said you might be able to get me what I need." },
+{ who: $supplier, text: "I can get anybody what they need. What people really call me about is what it costs." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He has a soft, unhurried voice, the voice of a man who has never once in his life had to raise it. I tell him what I need, in the vaguest words I can find. He doesn't need more. He's heard the list before.
+He has a soft, unhurried voice, the voice of a man who has never once in his life had to raise it. I tell him what I need in the vaguest words I can find, and trip over one of the names, and he doesn't need any more than that. It sounds like he's heard the list before.
 
 <<silently>>
 <<set _msgs = [
-{ who: $supplier, text: "That's not a small order. Quality, quantity, discretion. Discretion is the expensive part." },
-{ who: $supplier, text: "Twenty thousand. Up front. Cash or wire, I don't care which." },
+{ who: $supplier, text: "That's not a small order. And it comes with discretion, which is always the expensive part." },
+{ who: $supplier, text: "Twenty thousand, up front. Cash or wire, whichever you prefer." },
 { text: "He says it like a man reading a menu." },
-{ who: $supplier, text: "Of course, money isn't the only thing I take. I run a club, as I'm sure you know. My members are particular. They pay for atmosphere. Good company. The right faces at the right tables." },
+{ who: $supplier, text: "Of course, money isn't the only thing I accept. I run a club, as I'm sure you know, and my members are particular people. They pay for the atmosphere, for good company, for the right faces at the right tables." },
 { who: $supplier, text: "A man who could bring me an evening of that would find me very flexible on price." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He doesn't say anything else. He doesn't need to. He's heard about the rooftop, or he's heard about $mom.callName on the sixth floor, or he's simply a man who has made this offer before and knows how it lands. Either way he waits, breathing softly on the line, while I look at the company account on my screen. <<if _suStalls > 0>>Since my last call, his price has gone up to $<<= _suPrice.toLocaleString("en-US")>>.<</if>>
+He doesn't say anything else. Maybe he's heard about the rooftop, or about $mom.callName on the sixth floor, or maybe he's just a man who has made this offer before and knows how it lands. Either way he waits, breathing softly on the line, while I look at the company account on my screen. <<if _suStalls > 0>>Since my last call, his price has gone up to $<<= _suPrice.toLocaleString("en-US")>>.<</if>>
 
 <<Offer>>
 <<plain "Pay him" `"-$" + _suPrice.toLocaleString("en-US") + " up front"` _suPrice>>
@@ -58,7 +58,7 @@ He doesn't say anything else. He doesn't need to. He's heard about the rooftop, 
 <<set $flags.supplierOffered to false>>
 <<set _msgs = [
 { who: $player, text: "I'll wire it today." },
-{ who: $supplier, text: "Wonderful. Tomorrow night, then. Come to $club.name at ten. Ask for me at the door. Come alone." },
+{ who: $supplier, text: "Wonderful. Tomorrow night, then, at ten. Come to $club.name, ask for me at the door, and come alone." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -74,7 +74,7 @@ I wire it. The account looks very empty afterwards, emptier than it has looked s
 <<run setup.addDebt("boss_advance", "Advance from " + $boss.callName, _suPrice, 2500, 10)>>
 <<run setup.spend(_suPrice, "The supplier")>>
 <<set _msgs = [
-{ who: $player, text: "Give me an hour." },
+{ who: $player, text: "Okay. Give me an hour to get the money together." },
 { who: $supplier, text: "Take two. Tomorrow night, $club.name, ten o'clock. Come alone." },
 ]>>
 <</silently>>
@@ -82,7 +82,7 @@ I wire it. The account looks very empty afterwards, emptier than it has looked s
 
 I call $boss.callName. He lets it ring five times before he picks up, so I'll know he can. When I tell him how much and what for, he laughs, a long, wet, delighted laugh, and says of course, kid, of course, what are friends for, and names his terms, which are worse than a bank's and better than nothing. The money is in the account in twenty minutes. Twenty-one minutes later it's gone again.
 
-Every Monday for ten weeks I'll be paying the man who used to yell at $mom.callName in front of the whole sixth floor. I think he knows exactly how that feels for me. I think that's half of why he said yes.
+Every Monday for ten weeks I'll be paying the man who used to yell at $mom.callName in front of the whole sixth floor. I'm pretty sure he knows exactly how that feels for me, and that it's half of why he said yes.
 
 <<UpdateStat "+" "Corruption" 1>>
 <<NextQuest $player>>
@@ -92,10 +92,10 @@ Every Monday for ten weeks I'll be paying the man who used to yell at $mom.callN
 <<silently>>
 <<set $flags.supplierOffered to true>>
 <<set _msgs = [
-{ who: $player, text: "I have two hostesses. Very good ones. One evening at your club." },
-{ text: "There's a pause on the line. For the first time, his voice isn't quite as soft." },
-{ who: $supplier, text: "Two. Well. That's a very generous offer, $player.name." },
-{ who: $supplier, text: "The day after tomorrow, then. Ten o'clock. You can drive them yourself. You'll wait outside, of course. Members only." },
+{ who: $player, text: "What if I brought you two hostesses for an evening at your club? Really good ones." },
+{ text: "There's a pause on the line, and for the first time his voice isn't quite as soft when he answers." },
+{ who: $supplier, text: "Two of them. Well, that is a very generous offer, $player.name." },
+{ who: $supplier, text: "The day after tomorrow, then, at ten o'clock. You can drive them yourself, though you'll wait outside, of course. The club is for members only." },
 { who: $player, text: "Of course." },
 ]>>
 <</silently>>
@@ -103,7 +103,7 @@ Every Monday for ten weeks I'll be paying the man who used to yell at $mom.callN
 
 He hangs up. I sit there for a while with the phone in my hand and the account balance on the screen, untouched.
 
-I haven't told either of them. Neither of them knows the other one is going. Tomorrow evening I'll take $sister.callName into the meeting room and rehearse it with her, and I'll tell $mom.callName what to wear, and neither of them will ask why.
+I haven't told either of them yet, and neither of them knows the other one is going. Tomorrow evening I'll take $sister.callName into the meeting room and rehearse it with her, and I'll tell $mom.callName what to wear, and I'm hoping neither of them asks why.
 
 <<UpdateStat "+" "Corruption" 4>>
 <<NextQuest $player>>
@@ -112,7 +112,7 @@ I haven't told either of them. Neither of them knows the other one is going. Tom
 <<stall "Think it over" "main_supplier" "his price will go up">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "I need to think about it." },
+{ who: $player, text: "I need to think about it for a few days." },
 { who: $supplier, text: "Think as long as you like. My prices are patient. They just get a little bigger while they wait." },
 ]>>
 <</silently>>

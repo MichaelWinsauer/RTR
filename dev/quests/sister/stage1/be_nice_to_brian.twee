@@ -7,7 +7,7 @@
    says sure, of course. Her first visit (Task Sister Extra Friendly 0) remembers it exactly like that.
    The quest's set activates task_sister_be_nice_to_brian; The Anchor waits for three of them. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
-She brings my coffee first, as promised, and sets it on my desk with the handle turned toward my right hand, the way she always does now. Since that morning in the kitchen she leaves her hand on my shoulder for a second when she does it. Nobody in the office has noticed. She checks every time.
+She brings my coffee first, as promised, and sets it on my desk with the handle turned toward my right hand, the way she always does now. Since that morning in the kitchen she leaves her hand on my shoulder for a second when she does it. Nobody in the office has noticed, and she checks every time to make sure.
 
 <<silently>>
 <<set _msgs = [
@@ -18,72 +18,70 @@ She brings my coffee first, as promised, and sets it on my desk with the handle 
 <</silently>>
 <<Chat _msgs>>
 
-I don't look up from my screen. That's important. This has to sound like nothing.
+I keep my eyes on the screen. If I look at her, this turns into a conversation, and I want it to sound like nothing.
 
 <<linkreplace "Ask her">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Be extra friendly to $brian.name for a while, okay? He needs a little attention." },
+{ who: $player, text: "Could you be extra friendly to $brian.name for a while? I think he needs a little attention." },
 { text: "And I go back to my email." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-For a second nothing happens. Then:
+For a second nothing happens.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "$brian.name?" },
-{ who: $player, text: "$brian.name." },
-{ who: $sister, text: "Hardware $brian.name? Soldering iron $brian.name? $brian.name who apologizes to furniture?" },
-{ who: $player, text: "He's been working on the gym rollout for two weeks without a break, and I've got something new for him after that. I need him happy. You're good at happy." },
+{ who: $sister, text: "$brian.name? Our $brian.name? The one who apologizes to the furniture?" },
+{ who: $player, text: "He's been on the gym rollout for two weeks without a break, and I've got something new for him after that. I need him in a good mood, and you're better at that than anybody in this office." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Let her react">>
-She laughs. It's a real laugh, at first, because the idea of her doing anything to $brian.name except bringing him coffee and watching him panic is genuinely funny. Then the laugh runs out, and she's still standing there with her hand on my shoulder, and I feel her fingers go still.
+She laughs, and at first it's a real laugh, because the idea of her doing anything to $brian.name except bringing him coffee and watching him panic is genuinely funny. Then the laugh runs out, and she's still standing there with her hand on my shoulder, and I feel her fingers go still.
 
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Extra friendly how?" },
-{ who: $player, text: "Dress nice on your rounds. Stay at his desk a little longer than everyone else's. If he's hunched over a board for an hour, rub his shoulders. You know. Friendly." },
+{ who: $player, text: "I don't know, dress nice on your rounds, hang around his desk a bit when you bring the coffee. If he's been hunched over a board for an hour, rub his shoulders or something. Just be friendly." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 Her hand slides off my shoulder.
 
-It isn't much. She doesn't step back. She doesn't say anything. She just stands there next to my desk for a few seconds, holding the empty coffee tray against her stomach with both arms, and I can feel her doing the math. Not long ago she sat across from me at the kitchen table and asked what we are, and I told her it could be something beautiful. This morning I'm asking her to go and rub another man's shoulders.
+It isn't much. She doesn't step back or say anything. She just stands next to my desk for a few seconds, holding the empty coffee tray against her stomach with both arms, and I can feel her doing the math. Not long ago she sat across from me at the kitchen table and asked what we are, and I told her it could be something beautiful. This morning I'm asking her to go and rub another man's shoulders.
 
-I keep reading my email. I don't help her with the math. She has to finish it herself.
+I keep reading my email and leave her to finish the math on her own.
 
 <<linkreplace "Wait">>
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Sure." },
-{ text: "A beat. Then, brighter, because she's decided to be bright about it:" },
-{ who: $sister, text: "Of course. Yeah, of course. Poor guy. He does look like he hasn't slept since the Bronze Age." },
-{ who: $player, text: "Thanks." },
-{ who: $sister, text: "But I'm not wearing anything nice for $brian.name. I'm wearing something nice and $brian.name happens to be there. That's a very important distinction." },
-{ who: $player, text: "Noted." },
-{ who: $sister, text: "And you owe me. A big thing. I don't know what yet. Something with cannoli." },
+{ text: "Then, brighter, because she's decided to be bright about it:" },
+{ who: $sister, text: "Of course, yeah. The poor guy does look like he hasn't slept since the Bronze Age." },
+{ who: $player, text: "Thanks. Really." },
+{ who: $sister, text: "But just so we're clear, I'm not dressing up for $brian.name. I'm dressing up, and $brian.name happens to be in the building. That's a very important distinction." },
+{ who: $player, text: "Got it. You just happen to look nice in his general direction." },
+{ who: $sister, text: "Exactly. And you owe me something big for this. I haven't decided what yet, but there will be cannoli involved." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 She heads off toward the kitchen with the tray. Halfway there she looks back, quickly, to see if I'm watching her go.
 
-I'm not. I make sure I'm not. I'm looking at my screen, where I've had the parts list for the next project open the whole time, a short list of very specific components that $brian.name is going to order without asking a single question, as long as somebody has made him feel, for one week of his life, like the most interesting man in the room.
+I make sure I'm not. I'm looking at my screen, where I've had the parts list for the next project open the whole time, a short list of very specific components. If this works, $brian.name orders all of them without asking a single question, because for one week of his life somebody has made him feel like the most interesting man in the room.
 
 <<linkreplace "Later that afternoon">>
-At a quarter to three, $sister.callName comes back from the kitchen with two coffees and walks straight past my desk without stopping. She's taken her hair down. She's undone one more button than she had this morning.
+At a quarter to three, $sister.callName comes back from the kitchen with two coffees and walks straight past my desk. She's taken her hair down, and there's one more button undone than there was this morning.
 
-She pulls the spare chair up to $brian.name's desk and sits down, and hands him a cup, and says something I can't hear. $brian.name freezes with the soldering iron halfway to the board, looks at the coffee, looks at the space about a foot to the left of her face, and very slowly sets the iron down in its stand.
+She pulls the spare chair up to $brian.name's desk, sits down, hands him a cup and says something I can't hear. $brian.name freezes with the soldering iron halfway to the board, looks at the coffee, then at a spot about a foot to the left of her face, and very slowly sets the iron down in its stand.
 
-Then he starts talking. He talks with his hands. I have never seen $brian.name talk with his hands.
+He doesn't say much, as far as I can tell. She does most of the talking, with her chin in her palm, and every so often he nods at the board or says a word or two without looking up. But at some point he starts smiling at the board, and he doesn't stop.
 
-$sister.callName puts her chin in her palm and listens. Once, just once, she glances across the office at me. Then she looks back at $brian.name and laughs at something, loud enough for me to hear it.
+Once, just once, she glances across the office at me. Then she looks back at $brian.name and laughs at something, loud enough for me to hear it.
 
 <<UpdateStat "+" "SisterCorruption" 3>>
 <<UpdateStat "+" "Corruption" 1>>

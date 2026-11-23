@@ -14,7 +14,7 @@ I take a stool at the counter. $sister.callName comes over with the coffee pot i
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Welcome to $diner.name. My name is $sister.name, and I'll be your server today. Can I start you off with something to drink?" },
-{ who: $player, text: "Coffee." },
+{ who: $player, text: "Just coffee, please." },
 { who: $sister, text: "Excellent choice, sir. It's the only choice, actually. The juice machine has been broken since before I was born." },
 { text: "She pours. A trucker at the end of the counter raises his mug at her and calls her sweetheart, and she says 'coming, hon' over her shoulder in a voice I've never heard her use before, warm and a little tired and completely fake." },
 { who: $sister, text: "If he calls me sweetheart one more time, I'm putting decaf in his cup. He'll never know. He'll just be sad all afternoon and not know why." },
@@ -42,7 +42,7 @@ I've barely sat down when $manager.callName comes out of the kitchen, wiping his
 <<set _msgs = [
 { text: "She slides in next to him with a tray of empty plates and bumps him out of the way with her hip, and he lets her, which is not something I ever saw him let anyone do when I worked here." },
 { who: $manager, text: "Table four wants more ketchup, attraction." },
-{ who: $sister, text: "Table four is drowning in ketchup. Table four needs an intervention." },
+{ who: $sister, text: "Table four is already drowning in ketchup. What table four needs is an intervention." },
 { who: $manager, text: "Then go intervene." },
 ]>>
 <</silently>>
@@ -60,9 +60,9 @@ It's the dead hour between lunch and dinner, and the diner is almost empty. $sis
 { text: "She steals a fry off my plate without asking, then another one, and then she just moves the plate to her side of the table." },
 { who: $sister, text: "My feet hurt so much I can hear them. Is that possible? Can you hear your own feet?" },
 { who: $player, text: "Only if you work here long enough." },
-{ who: $sister, text: "Oh, right. You did this for, like, a year. I forgot. I'm sorry. Retroactively. For every time I complained about my classes." },
-{ who: $player, text: "You complained a lot." },
-{ who: $sister, text: "I know! I was awful! I'm being punished!" },
+{ who: $sister, text: "Oh, right, you did this for a whole year. I'm sorry, retroactively, for every time I complained to you about my classes." },
+{ who: $player, text: "You did complain a lot. Usually right when I got home from a double shift." },
+{ who: $sister, text: "I know, I was awful, and now the universe is punishing me through my feet." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

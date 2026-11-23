@@ -58,11 +58,11 @@ It takes him another five minutes to run out of things to say. I put the receive
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "The gray skirt." },
-{ who: $player, text: "You heard him." },
-{ who: $mom, text: "I heard him." },
+{ who: $mom, text: "The gray skirt, honey. The board liked the gray skirt." },
+{ who: $player, text: "You heard him, then." },
+{ who: $mom, text: "I think the whole floor heard him, he talks into a phone like he's ordering at a drive-through." },
 { text: "She keeps working on my shoulders for a while without another word. Then she leans down and talks very softly, right next to my ear." },
-{ who: $mom, text: "Is this one better? Than the gray one?" },
+{ who: $mom, text: "Is this one better than the gray one?" },
 { who: $player, text: "Much better." },
 { who: $mom, text: "Good. Then he doesn't get to see this one." },
 ]>>
@@ -73,15 +73,15 @@ She says it like a small private victory, and maybe to her it is. Her hands slid
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Do you need anything else, sweetheart? While I'm here?" },
-{ who: $player, text: "Later." },
+{ who: $mom, text: "Do you need anything else, sweetheart, while I'm here? Anything at all?" },
+{ who: $player, text: "Not now. Later." },
 { who: $mom, text: "Later." },
 { text: "She repeats it the way she'd repeat a phone number she has to remember, and takes her hands back." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I could have said yes. That's exactly why I didn't. I want her back at her desk this afternoon, answering mails and waiting for me to remember.
+I could have said yes, and part of me is already wondering why I didn't. But I like the idea of her back at her desk this afternoon, answering mails and waiting for me to remember.
 
 She tugs the hem of her skirt down half an inch at the door and walks out into the office with her chin up, heels clicking all the way to her desk this time. I stay where I am with my legs stretched out, pull a sticky note off the pad and write <i>gray skirt, Thu.</i> right under <i>call $boss.callName back, Fri.</i>
 

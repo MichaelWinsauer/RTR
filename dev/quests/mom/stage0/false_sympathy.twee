@@ -1,7 +1,7 @@
 :: False Sympathy [event mom_quest] {"position":"3275,950","size":"100,100"}
-The front door flies open hard enough to bounce off the wall. I'm in the hallway, leaning on the banister with my phone, and I've been pretending to scroll the same three posts for the last twenty minutes. I already know what's coming. Knowing doesn't stop my heart from speeding up.
+The front door flies open hard enough to bounce off the wall. I'm in the hallway, leaning on the banister with my phone, and I've been pretending to scroll the same three posts for the last twenty minutes. I already know what's coming, and my heart is going anyway.
 
-$mom.callName comes in with her bag hanging off one arm and her keys still in her hand. Her mascara has run and dried and run again. The blouse I talked her into is wrinkled now, one side untucked, like she spent the afternoon hunched over something. Probably a cardboard box.
+$mom.callName comes in with her bag hanging off one arm and her keys still in her hand. Her mascara has run and dried and run again. The blouse I talked her into is wrinkled now, one side untucked, like she spent the afternoon hunched over something, probably a cardboard box.
 
 She drops the bag on the floor and just stands there. I put the phone away and walk over slowly, the way you'd approach someone standing on a ledge.
 
@@ -13,29 +13,29 @@ She drops the bag on the floor and just stands there. I put the phone away and w
 <</silently>>
 <<Chat _msgs>>
 <<linkreplace "Sit down with her...">>
-She sinks onto the bottom step of the stairs and puts her face in her hands. I sit down next to her. Our knees touch.
+She sinks onto the bottom step of the stairs and puts her face in her hands. I sit down next to her, close enough that our knees touch.
 
 <<silently>>
 <<set _msgs to [
-    { who: $mom, text: "He called me into his office. With the door open, so everyone could hear. He said I'd deleted client files and wrecked the schedules and lost some forecast... and I didn't, honey, I know I didn't. But it was all right there on my laptop." },
-    { who: $mom, text: "He called me a liability. A liability! After all these years. And then security walked me to the elevator like I was going to steal a stapler." },
+    { who: $mom, text: "He called me into his office and left the door open so the whole floor could hear, and then he went through all of it, the client files I supposedly deleted, the schedules, some forecast I'd apparently lost... and I didn't, honey, I know I didn't, but it was all right there on my laptop." },
+    { who: $mom, text: "He called me a liability, after all these years. And then security walked me to the elevator like I was going to run off with a stapler. Ray from security, honey, I bought his kid a graduation present." },
     { who: $player, text: "That's insane. You're the only reason that floor runs at all." },
-    { who: $mom, text: "Tell that to him. Everyone was staring at me. Nobody said a word." },
+    { who: $mom, text: "Tell that to him. Everybody just stared at their screens, and not one of them said a word, not even Patty, and I covered for her all through her divorce." },
     { text: "She takes a shaky breath and looks at the front door, like the bills might come through it any second." },
     { who: $mom, text: "And now what? The mortgage, your $sister.relation's tuition... we need that paycheck. What am I supposed to do?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She looks at me as if I might have the answer. As it happens, I do.
+She looks at me as if I might have the answer. I've been rehearsing this part in my head all afternoon, and it doesn't make it any easier to start.
 
 <<silently>>
 <<set _msgs to [
-    { who: $player, text: "Okay. Don't panic. What if you came and worked for me?" },
+    { who: $player, text: "Okay. Okay, don't panic. What if... what if you came and worked for me?" },
     { who: $mom, text: "For you? At your... company?" },
     { who: $player, text: "I mean it. I need someone who's good with people, who can keep schedules and clients and paperwork from falling apart. That's literally what you've been doing for that idiot for years." },
-    { who: $mom, text: "Sweetie, that's very sweet of you. But it's still tiny, isn't it? It's barely making anything. I can't afford to take that kind of pay cut, not right now, we need..." },
-    { who: $player, text: "It won't stay tiny. And you'd be the first real employee. No one yelling at you, no one making comments about your skirt. Just the two of us building something." },
+    { who: $mom, text: "Oh, sweetie, that's so sweet of you, but it's still so small, isn't it? It's barely making anything yet, and I can't take that kind of pay cut, not right now, not with the..." },
+    { who: $player, text: "It won't stay small. And you'd be my first real employee, with nobody yelling at you and nobody making comments about your skirt, just the two of us building something." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -48,12 +48,12 @@ The hum is so quiet that even I almost miss it under the sound of her sniffling.
 
 <<silently>>
 <<set _msgs to [
-    { who: $mom, text: "I don't know. It feels like a big risk." },
+    { who: $mom, text: "I don't know, honey. It feels like such a big risk, and I'm supposed to be the careful one in this family." },
     { who: $player, text: "It's a smaller risk than sitting at home sending out résumés. I need you there, $mom.callName. I really do." },
     { text: "Her shoulders come down, one at a time. She wipes her cheek with her sleeve and looks at me properly for the first time since she walked in." },
-    { who: $mom, text: "...You really think I'd be useful?" },
-    { who: $player, text: "I know you would. Say yes." },
-    { who: $mom, text: "Okay. Okay, sweetie. Yes. Thank you. I honestly don't know what I'd do without you right now." },
+    { who: $mom, text: "You really think I'd be useful?" },
+    { who: $player, text: "I know you would. Come on, say yes." },
+    { who: $mom, text: "Okay. Okay, yes, sweetie, yes. Thank you. I honestly don't know what I'd do without you right now." },
     { who: $player, text: "Well, you don't have to find out." },
 ]>>
 <</silently>>
@@ -61,7 +61,7 @@ The hum is so quiet that even I almost miss it under the sound of her sniffling.
 
 She throws her arms around me and holds on. She smells like her perfume and the office and a little bit like the rain outside. I hold her back, my hand moving in slow circles between her shoulder blades, the way she used to do for me when I was little.
 
-She has no idea she's thanking the person who emptied her desk. I keep holding her until she stops shaking, and the prototype keeps humming in my pocket the whole time, just to be sure the decision sticks.
+She's thanking the person who emptied her desk, and she has no idea. I keep holding her until she stops shaking, and I leave the prototype humming in my pocket the whole time, because I'm not sure the yes would hold without it.
 
 <<UpdateStat "+" "Corruption" 6>>
 <<UpdateStat "+" "MomCorruption" 4>>

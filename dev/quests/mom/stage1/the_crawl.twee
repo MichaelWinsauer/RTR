@@ -11,19 +11,19 @@ By five on a Friday, the office is a ghost town. $ethan.name left at four with a
 
 $mom.callName didn't leave.
 
-She's at her desk with her coat on. She's had her coat on for forty minutes. She hasn't typed anything in thirty. Every few minutes she looks over at me, and every time she does, I'm looking at my screen.
+She's at her desk with her coat on, and she's had it on for forty minutes without typing a thing in the last thirty. Every few minutes she looks over at me, and every time she does, I'm looking at my screen.
 
-It's been a week. A week of her trying, in every small way she could think of, and a week of me walking past her in the kitchen like she was a piece of furniture. I haven't said a single word to her that wasn't about a client.
+It's been a week of her trying, in every small way she could think of, and of me walking past her in the kitchen like she was a piece of furniture. I haven't said a single word to her that wasn't about a client.
 
 <<linkreplace "Keep working">>
 At five-twenty she gets up. She takes her coat off, folds it over the back of her chair, and walks over to my desk. She stops a few feet away, the way she did in my room the night I sent her away, and stands there with her hands clasped in front of her.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Can I... can I talk to you? Just for a minute. You don't have to say anything." },
+{ who: $mom, text: "Can I talk to you for a minute, honey? You don't have to say anything, I just..." },
 { text: "I keep reading the email on my screen. I've read it three times." },
-{ who: $mom, text: "I'm sorry. About that night. About what I said." },
-{ who: $mom, text: "I've been trying to figure out all week why I said it. I've done everything you asked. Everything. And then I drew this line, like I was... like I still got to decide something. And you stopped needing me. And it was the worst week I've had since your $dad.relation left. Worse. At least then I had you." },
+{ who: $mom, text: "I'm sorry about that night. About what I said to you." },
+{ who: $mom, text: "I've been trying to figure out all week why I said it, because I've done everything you ever asked me to, everything, and then I went and drew this line, as if I was... as if I still got to decide something. And then you stopped needing me, and it's been the worst week I've had since your $dad.relation left. Worse, really, because back then at least I still had you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -36,7 +36,7 @@ Her voice cracks on the last part, and she stops and breathes and steadies it, b
 { who: $player, text: "Okay." },
 { text: "That's all. I scroll down." },
 { who: $mom, text: "Okay?" },
-{ who: $player, text: "You're sorry. Okay. Was there something else? I have a contract to finish." },
+{ who: $player, text: "You're sorry, okay. Was there anything else? I really need to get this contract finished." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -47,7 +47,7 @@ And then, very quietly:
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Give me five minutes. Please. Don't go anywhere." },
+{ who: $mom, text: "Give me five minutes, please? Just don't go anywhere, honey." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -59,9 +59,9 @@ It's closer to ten. I finish the contract, which I didn't need to finish. The of
 
 The bathroom door opens.
 
-She's wearing a dress I've never seen. Dark green, silky, with thin straps and a neckline that goes lower than anything she owns. It was made for a younger woman at a wedding twenty years ago, and it fits her the way it was supposed to fit her then, and maybe a little better. Her hair is down. Her lipstick is fresh and darker than she ever wears it. Her feet are bare. She's left her heels in the bathroom.
+She's wearing a dress I've never seen. Dark green, silky, with thin straps and a neckline that goes lower than anything she owns. It was made for a younger woman at a wedding twenty years ago, and it fits her the way it was supposed to fit her then, and maybe a little better. Her hair is down, her lipstick is fresh and darker than anything she wears to work, and her feet are bare. She's left her heels in the bathroom.
 
-It's the dress from her cousin's wedding, the one she told me about on the couch with half a bottle of wine in her. She was almost sure it still fit. She found out.
+It's the dress from her cousin's wedding, the one she told me about on the couch with half a bottle of wine in her. She was almost sure it still fit, and apparently she's checked.
 
 /* MEDIA: images/characters/mom/events/the_crawl/dress.jpg | Mom in the doorway of the office bathroom in a dark green silk slip dress, barefoot, hair down, dark lipstick, the office dim and blue behind her */
 
@@ -78,7 +78,7 @@ She stops at my chair. She kneels up between my knees and puts her hands flat on
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I want to make it up to you. Please let me make it up to you." },
+{ who: $mom, text: "I want to make it up to you, honey. Please let me." },
 { who: $player, text: "You said there were things a $mom.relation doesn't do." },
 { who: $mom, text: "I know what I said." },
 { text: "She swallows. Her hands find my belt. They're perfectly steady." },
@@ -96,44 +96,44 @@ She's slow at first, careful, like she's doing something delicate and doesn't wa
 <<set _msgs = [
 { who: $player, text: "Look at you. A whole week of being sweet to me, and this is what you were saving." },
 { text: "She whimpers around me. Her fingers dig into my thighs." },
-{ who: $player, text: "All that talk about lines. You crawled across the office for this. On your knees, in a dress you bought for a wedding." },
-{ who: $player, text: "Don't stop. You've made me wait a week. You can work for it." },
+{ who: $player, text: "All that talk about lines, and here you are. You crawled across my office on your knees for this, in a dress you bought for a wedding." },
+{ who: $player, text: "Don't stop. You made me wait a whole week, so you can work for it a little." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-Every word goes into her. I can see it. Her face flushes, her eyes squeeze shut, and she takes me deeper, as if she can make up for every one of them. She doesn't argue with any of it. She just works harder, the way she does at everything, the way she's always done everything for me.
+I can see every word go into her. Her face flushes, her eyes squeeze shut, and she takes me deeper, as if she could make up for each one of them. She doesn't argue with any of it, she only works harder, the way she does at everything, the way she's always done everything for me.
 
 /* MEDIA: images/characters/mom/events/the_crawl/bj_1.mp4 | Closer, faster, his hand in her hair */
 
 I put my hand in her hair. She leans into it like a cat.
 
-When I come she doesn't pull away. She stays there, eyes closed, and swallows, and stays where she is, breathing hard through her nose, before she sits back on her heels and wipes her mouth with the back of her hand. Her lipstick is everywhere. She doesn't seem to care.
+When I come she doesn't pull away. She stays there with her eyes closed and swallows, breathing hard through her nose, before she sits back on her heels and wipes her mouth with the back of her hand. Her lipstick is everywhere. She doesn't seem to care.
 
 <<linkreplace "Tell her how it's going to be">>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Was that... did I..." },
-{ who: $player, text: "From now on you bring my coffee in the morning." },
-{ who: $mom, text: "I do bring your coffee in the morning." },
-{ who: $player, text: "And you do that. Every morning. With the coffee." },
+{ text: "She opens her mouth to say something, and I get there first." },
+{ who: $player, text: "From now on, you bring my coffee up in the morning." },
+{ who: $mom, text: "But I already bring your coffee in the morning, sweetie." },
+{ who: $player, text: "I know. And from now on you do this with it, before I'm even out of bed." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She looks up at me from the floor. Her mascara has run a little at the corners. Her straps are both off her shoulders now, and she hasn't noticed, or she's stopped caring about straps.
+She looks up at me from the floor. Her mascara has run a little at the corners, and both straps are off her shoulders now, and either she hasn't noticed or she's stopped caring about straps.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Every morning." },
-{ who: $player, text: "Every morning." },
-{ text: "There's no fight in it. There's something that looks almost like relief." },
-{ who: $mom, text: "Yes. Okay. Yes, honey." },
+{ who: $mom, text: "Every morning?" },
+{ who: $player, text: "Every morning, unless I tell you otherwise." },
+{ text: "There's no fight in her face at all. What's there looks almost like relief." },
+{ who: $mom, text: "Okay. Yes, honey. I can do that." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I touch her cheek with two fingers, once, and that's all it takes. She closes her eyes and leans her face into my hand and lets out a long, slow breath, the kind you let out at the end of a week like the one she's had. The week is over. She knows it. I'm needing her again.
+I touch her cheek with two fingers, once, and that's all it takes. She closes her eyes and leans her face into my hand and lets out a long, slow breath, the kind you let out at the end of a week like the one she's had. As far as she's concerned, the week is over and I need her again.
 
 She gets up slowly, rubbing her knees, and pads back to the bathroom for her heels and her work clothes. On the way she stops at Gerald the fern and straightens one of his leaves.
 

@@ -28,32 +28,33 @@ I start with $ethan.name. I don't stand next to his desk anymore. I sit on the c
 { text: "I wait. I smile and I wait, and I let my shoe dangle from my toes." },
 { who: $ethan, text: "...there's a server. And it's. Yeah." },
 { who: $mom, text: "It's what, honey?" },
-{ who: $ethan, text: "I forgot. I genuinely forgot the joke. That's never happened to me. I've told jokes at funerals." },
+{ who: $ethan, text: "Okay, I genuinely lost it. That has never happened to me before, and I've told jokes at funerals." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I pat his hand and get up and leave him to find it again. I don't look back to see if he's watching me go. I don't have to.
+I pat his hand and get up and leave him to find it again. I don't look back to see if he's watching me go, because I already know he is, and it shocks me a little how sure I am of that.
 
 $darius.name is harder, he always will be, and that's what makes him fun. He has his whole face arranged before I even get there, polite and a little guarded, a man getting ready to be flattered without letting it count. So I don't flatter him. I tell him his numbers are boring and that I've read all of them, every slide, twice, and that I'm going to need him to explain the one about week six to me again, slowly, over lunch.
 
 <<silently>>
 <<set _msgs = [
-{ who: $darius, text: "You read the whole deck." },
-{ who: $mom, text: "Twice. The footnotes too. Do you know you put a footnote on a footnote? On page nine?" },
-{ text: "And he laughs. Out loud, with his head back, the kind of laugh that makes people at the other desks look up. Then he catches himself and looks almost alarmed, as if the laugh had gotten out without asking him." },
-{ who: $darius, text: "That was a joke footnote. Nobody has ever found that footnote." },
+{ who: $darius, text: "You read the entire deck?" },
+{ who: $mom, text: "Twice, footnotes and all. Did you know you put a footnote on a footnote, on page nine?" },
+{ text: "And he laughs, out loud, with his head back, the kind of laugh that makes people at the other desks look up. Then he catches himself and looks almost alarmed, as if the laugh had gotten out without asking him." },
+{ who: $darius, text: "That footnote was a private joke. I've been including it for three years, and not one person has ever found it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I find out that I like that very much. Being the one who found it.
+I find out that I like that very much, being the one who found it.
 
-$brian.name I don't even have to try with anymore. I only walk past his desk on the way to the kitchen, slowly, and say his name once on the way, and he turns his whole chair to follow me and stands up to say something and walks straight into the glass door to the meeting room. Not hard. A soft little bonk, and then a lot of apologizing to the door.
+$brian.name I don't even have to try with anymore. I only walk past his desk on the way to the kitchen, slowly, and say his name once on the way, and he turns his whole chair to follow me and stands up to say something and walks straight into the glass door to the meeting room. It isn't hard, just a soft little bonk, but he stands there holding his forehead as if the whole office had heard it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $brian, text: "Sorry. Sorry. That's... it's very clean. The glass. Somebody cleaned it. It's fine. I'm fine." },
+{ who: $brian, text: "Sorry. Ehh. The glass is... very clean today." },
+{ text: "That's all he manages. He looks at the door, and at the floor, and anywhere at all except at me." },
 { who: $mom, text: "Let me see, sweetie. Come here." },
 { text: "I put two fingers under his chin and turn his face toward the light to look at his forehead, the way I'd look at anybody's, and he stops breathing completely until I let go." },
 ]>>
@@ -62,8 +63,8 @@ $brian.name I don't even have to try with anymore. I only walk past his desk on 
 
 Back at my desk I sit very still for a minute with my hands in my lap.
 
-It's so easy. That's the part that frightens me a little. It would be so easy to keep going, to find out how far it goes, and some part of me would like to know, and that part of me is not the part that packs the lunches.
+It's so easy, and that's the part that frightens me a little. It would be so easy to keep going, to find out how far it goes, and some part of me would like to know, and that part of me is not the part that packs the lunches.
 
-I tell myself I'm doing it for the company. For him. I look across the office, and $player.name looks back, and that's enough to make it true again.
+I tell myself I'm doing it for the company, and for him. I look across the office, and $player.name looks back, and that's enough to make it true again.
 
 <<EndPov>>

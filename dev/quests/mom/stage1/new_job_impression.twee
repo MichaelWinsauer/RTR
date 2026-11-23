@@ -8,7 +8,7 @@
 <<if _dinerPaid>>
 The money from $manager.callName came in this afternoon. I watched the company account tick up and refreshed the page twice, in case the bank changed its mind. The man who used to tell me to smile more while I scraped his grill just paid my company to explain his own diner to him. I'd frame the transfer if you could frame a transfer.
 <<else>>
-$boss.callName's payment came in this afternoon. No thank-you, obviously. Just the money and a mail that said 'Received.', period included, like he was signing for a package. I read it three times anyway. It's the nicest thing he's ever written to anyone in my family.
+$boss.callName's payment came in this afternoon. No thank-you, obviously, just the money and a mail that said 'Received.', period included, like he was signing for a package. I read it three times anyway. It's the nicest thing he's ever written to anyone in my family.
 <</if>>
 
 $mom.callName's door is half open when I come up the stairs. She's sitting on the edge of her bed in leggings and an oversized hoodie that I'm pretty sure used to be mine, with her work blouse folded on the bench beside her. She's rubbing lotion into her hands, slowly, working it into each knuckle like she's got all night and nothing in particular to do with it.
@@ -19,14 +19,14 @@ I knock on the frame anyway.
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Hi, sweetie. Come in, come in. Did you eat? There's still some lasagna, I put it in the blue container..." },
-{ who: $player, text: "I ate. I saw the blue container." },
+{ who: $player, text: "I ate, I promise. I saw the blue container." },
 { who: $mom, text: "You say that every time, and then I find the blue container empty in the sink at two in the morning." },
 { text: "She pats the mattress next to her. I sit down, and it dips us toward each other the way it did when I was small and had a nightmare and her bed was the only safe place in the house." },
 { who: $player, text: "We got paid today. The first project's done." },
 { who: $mom, text: "Oh, honey! Really? The whole thing?" },
 { who: $player, text: "Finished, signed off and paid." },
 { text: "She grabs my arm with both hands, lotion and all, and gives it a little shake, like there might be more good news in there if she tries hard enough." },
-{ who: $mom, text: _dinerPaid ? "From $manager.callName? The man who made you clean the fryer on your birthday?" : "From $boss.callName? He actually paid? Without making somebody cry first?" },
+{ who: $mom, text: _dinerPaid ? "From $manager.callName? The man who made you clean the fryer on your birthday?" : "From $boss.callName? He actually paid, without making somebody cry first?" },
 { who: $player, text: "Every cent. I'm pretty sure it physically hurt him." },
 ]>>
 <</silently>>
@@ -39,16 +39,16 @@ She laughs, and she's still holding on to my arm. I let her.
 <<set _msgs = [
 { who: $player, text: "That's not actually why I came up, though. I wanted to ask how you're doing." },
 { who: $mom, text: "Me? I'm fine, sweetheart." },
-{ who: $player, text: "Not 'I'm fine, go to bed' fine. You've been at the office for a few weeks now. I'm asking as your boss. You're allowed to complain, it's in the employee handbook." },
+{ who: $player, text: "Not 'I'm fine, go to bed' fine. You've been at the office for a few weeks now, and I'm asking as your boss. You're allowed to complain, it's in the employee handbook." },
 { who: $mom, text: "We have an employee handbook?" },
 { who: $player, text: "We will. You're writing it." },
 { text: "She screws the cap back on the lotion and sets the tube on the nightstand, lining it up with the edge. She always does that when she wants a second to think and doesn't want it to look like she needs one." },
-{ who: $mom, text: "Honestly? It's good, honey. It's really good." },
-{ who: $mom, text: "You know, I used to sit in the car before work. In the parking garage, every single morning. Ten minutes, sometimes fifteen, with the radio on, just so I didn't have to go up yet." },
+{ who: $mom, text: "Honestly? It's good, honey. It's really, really good, and I keep waiting for somebody to come and tell me it was a mistake." },
+{ who: $mom, text: "You know, I used to sit in the car before work, down in the parking garage, every single morning. Ten minutes, sometimes fifteen, with the radio on, just so I didn't have to go up yet." },
 { who: $player, text: "I didn't know that." },
 { who: $mom, text: "Well, you weren't supposed to. Nobody was." },
 { text: "She laughs a little, as if it's a funny story about some woman she used to work with." },
-{ who: $mom, text: "Now I go straight up. Nobody yells at me in front of the whole floor because the printer's out of toner. The only person in that office who calls anybody 'sweetheart' is me." },
+{ who: $mom, text: "Now I go straight up, and nobody yells at me in front of the whole floor because the printer's out of toner, and the only person in that office who calls anybody 'sweetheart' is me. $brian.name said good morning to me on Tuesday before I said it to him, all on his own, and I was so proud of him I nearly hugged him." },
 { who: $mom, text: "And I sleep, honey. I actually sleep. I can't remember the last time I made it through a whole night before all this." },
 ]>>
 <</silently>>
@@ -56,14 +56,14 @@ She laughs, and she's still holding on to my arm. I let her.
 
 I can. She started sleeping through the week we moved into the new office. Since then she's spent eight hours a day under that vent, more than anyone else at the company, me included, and the unit behind it doesn't take lunch breaks. Of course she sleeps.
 
-I'm glad it's doing her good. I mean that. Mostly.
+I'm glad it's doing her good, and I mean that, mostly.
 
 <<if setup.getTaskById("task_mom_client_consultant").count gt 0>>
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Even going back to that building isn't so bad anymore. $boss.callName still looks at me the way he always did..." },
 { text: "Her mouth twists, just for a second." },
-{ who: $mom, text: "...but now he has to sign off on my hours at the end of the day. And he hates it, sweetie. He hates it so much. I'm a little ashamed of how much I enjoy watching him do it." },
+{ who: $mom, text: "But now he has to sign off on my hours at the end of the day, and he hates it, sweetie, he hates it so much. I'm a little ashamed of how much I enjoy watching him do it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -73,7 +73,7 @@ I'm glad it's doing her good. I mean that. Mostly.
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "And you get to fix my posture." },
-{ who: $mom, text: "Well. Somebody has to." },
+{ who: $mom, text: "Well, somebody has to." },
 { text: "She says it lightly. Then she looks down at her hands, the ones she just spent five minutes rubbing lotion into, and picks at a thread on her sleeve that isn't there." },
 ]>>
 <</silently>>
@@ -84,16 +84,16 @@ I'm glad it's doing her good. I mean that. Mostly.
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "So it's good." },
-{ who: $mom, text: "It's good." },
-{ text: "And then she doesn't say anything else, and the quiet goes on just long enough to turn into a 'but'." },
+{ who: $mom, text: "It's good, honey. Really." },
+{ text: "And then she doesn't say anything else, and the quiet that follows has a 'but' in it." },
 { who: $player, text: "But?" },
 { who: $mom, text: "No 'but'. It's silly." },
 { who: $player, text: "Tell me the silly thing." },
-{ who: $mom, text: "It's just... I'm done at five, honey. I come home, I make dinner, I watch my shows, and by eight I'm walking around the house looking for something to wipe down. I did the baseboards yesterday. The baseboards." },
+{ who: $mom, text: "It's just that I'm done at five, honey. I come home, I make dinner, I watch my shows, and by eight I'm walking around the house looking for something to wipe down. I did the baseboards yesterday. The baseboards, on my hands and knees, with an old toothbrush." },
 { who: $mom, text: "At my old job I was there until seven every night, and I hated every minute of it. Now I finally have my evenings back and I don't know what to do with them. Isn't that ridiculous?" },
 { who: $player, text: "A little." },
 { who: $mom, text: "Thank you, sweetie. Very supportive." },
-{ who: $mom, text: "I just think I could be doing more. For the company, I mean. You and $darius.name are still at your desks when I leave, and I sit in the car feeling guilty about it. Which is a lot better than sitting in the car feeling sick, I know. But still." },
+{ who: $mom, text: "I just think I could be doing more. For the company, I mean. You and $darius.name are still at your desks when I leave, and I sit in the car feeling guilty about it, which is a lot better than sitting in the car feeling sick, I know, but still." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -105,13 +105,12 @@ There's a version of me that hugs her right now and tells her to enjoy the free 
 <<set _msgs = [
 { who: $player, text: "Then stay longer." },
 { who: $mom, text: "Longer?" },
-{ who: $player, text: "In the evenings. Not every night, just when I need you. There's always something. Clients who only call back after six, the receipts $brian.name keeps in a shoebox, the mails I don't answer because I'm hoping they'll answer themselves." },
+{ who: $player, text: "In the evenings. Not every night, just when I need you. There's always something, like clients who only call back after six, or the receipts $brian.name keeps in a shoebox, or the mails I don't answer because I'm hoping they'll answer themselves." },
 { who: $mom, text: "Oh, I don't know, honey. Who's going to make dinner? $sister.callName can't..." },
 { who: $player, text: "$sister.callName is twenty. She can boil water." },
-{ who: $mom, text: "She burned the rice last month. Rice, sweetheart. It has instructions on the bag." },
+{ who: $mom, text: "She burned the rice last month. Rice, sweetheart, and it has the instructions printed right there on the bag." },
 { text: "She's frowning now, but I know that frown. It's the one where she's already looking for the reasons to say yes and hasn't found enough of them yet." },
-{ who: $mom, text: "I suppose I could cook on Sundays. Freeze it in portions, with labels, so she'd only have to heat things up..." },
-{ who: $mom, text: "And it wouldn't be every night." },
+{ who: $mom, text: "I suppose I could cook on Sundays and freeze it in portions, with labels, so she'd only have to heat things up... and it wouldn't be every night, would it?" },
 { who: $player, text: "Only when I put you in the schedule." },
 { who: $mom, text: "Only when you put me in the schedule." },
 { text: "She repeats it slowly, turning the words over like she's checking them for something sharp. She doesn't find anything." },

@@ -3,7 +3,7 @@
 <<silently>>
 <<set _item to either("a stack of textbooks", "a basket of laundry", "a pizza box", "three coffees in a cardboard tray")>>
 <<set _msgs to [
-	{ who: $sister, text: "Whoa! Watch it!" }
+	{ who: $sister, text: "Whoa, watch it!" }
 ]>>
 <</silently>>
 <p>I turn the corner and almost walk straight into $sister.callName. She's carrying <<= _item>> and has no free hand to stop me.</p>
@@ -16,7 +16,7 @@
 					<<silently>>
 					<<set _msgs to [
 						{ text: "I get one hand under it just in time." },
-						{ who: $sister, text: "Reflexes. Nice. Who are you and what did you do with my clumsy $sister.playerRelation?" }
+						{ who: $sister, text: "Okay, that was actually impressive. Since when do you have reflexes?" }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -28,7 +28,7 @@
 						{ text: "I miss completely and everything hits the floor." },
 						{ who: $sister, text: "Great. Now we both get to clean that up." },
 						{ who: $player, text: "You walked into me." },
-						{ who: $sister, text: "In my own hallway!" }
+						{ who: $sister, text: "I was walking in a perfectly straight line. You came around that corner like it was a race." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -42,7 +42,7 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Here, let me take half." },
-					{ who: $sister, text: "Thanks. That was the least you could do." }
+					{ who: $sister, text: "Thanks. Honestly, it's the least you can do after almost flattening me." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -55,8 +55,8 @@
 			<<replace "#choice1">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "You walk like someone who wants to get yelled at." },
-					{ who: $sister, text: "Says the guy who walks like a zombie." }
+					{ who: $player, text: "You know, most people look where they're going." },
+					{ who: $sister, text: "Says the guy who shuffles around this house like a zombie half the day." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

@@ -10,24 +10,24 @@ She comes by at a quarter to five, like every day now, and drops into the chair 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Daily briefing. Item one: $ethan.name has started bringing his own pot. An actual pot. He keeps it under his desk. I'm taking full credit." },
-{ who: $player, text: "Noted." },
-{ who: $sister, text: "Item two: $brian.name said good morning to me today. To me. Not to the floor. I think he's healing." },
-{ who: $player, text: "And item three?" },
+{ who: $sister, text: "Big news from the floor. $ethan.name brought in his own pot. An actual cooking pot, he keeps it under his desk next to his backpack, and I'm taking full credit for it." },
+{ who: $player, text: "You should. You've been on him about that for weeks." },
+{ who: $sister, text: "And $brian.name said good morning to me today. To me, not to the carpet. I think he's healing." },
+{ who: $player, text: "That's a big step for him. What else?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She opens her mouth for item three and doesn't say anything. She looks at her phone, which is in her lap, face up. It lights up while she's looking at it. She turns it over.
+She opens her mouth to tell me, and then doesn't. She looks at her phone, which is lying face up in her lap. It lights up while she's looking at it, and she turns it over.
 
 <<linkreplace "Wait">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Item three is boring. It's not even office stuff." },
+{ who: $sister, text: "The rest is boring. It's not even office stuff." },
 { who: $player, text: "Tell me anyway." },
-{ who: $sister, text: "It's $bestFriend.name. You remember $bestFriend.name. From freshman year. The one who threw up in $mom.callName's car at the homecoming thing." },
-{ who: $player, text: "I remember." },
-{ who: $sister, text: "She keeps texting. Like, a lot. For a few weeks now. And I keep... not answering. Not on purpose. I just see it and think, I'll answer later, when I have time to answer properly. And then it's three days later." },
+{ who: $sister, text: "It's $bestFriend.name. You remember her, from freshman year, the one who threw up in $mom.callName's car after the homecoming thing." },
+{ who: $player, text: "Hard to forget." },
+{ who: $sister, text: "She keeps texting me, a lot, for a few weeks now, and I keep not answering. Not on purpose. I see it and think I'll answer later, when I have time to do it properly, and then it's three days later." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -36,8 +36,8 @@ She turns the phone over in her hands, once, twice, like a card trick.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I missed her birthday. Last week. I didn't even text. I've never missed her birthday. We've been doing birthdays since we were eighteen. I had it in my calendar and everything, and I just..." },
-{ text: "She doesn't finish. She knows exactly where she was that night. So do I. She was in my bed." },
+{ who: $sister, text: "I missed her birthday last week. I didn't even text. We've done birthdays since we were eighteen and I've never once missed hers, I had it in my calendar and everything, and I just..." },
+{ text: "She doesn't finish. She knows exactly where she was that night, and so do I. She was in my bed." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -45,8 +45,7 @@ She turns the phone over in her hands, once, twice, like a card trick.
 <<linkreplace "Let her keep going">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "And today she sent this long message. About the lake. Every year our whole group from freshman year rents this cabin at the lake for the long weekend, and it's the best weekend of the year, and there's a hot tub that only works if you kick it." },
-{ who: $sister, text: "She said they're keeping a bed for me. She said they're not going without me." },
+{ who: $sister, text: "And today she sent this long message about the lake. Every year our whole group from freshman year rents a cabin up there for the long weekend. It's the best weekend of the year, there's a hot tub that only works if you kick it, and she says they're keeping a bed for me and they're not going without me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -54,9 +53,9 @@ She turns the phone over in her hands, once, twice, like a card trick.
 <<if $sister.flags.datePhoto === true>>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "And then she said she saw the picture. Kayla's picture. From the restaurant." },
+{ who: $sister, text: "Oh, and she saw the picture. Kayla's picture, from the restaurant." },
 { text: "She laughs, a little too high." },
-{ who: $sister, text: "She said, 'Who's the guy? He looks weirdly familiar.' Which, I mean. Yeah. She's met you, like, a hundred times." },
+{ who: $sister, text: "She wanted to know who the guy is, because he looks weirdly familiar. Which, I mean, yes. She's met you about a hundred times." },
 { who: $player, text: "What did you tell her?" },
 { who: $sister, text: "Nothing. I didn't answer that part. I didn't answer any of it." },
 ]>>
@@ -67,20 +66,19 @@ She turns the phone over in her hands, once, twice, like a card trick.
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "So are you going?" },
-{ who: $sister, text: "No. I already told her no. This afternoon." },
+{ who: $sister, text: "No. I already told her no, this afternoon." },
 { text: "She says it quickly, as if it were obvious." },
-{ who: $sister, text: "I told her I'm busy. Which is true. I'm always busy now. There's the office and the seminar and the overviews, and..." },
-{ who: $sister, text: "And she said, 'You're always busy now.' Like that. And then she said I talk about you like..." },
+{ who: $sister, text: "I said I'm busy, which is true, I'm always busy now, with the office and the seminar and the overviews. And she said, 'You're always busy now.' Just like that. And then she said I talk about you like..." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She stops. Her mouth stays a little open, as if the rest of the sentence is still sitting there on her tongue and she's deciding whether to let it out. She doesn't.
+She stops. Her mouth stays a little open, as if the rest of the sentence is still sitting on her tongue and she's deciding whether to let it out. She doesn't.
 
 <<linkreplace "Say nothing">>
-I don't ask her how $bestFriend.name finished the sentence. I don't tell her she should go, or that she shouldn't. I lean back in my chair and look at her, and let it sit.
+I don't ask her how $bestFriend.name finished the sentence. I don't tell her she should go, or that she shouldn't. I lean back in my chair and look at her and let it sit.
 
-She looks back at me. Then she picks up her phone, opens a group chat with a lake emoji and about forty unread messages in it, and, while I watch, taps through the settings until she gets to the mute button. She mutes it, and of the options she picks the one that never runs out.
+She looks back at me. Then she picks up her phone, opens a group chat with a lake emoji and about forty unread messages in it, and, while I watch, taps through the settings until she gets to the mute button. Of the options she picks the one that never runs out.
 
 Then she puts the phone face down on my desk, between my keyboard and my coffee, and pushes it a couple of inches toward me with two fingers.
 
@@ -88,24 +86,24 @@ Then she puts the phone face down on my desk, between my keyboard and my coffee,
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "There. Done. I'm here anyway. This is where I want to be." },
+{ who: $sister, text: "There. I'd have been here anyway. This is where I want to be." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Let her">>
-Nobody asked her to. That's what makes it perfect. I never said a word against $bestFriend.name, or the lake, or the cabin with the broken hot tub. I didn't need to. All I had to do was be the center of her life for long enough that everything else started to feel like a distraction from it, and then let her close the door herself.
+Nobody asked her to. I never said a word against $bestFriend.name, or the lake, or the cabin with the broken hot tub, and I'm a little surprised by how little it took. I was just there, every day, at the middle of everything she does, until the rest of her life started to feel like a distraction from it. She closed the door herself.
 
 She sits there for a while with her hands in her lap, looking at the phone on my desk. Then she sniffs once, sharply, and puts her shoes back on.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Okay. That was the boring part. Item four: Gerald has a new leaf. $mom.callName cried a little." },
+{ who: $sister, text: "Anyway, that was the boring part. The real headline is that Gerald has a new leaf, and $mom.callName cried a little." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-On her way out, she picks her phone back up. She doesn't turn it over to check it. She just puts it in her back pocket, face in, like something she's agreed not to look at.
+On her way out she picks her phone back up. She doesn't turn it over to check it. She just puts it in her back pocket, screen in, like something she's agreed not to look at.
 
 Across the office, $ethan.name is still at his desk with his headphones around his neck. He watched the whole thing. When he sees me look up, he goes back to his screen.
 

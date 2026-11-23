@@ -6,7 +6,7 @@
 <p>$sister.callName is on the living room floor in workout clothes with a fitness video playing on the TV, in the middle of a set.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Ugh... almost done. Don't just stand there, little $sister.callPlayerShort." }
+	{ who: $sister, text: "Two more sets and I'm done. Either join in or stop hovering, little $sister.callPlayerShort." }
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -18,7 +18,7 @@
 					<<silently>>
 					<<set _msgs to [
 						{ text: "I sit on the arm of the couch and watch her go through the routine. A few reps later she looks over her shoulder." },
-						{ who: $sister, text: "Take a picture, it lasts longer." }
+						{ who: $sister, text: "You know I can see you in the TV, right? Go find your own entertainment." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -39,7 +39,7 @@
 						{ who: $player, text: "Bet I can do more than you." },
 						{ who: $sister, text: "You're on. Loser makes dinner." },
 						{ text: "We go at it until my arms shake. I somehow come out ahead by two." },
-						{ who: $sister, text: "Cheater! Rematch. Tomorrow." }
+						{ who: $sister, text: "You cheated. I don't know how yet, but you did, and I want a rematch tomorrow." }
 					]>>
 					<</silently>>
 				<<else>>
@@ -48,7 +48,7 @@
 						{ who: $player, text: "Bet I can do more than you." },
 						{ who: $sister, text: "You're on. Loser makes dinner." },
 						{ text: "We go at it until my arms shake. She beats me by a mile." },
-						{ who: $sister, text: "Dinner's at seven, little $sister.callPlayerShort. Something with vegetables." }
+						{ who: $sister, text: "Dinner's at seven, little $sister.callPlayerShort. Something with vegetables, please." }
 					]>>
 					<</silently>>
 				<</if>>
@@ -71,7 +71,7 @@
 						<<set _vx.lastUsedOnWho to "sister">>
 						<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
 							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She stops mid-rep and frowns at me. "Okay, that's weird. I feel weird." She switches off the video and heads upstairs.</p>
+							<p>She stops mid-rep and frowns at me. "Okay, I suddenly feel really weird." She switches off the video and heads upstairs.</p>
 							<<UpdateStat "-" "SisterRelation" 3>>
 							<<UpdateStat "+" "SisterResistance" 4>>
 						<<else>>

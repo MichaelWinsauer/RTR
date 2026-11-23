@@ -30,21 +30,21 @@ $mom.callName is frying bacon. She is frying it very loudly.
 <<set _msgs = [
 { who: $mom, text: "Good morning, sunshine." },
 { who: $sister, text: "Please don't say sunshine." },
-{ who: $mom, text: "Twelve-thirty, you said. Twelve-thirty, and you'd text twice. I woke up at three to use the bathroom, and your shoes were in the middle of the hallway. One of them was in the plant." },
+{ who: $mom, text: "Twelve-thirty, you said, and you'd text me twice. I got up at three to use the bathroom and your bag was lying in the middle of the hallway, and your keys were in the plant, sweetie. In the plant." },
 { who: $sister, text: "The plant looked lonely." },
 { who: $mom, text: "What time did you get home?" },
-{ who: $sister, text: "Honestly? I have no idea. I remember the Uber. Sort of. I remember the Uber had a dog in it. Was there a dog?" },
+{ who: $sister, text: "Honestly? No idea. I remember the Uber, sort of. I'm fairly sure the Uber had a dog in it, which doesn't help anybody." },
 { text: "$mom.callName puts a glass of water and two aspirin in front of her with the expression of a woman who has done this before, with this exact patient." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I pass her the toast. She takes it without looking, then does look, and something crosses her face. It's not a memory exactly. More like the shadow of one.
+I pass her the toast. She takes it without looking, then does look, and something crosses her face that isn't quite a memory, more like the shadow of one.
 
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "I had the weirdest dream last night." },
-{ who: $mom, text: "You had about six tequila shots last night, I'd guess." },
+{ who: $mom, text: "I'd guess you had about six tequila shots last night, honey. That'll do it." },
 { who: $sister, text: "No, like a really... never mind. It's dumb." },
 { text: "She stops. Her cheeks go pink under the sunglasses, all the way up to her ears, and she takes a very long drink of water and doesn't finish the sentence." },
 { who: $player, text: "Must have been some party." },
@@ -55,6 +55,6 @@ I pass her the toast. She takes it without looking, then does look, and somethin
 
 She doesn't look at me again for the rest of breakfast. She doesn't look at anything, really, except her plate. But when $mom.callName asks if she wants to lie down on the couch and watch something, she says only if I come too, and then pretends she didn't say it.
 
-I eat my bacon. $mom.callName fusses with the dishes, tutting about the shoe in the plant. Nobody at this table knows what happened last night except me. My phone is lying face down next to my plate.
+I eat my bacon. $mom.callName fusses with the dishes, tutting about the keys in the plant. Nobody at this table knows what happened last night except me. My phone is lying face down next to my plate.
 
 <<UpdateStat "+" "SisterRelation" 2>>

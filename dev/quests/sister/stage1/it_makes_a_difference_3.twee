@@ -15,7 +15,7 @@ It's a little after eleven now. I've switched off the lamp. The dashboard is sho
 In the grainy grey of the camera her room looks smaller than it is. The string lights are on. She's in bed with the blanket kicked down to her knees, in the black hoodie of mine she borrowed at some point and never gave back, and she's holding her phone up above her face. She isn't scrolling. She's just holding it.
 
 <<linkreplace "Keep watching">>
-For a long time nothing happens. She puts the phone face down on her chest. She rolls onto her side, toward the wall, and then onto her back again. She pulls the hood up over her head and pushes it back down.
+For a long time nothing happens. She puts the phone face down on her chest, rolls onto her side toward the wall and then onto her back again, pulls the hood up over her head and pushes it back down.
 
 Then her free hand starts to move across her stomach, slowly, as if she's hoping it doesn't count as long as she doesn't look at it. It stops at the waistband of her shorts and stays there. I lean closer to the screen.
 
@@ -28,7 +28,7 @@ Her knees fall open under the blanket. The phone slips off her chest onto the ma
 <<silently>>
 <<set _msgs = [
 { text: "Then, so quietly that I almost lose it in the noise:" },
-{ who: $sister, text: "...$player.name..." },
+{ who: $sister, text: "$player.name..." },
 { text: "She turns her face into the pillow right after, as if she could take it back that way. Her hand doesn't stop." },
 ]>>
 <</silently>>
@@ -41,7 +41,7 @@ The clock in the corner of the feed says 11:24. That's a little more than eight 
 
 When she comes, she bites down on the sleeve of my hoodie to keep quiet. $mom.callName's room is just down the hall, and some part of her still remembers that. Her back lifts off the mattress, her heels dig into the sheet, and for a few seconds she's completely rigid, the sleeve caught between her teeth.
 
-Then everything goes out of her at once.
+Then she goes limp all at once, and the sleeve slides out of her mouth.
 
 <<linkreplace "Watch what she does after">>
 She lies there for a while, just breathing. Then she takes her hand out and looks at it with her fingers spread, the way she checks a nail she thinks she just chipped. She wipes it on the sheet, stops halfway, and cleans it on a tissue from the nightstand instead, very thoroughly, the way you clean up after something you've decided you're never going to do again.
@@ -52,7 +52,7 @@ She pulls the hood all the way up and curls onto her side with her knees against
 
 After a while she picks up the phone again.
 
-Next to my keyboard, my own phone lights up: her name, right under the lasagna photo, and under that, three little dots. They stay there a long time. They go away. They come back.
+Next to my keyboard, my own phone lights up: her name, right under the lasagna photo, and under that, three little dots that stay there a long time, go away, and come back.
 
 <<silently>>
 <<set _msgs = [
@@ -67,7 +67,7 @@ Next to my keyboard, my own phone lights up: her name, right under the lasagna p
 			<<replace "#supportive-night-choice">>
 				<<silently>>
 				<<set _msgs = [
-				{ who: $player, text: "Anytime. Save me some of that lasagna. And get some sleep." },
+				{ who: $player, text: "Anytime. Make sure nobody touches that lasagna before breakfast, and go get some sleep." },
 				{ text: "On the feed, the phone lights up her face. She reads it, and then she reads it again. Then she holds the phone against her chest with both hands and lies like that, staring up at the ceiling, until the screen goes dark on its own." },
 				]>>
 				<</silently>>

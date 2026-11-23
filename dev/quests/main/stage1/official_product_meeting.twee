@@ -16,17 +16,17 @@ $ethan.name turns up first, carrying a grocery store sheet cake like it's a newb
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Before anyone says anything boring: cake. We shipped two projects and nobody died. In this economy, that's basically an IPO." },
-{ who: $brian, text: "Technically the second unit almost died. The, uh, the voltage regulator. I fixed it." },
+{ who: $ethan, text: "Before anyone says anything boring, there's cake. We shipped two projects and nobody died, which in this economy is basically an IPO." },
+{ who: $brian, text: "Technically the second unit almost died. Um, the voltage regulator. I fixed it." },
 { who: $ethan, text: "And that's why we keep you around, buddy." },
 { text: "$brian.name pushes his glasses up and becomes very interested in the cake." },
 { who: $player, text: "$mom.callName, you've spent more time with the client than any of us. How's $boss.callName treating his new toy?" },
-{ who: $mom, text: "Oh, he loves it, honey. He shows it to everybody who walks past his office. He calls it his 'secret weapon'. Last Thursday he had three people from accounting in there just to watch the little light blink." },
-{ who: $sister, text: "Wow. A man showing off his gadget to coworkers. Groundbreaking stuff." },
+{ who: $mom, text: "Oh, he loves it, honey, he shows it to everybody who walks past his office and calls it his 'secret weapon', and last Thursday he had three people from accounting standing in there just to watch the little light blink." },
+{ who: $sister, text: "A man in his fifties showing his little gadget around the office. I'm stunned, truly." },
 { who: $mom, text: "Sweetie." },
 { who: $sister, text: "What? I'm being supportive!" },
 { text: "$mom.callName smooths her napkin flat on the table and keeps going, a little quieter." },
-{ who: $mom, text: "He's nicer to me now, actually. Nicer than he ever was when I worked for him. On Monday he asked me if I wanted a coffee. I don't think that man has made a cup of coffee in his entire life." },
+{ who: $mom, text: "He's actually nicer to me now than he ever was when I worked for him, which I still can't quite get used to. On Monday he asked me if I wanted a coffee, and honestly, I don't think that man has made a cup of coffee in his entire life." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -35,8 +35,8 @@ I could tell her why that is. I cut myself a slice of cake instead and nod at $d
 
 <<silently>>
 <<set _msgs = [
-{ who: $darius, text: "The diner's wrapped up as well. $manager.callName read the whole report, which honestly surprised me. He argued with every single recommendation and then said he'd try all of them." },
-{ who: $sister, text: "He already did one! He moved the pie case right next to the register, and now everybody buys pie. And he walks around like it was his idea." },
+{ who: $darius, text: "The diner is wrapped up as well. To my genuine surprise, $manager.callName read the entire report. He contested every single recommendation in it and then announced he'd implement all of them, which I've decided to take as a compliment." },
+{ who: $sister, text: "He already did one! He moved the pie case right next to the register, and now everybody buys pie, and he walks around like it was his idea." },
 { who: $darius, text: "It was on page four." },
 { who: $sister, text: "I know! I told him that!" },
 { text: "She's still laughing at her own outrage after everyone else has stopped, and $darius.name smiles down at his notebook. $mom.callName's long look gets longer." },
@@ -49,20 +49,20 @@ I let them have their cake for a while. Then I wait until $ethan.name is halfway
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "So. Two clients, two happy customers, and enough money in the account that I stopped checking it every hour. I'm down to every two hours now." },
+{ who: $player, text: "Okay. Two clients, both happy, and enough money in the account that I stopped checking it every hour. I'm down to every two hours now." },
 { who: $ethan, text: "That's growth." },
-{ who: $player, text: "Here's the problem, though. Both of those clients came to us because we already knew them. $mom.callName worked for one, I worked for the other. That's not how you grow a company. I'm running out of people who used to be mean to me." },
-{ who: $sister, text: "Give it time. You're super annoying, you'll make more." },
+{ who: $player, text: "Here's the problem, though. Both of those clients came to us because we already knew them, $mom.callName worked for one and I worked for the other, and that's not really how you grow a company. I'm running out of people who used to be mean to me." },
+{ who: $sister, text: "Give it time. You're plenty annoying, you'll make more." },
 { text: "Even $brian.name laughs at that, a short surprised snort into his sleeve." },
 { who: $player, text: "What we need is a product. One version, the same specs every time, a price on it and a box nice enough that people want to leave it out on their desk. Something a company we've never even heard of can find, order and plug in without me showing up in person to charm them." },
-{ who: $darius, text: "Which version?" },
+{ who: $darius, text: "And which version would we be selling?" },
 { text: "He asks before anyone else has even caught up. Of course he does." },
 { who: $player, text: "The one we built for $boss.callName. It's tested, it's stable, and the client is already bragging about it for free. We clean it up, make it cheaper to build and call it the official $company.prototype.name." },
-{ who: $darius, text: "That unit runs at maybe a third of what you showed us on our first day. I went through the logs. If what we're selling is the effect, why would we sell the weaker one?" },
-{ text: "It's a good question. It's also exactly the question I hoped nobody would ask, coming from exactly the person I expected to ask it. The honest answer is that I'm not handing anyone a dial that goes as high as mine. So I give him the other honest answer." },
-{ who: $player, text: "Because a weak one gets bought and a strong one gets sued. Picture some regional manager who finds the settings and cranks it all the way up before a budget meeting. Somebody walks out of there feeling strange, calls a lawyer, and we're finished. Gentle sells. Gentle is the one you can put in a brochure." },
-{ who: $darius, text: "...So the cap is a liability decision." },
-{ who: $player, text: "The cap is a sleeping-at-night decision." },
+{ who: $darius, text: "I went through the logs from that unit, and it runs at roughly a third of what you demonstrated on our first day. If what we're ultimately selling is the effect, I'm not sure I understand why we'd lead with the weaker version." },
+{ text: "It's a good question, and I was hoping nobody would ask it, though I'd have bet money on him being the one who did. The honest answer is that I'm not handing anyone a dial that goes as high as mine. So I go with the other honest answer, the one I practiced in the shower this morning." },
+{ who: $player, text: "Because the strong one gets us sued, honestly. Picture some regional manager who finds the settings and cranks it all the way up before a budget meeting. Somebody walks out of there feeling weird, calls a lawyer, and we're done. The gentle one is the one you can actually put in a brochure." },
+{ who: $darius, text: "So the cap is a question of liability rather than performance." },
+{ who: $player, text: "Liability, and me being able to sleep at night. Mostly the second one, if I'm honest." },
 { text: "He nods slowly and writes something down. I can't read it upside down, and I do try." },
 { who: $ethan, text: "I'm with the boss on this one. Nobody ever got fired for buying the safe, boring option. That's like half of IT right there." },
 ]>>
@@ -77,9 +77,9 @@ $mom.callName has been turning her coffee cup in slow quarter circles on the tab
 { who: $player, text: "That's where you come in." },
 { who: $mom, text: "Me?" },
 { who: $player, text: "You spent years in that tower being nice to people who didn't deserve it. You know half the managers in there by their first names, and $boss.callName has been walking our ad around the sixth floor for weeks." },
-{ who: $mom, text: "Well, I... I suppose I could make a few calls. I still have everyone's numbers. Linda from HR always said if I ever needed anything, anything at all..." },
+{ who: $mom, text: "Well, I suppose I could make a few calls, I still have everybody's numbers. And Linda from HR always said that if I ever needed anything, anything at all..." },
 { text: "She trails off and frowns at the cup." },
-{ who: $mom, text: "She probably didn't mean something like this. But she did say anything." },
+{ who: $mom, text: "She probably didn't mean something like this. But she did say anything, and Linda has always been a woman of her word." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -91,23 +91,23 @@ I go around the table. $brian.name gets the hardware, again. The unit we sent $b
 <<set _msgs = [
 { who: $brian, text: "So, uh. Fewer parts. Off-the-shelf where I can get away with it. And a, a housing that doesn't look like I made it in my garage." },
 { who: $player, text: "Did you make it in your garage?" },
-{ who: $brian, text: "...Partially." },
+{ who: $brian, text: "Ehh. Partially." },
 { who: $player, text: "$ethan.name, the software. Same firmware, but locked down. No hidden menus, no debug mode, no way for some bored IT guy to change anything I don't want changed. The client gets an app with a nice big on button and a few pretty graphs." },
 { who: $ethan, text: "So you want me to take out all the fun stuff. Got it. I'll make it so boring nobody even bothers trying to hack it." },
 { who: $player, text: "$darius.name, everything we collected at the diner and at $boss.callName's office goes into a product sheet. I want something a CFO reads and just quietly nods along to." },
-{ who: $darius, text: "Real numbers?" },
-{ who: $player, text: "Real numbers. Presented nicely." },
+{ who: $darius, text: "Real numbers, I take it?" },
+{ who: $player, text: "Real numbers. Just, you know, presented nicely." },
 { text: "He almost smiles. I'm not sure I like that better than a frown." },
 { who: $player, text: "$mom.callName, the client list. Everybody you know who runs an office, a team, a front desk, anything with stressed people in it." },
-{ who: $mom, text: "That's... a lot of people, sweetheart." },
-{ who: $player, text: "Then we're in the right business." },
-{ who: $sister, text: "And me? Please say marketing. I have a great eye for fonts." },
+{ who: $mom, text: "Sweetheart, that's going to be a lot of people. I still get a Christmas card every year from the man who used to fix our copier." },
+{ who: $player, text: "Good, then put the copier guy on the list too." },
+{ who: $sister, text: "And me? I'm hoping you're about to say marketing, because I'd be wasted on anything else." },
 { who: $player, text: "You get social media and the website." },
-{ who: $sister, text: "Yes! Okay, okay, then we need a name. $company.prototype.name Lite. $company.prototype.name Zen. Ooh, wait. $company.prototype.name Vibes." },
-{ who: $player, text: "It's $company.prototype.name. The official one." },
-{ who: $sister, text: "Ugh, you're so corporate. Fine. 'Official'. I'll make it sound sexy anyway." },
+{ who: $sister, text: "Good. Then it needs a better name than that. Something softer, like $company.prototype.name Zen, or... no, that sounds like a yoga studio. $company.prototype.name Calm?" },
+{ who: $player, text: "It's just going to be $company.prototype.name. The official one." },
+{ who: $sister, text: "God, you're boring. Fine, the official one. I'll make it sound sexy anyway." },
 { who: $brian, text: "Please don't make the hardware sound sexy." },
-{ who: $sister, text: "$brian.name. I'm going to make your circuit boards sound so sexy." },
+{ who: $sister, text: "Oh, $brian.name, I'm going to make your circuit boards sound so sexy." },
 { text: "$brian.name goes red all the way up to his ears and starts typing again, very fast, at nothing in particular." },
 ]>>
 <</silently>>
@@ -119,7 +119,7 @@ $sister.callName is the last one out. She stops in the doorway with one hand on 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Hey. You were kind of good at that. The whole boss thing." },
+{ who: $sister, text: "You know, you were actually kind of good at that, the whole boss thing." },
 { who: $player, text: "Kind of?" },
 { who: $sister, text: "Don't push it." },
 { text: "She taps the frame twice, like she's about to add something else. Then she's gone, and the door swings half shut behind her." },

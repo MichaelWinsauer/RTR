@@ -16,9 +16,9 @@ Tomorrow at ten, four people from $retailChain.name are coming up to our meeting
 Tomorrow at ten, four people from $retailChain.name are coming up to our meeting room. I waited two weeks for $investor.callName to make the call he could have made in an afternoon, and I've been checking my phone every hour since.
 <</if>>
 
-Four hundred stores. Eleven hundred conference rooms, give or take, according to $darius.name, who counted. If tomorrow goes well, we stop being a startup and become a supplier.
+That's four hundred stores and, according to $darius.name, who actually counted, about eleven hundred conference rooms. If tomorrow goes well, we stop being a startup and turn into a supplier.
 
-Everything has to work. Three Veil units on stands in the meeting room, a live readout on the big screen showing the room settle in real time, $darius.name's charts, a short video $sister.callName cut together from the gym installations. All of it has to be set up, tested, and tested again tonight, so that tomorrow nobody touches a single cable.
+Everything has to work: three Veil units on stands in the meeting room, a live readout on the big screen showing the room settle in real time, $darius.name's charts, and a short video $sister.callName cut together from the gym installations. All of it has to be set up and tested, and then tested again, tonight, so that tomorrow nobody has to touch a single cable.
 
 <<linkreplace "Find $ethan.name">>
 He's in the meeting room already, on his knees under the table, feeding a cable through a hole in the floor with his tongue between his teeth.
@@ -26,8 +26,8 @@ He's in the meeting room already, on his knees under the table, feeding a cable 
 <<silently>>
 <<set _msgs = [
 { who: $ethan, text: "If you're here to supervise, I accept tips in the form of pizza." },
-{ who: $player, text: "I'm here to ask you a favor." },
-{ who: $ethan, text: "Then I accept tips in the form of extra pizza." },
+{ who: $player, text: "Actually, I'm here to ask you a favor." },
+{ who: $ethan, text: "Favors are extra pizza. That's just the going rate." },
 { text: "He crawls out from under the table and sits back on his heels, dusting off his hands." },
 ]>>
 <</silently>>
@@ -35,26 +35,26 @@ He's in the meeting room already, on his knees under the table, feeding a cable 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "I need you to stay tonight and finish the setup. All of it. Units, readout, the screen, the network. Test everything twice. I need to be home and asleep, or I'll walk in there tomorrow looking like a raccoon." },
-{ who: $ethan, text: "You always look like a raccoon. It's part of your charm." },
-{ who: $player, text: "And you'll need this." },
+{ who: $player, text: "Could you stay tonight and finish the whole setup? The units, the readout, the screen, the network, and test everything twice. I really need to be home and asleep, or I'm going to walk in there tomorrow looking like a raccoon." },
+{ who: $ethan, text: "Man, you've looked like a raccoon since tenth grade. They'll think it's your brand." },
+{ who: $player, text: "Thanks. You're going to need this, too." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Give him master access">>
-I hand him a sticky note with a password on it, written in my own handwriting, because I don't want it in a message anywhere. It opens the password vault. The vault opens everything else: the servers, the device configs, the building's access system, the camera feeds, the admin panel for the units. Including the one in the ceiling.
+I hand him a sticky note with a password on it, written in my own handwriting, because I don't want it in a message anywhere. It opens the password vault, and the vault opens everything else: the servers, the device configs, the building's access system, the camera feeds and the admin panel for the units, including the one in the ceiling.
 
 He looks at the sticky note for a moment without taking it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Master access." },
-{ who: $player, text: "For tonight. If something breaks at three in the morning, I don't want you waiting on me to unlock it." },
-{ who: $ethan, text: "The keys to the kingdom." },
-{ who: $player, text: "The keys to a meeting room and four hundred stores." },
-{ text: "He takes it. He folds it once and puts it in his shirt pocket, behind his pen, and taps the pocket." },
-{ who: $ethan, text: "I'll take good care of it, boss. Go home. Sleep. Dream about four hundred stores." },
+{ who: $ethan, text: "Is this what I think it is? Master access?" },
+{ who: $player, text: "Just for tonight. If something breaks at three in the morning, I don't want you sitting there waiting for me to wake up and unlock it." },
+{ who: $ethan, text: "Wow. The keys to the kingdom." },
+{ who: $player, text: "The keys to a meeting room, and hopefully four hundred stores. Don't make it weird." },
+{ text: "He takes it, folds it once and puts it in his shirt pocket behind his pen, and taps the pocket." },
+{ who: $ethan, text: "I'll take good care of it, boss. Now go home and get some sleep, and dream about four hundred stores or whatever it is you dream about." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -74,7 +74,7 @@ I don't sleep.
 
 At half past one I'm lying in the dark with my phone on my chest, and the camera app is open. One tap, and I'd see the meeting room, or the main office, or the server corner. I'd see exactly what he's doing with the keys to everything I own.
 
-There's no reason to. He's setting up a demo. He's done a hundred setups. He has never once given me a reason.
+There's no reason to. He's setting up a demo, which he's done a hundred times, and apart from one Saturday I've decided not to think about, he's never given me a reason.
 
 My thumb is over the button anyway.
 
@@ -85,7 +85,7 @@ My thumb is over the button anyway.
 <<link "Leave the footage alone">><<replace "#rp-choice">>
 I lock the phone and put it face down on the nightstand.
 
-He's my friend. He's been my friend since junior year, when we spent half our nights in the physics lab with a bike helmet full of wires. He's the guy who told me not to tell him what the dial does. If I start watching him through the ceiling the night before the most important day of the company's life, I don't really have a friend. I just have one more person I keep an eye on.
+He's my friend. He's been my friend since junior year, when we spent half our nights in the physics lab with a bike helmet full of wires. He's the guy who told me not to tell him what the dial does. If I start watching him through the ceiling the night before the most important day of the company's life, then I don't really have a friend anymore, just one more person I keep an eye on.
 
 So I don't. I lie there and listen to the house, and at some point I fall asleep.
 
@@ -101,7 +101,7 @@ I tap it.
 
 The meeting room, from the corner camera, grainy and green. The three units are on their stands. The screen is on, showing the readout: a calm blue line across the bottom. $ethan.name is sitting at the head of the table with his laptop and a cold slice of pizza, typing, with his headphones on. As I watch, he gets up, walks to the middle unit, adjusts its angle by a centimeter, walks back, checks the readout and nods to himself.
 
-I switch to the main office. Empty. The server corner. Empty, the lights blinking the way they always blink.
+I switch to the main office, which is empty, and then to the server corner, empty too, the lights blinking the way they always blink.
 
 Back to the meeting room. He's on the floor under the table again, taping down a cable so nobody trips on it tomorrow. He tapes it twice.
 

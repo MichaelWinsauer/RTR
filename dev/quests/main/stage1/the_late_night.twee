@@ -12,7 +12,7 @@
 <</silent>>
 $ethan.name went to get the pizza, which means I have about twenty minutes, because the place on the corner is slow and he'll stand at the counter and make friends with whoever is working.
 
-The office is empty. Half the lights are off. In the middle of the main room, on the cart $brian.name borrowed from the building's janitor and never gave back, sits the $company.devices.valenxVeil.name: a matte gray disk about the size of a dinner plate, ringed with eight small emitters, cables running from it to two laptops on the nearest desk. It looks like a smoke detector that went to college.
+The office is empty and half the lights are off. In the middle of the main room, on the cart $brian.name borrowed from the building's janitor and never gave back, sits the $company.devices.valenxVeil.name: a matte gray disk about the size of a dinner plate, ringed with eight small emitters, cables running from it to two laptops on the nearest desk. It looks like a smoke detector that went to college.
 
 Above it, in the ceiling, the vent hums the way it has hummed every working day since we moved in.
 
@@ -30,11 +30,11 @@ He kicks the door open with one foot, two boxes balanced on one hand and a bag o
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "One pepperoni, one with the weird stuff. Artichoke, I think. Maybe a mushroom. The guy said it was his favorite and I didn't have the heart to say no." },
+{ who: $ethan, text: "One pepperoni and one with the weird stuff, artichoke I think, and maybe some mushroom. The guy said it was his favorite and I didn't have the heart to say no." },
 { who: $player, text: "So you bought a pizza because the pizza guy was sad." },
 { who: $ethan, text: "He wasn't sad, he was passionate. There's a difference. Also, he gave me the knots for free." },
 { text: "He grabs a slice of the weird one, folds it in half and eats a third of it in one bite while sitting down in front of the left laptop." },
-{ who: $ethan, text: "Okay. Field strength. Let's make your baby sing, boss." },
+{ who: $ethan, text: "Okay, field strength. Let's make your baby sing." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -42,13 +42,13 @@ He kicks the door open with one foot, two boxes balanced on one hand and a bag o
 <<linkreplace "Get to work">>
 It takes three hours.
 
-The idea is simple: find the setting where the whole room gets the effect evenly, without a hot spot under the disk and without anything leaking out into the hallway. The work is not simple. $ethan.name sends the emitters a pattern, I walk the room with the meter $brian.name built, calling out numbers from every corner, and $ethan.name adjusts and swears and sends it again. Forty times. Fifty.
+The idea is simple: find the setting where the whole room gets the effect evenly, without a hot spot under the disk and without anything leaking out into the hallway. The work is not simple. $ethan.name sends the emitters a pattern, I walk the room with the meter $brian.name built, calling out numbers from every corner, and $ethan.name adjusts and swears and sends it again, forty times, then fifty.
 
 Somewhere around the twentieth round I make a joke about the meter, about how $brian.name probably named it, and $ethan.name laughs so hard he has to put his slice down.
 
-He laughs at the next one too. Not every one. He groans at a pun and throws a garlic knot at my head for another. But the good ones land, and the bad ones get exactly the eye roll they deserve, and the vent overhead is just a vent.
+He laughs at the next one too, though not at every one. He groans at a pun and throws a garlic knot at my head for another. But the good ones land, and the bad ones get exactly the eye roll they deserve, and the vent overhead is just a vent.
 
-I don't say anything about it. Neither does he. He doesn't know there's anything to say.
+I don't say anything about it, and neither does he, since as far as he knows there's nothing to say.
 
 <<linkreplace "Take a break">>
 Around ten we stop and sit on two desks with the second pizza between us. The disk is humming on its cart at the setting we've got so far, which is close. $ethan.name has his feet on a chair and a can of soda balanced on his stomach.
@@ -61,7 +61,7 @@ Around ten we stop and sit on two desks with the second pizza between us. The di
 { who: $player, text: "That was a compliment. You know that was a compliment." },
 { who: $ethan, text: "From you? That was basically a medal. And the thing worked, man. The next day I sat in that gym with the helmet on for three hours, listening to a few hundred people breathing, and I thought, okay, this guy is going somewhere, and I want to be in the car when he does." },
 { who: $ethan, text: "And then we graduated and I didn't hear from you for a whole year. Which, for the record, was rude." },
-{ who: $player, text: "I was busy going broke. It's a full-time job." },
+{ who: $player, text: "I was busy going broke. It honestly takes up more of your time than you'd think." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -70,9 +70,9 @@ He grins and tips his can at the disk.
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "And now look. We built a thing that doesn't just listen. It talks back. Softly." },
-{ who: $player, text: "Softly." },
-{ who: $ethan, text: "That's the part I like. Seriously. You could have made this thing a hammer. You made it a blanket." },
+{ who: $ethan, text: "And now look at it. We built a thing that doesn't just listen anymore, it talks back. Softly, but it talks back." },
+{ who: $player, text: "Softly, yeah." },
+{ who: $ethan, text: "That's honestly the part I like about it. You could have built something way nastier with what you've got, and instead you made the whole room feel like a warm blanket." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -83,22 +83,22 @@ I take another slice so I don't have to answer that.
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "What happened at your last place? You never really said." },
-{ text: "He's quiet for a moment. Then he puts the can down on the desk, very carefully, like it might spill something other than soda." },
-{ who: $ethan, text: "Ah. The startup. So, right after graduation, three guys from the business school had an app idea and no clue how to build it, and they found me. I wrote most of it. Like, the core of it, the part that actually worked. They did the slides. They were very good at slides." },
+{ text: "He's quiet for a moment. Then he sets the can down on the desk and looks at it instead of at me." },
+{ who: $ethan, text: "Ah, the startup. So, right after graduation, three guys from the business school had an app idea and no clue how to build it, and they found me. I wrote most of it. Like, the core of it, the part that actually worked. They did the slides. They were very good at slides." },
 { who: $ethan, text: "There was supposed to be equity. Everybody said so, at every dinner, every late night. 'When we close the round, we'll do the paperwork.' And then they closed the round, and there was a lawyer, and there was paperwork, and my name wasn't on it." },
-{ who: $ethan, text: "They offered me a raise. A nice one. And I said thanks, and I cleaned out my desk, and I told myself, never again. Never again do I build somebody else's thing for a handshake." },
+{ who: $ethan, text: "They offered me a raise instead, a pretty nice one, actually. And I said thanks, cleaned out my desk and promised myself I'd never build somebody else's thing for a handshake again." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He says it lightly, the way he says everything. His hands don't say it lightly. One of them is turning the can in slow circles on the desk.
+He says it lightly, the way he says everything, but one of his hands has picked the can back up and is turning it in slow circles on the desk the whole time.
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Anyway. Then my old lab partner called me out of nowhere and asked if I wanted to build a thing that talks back. Softly. And I said yes before he got to the salary." },
-{ who: $player, text: "You'll get your piece. When this is real, you get your piece. I mean it." },
+{ who: $ethan, text: "Anyway, then my old lab partner called me out of nowhere and asked if I wanted to build a thing that talks back, softly, and I said yes before he even got to the salary." },
+{ who: $player, text: "You'll get your piece, okay? Once this is real, once there's actually something to split, you get your piece. I mean that." },
 { who: $ethan, text: "I know, boss." },
-{ text: "He picks the can back up and clinks it against my slice of pizza." },
+{ text: "He clinks the can against my slice of pizza." },
 { who: $ethan, text: "That's why I'm here." },
 ]>>
 <</silently>>
@@ -110,7 +110,7 @@ We get it right at twenty past eleven. Every corner of the room reads the same o
 <<silently>>
 <<set _msgs = [
 { who: $ethan, text: "That's a wrap. I'm going home to sleep for a hundred years. You want me to leave the knots?" },
-{ who: $player, text: "Leave the knots." },
+{ who: $player, text: "Obviously leave the knots." },
 { who: $ethan, text: "Good man. Don't stay too late. And don't switch it on and sit in it all night, I know you." },
 { text: "He points at me from the door like a disappointed coach, and then he's gone, and I hear him whistling in the stairwell all the way down." },
 ]>>
@@ -128,7 +128,7 @@ It comes over me slowly, like a warm hand on the back of the neck. My shoulders 
 
 That's at a gentle setting, in an empty room, on me, and I know exactly what it is.
 
-I picture the lecture hall. Two hundred students, all of them sitting under this. I picture a conference room full of people trying to make a decision. I picture a whole floor of an office tower.
+I picture the lecture hall with two hundred students sitting under this, and then a conference room full of people trying to make a decision, and then, because I can't help myself, a whole floor of an office tower.
 
 I sit in the dark for a long time and let it work on me. At some point I notice I'm smiling, and that it isn't the device doing it.
 

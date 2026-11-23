@@ -23,11 +23,11 @@ I catch her in the hallway between two sessions. She's leaning against a locker,
 <<set _msgs = [
 { who: $sister, text: "I have exactly two minutes, and I'm spending them on this granola bar, sorry." },
 { who: $player, text: "Busy day?" },
-{ who: $sister, text: "$prof.callName keeps sending me students. Every student he can't stand. Which is all of them, so I have a lot of students." },
+{ who: $sister, text: "$prof.callName keeps sending me every student he can't stand, and since he can't stand any of them, I have a lot of students." },
 { who: $player, text: "He must trust you." },
 { who: $sister, text: "He trusts me to keep them out of his office hours. It's not the same thing." },
 { text: "A door opens down the hall, and a nervous-looking guy with a backpack peeks out and waves at her. She sighs, crumples the wrapper and throws it at the trash can. It goes in." },
-{ who: $sister, text: "Did you see that? Nobody ever sees that. Okay. Bye." },
+{ who: $sister, text: "Did you see that? Nobody is ever around when I make one of those. Bye!" },
 ]>>
 <</silently>>
 <<Chat _msgs>>

@@ -1,20 +1,21 @@
 :: Sister Office Brian [micro_event event nobr] {"position":"2675,2900","size":"100,100"}
 /* Inline micro event in the Stage 1 main room (micro event 29, "Her rounds" in Define Events): she keeps $brian
-   company while he solders. He never looks at her, and he talks more than he has all week. */
+   company while he solders. He never looks at her and barely gets a sentence out, but he doesn't send her away. */
 <<Media "images/characters/sister/events/office/brian.mp4" 400>>
 <p>$brian.name's corner of the office is a nest of cables, anti-static bags and a mug of hot chocolate that has gone cold without anybody touching it. $sister.callName has pulled a chair up next to his, chin in her hand, and she's watching him work like it's a cooking show.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $sister, text: "Okay, and what does that one do?" },
-	{ who: $brian, text: "It's a, uh. Voltage regulator. It regulates. Voltage." },
-	{ who: $sister, text: "Wow. Does exactly what it says on the box." },
-	{ who: $brian, text: "Most things do. If you, uh, name them properly." },
-	{ text: "He hasn't looked at her once. He's explaining the board to the board. But his ears have gone bright red, and he's said more in the last five minutes than in the whole meeting this morning." },
+	{ who: $sister, text: "And what does that one do?" },
+	{ who: $brian, text: "Voltage regulator." },
+	{ text: "He says it to the board. She waits, and after a while he adds, just as quietly, that it keeps the voltage steady." },
+	{ who: $sister, text: "Okay, that one I probably could have guessed from the name." },
+	{ who: $brian, text: "Hm. Yeah. Most of them are like that." },
+	{ text: "He hasn't looked at her once. His ears have gone bright red, and every so often he opens his mouth as if a second sentence is on its way, then closes it again and goes back to the solder." },
 	{ who: $sister, text: "Can I try? The little iron thing?" },
-	{ who: $brian, text: "No. Uh. I mean, no, it's three hundred and fifty degrees. Sorry. No. You can hold the, uh, the tweezers." },
+	{ who: $brian, text: "Um. No, it's... ehh, it's really hot. Sorry. You can hold the tweezers." },
 	{ text: "She holds the tweezers with enormous seriousness, as if he'd handed her a scalpel." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
-<p>She stays for another twenty minutes. When she finally gets up, $brian.name says 'bye' to the voltage regulator. After she's gone, he pushes his glasses up, looks at the empty chair for a moment and turns it a little, so it faces his desk again.</p>
+<p>She stays for another twenty minutes and does most of the talking. When she finally gets up, $brian.name says 'bye' to the voltage regulator. After she's gone, he pushes his glasses up, looks at the empty chair for a moment and turns it a little, so it faces his desk again.</p>
 <<UpdateStat "+" "Morale" 1>>

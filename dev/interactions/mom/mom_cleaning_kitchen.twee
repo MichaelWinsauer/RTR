@@ -17,12 +17,12 @@ $mom.callName is at the sink with her sleeves pushed up past the elbows and yell
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Don't. Don't say it's soaking." },
-{ who: $player, text: "It was soaking." },
+{ who: $mom, text: "Don't you dare tell me it was soaking." },
+{ who: $player, text: "But it was soaking! Soaking is a real step, it's in all the instructions." },
 { who: $mom, text: "It was soaking on Tuesday, sweetheart. Since Wednesday it has been growing a personality." },
 { text: "She hands me a dish towel without looking, the way a surgeon holds out a hand for the scalpel. I take it. Apparently that's how this works now." },
-{ who: $player, text: "I could just buy a new pot." },
-{ who: $mom, text: "You could also just wash the one you have. Plates go in the left cupboard. Left, honey." },
+{ who: $player, text: "I could just buy a new pot, you know." },
+{ who: $mom, text: "You could also just wash the one you have. Plates go in the left cupboard, honey. The left one." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -37,13 +37,13 @@ The fridge is wide open, and half of what was inside it is now lined up on the c
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Perfect, a witness. Can you tell me why there's an empty pizza box in here? Someone put an empty box back in the fridge." },
-{ who: $player, text: "That's a $sister.callName thing." },
-{ who: $mom, text: "I know it's a $sister.callName thing. I'm asking you to confirm it, so I can be angry with confidence." },
-{ text: "She sniffs a jar, makes a face and puts it in the trash pile. Then she holds up a container with a strip of tape on the lid that says THURSDAY in her handwriting. It's empty, apart from one grain of rice." },
+{ who: $mom, text: "Perfect, a witness. Can you tell me why there's an empty pizza box in here? Somebody put an empty box back in the fridge." },
+{ who: $player, text: "That's definitely a $sister.callName thing." },
+{ who: $mom, text: "I know it's a $sister.callName thing, sweetie, I just want you to confirm it so I can be angry with confidence." },
+{ text: "She sniffs a jar, makes a face and puts it on the trash pile. Then she holds up a container with a strip of tape on the lid that says THURSDAY in her handwriting. It's empty, apart from one grain of rice." },
 { who: $mom, text: "And this one? This was my Thursday lunch." },
-{ who: $player, text: "It's not Thursday." },
-{ who: $mom, text: "That's exactly my point, sweetie!" },
+{ who: $player, text: "Well, it's not Thursday." },
+{ who: $mom, text: "That's exactly my point, honey!" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -56,13 +56,13 @@ The kitchen is spotless. It was spotless yesterday, too. $mom.callName is wiping
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "I think that one's clean." },
-{ who: $mom, text: "Hm? Oh. Yes. I'm just..." },
-{ text: "She frowns at the cloth, surprised to find it still in her hand." },
-{ who: $mom, text: "I don't know what to do with my hands, honey. I answered your three mails by nine. I filed them. I made a folder for the folder. And then it was ten o'clock, and the whole day was still sitting there." },
-{ who: $player, text: "It'll pick up. There'll be more clients." },
-{ who: $mom, text: "For years I had too much to do. Now I have a company with one client and a dish towel." },
-{ who: $player, text: "Two clients, soon. And the dish towel is doing great." },
+{ who: $player, text: "I'm pretty sure that one's clean." },
+{ who: $mom, text: "Hm? Oh. Yes, I'm just..." },
+{ text: "She frowns at the cloth, as if she's surprised to find it still in her hand." },
+{ who: $mom, text: "I don't know what to do with my hands, honey. I answered your three mails by nine and filed them, and I made a folder for the folder, and then it was ten o'clock and the whole day was still just sitting there." },
+{ who: $player, text: "It'll pick up, I promise. There'll be more clients soon." },
+{ who: $mom, text: "For years I had too much to do, and now I have a company with one client and a dish towel." },
+{ who: $player, text: "Two clients soon. And the dish towel's doing great, look at it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -71,13 +71,13 @@ That gets half a smile out of her. She folds the cloth into a neat square and la
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I just don't want to be a burden. On you two. That's all." },
-{ who: $player, text: "You're not. You couldn't be." },
+{ who: $mom, text: "I just don't want to be a burden on you two, that's all." },
+{ who: $player, text: "Hey, you're not a burden. You couldn't be one if you tried." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I take the cloth off the sink and put it back in the drawer, so she'll have to go looking for it next time. She lets me. Then she asks if I'm hungry, because she can make me something, and it's the first time all morning she sounds like herself.
+I take the cloth off the sink and put it back in the drawer, so she'll have to go looking for it next time. She lets me. Then she asks if I'm hungry, because she could make me something, and it's the first time all morning she sounds like herself.
 
 /* ——— 4: After the office (Stage 1) ——— */
 <<case 4>>
@@ -85,18 +85,18 @@ She's wiping down the counters in her office clothes, shoes kicked off by the do
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "There's my CEO. Did you eat? There's pasta in the blue container." },
-{ who: $player, text: "I ate. Long day?" },
-{ who: $mom, text: "Long, but a good long. Is that a thing? It feels like a thing." },
+{ who: $mom, text: "There's my CEO! Did you eat? There's pasta in the blue container." },
+{ who: $player, text: "I ate, thanks. Long day?" },
+{ who: $mom, text: "Long, but a good long, if that's a thing. It feels like it should be a thing." },
 { text: "She rinses the cloth and wrings it out with both hands, hard, the way she does with everything that needs doing properly." },
-{ who: $mom, text: "You know what I noticed today? Nobody yelled. Not once. Somebody made a mistake on an invoice, and we just... fixed it. And then we went on with our day." },
-{ who: $player, text: "That's how it's supposed to work." },
-{ who: $mom, text: "I know that, honey. I know that's how it's supposed to work. I'd just forgotten." },
+{ who: $mom, text: "You know what I noticed today? Nobody yelled, not once, all day. Somebody made a mistake on an invoice and we just fixed it and went on with our day, like normal people." },
+{ who: $player, text: "That's kind of how it's supposed to work." },
+{ who: $mom, text: "I know that, honey, I know that's how it's supposed to work. I'd just forgotten." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She picks up the tea, finally, makes a face at how strong it's gotten and drinks it anyway. Then she leans against the counter next to me, close enough that our shoulders touch, and tells me about every single person at the office, one by one. What they ate for lunch, who's tired, who's lonely. She doesn't know that's exactly what I want to hear. She just likes telling me.
+She picks up the tea, finally, makes a face at how strong it's gotten and drinks it anyway. Then she leans against the counter next to me, close enough that our shoulders touch, and tells me about every single person at the office: what they ate for lunch, who looked tired, who she thinks might be lonely. It's exactly what I want to know, but that isn't why she tells me. She just likes telling me.
 
 <</switch>>
 

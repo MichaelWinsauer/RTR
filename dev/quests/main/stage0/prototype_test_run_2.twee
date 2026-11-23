@@ -11,66 +11,67 @@ The door clicks shut behind us. The prototype is already on my dresser, humming 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Sorry for dragging you away from the stove. It's just quieter up here." },
-{ who: $mom, text: "What's that humming? Is your computer dying again?" },
-{ who: $player, text: "That's mine. A white noise thing I put together. It helps me think when my head gets too loud. Mind if I leave it running?" },
+{ who: $mom, text: "Oh, that's all right, the onions can survive five minutes without me. What's that humming, though? Please don't tell me your computer is dying again, honey, I don't think the budget can take another one this year." },
+{ who: $player, text: "No, that one's mine. It's a white noise thing I put together, it helps me think when my head gets too loud. Do you mind if I leave it on?" },
 { who: $mom, text: "If it helps you, leave it on." },
-{ text: "She looks around the room, at the boxes I still haven't unpacked and the bed I actually made this morning." },
-{ who: $mom, text: "You made your bed. Look at you." },
-{ who: $player, text: "Don't get used to it. Sit down for a second? I just want to check on you." },
-{ who: $mom, text: "Okay... now you're making me nervous, sweetheart." },
-{ who: $player, text: "I've been worried about you. You've had a lot on your plate lately." },
-{ who: $mom, text: "I'm fine. Tired, but fine." },
-{ who: $player, text: "You always say that. But I hear your alarm at five, the dishes at eleven, the work calls on Sundays... and your voice gets really small every time you say 'fine'." },
-{ who: $mom, text: "It's been... a lot. I don't love admitting that to you." },
-{ who: $player, text: "You're allowed to admit it to me. Can I ask you a couple of things?" },
-{ who: $mom, text: "As long as it's quick. The onions are judging me from downstairs." },
+{ text: "She looks around the room, at the boxes I still haven't unpacked, and then at the bed, which I actually made this morning." },
+{ who: $mom, text: "You made your bed. Look at that, I should take a picture and send it to your $sister.relation." },
+{ who: $player, text: "Please don't, she'll start expecting it. Can you sit down for a second? I just want to check on you." },
+{ who: $mom, text: "Now you're making me nervous, sweetheart. Is this the kind of talk where somebody tells me what happened to the car?" },
+{ who: $player, text: "Nothing happened to the car. I've just been worried about you. You've had a lot going on lately." },
+{ who: $mom, text: "Oh, I'm fine, honey. A little tired, but that's just how things are right now." },
+{ who: $player, text: "You always say that. I hear your alarm at five, and the dishes at eleven, and you on the phone with work on a Sunday, and every time somebody asks, you say you're fine in this really small voice." },
+{ text: "She opens her mouth, probably to tell me she's fine again, and closes it." },
+{ who: $mom, text: "It has been a lot. I don't love admitting that to you, you know, you've got more than enough going on without me adding my things to the pile." },
+{ who: $player, text: "You can admit it to me. Can I ask you a couple of things?" },
+{ who: $mom, text: "As long as it's quick. Those onions are going to hold a grudge if I leave them sitting in the pan much longer." },
 { who: $player, text: "How are you sleeping? Honestly." },
-{ who: $mom, text: "Badly. I fall asleep on the couch and wake up with a stiff neck. Then coffee fixes it... until it doesn't." },
-{ who: $player, text: "When do you actually relax? Even a little. Some place or time that's only yours." },
-{ who: $mom, text: "The shower, I suppose. Or in bed, right before I fall asleep. That's the only time nobody needs anything from me. No boss, no chores, nobody asking where the car keys are." },
-{ who: $player, text: "Then let's start there. Give yourself half an hour in bed that's only for you, with your phone in the other room and nobody knocking." },
-{ who: $mom, text: "That sounds lovely, but I honestly don't remember how to relax anymore." },
-{ who: $player, text: "Can I be blunt? You haven't been with $dad.callName in ages, and you never do anything just for yourself. You need a little fun, $mom.callName. The kind you have on your own." },
-{ who: $mom, text: "$player.name! You can't say things like that to me!" },
+{ who: $mom, text: "Honestly? Badly. I fall asleep on the couch in front of some baking show and wake up at two with a crick in my neck, and then the coffee gets me through the morning, more or less, until it doesn't." },
+{ who: $player, text: "And when do you actually get to relax? Even for a little while. Some time that's only yours." },
+{ who: $mom, text: "In the shower, I suppose. Or in bed right before I fall asleep, that's about the only time nobody needs anything from me. No boss, no laundry, nobody shouting through the house asking where the car keys are." },
+{ who: $player, text: "Then let's start there. Half an hour in bed that's just for you, with your phone in another room and nobody knocking." },
+{ who: $mom, text: "That sounds lovely, sweetie, it really does, but I think I've forgotten how to relax. I'd probably lie there making a grocery list." },
+{ who: $player, text: "Can I say something kind of blunt? You and $dad.callName haven't been together in ages, and you never do anything just for yourself. You need a little fun, $mom.callName. The kind you have on your own." },
+{ who: $mom, text: "$player.name! You can't just say something like that to your $mom.relation!" },
 { who: $player, text: "Why not? It's true. You're running on fumes." },
-{ who: $mom, text: "...You're not wrong. But when would I even find the time?" },
-{ text: "I don't answer that. I let it sit in the room with us and wait to see what she does with it." },
+{ text: "She gives me the look I used to get for tracking mud through the hallway, but it doesn't hold. After a moment she looks down at her hands instead." },
+{ who: $mom, text: "Well, you're not wrong, I'll give you that. But when would I even find the time for something like..." },
+{ text: "She doesn't finish. I don't help her. I just let it sit there between us and wait to see what she does with it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Nudge the dial">>
-I reach over and nudge the dial a fraction. <<DevicePulse "+1">>The hum smooths out. When I lower my voice, she lowers hers too without noticing. Her hands settle in her lap. Somewhere in the wall a pipe knocks, and in here there's nothing but the device and the two of us breathing. She rubs the heel of her hand over her shoulder and lets out a long, slow sigh, the kind people make when they finally sit down after a double shift.
+I reach over and nudge the dial a fraction. <<DevicePulse "+1">>The hum smooths out. When I lower my voice, she lowers hers too without noticing, and her hands settle in her lap. Somewhere in the wall a pipe knocks. She rubs the heel of her hand over her shoulder and lets out a long, slow sigh, the kind people make when they finally sit down after a double shift.
 
 <<Video "images/characters/player/prototype/on.mp4" "" "" 500>>
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "If half an hour sounds like too much, start smaller. Five minutes, even. I just want you to have something that's yours." },
-{ who: $mom, text: "That's sweet of you. I just... I hate promising things I won't keep. Maybe another day." },
-{ who: $player, text: "No pressure. Humor me, though. Tell me in your own words what you'd do, so I know I'm not explaining it badly." },
-{ text: "She tilts her head and thinks about it, her cheeks going a little pink." },
-{ who: $mom, text: "Before bed, or in the shower, I might... take care of some stress. Like I used to when I was younger. No phone, no chores. That's the idea?" },
-{ who: $player, text: "Not 'might'. You will." },
-{ who: $mom, text: "Okay, okay! I will. Soon." },
-{ who: $player, text: "Good. That's all I wanted to hear." },
+{ who: $player, text: "If half an hour sounds like too much, start smaller. Even five minutes. I just want you to have something that's yours." },
+{ who: $mom, text: "That's very sweet of you, honey. I just hate promising things I won't keep, and you know me, something always comes up. Maybe another day." },
+{ who: $player, text: "No pressure. Humor me, though. What would that even look like for you? I want to make sure I'm not explaining this badly." },
+{ text: "She tilts her head and thinks about it, and her cheeks go a little pink." },
+{ who: $mom, text: "Well, I suppose before bed, or in the shower, I'd... take care of some of that stress. The way I used to when I was younger and had a bit more time on my hands. Oh, God, I did not mean that the way it sounded." },
+{ who: $player, text: "That's exactly the idea, though. And I'd really like it to be more than a maybe." },
+{ who: $mom, text: "All right, all right, I'll think about it. I will, honestly." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Turn the second dial">>
-I turn the second dial. <<DevicePulse "+1">>The pitch drops a hair, wavers, then holds. The lamp's reflection trembles in the dark window, and her shoulders sink another fraction. Her eyes drift to the little box on my dresser and settle on it, the way you look toward a noise you can't quite place. I probably shouldn't have put it right in her line of sight.
+I turn the second dial. <<DevicePulse "+1">>The pitch drops a hair, wavers, then holds. The lamp's reflection trembles in the dark window, and her shoulders sink a little further. Her eyes drift to the little box on my dresser and settle on it, the way you look toward a noise you can't quite place. I probably shouldn't have put it right in her line of sight.
 
 <<Video "images/characters/mom/events/bedroom/prototype_testrun.mp4" "" "" 500>>
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "That thing of yours really is relaxing." },
+{ who: $mom, text: "You know, that thing of yours really is relaxing. I might have to borrow it for the office one of these days." },
 { who: $player, text: "Right? I built it myself. It still needs a ton of fine-tuning, but I'm kind of proud of it." },
-{ who: $player, text: "So how about trying it once, _night? Just to see if it helps." },
+{ who: $mom, text: "You should be, honey." },
+{ who: $player, text: "So will you try it _night? Just once, to see if it helps." },
 { text: "She laughs, short and surprised, and covers her mouth with her fingers." },
-{ who: $mom, text: "Why on earth am I discussing this with my own $mom.playerRelation? ...Oh, fine. Once can't hurt." },
-{ who: $mom, text: "Later, in bed. Half an hour." },
+{ who: $mom, text: "I can't believe I'm sitting here talking about this with my own $mom.playerRelation, of all people. Oh, fine. Once can't hurt, can it? Later, in bed, half an hour, and then I'm going straight to sleep, because I have work in the morning." },
 { who: $player, text: "Thank you. Really." },
 { who: $mom, text: "You're welcome, honey. I think." },
 ]>>
@@ -81,15 +82,14 @@ $mom.callName starts to get up, then sinks back onto the edge of the bed and sta
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "And if you need a chore off your plate to make the time, I'll take one. No questions asked." },
-{ who: $mom, text: "That's sweet. But you shouldn't have to take care of me." },
-{ who: $player, text: "We take care of each other. So _night, you keep your promise." },
-{ who: $mom, text: "You push so hard when you care about something. It's endearing. And a little bossy." },
-{ who: $player, text: "Bossy works. Say it once more so it sticks, and properly this time: 'I'll masturbate in bed _night to relieve some stress.'" },
-{ who: $mom, text: "Oh my god, $player.name... Fine. I'll masturbate in bed _night to relieve some stress. Happy now?" },
-{ who: $player, text: "Very." },
-{ who: $mom, text: "Good. Then I'm going to go rescue my onions, boss." },
-{ who: $player, text: "Dismissed." }
+{ who: $player, text: "And if you need a chore off your plate to make the time, I'll take one. Whichever one you want." },
+{ who: $mom, text: "That's sweet, but you shouldn't have to take care of me, sweetie. It's supposed to be the other way around." },
+{ who: $player, text: "We take care of each other. So _night you keep your promise, okay?" },
+{ who: $mom, text: "You get so pushy when you care about something, you know that? You've been like that since you were little, and it's very sweet, mostly, and a tiny bit bossy." },
+{ who: $player, text: "I can live with bossy. Promise me, though. I want to know you're actually going to do it and not just saying yes so I'll let you go." },
+{ who: $mom, text: "Oh, for heaven's sake. Yes, I promise. I'll go up early _night and I'll... you know. Take some time for myself. And if you ever bring this up at the dinner table, I'm going to deny this whole conversation ever happened." },
+{ who: $player, text: "Deal. Not a word at dinner." },
+{ who: $mom, text: "Good. Then I'm going to go rescue my poor onions before they burn the house down." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -98,12 +98,12 @@ She smooths her blouse as she stands and opens the door. In the brighter hallway
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Goodness... what got into me?" },
+{ who: $mom, text: "Goodness, what has gotten into me today?" },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She gives herself a little shake and heads back down to the kitchen. A moment later the burner clicks on again, and the spoon goes at those poor onions like they owe her money.
+She gives herself a little shake and heads back down to the kitchen. A moment later the burner clicks on again, and I can hear the spoon going at those poor onions a lot harder than they deserve.
 
 <<UpdateStat "+" "MomCorruption" 1>>
 <<UpdateStat "+" "MomLust" 25>>
@@ -115,5 +115,3 @@ She gives herself a little shake and heads back down to the kitchen. A moment la
 <</linkreplace>>
 
 <</linkreplace>>
-
-

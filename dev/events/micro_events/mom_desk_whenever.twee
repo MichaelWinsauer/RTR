@@ -5,10 +5,10 @@
 <p>She doesn't come all the way to my desk. She stops a few feet away, with the folder held against her chest like a shield she doesn't need anymore, and lowers her voice to the one she uses for client calls.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $mom, text: "I booked the meeting room. For ten minutes. It's in the calendar as 'quarterly review'." },
+	{ who: $mom, text: "I booked the meeting room for ten minutes, sweetie. It's in the calendar as 'quarterly review'." },
 	{ who: $player, text: "Is it quarterly?" },
 	{ who: $mom, text: "It is today." },
-	{ text: "She glances over her shoulder at the office. $ethan.name has his headphones on. $darius.name is on a call. Then she looks back at me, and waits, because she still always waits for me to say yes." },
+	{ text: "She glances over her shoulder at the office, where $ethan.name is lost somewhere inside his headphones and $darius.name is pacing by the window with his phone. Then she looks back at me, and waits, because she still always waits for me to say yes." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -24,8 +24,8 @@
 	<div><<link "Not now">><<replace "#mom-blinds-choice">>
 		<<silently>>
 		<<set _msgs to [
-			{ who: $player, text: "Not now. Later." },
-			{ who: $mom, text: "Later. Of course, sweetie. I'll keep the calendar open." },
+			{ who: $player, text: "Not right now. Later, okay?" },
+			{ who: $mom, text: "Of course, sweetie, later is fine. I'll keep the calendar open for you." },
 		]>>
 		<</silently>>
 		<<Chat _msgs>>

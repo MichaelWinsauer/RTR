@@ -22,7 +22,7 @@ These days I don't have to make sure the meeting room stays empty. By the time t
 
 <<if setup.questDone("mom_controlSession")>><<= either(
 "Since the night in my room, she knocks on the meeting room door before she comes in, even though it's her own sign hanging on it.",
-"Since the night in my room, she doesn't fold the blouse quite as carefully when it comes off. She still folds it. Just faster.",
+"Since the night in my room, she doesn't fold the blouse quite as carefully when it comes off. She still folds it, just faster.",
 "Since the night in my room, she sometimes gives me the first number before I've even switched the box on, and doesn't notice."
 )>><</if>>
 
@@ -31,7 +31,7 @@ I say the words and the light comes on, and she's halfway gone before I've touch
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Mask." },
+{ who: $player, text: "You can put the mask on now." },
 { text: "She puts it on. The blouse comes off around question nine, the way it does now, folded and laid on the chair beside her, and her arms go straight back to the table afterward without a word from me." },
 ]>>
 <</silently>>
@@ -41,8 +41,8 @@ I say the words and the light comes on, and she's halfway gone before I've touch
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Last time you said you think about these sessions in the bath." },
-{ who: $mom, text: "Did I say that out loud? I really have to stop saying things out loud." },
-{ who: $player, text: "Tell me about it. The sheet needs a peak reading, and you're going to describe it for me." },
+{ who: $mom, text: "Did I say that out loud? Oh, honey, I really have to stop saying things out loud, it's going to get me into trouble one of these days." },
+{ who: $player, text: "I want you to tell me about it. The sheet needs a peak reading, and you're going to describe it for me." },
 { text: "She turns her face toward me, the mask black and blank, and for one second I think I've pushed too hard. Under the table I slide everything up another notch, and the second passes." },
 ]>>
 <</silently>>
@@ -50,8 +50,8 @@ I say the words and the light comes on, and she's halfway gone before I've touch
 <<else>>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "The bath." },
-{ text: "That's all I have to say now. She takes a breath, and she starts." },
+{ who: $player, text: "Tell me about the bath." },
+{ text: "That's all it takes now. She takes a breath, and she starts." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -67,7 +67,7 @@ Her right hand twitches on the table. It wants to go where it went last time, an
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Show me where your hand goes." },
-{ who: $mom, text: "Honey..." },
+{ who: $mom, text: "Honey, I can't, not here, not with you sitting right..." },
 { text: "I move the slider up one notch and say nothing at all. Her lips part." },
 ]>>
 <</silently>>
@@ -75,7 +75,7 @@ Her right hand twitches on the table. It wants to go where it went last time, an
 <<silently>>
 <<DevicePulse "+1">>
 <<set _msgs = [
-{ who: $player, text: "Show me." },
+{ who: $player, text: "Show me, $mom.callName." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -86,19 +86,19 @@ Her hand leaves the table. It slips under the hem of her skirt, which has ridden
 <<set _msgs = [
 { who: $player, text: "And then?" },
 { text: "Then it starts to move." },
-{ who: $player, text: "Slower." },
+{ who: $player, text: "Slower than that." },
 { text: "It slows. Her breath catches on the change, and she makes a small sound she'd be mortified to hear on a recording." },
-{ who: $player, text: "Arousal." },
+{ who: $player, text: "Arousal?" },
 { who: $mom, text: "Ten. My arousal is a ten." },
-{ text: "I keep my voice exactly as flat as I do for question one, because that's what lets her keep going. As long as I sound like a questionnaire, this is still a questionnaire." },
-{ who: $player, text: "Faster now." },
-{ who: $mom, text: "Sweetie, I can't... I can't count anything right now." },
+{ text: "I keep my voice exactly as flat as I do for question one, because I think that's what lets her keep going. As long as I sound like a questionnaire, this is still a questionnaire." },
+{ who: $player, text: "Now a little faster." },
+{ who: $mom, text: "Sweetie, I can't... I can't count anything right now, I can't even remember what question we're on." },
 { who: $player, text: "I didn't ask you to count." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-Her lips are parted below the edge of the mask. Her other hand grips the edge of the table hard enough to make the clipboard rattle, and the chair creaks along with her in a rhythm that has nothing to do with the light anymore. Her thighs close around her own wrist. She's close. I've watched her face through every one of these sessions, and I know exactly how close.
+Her lips are parted below the edge of the mask. Her other hand grips the edge of the table hard enough to make the clipboard rattle, and the chair creaks along with her in a rhythm that has nothing to do with the light anymore. Her thighs close around her own wrist. She's close. I've watched her face through every one of these sessions, and I'm fairly sure I know how close.
 
 <<linkreplace "Tell her to stop">>
 <<silently>>
@@ -115,14 +115,14 @@ Then I tell her the box is off and switch it off, and under the table I pull eve
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Why... why did you stop?" },
+{ who: $mom, text: "Why did you... honey, why did you stop?" },
 { who: $player, text: "It's been an hour." },
 { text: "She pushes the mask up onto her forehead and looks at the clock on the wall. It's been an hour exactly. I made sure of that." },
-{ who: $player, text: "Hands on the table." },
+{ who: $player, text: "Hands back on the table, please." },
 { text: "She takes her hand back and lays it flat beside the other one. It's shaking a little. She presses it down harder so I won't notice, which is how I notice." },
-{ who: $mom, text: ["Did I do all right?", "Do we always have to stop right at the hour? Every single time?", "You won't tell anybody what I said? About the bath?"][_ts3] },
-{ who: $player, text: ["You did what I told you.", "Every time.", "It's data. Data doesn't have names on it."][_ts3] },
-{ who: $mom, text: ["Good. That's... good. I'm glad.", "Every time. Okay. Okay.", "That's not really an answer, sweetie."][_ts3] },
+{ who: $mom, text: ["Was that the kind of reading $darius.name's sheet needed? Please tell me it was useful.", "Do we always have to stop right at the hour? Every single time?", "You won't tell anybody what I said? About the bath?"][_ts3] },
+{ who: $player, text: ["That's the peak reading. It's what the sheet was missing.", "Every time. An hour is an hour.", "It's data. Data doesn't have names on it."][_ts3] },
+{ who: $mom, text: ["Well, as long as it's useful, honey. I'd hate to think I did all that for nothing.", "An hour is an hour. Well, you're the boss, and I'm sure you have your reasons.", "That's not really an answer, sweetie."][_ts3] },
 ]>>
 <</silently>>
 <<Chat _msgs>>

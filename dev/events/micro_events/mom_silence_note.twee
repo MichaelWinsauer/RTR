@@ -3,7 +3,7 @@
    that week, from its second day on, once. A note on my pillow. There is no answering it: I can keep it or throw it
    away where she'll find it. */
 <<set $mom.flags.silenceNote to true>>
-<p>There's a note on my pillow. Folded in half and then in half again, the way she used to fold the notes she put in my lunch, with my name on the outside in her handwriting, underlined twice.</p>
+<p>There's a note on my pillow, folded in half and then in half again, the way she used to fold the notes she put in my lunch, with my name on the outside in her handwriting, underlined twice.</p>
 <div class="silence-note">
 	<p>Honey,</p>
 	<p>I know you don't want to talk right now, and that's okay. I'm not writing this so you'll talk to me. I just didn't want to keep walking past your door without saying anything at all.</p>

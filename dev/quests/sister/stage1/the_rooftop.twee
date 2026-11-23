@@ -11,26 +11,27 @@ At six the office is empty except for us. She's at her desk, packing up, and I s
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Are you busy tonight?" },
-{ who: $sister, text: "Is that a trick question? I'm never busy. I muted my whole life, remember?" },
-{ who: $player, text: "There's an evening. On a rooftop downtown. An investor, some people from $retailChain.name, very good wine. He needs a hostess, and I'd like it to be you. I'd like you to..." },
+{ who: $sister, text: "Is that a trick question? I'm never busy anymore, I muted my whole life, remember?" },
+{ who: $player, text: "There's this evening on a rooftop downtown, an investor and some people from $retailChain.name and probably very good wine. He needs a hostess, and I'd like it to be you. I'd want you to..." },
 { who: $sister, text: "Yes." },
-{ who: $player, text: "I haven't told you what it..." },
-{ who: $sister, text: "Yes. Whatever it is. Yes." },
+{ who: $player, text: "I haven't even told you what it..." },
+{ who: $sister, text: "Whatever it is, yes." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She says it so fast she has to laugh at herself afterwards. Then she asks what to wear, and I tell her, and she goes a little pink, and says okay.
+She says it so fast she has to laugh at herself afterwards. Then she asks what to wear, and when I tell her she goes a little pink and says okay.
 
 <<linkreplace "Agree on a signal">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "I'll be there the whole time. Across the room, mostly. If you're not sure about something, look at me." },
+{ who: $player, text: "I'll be there the whole time, across the room mostly. If you're not sure about something, look at me." },
 { who: $sister, text: "Not sure about what?" },
-{ who: $player, text: "Anything. Someone gets a little too friendly. Someone asks you to stay for one more drink." },
-{ text: "She looks at me for a moment. She understands more than she lets on. She always has." },
-{ who: $player, text: "If I touch my ear, it's fine. Let it happen. If I don't, smile and find a reason to go get somebody a drink." },
-{ who: $sister, text: "Touch your ear. Okay. Like a secret agent. That's so stupid. I love it." },
+{ who: $player, text: "Anything, really. Someone gets a little too friendly, or someone wants you to stay for one more drink." },
+{ text: "She looks at me for a moment, and I get the feeling she understands a lot more than she's letting on." },
+{ who: $player, text: "If I touch my ear, it's fine, let it happen. If I don't, smile and find a reason to go get somebody a drink." },
+{ who: $sister, text: "A secret signal. That is the most spy-movie thing you've ever said to me, and I'm a little embarrassed for both of us." },
+{ text: "But she touches her own ear, testing it, and she doesn't laugh." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -39,25 +40,25 @@ She says it so fast she has to laugh at herself afterwards. Then she asks what t
 /* MEDIA: images/characters/sister/events/the_rooftop/terrace.jpg | A rooftop terrace at night, string lights, the city behind, well-dressed people with wine glasses, Sister in a dark dress near the bar */
 $investor.callName's building is the kind with a doorman who knows your name before you give it. The rooftop is all glass railings and string lights and little heaters shaped like torches, and beyond it the whole city, lit up and silent, like a model of itself.
 
-$sister.callName is in the black dress I picked, the one with no back, and heels she practiced walking in for an hour in the hallway. She takes coats. She brings drinks. She remembers everybody's name after hearing it once, which I didn't know she could do, and she laughs at the right moment at every bad joke on the terrace.
+$sister.callName is in the black dress I picked, the one with no back, and heels she practiced walking in for an hour in the hallway. She takes coats and brings drinks, she remembers everybody's name after hearing it once, which I didn't know she could do, and she laughs at the right moment at every bad joke on the terrace.
 
 $investor.callName takes to her within ten minutes. He walks her around the terrace with one hand barely touching her elbow, introducing her to everyone as "the charming young lady from that clever little company", and she charms them, one by one, while I stand by the railing with a glass of wine I'm not drinking and watch her work.
 
 <<silently>>
 <<set _msgs = [
 { who: $investor, text: "Mr. $player.surname. Your $sister.relation is a revelation. Where on earth have you been hiding her?" },
-{ who: $player, text: "At a coffee machine, mostly." },
+{ who: $player, text: "Behind the office coffee machine, mostly." },
 { who: $investor, text: "A crime. An absolute crime. The people from $retailChain.name are quite taken. I'll make the introduction on Monday. Consider it done." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Later">>
-Near eleven, the wine has done what wine does. One of the men from $retailChain.name, a big man in a gray suit with a wedding ring and a laugh you can hear from the elevator, has her in a corner by the heaters, telling her a long story about a fishing trip. His hand has found the small of her back. Her bare back. It's resting there, and as he talks, his fingers move a little, slowly, back and forth.
+Near eleven, the wine has done what wine does. One of the men from $retailChain.name, a big man in a gray suit with a wedding ring and a laugh you can hear from the elevator, has her in a corner by the heaters, telling her a long story about a fishing trip. His hand has found the small of her back, where the dress isn't, and as he talks his fingers move a little, slowly, back and forth.
 
-She's smiling at him. Her shoulders are very straight.
+She's smiling at him, with her shoulders very straight.
 
-Then, over his shoulder, she looks across the terrace. Straight at me. Her eyes ask the question we practiced in the office five hours ago.
+Then, over his shoulder, she looks across the terrace, straight at me, with the question we agreed on in the office five hours ago.
 
 /* MEDIA: images/characters/sister/events/the_rooftop/look.jpg | Sister in a corner by a patio heater, a man's hand on her bare back, her eyes looking past his shoulder toward the camera */
 
@@ -67,7 +68,7 @@ She's waiting. The whole terrace is laughing and talking, and she's waiting for 
 <div><<link "Touch your ear">><<replace "#rt-choice">>
 I lift my glass with my left hand and touch my right ear with two fingers, as casually as I can, the way you'd brush away a strand of hair.
 
-She sees it. Something in her face settles. She turns back to the man in the gray suit and laughs at the end of his story, a little louder than before, and she lets the hand stay. When he leans in to say something in her ear, she lets him do that too. When he puts his other hand on her hip, she looks across at me once more, quickly, and I don't look away, and she doesn't move it.
+She sees it, and something in her face settles. She turns back to the man in the gray suit and laughs at the end of his story, a little louder than before, and she lets the hand stay. When he leans in to say something in her ear, she lets him do that too. When he puts his other hand on her hip, she looks across at me once more, quickly, and I don't look away, and she doesn't move it.
 
 She only looks away from me when she's sure.
 
@@ -75,9 +76,10 @@ On the drive home she sits with her heels in her lap and the window down, lookin
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I did good, right?" },
-{ who: $player, text: "You did perfectly." },
-{ text: "She nods and looks out the window again, and doesn't say anything else until we're home." },
+{ who: $sister, text: "Did you see $investor.callName's face when I remembered his wife's name? I thought he was going to adopt me on the spot." },
+{ who: $player, text: "He practically did. He's making the introduction on Monday." },
+{ who: $sister, text: "Good. That's good." },
+{ text: "She talks about everyone from the terrace on the way home, the doorman and the heaters and $investor.callName's wife, everyone except the man in the gray suit." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -89,7 +91,7 @@ On the drive home she sits with her heels in her lap and the window down, lookin
 <<Feel $sister "player" -1>>
 <<Feel $sister "investor" -1>>
 <<ProfileLog $sister "The Rooftop" "She hosted $investor.callName's rooftop evening for the company, in the black dress I picked. Late in the evening a man from $retailChain.name had his hand on her bare back and she looked across the terrace at me for the signal. I touched my ear. She let him. The introduction is free.">>
-<<ProfileMemory $sister "The signal" "In the car she took my hand off the gearshift and touched my ear with one finger, very lightly, and let go. She asked if she did good.">>
+<<ProfileMemory $sister "The signal" "In the car she took my hand off the gearshift and touched my ear with one finger, very lightly, and let go. On the way home she talked about everyone from the terrace except him.">>
 <<NextQuest $sister>>
 <<AdvanceTimeTo 6>>
 <<ReturnFromEvent "Home" "Bedroom">>
@@ -101,13 +103,13 @@ She watches for a moment longer, to be sure. Then she smiles at the man in the g
 
 She brings him a fresh glass and someone else a napkin and $investor.callName a joke that makes him clap his hands, and for the rest of the evening she stays where I can see her, and keeps glancing at me as if I'd done something kind.
 
-On the drive home she talks nonstop: about the doorman, the heaters, the man's fishing story, which apparently ended with a bear. Then, at a red light, quieter:
+On the drive home she talks nonstop about the doorman and the heaters and the man's fishing story, which apparently ended with a bear. Then, at a red light, she goes quieter.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Thanks. For not touching your ear." },
-{ who: $player, text: "You'd have done it." },
-{ who: $sister, text: "I know. That's kind of why I'm saying thanks." },
+{ who: $sister, text: "Thanks for not touching your ear." },
+{ who: $player, text: "You'd have done it, though, wouldn't you?" },
+{ who: $sister, text: "Yeah. That's kind of why I'm saying thanks." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

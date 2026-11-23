@@ -8,11 +8,11 @@
 <p>Judging by the whiteboard, the argument has been going on for a while. On the left, in $ethan.name's loopy handwriting: <i>sensorReading</i>. On the right, in $brian.name's tiny block capitals: <i>RAW_ADC_VAL_CH0</i>. Somebody has drawn a line down the middle and written VS on it, and from the way $darius.name is holding the marker, I can guess who.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $ethan, text: "Boss! Thank god. Tell him. Tell him a variable name is supposed to be readable by humans." },
-	{ who: $brian, text: "It is readable. By, uh. By humans who know what an ADC is." },
+	{ who: $ethan, text: "Oh, thank God, the boss. Please tell him a variable name is supposed to be readable by humans." },
+	{ who: $brian, text: "It is readable. By humans who know what an ADC is." },
 	{ who: $ethan, text: "That's four people on Earth, $brian.name." },
-	{ who: $brian, text: "That's... it's way more than four. It's a lot more than four. There are conferences." },
-	{ who: $darius, text: "For the record, you've been at this for forty-one minutes. At your combined hourly rates, this is now the most expensive variable in the company." },
+	{ who: $brian, text: "Uh, it's way more than four. There are conferences." },
+	{ who: $darius, text: "For the record, you've been at this for forty-one minutes, which at your combined hourly rates makes it the most expensive variable this company owns." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -23,10 +23,10 @@
 			<<replace "#staff-argument-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "sensorRawCh0. Done. Back to work." },
+					{ who: $player, text: "Okay, how about sensorRawCh0?" },
 					{ who: $ethan, text: "That's the worst possible compromise." },
-					{ who: $brian, text: "Uh. I hate it. It's fine." },
-					{ who: $player, text: "That's how I know it's fair." },
+					{ who: $brian, text: "Hm. I hate it. It's fine, though." },
+					{ who: $player, text: "You both hate it about equally, so I'm calling that fair. Back to work, guys." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

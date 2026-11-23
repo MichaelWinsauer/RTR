@@ -29,9 +29,9 @@ When I slide the new page across the table, she picks it up and turns it over, l
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Oh, this is new. Am I supposed to draw on him?" },
-{ who: $player, text: "On you. Wherever you feel something during the session, warmth, tingling, anything at all, you shade it in. And you tell me where, out loud, before you mark it." },
+{ who: $player, text: "It's you, not him. Wherever you feel something during the session, warmth, tingling, anything at all, you shade it in. And you tell me where, out loud, before you mark it." },
 { who: $mom, text: "Out loud? Why do you need it out loud if it's right there on the paper?" },
-{ who: $player, text: "Because I asked for it out loud." },
+{ who: $player, text: "Because the paper doesn't tell me how you say it." },
 { text: "She clicks her pen twice. For a second the pen drifts toward the outline's face, and I can see the smiley she's about to give it, the same one she used to draw at the bottom of my homework. Then she looks up at me and puts the pen down beside the page instead." },
 ]>>
 <</silently>>
@@ -40,8 +40,8 @@ When I slide the new page across the table, she picks it up and turns it over, l
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "Same as last time. Every mark, out loud, before you make it." },
-{ who: $mom, text: either("Out loud. I know.", "I know, sweetie. I do remember.", "You don't have to tell me every time, you know.") },
-{ who: $player, text: either("Good.", "I'll stop telling you when I don't have to.", "I'll decide that.") },
+{ who: $mom, text: either("Out loud, before I mark it. I know, honey.", "I know, sweetie. I do remember things, you know, I'm not that old yet.", "You don't have to tell me every time, you know. I was there last time too.") },
+{ who: $player, text: either("Good. Then I'll stop reminding you.", "I'll stop telling you when I don't have to anymore.", "I know. I just like hearing you say it.") },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -58,10 +58,10 @@ Then we get to the map.
 <<set _msgs = [
 { who: $player, text: "Anything yet?" },
 { text: "She shades in both palms, very neatly, and puts a little scribble on each cheek." },
-{ who: $mom, text: "Hands. And my face. That's always my face, though." },
-{ who: $player, text: "Before you mark it. Not after." },
-{ who: $mom, text: "I just said it, honey." },
-{ who: $player, text: "You said it after. Again, the right way round." },
+{ who: $mom, text: "My hands, and my face. But that's always my face, honey, I go red if somebody so much as says they like my shoes." },
+{ who: $player, text: "You're supposed to say it before you mark it, not after." },
+{ who: $mom, text: "But I did say it. I said it while I was drawing, that counts for something." },
+{ who: $player, text: "It was after. Do it again, the right way round." },
 { text: "She blinks at me. Then she lays the pen down, picks it up again, and starts over in the voice she uses to read out recipes." },
 { who: $mom, text: "Hands." },
 { text: "She touches the pen to the palms she's already shaded." },
@@ -79,12 +79,12 @@ It takes about four minutes. Her pen starts moving again, slower now.
 <<set _msgs = [
 { who: $mom, text: "Neck." },
 { text: "She shades it in." },
-{ who: $mom, text: "And here. Under the... the collarbones." },
+{ who: $mom, text: "And here, under the... the collarbones. Sort of all across." },
 { text: "The pen goes on down to the chest of the outline and stops there, hovering, a quarter inch off the paper." },
-{ who: $player, text: "Say it." },
-{ who: $mom, text: "Sweetie, you can see where it is." },
-{ who: $player, text: "Say it, then mark it." },
-{ who: $mom, text: "...My chest." },
+{ who: $player, text: "Tell me where it is, $mom.callName." },
+{ who: $mom, text: "Sweetie, you can see where it is, I'm pointing right at it. You don't need me to..." },
+{ who: $player, text: "I can see it. I want to hear you say it before you mark it." },
+{ who: $mom, text: "My chest. It's my chest, all right? Goodness." },
 { text: "She fills it in with small, careful circles, the way you'd sign something you haven't read." },
 ]>>
 <</silently>>
@@ -104,12 +104,12 @@ She sets the tip of the pen on the outline just below the navel, long enough to 
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Where?" },
-{ who: $mom, text: "Nowhere. It's nothing. It's the chair, these chairs are terrible." },
-{ who: $player, text: "Mark it where it is." },
+{ who: $player, text: "Where was that going?" },
+{ who: $mom, text: "Nowhere, it's nothing, honey. It's these chairs, they're terrible, my back has been complaining about them for weeks and I keep meaning to say something..." },
+{ who: $player, text: "Then mark it where it really is." },
 { text: "Her knees are pressed together under the table. One heel taps the chair leg, faster than the light." },
-{ who: $mom, text: "...Lower." },
-{ who: $player, text: "Then draw it lower." },
+{ who: $mom, text: "Lower. It's... it's lower than that." },
+{ who: $player, text: "So draw it lower." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -118,12 +118,12 @@ She draws a line down from the dot. Then, quickly, before she can think about it
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Face up." },
-{ who: $mom, text: "Honey..." },
-{ who: $player, text: "Face up, $mom.callName." },
+{ who: $player, text: "Turn it back over, please." },
+{ who: $mom, text: "Honey, can't it just stay like this until we're done? It's only a drawing, it's not going anywhere." },
+{ who: $player, text: "Face up, $mom.callName. The page stays face up." },
 { text: "She turns it back over. She leaves her hand beside it on the table, not on it, and she doesn't look down at it again." },
-{ who: $mom, text: "Is that... normal? For the test? Do other people get that?" },
-{ who: $player, text: "Don't ask me what's normal. Answer the sheet." },
+{ who: $mom, text: "Is that... normal? For the test, I mean? Do other people get that, or is it just me being silly?" },
+{ who: $player, text: "I can't tell you what's normal yet, that's what the sheets are for. Just answer it." },
 { text: "She nods, slowly, like I've told her something reassuring." },
 ]>>
 <</silently>>
@@ -137,13 +137,13 @@ The first thing it does then is go to her blouse.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Leave it." },
-{ who: $mom, text: "Sweetheart, I have to walk out of here." },
+{ who: $player, text: "Leave them open." },
+{ who: $mom, text: "Sweetheart, I have to walk out of here. Through the whole office." },
 { who: $player, text: "There's nobody out there. Do them up when you get to the stairs." },
-{ text: "Her fingers stay on the button a moment longer. Then they come down." },
+{ text: "Her fingers stay on the button while she thinks about it. Then they come down." },
 { who: $mom, text: ["You're not going to show anybody that page, are you?", "Can I see the other ones sometime? From the other sessions?", "Did I color outside the lines?"][_ts1] },
-{ who: $player, text: ["It goes in my folder. Nobody touches my folder.", "No.", "A little."][_ts1] },
-{ who: $mom, text: ["Good. Good, that's... good.", "Just no? Okay. Okay, that's fair.", "Well. Don't tell my old teachers."][_ts1] },
+{ who: $player, text: ["It goes in my folder. Nobody touches my folder.", "Not yet. Maybe once there are enough of them.", "A little."][_ts1] },
+{ who: $mom, text: ["Oh, thank goodness. $darius.name would want to turn it into a chart, I just know it.", "Once there are enough of them. All right, that's fair, I'd only fuss over my shading anyway.", "Well, don't tell my old teachers."][_ts1] },
 ]>>
 <</silently>>
 <<Chat _msgs>>

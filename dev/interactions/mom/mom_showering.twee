@@ -46,12 +46,12 @@
 	I go. Through the door I hear the water shut off, and then her voice, talking to herself, saying she's buying a lock tomorrow. She has said that before. The rings are still on the bathroom floor that evening, and she steps around them.
 
 	<<case 2>>
-	The door opens without a sound. $mom.callName is standing under the spray with her back to me and her face tipped up into the water, and for a moment she has no idea I'm there. Wet hair down her back, the curve of her shoulders, her eyes closed. Then she turns to reach for the shampoo.
+	The door opens without a sound. $mom.callName is standing under the spray with her back to me and her face tipped up into the water, and for a moment she has no idea I'm there. Her wet hair is plastered down between her shoulder blades and her eyes are closed, and then she turns to reach for the shampoo.
 
 	<<silently>>
 	<<set _msgs = [
 	{ who: $mom, text: "Oh my god." },
-	{ text: "She grabs the first thing in reach, which turns out to be a loofah, and holds it in front of herself. It doesn't help much. Her other arm comes up across her chest." },
+	{ text: "She grabs the first thing in reach, which turns out to be a loofah, and holds it in front of herself, which doesn't help much. Her other arm comes up across her chest." },
 	{ who: $mom, text: "Honey! What are you... turn around! Turn around right now!" },
 	{ who: $player, text: "I'm turning." },
 	{ who: $mom, text: "And close the door. From the other side!" },
@@ -70,7 +70,7 @@
 	<<set _msgs = [
 	{ who: $mom, text: "Don't you dare say a word." },
 	{ who: $player, text: "I didn't..." },
-	{ who: $mom, text: "Out. I'm holding a razor, $player.name. I'm not saying I'd use it." },
+	{ who: $mom, text: "Out, please. I'm holding a razor, $player.name, and I'm not saying I'd use it, but I am holding one." },
 	{ text: "She says it in her calmest voice, which is a lot worse than shouting. She has the curtain bunched against herself with her free hand, and her knuckles are white." },
 	]>>
 	<</silently>>
@@ -91,11 +91,11 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Sweetie. You could have waited five minutes." },
-	{ who: $player, text: "I could have." },
-	{ who: $mom, text: "...But you didn't. No. Well." },
+	{ who: $mom, text: "Sweetie, you couldn't have waited five minutes?" },
+	{ who: $player, text: "I could have. I just didn't feel like it." },
+	{ who: $mom, text: "No, I can see that. Well." },
 	{ text: "She doesn't pull the curtain shut. She turns back to the water, which leaves me her back, her shoulders and two very red ears, and goes on rinsing her hair as though I'm the radio." },
-	{ who: $mom, text: "Since you're here, you can tell me what $brian.name meant this morning. Something about a capacitor. I nodded along, but I didn't understand one word." },
+	{ who: $mom, text: "Since you're here, you can tell me what $brian.name was going on about this morning, something about a capacitor. I nodded along like I knew, but I didn't understand one word of it." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -107,10 +107,10 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "...Could you hand me that? Since you're standing right there." },
+	{ who: $mom, text: "Could you hand me that, honey? Since you're standing right there." },
 	{ text: "I take the towel off the hook and hold it out. Not quite far enough. She'd have to step out to reach it, and she knows I know that." },
-	{ who: $mom, text: "Honey." },
-	{ who: $player, text: "It's right here." },
+	{ who: $mom, text: "$player.name." },
+	{ who: $player, text: "It's right here. I'm not hiding it." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -119,8 +119,8 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Thank you. I'm going to get dressed now. You can stay if you're going to brush your teeth. Are you going to brush your teeth?" },
-	{ who: $player, text: "Sure." },
+	{ who: $mom, text: "Thank you. I'm going to get dressed now, and you can stay if you're brushing your teeth. Are you brushing your teeth?" },
+	{ who: $player, text: "I am now." },
 	{ text: "I brush my teeth. She dries her hair next to me, our elbows bumping, and neither of us says anything about the mirror." },
 	]>>
 	<</silently>>
@@ -133,9 +133,9 @@
 	<<set _msgs = [
 	{ who: $mom, text: "Is this another one of your tests? Are you going to ask me for a number?" },
 	{ who: $player, text: "Do you want me to?" },
-	{ who: $mom, text: "No! No. Goodness. Don't." },
+	{ who: $mom, text: "No! Goodness, no, please don't." },
 	{ text: "She doesn't close the curtain, though. She tips her head back under the spray to rinse, eyes shut, and I watch the color climb from her collarbones all the way up to her cheeks." },
-	{ who: $mom, text: "It's silly, isn't it. I changed your diapers. And after that night in your room... it's silly to make a fuss now." },
+	{ who: $mom, text: "It's silly, isn't it? I changed your diapers, for heaven's sake, and after that night in your room I don't know why I'm still making such a fuss." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -154,19 +154,19 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Lock it. I know it doesn't work. Lock it anyway." },
+	{ who: $mom, text: "Lock it, would you? I know it doesn't work, just lock it anyway." },
 	{ text: "I turn the lock that hasn't locked in years. She laughs into the water." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
 
-	She takes her time. She knows exactly where I'm standing. She turns toward me to rinse and away to reach for the soap, and every so often she looks over her shoulder to check that I'm still watching. I am.
+	She takes her time, and she knows exactly where I'm standing. She turns toward me to rinse and away to reach for the soap, and every so often she glances over her shoulder to check that I'm still watching, which I am.
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "Your $sister.relation would die if she knew about this." },
-	{ who: $player, text: "She doesn't." },
-	{ who: $mom, text: "No. She doesn't." },
+	{ who: $mom, text: "Your $sister.relation would die if she knew about this, you know that?" },
+	{ who: $player, text: "Then it's a good thing she's never going to." },
+	{ text: "She nods into the spray and goes back to rinsing, and doesn't bring it up again." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -195,7 +195,7 @@
 	<<set _msgs = [
 	{ who: $mom, text: "You're all wound up again, aren't you. I can tell from your hands." },
 	{ who: $player, text: "Is it that obvious?" },
-	{ who: $mom, text: "To me it is. Go on, honey. Later. Come and find me later." },
+	{ who: $mom, text: "To me it is. Go on now, honey, and come and find me later." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>
@@ -208,8 +208,7 @@
 
 	<<silently>>
 	<<set _msgs = [
-	{ who: $mom, text: "I know your footsteps. You walk like your $dad.relation did." },
-	{ who: $mom, text: "Stay. Talk to me. I've had a horrible day." },
+	{ who: $mom, text: "I know your footsteps, you walk just like your $dad.relation did. Stay and talk to me for a bit, would you? I've had the most horrible day." },
 	]>>
 	<</silently>>
 	<<Chat _msgs>>

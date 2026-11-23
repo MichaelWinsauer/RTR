@@ -5,12 +5,12 @@
 <p>$mom.callName comes around to my side of the desk and props her tablet against my monitor, so I have to look at it instead of at whatever I was doing.</p>
 <<silently>>
 <<set _msgs to [
-	{ who: $mom, text: "I made a few small changes to your calendar. Tiny ones. You'll barely notice." },
+	{ who: $mom, text: "I made a few small changes to your calendar, honey, tiny ones, you'll barely even notice them." },
 	{ text: "I notice. Every weekday now has a block at noon called LUNCH (REAL FOOD), a fifteen-minute slot at three called 'Stand up and stretch, honey', and at six o'clock, in red, a block that just says HOME. They repeat every week until the end of time, or at least until the end of the calendar app." },
 	{ who: $player, text: "You put 'honey' in my work calendar." },
 	{ who: $mom, text: "It's your calendar, sweetie, it's not like anybody else can..." },
 	{ text: "She leans over my shoulder and reads the sharing settings, which list everybody in the company. Her lips move as she counts the names." },
-	{ who: $mom, text: "Oh. Well. Now they know you have a $mom.relation. That's not the worst thing in the world." },
+	{ who: $mom, text: "Oh. Well, now they all know you have a $mom.relation, and honestly, there are worse things for a team to find out about their boss." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -21,8 +21,8 @@
 			<<replace "#mom-calendar-choice">>
 				<<silently>>
 				<<set _msgs to [
-					{ who: $player, text: "Leave them. Take the 'honey' out, though." },
-					{ who: $mom, text: "Done. Gone. Not a trace." },
+					{ who: $player, text: "Fine, you can leave them. Can you at least take the 'honey' out, though?" },
+					{ who: $mom, text: "There, it's gone, see? Nobody will ever know." },
 					{ text: "She deletes the word with one finger, very ceremonially, and then stands there smiling at the screen as if I'd agreed to something much bigger than a lunch break." },
 				]>>
 				<</silently>>
@@ -40,12 +40,12 @@
 					{ who: $player, text: "My calendar is for meetings. Take them out." },
 					{ who: $mom, text: "I just thought, with how late you've been..." },
 					{ who: $player, text: "All of them, please." },
-					{ who: $mom, text: "Of course. You're right, sweetie. I'll do it now." },
+					{ who: $mom, text: "Of course, sweetie, you're right, it's your calendar. I'll do it right now." },
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
 				<p>She takes the tablet back and deletes them right there next to my chair, one at a time, with the same care she put into making them. Every recurring block asks if she's sure. Every time, she taps yes.</p>
-				<p>Until I was sixteen, she fought me on every single bedtime, and she won most of them. Now it takes two sentences.</p>
+				<p>Until I was sixteen she fought me on every single bedtime and won most of them. Now two sentences are enough, and I honestly can't tell whether she minded.</p>
 				<<UpdateStat "-" "MomRelation" 1>>
 				<<UpdateStat "+" "MomCorruption" 1>>
 				<<UpdateStat "+" "Efficiency" 1>>
@@ -59,7 +59,7 @@
 					<<silently>>
 					<<set _msgs to [
 						{ who: $player, text: "And what happens at six?" },
-						{ who: $mom, text: "You come home. You eat something with a vegetable in it. And then you..." },
+						{ who: $mom, text: "You come home, and you eat something with an actual vegetable in it for once, and then you..." },
 						{ text: "She looks at the red block. I watch her hear the sentence before she's said the rest of it." },
 						{ who: $mom, text: "...and then you relax. That's all I meant. You relax, honey. Like a normal person." },
 						{ who: $player, text: "Sure." },

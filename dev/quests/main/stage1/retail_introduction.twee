@@ -28,9 +28,9 @@ I call $investor.callName back. The same woman, the same baroque hold music, a l
 <<silently>>
 <<set _msgs = [
 { who: $investor, text: "Mr. $player.surname. $marketingOwner.name speaks highly of you, which she does of almost no one, so I made a point of taking your call." },
-{ who: $player, text: "I appreciate it. I'll get to the point." },
+{ who: $player, text: "Thanks, I appreciate that. I'll try not to take up too much of your time." },
 { who: $investor, text: "Please. At my age, the point is the only part worth getting to." },
-{ who: $player, text: "I'd like an introduction to $retailChain.name. The people who decide what goes into their stores." },
+{ who: $player, text: "I'm hoping for an introduction to $retailChain.name, to whoever decides what goes into their stores." },
 { who: $investor, text: "Of course you would. Everybody would. Four hundred stores is a great many conference rooms." },
 ]>>
 <</silently>>
@@ -43,20 +43,20 @@ He lets that hang for a moment, pleasantly, like a man letting a wine breathe.
 { who: $investor, text: "I'll be candid, Mr. $player.surname. Introductions are a service. My associate handles that side of things. For a company of your size, he'd say $" + _riFee.toLocaleString("en-US") + " is very reasonable, and he'd be right." },
 { who: $investor, text: "Or I could simply mention you to them myself, over dinner. The board meets again in two weeks. I'm a patient man. I hope you are too." },
 { who: $investor, text: "In the meantime, I'm hosting a little evening on Thursday. My rooftop, a few friends from $retailChain.name, some very good wine. Our caterers have let me down on a hostess, which is a small tragedy, but I'll survive it." },
-{ text: "He says it lightly, as an aside, the way a man mentions the weather. He isn't asking me for anything. He's telling me what his week looks like." },
+{ text: "He says it lightly, as an aside, the way a man mentions the weather, and he doesn't ask me for anything. Anyone listening in would think he was just telling me about his week." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-A hostess. On a rooftop full of the people I need, with a man who sends invoices to strangers and favors to friends. I look across the office at $sister.callName, who is laughing at something $brian.name said, with her hair up and her sleeves pushed back.
+A hostess, on a rooftop full of exactly the people I need to meet. I'm not completely sure he means what I think he means, but I can't come up with anything else he could mean. I look across the office at $sister.callName, who is laughing at something $brian.name said, with her hair up and her sleeves pushed back.
 
 <<Offer>>
 <<plain "Pay the fee" `"-$" + _riFee.toLocaleString("en-US") + " from the company account"` _riFee>>
 <<silently>>
 <<set $flags.retailIntro to "broker">>
 <<set _msgs = [
-{ who: $player, text: "Have your associate send me the invoice." },
-{ who: $investor, text: "Splendid. Decisive. I like that in a young man. You'll hear from them by the end of the week." },
+{ who: $player, text: "Okay. Have your associate send me the invoice, then." },
+{ who: $investor, text: "Splendid. I do like a young man who can make up his mind. You'll hear from them by the end of the week." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -71,13 +71,13 @@ The invoice arrives forty minutes later, which tells me the associate had it wri
 <<silently>>
 <<set $flags.retailIntro to "wait">>
 <<set _msgs = [
-{ who: $player, text: "I can be patient. Mention us at the board dinner." },
+{ who: $player, text: "I think I can be patient. If you could mention us at the board dinner, that would be great." },
 { who: $investor, text: "A man who can wait. How rare. I'll mention you, Mr. $player.surname. Whether they listen is another matter, but I'll mention you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-Two weeks. I write it on a sticky note and put it next to the other one, and then I spend the afternoon trying not to think about four hundred stores and the eleven hundred conference rooms in them.
+I write <i>two weeks</i> on a sticky note and put it next to the other one, and then I spend the afternoon trying not to think about four hundred stores and the eleven hundred conference rooms in them.
 
 <<NextQuest $player>>
 <<ReturnFromEvent>>
@@ -86,8 +86,8 @@ Two weeks. I write it on a sticky note and put it next to the other one, and the
 <<silently>>
 <<set $flags.retailIntro to "sister">>
 <<set _msgs = [
-{ who: $player, text: "About your hostess problem. My $sister.relation works for me. She's very good with people. Everyone says so." },
-{ text: "There's a pause on the line. Not a long one. Just long enough for him to understand exactly what I'm offering, and for me to hear that he does." },
+{ who: $player, text: "About your hostess problem... my $sister.relation works for me, actually. She's really good with people, everybody says so." },
+{ text: "There's a pause on the line, not a long one, just long enough for him to understand exactly what I'm offering, and for me to hear that he does." },
 { who: $investor, text: "Is she. How generous of you." },
 { who: $investor, text: "Thursday at eight, then. Tell her to wear something that goes with the city at night. And Mr. $player.surname? I don't send invoices to friends." },
 ]>>
@@ -96,7 +96,7 @@ Two weeks. I write it on a sticky note and put it next to the other one, and the
 
 He hangs up. I sit there with the phone in my hand and look across the office at her again. She catches me looking and makes a face, and waves, and goes back to her screen.
 
-I haven't asked her yet. I already know what she'll say.
+I haven't even asked her yet. I'm fairly sure I know what she'll say, though, and I notice that I'm not worried about it at all.
 
 <<UpdateStat "+" "Corruption" 2>>
 <<NextQuest $player>>

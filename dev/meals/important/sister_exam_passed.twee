@@ -26,11 +26,11 @@ There's a cake on the table. A real one, from the bakery on the corner with the 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I told them a star. A nice star. That's a starfish." },
+{ who: $mom, text: "I asked them for a star, a nice simple star, and the girl said of course, no problem, and now look at it. That's a starfish." },
 { who: $sister, text: "It's perfect. Nobody touch it, I need a picture for my story." },
-{ who: $mom, text: "I'm just so proud of you, sweetie. I know how worried you were. Don't think I didn't notice." },
+{ who: $mom, text: "I'm just so proud of you, sweetie, and don't think I didn't notice how worried you were these last few weeks." },
 { who: $sister, text: "You noticed?" },
-{ who: $mom, text: "You stopped eating dessert. That's how I always know." },
+{ who: $mom, text: "You stopped eating dessert, honey. That's how I always know." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -42,10 +42,10 @@ $sister.callName takes about forty pictures of the cake from every angle, then a
 { who: $mom, text: "So how did you do it? A few weeks ago you were ready to throw that book out the window." },
 { who: $sister, text: "Honestly? Him." },
 { text: "She points her fork at me. $mom.callName turns to look at me like I just walked in carrying a trophy." },
-{ who: $sister, text: "He sat with me for hours. He explained everything way better than my professor ever did. And the focus thing, with the gadget... I don't know, something just clicked." },
+{ who: $sister, text: "He sat with me for hours and explained everything better than my professor ever has, and then there was the focus thing with his gadget, and I don't know, something just clicked." },
 { who: $player, text: "She did all the work. I just pointed at the page." },
-{ who: $sister, text: "Shut up and accept the compliment. It's rare. Enjoy it." },
-{ who: $sister, text: "And it's weird, $mom.callName, but the professor was suddenly kind of nice? He even wrote much improved on the test. He used to look at me like I was a stain on his whiteboard. Now he keeps looking at me during class, like, a lot. It's a little creepy, actually." },
+{ who: $sister, text: "Shut up and take the compliment, they don't come around that often." },
+{ who: $sister, text: "And here's the strange part, $mom.callName: the professor was suddenly almost nice. He wrote 'much improved' on the test, and this is a man who used to look at me like I was a stain on his whiteboard. Now he keeps looking at me during class, quite a lot, actually. It's a little creepy." },
 { who: $mom, text: "Well, maybe he finally sees how hard you're working." },
 ]>>
 <</silently>>
@@ -56,8 +56,8 @@ I cut myself another slice of cake so my face has something to do. $prof.callNam
 <<if !setup.questDone("sister_partyAnimal")>>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Oh, and I'm going out on Friday. Jenna's having people over. To celebrate. Me. I'm the reason." },
-{ who: $mom, text: "Home by midnight." },
+{ who: $sister, text: "Oh, and I'm going out on Friday. Jenna's having people over to celebrate, and by celebrate I mean me." },
+{ who: $mom, text: "Home by midnight, young lady." },
 { who: $sister, text: "One." },
 { who: $mom, text: "Midnight, $sister.callName." },
 { who: $sister, text: "Twelve-thirty and I'll text you twice." },

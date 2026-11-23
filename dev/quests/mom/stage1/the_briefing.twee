@@ -15,12 +15,12 @@ $mom.callName has been in the meeting room since seven. She's printed out the ha
 <<linkreplace "Sit down with her">>
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Morning, honey. I printed the checklist again. The other one had a coffee ring on it, and I can't walk in there with a coffee ring. He'd make a whole thing about it." },
-{ who: $player, text: "You're not giving him the checklist." },
-{ who: $mom, text: "I know, I know. I'm just holding it. It's nice to have something to hold." },
+{ who: $mom, text: "Morning, honey. I printed the checklist again, because the other one had a coffee ring on it, and I can't walk in there with a coffee ring, he'd make a whole thing out of it." },
+{ who: $player, text: "You know you're not actually giving him the checklist, right?" },
+{ who: $mom, text: "I know, I know, I'm only holding it. It's nice to have something in my hands, that's all." },
 { text: "She squares the pages against the table until the edges line up perfectly. Then she does it again, because apparently they didn't." },
-{ who: $mom, text: "He used to stand behind my chair while I typed. Did I ever tell you that? He'd just stand there, reading over my shoulder and breathing. For whole minutes." },
-{ who: $mom, text: "But that's fine. It's a handover. People do handovers every day, it's not... it's fine." },
+{ who: $mom, text: "Did I ever tell you he used to stand behind my chair while I typed? He'd just stand there reading over my shoulder and breathing, for minutes at a time, and I'd start making typos in my own name." },
+{ who: $mom, text: "But that was then, and this is a handover, and people do handovers every day, it's not... Did you have breakfast? You didn't, did you." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -31,9 +31,9 @@ The white box is on the shelf by the window, where it lives between sessions. I 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Oh. Are we doing a session? Now?" },
-{ who: $player, text: "Just the light. You get through the questions better with it on." },
-{ who: $mom, text: "That's true. I do." },
+{ who: $mom, text: "Oh, are we doing a session? Now, this morning?" },
+{ who: $player, text: "Only the light. You always get through the questions better with it on, you said so yourself." },
+{ who: $mom, text: "I did say that, didn't I. All right, then." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -43,13 +43,13 @@ The blue light comes on, and her shoulders drop half an inch before I've done an
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "We walk in. What do you say?" },
+{ who: $player, text: "Okay. We walk in, he's behind his desk. What's the first thing you say?" },
 { who: $mom, text: "Good morning, $boss.callName. We're so excited to finally..." },
-{ who: $player, text: "You're never excited in front of him. You're pleased." },
-{ who: $mom, text: "Pleased. Good morning, $boss.callName, we're very pleased to finally..." },
-{ who: $player, text: "Slower. You're not apologizing for being there." },
-{ who: $mom, text: "...Good morning, $boss.callName. We're very pleased to bring you your unit." },
-{ who: $player, text: "Better." },
+{ who: $player, text: "Don't be excited in front of him, he'll smell it. Try 'pleased'." },
+{ who: $mom, text: "Pleased, okay. Good morning, $boss.callName, we're very pleased to finally..." },
+{ who: $player, text: "Slower than that. Right now you sound like you're apologizing for showing up." },
+{ who: $mom, text: "Good morning, $boss.callName. We're very pleased to bring you your unit." },
+{ who: $player, text: "That's it. That's the one." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -58,13 +58,13 @@ We go through the rest of it the way we go through $darius.name's questions: me 
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "And if he gets... you know. Handsy. He gets handsy, honey. He always did." },
+{ who: $mom, text: "And if he gets... you know how he gets, honey. Handsy. He always was, with all of us, it wasn't only me." },
 { who: $player, text: "Then he gets handsy." },
 { text: "She waits for the rest of the sentence. There isn't any." },
 { who: $player, text: "If he's in a good mood today, he'll sign up for support on top of the unit. Whatever keeps him in a good mood until he signs is part of the job." },
 { who: $mom, text: "Part of the job." },
-{ text: "She says it to the light, testing how it sounds. Then once more, quieter, as if she's filing it somewhere." },
-{ who: $mom, text: "Well. I've had worse jobs. I've had worse jobs with him, actually." },
+{ text: "She says it to the light, the way you repeat something back to a doctor to make sure you heard it right." },
+{ who: $mom, text: "Well, I've had worse jobs, I suppose. Most of them with him, actually, and at least this time somebody's paying me properly for it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -77,12 +77,12 @@ She unzips it like it might be a surprise party. Inside is a blouse the color of
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Oh, that's pretty. Is that for me? Sweetie, where on earth would I wear that?" },
-{ who: $player, text: "On the sixth floor. At ten." },
+{ who: $player, text: "On the sixth floor, at ten o'clock." },
 { who: $mom, text: "To the handover? Honey, I can't wear this to a handover. This is something $sister.callName would wear to one of her parties." },
-{ who: $player, text: "He likes to look. Let him. A man who's busy looking doesn't read the small print." },
+{ who: $player, text: "He likes to look, so let him look. If he's busy with that, he's not going to read the contract very carefully." },
 { text: "She laughs. It doesn't quite land, so she holds the blouse up against herself instead and looks down at it." },
 { who: $mom, text: "I'd need a different bra. This one will show right through, you can see everything through this." },
-{ who: $player, text: "No bra." },
+{ who: $player, text: "You're not wearing one with it." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -91,11 +91,11 @@ The light on the box pulses, slow and steady. She looks at it as if it was the b
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "...No bra." },
-{ who: $player, text: "Change here. Nobody's in yet." },
+{ who: $mom, text: "Not... not any bra at all?" },
+{ who: $player, text: "None. You can change in here, nobody's in for another hour." },
 { who: $mom, text: "Here? Could you at least turn arou..." },
 { text: "She stops in the middle of the word. We both know where she was standing the last time she took her clothes off for me, and that I didn't turn around then either." },
-{ who: $mom, text: "Never mind. It's not like you haven't... never mind." },
+{ who: $mom, text: "Never mind, it's not as if you haven't already... Never mind me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -109,7 +109,7 @@ The silk does exactly what I paid for. It lies against her like water, and the c
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "How do I look? No, don't answer that. How bad is it?" },
-{ who: $player, text: "Turn around." },
+{ who: $player, text: "Turn around for me." },
 { text: "She does it slowly, with her arms out a little from her sides, the way she used to model a new coat for us in the hallway." },
 ]>>
 <</silently>>
@@ -122,11 +122,11 @@ It takes about as long as it takes her to finish turning around. She stops tuggi
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Honey. Look at you." },
+{ who: $mom, text: "Oh, honey, look at you." },
 { who: $player, text: "What?" },
-{ who: $mom, text: "You're wound tighter than a drum. Your jaw. You're doing that thing with your jaw your $dad.relation used to do the night before his quarterly reviews." },
+{ who: $mom, text: "You're wound up tighter than a drum, you're doing that thing with your jaw that your $dad.relation used to do the night before his quarterly reviews." },
 { who: $player, text: "It's a big morning." },
-{ who: $mom, text: "It's your big morning. And I've been sitting here going on and on about me and that man, while you're the one carrying all of it. The whole company. Those three boys and their salaries. Me." },
+{ who: $mom, text: "It's your big morning, and here I've been going on and on about me and that man when you're the one carrying all of it, the whole company and those three boys and their salaries, and me on top of everything." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -139,8 +139,7 @@ It's the second time she's seen it. The first time, in my room, she looked at th
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Oh." },
-{ who: $mom, text: "Is that... is that the blouse?" },
+{ who: $mom, text: "Oh. Is that... honey, is that because of the blouse?" },
 { who: $player, text: "It's been like that since you took the other one off." },
 { text: "She doesn't say anything for a while. Her hands stay on my shoulders. She chews the inside of her lip, which is what she does when she's working something out and doesn't want anybody to watch her do it." },
 { who: $mom, text: "You can't walk in there like that. Not in front of him. That man notices everything that's none of his business." },
@@ -153,7 +152,7 @@ She glances at the glass door. The office behind it is empty and gray. Downstair
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Let me take care of it. Just this once. Just so you can breathe." },
+{ who: $mom, text: "Let me take care of it, sweetie. Just this once, just so you can breathe in there." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -170,8 +169,8 @@ She's careful at first. She's careful with everything she hasn't done before: sl
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Is this all right? Tell me if I'm..." },
-{ who: $player, text: "Faster." },
-{ text: "She does it. Of course she does. She's had ten sessions of doing what I say in this room, and her hand knows it before she does." },
+{ who: $player, text: "You can go faster than that." },
+{ text: "She does, right away. She's had ten sessions of doing what I say in this room, and her hand seems to know that before the rest of her does." },
 { who: $mom, text: "Breathe, honey. You're holding your breath again." },
 { text: "I'm not, but she believes it, and she leans in closer to tell me. The silk falls forward when she does. From here there's nothing it's hiding at all, and she either doesn't know or doesn't care anymore, and I watch her decide, very clearly, not to know." },
 ]>>
@@ -189,9 +188,9 @@ Then she smooths the skirt down over her thighs, and the silk flat over her stom
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Twenty to nine. We have time for a coffee before we go." },
-{ who: $player, text: "We do." },
-{ who: $mom, text: "Honey... that was just for this morning. Because of the handover. You understand that." },
+{ who: $mom, text: "It's twenty to nine, so we've got time for a coffee before we leave. I'll make it, you stay there." },
+{ who: $player, text: "Sounds good." },
+{ who: $mom, text: "Honey, that was only for this morning, because of the handover. You understand that, don't you?" },
 { who: $player, text: "Of course." },
 { text: "She nods, satisfied, as if we've agreed on something. We haven't." },
 ]>>
@@ -200,7 +199,7 @@ Then she smooths the skirt down over her thighs, and the silk flat over her stom
 
 There's a small dark spot on the hem of her skirt, low on the left side. She doesn't see it. I don't mention it.
 
-When she picks up her checklist, her hands aren't shaking anymore. They were shaking all morning.
+When she picks up her checklist to go and make the coffee, her hands are steadier than they've been all morning, and she doesn't seem to notice that either.
 
 <<AdvanceCorruptionStage $mom "The morning of the handover I put her in a silk blouse with no bra. When she saw what it did to me, she got on her knees in the meeting room and took care of it with her hand. Just this once, she said, because of the handover.">>
 <<UpdateStat "+" "Corruption" 3>>

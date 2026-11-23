@@ -10,7 +10,7 @@ The office is barely bigger than a closet. Order pads and old invoices are stack
 <<set _msgs = [
 { who: $player, text: "Hey, got a minute?" },
 { who: $manager, text: "If this is about switching shifts again, the answer's no. We're already short." },
-{ who: $player, text: "It's not about shifts. It's about something that could help the diner." },
+{ who: $player, text: "It's not about shifts. It's something that could actually help the diner." },
 { who: $manager, text: "Huh. That's a new one." },
 ]>>
 <</silently>>
@@ -21,26 +21,28 @@ He leans back in his creaky chair and folds his arms, which is about as much att
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "You know that startup thing I've been working on? $company.prototype.name. It picks up how customers are feeling and nudges the room toward a better mood, so people stay longer and order more. Problem is, nobody wants to be the first one to test it." },
+{ who: $player, text: "You know the startup thing you like to make fun of? $company.prototype.name? It's a little box that picks up on how a room feels, whether people are bored or stressed or comfortable, and then it nudges things so they settle in a bit. And people who settle in stay longer and order more. That's the theory. I just can't get anybody to let me prove it." },
 { who: $manager, text: "And you're coming to me because...?" },
-{ who: $player, text: "Because I work here and I know the place. I'd run the test during my own shift, completely free. If it doesn't work, I drop it and you never hear about it again. If it does, people stay longer and spend more, and they won't even notice why." },
-{ who: $manager, text: "Sounds like a fancy way of saying you want to play with a gadget in my diner. What if customers get weirded out?" },
-{ who: $player, text: "They won't. Nobody sees it. It sits behind the menus and hums. You won't have to think about it once." },
-{ who: $manager, text: "Kid, I think about everything that happens in this building. That's the job." },
+{ who: $player, text: "Because I work here and I know the place. I'd run it during my own shift, and it wouldn't cost you a dime. If it doesn't do anything, I drop it and you never hear about it again." },
+{ who: $manager, text: "Sounds like a fancy way of saying you want to play with your gadget in my diner. What if customers get weirded out?" },
+{ who: $player, text: "They won't even see it. It sits behind the menus by the register and hums, that's all. Honestly, you'll forget it's there." },
+{ who: $manager, text: "Kid, I don't forget anything that happens in this building. That's the job." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<linkreplace "Sweeten the deal">>
-$manager.callName rubs his jaw, still unconvinced. Time for the card I've been holding back.
+$manager.callName rubs his jaw. He isn't buying it, so I try the one thing I was hoping I wouldn't need.
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "There's something else. My $sister.relation is looking for a part-time job. She's reliable, she's great with people, and she already said she'd be happy to wait tables here. You'd get another pair of hands without having to train some stranger from scratch." },
+{ who: $player, text: "Okay, there's something else. My $sister.relation's been looking for a part-time job. She's reliable, she's great with people, and she already said she'd be happy to wait tables here, so you'd get an extra pair of hands without having to train some stranger from scratch." },
 { who: $manager, text: "Your $sister.relation? The one who comes in sometimes and steals your fries?" },
-{ who: $player, text: "That's her. She's serious about it, she wants to help out at home. Let me run the test, and she starts whenever you need her." },
-{ who: $manager, text: "Extra staff never hurts. Especially on weekends... You really think this toy of yours brings in money?" },
-{ who: $player, text: "I know it does. I've tested it on a small scale. Give me one shift. If it doesn't help, I drop it, and she still works here." },
+{ who: $player, text: "That's her. She means it, she wants to help out at home. Let me run the test, and she starts whenever you need her." },
+{ who: $manager, text: "Extra hands never hurt, especially on weekends..." },
+{ text: "He squints at me over the receipts." },
+{ who: $manager, text: "You really think that toy of yours brings in money?" },
+{ who: $player, text: "I've tried it on a small scale, and yeah, I think it does. Give me one shift. If it doesn't help, I drop it, and she still gets the job." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -50,14 +52,14 @@ He stares at me for a long moment, tapping a pen against the desk. The kitchen l
 
 <<silently>>
 <<set _msgs = [
-{ who: $manager, text: "Alright. One shift. You run your thing during your next morning shift. The second a customer looks confused or complains, it's off. And your $sister.relation starts this weekend. No funny business." },
-{ who: $player, text: "Deal. You won't regret it." },
+{ who: $manager, text: "Alright. One shift. You run your thing during your next morning shift, and the second a customer looks confused or complains, it goes off. And your $sister.relation starts this weekend. No funny business." },
+{ who: $player, text: "Deal. I really don't think you'll regret it." },
 { who: $manager, text: "I regret most things, kid. Now get back out there before the dinner rush hits." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I step out of the office and tie my apron a little tighter. It's one shift in a greasy diner, nothing anyone would ever write an article about, but it's the first yes I've heard all week. And with $sister.callName starting here too, she'll be working three feet from the counter, where I can keep an eye on her.
+I step out of the office and tie my apron a little tighter. It's one shift in a greasy diner, nothing anyone would ever write an article about, but it's the first yes I've heard all week. And $sister.callName is going to be working three feet from my counter every weekend, which I'm not exactly going to complain about.
 
 The grill hisses as the first early dinner orders come in. I grab the coffee pot and get back to work, already picking the spot where the prototype can see every booth.
 

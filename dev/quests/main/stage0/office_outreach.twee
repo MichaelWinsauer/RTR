@@ -3,12 +3,12 @@ I close the door to my little office and let out a long breath. For once nobody 
 
 My war table is ready: laptop open, coffee still too hot to drink, a call list on one side and a fresh document titled "Leads, Week 1" on the other. It all looks extremely professional, at least from where I'm sitting.
 
-I polish the pitch one last time. Short, friendly, no buzzwords. Then I paste it into an email template and start sending.
+I polish the pitch one last time and try to keep it short and friendly, without any of the buzzwords I hate getting in my own inbox. Then I paste it into an email template and start sending.
 
 <<linkreplace "Send the first batch of emails">>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Hi, I'm $player.name from $company.name. \nI built $company.prototype.name, a lightweight tool that helps businesses understand customer focus and mood in real time. It takes almost no setup and it's easy to try. Would you be open to a quick pilot this week?" },
+{ who: $player, text: "Hi, I'm $player.name from $company.name. \nI built a small device called $company.prototype.name. It picks up on how a room feels, how busy it is, how relaxed people are, how long they stay, and helps you turn it into a place people want to hang around in. It takes about ten minutes to set up. Would you be open to trying it for a week? It's free, and I'd do all the setup myself." },
 ]>>
 <<set _mail = {
     title: "Quick question about a possible pilot",
@@ -21,7 +21,7 @@ I polish the pitch one last time. Short, friendly, no buzzwords. Then I paste it
 <<Mail _mail false>>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Hi, I'm $player.name. \n$company.prototype.name is a new tool I developed that reads the mood of a room and helps you keep members engaged and coming back. I'd love to run a short, no-commitment test at your gym if you're interested." },
+{ who: $player, text: "Hi, I'm $player.name. \nI've been building a little device called $company.prototype.name that keeps track of the mood in a room, and I think it could help on the days when your members drag themselves in and leave after twenty minutes. I'd love to run a short test at your gym, no strings attached. If it doesn't do anything for you, you haven't lost a thing." },
 ]>>
 <<set _mail = {
     title: "Idea for your gym: a quick pilot?",
@@ -34,7 +34,7 @@ I polish the pitch one last time. Short, friendly, no buzzwords. Then I paste it
 <<Mail _mail false>>
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "Hello, I'm $player.name with $company.name. \nWe help tutoring centers understand student attention in real time. It's private, easy to set up, and it could help with retention. Happy to show you a live demo whenever you have ten minutes." },
+{ who: $player, text: "Hello, I'm $player.name with $company.name. \nI've been working on a device that can tell when a room full of students starts drifting off, and I think it could be really useful for a tutoring center like yours. No cameras, nothing gets recorded. I'd be happy to come by and show you how it works whenever you have ten minutes." },
 ]>>
 <<set _mail = {
     title: "Quick demo for a student focus tool?",
@@ -54,9 +54,9 @@ The first number belongs to a small café chain downtown. The receptionist puts 
 <<silently>>
 <<set _msgs = [
 { who: "Sarah, Sunrise Café", text: "Hi, this is Sarah from Sunrise Café. How can I help?" },
-{ who: $player, text: "Hi Sarah, I'm $player.name from $company.name. I sent you an email earlier about a pilot for our focus tool. It helps customers feel comfortable enough to stay a little longer. Would you be open to trying it for a week?" },
+{ who: $player, text: "Hi Sarah, I'm $player.name from $company.name. I sent you an email this morning about, um, a little device that helps people feel comfortable enough to stay a bit longer. I was wondering if you'd be open to trying it for a week?" },
 { who: "Sarah, Sunrise Café", text: "Oh, I saw that! It sounds interesting, but we usually need references or a case study before we test new software. Is anyone else using it right now?" },
-{ who: $player, text: "Not yet. That's why I'm reaching out to places like yours first. The test is completely free, and I handle the whole setup myself." },
+{ who: $player, text: "Not yet. That's kind of why I'm calling places like yours first. It wouldn't cost you anything, and I'd handle the whole setup myself." },
 { who: "Sarah, Sunrise Café", text: "I appreciate that, I really do. We just got burned by a vendor last year. Maybe circle back once you have some proof it works?" },
 { who: $player, text: "Of course. Thanks for your time." },
 ]>>
@@ -71,9 +71,9 @@ This one's a gym that posts a new membership special roughly every eleven minute
 <<silently>>
 <<set _msgs = [
 { who: "Mike, FitZone Gym", text: "FitZone Gym, Mike speaking." },
-{ who: $player, text: "Hey Mike, $player.name from $company.name. I sent an email about a tool that keeps members motivated during peak hours. Any chance you'd be open to a short test run?" },
+{ who: $player, text: "Hey Mike, $player.name from $company.name. I sent you an email about a device that's supposed to keep people motivated when the gym gets packed. Any chance you'd be up for a short test run?" },
 { who: "Mike, FitZone Gym", text: "Yeah, I saw it. Sounds cool, man, but we're pretty locked into our current system. What kind of numbers do you have from other gyms?" },
-{ who: $player, text: "I'm still building the first case studies. The tech is solid, though, and it's completely private." },
+{ who: $player, text: "Honestly? None yet, I'm still putting the first case studies together. But it works, and nothing it picks up ever leaves the building." },
 { who: "Mike, FitZone Gym", text: "Appreciate you being straight with me, but we can't take that risk right now. Good luck, though." },
 ]>>
 <</silently>>
@@ -100,7 +100,7 @@ One more round of calls. A tutoring center picks up on the first ring, which fee
 <<silently>>
 <<set _msgs = [
 { who: "TutorTech Academy", text: "Hello, TutorTech Academy." },
-{ who: $player, text: "Hi, this is $player.name from $company.name. I sent you an email about a tool that helps with student engagement during sessions. Would you be interested in a quick pilot?" },
+{ who: $player, text: "Hi, this is $player.name from $company.name. I emailed you earlier about a device that helps students stay focused during sessions, and I wanted to ask if you'd maybe be interested in trying it out?" },
 { who: "TutorTech Academy", text: "Oh, we actually just signed with a new platform last month. Sorry, we're not looking right now." },
 ]>>
 <</silently>>
@@ -110,7 +110,7 @@ I hang up and stare at the screen until it dims. Everyone wants proof, reference
 
 I shut the laptop and sit in the quiet for a while. I'm frustrated, sure, but underneath that something is getting clearer. The prototype isn't what they're turning down. They're turning down a nobody with no logos on his website and nobody to vouch for him. Whatever I try next has to make people care for five seconds before they start asking for data I don't have.
 
-$sister.callName has always been good at that, getting people to look up from their phones. Maybe it's time I asked her for help again...
+$sister.callName has always been good at that, getting people to look up from their phones. Maybe it's time I asked her for help again, even if she's going to be insufferable about it.
 
 <<UpdateStat "+" "Corruption" 3>>
 

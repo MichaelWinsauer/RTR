@@ -19,11 +19,11 @@ $sister.callName is hunched over her laptop with her tongue between her teeth, d
 <<set _msgs = [
 { who: $sister, text: "Don't look, it's not finished. Okay, look. What do you think?" },
 { who: $player, text: "Why is everybody shaking hands?" },
-{ who: $sister, text: "Because that's what culture looks like. I googled it. It's either handshakes or people laughing at a salad." },
+{ who: $sister, text: "Because that's what culture looks like, I googled it. It's either handshakes or people laughing at a salad." },
 { who: $player, text: "Who is this for?" },
-{ who: $sister, text: "My internship portfolio. I need to show I 'contributed to the company's identity'. So I'm contributing an identity. You're welcome." },
+{ who: $sister, text: "My internship portfolio. I have to show that I 'contributed to the company's identity', so I'm contributing one, and you're welcome." },
 { text: "She clicks to the next slide. It says MEET THE CEO, and under it there's an empty gray box." },
-{ who: $sister, text: "I need a picture of you for this one. A professional one. Arms crossed, looking out a window at your empire." },
+{ who: $sister, text: "I need a picture of you for this one, a professional one, with your arms crossed, gazing out a window at your empire." },
 { who: $player, text: "We have one window, and it looks at a parking lot." },
 { who: $sister, text: "Then you'll look at your parking lot with vision, $sister.callPlayer. Come on. Stand over there." },
 ]>>
@@ -51,15 +51,15 @@ $sister.callName is typing so hard that her water bottle is wobbling. There's a 
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Can't talk. I'm in the zone. Talk to me in, like, forty seconds." },
+{ who: $sister, text: "Can't talk, I'm in the zone. Give me forty seconds." },
 { text: "I wait forty seconds. She slaps the space bar, stops the timer and spins around in her chair with both arms in the air." },
 { who: $sister, text: "Three hundred and twelve rows! In one hour! $darius.name, did you hear that? Three hundred and twelve!" },
-{ who: $darius, text: "I heard. How many of them are correct?" },
-{ who: $sister, text: "All of them. Probably. Most of them. A very high percentage." },
-{ who: $darius, text: "Then it doesn't count yet. I'll check a sample after lunch." },
-{ who: $sister, text: "He's had the record since Monday. Three hundred and forty. He did it while eating a salad. With a fork. One-handed." },
-{ who: $player, text: "So beat it tomorrow." },
-{ who: $sister, text: "Oh, I'm going to. I'm going to beat it and then I'm going to make him a certificate. With a gold border. He's going to have to hang it in his car." },
+{ who: $darius, text: "I heard, and I'm suitably impressed, pending one small question. How many of them are correct?" },
+{ who: $sister, text: "All of them. Or so close to all of them that you'd need a magnifying glass to find the ones that aren't." },
+{ who: $darius, text: "Then I'm afraid it remains unofficial until I've checked a sample. After lunch, I promise." },
+{ who: $sister, text: "He's held the record since Monday, three hundred and forty, and he set it while eating a salad with his other hand." },
+{ who: $player, text: "Then beat it tomorrow. You've got a whole day to train." },
+{ who: $sister, text: "Oh, I will, and then I'm making him a certificate with a gold border, and he's going to have to hang it in his car." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -76,8 +76,8 @@ She's eating lunch at her desk: a sandwich in wax paper, an apple, and a bag of 
 <<set _msgs = [
 { who: $sister, text: "Turkey and the good mustard. Don't tell $mom.callName I took the good mustard." },
 { who: $player, text: "She'll know." },
-{ who: $sister, text: "She always knows. It's terrifying. I think she counts the jars." },
-{ text: "We eat. For a while neither of us says anything, which is nice, actually. It's quiet in a way the house never is. Then she folds the wax paper into smaller and smaller squares." },
+{ who: $sister, text: "She always knows, it's terrifying. I'm pretty sure she counts the jars." },
+{ text: "We eat without talking for a while, which is nice, actually, quiet in a way the house never is. Then she starts folding the wax paper into smaller and smaller squares." },
 { who: $sister, text: "Can I ask you something? And you can't make it weird." },
 { who: $player, text: "I never make it weird." },
 { who: $sister, text: "You're making it weird right now, with your face." },
@@ -110,14 +110,14 @@ $sister.callName is working with her knees pulled up on her chair and my old gra
 
 <<silently>>
 <<set _msgs = [
-{ who: $player, text: "That's mine." },
-{ who: $sister, text: "It was yours. Then you left it on the couch for a week. That's abandonment. I'm a rescue shelter." },
+{ who: $player, text: "Hey, that's mine. I've been looking everywhere for that." },
+{ who: $sister, text: "It was yours, until you left it on the couch for a week. That's abandonment, and I gave it a loving home." },
 { who: $player, text: "It's warm out." },
-{ who: $sister, text: "It's warm out there. In here it's like a meat locker. It's that vent, it's always blowing right on my desk. I've complained to $brian.name, like, three times." },
+{ who: $sister, text: "Out there, maybe. In here it's a meat locker, because that vent blows straight onto my desk all day. I've complained to $brian.name about it three times." },
 { text: "She points at the ceiling without looking up. I don't look up either." },
 { who: $sister, text: "It's weird, though. I keep wanting to move desks, and then I don't. I like it here. Everybody here is so..." },
 { who: $player, text: "So what?" },
-{ who: $sister, text: "I don't know. Chill? Nice? Nobody's ever in a bad mood. At the diner, somebody's crying in the walk-in fridge by eleven. Here, $ethan.name brought donuts for no reason. On a Tuesday." },
+{ who: $sister, text: "I don't know, nice? Nobody here is ever in a bad mood. At the diner somebody's crying in the walk-in by eleven, and here $ethan.name brings in donuts on a Tuesday for no reason at all." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

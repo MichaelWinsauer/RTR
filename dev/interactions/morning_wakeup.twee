@@ -1,26 +1,26 @@
 :: Morning Wakeup [interaction] {"position":"150,1900","size":"100,100"}
 <<Video "images/characters/mom/events/morning wakeup/morning_coffee.webm" "" "" 600>>
 
-The morning sun filters through the blinds. $mom.callName walks up to the bed in a skimpy white crop top and yellow panties, her toned midriff and long legs on display as she holds a steaming mug of coffee. The outfit was clearly rushed from her early routine. She sets the cup on the nightstand, gently shaking my shoulder to wake me, her blonde hair falling loosely around her face.
+The sun is coming through the blinds in stripes when the door opens. $mom.callName pads in barefoot with a steaming mug, still in what she slept in, a little white crop top and a pair of yellow panties, with her blonde hair loose and messy around her face. She sets the mug on the nightstand and gives my shoulder a gentle shake.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Rise and shine, $player.name. Here's your coffee—hot and fresh." },
-{ text: "She smiles apologetically, tugging at the hem of her crop top self-consciously, her bare feet shifting on the floor beside the bed." },
-{ who: $mom, text: "Sorry for being dressed like this—I almost have no time for getting ready in the mornings anymore. Coffee first, right?" },
-{ who: $player, text: "No worries, $mom.callName. It's fine—thanks for the coffee." },
-{ who: $mom, text: "Anything for you, sweetie. Now get up—your day's waiting." },
+{ who: $mom, text: "Good morning, sleepyhead. I brought you a coffee, and it's still hot, so you have no excuse." },
+{ text: "She catches me noticing what she's wearing and tugs at the hem of her top, which doesn't make it any longer." },
+{ who: $mom, text: "Oh, don't look at me, I'm a disaster. I've been running around since before six and I haven't had a single minute to get dressed, and if I don't bring you this now, I swear it'll be lunchtime before I remember." },
+{ who: $player, text: "You look fine, $mom.callName. Thanks for the coffee." },
+{ who: $mom, text: "You're welcome, sweetie. Now drink it while it's hot and get yourself up, you've got a whole day waiting out there." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She straightens, adjusting her top with a quick tug, and heads out, leaving the door ajar. 
+She gives her top one more useless tug on the way out and leaves the door open a crack behind her, the way she always does, so I can't just roll over and go back to sleep.
 
 <<Video "images/characters/mom/events/morning wakeup/drink_coffee.mp4" "" "" 600>>
 
-I sip the coffee, the warmth kicking in as the day begins.
+I sit up and drink it slowly. By the time the mug is empty I'm more or less a person again.
 
 <<UpdateStat "+" "MomCorruption" 1>>
 <<UpdateStat "+" "MomLust" 2>>
 
-[[Get up|Bedroom]] 
+[[Get up|Bedroom]]

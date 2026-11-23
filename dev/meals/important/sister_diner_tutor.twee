@@ -30,28 +30,28 @@ She lays it next to $mom.callName's plate with both hands, like a waiter present
 <<set _msgs = [
 { who: $mom, text: "Snacks negotiable?" },
 { who: $sister, text: "It's a marketing thing. People respond to snacks." },
-{ who: $mom, text: "You're going to tutor? Sweetie, that's wonderful." },
-{ who: $sister, text: "And that's not all. I'm also going to wait tables at $diner.name. A few shifts a week. I already talked to $manager.callName." },
+{ who: $mom, text: "You're going to tutor? Oh, sweetie, that's wonderful, you always were good at explaining things." },
+{ who: $sister, text: "And I'm going to wait tables at $diner.name, a few shifts a week. I already talked to $manager.callName." },
 { text: "$mom.callName puts the flyer down. Her smile stays where it is, but something behind it slips." },
 { who: $mom, text: "The diner? Honey, you don't have to do that. You have your classes, you finally got your grades back up..." },
-{ who: $sister, text: "I want to. Everybody in this house is working their butt off except me. I'm done being the one who just takes stuff." },
+{ who: $sister, text: "I want to. Everybody in this house is working their butt off except me, and I'm tired of being the one who just takes." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 <<if setup.questDone("mom_falseSympathy")>>
-$mom.callName looks down at her plate, and I know exactly what she's thinking: that $sister.callName is picking up shifts because of what happened at the firm. She doesn't say it. She doesn't have to. $sister.callName sees it too and squeezes her arm.
+$mom.callName looks down at her plate, and I know exactly what she's thinking: that $sister.callName is picking up shifts because of what happened at the firm. She doesn't say it, but $sister.callName sees it too and squeezes her arm.
 <<else>>
-$mom.callName looks down at her plate, and I know exactly what she's thinking: that $sister.callName is picking up shifts because one paycheck doesn't stretch far enough anymore. She doesn't say it. $sister.callName sees it anyway and squeezes her arm.
+$mom.callName looks down at her plate, and I know exactly what she's thinking: that $sister.callName is picking up shifts because one paycheck doesn't stretch far enough anymore. She doesn't say it, but $sister.callName sees it anyway and squeezes her arm.
 <</if>>
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "It's not a sacrifice, $mom.callName. It's tips. Have you seen me be charming? I'm going to make a fortune." },
+{ who: $sister, text: "It's not a sacrifice, $mom.callName, it's tips. You've seen me be charming. I'm going to make a fortune." },
 { who: $player, text: "The regulars at the counter tip in quarters, just so you know." },
 { who: $sister, text: "Then I'll make a fortune in quarters. And you're going to show me how to carry three plates at once without dying." },
 { who: $player, text: "That's advanced. You start with two." },
-{ who: $mom, text: "I just... thank you, sweetie. Both of you. I don't know when you two grew up." },
+{ who: $mom, text: "Oh, I just... thank you, sweetie, both of you. I honestly don't know when you two grew up on me." },
 ]>>
 <</silently>>
 <<Chat _msgs>>

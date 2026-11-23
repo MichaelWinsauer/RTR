@@ -17,9 +17,9 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Is it bad?" },
-					{ who: $mom, text: "Nine hours in a chair every day. The doctor says stretch more. I say someone should massage my shoulders, but who has the time or the money?" },
+					{ who: $mom, text: "Oh, it's nine hours in a chair every day, honey. The doctor keeps telling me to stretch more, and I keep telling him what I really need is someone to rub my shoulders, but who has the time or the money for that?" },
 					{ who: $player, text: "Maybe I could help sometime." },
-					{ who: $mom, text: "You're sweet. We'll see." }
+					{ who: $mom, text: "Careful, sweetie, I might actually take you up on that one of these days." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>
@@ -34,8 +34,8 @@
 				<<silently>>
 				<<set _msgs to [
 					{ who: $player, text: "Here, give me your hands." },
-					{ text: "I pull her up gently into a long standing stretch. She lets out a breath she seems to have been holding all day." },
-					{ who: $mom, text: "Oh, that's so much better. Thank you, honey." }
+					{ text: "I pull her up gently into a long standing stretch. Something in her back pops loud enough that we both wince, and then she sags against my hands and laughs." },
+					{ who: $mom, text: "Oh, that was either very good or very bad. No, it's good, it's so much better. Thank you, honey." }
 				]>>
 				<</silently>>
 				<<Chat _msgs>>

@@ -24,17 +24,17 @@ It's takeout tonight. Nobody had the energy to cook, and nobody said so out loud
 
 /* IMAGE: images/meals/important/false_sympathie.jpg | Chinese takeout cartons on the kitchen table, served onto real plates. Mom tired but composed. Sister leaning forward, elbows on the table, curious. */
 
-$sister.callName waits until everyone has food before she says it.
+$sister.callName waits until everyone has food before she brings it up.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "So. Are we going to talk about it, or are we pretending you're on vacation?" },
+{ who: $sister, text: "So, are we going to talk about it, or are we pretending you're on vacation?" },
 { who: $mom, text: "$sister.callName..." },
-{ who: $sister, text: "I'm not trying to be mean! I just want to know if I should be panicking. Should I be panicking? I can panic. I'm very good at it." },
-{ who: $mom, text: "Nobody needs to panic. I have a new job already." },
+{ who: $sister, text: "I'm not trying to be mean. I'd just like to know whether I should be panicking, because I have a midterm on Thursday and there's only so much panic I can fit into one week." },
+{ who: $mom, text: "Nobody needs to panic, sweetheart, I already have a new job." },
 { who: $sister, text: "Already? Where?" },
 { text: "$mom.callName looks at me. It's a strange look, half embarrassed and half proud, the look of a woman about to admit that her new boss still leaves his socks in the hallway." },
-{ who: $mom, text: "With your $sister.playerRelation. At his company." },
+{ who: $mom, text: "With your $sister.playerRelation, at his company." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -43,12 +43,11 @@ There's a long pause. $sister.callName puts her chopsticks down.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "Wait. So he's your boss now?" },
-{ who: $player, text: "Technically." },
-{ who: $sister, text: "Do you have to call him sir? Do you need to ask him before you take a lunch break? $mom.callName, does he get to write you up?" },
-{ who: $mom, text: "Nobody is writing anybody up." },
-{ who: $player, text: "I'm a very fair boss." },
-{ who: $sister, text: "Oh my god. This is the best thing that has ever happened." },
+{ who: $sister, text: "Hold on. So he's your boss now? Our little $sister.callPlayerShort, who still can't find the laundry basket, signs your paychecks?" },
+{ who: $player, text: "Technically, yes. I'm going to be a very fair boss, though. Firm, but fair." },
+{ who: $sister, text: "$mom.callName, if he ever writes you up, I want to be in the room." },
+{ who: $mom, text: "Nobody is writing anybody up, you two." },
+{ who: $sister, text: "This is honestly the best thing that's happened in this house all year." },
 { text: "And then $mom.callName laughs. It's small and surprised and a little wet around the edges, but it's the first real laugh I've heard from her in weeks, and $sister.callName looks so relieved that she reaches over and steals an egg roll off my plate to celebrate." },
 ]>>
 <</silently>>
@@ -58,16 +57,16 @@ Later, while $sister.callName loads the dishwasher badly and $mom.callName prete
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I still don't understand it, you know. Those files. I had backups of the forecast, I'm sure I did. And the client folder... I'm so careful with that folder." },
+{ who: $mom, text: "I still don't understand it, you know, those files. I had a backup of that forecast, I'm sure I did, and the client folder... I'm so careful with that folder, honey, I color-code it." },
 { who: $player, text: "Maybe the laptop glitched. Those old work machines are garbage." },
-{ who: $mom, text: "Maybe. I keep going over it in my head." },
-{ who: $player, text: "Then stop going over it. It's done. You're out of there. That's the good part." },
-{ who: $mom, text: "...You're right. You're right, sweetie. New start." },
+{ who: $mom, text: "Maybe. I just keep going over it in my head." },
+{ who: $player, text: "Then maybe stop going over it? It's done, and you're out of there, which honestly is the best part of all this." },
+{ who: $mom, text: "You're right. You're right, sweetie, it's a new start, and I'm going to treat it like one." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She pats my hand and goes to rescue the dishwasher. I stay where I am a little longer. Her laptop is still sitting on the side table in the living room where she dropped it the other night. I should get rid of the deleted-items folder before she thinks about looking at it again.
+She pats my hand and goes to rescue the dishwasher. I stay where I am a little longer. Her laptop is still sitting on the side table in the living room where she dropped it the other night, and I should get rid of the deleted-items folder before she thinks of looking at it again.
 
 <<UpdateStat "+" "MomRelation" 3>>
 <<UpdateStat "+" "SisterRelation" 1>>

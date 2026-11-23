@@ -19,9 +19,9 @@ $mom.callName sees me before I'm halfway across the floor, and she doesn't look 
 { who: $mom, text: "Honey, what are you doing here? Is something wrong? Is it your $sister.relation?" },
 { who: $player, text: "Nothing's wrong. I was in the area." },
 { who: $mom, text: "You can't just... sweetie, this is my work. I can't have family visiting at my desk, he already thinks I..." },
-{ text: "From inside the office, a voice calls her full name, the way you'd call a dog that's wandered off. She flinches. It's small, but it goes through her whole body." },
+{ text: "From inside the office, a voice calls her full name, the way you'd call a dog that's wandered off. She flinches, only a little, but it goes through her whole body." },
 { who: $mom, text: "Coming! One second!" },
-{ who: $mom, text: "Go home. I'll see you at dinner, okay? I love you. Go." },
+{ who: $mom, text: "Go on home, sweetie, and I'll see you at dinner, okay? I love you. Go." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -38,8 +38,8 @@ Five minutes turn into fifteen. The call ends, and another starts before she can
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I'm so sorry, honey. It's one of those days. It's always one of those days." },
-{ who: $player, text: "I'll see you at home." },
+{ who: $mom, text: "I'm so sorry, honey, it's one of those days. Well, it's always one of those days lately, isn't it?" },
+{ who: $player, text: "Don't worry about it. I'll see you at home." },
 { who: $mom, text: "Eat something real for lunch! Not chips!" },
 ]>>
 <</silently>>
@@ -78,15 +78,13 @@ I barely get a word out before $boss.callName comes around the corner, coffee in
 { text: "He puts his free hand on the back of her chair, close to her shoulder. She keeps her eyes on her screen." },
 { who: $mom, text: "Yes. Everything's going very well." },
 { who: $boss, text: "See? She's a natural. You should've sent her over years ago. Oh, wait." },
-{ text: "He laughs at his own joke. Nobody else does." },
-{ who: $boss, text: "Anyway. She's on my clock today, kid. Go build me something." },
+{ text: "He laughs at his own joke, and nobody else does." },
+{ who: $boss, text: "Anyway, she's on my clock today, kid. Go build me something." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-He doesn't move his hand until I've turned to leave. When I look back from the elevators, he's leaning over her desk to show her something on her screen, his chin almost on her shoulder, and she's nodding along with a polite little smile.
-
-Tonight at dinner she'll tell me it was a good day, and I'll tell her I'm glad to hear it.
+He doesn't move his hand until I've turned to leave. When I look back from the elevators, he's leaning over her desk to show her something on her screen, his chin almost on her shoulder, and she's nodding along with a polite little smile. Tonight at dinner she'll tell me it was a good day, and I'll say I'm glad to hear it.
 
 <</switch>>
 

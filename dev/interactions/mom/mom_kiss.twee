@@ -3,21 +3,20 @@
    The card's requirements and its once-per-day limit live in define_interactions.twee.
    Short placeholder: expand it however you like, the stat changes below are what the card promises. */
 <<DisplayActivity $mom 500>>
-The house is quiet. $mom.callName doesn't say anything when I step closer, and she doesn't step back either. For a moment we just look at each other, and I can tell she knows exactly what's about to happen.
+The house is quiet. $mom.callName doesn't say anything when I step closer, and she doesn't step back either. For a moment we just look at each other, and I'm fairly sure she knows what's coming.
 
 <<silently>>
 <<set _msgs = [
-  { who: $mom,    text: "$player.name... we shouldn't." },
-  { who: $player, text: "I know." },
-  { who: $mom,    text: "Then why am I not telling you to stop?" },
-  { text: "I don't answer. I lean in, and she meets me halfway. The kiss is brief and careful, and when it ends, neither of us moves back." },
-  { who: $mom,    text: "...That didn't happen." },
-  { who: $player, text: "Of course not." }
+  { who: $mom,    text: "$player.name, honey, we really shouldn't keep... is that a new shirt?" },
+  { who: $player, text: "I've had it for two years." },
+  { text: "She laughs, too high, and doesn't step back. I lean in, and she meets me halfway. The kiss is brief and careful, and when it ends, neither of us moves away." },
+  { who: $mom,    text: "We're not going to make a big thing out of this, okay? It was a silly little moment, that's all it was." },
+  { who: $player, text: "Sure. A silly little moment." }
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She smooths her hair, avoids my eyes, and goes back to what she was doing. But her hand is still unsteady, and she's smiling when she thinks I'm not looking.
+She smooths her hair, avoids my eyes, and goes back to what she was doing, but her hand is still unsteady, and she's smiling when she thinks I'm not looking.
 
 <<UpdateStat "+" "MomLust" 5>>
 <<UpdateStat "+" "MomCorruption" 3>>

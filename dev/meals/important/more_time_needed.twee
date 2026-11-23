@@ -24,18 +24,18 @@ The note is still on the fridge when I come down for dinner. Somebody has stuck 
 
 /* IMAGE: images/meals/important/more_time_needed.jpg | Close-up of the fridge: a handwritten checklist with four checkmarks held up by a strawberry magnet. Sister in the background, arms crossed, glaring. */
 
-$mom.callName is in a ridiculously good mood. She made chicken, the one with the lemon that takes forever, and she keeps touching my shoulder every time she walks past my chair.
+$mom.callName is in a ridiculously good mood. She made the lemon chicken, the one that takes forever, and she touches my shoulder every time she walks past my chair.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "I came home, and I honestly thought I'd walked into the wrong house. The counters! The recycling was out! Somebody vacuumed under the couch, $player.name. Under it." },
+{ who: $mom, text: "I came home and honestly thought I'd walked into the wrong house. The counters were clean, the recycling was out, and somebody vacuumed under the couch, $player.name. Under it! I didn't even know that couch still moved." },
 { who: $player, text: "It was nothing." },
-{ who: $sister, text: "Yeah. It was nothing." },
+{ who: $sister, text: "Yeah, it was nothing. Barely took an afternoon." },
 { text: "Something connects with my shin under the table. Hard." },
-{ who: $mom, text: "It wasn't nothing. I know how busy you are with your project. And you still found the time." },
-{ who: $sister, text: "Amazing how he found the time. Truly inspiring. Did you notice the vacuum lines, $mom.callName? They go diagonal. That's a very specific technique." },
+{ who: $mom, text: "It wasn't nothing. I know how busy you are with your project, and you still found the time, that means a lot to me." },
+{ who: $sister, text: "It really is amazing how he found the time. Did you notice the vacuum lines, $mom.callName? They go diagonally. That's a very particular technique." },
 { who: $mom, text: "I did notice! It looked so neat." },
-{ who: $sister, text: "Mm. Funny. That's exactly how I do it." },
+{ who: $sister, text: "Funny, that's exactly how I do it." },
 { who: $player, text: "I learned from the best." },
 ]>>
 <</silently>>
@@ -43,9 +43,9 @@ $mom.callName is in a ridiculously good mood. She made chicken, the one with the
 
 $sister.callName stabs a piece of chicken with real feeling and chews it while staring at me. I give her the smallest possible smile. She mouths something across the table that $mom.callName, mercifully, doesn't see.
 
-Over dessert $mom.callName slides a folded twenty under my plate, the way she used to with lunch money, and tells me not to argue. I don't argue. When I look up, $sister.callName is shaking her head very slowly. Then, despite herself, she snorts into her ice cream.
+Over dessert $mom.callName slides a folded twenty under my plate, the way she used to with lunch money, and tells me not to argue. I don't argue. When I look up, $sister.callName is shaking her head very slowly, and then, despite herself, she snorts into her ice cream.
 
-She's annoyed. She's also still not saying anything, and she did it all again this afternoon without being asked.
+She's annoyed, but she still isn't saying anything, and she did it all again this afternoon without being asked.
 
 <<UpdateStat "+" "MomRelation" 2>>
 <<UpdateStat "+" "Money" 20>>
