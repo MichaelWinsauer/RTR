@@ -37,7 +37,12 @@
    setup.quickLinkWorkPlace()      where "Go to work" leads: My Desk in Stage 1 (the office of the current stage
                                    otherwise), or the place of a task with me that is already waiting
    setup.quickLinkNextMeal(ctx)    today's next meal that has not happened yet, { type, slot }, or null.
-                                   Reads the meal micro events (Define Events, ids 0-2) */
+                                   Reads the meal micro events (Define Events, ids 0-2)
+   setup.reportQuickLink(sysName)  the quick link entry for her end-of-day report (End-of-day report, Define NPCs):
+                                   shown while setup.dayReportReachable(sysName) finds her, highlighted while she
+                                   has something new. It walks me over to her and opens the NPC Interaction screen,
+                                   where the "How was your day?" card waits. Free, like "Go home": spending an
+                                   action on the way could let her walk off before I arrive */
 
 <<set setup.officeLocations to [ "company", "companystage1", "companystage1desk", "companystage1meeting", "companystage2" ]>>
 
@@ -86,7 +91,36 @@
     return null;
 }>>
 
+<<set setup.reportQuickLink = (sysName) => ({
+    id: "report_" + sysName,
+    priority: 50,
+    when: () => setup.dayReportReachable(sysName) !== null,
+    label: () => "Hear about " + State.variables[sysName].callName + "'s day",
+    hint: (ctx) => {
+        const found = setup.dayReportReachable(sysName);
+        const news = setup.dayReportNews(sysName);
+        const where = setup.sameLocation(found.location, ctx.here) ? "right here" : found.location.name;
+        return (news ? "She has something to tell me" : "There's more she could tell me") + " · " + where;
+    },
+    important: () => setup.dayReportNews(sysName),
+    cost: 0,
+    before: () => {
+        const v = State.variables;
+        const found = setup.dayReportReachable(sysName);
+        v.interactionCharacter = sysName;
+        v.interactionDesk = null;
+        if (!setup.sameLocation(found.location, v.player.location)) {
+            v.player.previousLocation = v.player.location;
+            v.player.location = found.location;
+            v.player.flags.isHome = found.location.id <= 6;
+        }
+    },
+    target: () => "NPC Interaction",
+})>>
+
 <<set setup.quickLinks to [
+    setup.reportQuickLink("mom"),
+    setup.reportQuickLink("sister"),
     {
         /* weekdays from Stage 1 on, until the work day is over, or later when a task with me waits in the office */
         id: "go_work",

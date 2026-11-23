@@ -732,17 +732,20 @@
 
 /* End-of-day report ===========================================================
    "How was your day?" (STAGE1_PROPOSAL.md 3.5). What mom or sister did without me leaves an entry in her day
-   log. In the evening I can ask her about it (card dayReport on the NPC Interaction screen, Define Interactions,
-   passage Day Report): she sums the day up, one line per entry in her own words, and I can pick an entry to hear
+   log. As soon as there is something in it, I can ask her about it (card dayReport on the NPC Interaction screen,
+   Define Interactions, passage Day Report, or the highlighted sidebar quick link that takes me straight to her,
+   Define Quick Links): she sums up what is new, one line per entry in her own words, and I can pick an entry to hear
    in full. That plays its POV passage, her side of it (<<PovHeader>> in Event Widgets), the same one the CCTV
    arrow opens for things on camera. Places without cameras only have this door.
 
-   $mom.dayLog / $sister.dayLog = [ { kind, id, day [, stage] [, line] [, heard] } ]
+   $mom.dayLog / $sister.dayLog = [ { kind, id, day [, stage] [, line] [, told] [, heard] } ]
        kind    "task" (a finished task, added by completeTaskEntry), "event" or "deal" (<<LogDay>>)
        id      the task id, or the key of its entry in setup.dayReports
        day     the $date.dayCount it happened on. The Daily Update drops older entries
        stage   tasks: the index of the stage that was played (its report and passage are used)
        line    the index of the line that was picked, when the source has a list of lines
+       told    true once she mentioned it in a summary (Day Report). Entries that come in later the same day are new
+               again, and the card and the quick link come back for them
        heard   true once I listened to it in full
 
    Where the line and the passage come from:
@@ -755,17 +758,21 @@
        requires optional TwineScript condition, checked when the entry is made: while false there is no entry
 
    The card shows once the report exists in the story (setup.dayReportsUnlocked: after Office Gossip,
-   sister_officeGossip), from the Evening on, while today's log has something in it. Listening is worth a little
-   Relation once a day (Day Report). If I never ask, nothing breaks: the log is cleared overnight.
+   sister_officeGossip), at any time of day, while today's log has something she hasn't told me yet or a story I
+   haven't heard in full. Listening is worth a little Relation once a day (Day Report). If I never ask, nothing
+   breaks: the log is cleared overnight.
 
    <<LogDay $sister "diner_incident" ["deal"]>>   an entry for an event or a deal (Profile Widgets)
    setup.logDay(who, kind, id [, extra])          the same from code; extra is merged into the entry
    setup.logTaskReport(sysName, task)             completeTaskEntry: the entry for a finished task with a report
    setup.dayReportSource(who, entry)              { line, ask, passage } of an entry, or null
    setup.dayReportEntries(who)                    today's entries with a source:
-                                                  [{ entry, index, line, ask, passage, heard }] (index into dayLog)
+                                                  [{ entry, index, line, ask, passage, told, heard }] (index into dayLog)
    setup.dayReportsUnlocked()                     the report exists in the story
-   setup.hasDayReport(who)                        the card is offered right now
+   setup.hasDayReport(who)                        the card is offered right now: something untold, or unheard
+   setup.dayReportNews(who)                       she has something new to tell (an entry that isn't told yet)
+   setup.dayReportReachable(who)                  for the quick link: where she is, if I can walk up to her right
+                                                  now and the card would be usable there ({ location }), else null
    setup.clearDayLogs()                           Daily Update: drops everything from before today */
 <<set $mom.dayLog to []>>
 <<set $sister.dayLog to []>>
@@ -836,7 +843,7 @@
         const source = setup.dayReportSource(npc, entry);
         if (!source || !source.line) { return; }
         const passage = source.passage && Story.has(source.passage) ? source.passage : null;
-        rows.push({ entry: entry, index: index, line: source.line, ask: source.ask, passage: passage, heard: !!entry.heard });
+        rows.push({ entry: entry, index: index, line: source.line, ask: source.ask, passage: passage, told: !!entry.told, heard: !!entry.heard });
     });
     return rows;
 }>>
@@ -845,8 +852,28 @@
 
 <<set setup.hasDayReport = (who) => {
     if (!setup.dayReportsUnlocked()) { return false; }
-    if (State.variables.time.current.value < 4) { return false; }
-    return setup.dayReportEntries(who).length > 0;
+    return setup.dayReportEntries(who).some((r) => !r.told || (r.passage && !r.heard));
+}>>
+
+<<set setup.dayReportNews = (who) => {
+    if (!setup.dayReportsUnlocked()) { return false; }
+    return setup.dayReportEntries(who).some((r) => !r.told);
+}>>
+
+/* The quick link only offers what the card would allow: not during The Silence, not while she is busy (the
+   blocked list of the dayReport card), and only to a place that is open now and has a passage to stand in */
+<<set setup.dayReportReachable = (who) => {
+    const v = State.variables;
+    const npc = setup.corruptionNpc(who);
+    if (!npc || !setup.hasDayReport(npc)) { return null; }
+    if (npc.sysName === "mom" && setup.momSilent()) { return null; }
+    const card = v.interactions.actions.find((a) => a.id === "dayReport");
+    if (card && card.blocked && setup.activityIs(npc, npc.activity, card.blocked)) { return null; }
+    if (npc.flags.isFollowing) { return { location: v.player.location }; }
+    const location = npc.location ? v.locations[npc.location.id] : null;
+    if (!location || !location.passage || !Story.has(location.passage)) { return null; }
+    if (!(location.open || []).includes(v.time.current.value)) { return null; }
+    return { location: location };
 }>>
 
 <<set setup.clearDayLogs = () => {

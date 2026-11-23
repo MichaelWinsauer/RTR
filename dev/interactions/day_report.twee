@@ -1,56 +1,111 @@
 :: Day Report [interaction] {"position":"575,2500","size":"100,100"}
-/* Her end-of-day report: the "How was your day?" card of the NPC Interaction screen (id dayReport, Define Interactions).
-   How it works is in "End-of-day report" in Define NPCs. She sums up today's log, one line per entry, in her own words,
-   and I can pick any entry that has a passage to hear it in full: its POV passage plays, and <<EndPov>> brings me back
-   here ($povReturn). The first visit of the day gives the Relation and the summary (_npc.reportDay); coming back from a
-   POV passage only shows the list again. */
+/* Her end-of-day report: the "How was your day?" card of the NPC Interaction screen (id dayReport, Define Interactions),
+   also reached through the highlighted sidebar quick link (Define Quick Links). How it works is in "End-of-day report" in
+   Define NPCs. She sums up whatever she hasn't told me yet today, one line per entry, in her own words (those entries are
+   marked told), and below that the stories with a POV passage are listed as cards: one click plays it, and <<EndPov>>
+   brings me back here ($povReturn). Stories I already heard stay in the list, quieter, and can be heard again.
+   The Relation comes once a day (_npc.reportDay). Coming back from a POV passage only shows the list again. */
 <<silent>>
 <<set _npc to ($interactionCharacter == "mom" ? $mom : $sister)>>
 <<set _drEntries to setup.dayReportEntries(_npc)>>
-<<set _drFirst to (_npc.reportDay !== $date.dayCount)>>
+<<set _drNew to _drEntries.filter((r) => !r.told)>>
+<<set _drFirstToday to (_npc.reportDay !== $date.dayCount)>>
 <<run State.variables[_npc.sysName].reportDay = State.variables.date.dayCount>>
-<<set _drOpen to _drEntries.filter((r) => r.passage && !r.heard)>>
+<<run _drNew.forEach((r) => { State.variables[_npc.sysName].dayLog[r.index].told = true; })>>
+<<set _drStories to _drEntries.filter((r) => r.passage)>>
+<<set _drOpen to _drStories.filter((r) => !r.heard)>>
 <<set _drStat to (_npc.sysName == "mom" ? "MomRelation" : "SisterRelation")>>
+/* link texts may contain variables ("Ask about $brian.name"), so they are rendered to plain text first */
+<<set _drText to ((markup) => jQuery(document.createElement("span")).wiki(markup).text())>>
 <</silent>>
-<<if _drFirst>>
-	<<if _npc.sysName == "mom">>
-		<<if random(0, 1) == 0>>
-		When I ask about her day, $mom.callName looks up as if I've handed her something. She smooths her skirt over her knees and starts at the beginning, the way she used to tell $dad.callName about hers over dinner, back when he still asked.
+<<if _drNew.length > 0>>
+	<<if !_drFirstToday>>
+		<<if _npc.sysName == "mom">>
+		$mom.callName catches my eye and holds up a finger before I can say anything. Something else happened since we last talked, and she has clearly been saving it up for me.
 		<<else>>
-		I ask how her day was, and she actually stops what she's doing to think about it. She has been waiting for somebody to ask since lunch, and now that I have, she wants to get it right.
+		$sister.callName waves me over before I've even sat down properly. Apparently the day wasn't done with her yet, and she sounds pleased about it.
+		<</if>>
+	<<elseif _npc.sysName == "mom">>
+		<<if random(0, 1) == 0>>
+		When I ask about her day, $mom.callName looks up like I've handed her a present. She smooths her skirt over her knees and starts at the beginning, the way she used to tell $dad.callName about hers over dinner, back when he still asked.
+		<<else>>
+		I ask how her day has been, and she actually stops what she's doing to think about it. She has been hoping somebody would ask, and now that I have, she wants to get it right.
 		<</if>>
 	<<else>>
 		<<if random(0, 1) == 0>>
-		I ask how her day was, and $sister.callName lights up like I've opened a tab she has kept open all afternoon. She pulls her feet up, gets comfortable and holds up one finger. She has a list.
+		I ask how her day has been, and $sister.callName pulls her feet up and gets comfortable, which is how I know this is going to take a while. She's been waiting for an audience.
 		<<else>>
-		She's been waiting for this. I can tell, because she starts talking before I've finished the question, stops, clears her throat with a lot of ceremony and starts over, properly this time.
+		She starts talking before I've finished the question, stops herself, laughs, and starts over at the beginning, properly this time.
 		<</if>>
 	<</if>>
 
-	<<set _msgs to _drEntries.map((r) => ({ who: _npc, text: r.line }))>>
+	<<set _msgs to _drNew.map((r) => ({ who: _npc, text: r.line }))>>
 	<<Chat _msgs>>
 
-	<<UpdateStat "+" _drStat 1>>
+	<<if _drFirstToday>><<UpdateStat "+" _drStat 1>><</if>>
+<<elseif _drOpen.length > 0>>
+	<<= _npc.callName>> is still there, waiting to see if I want to hear the rest of it.
 <<else>>
-	<<if _drOpen.length > 0>>
-		<<= _npc.callName>> is still there, waiting to see if I want to hear more.
-	<<else>>
-		That's everything, as far as <<= _npc.callName>> is concerned. She looks pleased with herself for remembering all of it.
-	<</if>>
+	That's everything, as far as <<= _npc.callName>> is concerned, and she looks pleased with herself for remembering all of it.
 <</if>>
 
-<<if _drOpen.length > 0>>
-<div class="dr-list">
-	<<for _dr range _drOpen>>
-		<<capture _dr>>
-		<div class="navigation-link"><<link _dr.ask>>
-			<<set State.variables[_npc.sysName].dayLog[_dr.index].heard to true>>
-			<<set $povReturn to "Day Report">>
-			<<goto _dr.passage>>
-		<</link>></div>
-		<</capture>>
-	<</for>>
+<<nobr>>
+<<if _drStories.length > 0>>
+<div class="dr">
+	<div class="dr-head">
+		<span class="dr-title">Ask her about</span>
+		<span class="dr-count"><<= _drOpen.length>> of <<= _drStories.length>> not heard yet</span>
+	</div>
+	<div class="dr-list">
+		<<for _dr range _drStories>>
+			<<capture _dr>>
+			<div @class="'dr-item' + (_dr.heard ? ' heard' : '')">
+				<span class="dr-icon" aria-hidden="true"><<if _dr.heard>>&#10003;<<else>>&#9656;<</if>></span>
+				<span class="dr-body">
+					<<link `_drText(_dr.ask)`>>
+						<<set State.variables[_npc.sysName].dayLog[_dr.index].heard to true>>
+						<<set $povReturn to "Day Report">>
+						<<goto _dr.passage>>
+					<</link>>
+					<span class="dr-line"><<= _dr.line>></span>
+				</span>
+				<<if _dr.heard>><span class="dr-badge">Heard</span><<else>><span class="dr-badge new">New</span><</if>>
+			</div>
+			<</capture>>
+		<</for>>
+	</div>
 </div>
 <</if>>
 
-<div class="navigation-link"><<link "That's enough for today" "NPC Interaction">><</link>></div>
+<div class="dr-foot"><<link "That's enough for today" "NPC Interaction">><</link>></div>
+
+<style>
+.dr { max-width: 40rem; margin: 1rem auto 0; padding: .7rem .8rem .8rem; border: 1px solid var(--card-border); border-radius: .8em; background: var(--card-bg); backdrop-filter: blur(6px); text-align: left; }
+.dr-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .5rem; padding-bottom: .35rem; border-bottom: 1px solid var(--card-border); }
+.dr-title { font-size: .68rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #EAAF4C; }
+.dr-count { font-size: .72em; color: rgba(235,221,197,.6); font-variant-numeric: tabular-nums; }
+.dr-list { display: flex; flex-direction: column; gap: .35rem; }
+
+/* one story: the whole row is clickable (the link stretches over it) */
+.dr-item { position: relative; display: grid; grid-template-columns: 1.4rem 1fr auto; align-items: start; column-gap: .55rem; padding: .45rem .65rem; border: 1px solid rgba(234,175,76,.45); border-radius: .6em; background: rgba(234,175,76,.08); cursor: pointer; transition: border-color .2s, background-color .2s; }
+.dr-item:hover { border-color: #EAAF4C; background: rgba(234,175,76,.16); }
+.dr-icon { display: flex; align-items: center; justify-content: center; width: 1.4rem; height: 1.4rem; margin-top: .05rem; border-radius: 50%; background: rgba(234,175,76,.18); color: #EAAF4C; font-size: .75em; }
+.dr-body { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.dr-body a { font-weight: 700; font-size: .95em; color: #EAAF4C; text-decoration: none; }
+.dr-body a::after { content: ''; position: absolute; inset: 0; }
+.dr-item:hover .dr-body a { color: #fff; }
+.dr-line { font-size: .8em; line-height: 1.35; color: rgba(235,221,197,.75); }
+.dr-badge { align-self: center; padding: .05rem .5rem; border-radius: 1rem; font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(235,221,197,.6); background: rgba(235,221,197,.08); white-space: nowrap; }
+.dr-badge.new { color: #19141E; background: #EAAF4C; }
+
+/* already heard: quieter, still clickable to hear it again */
+.dr-item.heard { border-color: var(--card-border); background: transparent; }
+.dr-item.heard .dr-icon { background: rgba(28,216,141,.12); color: #1cd88d; }
+.dr-item.heard .dr-body a { color: rgba(235,221,197,.85); font-weight: 600; }
+.dr-item.heard:hover { border-color: rgba(234,175,76,.55); background: rgba(234,175,76,.06); }
+
+.dr-foot { max-width: 40rem; margin: .8rem auto 0; display: flex; justify-content: flex-end; text-transform: uppercase; letter-spacing: 2px; font-size: .7rem; }
+.dr-foot a { color: rgba(235,221,197,.75); text-decoration: none; }
+.dr-foot a:hover { color: #EAAF4C; }
+</style>
+<</nobr>>
