@@ -510,11 +510,9 @@
         returnPassage: "Living Room",
         requirements: [
             "setup.getTaskById('task_sister_diner_shift').count >= 10",
-            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
-        ],
+        ]
         requirementsText: [
             "$sister.callName works 10 shifts at $diner.name ({{Math.min(10, setup.getTaskById('task_sister_diner_shift').count)}}/10)",
-            "$sister.callName has to be home",
         ],
     },
     {
@@ -1094,12 +1092,10 @@
         requirements: [
             "setup.getTaskById('task_mom_test_session').count >= 10",
             "setup.corruptionTotal('mom') >= 40",
-            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Hold 10 test sessions with $mom.callName ({{Math.min(10, setup.getTaskById('task_mom_test_session').count)}}/10)",
             "$mom.callName needs 40 corruption ({{Math.min(40, setup.corruptionTotal('mom'))}}/40)",
-            "$mom.callName has to be home",
         ],
     },
     {
@@ -1149,12 +1145,10 @@
         requirements: [
             "$date.dayCount >= setup.getQuestById('mom_briefing').doneDay + 2",
             "$mom.stats.lust >= 80",
-            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Give her a few days after the handover",
             "$mom.callName needs 80 lust ({{Math.min(80, $mom.stats.lust)}}/80)",
-            "$mom.callName has to be home",
         ],
     },
 
@@ -1178,11 +1172,9 @@
         returnPassage: "Living Room",
         requirements: [
             "$date.dayCount >= setup.getQuestById('mom_nightVisit').doneDay + 3",
-            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Give her a few days",
-            "$mom.callName has to be home",
         ],
     },
     {
@@ -1200,11 +1192,9 @@
         returnPassage: "Company Stage 1",
         requirements: [
             "setup.questDone('main_veil')",
-            "setup.npcIsAt('mom', 'companystage1')",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$mom.callName has to be at the office",
         ],
     },
     {
@@ -1222,11 +1212,9 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "setup.questDone('main_lateNight')",
-            "setup.npcIsAt('mom', 'companystage1')",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$mom.callName has to be at the office",
         ],
         set: [ "setup.getTaskById('task_mom_flirt_duty').active = true" ],
     },
@@ -1247,12 +1235,10 @@
         requirements: [
             "setup.questDone('main_firstSale')",
             "setup.getTaskById('task_mom_flirt_duty').count >= 3",
-            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Progress the main quest",
             "$mom.callName does her flirt duty rounds ({{Math.min(3, setup.getTaskById('task_mom_flirt_duty').count)}}/3)",
-            "$mom.callName has to be home",
         ],
         set: [
             "$mom.flags.silence = true",
@@ -1313,11 +1299,9 @@
         skip: "$mom.flags.gymDinner === false",
         requirements: [
             "setup.questDone('main_gymDinner')",
-            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$mom.callName has to be home",
         ],
     },
     {
@@ -1643,11 +1627,9 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "setup.hasCamera('sisterroom')",
-            "setup.npcIsAt('sister', 'companystage1')",
         ],
         requirementsText: [
             "Hide a camera in $sister.callName's room",
-            "$sister.callName has to be at the office",
         ],
     },
     {
@@ -1677,10 +1659,8 @@
         passage: "Internship Overview Meetings",
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
-            "setup.npcIsAt('sister', 'companystage1')",
         ],
         requirementsText: [
-            "$sister.callName has to be at the office",
         ],
         set: [ "setup.getTaskById('task_sister_internship_overview').active = true" ],
     },
@@ -1709,11 +1689,9 @@
         returnPassage: "Company Stage 1",
         /* she has to be at the office, and the staff has to be hired: the scene sends her round to them */
         requirements: [
-            "setup.npcIsAt('sister', 'companystage1')",
             "setup.questDone('main_tooMuchWork')",
         ],
         requirementsText: [
-            "$sister.callName has to be at the office",
             "Hire your first employees",
         ],
         /* from now on she is at the office from Noon on (and her Noon cells open in the scheduler, Define Schedule).
@@ -1740,11 +1718,9 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "setup.questDone('main_veil')",
-            "setup.npcIsAt('sister', 'companystage1')",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$sister.callName has to be at the office",
         ],
     },
     {
@@ -1764,13 +1740,11 @@
             "$date.dayCount >= setup.getQuestById('sister_theAsk').doneDay + 7",
             "$sister.flags.photoTaken == true",
             "setup.corruptionReady('sister') || setup.corruptionStage('sister') >= 1",
-            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Give her a week",
             "Keep the photos from the night of the party",
             "$sister.callName's corruption is full",
-            "$sister.callName has to be home",
         ],
     },
     {
@@ -1789,11 +1763,9 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "setup.questDone('main_firstSale')",
-            "setup.npcIsAt('sister', 'companystage1')",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$sister.callName has to be at the office",
         ],
     },
     {
@@ -1811,11 +1783,9 @@
         returnPassage: "Bedroom",
         requirements: [
             "setup.questDone('main_gymMeeting')",
-            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$sister.callName has to be home",
         ],
     },
     {
@@ -1833,11 +1803,9 @@
         returnPassage: "Kitchen",
         requirements: [
             "$date.dayCount > setup.getQuestById('sister_sendMeSomething').doneDay",
-            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Wait until the next morning",
-            "$sister.callName has to be home",
         ],
     },
     {
@@ -1856,11 +1824,9 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "setup.questDone('main_dinerIncident')",
-            "setup.npcIsAt('sister', 'companystage1')",
         ],
         requirementsText: [
             "Progress the main quest",
-            "$sister.callName has to be at the office",
         ],
         set: [ "setup.getTaskById('task_sister_be_nice_to_brian').active = true" ],
     },
@@ -1891,11 +1857,9 @@
         returnPassage: "Living Room",
         requirements: [
             "$date.dayCount >= setup.getQuestById('main_catalystNight').doneDay + 3",
-            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Give her a few days after the Catalyst",
-            "$sister.callName has to be home",
         ],
     },
     {
@@ -1913,11 +1877,9 @@
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
         requirements: [
             "$date.dayCount >= setup.getQuestById('sister_twoTownsOver').doneDay + 3",
-            "setup.npcIsAt('sister', 'companystage1')",
         ],
         requirementsText: [
             "Give her a few days",
-            "$sister.callName has to be at the office",
         ],
     },
     {
@@ -1976,14 +1938,10 @@
         requirements: [
             "setup.questDone('mom_calendar')",
             "$date.dayCount >= setup.getQuestById('sister_everything').doneDay + 3",
-            "setup.npcNow('sister').location && setup.inLocations(setup.npcNow('sister').location.sysName, ['home'])",
-            "setup.npcNow('mom').location && setup.inLocations(setup.npcNow('mom').location.sysName, ['home'])",
         ],
         requirementsText: [
             "Progress $mom.callName's quest",
             "Give her a few nights",
-            "$sister.callName has to be home",
-            "$mom.callName has to be home",
         ],
     },
     {
