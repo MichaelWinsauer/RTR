@@ -3168,9 +3168,30 @@ The registered properties let a turned dial glide to the new strength instead of
   30%      { opacity: 0; }
 }
 
+/* the tendrils that creep in from the edges (setup.devicePulseTendrils, Tendrils Script) */
+#device-pulse .dp-tendrils {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* the invisible marker <<DevicePulse>> leaves in the text: the pulse changes once it scrolls into view.
+   Zero size, but still a box, so it has a position to measure */
+.dp-mark {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  vertical-align: top;
+}
+
 @media (prefers-reduced-motion: reduce) {
   #device-pulse .dp-glow  { animation: none; opacity: .6; }
   #device-pulse .dp-flash { display: none; }
+  #device-pulse .dp-tendrils { display: none; }
 }
 
 /* ==== Stage title card (<<StageTitle>>, setup.stageTitle in Define Company) ==== */

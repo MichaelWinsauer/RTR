@@ -85,6 +85,7 @@
 	It also starts the screen pulse (<<DevicePulse>>) with the entry's impact, or with power if given
 	(a number 0-10, "+1"/"-1", or 0 for no pulse). Turn the dial later in the scene with <<DevicePulse "+2">>.
 	"keep" keeps the pulse over passage changes (multi-part scenes) until <<DevicePulse "off">>.
+	Like <<DevicePulse>>, the pulse starts when the player has scrolled this far. The charge is spent at once.
 */
 <<widget "UseQuestDevice">>
 	<<set _uqdQuest to setup.getCurrentQuest(_args[0])>>
@@ -113,7 +114,7 @@
 		<<set _uqdDevice to (_uqdEntry.key ? $company.devices[_uqdEntry.key] : $company.prototype)>>
 		<<set _vxQuality to _uqdDevice.calibrationQuality>>
 		<<if _uqdPower === null>><<set _uqdPower to _uqdEntry.impact>><</if>>
-		<<run setup.devicePulse(_uqdPower, { keep: _uqdKeep })>>
+		<<print setup.devicePulseMark(_uqdPower, { keep: _uqdKeep })>>
 	<</if>>
 <</widget>>
 
@@ -124,6 +125,9 @@
 	A quoted "+2"/"-1" turns the dial from where it is now; 0 or "off" switches it off.
 	It fades out on the next passage change. "keep" keeps it running across passages until <<DevicePulse "off">>.
 	"3s" waits that many seconds before the change, e.g. <<DevicePulse "off" "3s">> for a device that sputters out.
+	"cut" fades in or out almost at once instead of slowly (everything switched off in one go).
+	The change happens when the player has scrolled this far, not when the passage is shown (setup.devicePulseMark),
+	and scrolling back up above it takes it back. Inside <<silent>> it happens at once.
 		<<DevicePulse 3>> ... <<DevicePulse "+2">> ... <<DevicePulse "off">>
 */
 <<widget "DevicePulse">>
@@ -131,13 +135,15 @@
 	<<for _dpI = 1; _dpI < $args.length; _dpI++>>
 		<<if $args[_dpI] == "keep">>
 			<<set _dpOpts.keep to true>>
+		<<elseif $args[_dpI] == "cut">>
+			<<set _dpOpts.fade to 150>>
 		<<elseif String($args[_dpI]).startsWith("#")>>
 			<<set _dpOpts.color to $args[_dpI]>>
 		<<elseif /^[0-9.]+s$/.test(String($args[_dpI]))>>
 			<<set _dpOpts.delay to parseFloat($args[_dpI]) * 1000>>
 		<</if>>
 	<</for>>
-	<<run setup.devicePulse($args[0], _dpOpts)>>
+	<<print setup.devicePulseMark($args[0], _dpOpts)>>
 <</widget>>
 
 

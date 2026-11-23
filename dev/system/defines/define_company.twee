@@ -655,12 +655,25 @@
    setup.devicePulsePower()            the power right now (0 while it is off)
    The widget is <<DevicePulse>> ("Quest Widgets"), and <<UseQuestDevice>> starts it with the quest impact.
    The look is the CSS of #device-pulse in StoryStylesheet. The player can switch it off in the settings
-   (showDevicePulse); the power is still tracked then, so switching it back on mid-scene shows it again. */
+   (showDevicePulse); the power is still tracked then, so switching it back on mid-scene shows it again.
+
+   Scroll position: a change written into a passage waits until the player has read that far.
+   <<DevicePulse>> and <<UseQuestDevice>> do not call setup.devicePulse themselves. They print an invisible marker
+   (setup.devicePulseMark) where they stand in the text, and the pulse follows the markers: it shows the state of the
+   last marker whose top has scrolled above setup.devicePulseStyle.reach (a share of the window height). Scrolling
+   back up above a marker takes its change back. Markers resolve in the order of the text, from the pulse the
+   passage started with (a kept pulse from the passage before, or none), so "+1" counts from the marker above it.
+   A marker that never reaches the page (inside <<silent>>) applies at once and counts as part of that start.
+   setup.devicePulseMark(power [, opts])  the HTML of a marker, opts as for setup.devicePulse (keep, color, delay, fade)
+   setup.devicePulseScan()                looks at the markers again and applies the one that is reached now. Runs
+                                          on scroll, resize and whenever a new marker is printed
+   A direct setup.devicePulse call still works at once, but the next marker that is reached overrides it. */
 <<set setup.devicePulseStyle to {
     color: "#ff6479",   /* the default glow color */
     fade: 900,          /* ms to fade in and out */
     slowest: 3.2,       /* seconds per heartbeat at power 1 */
     fastest: 0.85,      /* seconds per heartbeat at power 10 */
+    reach: 0.85,        /* a marker counts once its top is above this share of the window height */
 }>>
 
 <<set setup.devicePulsePower = () => {
@@ -724,6 +737,7 @@
         el.setAttribute("aria-hidden", "true");
         el.innerHTML = '<div class="dp-glow"></div><div class="dp-flash"></div>';
         document.body.appendChild(el);
+        setup.devicePulseTendrils(el);  /* the creeping lines from the edges (Tendrils Script) */
         void el.offsetWidth;  /* start from opacity 0, so the fade-in runs */
     }
     clearTimeout(Number(el.dataset.timer));
@@ -752,6 +766,122 @@
     }
     return power10;
 }>>
+
+/* The state one marker leads to, from the state before it: { power, keep, color } */
+<<set setup.devicePulseResolve = (from, mark) => {
+    const raw = mark.power === undefined || mark.power === null || mark.power === false || mark.power === "" ? "off" : String(mark.power).trim().toLowerCase();
+    let power;
+    if (raw === "off") {
+        power = 0;
+    } else if (raw[0] === "+" || raw[0] === "-") {
+        power = from.power + Number(raw);
+    } else {
+        power = Number(raw);
+    }
+    if (!Number.isFinite(power)) {
+        console.error('setup.devicePulse: "' + mark.power + '" is no power, use 0-10, "+1"/"-1" or "off"');
+        power = from.power;
+    }
+    power = Math.max(0, Math.min(10, power));
+    if (power <= 0) { return { power: 0, keep: false, color: null }; }
+    return {
+        power: power,
+        keep: mark.keep === true ? true : mark.keep === false ? false : from.keep,
+        color: mark.color || from.color || null,
+    };
+}>>
+
+<<set setup.devicePulseApply = (state, opts) => setup.devicePulse(state.power > 0 ? state.power : "off",
+    Object.assign({ keep: state.keep, color: state.color || setup.devicePulseStyle.color }, opts || {}))>>
+
+/* The pulse the current passage started with lives on the page (body data), like the pulse itself */
+<<set setup.devicePulseBase = () => {
+    try {
+        const base = JSON.parse(document.body.dataset.dpBase);
+        if (base && typeof base.power === "number") { return base; }
+    } catch (error) { /* no base yet */ }
+    return { power: 0, keep: false, color: null };
+}>>
+<<set setup.devicePulseSetBase = (base) => { document.body.dataset.dpBase = JSON.stringify(base); }>>
+
+<<set setup.devicePulseReadMark = (el) => ({
+    power: el.dataset.dpPower,
+    keep: el.dataset.dpKeep === "1" ? true : el.dataset.dpKeep === "0" ? false : undefined,
+    color: el.dataset.dpColor || null,
+    delay: Number(el.dataset.dpDelay) || 0,
+    fade: el.dataset.dpFade !== undefined ? Number(el.dataset.dpFade) : undefined,
+})>>
+
+<<set setup.devicePulseMark = (power, opts) => {
+    const o = opts || {};
+    const id = "dp-mark-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    const attr = (name, value) => (value === undefined || value === null ? "" : " data-dp-" + name + '="' + String(value).replace(/["<]/g, "") + '"');
+    const keep = o.keep === true ? "1" : o.keep === false ? "0" : null;
+    /* The marker is on the page by the time this runs, unless it was printed inside silent */
+    setTimeout(() => {
+        if (!document.getElementById(id)) {
+            const next = setup.devicePulseResolve(setup.devicePulseBase(), { power: power, keep: o.keep, color: o.color });
+            setup.devicePulseSetBase(next);
+            setup.devicePulseApply(next, { delay: o.delay, fade: o.fade });
+        }
+        setup.devicePulseScan();
+    }, 0);
+    return '<span class="dp-mark" aria-hidden="true" id="' + id + '"' + attr("power", power === false ? "off" : power)
+        + attr("keep", keep) + attr("color", o.color) + attr("delay", o.delay) + attr("fade", o.fade) + "></span>";
+}>>
+
+<<set setup.devicePulseScan = () => {
+    const marks = Array.from(document.querySelectorAll("#passages .dp-mark"));
+    const line = window.innerHeight * setup.devicePulseStyle.reach;
+    let state = setup.devicePulseBase();
+    let before = state;
+    let active = null;
+    for (const mark of marks) {
+        if (mark.getClientRects().length === 0) { continue; }   /* hidden (display none somewhere above it) */
+        if (mark.getBoundingClientRect().top >= line) { break; }
+        before = state;
+        state = setup.devicePulseResolve(state, setup.devicePulseReadMark(mark));
+        active = mark;
+    }
+    const last = document.querySelector("#passages .dp-mark.dp-active");
+    if (active === last) { return; }
+    if (last) { last.classList.remove("dp-active"); }
+    if (!active) {
+        setup.devicePulseApply(state);
+        return;
+    }
+    active.classList.add("dp-active");
+    const mark = setup.devicePulseReadMark(active);
+    if (mark.delay > 0) {
+        /* reached together with the marker before it (on, then off two seconds later): show that one first */
+        setup.devicePulseApply(before, { fade: mark.fade });
+        setup.devicePulseApply(state, { delay: mark.delay, fade: mark.fade });
+    } else {
+        setup.devicePulseApply(state, { fade: mark.fade });
+    }
+}>>
+
+/* Every passage starts from the pulse that is left after the passage change (a kept one, or none), and the
+   markers are checked again whenever the page scrolls or the window changes its size */
+<<run jQuery(document).off(":passagerender.devicePulseScroll").on(":passagerender.devicePulseScroll", () => {
+    const el = document.getElementById("device-pulse");
+    const power = setup.devicePulsePower();
+    setup.devicePulseSetBase(power > 0
+        ? { power: power, keep: !!(el && el.dataset.keep), color: el ? el.dataset.color || null : null }
+        : { power: 0, keep: false, color: null });
+})>>
+<<run (() => {
+    if (document.body.dataset.dpScroll) { return; }
+    document.body.dataset.dpScroll = "1";
+    let queued = false;
+    const queue = () => {
+        if (queued) { return; }
+        queued = true;
+        requestAnimationFrame(() => { queued = false; setup.devicePulseScan(); });
+    };
+    document.addEventListener("scroll", queue, { capture: true, passive: true });
+    window.addEventListener("resize", queue, { passive: true });
+})()>>
 
 /* Loading a save never keeps a pulse from the game that was running before */
 <<run Save.onLoad.add(() => setup.devicePulse(0, { fade: 0 }))>>

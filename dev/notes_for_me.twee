@@ -29,9 +29,9 @@ Todo List:
         ✔ visually rework report back
     - visually rework npc is at the same location
     - visually rework meal showing 
-    - cmd micro event with cctv overlay fix
+    ✔ cmd micro event with cctv overlay fix
     - highlight projects panel if unstarted available 
-    - device pulse visual tendrils + show on scroll
+    ✔ device pulse visual tendrils + show on scroll
     - add important meals for stage 1
     - more tasks
     - add locations

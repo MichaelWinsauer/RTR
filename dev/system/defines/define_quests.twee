@@ -510,7 +510,7 @@
         returnPassage: "Living Room",
         requirements: [
             "setup.getTaskById('task_sister_diner_shift').count >= 10",
-        ]
+        ],
         requirementsText: [
             "$sister.callName works 10 shifts at $diner.name ({{Math.min(10, setup.getTaskById('task_sister_diner_shift').count)}}/10)",
         ],

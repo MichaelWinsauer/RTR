@@ -172,7 +172,7 @@ Setting.addToggle("showMealNotifications", {
   	onChange: mealNotificationsHandler
 });
 Setting.addToggle("showDevicePulse", {
-	label: "Show a pulsing glow on the screen while the device is running?",
+	label: "Show a pulsing glow and creeping lines on the screen while the device is running?",
   	default: true,
   	onChange: function () {
 		// Refresh a running pulse: hides it, or shows it again at the power it has now

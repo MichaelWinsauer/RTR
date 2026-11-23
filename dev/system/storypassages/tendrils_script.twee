@@ -1,0 +1,264 @@
+:: Tendrils Script [script system] {"position":"375,300"}
+/* Tendrils ======================================================================
+   The creeping crimson lines that grow in from the edges of the screen: the background of the main menu, and the
+   device pulse while the device is running. Purely visual, nothing of it is saved.
+
+   setup.Tendrils                      one field of tendrils, drawn on a canvas the caller owns
+       var field = new setup.Tendrils(opts);
+       field.W, field.H                the canvas size in CSS pixels (set them on resize)
+       field.target                    { x, y } in px the tendrils lean toward (the mouse in the menu), or null
+       field.boost                     0-1, faster growth, more branches, brighter (a hovered menu item)
+       field.grow                      speed factor (the heartbeat of the pulse), default 1
+       field.spawning                  false: no new tendrils, the growing ones wither and fade out
+       field.step(dt)                  advance by dt seconds
+       field.draw(ctx, glitch)         draw on ctx (already scaled to CSS pixels), glitch 0-1 flares them up
+       field.o                         the options below, may be changed between frames
+   opts (the defaults are the main menu):
+       maxTendrils, minRoots           how many may exist, how many start at the edge at least
+       spawnRate                       chance per second to start a new root while there are too few
+       edges                           [left, right, bottom, top]: how often a root starts at each edge
+       length, width, speed, hold      [min, max]: px to grow, line width, px per second, seconds to stay grown
+       reach                           px from the nearest edge where a tendril stops growing (0 = no limit)
+       edgeFade                        px: parts farther than this from the nearest edge fade out (0 = none)
+       chunks                          pieces a tendril is drawn in (each one thinner, and faded on its own)
+       shadow, line                    [r, g, b] of the wide dark stroke and the thin bright one
+       alpha                           overall strength
+
+   setup.devicePulseTendrils(el)       starts the tendrils inside the device pulse layer (setup.devicePulse in
+                                       Define Company calls it when it creates #device-pulse). They follow the
+                                       layer on their own: its power and color (data-power, data-color), its
+                                       heartbeat (the dp-beat animation), and they stop once the layer is gone.
+                                       Not with prefers-reduced-motion. */
+(function () {
+	'use strict';
+
+	var DEFAULTS = {
+		maxTendrils: 26,
+		minRoots: 9,
+		spawnRate: 2,
+		edges: [0.3, 0.3, 0.25, 0.15],
+		length: [220, 480],
+		width: [1.4, 2.8],
+		speed: [26, 60],
+		hold: [3, 8],
+		reach: 0,
+		edgeFade: 0,
+		chunks: 3,
+		shadow: [114, 24, 36],
+		line: [219, 53, 76],
+		alpha: 1
+	};
+
+	function between(range) { return range[0] + Math.random() * (range[1] - range[0]); }
+
+	function Tendrils(opts) {
+		this.o = Object.assign({}, DEFAULTS, opts || {});
+		this.list = [];
+		this.W = 0;
+		this.H = 0;
+		this.clock = 0;
+		this.boost = 0;
+		this.grow = 1;
+		this.target = null;
+		this.spawning = true;
+	}
+
+	/* distance from a point to the nearest edge of the canvas */
+	Tendrils.prototype.edgeDist = function (p) {
+		return Math.min(p.x, this.W - p.x, p.y, this.H - p.y);
+	};
+
+	Tendrils.prototype.spawn = function (parent) {
+		var o = this.o, W = this.W, H = this.H;
+		var t = { pts: [], head: null, ang: 0, grown: 0, max: 0, speed: 0, w: 0, state: 0, alpha: 0, hold: 0, seed: Math.random() * 100, depth: 0 };
+		var x, y;
+		if (parent) {
+			x = parent.head.x; y = parent.head.y;
+			t.ang = parent.ang + (Math.random() < 0.5 ? -1 : 1) * (0.5 + Math.random() * 0.5);
+			t.depth = parent.depth + 1;
+			t.max = parent.max * (0.3 + Math.random() * 0.25);
+			t.w = Math.max(0.7, parent.w * 0.7);
+		} else {
+			var e = o.edges, sum = e[0] + e[1] + e[2] + e[3];
+			var r = Math.random() * sum, j = Math.random() * 1.2 - 0.6;
+			if (r < e[0])                    { x = -4;                  y = Math.random() * H; t.ang = j; }
+			else if (r < e[0] + e[1])        { x = W + 4;               y = Math.random() * H; t.ang = Math.PI + j; }
+			else if (r < e[0] + e[1] + e[2]) { x = Math.random() * W;   y = H + 4;             t.ang = -Math.PI / 2 + j; }
+			else                             { x = Math.random() * W;   y = -4;                t.ang = Math.PI / 2 + j; }
+			t.max = between(o.length);
+			t.w = between(o.width);
+		}
+		t.speed = between(o.speed);
+		t.hold = between(o.hold);
+		t.head = { x: x, y: y };
+		t.pts.push({ x: x, y: y });
+		return t;
+	};
+
+	Tendrils.prototype.step = function (dt) {
+		var o = this.o, list = this.list, W = this.W, H = this.H;
+		this.clock += dt;
+		var roots = 0;
+		for (var i = list.length - 1; i >= 0; i--) {
+			var t = list[i];
+			if (t.depth === 0) { roots++; }
+			if (t.state === 0 && !this.spawning) { t.state = 2; }
+			if (t.state === 0) {
+				var move = t.speed * (1 + this.boost * 1.2) * this.grow * dt;
+				var steer = 0;
+				if (this.target) {
+					var d = Math.atan2(this.target.y - t.head.y, this.target.x - t.head.x) - t.ang;
+					d = Math.atan2(Math.sin(d), Math.cos(d));
+					steer = Math.max(-1, Math.min(1, d)) * 0.35;
+				}
+				t.ang += (Math.sin(this.clock * 0.9 + t.seed + t.grown * 0.012) * 1.1 + steer) * dt;
+				t.head.x += Math.cos(t.ang) * move;
+				t.head.y += Math.sin(t.ang) * move;
+				t.grown += move;
+				t.alpha = Math.min(1, t.alpha + dt * 0.5);
+				var lp = t.pts[t.pts.length - 1];
+				if ((t.head.x - lp.x) * (t.head.x - lp.x) + (t.head.y - lp.y) * (t.head.y - lp.y) > 36) { t.pts.push({ x: t.head.x, y: t.head.y }); }
+				if (t.depth < 2 && t.grown > 40 && list.length < o.maxTendrils - 6 && Math.random() < dt * 0.35 * (1 + this.boost)) {
+					list.push(this.spawn(t));
+				}
+				if (t.grown >= t.max || t.head.x < -80 || t.head.x > W + 80 || t.head.y < -80 || t.head.y > H + 80
+					|| (o.reach > 0 && this.edgeDist(t.head) > o.reach)) {
+					t.state = 1;
+				}
+			} else if (t.state === 1) {
+				t.hold -= dt;
+				if (t.hold <= 0) { t.state = 2; }
+			} else {
+				t.alpha -= dt * 0.3;
+				if (t.alpha <= 0) { list.splice(i, 1); }
+			}
+		}
+		if (this.spawning && roots < o.minRoots && list.length < o.maxTendrils && Math.random() < dt * o.spawnRate) {
+			list.push(this.spawn(null));
+		}
+	};
+
+	Tendrils.prototype.draw = function (ctx, glitch) {
+		var o = this.o, list = this.list, chunks = Math.max(1, o.chunks);
+		var shadow = o.shadow.join(','), line = o.line.join(',');
+		var self = this;
+		function at(t, i) { return i < t.pts.length ? t.pts[i] : t.head; }
+		function stroke(t, from, to) {
+			ctx.beginPath();
+			for (var i = from; i <= to; i++) {
+				var p = at(t, i);
+				if (i === from) { ctx.moveTo(p.x, p.y); } else { ctx.lineTo(p.x, p.y); }
+			}
+			ctx.stroke();
+		}
+		ctx.globalCompositeOperation = 'source-over';
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'round';
+		for (var i = 0; i < list.length; i++) {
+			var t = list[i];
+			var n = t.pts.length;            /* indices 0..n are drawn (n = the live head) */
+			if (n < 2) { continue; }
+			var a = Math.min(0.85, t.alpha * 0.6 * (1 + 0.5 * (glitch || 0) + 0.3 * this.boost)) * o.alpha;
+			for (var c = 0; c < chunks; c++) {
+				var from = Math.floor(n * c / chunks), to = c === chunks - 1 ? n : Math.floor(n * (c + 1) / chunks) + 1;
+				var ca = a;
+				if (o.edgeFade > 0) {
+					ca *= Math.max(0, 1 - self.edgeDist(at(t, Math.floor((from + to) / 2))) / o.edgeFade);
+				}
+				if (ca < 0.004) { continue; }
+				var wf = t.w * (1 - 0.9 * c / chunks);
+				ctx.strokeStyle = 'rgba(' + shadow + ',' + (ca * 0.55).toFixed(3) + ')';
+				ctx.lineWidth = wf * 3.2;
+				stroke(t, from, to);
+				ctx.strokeStyle = 'rgba(' + line + ',' + ca.toFixed(3) + ')';
+				ctx.lineWidth = wf * 0.9;
+				stroke(t, from, to);
+			}
+		}
+	};
+
+	setup.Tendrils = Tendrils;
+
+	/* ——— the device pulse ———
+	   The heartbeat of the glow is the CSS animation dp-beat (StoryStylesheet). Its keyframes as 0-1, so the
+	   tendrils surge on the same beat: a strong beat, a short dip, a weaker second beat, then rest */
+	var BEAT = [[0, 0], [0.10, 1], [0.22, 0.29], [0.32, 0.79], [0.60, 0], [1, 0]];
+	function beatAt(phase) {
+		for (var i = 1; i < BEAT.length; i++) {
+			if (phase <= BEAT[i][0]) {
+				var a = BEAT[i - 1], b = BEAT[i];
+				return a[1] + (b[1] - a[1]) * (phase - a[0]) / (b[0] - a[0]);
+			}
+		}
+		return 0;
+	}
+
+	var PULSE_FRAME_MS = 1000 / 30;   /* 30 frames a second are enough for slow lines, and it runs over the game */
+
+	setup.devicePulseTendrils = function (el) {
+		if (!el || el.querySelector('.dp-tendrils')) { return; }
+		if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+		var canvas = document.createElement('canvas');
+		canvas.className = 'dp-tendrils';
+		el.appendChild(canvas);
+		var ctx = canvas.getContext('2d');
+		var field = new Tendrils({ edges: [0.28, 0.28, 0.22, 0.22], chunks: 5, spawnRate: 8 });
+		var glow = el.querySelector('.dp-glow');
+		var last = 0;
+
+		function phaseNow(now) {
+			try {
+				var anim = glow && glow.getAnimations ? glow.getAnimations()[0] : null;
+				if (anim && anim.currentTime !== null) {
+					var duration = anim.effect.getComputedTiming().duration;
+					if (duration > 0) { return (anim.currentTime % duration) / duration; }
+				}
+			} catch (err) { /* fall back to our own clock */ }
+			var period = parseFloat(el.style.getPropertyValue('--dp-period')) || 2;
+			return ((now / 1000) % period) / period;
+		}
+
+		function frame(now) {
+			if (!el.isConnected) { return; }
+			requestAnimationFrame(frame);
+			if (last && now - last < PULSE_FRAME_MS - 2) { return; }
+			var dt = Math.min(0.1, (now - last) / 1000 || PULSE_FRAME_MS / 1000);
+			last = now;
+
+			var w = canvas.clientWidth, h = canvas.clientHeight;
+			if (w !== field.W || h !== field.H) {
+				var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+				canvas.width = Math.round(w * dpr);
+				canvas.height = Math.round(h * dpr);
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+				field.W = w;
+				field.H = h;
+			}
+
+			/* the stronger the dial, the more of them, the faster and the farther in they reach */
+			var power = Number(el.dataset.power) || 0, p = power / 10, m = Math.min(w, h), o = field.o;
+			o.minRoots = Math.round(5 + 17 * p);
+			o.maxTendrils = o.minRoots * 2 + 10;
+			o.length = [m * (0.10 + 0.16 * p), m * (0.20 + 0.30 * p)];
+			o.width = [1.8 + 1.2 * p, 3.2 + 2 * p];
+			o.speed = [20 + 26 * p, 36 + 46 * p];
+			o.reach = m * (0.08 + 0.22 * p);
+			o.edgeFade = o.reach * 1.6;
+
+			var hex = String(el.dataset.color || '#ff6479').replace('#', '');
+			var rgb = [0, 2, 4].map(function (k) { return parseInt(hex.substr(k, 2), 16) || 0; });
+			o.line = rgb;
+			o.shadow = rgb.map(function (v) { return Math.round(v * 0.45); });
+
+			var beat = beatAt(phaseNow(now));
+			field.spawning = power > 0;
+			field.grow = 0.45 + 1.6 * beat;
+			o.alpha = (0.9 + 0.7 * p) * (0.65 + 0.35 * beat);
+			field.step(dt);
+
+			ctx.clearRect(0, 0, w, h);
+			if (settings.showDevicePulse !== false) { field.draw(ctx, 0); }
+		}
+		requestAnimationFrame(frame);
+	};
+})();

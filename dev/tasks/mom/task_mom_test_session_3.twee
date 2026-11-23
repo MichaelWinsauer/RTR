@@ -111,7 +111,7 @@ Her lips are parted below the edge of the mask. Her other hand grips the edge of
 
 I haven't touched my phone. The box is still on, the slider is still where I left it, and she stops anyway, because I said the word. She sits there with her breath caught halfway, her hand still under her skirt, waiting for the next one.
 
-Then I tell her the box is off and switch it off, and under the table I pull every slider back to the baseline at once, without any of the usual care. <<run setup.devicePulse(0, { fade: 150 })>>
+Then I tell her the box is off and switch it off, and under the table I pull every slider back to the baseline at once, without any of the usual care. <<DevicePulse "off" "cut">>
 
 <<silently>>
 <<set _msgs = [

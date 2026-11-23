@@ -502,8 +502,6 @@
 		var WAVE_ALPHA = [0.55, 0.34, 0.24, 0.17, 0.12];
 		var GLOW = [{ w: 24, a: 0.025 }, { w: 12, a: 0.045 }, { w: 5, a: 0.08 }];   /* front wave glow: stroke width px, alpha */
 		var FRAME_MS = 1000 / 60;            /* draw at most 60 frames a second, also on 120/144 Hz screens */
-		var MAX_TENDRILS = 26;
-		var MIN_ROOTS = 9;
 		var PRESET = {                         /* per menu item: wave frequency multiplier, tendril boost */
 			'continue': { mul: 1.25, boost: 1 },
 			'new':      { mul: 1.55, boost: 1 },
@@ -516,7 +514,7 @@
 		var mouse = { x: 0.5, y: 0.5 };
 		var tune = { x: 0.5, y: 0.5, mul: 1, boost: 0 };   /* smoothed values that are actually drawn */
 		var aim = { mul: 1, boost: 0 };                     /* where tune.mul / tune.boost are heading */
-		var tendrils = [];
+		var field = new setup.Tendrils();   /* the tendrils (Tendrils Script), its defaults are this menu */
 		var clock = 0, last = 0, T0 = performance.now();
 
 		function resize() {
@@ -524,6 +522,7 @@
 			W = canvas.clientWidth; H = canvas.clientHeight;
 			canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			field.W = W; field.H = H;
 			waveGrad = ctx.createLinearGradient(0, 0, W, 0);
 			waveGrad.addColorStop(0,    '#DB354C');
 			waveGrad.addColorStop(0.28, '#EAAF4C');
@@ -541,31 +540,6 @@
 			return (c > 0.92 && c < 0.975) ? (Math.random() > 0.35 ? 1 : 0.4) : 0;
 		}
 
-		function spawn(parent) {
-			var t = { pts: [], head: null, ang: 0, grown: 0, max: 0, speed: 0, w: 0, state: 0, alpha: 0, hold: 0, seed: Math.random() * 100, depth: 0 };
-			var x, y;
-			if (parent) {
-				x = parent.head.x; y = parent.head.y;
-				t.ang = parent.ang + (Math.random() < 0.5 ? -1 : 1) * (0.5 + Math.random() * 0.5);
-				t.depth = parent.depth + 1;
-				t.max = parent.max * (0.3 + Math.random() * 0.25);
-				t.w = Math.max(0.7, parent.w * 0.7);
-			} else {
-				var r = Math.random(), j = Math.random() * 1.2 - 0.6;
-				if (r < 0.3)      { x = -4;     y = Math.random() * H; t.ang = j; }
-				else if (r < 0.6) { x = W + 4;  y = Math.random() * H; t.ang = Math.PI + j; }
-				else if (r < 0.85){ x = Math.random() * W; y = H + 4;  t.ang = -Math.PI / 2 + j; }
-				else              { x = Math.random() * W; y = -4;     t.ang = Math.PI / 2 + j; }
-				t.max = 220 + Math.random() * 260;
-				t.w = 1.4 + Math.random() * 1.4;
-			}
-			t.speed = 26 + Math.random() * 34;
-			t.hold = 3 + Math.random() * 5;
-			t.head = { x: x, y: y };
-			t.pts.push({ x: x, y: y });
-			return t;
-		}
-
 		function step(dt) {
 			var k = Math.min(1, dt * 3);
 			tune.x += (mouse.x - tune.x) * k;
@@ -573,35 +547,9 @@
 			tune.mul += (aim.mul - tune.mul) * Math.min(1, dt * 4);
 			tune.boost += (aim.boost - tune.boost) * Math.min(1, dt * 3);
 
-			var roots = 0;
-			for (var i = tendrils.length - 1; i >= 0; i--) {
-				var t = tendrils[i];
-				if (t.depth === 0) { roots++; }
-				if (t.state === 0) {
-					var move = t.speed * (1 + tune.boost * 1.2) * dt;
-					var want = Math.atan2(mouse.y * H - t.head.y, mouse.x * W - t.head.x);
-					var d = want - t.ang;
-					d = Math.atan2(Math.sin(d), Math.cos(d));
-					t.ang += (Math.sin(clock * 0.9 + t.seed + t.grown * 0.012) * 1.1 + Math.max(-1, Math.min(1, d)) * 0.35) * dt;
-					t.head.x += Math.cos(t.ang) * move;
-					t.head.y += Math.sin(t.ang) * move;
-					t.grown += move;
-					t.alpha = Math.min(1, t.alpha + dt * 0.5);
-					var lp = t.pts[t.pts.length - 1];
-					if ((t.head.x - lp.x) * (t.head.x - lp.x) + (t.head.y - lp.y) * (t.head.y - lp.y) > 36) { t.pts.push({ x: t.head.x, y: t.head.y }); }
-					if (t.depth < 2 && t.grown > 40 && tendrils.length < MAX_TENDRILS - 6 && Math.random() < dt * 0.35 * (1 + tune.boost)) {
-						tendrils.push(spawn(t));
-					}
-					if (t.grown >= t.max || t.head.x < -80 || t.head.x > W + 80 || t.head.y < -80 || t.head.y > H + 80) { t.state = 1; }
-				} else if (t.state === 1) {
-					t.hold -= dt;
-					if (t.hold <= 0) { t.state = 2; }
-				} else {
-					t.alpha -= dt * 0.3;
-					if (t.alpha <= 0) { tendrils.splice(i, 1); }
-				}
-			}
-			if (roots < MIN_ROOTS && tendrils.length < MAX_TENDRILS && Math.random() < dt * 2) { tendrils.push(spawn(null)); }
+			field.boost = tune.boost;
+			field.target = { x: mouse.x * W, y: mouse.y * H };
+			field.step(dt);
 		}
 
 		function drawWaves(glitch) {
@@ -643,41 +591,11 @@
 			ctx.globalAlpha = 1;
 		}
 
-		function strokeRange(pts, head, from, to) {
-			ctx.beginPath();
-			for (var i = from; i <= to; i++) {
-				var p = i < pts.length ? pts[i] : head;
-				if (i === from) { ctx.moveTo(p.x, p.y); } else { ctx.lineTo(p.x, p.y); }
-			}
-			ctx.stroke();
-		}
-
-		function drawTendrils(glitch) {
-			ctx.globalCompositeOperation = 'source-over';
-			ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-			for (var i = 0; i < tendrils.length; i++) {
-				var t = tendrils[i];
-				var n = t.pts.length;            /* indices 0..n are drawn (n = the live head) */
-				if (n < 2) { continue; }
-				var a = Math.min(0.85, t.alpha * 0.6 * (1 + 0.5 * glitch + 0.3 * tune.boost));
-				for (var c = 0; c < 3; c++) {
-					var from = Math.floor(n * c / 3), to = c === 2 ? n : Math.floor(n * (c + 1) / 3) + 1;
-					var wf = t.w * (1 - c * 0.3);
-					ctx.strokeStyle = 'rgba(114,24,36,' + (a * 0.55).toFixed(3) + ')';
-					ctx.lineWidth = wf * 3.2;
-					strokeRange(t.pts, t.head, from, to);
-					ctx.strokeStyle = 'rgba(219,53,76,' + a.toFixed(3) + ')';
-					ctx.lineWidth = wf * 0.9;
-					strokeRange(t.pts, t.head, from, to);
-				}
-			}
-		}
-
 		function draw() {
 			ctx.clearRect(0, 0, W, H);
 			var glitch = reduce ? 0 : glitchAmount();
 			drawWaves(glitch);
-			drawTendrils(glitch);
+			field.draw(ctx, glitch);
 		}
 
 		function frame(now) {
