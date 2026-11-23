@@ -288,7 +288,7 @@
 	callPlayer: "Boss",
     assignedProjectCount: 0,
     wage: 25,
-	age: 28,
+	age: 20,
 	sysName: "ethan",
 	sysColor: "#3498db",
 	callName: "Ethan",

@@ -71,18 +71,20 @@ Do this instead:
 `dev/quests/main/stage1/too_much_work*.twee` is the reference for the tone the author wants for now. Older passages contain typos and some stiff writing; don't copy those.
 
 ### Character voices (keep them distinct)
+**Read `CHARACTER_VOICES.md` before writing dialogue.** Its first section matters most: everyone talks like a normal person, and a character's traits are tendencies that show up sometimes, not tics in every line. Speech should vary from scene to scene with mood and situation. The file then has a profile for each character below (personality, tendencies, how the voice shifts over the arc) and the existing passages that miss the mark. The table is only the summary.
+
 | Character | How they talk |
 |---|---|
-| Player | Confident, dry, a little smug, used to getting his way. Gets colder and more commanding with family as the story goes on. |
-| `$mom` | Warm, motherly, a bit anxious. Says "honey", "sweetheart", "sweetie". Talks herself into agreeing. Defers once pushed. |
-| `$sister` | Sarcastic, teasing, bubbly college student. Self-deprecating jokes ("I lost a fight with the college printer"). |
+| Player | A normal guy with a lot of power, not a mastermind, and he doesn't always know the answer. Friendly and joking with family day to day; in key scenes he goes cold by withdrawing that warmth so they come to him. Hates corporate jargon. |
+| `$mom` | Warm, sunny, optimistic, always ready to help anyone. Chatty, longer flowing sentences, lots of "honey", "sweetie", "sweetheart". Talks herself into agreeing. |
+| `$sister` | Confident, popular, articulate older sister who teases from comfortable superiority. Only rambles and gets insecure when she's nervous, mostly with him. |
 | `$landlord` | Gruff, crude, lecherous. Calls the player "kid". Heavy innuendo in quotes ("help" around the building). |
 | `$boss` | Arrogant, sleazy, bullying. Business-formal in mails, crude in person. Calls the player "kid". |
 | `$manager` | Tired, sarcastic diner manager who used to mock the player. |
 | `$prof` | Curmudgeonly, by-the-book academic, impatient with interruptions. |
-| `$ethan` | Laid-back old friend, jokes a lot ("instant noodle diet"), calls the player "boss" - as a joke. |
-| `$brian` | Awkward hardware nerd, blunt and literal, doesn't make eye contact. Says "uh" a lot. And is easily flustered when talking to women. |
-| `$darius` | Polished, sharp, curious, a little formal. Asks precise questions and is overall very confident. |
+| `$ethan` | The player's high-school buddy, same age. Laid-back and funny, but very competent. Calls the player "boss" now and then, as a joke. |
+| `$brian` | Introverted, insecure hardware nerd, not dumb. Short sentences and fillers ("uh", "um"), fairly normal once comfortable. Goes quiet and flustered around women. |
+| `$darius` | Highly intelligent, polished, confident. Rich vocabulary and well-built sentences; numbers when they matter, not as a personality. |
 
 ### Names: ALWAYS use variables. NEVER EVER hard-code a name or a family term.
 The player can rename every character and every family relation in `Character Configuration`. One hard-coded "Ethan", "Sophie" or "my sister" shows the wrong word to everyone who renamed that character, so the author treats it as a bug.
@@ -391,6 +393,7 @@ Each card runs its own block on click. The levels (Charm, Warm-up, Entertain, Ha
 | Intro, character setup, skip intro | `dev/intro/` |
 | In-game help texts | `dev/help_dialog/pages/` |
 | The author's story plan | `dev/notes_for_me.twee`, `STAGE1_PROPOSAL.md`; where Stages 2+ are heading: `LATER_STAGES_VISION.md` |
+| How each character talks (language profiles) | `CHARACTER_VOICES.md` |
 
 ---
 
@@ -413,12 +416,12 @@ The player built `$company.prototype.name` (default "Valenx") to *read* rooms: h
 ### Characters
 - **The player**: `$player` (default Michael Adams), 19. Self-taught founder, sees himself as the one at the edge of every group photo, describes himself as chubby. Smart, resentful and increasingly cold. He tells himself it's all about building something; really it's about control. His corruption stat gates darker choices. He rarely says the cruel part out loud.
 - **Mom**: `$mom` (default Anna Adams), 39. Warm, supportive, puts the family first, and pays for the house and the sister's tuition. Very good with people and organisation. She worked under Victor Anderson; the intro calls her a mid-level office admin and her profile says project manager, so keep it vague ("her old job"). Long blonde hair, blue eyes, athletic. The father (`$dad`, Arthur) is absent and only mentioned. After being fired she runs clients, paperwork and scheduling at the company and is the on-site consultant at Anderson's office. Her arc moves from warm and worried to dutiful and compliant; her lever is "a mother's duty". Calls the player "sweetie", "honey", "sweetheart".
-- **Sister**: `$sister` (default Sophie Adams), 20, college student. Playful, sarcastic, affectionate, bright, spends freely. Long brown hair, blue eyes, fit. Close to her brother since childhood. After Stage 0 she's his intern: diner shifts for `$manager`, tutoring, helping at the office. Her arc is about guilt and confusion turning into devotion. She has already confessed and kissed him (Stage 0), so Stage 1 is about "what are we now?", not a second confession.
+- **Sister**: `$sister` (default Sophie Adams), 20, college student. Confident, popular, usually a good student, playful and affectionate, spends freely. Long brown hair, blue eyes, fit. Close to her brother since childhood. After Stage 0 she's his intern: diner shifts for `$manager`, tutoring, helping at the office. Her arc is about guilt and confusion turning into devotion. She has already confessed and kissed him (Stage 0), so Stage 1 is about "what are we now?", not a second confession.
 - **Mr. Howell**: `$landlord` (Norman Howell), 76. Greasy, foul-smelling, lecherous old landlord. Calls the player "kid". Lowered the office rent to $3,750 on condition that mom and sister come by every week to "help around the building" (tasks 3/4, `$flags.visitedLandlordThisWeek`).
 - **Mr. Anderson**: `$boss` (Victor Anderson), 57. Mom's ex-boss, a bullying, sleazy, well-connected executive. Manipulated by the player, then made client two: he ordered his own prototype and insisted mom act as on-site consultant.
 - **Mr. Morales**: `$manager` (Frank Morales), 48. Manager of `$diner.name` ("The Diner"), the player's former boss who liked to mock him. He became the first client after the diner test run. Stage 1: sister works shifts there, and he wants an analysis of how to make more money. Planned: revealing uniforms, the "aggressive customer" incident.
 - **Mr. Walsh**: `$prof` (Antony Walsh), 61. The sister's calculus professor: balding, wire-rimmed glasses, irritable, influential on the curriculum committee. Manipulated so she passes. Planned: a "research project" proposal and more tutoring.
-- **Ethan Reed**: `$ethan`, 28, software (skill 30). The headset started as the player's high-school project; Ethan, a computer science student he met at a university hackathon, wrote most of its code. That original headset could only *listen*. Easygoing joker; the player's first real friend in years. **Planned main antagonist of Stage 1**: he discovers the real influence data, steals the technology and starts a rival company. The notes call him "Evan"; the code uses Ethan. Don't foreshadow this yet.
+- **Ethan Reed**: `$ethan`, about the player's age, software (skill 30). The player's buddy from high school: they built the headset version of the device together as a school project, and Ethan wrote most of its code. They lost touch after graduation and found each other again when the player started hiring. There was no hackathon, and he never talks about the player as a "kid". Right after graduation he wrote the core of an app for three business-school guys who left him off the equity paperwork (his sore spot, "my piece"), then contracted for a startup that went under. That original headset could only *listen*. Easygoing joker; the player's first real friend in years. **Planned main antagonist of Stage 1**: he discovers the real influence data, steals the technology and starts a rival company. The notes call him "Evan"; the code uses Ethan. Don't foreshadow this yet.
 - **Brian Hayes**: `$brian`, 34, hardware (skill 35). Heavy-set nerd in faded band shirts, constantly pushing his glasses up. Socially awkward, blunt, brilliant with a soldering iron, and never asks what the hardware is for.
 - **Darius Brooks**: `$darius`, 26, data analyst (skill 32). Tall, athletic, tailored shirts, ex sports-franchise performance analyst. Polished and very sharp; the player has to watch what he shows him. The sister thinks he's cute.
 

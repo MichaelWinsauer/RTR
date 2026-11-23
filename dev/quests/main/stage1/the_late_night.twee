@@ -55,11 +55,13 @@ Around ten we stop and sit on two desks with the second pizza between us. The di
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "You know what this reminds me of? The hackathon. The night with the headset." },
-{ who: $player, text: "Don't." },
-{ who: $ethan, text: "Oh, I'm going to. You were this tiny, furious high school kid with a headset you'd built out of a bike helmet and a broken baby monitor, and everyone else there was a grad student, and you walked up to my table and said, I quote, 'I need someone who can write code that doesn't suck'." },
-{ who: $player, text: "I said 'doesn't completely suck'." },
-{ who: $ethan, text: "You did. You were being generous. And that thing could hear a room breathe. I sat there at four in the morning with the helmet on, listening to forty people's heartbeats, and I thought, okay. This kid is going somewhere, and I'm going to be in the car." },
+{ who: $ethan, text: "You know what this reminds me of? The physics lab, the night before the project fair. You, me, and that bike helmet with the baby monitor taped to it." },
+{ who: $player, text: "Oh no. Here we go." },
+{ who: $ethan, text: "Oh, I'm going to. The janitor came by every hour to check if we were still alive, and at two in the morning you finally looked at my code and said, and I quote, 'Okay, this doesn't completely suck'." },
+{ who: $player, text: "That was a compliment. You know that was a compliment." },
+{ who: $ethan, text: "From you? That was basically a medal. And the thing worked, man. The next day I sat in that gym with the helmet on for three hours, listening to a few hundred people breathing, and I thought, okay, this guy is going somewhere, and I want to be in the car when he does." },
+{ who: $ethan, text: "And then we graduated and I didn't hear from you for a whole year. Which, for the record, was rude." },
+{ who: $player, text: "I was busy going broke. It's a full-time job." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -82,7 +84,7 @@ I take another slice so I don't have to answer that.
 <<set _msgs = [
 { who: $player, text: "What happened at your last place? You never really said." },
 { text: "He's quiet for a moment. Then he puts the can down on the desk, very carefully, like it might spill something other than soda." },
-{ who: $ethan, text: "Ah. The startup. So, three guys and me. I wrote most of it. Like, the core of it, the part that actually worked. They did the slides. They were very good at slides." },
+{ who: $ethan, text: "Ah. The startup. So, right after graduation, three guys from the business school had an app idea and no clue how to build it, and they found me. I wrote most of it. Like, the core of it, the part that actually worked. They did the slides. They were very good at slides." },
 { who: $ethan, text: "There was supposed to be equity. Everybody said so, at every dinner, every late night. 'When we close the round, we'll do the paperwork.' And then they closed the round, and there was a lawyer, and there was paperwork, and my name wasn't on it." },
 { who: $ethan, text: "They offered me a raise. A nice one. And I said thanks, and I cleaned out my desk, and I told myself, never again. Never again do I build somebody else's thing for a handshake." },
 ]>>
@@ -93,7 +95,7 @@ He says it lightly, the way he says everything. His hands don't say it lightly. 
 
 <<silently>>
 <<set _msgs = [
-{ who: $ethan, text: "Anyway. Then some guy I met at a hackathon called me out of nowhere and asked if I wanted to build a thing that talks back. Softly. And I said yes before he got to the salary." },
+{ who: $ethan, text: "Anyway. Then my old lab partner called me out of nowhere and asked if I wanted to build a thing that talks back. Softly. And I said yes before he got to the salary." },
 { who: $player, text: "You'll get your piece. When this is real, you get your piece. I mean it." },
 { who: $ethan, text: "I know, boss." },
 { text: "He picks the can back up and clinks it against my slice of pizza." },

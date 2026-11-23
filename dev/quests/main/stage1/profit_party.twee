@@ -79,7 +79,7 @@ At eight, three cups of the blue stuff in, $ethan.name climbs onto a chair. $mom
 { who: $sister, text: "You have not prepared remarks." },
 { who: $ethan, text: "I have prepared remarks in my heart." },
 { text: "He puts his hand on his heart and almost falls off the chair. $brian.name steadies it without being asked." },
-{ who: $ethan, text: "I've had a lot of jobs. A lot of bosses. Most of them were idiots, and the ones who weren't idiots were worse, because they were smart idiots. And then this kid, this tiny furious kid with a bike helmet full of wires, walks up to my table at a hackathon, and..." },
+{ who: $ethan, text: "I've had three bosses in my life, if you count the car wash. Two of them were idiots, and the third one was worse, because he was a smart idiot. And then this guy, my old lab partner, the one who taped a baby monitor to a bike helmet and called it a science project, calls me out of nowhere after a whole year, and..." },
 { text: "He stops. He looks at me across the room. For a second, through all the blue stuff, he's completely serious." },
 { who: $ethan, text: "...and I never had a better boss in my life. That's it. That's the speech. Best boss I've ever had." },
 ]>>

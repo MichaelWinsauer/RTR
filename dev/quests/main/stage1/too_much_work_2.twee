@@ -3,9 +3,9 @@
 I put the job postings online that same evening, and by breakfast my inbox is overflowing. Most of it is junk. People who can't spell "software", people who obviously stopped reading somewhere around the word "salary", and one guy who sent nothing but a photo of his car. No CV, no message, just the car. It is a nice car, to be fair. After an hour of digging I'm left with two names worth my time. The third one I already had. I book all three for the same day, back to back, in the meeting room.
 
 <<linkreplace "The first interview">>
-The first one isn't really an interview. The moment I started thinking about who should write the code, only one name came to mind, so I skipped the posting entirely and just called him.
+The first one isn't really an interview. I haven't talked to him since graduation, but the moment I started thinking about who should write the code, only one name came to mind, so I skipped the posting entirely, dug out his number and called him.
 
-$ethan.name $ethan.surname shows up ten minutes early, backpack slung over one shoulder, wearing the same lazy grin he had at university. We spent two semesters crammed into a basement lab back then, building the very first version of the prototype. It was a clunky headset with more wires than sense, and on a good day it could pick up a handful of brainwave patterns. It didn't do anything to anyone. All it did was listen, and most of the code that taught it how to listen was his.
+$ethan.name $ethan.surname shows up ten minutes early, backpack slung over one shoulder, wearing the same lazy grin he had in high school. In junior year we spent most of our evenings in the corner of the physics lab, building the very first version of the prototype for a school project. It was a clunky headset with more wires than sense, and on a good day it could pick up a handful of brainwave patterns. It didn't do anything to anyone. All it did was listen, and most of the code that taught it how to listen was his.
 
 <<silently>>
 <<set _msgs = [
@@ -71,8 +71,8 @@ By the time the last candidate is out the door it's already evening, and $mom.ca
 { who: $sister, text: "I don't see why he can't be both." },
 { who: $mom, text: "The one with the glasses walked straight past me. He didn't even say hello." },
 { who: $player, text: "That's $brian.name. He's not here to make friends, he's here to build hardware, and he's the best I've come across." },
-{ who: $mom, text: "Your friend from university seemed lovely, though." },
-{ who: $player, text: "$ethan.name. He's the only one I'd trust with the code. He was there right at the beginning." },
+{ who: $mom, text: "But $ethan.name seemed lovely, honey. Is that the same boy who used to empty our whole fridge when you two were working on that helmet thing?" },
+{ who: $player, text: "Same one. He's the only one I'd trust with the code. He was there right at the beginning." },
 { who: $mom, text: "So... which one are you going to pick?" },
 { who: $player, text: "All of them. They start Monday." },
 { who: $mom, text: "All three? Honey, wouldn't it be smarter to start with one and see how it..." },
