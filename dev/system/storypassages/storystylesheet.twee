@@ -2027,6 +2027,15 @@ Saves dialog (frame, scrollbar and font are shared with the Settings dialog abov
 ============================================================
 */
 
+.npc-here-wrapper {
+  padding: .5rem;
+  border-radius: .5rem;
+  border: 1px solid var(--accent);
+  background-color: var(--card-border);
+  font-size: 1rem;
+  letter-spacing: .25px;
+}
+
 .locations-wrapper {
   width: 100%;
   display: flex;

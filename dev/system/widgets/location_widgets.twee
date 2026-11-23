@@ -63,25 +63,32 @@
 */
 <<widget "CheckNPCLocation">>
 	<<if setup.sameLocation($player.location, $mom.location)>>
-        <<if !$mom.flags.isFollowing>>
-         	$mom.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> <<= setup.activityText("mom", $mom.activity)>>.
-    	<<else>>
-         	$mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
-        <</if>>
-         
+        <div class="npc-here-wrapper npc-here-mom">
+            <<if !$mom.flags.isFollowing>>
+                $mom.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> <<= setup.activityText("mom", $mom.activity)>>.
+            <<else>>
+                $mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
+            <</if>>
+        </div>         
     <<elseif $mom.flags.isFollowing>>
-    	$mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
+        <div class="npc-here-wrapper npc-here-mom">
+    	    $mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
+        </div>
     <</if>>
     
     <<if setup.sameLocation($player.location, $sister.location)>>
-        <<if !$sister.flags.isFollowing>>
-        	$sister.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> <<= setup.activityText("sister", $sister.activity)>>.
-    	<<else>>
-         	$sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
-        <</if>>
+        <div class="npc-here-wrapper npc-here-sister">
+            <<if !$sister.flags.isFollowing>>
+                $sister.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> <<= setup.activityText("sister", $sister.activity)>>.
+            <<else>>
+                $sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
+            <</if>>
+        </div>
          
     <<elseif $sister.flags.isFollowing>>
-    	$sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
+    	<div class="npc-here-wrapper npc-here-sister">
+            $sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
+        </div>
     <</if>>
     
 <</widget>>
