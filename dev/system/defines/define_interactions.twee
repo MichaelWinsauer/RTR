@@ -52,7 +52,8 @@
 /* activities during which she can't be talked to at all; bring_coffee, internship_overview, flirt_duty and
    extra_friendly are tasks (her coffee round at the office, the overview meeting with me, her rounds with the
    staff, her time at the desk of the hardware guy), not moments for a chat */
-<<set _busy to ["sleeping", "showering", "peeing", "bring_coffee", "internship_overview", "flirt_duty", "extra_friendly"]>>
+   /* "bring_coffee", "internship_overview", "flirt_duty", "extra_friendly" */
+<<set _busy to ["sleeping", "showering", "peeing", ]>>
 <<set $interactions to {
 
 	/* An action stays hidden while she is still too far from its requirements: when the stat points she is
