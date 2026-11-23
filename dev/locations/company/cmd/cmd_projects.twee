@@ -1,7 +1,23 @@
 :: CMD Projects [nobr] {"position":"2575,3250","size":"100,100"}
-<span style="display: flex; justify-content: space-between; border-bottom: 1px solid #EBDDC530;"><h3>Projects</h3> <<link "->">><<run window.openProjectOverview()>><</link>></span>
+/* Projects the player can start but has not looked at yet ("New projects" in Define Projects): the head
+   shows a button instead of the plain arrow, they get a card at the top of the list, and the panel glows
+   (the :has() rule below) until the overview has been opened. */
+<<set _newProjects to setup.newProjects()>>
+<span class="cmd-projects-head"><h3>Projects</h3>
+<<if _newProjects.length > 0>>
+	<button type="button" class="cmd-projects-new" onclick="window.openProjectOverview()" title="Open the project overview"><span class="cmd-projects-new-dot"></span><<= _newProjects.length>> new &#8594;</button>
+<<else>>
+	<<link "->">><<run window.openProjectOverview()>><</link>>
+<</if>>
+</span>
 
 <div class="cmd-projects-wrapper">
+    <<for _i = 0; _i < _newProjects.length; _i++>>
+        <button type="button" class="cmd-projects-ready" onclick="window.openProjectOverview()">
+            <span class="cmd-projects-ready-title"><<= _newProjects[_i].title>></span>
+            <span class="cmd-projects-ready-tag">Ready to start</span>
+        </button>
+    <</for>>
     <<for _i = 0; _i < $company.projects.length; _i++>>
         <<set _project to $company.projects[_i]>>
         <<if _project.active == false>>
@@ -416,9 +432,118 @@
 <</script>>
 
 <style>
+.cmd-projects-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #EBDDC530;
+}
+
 .cmd-projects-wrapper {
   width: 100%;
   overflow-y: scroll;
+}
+
+/* ——— new projects waiting in the overview ——— */
+.cmd-projects:has(.cmd-projects-new) {
+  border-color: #EAAF4C80;
+  animation: cmd-projects-glow 2.6s ease-in-out infinite;
+}
+
+/* a click on the Next up entry in the header still flashes the panel */
+.cmd-projects.cmd-flash:has(.cmd-projects-new) {
+  animation: cmd-flash 1s ease-out;
+}
+
+@keyframes cmd-projects-glow {
+  0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,.06) inset, 0 0 0 0 #EAAF4C00; }
+  50%      { box-shadow: 0 10px 30px rgba(0,0,0,.06) inset, 0 0 1.1rem -.15rem #EAAF4C70; }
+}
+
+.cmd-projects-new {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin: .1rem 0;
+  padding: .15rem .7rem;
+  font-family: inherit;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #EAAF4C;
+  background-color: #EAAF4C18;
+  border: 1px solid #EAAF4C70;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.cmd-projects-new:hover {
+  color: #1a1408;
+  background-color: #EAAF4C;
+}
+
+.cmd-projects-new-dot {
+  width: .45rem;
+  height: .45rem;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: cmd-projects-dot 1.3s ease-in-out infinite;
+}
+
+@keyframes cmd-projects-dot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .3; }
+}
+
+.cmd-projects-ready {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  width: calc(100% - .5rem);
+  margin: .25rem;
+  padding: .55rem .6rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  text-align: left;
+  color: #EBDDC5;
+  background-color: #EAAF4C12;
+  border: 1px dashed #EAAF4C80;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+.cmd-projects-ready:hover {
+  background-color: #EAAF4C26;
+  border-color: #EAAF4C;
+}
+
+.cmd-projects-ready-title {
+  min-width: 0;
+  overflow: hidden;
+  font-size: .85rem;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cmd-projects-ready-tag {
+  flex: 0 0 auto;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #EAAF4C;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmd-projects:has(.cmd-projects-new),
+  .cmd-projects-new-dot {
+    animation: none;
+  }
 }
 
 .cmd-projects-project-wrapper {

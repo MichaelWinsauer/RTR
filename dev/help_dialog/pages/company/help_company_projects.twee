@@ -9,7 +9,7 @@
 </ul>
 
 <h3>The overview</h3>
-<p>It lists every project the company has or knows about, grouped by status. New projects show up as the story goes on, with a notification when one is added.</p>
+<p>It lists every project the company has or knows about, grouped by status. New projects show up as the story goes on, with a notification when one is added. While a project is ready to start and you haven't opened the overview since, the projects panel glows, lists it at the top and swaps its arrow for a <b>new</b> button.</p>
 <dl class="help-stats">
 	<dt>Active</dt><dd>Running right now, with progress, deadline and team. Click one to open its project window.</dd>
 	<dt>Ready to start</dt><dd>Projects you can take on yourself. <b>Start</b> begins it right away.</dd>

@@ -19,6 +19,9 @@
     cooldown: 'Cooling down', locked: 'Locked', done: 'Finished',
   };
 
+  /* ids that were new when the overview opened ("New projects" in Define Projects), tagged New in the list */
+  let newIds = [];
+
   const money = (n) => '$' + Number(n || 0).toLocaleString('en-US');
   const plural = (n, word) => n + ' ' + word + (n === 1 ? '' : 's');
   const portrait = (sysName) => `<<Media "images/characters/portraits/${sysName}.jpg" "" "" "false">>`;
@@ -95,6 +98,7 @@
             <span class="pov-title">${project.title}</span>
             <span class="pov-type">${project.type === 'repeatable' ? 'Repeatable' : 'Story'}</span>
             <span class="pov-badge ${status}">${BADGE[status]}</span>
+            ${newIds.includes(project.id) ? '<span class="pov-badge new">New</span>' : ''}
           </div>
           <div class="pov-client">${clientLine}</div>
           ${project.description ? `<div class="pov-desc">${project.description}</div>` : ''}
@@ -156,9 +160,12 @@
   }
 
   window.openProjectOverview = function () {
+    newIds = setup.markProjectsSeen();
     Dialog.create('', 'glass-project-dialog');
     render();
     Dialog.open();
+    /* the panel and the header stop pointing at them */
+    if (newIds.length) setup.refreshProjectsPanel();
   };
 })();
 <</script>>
@@ -251,6 +258,7 @@
 
 .pov-badge.active    { color: #EAAF4C; border-color: #EAAF4C60; background: #EAAF4C14; }
 .pov-badge.available { color: #1cd88d; border-color: #1cd88d60; background: #1cd88d14; }
+.pov-badge.new       { color: #1a1408; border-color: #EAAF4C; background: #EAAF4C; }
 .pov-badge.locked    { color: #ff6479; border-color: #DB354C60; background: #DB354C14; }
 .pov-badge.cooldown,
 .pov-badge.done      { opacity: .7; }

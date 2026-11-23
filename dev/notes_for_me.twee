@@ -27,10 +27,10 @@ Todo List:
         ✔ show end of day report in sidebar quicklinks
         ✔ report back can always (at the same day) be requested, not only >evening
         ✔ visually rework report back
-    - visually rework npc is at the same location
-    - visually rework meal showing 
+    ✔ visually rework npc is at the same location
+    ✔ visually rework meal showing 
     ✔ cmd micro event with cctv overlay fix
-    - highlight projects panel if unstarted available 
+    ✔ highlight projects panel if unstarted available 
     ✔ device pulse visual tendrils + show on scroll
     - add important meals for stage 1
     - more tasks

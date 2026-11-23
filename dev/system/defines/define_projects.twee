@@ -33,7 +33,7 @@
                     them, and nobody else's work counts. Without it everyone may (setup.projectAllows)
 
    Set while playing: active, startedAtDay, due, completed (the last run is finished), completedAtDay,
-   timesCompleted, assigned (employee copies), progress. */
+   timesCompleted, assigned (employee copies), progress, seenRun (see "New projects" below). */
 <<set $company.projects to [
 	{
     	id: "project_boss_prototype",
@@ -358,6 +358,39 @@
     if (!project || project.unlocked !== false) { return; }
     project.unlocked = true;
     Notification.show("New project: " + wikifyText(project.title) + ". It's waiting in the project overview.", { type: Notification.INFORMATION });
+    setup.refreshProjectsPanel();
+}>>
+
+/* New projects ================================================================
+   A project the player can start right now but has not looked at in the overview yet counts as new: the
+   CMD Projects panel glows, lists it at the top and shows a "new" button in its head, and the CMD header
+   names it under Next up. Opening the overview marks every project that is ready as seen.
+   project.seenRun holds timesCompleted from the moment the player saw it ready, so a repeatable project
+   is new again after every finished run (and after its cooldown, if it has one).
+
+   setup.projectIsNew(p)          ready to start and not seen in the overview since
+   setup.newProjects()            every new project, in list order
+   setup.markProjectsSeen()       marks the ready ones as seen (the overview calls it), returns the ids that were new
+   setup.refreshProjectsPanel()   re-renders CMD Projects and the CMD header, if the dashboard is on screen */
+<<set setup.projectIsNew = (project) => {
+    return setup.projectStatus(project) === "available" && project.seenRun !== (Number(project.timesCompleted) || 0);
+}>>
+
+<<set setup.newProjects = () => {
+    return (State.variables.company.projects || []).filter((p) => setup.projectIsNew(p));
+}>>
+
+<<set setup.markProjectsSeen = () => {
+    const fresh = setup.newProjects();
+    fresh.forEach((p) => { p.seenRun = Number(p.timesCompleted) || 0; });
+    return fresh.map((p) => p.id);
+}>>
+
+<<set setup.refreshProjectsPanel = () => {
+    /* during a passage change the old dashboard is about to go anyway, the new one renders with the new state */
+    if (!Engine.isIdle() || !$("#cmd-projects").length) { return; }
+    $("#cmd-projects").empty().wiki('<<include "CMD Projects">>');
+    if (window.cmdRefreshHeader) { window.cmdRefreshHeader(); }
 }>>
 
 <<set setup.projectStatus = (project) => {
