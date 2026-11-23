@@ -1707,7 +1707,7 @@ Saves dialog (frame, scrollbar and font are shared with the Settings dialog abov
   position: absolute;
   width: 1.5em;
   aspect-ratio: 1/1;
-  z-index: 10000;
+  z-index: 1;
   background-color: transparent;
   background-size: contain;
   scale: .5;
@@ -1747,7 +1747,7 @@ Saves dialog (frame, scrollbar and font are shared with the Settings dialog abov
 	pointer-events: none;
 	width: 100%;
 	height: 100%;
-	z-index: 100;
+	z-index: 1;
   	inset: 0;
 }
 
