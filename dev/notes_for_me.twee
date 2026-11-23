@@ -23,10 +23,10 @@ Todo List:
     ✔ Ask C: S-Quest 1, how should it appear? With micro_events or something different?
     ✔ next S Quest Content (It makes a difference) or smth. Unsure how the night part should work. Maybe new quest?
     ✔ Analyze language and talk profiles
-    - report back:
-        - show end of day report in sidebar quicklinks
-        - report back can always (at the same day) be requested, not only >evening
-        - visually rework report back
+    ✔ report back:
+        ✔ show end of day report in sidebar quicklinks
+        ✔ report back can always (at the same day) be requested, not only >evening
+        ✔ visually rework report back
     - visually rework npc is at the same location
     - visually rework meal showing 
     - cmd micro event with cctv overlay fix
