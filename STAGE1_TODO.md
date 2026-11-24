@@ -176,6 +176,40 @@ Revised against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md), see proposal s
 
 ---
 
+## 7. Playtest notes (2026-11-24)
+
+From the first full playthrough of Stage 1.
+
+**Blocking the story**
+- [ ] **No way to raise Exhibition.** Some of the sister's choices (and offers gated on Exhibition) can never be unlocked, because nothing in the normal game raises `MomExhibition`/`SisterExhibition` except a few scenes. Needs repeatable sources: tasks, interactions, micro events.
+- [ ] **The family offers come too early.** The main line reaches its offer scenes (Gym Dinner, The Introduction, The Supplier) before the mom and sister lines have got far enough to unlock the family option, so it's nearly always locked. Give the main line more time before these big quests (longer waits, or requirements on the other lines' progress).
+
+**Continuity and missing scenes**
+- [ ] **Rehearsal assumes The Rooftop happened.** I skipped the rooftop hostess offer, but the rehearsal still talked as if she had hosted it. Several lines in [rehearsal.twee](dev/quests/sister/stage1/rehearsal.twee) mention the rooftop without checking `$flags.retailIntro === "sister"`. Add a variant for when she didn't host.
+- [ ] **No setup talk with mom before the club night.** She goes to the club with the sister without the player ever talking to her about it first. Add a scene (or a beat in Last Night Mom) where he asks or tells her.
+- [ ] **Remaining stubs and unfinished content**: finish them (`grep -rn STAGE1-STUB dev`; see section 3).
+
+**Her side of the story**
+- [ ] **Was That Right? as POV.** Mom telling him about the gym dinner should be a POV passage in her voice, like the report-back scenes, with the steakhouse background. Same treatment for the sister's equivalent scene (The Rooftop aftermath, or wherever she tells him how an evening went).
+- [ ] **After the club, they offer to tell him.** After Night Shift, mom and sister should each offer to tell him how it went inside, as a POV passage with the club background.
+
+**More to do in Stage 1**
+- [ ] **Too few tasks for mom and sister.** Stage 1 has too little to actually do. New tasks should open up gradually over the stage (the side lines will add some, but they aren't open yet). **Plan the task list together with the author first**, then build.
+
+**Day report**
+- [ ] **"How was your day?" shows up even with nothing to report.** It should only appear (and only be highlighted) when one of them really has a new entry.
+- [ ] **Show which tasks feed the report.** Mark tasks with a `report` (flirt duty has one, secretary work doesn't) with an indicator, in the CMD scheduler and wherever else tasks are listed.
+
+**Balancing**
+- [ ] **Employee morale never runs out.** The overnight recovery outpaces the work drain. Retune `setup.companyStatTuning`, `setup.moraleRecovery()` and the vent levels' `drain`.
+- [ ] **Mom's and the sister's energy never runs out either.** Retune task energy costs (`setup.taskEnergyCost`) and the overnight recovery.
+
+**UI**
+- [ ] **No sidebar quick link for eligible quests.** It made the game a click-through of the sidebar. Remove the `quest` entry from the sidebar. Keep it only as a CMD action, and only for quests at the office or the meeting room.
+- [ ] **Too much `--gold`.** Most boxes and highlights should use `--accent` instead. Go through the stylesheet and the CMD/sidebar panels.
+
+---
+
 ## Suggested order
 
 1. Make the remaining decisions in section 1.
