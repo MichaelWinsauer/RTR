@@ -468,7 +468,10 @@
     {
     	/* 4.5b The first family option. The scene sets $mom.flags.gymDinner (true: she goes, false: I go and give a
     	   discount). Sending her is only offered once her line has reached mom_gymDinner. The scene uses the Offer macro
-    	   (Family offers below): the plain price, her card at level 2 (Entertain), and a stall */
+    	   (Family offers below): the plain price, her card at level 2 (Entertain), and a stall.
+    	   It waits until her line has reached mom_gymDinner and her corruption is high enough for level 2 (Family offers:
+    	   the offer gates). Her Exhibition is left to me: if I neglected it, her card is still locked, and that is my
+    	   own doing (playtest 2026-11-24) */
     	id: "main_gymDinner",
     	next: "main_morale",
     	title: "The Gym Dinner",
@@ -480,8 +483,16 @@
         needsEvent: true,
         passage: "Gym Dinner",
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
-        requirements: [ "$date.dayCount >= setup.getQuestById('main_gymMeeting').doneDay + 2" ],
-        requirementsText: [ "Let $gymOwner.name think it over for a couple of days" ],
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('main_gymMeeting').doneDay + 2",
+            "setup.questReached('mom_gymDinner')",
+            "setup.offerCorruptionMet('mom', 2)",
+        ],
+        requirementsText: [
+            "Let $gymOwner.name think it over for a couple of days",
+            "Progress $mom.callName's quest",
+            "{{setup.offerCorruptionText('mom', 2)}}",
+        ],
         set: [ "setup.unlockProject('project_gym_veil')" ],
     },
     {
@@ -501,8 +512,8 @@
         requirementsText: [ "Let the new contract settle in" ],
     },
     {
-    	/* 4.7 The first accident of the Veil, told by her at home.
-    	   STAGE1-STUB: the Veil is not installed at the diner yet (that is the Debrief of the manager line, 7.3) */
+    	/* 4.7 The first accident of the Veil, told by her at home. Needs the Veil in the diner: the Debrief of the
+    	   manager line (manager_debrief, 7.3) */
     	id: "main_dinerIncident",
     	next: "main_anchor",
     	title: "The Diner Incident",
@@ -517,9 +528,11 @@
         returnPassage: "Living Room",
         requirements: [
             "setup.getTaskById('task_sister_diner_shift').count >= 10",
+            "setup.questDone('manager_debrief')",
         ],
         requirementsText: [
             "$sister.callName works 10 shifts at $diner.name ({{Math.min(10, setup.getTaskById('task_sister_diner_shift').count)}}/10)",
+            "Get $company.devices.valenxVeil.name into $diner.name",
         ],
     },
     {
@@ -640,7 +653,8 @@
     	/* 4.11, first half: the second family option. The scene sets $flags.retailIntro to "broker" (pay), "wait" (two
     	   weeks) or "sister" (she hosts the rooftop evening, sister_rooftop). Offering her only once her line has reached
     	   sister_rooftop. The scene uses the Offer macro (Family offers below): the broker fee as money (setup.spend), the
-    	   wait, her card at level 2 (Entertain), and a stall */
+    	   wait, her card at level 2 (Entertain), and a stall.
+    	   Like the Gym Dinner it waits for her line (sister_rooftop) and her corruption for level 2 (the offer gates) */
     	id: "main_retailIntroduction",
     	next: "main_retailPitch",
     	title: "The Introduction",
@@ -652,8 +666,16 @@
         needsEvent: true,
         passage: "Retail Introduction",
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
-        requirements: [ "$date.dayCount >= setup.getQuestById('main_crack').doneDay + 2" ],
-        requirementsText: [ "Wait a few days" ],
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('main_crack').doneDay + 2",
+            "setup.questReached('sister_rooftop')",
+            "setup.offerCorruptionMet('sister', 2)",
+        ],
+        requirementsText: [
+            "Wait a few days",
+            "Progress $sister.callName's quest",
+            "{{setup.offerCorruptionText('sister', 2)}}",
+        ],
     },
     {
     	/* 4.11, second half: the night before the demo, master access for the old friend. The scene sets
@@ -677,8 +699,8 @@
     {
     	/* 4.12, first half: the price of the supplier, $20,000 or an evening with both of them. The scene sets
     	   $flags.supplierOffered. Offering them only once both lines have reached their optional quests
-    	   (mom_lastNight, sister_rehearsal).
-    	   STAGE1-STUB: the boss line (7.2, The Introduction) should name the supplier first, gate on it once it exists.
+    	   (mom_lastNight, sister_rehearsal). It waits for both lines to get there and for their corruption for level 3
+    	   (the offer gates in Family offers below), and for the boss to name the supplier (boss_introduction, 7.2).
     	   The scene uses the Offer macro: the price as money, their cards at level 3, and for the pay branch the advance from
     	   the boss (setup.addDebt, Define Company: the money now, installments every Monday) */
     	id: "main_supplier",
@@ -692,8 +714,20 @@
         needsEvent: true,
         passage: "The Supplier",
         returnPassage: setup.getLocationBySysName("companystage1desk").passage,
-        requirements: [ "$date.dayCount >= setup.getQuestById('main_retailPitch').doneDay + 2" ],
-        requirementsText: [ "Wait a few days after the pitch" ],
+        requirements: [
+            "$date.dayCount >= setup.getQuestById('main_retailPitch').doneDay + 2",
+            "setup.questDone('boss_introduction')",
+            "setup.questReached('mom_lastNight') && setup.questReached('sister_rehearsal')",
+            "setup.offerCorruptionMet('mom', 3)",
+            "setup.offerCorruptionMet('sister', 3)",
+        ],
+        requirementsText: [
+            "Wait a few days after the pitch",
+            "Get a name from $boss.callName",
+            "Progress $mom.callName's and $sister.callName's quests",
+            "{{setup.offerCorruptionText('mom', 3)}}",
+            "{{setup.offerCorruptionText('sister', 3)}}",
+        ],
     },
     {
     	/* 4.12, second half: the night. If they go, it runs through Last Night Mom (mom_lastNight) and Last Night Sister
@@ -728,7 +762,9 @@
     	/* 4.13 End of Stage 1: the heist, the investigation, the rival launch.
     	   STAGE1-STUB: the set below follows proposal 3.7 (every device but the original is gone) and lets the old friend
     	   leave the staff. Check what else has to reset (projects he is assigned to, the vent, the CCTV) and where
-    	   Stage 2 starts ($company.stage) */
+    	   Stage 2 starts ($company.stage).
+    	   It waits for the report the dean co-signed (prof_deansVisit, 7.4): the lawyer needs it for The Letter, which is
+    	   part of this scene. The Sale (landlord_sale, 7.1) ends together with it */
     	id: "main_morningAfter",
     	next: "main_end",
     	title: "The Morning After",
@@ -740,8 +776,14 @@
         needsEvent: true,
         passage: "Morning After",
         returnPassage: "Company Stage 1",
-        requirements: [ "$date.dayCount > setup.getQuestById('main_nightShift').doneDay" ],
-        requirementsText: [ "Wait until morning" ],
+        requirements: [
+            "$date.dayCount > setup.getQuestById('main_nightShift').doneDay",
+            "setup.questDone('prof_deansVisit')",
+        ],
+        requirementsText: [
+            "Wait until morning",
+            "Get the report signed at the college",
+        ],
         set: [
             "Object.keys($company.devices).forEach((k) => { if (k !== 'valenx') { $company.devices[k].owned = false; } })",
             "$company.employees = $company.employees.filter((e) => e.sysName !== 'ethan')",
@@ -1370,9 +1412,8 @@
         notify: [ "New interaction with $mom.callName: Whenever I want" ],
     },
     {
-    	/* 5.10 OPTIONAL: only if I offer her to the boss (The Arrangement, boss line 7.2).
-    	   STAGE1-STUB: the boss line does not exist yet, so $mom.flags.offeredToBoss is false and this is always skipped.
-    	   Once the boss line exists, start the flag at null and make The Arrangement set it */
+    	/* 5.10 OPTIONAL: only if I offer her to the boss (The Arrangement, boss_arrangement, sets
+    	   $mom.flags.offeredToBoss). Her line waits here until that is decided (null), then plays it or skips it */
     	id: "mom_afterHours",
     	next: "mom_lastNight",
     	title: "After Hours",
@@ -1384,9 +1425,9 @@
         needsEvent: true,
         passage: "After Hours",
         returnPassage: "Company Stage 1",
-        skip: "$mom.flags.offeredToBoss !== true",
-        requirements: [ "$mom.flags.offeredToBoss === true" ],
-        requirementsText: [ "Offer $mom.callName to $boss.callName" ],
+        skip: "$mom.flags.offeredToBoss === false",
+        requirements: [ "setup.questDone('boss_arrangement')", "$mom.flags.offeredToBoss === true" ],
+        requirementsText: [ "Settle things with $boss.callName", "Offer $mom.callName to $boss.callName" ],
     },
     {
     	/* 5.11 OPTIONAL: only if I offer them to the supplier (main_supplier sets $flags.supplierOffered).
@@ -2020,8 +2061,9 @@
     },
 ]>>
 
-/* The professor. His line starts hidden in the background (hidden: true) and only shows up once his mail arrives,
-   a week after both first projects are done */
+/* The professor (STAGE1_PROPOSAL.md 7.4, venue: the college). His line starts hidden in the background (hidden: true)
+   and only shows up once his mail arrives, a week after both first projects are done. Gate: The Dean's Visit comes
+   before The Morning After (main_morningAfter waits for it) */
 <<set $prof.quests to [
     {
     	/* runs from the start of the game, but nobody sees it: it only waits for the two first projects and then
@@ -2056,7 +2098,7 @@
     {
     	/* He comes to the office on the Thursday afternoon after I answered his mail. Unlocks her college tutoring */
     	id: "prof_researchProject",
-    	next: "prof_end",
+    	next: "prof_faceOfProject",
     	title: "The Proposition",
         task: "$prof.callName is coming by the office on Thursday afternoon. Whatever he wants, he didn't want to put it in writing.",
         where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
@@ -2071,9 +2113,509 @@
         set: [ "setup.getTaskById('task_sister_tutoring_college').active = true" ],
         notify: [ "New task for $sister.callName: Tutoring at the college" ],
     },
+    /* ==== Stage 1, after The Proposition (STAGE1_PROPOSAL.md 7.4) ====================================================
+       STAGE1-STUB: everything from here to prof_end is structure only. The scene passages are empty stubs, and the
+       requirements and timings are first guesses from the timeline (proposal section 8). The Letter (7.4, 7) is no quest
+       of its own: it is part of The Morning After (main_morningAfter), which waits for prof_deansVisit. */
+    {
+    	/* 7.4, 2: she is told she is the face of the project. "Fine, but tights." Also gives her college tutoring task
+    	   (task_sister_tutoring_college) its scenes */
+    	id: "prof_faceOfProject",
+    	next: "prof_theList",
+    	title: "The Face of the Project",
+        task: "$prof.callName's research project needs a face, and he already picked one. Somebody should tell $sister.callName before he does.",
+        where: [ setup.getLocationBySysName("sisterroom") ],
+        whenTime: [4, 5],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Face of the Project",
+        returnPassage: "Sister Room",
+        requirements: [ "setup.questDone('main_firstSale')" ],
+        requirementsText: [ "Make the first real sale" ],
+    },
+    {
+    	/* 7.4, 3: the study group on campus takes off. Introduces the athletes, the STEM club, the outsider, and the dean */
+    	id: "prof_theList",
+    	next: "prof_pilot",
+    	title: "The List",
+        task: "$sister.callName's study group has a waiting list now. $prof.callName wants me to see it with my own eyes.",
+        where: [ setup.getLocationBySysName("college") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The List",
+        returnPassage: "College",
+        requirements: [
+            "setup.getTaskById('task_sister_tutoring_college').count >= 3",
+            "setup.questDone('main_gymMeeting')",
+        ],
+        requirementsText: [
+            "$sister.callName tutors at the college ({{Math.min(3, setup.getTaskById('task_sister_tutoring_college').count)}}/3)",
+            "Wait for the study group to grow",
+        ],
+    },
+    {
+    	/* 7.4, 4: the Veil goes into the lecture hall at night, with the hardware engineer. The second emitter on him */
+    	id: "prof_pilot",
+    	next: "prof_guestLecture",
+    	title: "The Pilot",
+        task: "The lecture hall is empty after nine. $brian.name and I have a ladder, a toolbox and a very good reason to be there.",
+        where: [ setup.getLocationBySysName("college") ],
+        whenTime: [5],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Pilot",
+        returnPassage: "College",
+        requirements: [ "setup.questDone('main_catalystNight')" ],
+        requirementsText: [ "Wait for the next unit to be ready" ],
+    },
+    {
+    	/* 7.4, 5: mom gives one guest lecture on running projects, and the students respect her. Only after The Crawl
+    	   (proposal 7.5) */
+    	id: "prof_guestLecture",
+    	next: "prof_deansVisit",
+    	title: "The Guest Lecture",
+        task: "The dean wants a practitioner for one seminar, and $prof.callName suggested my consultant. $mom.callName has rewritten her notes four times.",
+        where: [ setup.getLocationBySysName("college") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Guest Lecture",
+        returnPassage: "College",
+        requirements: [
+            "setup.questDone('mom_crawl')",
+            "setup.questDone('main_retailIntroduction')",
+        ],
+        requirementsText: [
+            "Progress $mom.callName's quest",
+            "Wait for the dean to ask",
+        ],
+    },
+    {
+    	/* 7.4, 6: the dean co-signs a preliminary report and asks for the raw data. In private he names his price for
+    	   Stage 2: Fridays. main_morningAfter waits for this (the report is the shield in The Letter) */
+    	id: "prof_deansVisit",
+    	next: "prof_end",
+    	title: "The Dean's Visit",
+        task: "The dean read the numbers and wants to meet the people behind them. $prof.callName has ironed a shirt.",
+        where: [ setup.getLocationBySysName("college") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Dean Visit",
+        returnPassage: "College",
+        requirements: [ "$date.dayCount >= setup.getQuestById('prof_guestLecture').doneDay + 2" ],
+        requirementsText: [ "Give the dean a couple of days" ],
+    },
     {
     	id: "prof_end",
     	title: "End of Content - $prof.callName",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+/* The boss (STAGE1_PROPOSAL.md 7.2, venue: his office tower, floor 6 and upstairs). The first person the device does
+   not work on. Starts hidden and shows up after the handover (mom_briefing), when mom is his on-site consultant.
+   Gates: The Arrangement sets $mom.flags.offeredToBoss (mom_afterHours waits for it), The Introduction comes before
+   The Supplier (main_supplier waits for it). The sister stays out of this line in Stage 1.
+   STAGE1-STUB: everything in this line is structure only. The scene passages are empty stubs, and the requirements
+   and timings are first guesses from the timeline (proposal section 8). */
+<<set $boss.quests to [
+    {
+    	/* hidden: waits for the handover, then the line shows up */
+    	id: "boss_waitStart",
+    	next: "boss_floorSix",
+    	title: "Waiting for the handover",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: true,
+        hidden: true,
+        check: "setup.questDone('mom_briefing')",
+    },
+    {
+    	/* 7.2, 1: mom back on her old floor as his "former assistant", the coffee, her old colleagues and the woman at
+    	   her old desk. Told at home, or as her end-of-day report with a POV passage. Her feelings toward him start here */
+    	id: "boss_floorSix",
+    	next: "boss_supportReview",
+    	title: "Floor Six",
+        task: "$mom.callName spent the day on her old floor. She says it went fine. She has said that three times now.",
+        where: [ setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
+        whenTime: [4, 5],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Floor Six",
+        returnPassage: "Living Room",
+        requirements: [ "setup.getTaskById('task_mom_client_consultant').count >= 1" ],
+        requirementsText: [ "$mom.callName works a day at $boss.callName's office" ],
+    },
+    {
+    	/* 7.2, 2: he shows the unit to his staff as his secret weapon, and the data says he is the only one it does not
+    	   reach. The pills, the afternoon drink. I start a file on him. Plays at his office (background $locations[12]) */
+    	id: "boss_supportReview",
+    	next: "boss_clip",
+    	title: "The Support Review",
+        task: "$boss.callName wants a review of his support hours, in person, in front of his people. I'll bring the numbers.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Support Review",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "setup.questDone('main_dinerIncident')" ],
+        requirementsText: [ "Wait for $boss.callName to call" ],
+    },
+    {
+    	/* 7.2, 3: a still of the clip from Business Relations, by mail. He never deleted it */
+    	id: "boss_clip",
+    	next: "boss_arrangement",
+    	title: "The Clip",
+        task: "There's a mail from $boss.callName at my desk. No subject line, one attachment.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3, 4],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Clip",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "$date.dayCount >= setup.getQuestById('boss_supportReview').doneDay + 2" ],
+        requirementsText: [ "Wait a couple of days" ],
+    },
+    {
+    	/* 7.2, 4: more support hours on site, at a rate that hurts, and he knows about the clip. Pay, offer mom
+    	   (Thursdays after hours), or break him with the Anchor. Sets $flags.bossArrangement ("pay", "mom" or "anchor")
+    	   and $mom.flags.offeredToBoss (mom_afterHours plays or is skipped). The Anchor branch needs a use left
+    	   (setup.deviceUsesLeft) and costs a spike in the logs (setup.useDevice). Should use the Offer macro */
+    	id: "boss_arrangement",
+    	next: "boss_introduction",
+    	title: "The Arrangement",
+        task: "$boss.callName wants more of his consultant's hours, and he named a rate. He didn't mention the clip. He didn't have to.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Arrangement",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "setup.questDone('main_crack')" ],
+        requirementsText: [ "Let $boss.callName make his move" ],
+    },
+    {
+    	/* 7.2, 6 (5 is After Hours in the line of mom, mom_afterHours): he names the supplier, for free if mom was
+    	   offered, for a fee on the pay branch. main_supplier waits for this */
+    	id: "boss_introduction",
+    	next: "boss_end",
+    	title: "A Man He Knows",
+        task: "$boss.callName says he knows a man who can get me what I need for the formula. Knowing $boss.callName, the name won't come cheap.",
+        where: [ setup.getLocationBySysName("companystage1desk") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Boss Introduction",
+        returnPassage: setup.getLocationBySysName("companystage1desk").passage,
+        requirements: [ "setup.questDone('main_retailPitch')" ],
+        requirementsText: [ "Land the big pitch first" ],
+    },
+    {
+    	id: "boss_end",
+    	title: "End of Content - $boss.callName",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+/* The diner manager (STAGE1_PROPOSAL.md 7.3, venue: the diner). Not a villain: in Stage 1 he is counting, not leering,
+   and slowly losing control of his own diner. Starts hidden and shows up once she works shifts there.
+   Gates: The Debrief comes before The Diner Incident (main_dinerIncident waits for it), the Sales Report after it.
+   STAGE1-STUB: everything in this line is structure only. The scene passages are empty stubs, and the requirements
+   and timings are first guesses from the timeline (proposal section 8). */
+<<set $manager.quests to [
+    {
+    	/* hidden: waits for Stage 1 and her diner shifts */
+    	id: "manager_waitStart",
+    	next: "manager_threeShifts",
+    	title: "Waiting for the diner",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: true,
+        hidden: true,
+        check: "setup.questDone('main_officialProductMeeting') && setup.taskUnlocked('task_sister_diner_shift')",
+    },
+    {
+    	/* 7.3, 1: the weekly rule, three shifts or a fine. STAGE1-STUB: the rule itself (a weekly count in the Weekly
+    	   Update, the fine, a {{...}} counter in a requirement text) is not built yet */
+    	id: "manager_threeShifts",
+    	next: "manager_debrief",
+    	title: "Three Shifts",
+        task: "$manager.callName wants a word about $sister.callName's hours. He used the phrase 'going forward', so it's going to be about money.",
+        where: [ setup.getLocationBySysName("diner") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Three Shifts",
+        returnPassage: "Diner",
+        requirements: [ "setup.getTaskById('task_sister_diner_shift').count >= 1" ],
+        requirementsText: [ "$sister.callName works her first shift at $diner.name" ],
+    },
+    {
+    	/* 7.3, 2: he has read the whole analysis and argued with every point. I pitch the Veil for the diner, he says
+    	   yes grudgingly. The first client with a Veil in the field. main_dinerIncident waits for this */
+    	id: "manager_debrief",
+    	next: "manager_regulars",
+    	title: "The Debrief",
+        task: "$manager.callName read the whole analysis. He has notes. He has a lot of notes.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Debrief",
+        returnPassage: "Company Stage 1",
+        requirements: [
+            "setup.projectDone('project_diner_analysis')",
+            "setup.questDone('main_firstSale')",
+        ],
+        requirementsText: [
+            "Finish $manager.callName's analysis",
+            "Make the first real sale",
+        ],
+    },
+    {
+    	/* 7.3, 3: one shift told through her report or a short POV passage. The construction crew, the trucker, the old
+    	   regular who has known her since her first shift */
+    	id: "manager_regulars",
+    	next: "manager_salesReport",
+    	title: "The Regulars",
+        task: "$sister.callName has a story about every regular at $diner.name, and tonight she wants to tell all of them.",
+        where: [ setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
+        whenTime: [4, 5],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "The Regulars",
+        returnPassage: "Living Room",
+        requirements: [ "setup.questDone('main_gymMeeting')" ],
+        requirementsText: [ "Wait for a few more shifts" ],
+    },
+    {
+    	/* 7.3, 4: after The Diner Incident he comes in with the numbers. Eighteen percent more on her days */
+    	id: "manager_salesReport",
+    	next: "manager_uniform",
+    	title: "Sales Report",
+        task: "$manager.callName is coming by with a printout. He says it's good news, and he looks suspicious about it.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Sales Report",
+        returnPassage: "Company Stage 1",
+        requirements: [ "setup.questDone('main_dinerIncident') && $date.dayCount >= setup.getQuestById('main_dinerIncident').doneDay + 3" ],
+        requirementsText: [ "Let the numbers come in" ],
+    },
+    {
+    	/* 7.3, 5: a new uniform for the brand. I negotiate seven shifts a week and a cut.
+    	   STAGE1-STUB: the new uniform needs its own media for the diner shift activity (a task stage or stageMedia) */
+    	id: "manager_uniform",
+    	next: "manager_coverShift",
+    	title: "The Uniform",
+        task: "$manager.callName has a catalog with a page folded down. He wants to talk about 'the brand'.",
+        where: [ setup.getLocationBySysName("companystage1meeting") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Uniform",
+        returnPassage: "Company Stage 1",
+        requirements: [ "setup.questDone('main_profitParty')" ],
+        requirementsText: [ "Wait for $manager.callName to come up with something" ],
+    },
+    {
+    	/* 7.3, 6: the sister is sick and mom covers a shift in the new uniform. The seed for mom joining later.
+    	   STAGE1-STUB: needs a one-off way to put her at the diner for the day (an event of its own or a one-off task) */
+    	id: "manager_coverShift",
+    	next: "manager_closingKeys",
+    	title: "Cover Shift",
+        task: "$sister.callName is sick, $manager.callName is two people short, and $mom.callName has already asked what size the uniform comes in.",
+        where: [ setup.getLocationBySysName("kitchen") ],
+        whenTime: [0, 1],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "Cover Shift",
+        returnPassage: "Kitchen",
+        requirements: [ "setup.questDone('main_catalystNight')" ],
+        requirementsText: [ "Wait for a bad day at $diner.name" ],
+    },
+    {
+    	/* 7.3, 7: end of Stage 1. He asks for her on closing shifts on weekends and offers me a share of those nights.
+    	   The Stage 2 doorway: closing */
+    	id: "manager_closingKeys",
+    	next: "manager_end",
+    	title: "The Closing Keys",
+        task: "$manager.callName wants to talk about weekends. Specifically, about who locks up.",
+        where: [ setup.getLocationBySysName("diner") ],
+        whenTime: [1, 2, 3, 4],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "Closing Keys",
+        returnPassage: "Diner",
+        requirements: [ "setup.questDone('main_retailPitch')" ],
+        requirementsText: [ "Wait for $manager.callName to think it through" ],
+    },
+    {
+    	id: "manager_end",
+    	title: "End of Content - $manager.callName",
+        task: "This is the end for the current Version.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+    },
+]>>
+
+/* The landlord (STAGE1_PROPOSAL.md 7.1, venue: his apartment, his card nights, outings on his arm). Lonely, petty and
+   vain: he wants his friends to see what he has. Starts hidden and shows up once they go over to help him.
+   The Sale ends together with the main line (main_morningAfter): both are the Stage 2 openers.
+   STAGE1-STUB: everything in this line is structure only. The scene passages are empty stubs, and the requirements
+   and timings are first guesses from the timeline (proposal section 8). */
+<<set $landlord.quests to [
+    {
+    	/* hidden: waits for the first visit of one of them (the tasks from the rent deal) */
+    	id: "landlord_waitStart",
+    	next: "landlord_helpers",
+    	title: "Waiting for the helpers",
+        task: "",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: true,
+        hidden: true,
+        check: "setup.getTaskById('task_mom_help_landlord').count + setup.getTaskById('task_sister_help_landlord').count >= 1",
+    },
+    {
+    	/* 7.1, 1: no scene of its own. The visits get their tiers (mom keeps house for him, the sister is shown off),
+    	   each with a POV passage behind the CCTV arrow.
+    	   STAGE1-STUB: the tiers are stages of task_mom_help_landlord / task_sister_help_landlord, still to be built
+    	   (they replace the one-line clips in CCTV Landlord) */
+    	id: "landlord_helpers",
+    	next: "landlord_whatHeSaw",
+    	title: "The Helpers",
+        task: "$mom.callName and $sister.callName keep going over to help $landlord.callName around the building. He's never had it so good, and he knows it.",
+        where: [],
+        whenTime: [],
+        whenDay: [],
+        active: false,
+        check: "setup.getTaskById('task_mom_help_landlord').count + setup.getTaskById('task_sister_help_landlord').count >= 4",
+    },
+    {
+    	/* 7.1, 2: he has his own cameras in the building and shows me a clip of the helpers on his old laptop, like a
+    	   home video he is proud of. Not blackmail: sharing. The footage exists, and it is worth something */
+    	id: "landlord_whatHeSaw",
+    	next: "landlord_cardNight",
+    	title: "What He Saw",
+        task: "$landlord.callName wants to show me something on his laptop. He says I'll like it.",
+        where: [ setup.getLocationBySysName("landlordapartment") ],
+        whenTime: [1, 2, 3, 4],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "What He Saw",
+        returnPassage: "Landlord Apartment",
+        requirements: [ "setup.questDone('main_gymMeeting')" ],
+        requirementsText: [ "Let $landlord.callName get comfortable with his helpers" ],
+    },
+    {
+    	/* 7.1, 3: Thursday, his three buddies, one of the helpers serves. The loudmouth, the quiet widower (his warning
+    	   on the way out) and the ex-military one */
+    	id: "landlord_cardNight",
+    	next: "landlord_review",
+    	title: "Card Night",
+        task: "$landlord.callName's card night is on Thursday, and he'd like one of his helpers to bring the drinks around.",
+        where: [ setup.getLocationBySysName("landlordapartment") ],
+        whenTime: [4],
+        whenDay: [3],
+        active: false,
+        needsEvent: true,
+        passage: "Card Night",
+        returnPassage: "Landlord Apartment",
+        requirements: [ "setup.questDone('main_anchor')" ],
+        requirementsText: [ "Wait for $landlord.callName's next card night" ],
+    },
+    {
+    	/* 7.1, 4: the company has outgrown the broom-closet discount. Pay more, or the visits go up. He also wants a Veil
+    	   for his lobby. STAGE1-STUB: the weekly rule reads $flags.visitedLandlordThisWeek (set, never read so far) */
+    	id: "landlord_review",
+    	next: "landlord_walk",
+    	title: "The Review",
+        task: "$landlord.callName came up to the office to look around. He's been counting the desks.",
+        where: [ setup.getLocationBySysName("companystage1") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4],
+        active: false,
+        needsEvent: true,
+        passage: "The Review",
+        returnPassage: "Company Stage 1",
+        requirements: [ "setup.questDone('main_profitParty')" ],
+        requirementsText: [ "Wait for $landlord.callName to notice how well we're doing" ],
+    },
+    {
+    	/* 7.1, 5: his knee, the pharmacy across the park, an arm to lean on. Past the benches where his friends sit.
+    	   The first public outing */
+    	id: "landlord_walk",
+    	next: "landlord_sale",
+    	title: "The Walk",
+        task: "$landlord.callName's knee is acting up, and the pharmacy is all the way across the park. He'd like an arm to lean on.",
+        where: [ setup.getLocationBySysName("landlordapartment") ],
+        whenTime: [1, 2, 3],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "The Walk",
+        returnPassage: "Landlord Apartment",
+        requirements: [ "setup.questDone('main_crack')" ],
+        requirementsText: [ "Wait for $landlord.callName to ask" ],
+    },
+    {
+    	/* 7.1, 6: he is thinking about selling the building. The new owner would not honor any deal. Long, quiet
+    	   Saturdays. The Stage 2 doorway: Saturdays, and my offer for the building */
+    	id: "landlord_sale",
+    	next: "landlord_end",
+    	title: "The Sale",
+        task: "$landlord.callName has a real estate brochure on his coffee table, and he made sure I saw it.",
+        where: [ setup.getLocationBySysName("landlordapartment") ],
+        whenTime: [1, 2, 3, 4],
+        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        active: false,
+        needsEvent: true,
+        passage: "The Sale",
+        returnPassage: "Landlord Apartment",
+        requirements: [ "setup.questDone('main_retailPitch')" ],
+        requirementsText: [ "Wait for $landlord.callName to bring it up" ],
+    },
+    {
+    	id: "landlord_end",
+    	title: "End of Content - $landlord.callName",
         task: "This is the end for the current Version.",
         where: [],
         whenTime: [],
@@ -2092,6 +2634,9 @@
 <<set $mom.quest to "mom_stressRelief">>
 <<set $sister.quest to "sister_classProject">>
 <<set $prof.quest to "prof_waitFirstProjects">>
+<<set $boss.quest to "boss_waitStart">>
+<<set $manager.quest to "manager_waitStart">>
+<<set $landlord.quest to "landlord_waitStart">>
 
 /* Quests that use the device: device: { target, impact [, key] [, minQuality] }
    key:        a device in $company.devices (Stage 1). Without it the Stage 0 prototype is used.
@@ -2250,6 +2795,29 @@
     if ((Number(npc.stats.exhibition) || 0) < lv.exhibition) { needs.push("Exhibition " + lv.exhibition); }
     if (needs.length === 0) { return { ok: true, reason: "" }; }
     return { ok: false, reason: "She isn't ready for that · needs " + needs.join(", ") };
+}>>
+
+/* The offer gates (playtest 2026-11-24: the family option was nearly always locked, because the main line got to its
+   offer scenes long before mom and sister were ready). The main quests with an offer (main_gymDinner,
+   main_retailIntroduction, main_supplier) wait until her line has reached the quest of her side of it and her
+   corruption is high enough for the level of her card. Exhibition is not part of the gate: that one is up to me.
+   setup.offerCorruptionMet(who, level)    her corruption total is at least the one of that offer level
+   setup.offerCorruptionText(who, level)   the requirement line for it, with her progress: "Mom needs corruption
+                                           40 (stage 1) (now 12 (stage 1))" or "Mom reaches corruption stage 3" */
+<<set setup.offerCorruptionMet = (who, level) => {
+    const lv = setup.offerLevels[Math.clamp(Number(level) || 0, 0, setup.offerLevels.length - 1)];
+    return setup.corruptionTotal(who) >= lv.corruption;
+}>>
+
+<<set setup.offerCorruptionText = (who, level) => {
+    const npc = setup.corruptionNpc(who);
+    const lv = setup.offerLevels[Math.clamp(Number(level) || 0, 0, setup.offerLevels.length - 1)];
+    const stage = Math.floor(lv.corruption / 100);
+    if (lv.corruption % 100 === 0 && stage > 0) {
+        return npc.callName + " reaches corruption stage " + stage + " (now stage " + setup.corruptionStage(npc) + ")";
+    }
+    return npc.callName + " needs corruption " + setup.corruptionNeedText(lv.corruption)
+        + " (now " + setup.corruptionNeedText(Math.min(lv.corruption, setup.corruptionTotal(npc))) + ")";
 }>>
 
 <<set setup.offerStalls = (questId) => {
@@ -2416,7 +2984,7 @@
    setup.questDone(id)         true once <<NextQuest>> moved past that quest
    setup.questReached(id)      true when the quest is the current one or done
    setup.activateQuest(id)     sets the quest active, and its event if it has one */
-<<set setup.questLines = ["player", "mom", "sister", "prof"]>>
+<<set setup.questLines = ["player", "mom", "sister", "prof", "boss", "manager", "landlord"]>>
 
 <<set setup.getQuestLines = () => {
     return setup.questLines.map((key) => State.variables[key]);

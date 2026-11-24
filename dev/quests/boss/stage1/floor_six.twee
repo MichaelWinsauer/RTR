@@ -1,0 +1,9 @@
+:: Floor Six [event boss_quest] {"position":"3275,1600","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Floor Six" (boss_floorSix), STAGE1_PROPOSAL.md 7.2.
+   Mom back on her old floor. He introduces her as "my former assistant" and has her bring the coffee to a meeting she used to run. Her old colleagues do not know where to look; the woman at her old desk is the only one who says hello. Humiliation without sex, level 1.
+   Meant as her end-of-day report with a POV passage (LogDay, setup.dayReports.mom). Her feelings toward him start here (Feel). */
+<<silent>><<SetBackground setup.getLocationBySysName("livingroom").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Floor Six, STAGE1_PROPOSAL.md 7.2).
+
+<<NextQuest $boss>>
+<<ReturnFromEvent>>

@@ -1,0 +1,12 @@
+:: The Arrangement [event boss_quest] {"position":"3650,1600","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Arrangement" (boss_arrangement), STAGE1_PROPOSAL.md 7.2.
+   He wants more support hours on site at a rate that hurts, and he knows about the clip. He does not mention mom. He does not have to. Pay (about $2,500 a week), offer her (Thursdays after hours: his contacts, "a man I know", maybe the clip deleted), or break him with the Anchor (a spike in the logs, he becomes my instrument). Should use the Offer macro (a plain card with money, her family card, the Anchor as a third card).
+   STAGE1-STUB: the stub links below only set the flags. The Anchor branch does not spend a use yet (setup.useDevice). */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1desk").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Arrangement, STAGE1_PROPOSAL.md 7.2).
+
+<span id="arrangement-choice">
+<<link "Pay for the hours">><<set $flags.bossArrangement to "pay">><<set $mom.flags.offeredToBoss to false>><<replace "#arrangement-choice">><<NextQuest $boss>><<ReturnFromEvent>><</replace>><</link>>
+<<link `"Offer " + $mom.callName`>><<set $flags.bossArrangement to "mom">><<set $mom.flags.offeredToBoss to true>><<replace "#arrangement-choice">><<NextQuest $boss>><<ReturnFromEvent>><</replace>><</link>>
+<<if $company.devices.valenxAnchor.owned and setup.deviceUsesLeft($company.devices.valenxAnchor) > 0>><<link "Break him with the Anchor">><<set $flags.bossArrangement to "anchor">><<set $mom.flags.offeredToBoss to false>><<replace "#arrangement-choice">><<NextQuest $boss>><<ReturnFromEvent>><</replace>><</link>><</if>>
+</span>

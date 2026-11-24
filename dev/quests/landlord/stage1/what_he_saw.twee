@@ -1,0 +1,8 @@
+:: What He Saw [event landlord_quest] {"position":"3275,1900","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "What He Saw" (landlord_whatHeSaw), STAGE1_PROPOSAL.md 7.1.
+   He has his own cameras in the building and shows me a clip of the helpers on his old laptop, like a home video he is proud of. Not blackmail: sharing. The footage exists, and it is worth something (a currency of its own in Stage 2). */
+<<silent>><<SetBackground setup.getLocationBySysName("landlordapartment").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (What He Saw, STAGE1_PROPOSAL.md 7.1).
+
+<<NextQuest $landlord>>
+<<ReturnFromEvent>>

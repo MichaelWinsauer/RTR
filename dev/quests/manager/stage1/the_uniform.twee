@@ -1,0 +1,9 @@
+:: The Uniform [event manager_quest] {"position":"3775,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Uniform" (manager_uniform), STAGE1_PROPOSAL.md 7.3.
+   A new uniform for "the brand". I negotiate seven shifts a week, plus a cut. He grumbles and agrees. Level 1.
+   STAGE1-STUB: the uniform needs its own media for her diner shift (a task stage or stageMedia). */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1meeting").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Uniform, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

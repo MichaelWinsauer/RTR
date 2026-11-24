@@ -1,0 +1,8 @@
+:: The Pilot [event prof_quest] {"position":"3650,1450","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Pilot" (prof_pilot), STAGE1_PROPOSAL.md 7.4.
+   Night, the empty lecture hall, with the hardware engineer. The Veil goes in. He asks if it works on him. I tell him it is calibrated away from the podium and add a second emitter that is not. */
+<<silent>><<SetBackground setup.getLocationBySysName("college").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Pilot, STAGE1_PROPOSAL.md 7.4).
+
+<<NextQuest $prof>>
+<<ReturnFromEvent>>

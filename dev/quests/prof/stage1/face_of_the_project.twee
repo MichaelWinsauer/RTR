@@ -1,0 +1,9 @@
+:: Face of the Project [event prof_quest] {"position":"3400,1450","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Face of the Project" (prof_faceOfProject), STAGE1_PROPOSAL.md 7.4.
+   Her room, evening. I tell her she is the face of the research project and prep her for it. She asks if he "looks". "A little." She tugs her hem: "Fine, but tights." Short and funny, and it makes my Stage 0 promise real.
+   STAGE1-STUB: her college tutoring task (task_sister_tutoring_college) gets its scenes with this. */
+<<silent>><<SetBackground setup.getLocationBySysName("sisterroom").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Face of the Project, STAGE1_PROPOSAL.md 7.4).
+
+<<NextQuest $prof>>
+<<ReturnFromEvent>>

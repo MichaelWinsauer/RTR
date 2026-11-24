@@ -1,0 +1,8 @@
+:: The Sale [event landlord_quest] {"position":"3775,1900","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Sale" (landlord_sale), STAGE1_PROPOSAL.md 7.1.
+   He is thinking about selling the building, and the new owner would not honor any deal. I ask what would change his mind. He grumbles about long, quiet Saturdays. The Stage 2 doorway: Saturdays, and my offer for the building. */
+<<silent>><<SetBackground setup.getLocationBySysName("landlordapartment").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Sale, STAGE1_PROPOSAL.md 7.1).
+
+<<NextQuest $landlord>>
+<<ReturnFromEvent>>

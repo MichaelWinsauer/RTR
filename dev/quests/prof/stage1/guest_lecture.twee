@@ -1,0 +1,8 @@
+:: Guest Lecture [event prof_quest] {"position":"3775,1450","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Guest Lecture" (prof_guestLecture), STAGE1_PROPOSAL.md 7.4.
+   Mom gives one guest lecture on running projects in a professional-practice seminar. She is good at it, better than she expected, and the students respect her. The authority the later stages take away from her, set up once so it can be lost. */
+<<silent>><<SetBackground setup.getLocationBySysName("college").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Guest Lecture, STAGE1_PROPOSAL.md 7.4).
+
+<<NextQuest $prof>>
+<<ReturnFromEvent>>

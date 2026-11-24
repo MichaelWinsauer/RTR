@@ -1,0 +1,9 @@
+:: Three Shifts [event manager_quest] {"position":"3275,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Three Shifts" (manager_threeShifts), STAGE1_PROPOSAL.md 7.3.
+   The weekly rule: three shifts a week or a fine.
+   STAGE1-STUB: the rule itself (a count in the Weekly Update, the fine, a counter) is not built yet. */
+<<silent>><<SetBackground setup.getLocationBySysName("diner").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Three Shifts, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

@@ -1,0 +1,8 @@
+:: Sales Report [event manager_quest] {"position":"3650,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Sales Report" (manager_salesReport), STAGE1_PROPOSAL.md 7.3.
+   After The Diner Incident he comes in with the numbers: "Sales go up eighteen percent on her days." He starts to see her as the draw, and wonders what makes the difference. */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1meeting").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Sales Report, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

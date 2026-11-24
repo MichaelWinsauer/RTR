@@ -1,0 +1,8 @@
+:: Card Night [event landlord_quest] {"position":"3400,1900","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Card Night" (landlord_cardNight), STAGE1_PROPOSAL.md 7.1.
+   Thursday, his three buddies, one of the helpers serves drinks and sandwiches. They talk about her as if she was not in the room. A pat, nothing more. Level 1 to 2. The loudmouth (the same three stories, bets big), the quiet widower (on the way out: Norm changes the terms when he gets bored, with $landlord.name), the ex-military one (barks orders, tips like a salute). */
+<<silent>><<SetBackground setup.getLocationBySysName("landlordapartment").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Card Night, STAGE1_PROPOSAL.md 7.1).
+
+<<NextQuest $landlord>>
+<<ReturnFromEvent>>

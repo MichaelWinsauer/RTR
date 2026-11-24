@@ -15,6 +15,9 @@
 	<<if setup.questDone("mom_briefing")>><<run _dreams.push(1, 3, 6, 8)>><</if>>
 	<<if setup.questDone("sister_conflictingFeelings")>><<run _dreams.push(2, 4, 5, 7, 9, 10)>><</if>>
 	<<set _sleepScene to _dreams.random()>>
+	/* the bed is always mine: the bedroom background, also when the go_bed quick link (Define Quick Links) brings me
+	   here from somewhere else and the page still shows that place */
+	<<SetBackground setup.getLocationBySysName("bedroom").img>>
 <</silently>>
 I kick off my shoes and fall into the same narrow bed I've had since I was twelve. The glow-in-the-dark stars I never got around to peeling off the ceiling are still up there, fainter every year. Somewhere around the twentieth one, I'm gone.
 

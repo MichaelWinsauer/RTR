@@ -1,0 +1,9 @@
+:: The Review [event landlord_quest] {"position":"3525,1900","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Review" (landlord_review), STAGE1_PROPOSAL.md 7.1.
+   The discount was for a broom-closet company. He raises the rent; I can pay, or suggest the visits go up instead. He sees the Veil and wants one for his lobby.
+   STAGE1-STUB: the weekly rule reads $flags.visitedLandlordThisWeek. */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Review, STAGE1_PROPOSAL.md 7.1).
+
+<<NextQuest $landlord>>
+<<ReturnFromEvent>>

@@ -1,0 +1,8 @@
+:: Boss Introduction [event boss_quest] {"position":"3775,1600","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "A Man He Knows" (boss_introduction), STAGE1_PROPOSAL.md 7.2.
+   He names the supplier: for free if I offered mom, for a fee on the pay branch ($flags.bossArrangement). The Supplier (main_supplier) waits for this. */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1desk").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (A Man He Knows, STAGE1_PROPOSAL.md 7.2).
+
+<<NextQuest $boss>>
+<<ReturnFromEvent>>

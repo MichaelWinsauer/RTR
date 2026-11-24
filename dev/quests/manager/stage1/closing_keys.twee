@@ -1,0 +1,8 @@
+:: Closing Keys [event manager_quest] {"position":"4025,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Closing Keys" (manager_closingKeys), STAGE1_PROPOSAL.md 7.3.
+   End of Stage 1. He asks for her on closing shifts on weekends and offers me a share of those nights. The fair warning of what "closing" will mean. Small revenge on the side: he mops, he says "Mr. Consultant". */
+<<silent>><<SetBackground setup.getLocationBySysName("diner").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Closing Keys, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

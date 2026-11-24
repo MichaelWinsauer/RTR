@@ -505,6 +505,9 @@ $(document).off('click.cmd-avatar').on('click.cmd-avatar', '.cmd-staff-member', 
 .cmd-quest[data-line="mom"]    { --line: #E6798F; }
 .cmd-quest[data-line="sister"] { --line: #E87CB9; }
 .cmd-quest[data-line="prof"]   { --line: #8FB3D9; }
+.cmd-quest[data-line="boss"]     { --line: #C98B5B; }
+.cmd-quest[data-line="manager"]  { --line: #7FC4A4; }
+.cmd-quest[data-line="landlord"] { --line: #A99BC9; }
 
 .cmd-quest.good { --tone: #35DB76; }
 .cmd-quest.warn { --tone: #E8803A; }

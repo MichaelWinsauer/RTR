@@ -196,6 +196,9 @@
 .sb-quest[data-line="mom"]    { --line: #E6798F; }
 .sb-quest[data-line="sister"] { --line: #e87cb9; }
 .sb-quest[data-line="prof"]   { --line: #8FB3D9; }
+.sb-quest[data-line="boss"]     { --line: #C98B5B; }
+.sb-quest[data-line="manager"]  { --line: #7FC4A4; }
+.sb-quest[data-line="landlord"] { --line: #A99BC9; }
 .sb-quest + .sb-quest { padding-top: .6rem; border-top: 1px solid rgba(235,221,197,.1); }
 .sb-quest-main { flex: 1; min-width: 0; }
 .sb-quest-title { font-size: 1.1em; font-weight: 700; line-height: 1.25; color: #fff; }

@@ -1,0 +1,8 @@
+:: Support Review [event boss_quest] {"position":"3400,1600","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Support Review" (boss_supportReview), STAGE1_PROPOSAL.md 7.2.
+   At his office. He shows the unit to his staff as his "secret weapon". The data says he is the only one it does not reach. She noticed a pill organizer on his desk and a drink in the afternoons. I open a file on him. */
+<<silent>><<SetBackground setup.getLocationBySysName("momswork").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Support Review, STAGE1_PROPOSAL.md 7.2).
+
+<<NextQuest $boss>>
+<<ReturnFromEvent>>

@@ -1,7 +1,7 @@
 :: After Hours [event mom_quest] {"position":"4900,1075","size":"100,100"}
 /* STAGE1-STUB: empty scene. Quest "After Hours" (mom_afterHours), STAGE1_PROPOSAL.md 5.10.
    Optional (offered to $boss.callName in the boss line). The walk to the car, ending at the door of his office.
-   STAGE1-STUB: always skipped until the boss line exists. */
+   Her line waits here until The Arrangement (boss_arrangement) sets $mom.flags.offeredToBoss: plays if true, skipped if false. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (After Hours, STAGE1_PROPOSAL.md 5.10).
 

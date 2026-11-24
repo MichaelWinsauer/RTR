@@ -1,0 +1,8 @@
+:: The Debrief [event manager_quest] {"position":"3400,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Debrief" (manager_debrief), STAGE1_PROPOSAL.md 7.3.
+   Meeting room. He has read the whole analysis and argued with every point. I pitch the Veil for the diner, and he says yes grudgingly. The first client with a Veil in the field. The Diner Incident (main_dinerIncident) waits for this. */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1meeting").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Debrief, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

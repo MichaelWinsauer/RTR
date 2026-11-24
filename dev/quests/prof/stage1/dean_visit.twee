@@ -1,0 +1,9 @@
+:: Dean Visit [event prof_quest] {"position":"3900,1450","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Dean's Visit" (prof_deansVisit), STAGE1_PROPOSAL.md 7.4.
+   The dean co-signs a preliminary report and asks for the raw data, which I cannot show her. In private he says what he would do "if I ran this place" and names his price: her, alone, after hours on Fridays. I do not answer yet.
+   The Morning After waits for this (the report is the shield in The Letter). */
+<<silent>><<SetBackground setup.getLocationBySysName("college").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Dean's Visit, STAGE1_PROPOSAL.md 7.4).
+
+<<NextQuest $prof>>
+<<ReturnFromEvent>>

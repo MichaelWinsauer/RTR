@@ -1,0 +1,8 @@
+:: The Walk [event landlord_quest] {"position":"3650,1900","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Walk" (landlord_walk), STAGE1_PROPOSAL.md 7.1.
+   His knee, the pharmacy across the park, "an arm to lean on". One of them walks him there and back, past the benches where his friends sit. Nothing happens. The first public outing, and he has never been prouder. */
+<<silent>><<SetBackground setup.getLocationBySysName("landlordapartment").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Walk, STAGE1_PROPOSAL.md 7.1).
+
+<<NextQuest $landlord>>
+<<ReturnFromEvent>>

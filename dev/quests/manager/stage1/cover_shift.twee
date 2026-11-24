@@ -1,0 +1,9 @@
+:: Cover Shift [event manager_quest] {"position":"3900,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "Cover Shift" (manager_coverShift), STAGE1_PROPOSAL.md 7.3.
+   The sister is sick and he needs someone today. Mom covers in the new uniform, mortified for exactly ten minutes before the crew starts tipping. He talks about the numbers for a week.
+   STAGE1-STUB: needs a one-off way to put her at the diner for the day. */
+<<silent>><<SetBackground setup.getLocationBySysName("kitchen").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (Cover Shift, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

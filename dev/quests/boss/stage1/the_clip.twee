@@ -1,0 +1,8 @@
+:: The Clip [event boss_quest] {"position":"3525,1600","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Clip" (boss_clip), STAGE1_PROPOSAL.md 7.2.
+   His mail: a still of the clip from Business Relations. "Thought you'd like to know it's safe with me. For now." He never deleted it. Now it is a leash on me. */
+<<silent>><<SetBackground setup.getLocationBySysName("companystage1desk").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Clip, STAGE1_PROPOSAL.md 7.2).
+
+<<NextQuest $boss>>
+<<ReturnFromEvent>>

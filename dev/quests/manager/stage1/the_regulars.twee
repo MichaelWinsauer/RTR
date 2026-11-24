@@ -1,0 +1,8 @@
+:: The Regulars [event manager_quest] {"position":"3525,1750","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The Regulars" (manager_regulars), STAGE1_PROPOSAL.md 7.3.
+   One shift, told by her (her end-of-day report or a short POV passage). The construction crew (breakfast, loud, the same table), the trucker (never the same one twice, always the biggest tip), the old regular (the same booth for twenty years, tips in coins, has known her since her first shift). */
+<<silent>><<SetBackground setup.getLocationBySysName("livingroom").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The Regulars, STAGE1_PROPOSAL.md 7.3).
+
+<<NextQuest $manager>>
+<<ReturnFromEvent>>

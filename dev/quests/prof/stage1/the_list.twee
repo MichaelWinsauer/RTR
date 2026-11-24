@@ -1,0 +1,8 @@
+:: The List [event prof_quest] {"position":"3525,1450","size":"100,100"}
+/* STAGE1-STUB: empty scene. Quest "The List" (prof_theList), STAGE1_PROPOSAL.md 7.4.
+   On campus with the students he picked. Her study group hits 60 people. One line each for the athletes (their coach sent them, they call her "teach"), the STEM club (their own whiteboard markers) and the outsider (last row, never asks, never misses). The dean notices the numbers. */
+<<silent>><<SetBackground setup.getLocationBySysName("college").img>><</silent>>
+''STAGE1-STUB:'' this scene isn't written yet (The List, STAGE1_PROPOSAL.md 7.4).
+
+<<NextQuest $prof>>
+<<ReturnFromEvent>>

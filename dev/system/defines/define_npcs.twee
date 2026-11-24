@@ -192,7 +192,7 @@
        morningRoutine is read by Activity Sleep (Morning Routine), freeUse by the Whenever card */
     gymDinner: null,        /* The Gym Dinner: true = I sent her (mom_gymDinner plays), false = I went myself */
     gymDinnerLetHim: null,  /* The Gym Dinner, if I sent her: true = I told her to let him, false = keep it light */
-    offeredToBoss: false,   /* The Arrangement of the boss line: true = After Hours plays. Start it at null once that line exists */
+    offeredToBoss: null,    /* The Arrangement (boss_arrangement): true = After Hours plays, false = it is skipped */
     calendarChoice: null,   /* The Calendar: "truth" or "anchor" */
     silence: false,         /* true during The Silence (Not Enough to the end of that week), see The Silence below */
     silenceNote: false,     /* The Silence: her note on my pillow was found (Mom Silence Note) */
@@ -226,7 +226,7 @@
 	gender: "male",
 	callPlayer: "Kid",
 	age: 76,
-	quest: 0,
+	quest: null,        /* the id of the current quest of his line, set in Define Quests */
 	sysName: "landlord",
 	sysColor: "#1E1914",
 	callName: "Mr. Howell",
@@ -242,7 +242,7 @@
 	gender: "male",
 	callPlayer: $player.surname,
 	age: 57,
-	quest: 0,
+	quest: null,        /* the id of the current quest of his line, set in Define Quests */
 	sysName: "boss",
 	sysColor: "#141E14",
 	callName: "Mr. Anderson",
@@ -258,7 +258,7 @@
 	gender: "male",
 	callPlayer: $player.surname,
 	age: 61,
-	quest: 0,
+	quest: null,        /* the id of the current quest of his line, set in Define Quests */
 	sysName: "prof",
 	sysColor: "#14191E",
 	callName: "Mr. Walsh",
@@ -274,7 +274,7 @@
 	gender: "male",
 	callPlayer: $player.surname,
 	age: 48,
-	quest: 0,
+	quest: null,        /* the id of the current quest of his line, set in Define Quests */
 	sysName: "manager",
 	sysColor: "#14191E",
 	callName: "Mr. Morales",
