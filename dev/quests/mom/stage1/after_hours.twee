@@ -1,9 +1,197 @@
 :: After Hours [event mom_quest] {"position":"4900,1075","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "After Hours" (mom_afterHours), STAGE1_PROPOSAL.md 5.10.
-   Optional (offered to $boss.callName in the boss line). The walk to the car, ending at the door of his office.
-   Her line waits here until The Arrangement (boss_arrangement) sets $mom.flags.offeredToBoss: plays if true, skipped if false. */
-<<silent>><<SetBackground $locations[13].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (After Hours, STAGE1_PROPOSAL.md 5.10).
+/* Quest "After Hours" (mom_afterHours), STAGE1_PROPOSAL.md 5.10. Optional: only if I offered her to $boss.callName in The
+   Arrangement (boss_arrangement, $mom.flags.offeredToBoss). The first of his Thursdays. At the office after hours she comes
+   to my desk with his calendar invite and asks me what to do. I tell her it's her call, she waits anyway, and I say go.
+   I drive her over and walk her up to the sixth floor. It ends at the door of his office: "Next time, upstairs", the
+   Stage 2 doorway of the boss line (7.2). What happens inside belongs to Stage 2, so there is no POV passage of it: she
+   only tells me as much as she can say out loud, the next day, in her end-of-day report (setup.dayReports.mom.after_hours
+   in Define NPCs, a line without a passage, logged for tomorrow because tonight's log is cleared overnight).
+   Variants: what she knows since The Calendar ($mom.flags.calendarChoice), and whether she has come to really hate him
+   (setup.feels, Feelings in Define NPCs). */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _ahTruth to ($mom.flags.calendarChoice == "truth")>>
+	<<set _ahHates to (setup.feels("mom", "boss") <= -3)>>
+<</silent>>
+By half past six the office is down to the hum of the vent and $mom.callName. Everybody else left on time for once, and $ethan.name made a little speech about it at the door, something about Thursday being the Friday of people who have given up, which got a laugh from nobody but himself.
 
+She hasn't packed up. Her monitor has gone to sleep and her coat is still on the back of her chair. She's wearing the gray skirt, the one $boss.callName asked for on the phone that time, and she put it on this morning without anybody reminding her. Her phone is lying face down beside her keyboard. Every few minutes she turns it over, looks at it, and turns it back.
+
+/* MEDIA: images/characters/mom/events/after_hours/desk.jpg | Mom alone at her desk in the empty evening office, gray skirt, coat on her chair, looking down at the phone in her hand */
+
+Eventually she gets up and brings it over to my desk.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "He sent me an invite, honey. A proper one, with a calendar entry and a reminder and everything, as if it's a meeting." },
+{ text: "She holds out the phone so I can see. <i>Support review, 7:00 p.m., floor 6.</i> She's the only one on the guest list. In the notes field his assistant has typed: <i>$boss.callName asks that you use the side entrance after six.</i>" },
+{ who: $mom, text: "You did tell me there'd be Thursdays, I know you did. I suppose I thought it would take a little longer before one of them was actually today." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _ahHates>>Every time she says "he", her mouth goes small, the way it does over leftovers that have been sitting in the back of the fridge since last week.<<else>>She says it lightly, the way she'd talk about a dentist's appointment she's been putting off.<</if>> She puts the phone down on my desk, squares it with the edge, and leaves her hand on top of it.
+
+<<linkreplace "Let her ask">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What should I do, sweetheart?" },
+{ who: $player, text: "That's up to you. Nobody's going to drag you over there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I even mean it, more or less. She doesn't move. She stands at the corner of my desk with her hand still on the phone and looks at me, and I know that look by now. She made up her mind to do whatever I say a long time ago. She's only waiting for me to say it.
+
+<<if _ahTruth>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Will his box be on? The one we sold him, I mean." },
+{ who: $player, text: "Probably. It's the weak one, though, it barely does anything to a room." },
+{ text: "She thinks about that for a moment, with her head a little on one side." },
+{ who: $mom, text: "Good. No, really, honey, I think that's good. If something happens in there, I'd like to know it was me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "It's silly that I'm even asking you. I want to go. I knew I wanted to as soon as I saw his name on my phone, and I still came all the way over here like a girl asking if she can stay out past ten." },
+{ text: "She laughs at herself. Then she looks at the phone under her hand as if she isn't sure how it got there." },
+{ who: $mom, text: "Isn't that funny? Of all people, him." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+I let her stand there while the vent hums and the printer in the corner clicks itself into sleep mode. Then I give her what she came over for.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Go." },
+{ text: "Her shoulders come down half an inch, and she nods, and the phone goes into her purse." },
+{ who: $mom, text: "All right. Then I'd better fix my face, hadn't I, I've been staring at the $retailChain.name numbers since lunch and I look like it." },
+{ who: $player, text: "I'll drive you over." },
+{ who: $mom, text: "Oh, you don't have to do that, there's a bus from the corner that goes right past the..." },
+{ text: "She stops and looks at me, and whatever she sees makes her change her mind." },
+{ who: $mom, text: "Thank you, honey. I'd like that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Drive her downtown">>
+<<silently>><<SetBackground "images/locations/car.jpg">><</silently>>
+The drive downtown takes twenty minutes in Thursday traffic, and she talks for about nineteen of them.
+
+She tells me the sixth floor used to have a cleaner called Rosa who left a mint on her keyboard whenever she worked late, and that she used to leave Rosa the good coffee pods in return, and that Rosa must be retired by now, surely, she had grandchildren in high school back then. She tells me which of the parking levels floods when it rains. She tells me the elevator on the left is faster but the one on the right has the nicer mirror.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "And he always wanted his coffee ready before he asked for it, so I used to start the machine at ten to every hour, just in case, and... listen to me. I don't suppose he'll want coffee at seven o'clock at night." },
+{ text: "She laughs, and the laugh doesn't quite make it to the end. She watches the brake lights in front of us for a while." },
+{ who: $mom, text: "I used to stay so late on that floor, you know. Years of it. I'd call home and ask $sister.callName to put the casserole in, and I'd drive back at ten with the radio off, and I always used to think, well, at least when I'm here this late, nobody can ask anything else of me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't say anything to that, and she doesn't seem to need me to.
+
+At the side entrance she pulls the sun visor down and does her lipstick in the little mirror. Then she looks at it, takes a tissue out of her purse and blots most of it off again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is that too much? I don't want him to think I went and..." },
+{ text: "She folds the tissue in half and puts it in the cup holder." },
+{ who: $mom, text: "No. It's fine. I'll leave it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Walk her up">>
+<<silently>><<SetBackground "images/locations/reception.jpg">><</silently>>
+Half the lights in the lobby are off. The night guard has a crossword folded on the desk in front of him and a pen behind his ear, and when he sees her he takes the pen out and actually stands up.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Night guard", text: "Mrs. $mom.surname! Well, look at that. I haven't seen you in, what, a year?" },
+{ who: $mom, text: "Hello, Walter! It's closer to two, I think. How's your knee? Did they ever do the surgery?" },
+{ who: "Night guard", text: "In March. Good as new, mostly. Where are you headed tonight?" },
+{ who: $mom, text: "Oh, just up to six. A meeting." },
+{ text: "He looks at the clock over the elevators. Then he looks at her skirt, and then at me, and then he sits back down and turns the sign-in sheet around for her without another word." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
+In the elevator she presses six without looking. Her finger just goes there, the way it went there every morning for twelve years, and I don't think she notices she's done it until the doors close and the button is already lit.
+
+/* MEDIA: images/characters/mom/events/after_hours/elevator.jpg | Mom's hand on the elevator panel, the button for floor 6 lit, the doors closing */
+
+<<linkreplace "Walk her to his door">>
+<<silently>><<SetBackground $locations[12].img>><</silently>>
+The sixth floor at night is rows of dark desks and screens on standby, little orange lights all the way to the windows. Somewhere at the far end a vacuum cleaner is running. The potted plant is still on her old desk. She touches one of its leaves on the way past, to see if it needs water, and it does, and she keeps walking.
+
+There's light under one door at the end of the floor, the corner office. A few steps before it she stops and turns around to me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You'll go home, won't you? Don't sit down there in the car waiting for me, honey. He likes to talk, it could be late." },
+{ who: $player, text: "I'll go home." },
+{ who: $mom, text: "Good. There's soup in the fridge, the green container, not the blue one, the blue one is for $sister.callName's lunch tomorrow." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She smooths the gray skirt over her hips with both hands and knocks. The door opens before her second knock.
+
+/* MEDIA: images/characters/mom/events/after_hours/door.jpg | The open door of a corner office at night, the boss in shirtsleeves with a drink in his hand, Mom in the gray skirt in the doorway */
+
+$boss.callName has his jacket off and his tie pulled loose, and there's a glass in his hand with more ice than whiskey left in it. He looks at her first, all of her, the way he did at the handover, and takes his time about it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "$mom.name. Right on time. You always were, I'll give you that." },
+{ text: "His eyes go down to the skirt and stay there." },
+{ who: $boss, text: "And you wore it. Good girl." },
+{ text: "Then he notices me standing behind her, and his eyebrows go up." },
+{ who: $boss, text: "Kid. I didn't order the chauffeur service. You can go on home, my driver will take her back when we're done here. I'll put it on your invoice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He laughs at that. $mom.callName smiles at the carpet.
+
+He puts his free hand on the small of her back and steers her past him into the office, the way you'd steer someone through a crowd, except there's nobody here. In the doorway he leans down to her ear, and he doesn't bother to lower his voice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $boss, text: "We'll keep it down here tonight, sweetheart. Next time, upstairs." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks back at me once, over his arm. <<if _ahTruth>>It's a short look, almost businesslike, like she's checking I heard where she'll be.<<else>>She's smiling, a little, and I can't tell if she knows she is.<</if>> Then the door closes, quietly. It's the expensive kind of door that doesn't need to slam.
+
+<<linkreplace "Go back down">>
+The vacuum at the end of the floor has stopped. For a minute I stay where I am, close enough to hear him laugh at something on the other side of the door, and not close enough to hear if she laughs too.
+
+Downstairs, the night guard doesn't look up from his crossword when I sign out, which might be a kindness. I don't know who it's for.
+
+The tissue with her lipstick on it is still in the cup holder, and I drive home with the radio off, the way she says she used to.
+
+<<run setup.logDay("mom", "event", "after_hours", { day: $date.dayCount + 1 })>>
+<<UpdateStat "+" "MomCorruption" 5>>
+<<UpdateStat "+" "MomExhibition" 1>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $mom "boss" -1 "lasting">>  /* the first of his Thursdays: that stays */
+<<if !_ahTruth>><<Feel $mom "player" -1>><</if>>  /* she asked, and I sent her. After the Anchor she believes it was her own choice, so it doesn't land on me */
+<<ProfileLog $mom "After Hours" "The first of $boss.callName's Thursdays. She brought his calendar invite to my desk and asked me what she should do. I told her it was her call, and she waited until I said go. I drove her over and walked her up to the sixth floor in the gray skirt. He opened the door before she'd finished knocking and told her next time it would be upstairs.">>
+<<ProfileMemory $mom "Six" "In the elevator of her old building she pressed six without looking, the way she did every morning for twelve years. On the way to his door she stopped to check whether the plant on her old desk needed water. It did.">>
 <<NextQuest $mom>>
-<<ReturnFromEvent>>
+<<AdvanceTimeTo 5>>
+<<ReturnFromEvent "Go home" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,10 +1,415 @@
 :: Morning After [event main_quest] {"position":"6325,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Morning After" (main_morningAfter), STAGE1_PROPOSAL.md 4.13.
-   End of Stage 1: the empty desk, the wiped servers, the CCTV at 3:17 a.m., the investigation, the lawyer, the launch of the rival.
-   His 2 percent are gone with him (the quest sets $ethan.equity back to 0). The resignation mail can carry his line about
-   "two percent of something I'm not sure I was ever allowed to say no to". */
-<<silent>><<SetBackground $locations[14].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Morning After, STAGE1_PROPOSAL.md 4.13).
+/* Quest "The Morning After" (main_morningAfter), STAGE1_PROPOSAL.md 4.13, part 1 of 5: the end of Stage 1. The morning after
+   The Night Shift. The empty desk, the empty server rack, every unit on the dashboard offline, and the open vent. Only the
+   original in my coat is left. How the morning starts depends on the call at 11:40 p.m. ($flags.answeredEthan):
+     true   I told him "tomorrow, first thing", so I come in early to talk to him
+     false  I listen to his voicemail in the parking lot
+   The quest (its set, Define Quests) takes the devices, the vent unit and $ethan.name off the books. Parts 2 to 5:
+   the camera box, $brian.name's spare and the resignation mail; the call and the lawyer; the rival's launch and home. */
+<<silent>><<SetBackground $locations[13].img>><<set _maClock to ($time.current.value == 0 ? "ten to seven" : "a quarter past eight")>><</silent>>
+<<if $flags.answeredEthan === true>>
+I told him tomorrow, first thing, so I'm in the parking lot at _maClock, before the coffee place on the corner has its chairs out. I've been rehearsing what to say since about four. None of the versions are any good, and all of them start with "So, about Saturday".
 
+His car isn't in its spot. It's early, and he's never early, so that doesn't mean anything.
+<<else>>
+I'm in the parking lot at _maClock with the engine off and my phone in my hand. <i>1 new voicemail</i>, from 11:41 last night. I've looked at it about twenty times since I woke up.
+
+<<linkreplace "Listen to it">>
+<<silently>>
+<<set _msgs = [
+{ text: "There's a long hiss first, and the hum of a room I know. He's calling from the office." },
+{ who: $ethan, text: "Hey. It's me. Obviously, it's my number, I don't know why people say that." },
+{ who: $ethan, text: "So I ran the old build, the one from before you put the cap on. I ran it on myself, a couple of weeks ago, and then again tonight, because I thought I'd gotten it wrong the first time." },
+{ text: "A pause. Something creaks, his chair maybe." },
+{ who: $ethan, text: "I didn't get it wrong, man. I know that feeling. I've had it every morning since I started here. I walk in, and it's like coming home, and I thought that was just... you know. Us. Having a good thing." },
+{ who: $ethan, text: "Call me back. Tell me I'm crazy. I'd honestly love to be crazy right now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That's all. Fourteen seconds of nothing at the end, as if he was waiting for something, and then the beep.
+
+I didn't call him back. I was sitting outside a black door in the rain, and he could wait until tomorrow, and now it's tomorrow.
+
+His car isn't in its spot.
+<</linkreplace>>
+<</if>>
+
+<<linkreplace "Go up">>
+The lights in the office are off. When he works late he leaves every one of them on, because he says an office in the dark gives him the creeps, so that's the first thing that's wrong.
+
+I turn them on.
+
+Everything looks normal for about two seconds. The plants $mom.callName keeps alive against all odds, the whiteboard with $darius.name's handwriting on it, $brian.name's desk under its usual landslide of parts. Then I get to $ethan.name's corner.
+
+His desk has been cleared down to the wood. The monitors are gone, and the keyboard, and the mug with the cartoon cat that says <i>I Paused My Game To Be Here</i>, and the stack of sticky notes he'd been building since the first week like it was a sculpture. The drawers hang open, empty. His chair is pushed in, which I've never once seen him do.
+
+There's one thing left on the desk, lying face up in the middle where you'd have to see it. It's a cheap black picture frame from the drugstore downstairs, the kind with a cardboard stand in the back, and it's empty. He took the paper out and left me the frame.
+
+He said he'd frame the paperwork and hang it over his desk. I didn't know he'd actually done it.
+
+/* MEDIA: images/events/morning_after/desk.jpg | An office desk wiped clean, drawers open, a single empty picture frame lying in the middle */
+
+<<linkreplace "Check the server corner">>
+The rack in the corner is open, and the door is leaning against the wall next to it. The slots are empty, every single one. He took the drives, the backup unit, even the little switch with the blinking lights that $brian.name calls the Christmas tree. The power cables are coiled up neatly on the floor, each one tied with its own twist tie.
+
+He coiled the cables. Of course he did. He always said a mess in the server corner was how you got a call at three in the morning.
+
+I go to My Desk and wake up the dashboard, because some stupid part of me thinks that if the screen still works, the rest must still be in there somewhere.
+
+<<silent>><<SetBackground $locations[14].img>><<set _maGone to Object.keys($company.devices).filter((k) => k !== "valenx" && $company.devices[k].owned).map((k) => $company.devices[k].name).join(", ")>><</silent>>
+The screen works. The server panel says <i>no connection</i>. The device page is all red<<if _maGone != "">>: <<= _maGone>>, every unit with a serial number in our records, offline<<else>>, every unit with a serial number in our records offline<</if>>. Under each of them, the same last entry, at 2:58 a.m.: <i>firmware update received</i>. Then nothing.
+
+He didn't just take the ones he could carry. He pushed one last update to every unit that ever talked to our server, and that update turned them into very expensive paperweights.
+
+/* MEDIA: images/events/morning_after/dashboard.jpg | A dashboard screen with a column of device entries, every status light red */
+
+<<linkreplace "Look up">>
+I already know before I look, and I look anyway.
+
+The grille over the vent above my desk is hanging down by one screw, swinging a little in the draft from the stairwell. Behind it there's a rectangle of cleaner metal where the unit used to sit, four screw holes, and a cut cable tie.
+
+He knew it was there. I don't know how long he knew, but you don't find a unit behind a ceiling vent at three in the morning by accident. He came in with a screwdriver that fit.
+
+I stand under it for a long time. Then I put my hand in my coat pocket, the way I do every morning without thinking about it, and close my fingers around the original.
+
+It's warm from my body. It's the one I built in my bedroom, on the nightstand, before there was a company or a server or anybody to register anything with. I never put its serial number anywhere, because I never wanted its numbers on a machine somebody else could read.
+
+So it's the only one left, and only because I'm a paranoid idiot, which is a very strange thing to be grateful for this early in the morning.
+
+/* MEDIA: images/events/morning_after/vent.jpg | Looking up at an open ceiling vent, the grille hanging by one screw, an empty space behind it */
+
+<div class="navigation-link">[[Wait for the others|Morning After 2]]</div>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning After 2 [event main_quest] {"position":"6450,500","size":"100,100"}
+/* Quest "The Morning After", part 2 of 5. $brian.name and the camera box nobody knew about: $ethan.name wiped the server
+   copy of the footage, but the cameras also record to a little box in the supply closet, so the CCTV at 3:17 a.m. still
+   exists. $brian.name kept a spare unit ($flags.brianSpare, the starting point of the rebuild in Stage 2, proposal 3.3).
+   $darius.name comes in on a weekday ($flags.dariusBroughtIn changes his line). The resignation mail, from his private
+   address because his company account doesn't exist anymore. Lines change with $flags.trustedEthan and with the spikes in
+   the log of the Anchor ($company.devices.valenxAnchor.spikes). */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+I send $mom.callName and $sister.callName the same message before they can leave the house: <i>Take the day off, both of you. I'll explain later.</i><<if $flags.supplierOffered === true>> Neither of them answers. After last night, I'm not sure what I'd have done with an answer.<<else>> $mom.callName answers within a minute with three question marks and a heart, and then, a minute later, <i>Are you okay, honey?</i> I don't answer that one.<</if>>
+
+<<if $date.today.value >= 5>>
+Then I call $brian.name, because it's the weekend and he's the only person I can think of who'd pick up before eight. He picks up on the second ring, and forty minutes later he comes up the stairs in a hoodie that says something about a band I've never heard of, with his hair flat on one side.
+<<else>>
+At ten to nine $brian.name comes up the stairs, a coffee in one hand and a bag of something that's going to be soldered later in the other, and stops in the doorway.
+<</if>>
+
+He looks at $ethan.name's desk, and the rack, and the vent. It takes him a while.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Oh." },
+{ who: $brian, text: "Oh, no. Did he... all of it? The drives too?" },
+{ who: $player, text: "All of it. The units are bricked, every single one, he pushed something to them last night. And the server copy of the camera footage is gone, before you ask, I checked." },
+{ text: "He's quiet for a moment. Then he puts his coffee down on the nearest desk, very carefully, as if it might go off." },
+{ who: $brian, text: "Um. The server copy." },
+{ who: $player, text: "What do you mean, the server copy?" },
+{ who: $brian, text: "The cameras don't only go to the server. They also go to a box. In the supply closet, behind the paper towels. It keeps a week, then it writes over it. I set it up when we moved in, because servers die, and I didn't... I guess I didn't tell anybody." },
+{ who: $player, text: "$brian.name. Have I told you lately that I love you?" },
+{ who: $brian, text: "Uh. No." },
+{ who: $player, text: "Well, it's true right now. Show me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Watch 3:17 a.m.">>
+The box is the size of a lunchbox and covered in dust, and the picture is grainy and greenish, but it's there.
+
+The main office at 2:40 a.m. $ethan.name is up on my desk chair under the vent with a screwdriver in his teeth. He works fast, like a man who has done it before, maybe in his head, many times. The unit comes down into his arms, and he holds it for a second the way you'd hold something that might bite. Then he wraps it in his jacket.
+
+The server corner. Two big cardboard boxes, the kind we got the stands in, filling up.
+
+3:17 a.m. He comes back into the frame with one box on top of the other and his laptop bag over his shoulder. He has to put the boxes down to open the door, and when he's got it open, he doesn't pick them up again right away.
+
+He stands in the doorway and looks back at the vent, the open grille, the dark rectangle. For a long time, maybe thirty seconds, which is very long when you're watching it on a screen. As far as I can tell from a grainy green picture, there's nothing angry in his face. He looks like somebody saying goodbye to a room.
+
+Then he picks up the boxes, and the door closes behind him, and the office is empty and green until the cleaners come in at five.
+
+/* MEDIA: images/events/morning_after/cctv.jpg | Grainy green security footage: a man in a doorway with two cardboard boxes at his feet, looking back up at the ceiling */
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "He labeled the boxes. Did you see? On the side. He wrote what was in them." },
+{ text: "He doesn't say anything else for a while. Then he pushes his glasses up and looks at the floor next to my shoe." },
+{ who: $brian, text: "Uh. I kept the spare." },
+{ who: $player, text: "The what?" },
+{ who: $brian, text: "From $boss.callName's unit. I always build two, in case one's bad. And the schematics are on paper, and the jig, in my car. I never throw anything away. Everybody I've ever lived with says that's a problem." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't hug him, because I think it would kill him. But it's close.
+<<set $flags.brianSpare to true>>
+
+<<if $date.today.value < 5>>
+$darius.name comes in at five past nine, sees the room, and stops walking. He takes it in the way he takes in everything, in one long, slow look that misses nothing, and the last thing he looks at is me.
+
+<<if $flags.dariusBroughtIn === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "It was never my password that was the problem, was it." },
+{ who: $player, text: "No. It wasn't. I should have figured that out a lot sooner than this." },
+{ who: $darius, text: "So should I. I'd like to know what he took, and what he can do with it, when you have a moment. Not now, I can see this isn't the moment." },
+{ text: "He hangs up his coat, sits down at his desk and opens his laptop as if this were a normal day, and somehow that helps more than anything anyone could have said." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "I take it this answers the question from the other week." },
+{ who: $player, text: "Yeah. It does. I'm sorry, $darius.name, I really am." },
+{ who: $darius, text: "I believe you." },
+{ text: "He hangs up his coat, sits down and opens his laptop, and he doesn't ask a single question about what was taken. I'm fairly sure he decided some time ago that the less he knows about this company, the better he sleeps." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+<</if>>
+
+<<linkreplace "Check my mail">>
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+It's there, at the top of my inbox, sent at 3:31 a.m. from an address I haven't seen since high school. His company account doesn't exist anymore. He deleted that too.
+
+<<set _maMail to {
+    title: "My notice",
+    who: $ethan,
+    mailAddress: $ethan.name.toLowerCase() + "." + $ethan.surname.toLowerCase() + "@mailbox.to",
+    body: [
+        { who: $ethan, text: "$player.name,\n\nI quit, effective last night. I'm not going to pretend there's a nicer way to write that.\n\nYou'll want to know what I took. Everything with a serial number, the servers, the backups and the unit in the ceiling. You'll want to know why. I think you already know why, and I think you've known for longer than I have." + (State.variables.company.devices.valenxAnchor.spikes.length > 0 ? "\n\nI saw the log of the little handheld, too. Full output, pointed at a person, and I can count. I'd rather not know who." : "") + "\n\nKeep the two percent. You gave me two percent of something I'm not sure I was ever allowed to say no to, and I don't want it.\n\nDon't call me. I mean that. If you call, I'll pick up, and I don't trust myself to know what I want when I hear your voice. Not anymore.\n\n$ethan.name" },
+    ],
+}>>
+<<Mail _maMail "false">>
+
+/* MEDIA: images/events/morning_after/mail.jpg | A laptop screen with a short mail open, a cold cup of coffee next to it */
+
+<<if $flags.trustedEthan === true>>
+I read it three times. Then I think about the sticky note in my handwriting, folded behind his pen, and the night I lay in bed with the camera app open and decided he was my friend. I gave him the keys to everything, and he waited until now to use them, which is either loyalty or patience, and I can't tell which.
+<<else>>
+I read it three times. Then I think about the night before the pitch, the twenty minutes I spent watching him tape down a cable, twice, so nobody would trip over it. He didn't do a single thing wrong that night. He was waiting for a night when nobody was watching, and the funny part is, last night I wasn't.
+<</if>>
+
+"Don't call me." I sit there with the phone in my hand and don't call him. It's the one thing he asked for, and I owe him that much. Or maybe I just don't want to find out what I'd say.
+
+<div class="navigation-link"><<link "Later that morning" "Morning After 3">><<AdvanceTimeTo 2>><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning After 3 [event main_quest] {"position":"6575,500","size":"100,100"}
+/* Quest "The Morning After", part 3 of 5. The call: an anonymous tip about unlicensed influence technology, and an
+   investigator from the state who would like to see our records ($flags.underInvestigation; Suspicion itself only starts
+   with Stage 2, setup.suspicionActive). The lawyer, a one-off extra for now, asks for proof that this is research. The
+   Letter (proposal 7.4, 7): the pilot study of $prof.callName and the report the dean co-signed (prof_deansVisit) are the
+   shield. If $landlord.callName has mentioned selling the building (landlord_sale), it comes back here. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+The phone rings at eleven. It's a landline number, which nobody under fifty uses anymore, and I almost don't pick up.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$company.name, $player.name speaking." },
+{ text: "The woman on the other end is polite in the way people are polite when they're reading from a sheet. She works for the state, for an office with a long name that has the word consumer in it twice." },
+{ text: "They received an anonymous tip, she says, about a company selling devices that influence people's mood and behavior without their knowledge or consent, with no license and no oversight. She isn't accusing anybody of anything at this stage. She would simply like us to preserve all our records, and an investigator will be in touch next week to arrange a visit." },
+{ who: $player, text: "Sure. Of course. We have nothing to hide." },
+{ text: "I say it in the voice I use for clients, and it comes out fine. She thanks me, gives me a case number, and spells it twice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+An anonymous tip, eight hours after he walked out with the servers. He's very good at what he does. He always was. I just never thought I'd be on the receiving end of him being good at it.
+
+<<set $flags.underInvestigation to true>>
+
+<<linkreplace "Find a lawyer">>
+It takes four calls. The first lawyer doesn't do this kind of thing, the second one laughs, the third one wants twenty thousand dollars before she'll look at anything. The fourth is called Margaret Kessler. She has an office over a dry cleaner's two streets away, and she says she can see me at one if I bring a sandwich, because she won't have time to get one.
+
+I bring two.
+
+<<silent>><<SetBackground "images/locations/Company Office.jpg">><</silent>>
+Her office is one bright room with a big wooden table, two orange chairs and a plant that I suspect gets better care than most of her clients. The window looks out at a brick wall full of air conditioners, and the whole room smells faintly of the steam presses downstairs.
+
+She eats hers while I talk, and she doesn't interrupt once, which I'm learning is a bad sign with lawyers. When I'm done, she wipes her fingers on a napkin, one at a time.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So that's it, more or less. Is it bad?" },
+{ text: "She doesn't answer that. She asks a question instead." },
+{ who: "Ms. Kessler", text: "Before we talk about bad, Mr. $player.surname, I need to know one thing. Is there anything on paper, from anybody who isn't you, that says what your company does is research? A study, a university, somebody with letters after their name who'll say this was science and not a sales pitch?" },
+{ who: "Ms. Kessler", text: "Because a product that changes people's behavior is a very big problem, and a research project that observes it, with a protocol and an ethics form, is a much smaller one. I can work with small." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Think of the college">>
+I think of $prof.callName.
+
+I think of a lecture hall with two emitters in the ceiling, one of them pointed at the podium, and of a preliminary report with the college crest on the cover, co-signed by a dean who hadn't started asking questions yet. Pilot study, observational design, informed participation. $prof.callName wrote every word of it himself, because he wanted his name on something that mattered, and on the cover there's a photo of $sister.callName at the whiteboard, laughing, with sixty students behind her.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "There's a pilot study, at the college. A professor runs it, and the dean co-signed the preliminary report a couple of weeks ago. I can have a copy on your desk tomorrow." },
+{ who: "Ms. Kessler", text: "Co-signed by the dean?" },
+{ who: $player, text: "Her signature's on the last page. I've seen it." },
+{ text: "For the first time since I came in, she writes something down." },
+{ who: "Ms. Kessler", text: "Then go home, Mr. $player.surname, don't talk to anybody, and bring me that report." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On the stairs down past the dry cleaner's, with the steam from the presses coming up through the floor, I think about how I paid for that report. A few weeks of $sister.callName in a short skirt and tights at the front of a lecture hall, smiling at sixty students and a professor who looked a little. I bought my shield with my $sister.relation's smile, and it might actually hold.
+
+<<if setup.questDone("landlord_sale")>>
+On the way back to the car I pass a real estate office, and in the window, between a bungalow and a parking garage, there's a photo of a building I know very well, the one with the broom closet and the third floor. $landlord.callName's brochure, the long, quiet Saturdays he grumbled about. That's a problem for another day. Today I don't have the money for a parking garage, let alone a building.
+<</if>>
+
+<div class="navigation-link"><<link "Go back" "Morning After 4">><<AdvanceTimeTo 4>><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning After 4 [event main_quest] {"position":"6700,500","size":"100,100"}
+/* Quest "The Morning After", part 4 of 5. The evening: the launch of the rival ($rivalCompany.name, $ethan.name's), in a
+   glowing piece by $marketingFirm.name ($flags.pressClient: my own client launched him). Then home: $mom.callName and
+   $sister.callName. If they went to the club ($flags.supplierOffered) they now know about each other, and both of them have
+   an entry in today's end-of-day report (Night Shift 3). If she knows the truth about the device ($mom.flags.calendarChoice
+   "truth", The Calendar) she understands what was taken. The final beat: I have lost the friend and the tools, and I
+   still have them. Effects and the quest's end are in part 5. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+At six I'm still at my desk, which is pointless, because there's nothing left on the dashboard to look at. I'm reading the news on my phone instead, like a normal person, and that's how I find it.
+
+It's on the $marketingFirm.name blog, and then, within the hour, on two of the bigger tech sites that copy everything the $marketingFirm.name blog says.
+
+<i>Meet $rivalCompany.name: the startup that wants to make the workplace calmer, and do it in the open.</i>
+
+There's a photo. $ethan.name in a clean white room I don't recognize, in a shirt with a collar, which I didn't know he owned, holding a small white unit that looks a lot like ours. The article calls it licensed and transparent and strictly opt-in, with an independent ethics board, built by a founder who "saw what this technology can do in the wrong hands, and decided someone had to do it right". Whose hands those were is left to the reader, but there's a line about "an ongoing investigation into a competitor" in the last paragraph, sourced to someone familiar with the matter.
+
+/* MEDIA: images/events/morning_after/article.jpg | A phone screen showing a tech news article, a photo of a young man in a white room holding a small white device */
+
+At the bottom it says: <i>Communications by $marketingFirm.name</i>.
+
+I sit there and do the math, and it's not hard math. $marketingOwner.name was the first real sale I ever made, twenty minutes on the phone and a signature the same afternoon, and for weeks after that she told everybody she met about us. Now she's the one who launched him. I don't know when they started talking. The bar after the sale, maybe, with $ethan.name ordering for both of us from the tap with the hand-drawn label. He was always good with people at bars.
+
+I close the article and go home.
+
+<<linkreplace "Go home">>
+<<silent>><<SetBackground $locations[3].img>><</silent>>
+<<if $flags.supplierOffered === true>>
+They're both in the kitchen.
+
+$mom.callName is at the stove, stirring something that doesn't need stirring, and $sister.callName is at the table in one of $mom.callName's old cardigans, with her knees pulled up and both hands around a mug. When I come in, they both look up at the same time, and then they look at each other, quickly, and then back at me.
+
+It's the look that gets me. Last night in the back seat they found out about each other, and whatever they said afterwards in $mom.callName's room, I'm fairly sure most of it was about me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There you are, honey. I made soup, I didn't know what else to make, it's the kind of day where you make soup, isn't it?" },
+{ text: "She puts a bowl in front of me before I've even sat down, and her hand rests on my shoulder for a moment. It's trembling, very slightly, and she takes it away." },
+{ who: $sister, text: "$ethan.name's gone, isn't he. $darius.name texted me. He said I should ask you, and not to ask you tonight, in the same message, which was very him." },
+{ who: $player, text: "He's gone. He took most of what we had on the way out, too. I'll tell you both about it properly, just not tonight, okay?" },
+{ who: $sister, text: "Okay. Not tonight." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $mom.flags.calendarChoice === "truth">>
+$mom.callName sits down across from me, and she doesn't ask what he took. She knows what's in the ceiling, she has known since the night with the calendar, so she knows exactly what he took, and her eyes go to my coat on the back of the chair, to the pocket.
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "The one you carry. Is that one..." },
+{ who: $player, text: "It's still here." },
+{ text: "She lets out a breath and nods, and picks up her spoon, and then she puts it down again without eating anything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+We eat. Nobody says anything about last night. Halfway through the soup, $sister.callName puts her foot against mine under the table, and a minute later I notice that $mom.callName's hand is on $sister.callName's back, between her shoulder blades, and has been for a while.
+
+When she clears the bowls, $mom.callName stops next to my chair.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "If you want to hear about last night, sweetheart, I can tell you. Not now. But I can, if you ask me." },
+{ text: "She says it to the bowls in her hands. Across the table, $sister.callName is looking at me over her mug, and she nods, once, very slightly. Her too." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+$mom.callName is at the stove, and the kitchen smells like garlic and the radio is on low, and for one second, standing in the doorway, I could believe that nothing happened today at all.
+
+Then she turns around and sees my face.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, honey. Oh, come here, sit down, I knew something was wrong when you sent that message, you never write 'later', you always just tell me. What happened?" },
+{ who: $player, text: "$ethan.name quit. Last night. And he took... pretty much everything, actually." },
+{ who: $mom, text: "$ethan.name did? But he... he loved it there, he always said..." },
+{ text: "She stops, and puts the spoon down, and sits down next to me instead of finishing the sentence." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $mom.flags.calendarChoice === "truth">>
+She doesn't ask what he took. She knows what's in the ceiling, she has known since the night with the calendar, and her eyes go to my coat on the back of the chair, to the pocket. I nod, once, and she lets out a breath.
+<</if>>
+
+$sister.callName comes down a few minutes later, hears the end of it from the stairs, and doesn't say anything clever, which is how I know she's worried. She sits down on my other side and steals a piece of bread off my plate, very slowly, looking at me the whole time, until I laugh.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "There he is. Okay. So he took the stuff. He didn't take you, and he didn't take us, and if I remember correctly, you built the first one in your bedroom out of a broken baby monitor and spite." },
+{ who: $player, text: "That was $ethan.name's baby monitor." },
+{ who: $sister, text: "Then you'll build the next one out of something else." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<div class="navigation-link"><<link "Later" "Morning After 5">><<AdvanceTimeTo 5>><</link>></div>
+<</linkreplace>>
+
+
+:: Morning After 5 [event main_quest] {"position":"6825,500","size":"100,100"}
+/* Quest "The Morning After", last part: that night in my room. Applies the effects and finishes the quest; its set
+   (Define Quests) takes every device but the original off the books, the vent unit too, takes $ethan.name off the staff
+   and his projects, and sets his 2 percent back to 0. Then Morning After End, the title card. $company.stage stays 1:
+   Stage 2 is not built yet (a new office, Suspicion), so the game keeps running in the Stage 1 office until it is. */
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+Later, in my room, I put the original on the nightstand where I built it, between the blinking clock and a notebook full of sketches I drew before any of this was real.
+
+Yesterday I had a server full of data nobody else in the world has, a shelf of products, a unit in the ceiling that made people love coming to work, and a best friend who wrote most of my code. Tonight I have this one, a hardware guy who never throws anything away, a lawyer over a dry cleaner's, a report with $sister.callName's smile on the cover, and a case number I'm supposed to keep somewhere safe. And I have them.
+
+Through the wall I can hear the house settling for the night, the pipes, the stairs, the kind of quiet that only happens when everyone's home. Down the hall, <<if $flags.supplierOffered === true>>$sister.callName's door is open and her bed is empty, and from $mom.callName's room there's the murmur of two voices, too low to make out, and then nothing<<else>>$mom.callName is humming something while she gets ready for bed, and $sister.callName is laughing at something on her phone, a little too loud, so that I'll hear it<</if>>.
+
+$ethan.name walked out with almost everything I built, and he was probably right about most of it. But he took the part I can build again. The device was only ever how I got them here, and they're still here, exactly where I put them, and tomorrow, when I ask, they'll tell me anything I want to know.
+
+/* MEDIA: images/events/morning_after/nightstand.jpg | A small device on a cluttered nightstand next to a blinking digital clock, in a dark bedroom */
+
+<<UpdateStat "-" "Morale" 10>>
+<<UpdateStat "-" "Reputation" 10>>
+<<UpdateStat "+" "Corruption" 3>>
+<<Feel $mom "ethan" -2 "lasting">>
+<<Feel $sister "ethan" -2 "lasting">>
+<<if $flags.supplierOffered === true>>
+<<ProfileLog $mom "The Morning After" "The night of the club, $ethan.name walked out with almost everything the company owned. She made soup, kept a hand on $sister.callName's back all through dinner, and offered to tell me about the night before, whenever I ask.">>
+<<ProfileLog $sister "The Morning After" "The night of the club, $ethan.name walked out with almost everything the company owned. She didn't ask what he took. She sat across from me in $mom.callName's old cardigan with her foot against mine, and let me know she'd tell me about the club too, if I ask.">>
+<<else>>
+<<ProfileLog $mom "The Morning After" "$ethan.name walked out in the night with almost everything the company owned. She made me sit down and fed me before she asked a single question.">>
+<<ProfileLog $sister "The Morning After" "$ethan.name walked out in the night with almost everything the company owned. She stole my bread until I laughed, and told me I'd build the next one out of something else.">>
+<</if>>
+<<ProfileMemory $mom "The empty desk" "$ethan.name used to eat everything in our fridge when he was sixteen. She always liked him, and the day he left she cooked for the rest of us anyway and didn't say his name once.">>
 <<NextQuest $player>>
-<<ReturnFromEvent>>
+
+<div class="navigation-link">[[Sleep|Morning After End]]</div>
+
+
+:: Morning After End [event main_quest hide_sidebar] {"position":"6950,500","size":"100,100"}
+/* The end of Stage 1: the title card covers the whole screen; the link fades in once it has played (or was skipped) */
+<<StageTitle 1 "To be continued" "End of Stage">><<ReturnFromEvent "Continue" "Bedroom">><</StageTitle>>

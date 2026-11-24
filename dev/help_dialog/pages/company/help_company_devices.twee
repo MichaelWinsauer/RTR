@@ -30,7 +30,7 @@
 </dl>
 <p>Every night each device you own also regains <b>15%</b> by itself.</p>
 
-<<if $company.stage >= 1>>
+<<if $company.stage >= 1 && $company.vent.owned>>
 <h3>The vent unit</h3>
 <p>The last card in the strip is the full-strength $company.prototype.name hidden behind the ceiling vent of the main room. It runs off the building's power, so it has no charge. Instead it has an <b>output level</b>, which you switch in its window. The level sets the target that the company's <a href="#" data-help="Help Company Stats">Efficiency</a> moves toward every night, and how much morale your staff lose while they work:</p>
 <table class="help-table">

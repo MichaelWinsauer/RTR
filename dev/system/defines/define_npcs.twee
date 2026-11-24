@@ -783,8 +783,7 @@
 <<set $sister.dayLog to []>>
 <<set $povReturn to null>>  /* where <<EndPov>> goes back to (the desk for the CCTV, Day Report for the report) */
 
-/* events and deals that she reports on, by sysName. Empty until the first scenes use them (the Diner Incident,
-   Was That Right?, The Friend, see STAGE1_TODO.md) */
+/* events and deals that she reports on, by sysName */
 <<set setup.dayReports to {
     mom: {
         /* the club, the day after the Night Shift (logged by Night Shift 3 for the next day) */
@@ -793,8 +792,20 @@
             ask: "Let her tell you about the club",
             passage: "Last Night Mom POV",
         },
+        /* the first of the Thursdays of the boss, the day after After Hours (logged by After Hours for the next day).
+           Only what she can say out loud: no passage, what happened inside is Stage 2 */
+        after_hours: {
+            line: "He kept me until almost eleven, honey, there was a lot he wanted to... to go over. And then his driver took me home in the big car, which was nice of him, the seats were heated and everything, I didn't even know they made seats like that.",
+        },
     },
     sister: {
+        /* The Diner Incident (main_dinerIncident): logged by Diner Incident 2 as already told and heard, so it does not bring
+           the card back. It only shows up in the list to hear again when she has something else to tell that evening */
+        diner_incident: {
+            line: "The guy at the counter. You already heard that one, but I'll tell it again if you want.",
+            ask: "Hear about the man at the counter again",
+            passage: "Diner Incident POV",
+        },
         /* the club, the day after the Night Shift (logged by Night Shift 3 for the next day) */
         last_night: {
             line: "You can ask about last night, you know. I'm not going to fall apart on you. I just think you should have to hear it.",

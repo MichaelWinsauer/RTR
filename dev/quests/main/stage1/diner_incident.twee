@@ -1,10 +1,209 @@
 :: Diner Incident [event main_quest] {"position":"4825,500","size":"100,100"}
-/* STAGE1-STUB: empty scene. Quest "The Diner Incident" (main_dinerIncident), STAGE1_PROPOSAL.md 4.7.
-   She tells me about the aggressive customer she calmed down. My first lesson that chemistry matters.
-   STAGE1-STUB: meant as her end-of-day report (proposal 3.5). The report exists now (Define NPCs): an entry in
-   setup.dayReports, logged with <<LogDay>>, with this passage as the one to hear in full. */
+/* Quest "The Diner Incident" (main_dinerIncident), STAGE1_PROPOSAL.md 4.7, part 1 of 2. The first accident of the Veil.
+   Since The Debrief (manager_debrief) a $company.devices.valenxVeil.name hangs in the ceiling of $diner.name. Tonight a big
+   man at the counter blew up over a sold-out dish, grabbed her wrist, and she talked him down, while nobody else in the
+   room even looked up. She comes home quiet and sits on the couch with her phone face down. Her telling of it is her POV
+   passage (Diner Incident POV, the diner background), whose <<EndPov>> goes on to part 2 (Diner Incident 2, $povReturn),
+   which holds every effect and the NextQuest: her on my shoulder, then the log of the diner unit at my desk at home,
+   one trace climbing while every other one in the room settles, and the first night of reading about brain chemistry
+   (The Supplier calls back to it). Plays only on a day she worked a shift there (the quest requirements). */
 <<silent>><<SetBackground $locations[2].img>><</silent>>
-''STAGE1-STUB:'' this scene isn't written yet (The Diner Incident, STAGE1_PROPOSAL.md 4.7).
+The TV is on when I come downstairs, with the sound all the way off. Some cooking show, a man in a white jacket shouting silently at a contestant over a collapsed soufflé. $sister.callName is on the couch underneath it, still in her black jeans and the $diner.name polo, with her knees pulled up and her apron rolled into a tight little ball in her lap. Her phone is face down on the cushion next to her.
 
+That's what I notice first. Nobody in this family has ever seen her phone face down for more than a minute, and she isn't even looking at the TV. She's looking at a spot on the rug about a foot in front of it.
+
+$mom.callName went up early. The house is quiet enough that I can hear the fridge.
+
+/* MEDIA: images/events/diner_incident/couch.jpg | Sister curled up on the living room couch in jeans and a diner polo, apron balled in her lap, phone face down beside her, a muted TV glowing on her face */
+
+<<linkreplace "Sit down next to her">>
+I drop onto the other end of the couch, and the springs bounce her a little. She doesn't complain about it, which is the second thing I notice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Did the chef do something to you personally, or are we just staring at him out of solidarity?" },
+{ who: $sister, text: "He's been yelling at that poor woman for ten minutes. I'm rooting for the soufflé." },
+{ text: "It's almost a normal answer. She even smiles at the end of it, after she's already done talking, like she only just remembered that's part of it." },
+{ who: $player, text: "You smell like the fryer." },
+{ who: $sister, text: "Wow. Thank you. That's what every girl wants to hear after a double." },
+{ who: $player, text: "You had one shift." },
+{ who: $sister, text: "It felt like two." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She starts unrolling the apron and rolling it up again, tighter. I wait. The man on TV has moved on to somebody's risotto.
+
+<<linkreplace "Ask her what happened">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey. What happened tonight?" },
+{ who: $sister, text: "Nothing happened. I mean, something happened, but it's fine, it's over, nobody got hurt, and it's honestly kind of a funny story if you tell it right." },
+{ who: $player, text: "So tell it right." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at me for a while, then puts the apron down on the coffee table, flat, and smooths it out with both hands like it's a tablecloth. She rubs the inside of her left wrist with her thumb without seeming to notice she's doing it.
+
+<div class="navigation-link"><<link "Let her tell it">><<set $povReturn to "Diner Incident 2">><<goto "Diner Incident POV">><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Diner Incident POV [scene pov] {"position":"4825,625","size":"100,100"}
+/* POV passage, her side of The Diner Incident (main_dinerIncident). Opened from the scene ($povReturn "Diner Incident 2"),
+   and again from her end-of-day report that same evening (the scene logs it as already told and heard, setup.dayReports
+   .sister.diner_incident, so it only shows up in the list when she has something else to tell). No effects here.
+   A slow shift, everyone strangely pleasant since the box went into the ceiling over the pie case.
+   A big man in a gym shirt (Dale, an extra) at the counter; the kitchen ran out of the chicken fried steak ten minutes ago.
+   He goes from still to loud, slams the counter, grabs her wrist when she turns away. Nobody else reacts at all: the
+   couple keep sharing their milkshake, the old guys keep eating, like a TV with the sound off. She doesn't pull away.
+   She asks his name, sits down across from him in the booth (servers never sit) and talks to him, and he goes from that
+   to sorry all at once, which scares her more than the yelling did. $manager.name comes out of the office afterward.
+   Forty dollars on a fourteen-dollar check, and "sorry about before" on a napkin. Twenty minutes in the car. */
+<<silent>><<SetBackground setup.getLocationBySysName("diner").img>><</silent>>
+<<PovHeader $sister>>
+It's one of those shifts where you can tell in the first hour that you're not going to make any money. Two booths of old guys who order coffee and make it last for hours, a couple on what is very obviously a third date splitting one strawberry milkshake with two straws, and a trucker at the end of the counter reading a paperback with the cover torn off. That's the whole room.
+
+And it's nice. That's the weird part about $diner.name lately, it's nice. Ever since $player.name's people put that little box up in the ceiling over the pie case, nobody snaps their fingers at me anymore. The cook hums. Twice this week a customer has said "no rush" and actually meant it. I've been working here long enough to know that is not a normal thing for a human being to say in this building.
+
+/* MEDIA: images/characters/sister/events/diner_incident_pov/quiet.jpg | Her point of view down the length of the diner counter at night: a couple sharing a milkshake in a red booth, two old men over coffee, a small white box in the ceiling above the pie case */
+
+He comes in during the lull. He's big, the kind of big that takes work, in a sleeveless gym shirt with a duffel bag he drops on the stool next to him so nobody can sit there. He doesn't look at the menu. He orders the chicken fried steak without looking up from his phone.
+
+Which we don't have. Table four got the last one ten minutes ago. So I tell him that, the normal way, sorry, we just ran out, can I get you the meatloaf, it's honestly better, and I've said it to a hundred people.
+
+<<silently>>
+<<set _msgs = [
+{ text: "He doesn't answer right away. He puts the phone down on the counter, very slowly, screen down, and looks at me for the first time." },
+{ who: "The man at the counter", text: "You ran out." },
+{ who: $sister, text: "Ten minutes ago, yeah. I'm really sorry. The meatloaf..." },
+{ who: "The man at the counter", text: "I drove forty minutes for that steak. Forty minutes. I told myself the whole drive, at least there's that, at least there's one thing today that's going to go right, and you're standing there telling me about meatloaf." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then his hand comes down on the counter, flat and hard, and every mug on it jumps. Mine sloshes coffee all over the order pad. He's standing up now, and he's so much taller standing up, and he's saying something about this town, about how nobody in this whole town has ever once done their job, and his voice keeps getting bigger until it doesn't sound like it's coming out of a person anymore.
+
+I turn around to grab a menu. I don't know why. I think part of me thought if I gave him a menu, the whole thing would turn back into a normal table. And he reaches over the counter and grabs my wrist.
+
+/* MEDIA: images/characters/sister/events/diner_incident_pov/wrist.jpg | Close on the counter: a big hand around her slim wrist, spilled coffee spreading over a waitress order pad */
+
+What I keep coming back to is that nobody does anything.
+
+I don't mean nobody's brave. I'd forgive them for that. I mean nobody even looks. The couple keeps passing the milkshake back and forth. One of the old guys asks the other one to pass the ketchup, and he does. The trucker turns a page. It's like somebody turned the sound off on everyone except the two of us, and I'm standing in the middle of the loudest thing that's ever happened to me at work and the rest of the room is having a lovely evening.
+
+So it's on me. Fine.
+
+I don't pull my arm back. Every instinct I have says to, and I'm pretty sure that's exactly what he wants, something to pull against. I put my other hand on top of his instead, very lightly, the way you'd touch somebody's arm at a party to get them to listen to you.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hey. What's your name?" },
+{ text: "That throws him. I can actually see it throw him, like a record skipping." },
+{ who: "The man at the counter", text: "...Dale." },
+{ who: $sister, text: "Okay, Dale. I'm going to be honest with you, the chicken fried steak here isn't even good. The breading comes frozen in forty-pound bags. You drove forty minutes for something that was going to disappoint you anyway, and that's a terrible day, I get it. Sit down and let me bring you something that won't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+And then I do the thing you never, ever do as a server, which is I come around the counter and sit down across from him in the booth by the window, like we're two people having dinner. And he follows me. He lets go of my wrist to do it.
+
+I talk. I have no idea what I say for the first minute, honestly, something about the meatloaf and the cook's grandma's recipe, which is a lie, and the drive, and the weather. I keep my voice low so he has to lean in to hear it. And somewhere in the second minute, he just stops.
+
+Not slowly. One second he's a wall, and the next his shoulders come down and he puts his face in his hands and says he's sorry, he's really sorry, he doesn't know what that was, he's not like that. He says it four times. He looks like he's about to cry, this enormous man, in a booth at $diner.name over a steak.
+
+That's the part that actually scares me, if I'm honest. Not the yelling. The yelling made sense. It's how fast he went from that to this, like a dog that's growling at you one second and rolling over the next, and you can't decide which one of those was the real dog.
+
+/* MEDIA: images/characters/sister/events/diner_incident_pov/booth.jpg | Sister sitting across from a huge man in a gym shirt in a red vinyl booth, her hand resting near his on the table, his head bowed, the rest of the diner blurred and calm behind them */
+
+$manager.name comes out of the office about thirty seconds after it's over, with the phone still in his hand and a pencil behind his ear.
+
+<<silently>>
+<<set _msgs = [
+{ who: $manager, text: "Everything all right out here? I thought I heard something." },
+{ who: $sister, text: "You did. It's handled." },
+{ who: $manager, text: "Huh." },
+{ text: "He looks at Dale, and at me, sitting in a booth on the clock, and at the coffee all over the counter. I can see him decide that all of it is somebody else's problem." },
+{ who: $manager, text: "Well, good. Somebody wipe that up before it gets into the register." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Dale eats the meatloaf. All of it. The check is fourteen dollars and he leaves two twenties under the plate, and on the napkin, in very careful capitals like a kid writing a thank-you card, it says SORRY ABOUT BEFORE.
+
+I finish the shift. I refill the old guys' coffee and they say thank you, sweetheart, like nothing happened, because as far as they know nothing did. Then I sit in the car in the parking lot for twenty minutes with the engine off. I take out my phone to text the group chat and put it back. I don't know how I'd tell it. Everyone would ask if I was scared of him, and I'd have to say no, not really, and then they'd ask what I was scared of, and I don't have a good answer for that yet.
+
+<<EndPov "Back to the couch">>
+
+
+:: Diner Incident 2 [event main_quest] {"position":"4950,625","size":"100,100"}
+/* Quest "The Diner Incident" (main_dinerIncident), part 2 of 2, reached from her POV passage through $povReturn. Every
+   effect of the quest is here. The beat that matters for later: she handled it well, the room didn't react at all, and
+   the log of the diner unit shows why. The Veil turned one man up instead of down. I don't switch it off. I start reading
+   (the used neurochemistry textbook The Supplier calls back to). The Support Review of the boss line waits for this quest. */
+<<silent>><<SetBackground $locations[2].img>><</silent>>
+She tells it all the way through, and she does tell it right. She's funny about the breading. She does Dale's voice for one line and then stops doing it. When she gets to the napkin, she laughs, and it comes out a little wrong.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And that's the story. Very dramatic. Ten out of ten, would get grabbed again." },
+{ who: $player, text: "Don't say that." },
+{ who: $sister, text: "I know. Sorry. It's a bad joke. It's been a weird night." },
+{ who: $player, text: "Are you okay? Like actually. Did he hurt your wrist?" },
+{ text: "She holds her arm out and turns it over under the lamp so I can see for myself. There's nothing, maybe a faint pink mark where his thumb was, already fading." },
+{ who: $sister, text: "It's fine. He didn't even squeeze that hard, he just... held on. Can I tell you what the weird part was, though? Nobody looked up. Not one person. That couple didn't stop drinking their milkshake. If I'd been somebody else, somebody who freezes, they would've just let it happen, and I don't even think they'd have noticed." },
+{ who: $player, text: "People are weird about that stuff. They pretend it isn't happening so they don't have to get involved." },
+{ who: $sister, text: "Maybe. It didn't feel like pretending, though. It felt like they genuinely didn't hear it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't have anything to say to that, so I don't say anything. I put my arm along the back of the couch instead, and after a second she slides over and puts her head on my shoulder, and we watch the man in the white jacket hand somebody a trophy in total silence.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You know what's stupid? I was kind of good at it. The talking him down part. I didn't know I could do that." },
+{ who: $player, text: "That's not stupid. You were great. Next time, though, let $manager.callName come out of his office and do his actual job." },
+{ who: $sister, text: "Next time. God. Don't say next time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She falls asleep there, ten minutes later, still in the polo. I wait until her breathing is slow, then ease out from under her and put the blanket from the armchair over her, and take her phone off the cushion so she won't roll onto it. It lights up when I pick it up. Six messages from the group chat, all unread.
+
+<<linkreplace "Go upstairs">>
+<<silent>><<SetBackground $locations[1].img>><</silent>>
+Upstairs, I open the laptop and pull up the log from the unit at $diner.name. I tell myself I'm just checking it's still running, which isn't true. I know what I'm looking for, I just don't know yet what it's going to look like.
+
+It looks like this: a chart of everybody in the room, one thin line per heartbeat the sensors could pick out, starting when she clocked in. At first they're all over the place, the way people are. Half an hour later they've drifted together into a soft, flat band, the calm the $company.devices.valenxVeil.name is supposed to make, eleven lines lying on top of each other like threads on a spool.
+
+Then a new one comes in through the door, and it doesn't drift down with the others. It climbs, for nine straight minutes, until it goes off the top of the chart, and everybody else's stays exactly where it was, calm and flat and pleasant the whole time.
+
+/* MEDIA: images/events/diner_incident/log.jpg | His laptop screen in a dark bedroom: a chart of a dozen soft flat lines in a calm band and one red line spiking off the top */
+
+<<silently>>
+<<set _msgs = [
+{ text: "I watch the red line for a long time." },
+{ text: "The $company.devices.valenxVeil.name doesn't tell people to be calm. I never built it to do that, because I couldn't. It just takes whatever someone walks in carrying and makes more room for it. For eleven people tonight, that was a slow evening and a strawberry milkshake. For one guy who'd driven forty minutes on the worst day of his month, it was something else." },
+{ text: "And then my $sister.relation sat down across from him, and the room made more room for her too." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The sensible thing is to pull the unit out of $diner.name tomorrow morning. I actually open the remote panel to do it. My cursor sits on the switch while I think about it, and the thing I keep thinking is that it was one man out of the three hundred who walked through that door this week, and that she handled it, and that I want to know why it happened to him and not to the trucker, far more than I want it to stop happening.
+
+So I close the panel. I open a browser instead and type in things I don't fully understand yet: what makes one person mellow out and another one snap, whether you can see it coming, whether it's something in the blood. By midnight I've read forty pages about dopamine and testosterone on forums run by people who would make bad dinner guests, and I've ordered a used textbook on neurochemistry for thirty-eight dollars plus shipping, from a seller whose listing says, lightly highlighted, some notes in margins.
+
+When I finally close the laptop, the house is dark. Downstairs, $sister.callName is still asleep on the couch with her hand curled under her chin, and her wrist doesn't have any mark on it at all.
+
+<<run setup.logDay("sister", "event", "diner_incident", { told: true, heard: true })>>
+<<UpdateStat "+" "SisterRelation" 2>>
+<<Feel $sister "player" 1>>
+<<UpdateStat "+" "Corruption" 2>>
+<<ProfileLog $sister "The man at the counter" "A man at $diner.name blew up over a sold-out dish and grabbed her wrist, and she talked him down by herself while the whole room kept eating. She came home and told me all of it on the couch, and fell asleep on my shoulder.">>
+<<ProfileMemory $sister "Sorry about before" "Forty dollars on a fourteen-dollar check and an apology on a napkin, in capital letters. She says the yelling wasn't the scary part.">>
 <<NextQuest $player>>
-<<ReturnFromEvent "Continue" "Living Room">>
+<<ReturnFromEvent "Go to sleep" "Bedroom">>
+<</linkreplace>>

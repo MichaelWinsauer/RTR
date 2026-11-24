@@ -31,6 +31,7 @@
 <<set $gymChain to { name: "Peak Form Fitness" }>>            /* $gymOwner runs it */
 <<set $retailChain to { name: "Hartwell Stores" }>>           /* the national chain, $investor opens the door */
 <<set $club to { name: "The Lantern Room" }>>                 /* the club of $supplier, the last night */
+<<set $rivalCompany to { name: "Clearline Labs" }>>           /* the startup $ethan launches with the stolen tech (The Morning After) */
 
 <<set $mealType to "breakfast">>
 

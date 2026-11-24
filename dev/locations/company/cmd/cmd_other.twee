@@ -14,7 +14,7 @@
     <</if>>
   <</for>>
   /* the hidden unit behind the vent of the Stage 1 office ("Company stats" in Define Company): no charge, a level instead */
-  <<if $company.stage >= 1>>
+  <<if $company.stage >= 1 && $company.vent.owned>>
     <<set _ventLevel to setup.ventLevel()>>
     <div class="cmd-valenx-device cmd-vent-device" onclick="openVentDialog()">
       <div class="cmd-valenx-device-name">Vent Unit</div>

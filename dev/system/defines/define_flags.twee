@@ -11,6 +11,9 @@
     trustedEthan: null,             /* The Retail Pitch: master access without checking the footage */
     supplierOffered: null,          /* The Supplier: true = both of them go to the club, false = I pay */
     answeredEthan: null,            /* The Night Shift: I picked up his call at 11:40 p.m. */
+    /* The Morning After, the end of Stage 1. For Stage 2 to read */
+    brianSpare: false,              /* the hardware engineer kept a spare of the unit he built for the boss, the schematics and the jig */
+    underInvestigation: false,      /* the anonymous tip and the call from the state office (Suspicion itself starts with Stage 2) */
     /* STAGE1-STUB: the decisions of the side lines (STAGE1_PROPOSAL.md section 7) */
     bossArrangement: null,          /* The Arrangement (boss_arrangement): "pay", "mom" (also sets $mom.flags.offeredToBoss) or "anchor" */
 }>>

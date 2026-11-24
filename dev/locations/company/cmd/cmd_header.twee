@@ -93,7 +93,7 @@ if (suspicion >= 75) items.push({ prio: 2, tone: "bad", target: ".cmd-stats", te
 else if (suspicion >= 50) items.push({ prio: 7, tone: "warn", target: ".cmd-stats", text: "Suspicion is climbing (" + suspicion + "%)" });
 
 /* the vent unit on High eats the morale of the staff, remind me it is still running there */
-if (setup.ventLevel() === setup.ventLevels[setup.ventLevels.length - 1]) {
+if (State.variables.company.vent.owned && setup.ventLevel() === setup.ventLevels[setup.ventLevels.length - 1]) {
 	items.push({ prio: 6, tone: "warn", device: "vent", text: "The vent unit is still running on " + setup.ventLevel().name });
 }
 

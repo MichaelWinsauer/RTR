@@ -18,7 +18,7 @@ These change what gets built or written, so they come before the scenes that dep
 - [x] **The Veil at the diner.** *Decided: the Manager line's Debrief installs it, before the Diner Incident (proposal 7.3 and 7.5).*
 - [x] **How the first sale arrives.** *Decided: a mail, then a short phone call scene. A couple of days after The Late Night the hidden quest `main_waitFirstSaleLead` sends the marketing firm owner's mail (`$company.mails[4]`, first draft). The day after the answer she calls him at his desk: that call is part 1 of The First Real Sale, the bar is part 2. The gym owner's mail moved to `$company.mails[5]`.*
 - [x] **The supplier's pay branch** (4.12). *Decided: an advance from the Boss. The money comes in at once and is paid back in installments every Monday together with the wages (`setup.addDebt`, `$company.debts`, Define Company). The Supplier scene offers it as the plain price.*
-- [ ] **The end of Stage 1** (4.13): what else resets at The Morning After (Ethan's project assignments, the vent unit, CCTV, the office), and where Stage 2 starts (`$company.stage`, a title card, a new location). *Postponed, too early to decide.*
+- [ ] **The end of Stage 1** (4.13): what else resets at The Morning After (Ethan's project assignments, the vent unit, CCTV, the office), and where Stage 2 starts (`$company.stage`, a title card, a new location). *Partly done with the scene: its `set` takes every device but the original, the vent unit (`$company.vent.owned`, level Off), Ethan from the staff and from every project, and his 2%. The CCTV keeps working (the cameras also record to a box of their own). It ends on an "End of Stage 1" title card. Still open: `$company.stage` stays 1 until Stage 2 (its office, Suspicion) is built.*
 - [x] **Names to keep.** *Decided: the default names stay (stage names, contacts, companies). The contacts' variables are named after their role now: `$marketingOwner` (Dana Pruitt), `$gymOwner` (Rick Dawson), `$investor` (Charles Whitfield), `$supplier` (Leon Calloway), `$bestFriend` (Jess Moreno). Still open: whether they become renamable in Character Configuration.*
 
 ---
@@ -27,7 +27,7 @@ These change what gets built or written, so they come before the scenes that dep
 
 In the order the story first needs them. Each one names the first quest that uses it.
 
-- [x] **End-of-day report** (3.5). *Built ("End-of-day report" at the end of `define_npcs.twee`, passage `Day Report`).* The "How was your day?" card gets its own highlighted group at the top of the screen from the Evening on (next to the normal "Ask about her day"), once Office Gossip is done and today's log has entries. Tasks log themselves through a `report` (on the task or a stage); flirt duty, extra friendly, coffee break and secretary work have lines. Events and deals use `<<LogDay>>` with `setup.dayReports`, which is still empty: the Diner Incident, Was That Right? and The Friend stay plain events until their scenes are written and moved onto it.
+- [x] **End-of-day report** (3.5). *Built ("End-of-day report" at the end of `define_npcs.twee`, passage `Day Report`).* The "How was your day?" card gets its own highlighted group at the top of the screen from the Evening on (next to the normal "Ask about her day"), once Office Gossip is done and today's log has entries. Tasks log themselves through a `report` (on the task or a stage); flirt duty, extra friendly, coffee break and secretary work have lines. Events and deals use `<<LogDay>>` with `setup.dayReports`, which the Diner Incident and the club night use now (Was That Right? and The Friend stay plain events).
 - [x] **POV passages behind the CCTV arrow** (3.5). *Built: tag `pov`, `<<PovHeader>>` / `<<EndPov>>` (Event Widgets), `$povReturn` set by the CCTV arrow and the report. The voice exception is in CLAUDE.md.*
 - [x] **The two new tasks get their own content.** *Done: stages with their own activities (`flirt_duty0-2`, `extra_friendly0-1`), effects per stage in `onComplete` (staff morale, company Morale or Efficiency, her Exhibition, Feelings), report lines and five POV passages in `dev/tasks/<npc>/`.* Still open: the clips. The activities have empty `media`/`cctv` lists, and each POV passage header names the shots it wants.
 - [x] **The Silence** (5.5). *Built ("The Silence" in `define_npcs.twee`): her cards are locked, her tasks with me rest, micro events with her are skipped, no wake-up coffee, a nightly Morale and Resistance loss. Her attempts: the meals `silence_breakfast` and `silence_lasagna`, and the note on my pillow (micro event 45).*
@@ -75,7 +75,7 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 
 **Phase 7**
 - [x] Morale (4.6), Darius in or out: [low_morale.twee](dev/quests/main/stage1/low_morale.twee)
-- [ ] The Diner Incident (4.7): [diner_incident.twee](dev/quests/main/stage1/diner_incident.twee)
+- [x] The Diner Incident (4.7): [diner_incident.twee](dev/quests/main/stage1/diner_incident.twee) *Written: her telling is a POV passage, plus an entry in her day report (already told) to hear it again that evening.*
 - [x] Be Nice to Brian (6.5b): [be_nice_to_brian.twee](dev/quests/sister/stage1/be_nice_to_brian.twee)
 
 **Phase 8–9**
@@ -97,13 +97,13 @@ In play order, phase by phase (proposal section 8). Each stub's comment says wha
 **Phase 13**
 - [x] Everything (6.8), her milestone into stage 3: [everything.twee](dev/quests/sister/stage1/everything.twee)
 - [x] A Knock at Night, Again (6.8b): [knock_at_night_again.twee](dev/quests/sister/stage1/knock_at_night_again.twee), with the "not tonight / let her in" choice.
-- [ ] After Hours (5.10, optional, needs the Boss line): [after_hours.twee](dev/quests/mom/stage1/after_hours.twee)
+- [x] After Hours (5.10, optional, needs the Boss line): [after_hours.twee](dev/quests/mom/stage1/after_hours.twee) *Written: the office, the drive, the sixth floor, his door. The inside is Stage 2; she reports a line the next day (`setup.dayReports.mom.after_hours`).*
 
 **Phase 14–15**
 - [x] The Supplier (4.12), the last family option: [the_supplier.twee](dev/quests/main/stage1/the_supplier.twee)
 - [x] Rehearsal (6.8c, optional): [rehearsal.twee](dev/quests/sister/stage1/rehearsal.twee)
 - [x] The Night Shift (4.12): [night_shift.twee](dev/quests/main/stage1/night_shift.twee), [last_night_mom.twee](dev/quests/mom/stage1/last_night_mom.twee), [last_night_sister.twee](dev/quests/sister/stage1/last_night_sister.twee), [night_shift_2.twee](dev/quests/main/stage1/night_shift_2.twee)
-- [ ] The Morning After (4.13): [morning_after.twee](dev/quests/main/stage1/morning_after.twee)
+- [x] The Morning After (4.13): [morning_after.twee](dev/quests/main/stage1/morning_after.twee) *Written in five parts plus the title card: the empty desk, the bricked units, the vent; the camera box, Brian's spare (`$flags.brianSpare`), the resignation mail; the state's call (`$flags.underInvestigation`) and the lawyer with The Letter; the rival's launch (`$rivalCompany.name`, by the marketing firm); home. The Dean's Visit gate moved to `main_nightShift`, so it's always the morning right after.*
 
 **Next to the scenes**
 - [ ] Ethan's foreshadowing (3.3): CCTV clips of him alone at night. *Done in the scenes: Sister's "still there at nine" (Office Gossip), the bartender who knows him (First Real Sale 2), the uncapped build on the rig (The Crack), Darius's login in the log pull (The Access Log), him watching her mute the group chat (The Friend).*
@@ -131,8 +131,8 @@ Revised against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md), see proposal s
 - [ ] Floor Six: Mom back on her old floor, "my former assistant", the coffee. Introduces her old colleagues and the woman at her old desk. Report or POV.
 - [ ] The Support Review: the device doesn't take on him, the pills, the drink. The player starts a file on him.
 - [ ] The Clip
-- [ ] The Arrangement: pay / offer Mom / break him with the Anchor. Sets `$mom.flags.offeredToBoss`. **Then change its default in Define NPCs from `false` to `null`**, so After Hours stops being skipped.
-- [ ] After Hours: this is Mom's 5.10 (`mom_afterHours`), already in her line.
+- [ ] The Arrangement: pay / offer Mom / break him with the Anchor. Sets `$mom.flags.offeredToBoss` (default `null` already). After Hours assumes he told her there would be "Thursdays" and that she gets a calendar invite for a "support review" on floor 6.
+- [x] After Hours: this is Mom's 5.10 (`mom_afterHours`), already in her line. *Written.*
 - [ ] The Introduction: names the supplier. **Add it to the requirements of `main_supplier`.**
 
 **Manager** (7.3, venue: the diner)
@@ -158,8 +158,8 @@ Revised against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md), see proposal s
 - [ ] The List: the study group, with the athletes, the STEM club and the outsider.
 - [ ] The Pilot: the Veil in the lecture hall, the second emitter on him.
 - [ ] The Guest Lecture: Mom teaches one seminar, and the students respect her.
-- [ ] The Dean's Visit: the co-signed report, the raw data she wants, "if I ran this place", Fridays. **Add it to the requirements of `main_morningAfter`** (the lawyer needs the report).
-- [ ] The Letter: part of The Morning After (4.13).
+- [ ] The Dean's Visit: the co-signed report, the raw data she wants, "if I ran this place", Fridays. *Gates `main_nightShift` (the lawyer needs the report the morning after that night).*
+- [x] The Letter: part of The Morning After (4.13). *Written into Morning After 3.*
 
 **Docs**
 - [x] [STAGE1_FLOWCHARTS.md](STAGE1_FLOWCHARTS.md) follows the revised section 7. *Its Mom and Sister charts still show the Catalyst nights (5.8, 6.6) as two scenes; in the game they're one event, `main_catalystNight`.*

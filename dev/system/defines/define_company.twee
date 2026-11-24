@@ -20,9 +20,11 @@
 
 /* The full-strength unit hidden behind the ceiling vent of the Stage 1 office (Finishing Renovations).
    level is an index into setup.ventLevels, switched in the CMD device strip. 1 = the 18% baseline it was
-   installed with. */
+   installed with. owned: false once it is gone (The Morning After takes it with every other device): the CMD device
+   strip hides it, and its level stays at Off. */
 <<set $company.vent to {
 	level: 1,
+	owned: true,
 }>>
 
 <<set $company.stats.max to {

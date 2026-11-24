@@ -512,16 +512,17 @@
         requirementsText: [ "Let the new contract settle in" ],
     },
     {
-    	/* 4.7 The first accident of the Veil, told by her at home. Needs the Veil in the diner: the Debrief of the
-    	   manager line (manager_debrief, 7.3) */
+    	/* 4.7 The first accident of the Veil, told by her at home, her telling as a POV passage (Diner Incident,
+    	   Diner Incident POV, Diner Incident 2). Needs the Veil in the diner: the Debrief of the manager line
+    	   (manager_debrief, 7.3). Plays on the evening of a day she worked a shift there, on the couch in the living room */
     	id: "main_dinerIncident",
     	next: "main_anchor",
     	title: "The Diner Incident",
         task: "Something happened at $diner.name today. $sister.callName came home quieter than usual, and she hasn't looked at her phone in an hour.",
         lockedTask: "$sister.callName keeps telling stories about the regulars at $diner.name.",
-        where: [ setup.getLocationBySysName("livingroom"), setup.getLocationBySysName("kitchen") ],
+        where: [ setup.getLocationBySysName("livingroom") ],
         whenTime: [4, 5],
-        whenDay: [0, 1, 2, 3, 4, 5, 6],
+        whenDay: [0, 1, 2, 3, 4],
         active: false,
         needsEvent: true,
         passage: "Diner Incident",
@@ -529,10 +530,12 @@
         requirements: [
             "setup.getTaskById('task_sister_diner_shift').count >= 10",
             "setup.questDone('manager_debrief')",
+            "setup.getTaskById('task_sister_diner_shift').lastCompletedAt === $date.dayCount",
         ],
         requirementsText: [
             "$sister.callName works 10 shifts at $diner.name ({{Math.min(10, setup.getTaskById('task_sister_diner_shift').count)}}/10)",
             "Get $company.devices.valenxVeil.name into $diner.name",
+            "$sister.callName works a shift at $diner.name that day",
         ],
     },
     {
@@ -749,44 +752,48 @@
             "$flags.supplierOffered !== true || (setup.questReached('mom_lastNight') && setup.questReached('sister_lastNight') && $date.dayCount > setup.getQuestById('sister_rehearsal').doneDay)",
             /* if I offered them: they go out with a client together first, three times (task Client Evening, Define Tasks) */
             "$flags.supplierOffered !== true || setup.getTaskById('task_mom_client_evening').count >= 3",
+            /* the report the dean co-signed (prof_deansVisit, 7.4) is the shield in The Morning After, which has to be the
+               morning right after this night, so its gate sits here */
+            "setup.questDone('prof_deansVisit')",
         ],
         requirementsText: [
             "Wait until tomorrow",
             "Rehearse the evening with $sister.callName",
             "Send them out with a client together first ({{setup.getTaskById('task_mom_client_evening').count}}/3)",
+            "Get the report signed at the college",
         ],
         /* the Client Evening POVs assume neither knows about the other: after the back seat it ends */
         set: [ "setup.lockTask('task_mom_client_evening')" ],
     },
     {
-    	/* 4.13 End of Stage 1: the heist, the investigation, the rival launch.
-    	   STAGE1-STUB: the set below follows proposal 3.7 (every device but the original is gone) and lets the old friend
-    	   leave the staff. Check what else has to reset (projects he is assigned to, the vent, the CCTV) and where
-    	   Stage 2 starts ($company.stage).
-    	   It waits for the report the dean co-signed (prof_deansVisit, 7.4): the lawyer needs it for The Letter, which is
-    	   part of this scene. The Sale (landlord_sale, 7.1) ends together with it */
+    	/* 4.13 End of Stage 1: the heist, the investigation, the rival launch (passages Morning After to Morning After 5).
+    	   The set follows proposal 3.7: every device but the original is gone (the old friend took the units and bricked
+    	   the rest), the vent unit too (vent.owned, its level back to Off), and he leaves the staff and every project he
+    	   was assigned to. The CCTV keeps working: the cameras also record to a box of their own (the scene).
+    	   $company.stage stays 1: Stage 2 (its office, Suspicion) is not built yet.
+    	   The report the dean co-signed (prof_deansVisit, 7.4) is the shield in The Letter, part of this scene; its gate
+    	   sits on main_nightShift, so this is always the morning right after that night. The Sale (landlord_sale, 7.1)
+    	   comes up here if it happened */
     	id: "main_morningAfter",
     	next: "main_end",
     	title: "The Morning After",
         task: "Something's wrong at the office. I can feel it before I've even unlocked the door.",
         where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
-        whenTime: [0, 1, 2],
+        whenTime: [0, 1],
         whenDay: [0, 1, 2, 3, 4, 5, 6],
         active: false,
         needsEvent: true,
         passage: "Morning After",
         returnPassage: "Company Stage 1",
-        requirements: [
-            "$date.dayCount > setup.getQuestById('main_nightShift').doneDay",
-            "setup.questDone('prof_deansVisit')",
-        ],
-        requirementsText: [
-            "Wait until morning",
-            "Get the report signed at the college",
-        ],
+        requirements: [ "$date.dayCount > setup.getQuestById('main_nightShift').doneDay" ],
+        requirementsText: [ "Wait until morning" ],
         set: [
             "Object.keys($company.devices).forEach((k) => { if (k !== 'valenx') { $company.devices[k].owned = false; } })",
+            "$company.vent.owned = false",
+            "$company.vent.level = 0",
             "$company.employees = $company.employees.filter((e) => e.sysName !== 'ethan')",
+            "$company.projects.forEach((p) => { p.assigned = (p.assigned || []).filter((e) => e.sysName !== 'ethan'); })",
+            "$ethan.assignedProjectCount = 0",
             "$ethan.equity = 0",
         ],
     },
@@ -1413,12 +1420,14 @@
     },
     {
     	/* 5.10 OPTIONAL: only if I offer her to the boss (The Arrangement, boss_arrangement, sets
-    	   $mom.flags.offeredToBoss). Her line waits here until that is decided (null), then plays it or skips it */
+    	   $mom.flags.offeredToBoss). Her line waits here until that is decided (null), then plays it or skips it.
+    	   The first of his Thursdays: it starts at our office after hours (she asks me, I say go), I drive her over and it
+    	   ends at the door of his office. Not on the day of The Arrangement itself */
     	id: "mom_afterHours",
     	next: "mom_lastNight",
     	title: "After Hours",
         task: "Thursday evening. $boss.callName expects his consultant to stay late.",
-        where: [ setup.getLocationBySysName("companystage1") ],
+        where: [ setup.getLocationBySysName("companystage1"), setup.getLocationBySysName("companystage1desk") ],
         whenTime: [4],
         whenDay: [3],
         active: false,
@@ -1426,8 +1435,12 @@
         passage: "After Hours",
         returnPassage: "Company Stage 1",
         skip: "$mom.flags.offeredToBoss === false",
-        requirements: [ "setup.questDone('boss_arrangement')", "$mom.flags.offeredToBoss === true" ],
-        requirementsText: [ "Settle things with $boss.callName", "Offer $mom.callName to $boss.callName" ],
+        requirements: [
+            "setup.questDone('boss_arrangement')",
+            "$mom.flags.offeredToBoss === true",
+            "setup.questDone('boss_arrangement') && $date.dayCount > setup.getQuestById('boss_arrangement').doneDay",
+        ],
+        requirementsText: [ "Settle things with $boss.callName", "Offer $mom.callName to $boss.callName", "Wait for his first Thursday" ],
     },
     {
     	/* 5.11 OPTIONAL: only if I offer them to the supplier (main_supplier sets $flags.supplierOffered).
@@ -2063,7 +2076,7 @@
 
 /* The professor (STAGE1_PROPOSAL.md 7.4, venue: the college). His line starts hidden in the background (hidden: true)
    and only shows up once his mail arrives, a week after both first projects are done. Gate: The Dean's Visit comes
-   before The Morning After (main_morningAfter waits for it) */
+   before The Night Shift (main_nightShift waits for it, so the report exists the morning after) */
 <<set $prof.quests to [
     {
     	/* runs from the start of the game, but nobody sees it: it only waits for the two first projects and then
@@ -2116,7 +2129,7 @@
     /* ==== Stage 1, after The Proposition (STAGE1_PROPOSAL.md 7.4) ====================================================
        STAGE1-STUB: everything from here to prof_end is structure only. The scene passages are empty stubs, and the
        requirements and timings are first guesses from the timeline (proposal section 8). The Letter (7.4, 7) is no quest
-       of its own: it is part of The Morning After (main_morningAfter), which waits for prof_deansVisit. */
+       of its own: it is part of The Morning After (main_morningAfter). The Night Shift waits for prof_deansVisit. */
     {
     	/* 7.4, 2: she is told she is the face of the project. "Fine, but tights." Also gives her college tutoring task
     	   (task_sister_tutoring_college) its scenes */
@@ -2197,7 +2210,7 @@
     },
     {
     	/* 7.4, 6: the dean co-signs a preliminary report and asks for the raw data. In private he names his price for
-    	   Stage 2: Fridays. main_morningAfter waits for this (the report is the shield in The Letter) */
+    	   Stage 2: Fridays. main_nightShift waits for this (the report is the shield in The Letter, the morning after) */
     	id: "prof_deansVisit",
     	next: "prof_end",
     	title: "The Dean's Visit",
