@@ -79,7 +79,6 @@ She leaves with the journal pressed flat against her chest. Back at her desk she
 <<UpdateStat "+" "SisterCorruption" 1>>
 <<ProfileLog $sister "Internship Overview" "Her college wants an internship journal, and she asked me for regular meetings to fill it. Every other afternoon in the meeting room, booked under her name. In the first one she admitted she's really happy spending so much time with me, and I helped her phrase it so it sounds professional.">>
 <<NextQuest $sister>>
-<<run Notification.show("New task for " + $sister.callName + ": Internship Overview", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent "Back to my desk">>
 <</linkreplace>>
 <</linkreplace>>

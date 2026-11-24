@@ -173,7 +173,6 @@ The chamomile on my desk has gone cold. I drink it anyway, all of it, because sh
 <<ProfileLog $mom "Her Duty" "A few nights after the handover she came up to my room to take back what happened in the meeting room. I turned $company.prototype.name all the way up and reminded her that taking care of me has always been her job. She agreed, and showed me in my bed. Whenever it gets bad, I'm to come and find her.">>
 <<ProfileMemory $mom "Chamomile" "She brought me tea for sleeping and meant to tell me it could never happen again. Under her robe she had put on underwear I had never seen, and there was a bottle of almond oil in the pocket. She lay down next to me and talked me through it in her thunderstorm voice, then tucked me in and kissed my forehead.">>
 <<NextQuest $mom>>
-<<run Notification.show("New interaction with " + $mom.callName + ": Ask her to take care of you", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent "Continue">>
 <</linkreplace>>
 <</linkreplace>>

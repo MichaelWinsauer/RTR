@@ -68,16 +68,7 @@ She's thanking the person who emptied her desk, and she has no idea. I keep hold
 <<UpdateStat "-" "MomResistance" 6>>
 
 <<ProfileLog $mom "My First Employee" "She got fired, right on schedule, and came home with nowhere to go. Now she works for me. She thinks I saved her.">>
-<<set setup.getMealById("false_sympathie").isActive to true>>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>
-<<silent>>
-    /* fired: she stays home on weekdays from now on (Define Schedule) */
-    <<run setup.useRoutine("mom", "weekday", "stage0_fired")>>
-    /* no paycheck anymore, so no more $500 a week toward the rent (Weekly Update) */
-    <<set $mom.flags.rentHelp to false>>
-
-    <<set $locations[12].name to "$boss.callName's Office">>
-<</silent>>
 <</linkreplace>>
 <</linkreplace>>

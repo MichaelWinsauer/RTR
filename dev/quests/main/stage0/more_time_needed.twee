@@ -43,7 +43,6 @@ Water starts running in the kitchen, and the vacuum growls awake a minute later.
 <<UpdateStat "+" "SisterCorruption" 1>>
 <<silently>>
 <<ProfileLog $sister "Taking Over the Chores" "With a little nudge from $company.prototype.name she agreed to do the house chores for me, so I have more time for the prototype.">>
-<<set setup.getMealById("more_time_needed").isActive to true>>
 <<NextQuest $player>>
 <</silently>>
 <<ReturnFromEvent>>

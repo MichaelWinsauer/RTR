@@ -72,7 +72,6 @@ I go back to my email. It's a perfectly reasonable order for a hardware company,
 <<run State.variables.brian.stats.morale = Math.clamp(State.variables.brian.stats.morale + 10, State.variables.brian.stats.min.morale, State.variables.brian.stats.max.morale)>>
 <<UpdateStat "+" "Corruption" 2>>
 <<NextQuest $player>>
-<<run Notification.show("New project available: The Anchor (only " + $brian.name + " can work on it)", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

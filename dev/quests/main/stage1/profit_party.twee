@@ -144,7 +144,6 @@ A national chain would mean hundreds of stores, and thousands of rooms with some
 <<UpdateStat "+" "SisterRelation" 1>>
 <<run State.variables.ethan.stats.morale = State.variables.ethan.stats.max.morale>>
 <<NextQuest $player>>
-<<run Notification.show("New project available: " + $company.devices.valenxCatalyst.name, { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

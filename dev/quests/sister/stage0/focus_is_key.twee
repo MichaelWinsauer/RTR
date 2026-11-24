@@ -46,10 +46,6 @@ I lean back in the armchair and look at the ceiling. Somewhere above me a floorb
 <<ProfileLog $sister "Unwinding" "I talked her into letting $company.prototype.name help her 'unwind'. From now on she'll relieve her stress herself, and every time she does, she'll think of who suggested it.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
-<<script>>
-Notification.show(State.variables.sister.name + " will start masturbating from now on!", {type: Notification.INFORMATION});
-Notification.show("The college is now unlocked!", {type: Notification.INFORMATION});
-<</script>>
 <</linkreplace>>
 
 

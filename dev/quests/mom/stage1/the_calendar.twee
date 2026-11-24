@@ -181,5 +181,4 @@ I take her hand and lead her back to my room, and she comes without a sound, pas
 <<UpdateStat "+" "MomCorruption" 2>>
 <<UpdateStat "-" "MomLust" 20>>
 <<NextQuest $mom>>
-<<run Notification.show("New interaction with " + $mom.callName + ": Whenever I want", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent "Continue" "Bedroom">>

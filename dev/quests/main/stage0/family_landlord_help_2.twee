@@ -72,7 +72,6 @@ $mom.callName puts an arm around her. Over her head she gives me a small, tired 
 <<UpdateStat "+" "SisterCorruption" 10>>
 <<ProfileLog $mom "The Landlord's Helper" "Together with $sister.callName she'll visit $landlord.callName every week, dressed up and ready to help with whatever he wants. In return I got the bigger office, and he takes a little off the rent each time they show up.">>
 <<ProfileLog $sister "The Landlord's Helper" "Together with $mom.callName she'll visit $landlord.callName every week, dressed up and ready to help with whatever he wants. In return I got the bigger office, and he takes a little off the rent each time they show up.">>
-<<set setup.getMealById("landlord_help_awkward").isActive to true>>
 <<NextQuest $player>>
 <<ReturnFromEvent>>
 <</linkreplace>>

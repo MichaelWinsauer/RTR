@@ -26,7 +26,6 @@ Before I can get a proper look at the test she throws both arms around my neck a
 She grabs her bag and heads for the stairs, already on the phone, telling someone the news at a volume the whole street can hear. I flatten the test out on my knee where she left it. 'Much improved,' in the professor's cramped handwriting. He kept his end. I fold the paper once and set it on the coffee table where she'll find it. Whatever I need, she said, and I think she even meant it.
 <<UpdateStat "+" "SisterRelation" 5>>
 <<ProfileLog $sister "She Passed" "She passed her calculus test with a B+ and thinks it's all thanks to me. She told me that whatever I need, she's there.">>
-<<set setup.getMealById("sister_exam_passed").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 

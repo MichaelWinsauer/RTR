@@ -65,7 +65,6 @@ He walks off toward the bus stop, hands in his pockets, whistling the song about
 <<UpdateStat "+" "Morale" 3>>
 <<run State.variables.ethan.stats.morale = Math.clamp(State.variables.ethan.stats.morale + 10, State.variables.ethan.stats.min.morale, State.variables.ethan.stats.max.morale)>>
 <<NextQuest $player>>
-<<run Notification.show("New project available: " + $marketingFirm.name, { type: Notification.INFORMATION })>>
 <<ReturnFromEvent "Go home" "Bedroom">>
 <</linkreplace>>
 <</linkreplace>>

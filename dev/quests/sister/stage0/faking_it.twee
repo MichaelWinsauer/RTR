@@ -37,7 +37,6 @@ I slide the prototype out of my pocket and switch it on while he's still glaring
 I give him a small nod and let myself out. Out in the hallway the janitor's cart is gone. I switch the prototype off, drop it back into my pocket and take my time on the way to the exit, past a bulletin board full of tutoring flyers that nobody is going to call.
 <<UpdateStat "+" "Corruption" 6>>
 <<UpdateStat "+" "SisterCorruption" 4>>
-<<set $sister.flags.passedTest to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 <</linkreplace>>

@@ -56,7 +56,6 @@ She bounces off the bed, already talking about emailing her advisor and which da
 <<UpdateStat "+" "SisterRelation" 3>>
 <<UpdateStat "+" "SisterCorruption" 1>>
 <<ProfileLog $sister "My Intern" "She's going to do her college internship at my company. Her idea, not mine. We'll make it official once we move into the new office.">>
-<<set setup.getMealById("sister_internship").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 

@@ -85,7 +85,6 @@ On her way back to her desk she stops at $mom.callName's to tell her the news, a
 <<UpdateStat "+" "SisterCorruption" 1>>
 <<ProfileLog $sister "Mostly Done" "Most of her classes are done for the semester, so she's at the office from noon on now. I told her to spend that time with the staff: talk to them, keep them company, bring everyone coffee. She looked disappointed until I told her the overview meetings stay ours.">>
 <<NextQuest $sister>>
-<<run Notification.show($sister.callName + " is at the office from Noon on now. Her Noon actions are open in the scheduler.", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

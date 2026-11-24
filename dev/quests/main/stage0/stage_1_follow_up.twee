@@ -1,14 +1,3 @@
 :: Stage 1 Follow Up [event main_quest hide_sidebar] {"position":"3400,375","size":"100,100"}
-<<silent>>
-    <<set $company.stage = 1>>
-    /* Stage 1 lifts the cap on my own corruption (Stage 0: 40), the same as Skip to Chapter 1 */
-    <<set $player.stats.max.corruption to 100>>
-    /* both of them now spend their weekdays at my office (Define Schedule) */
-    <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
-    <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
-
-    <<run State.variables.company.employees.push(State.variables.mom)>>
-    <<run State.variables.company.employees.push(State.variables.sister)>>
-<</silent>>
 /* The title card covers the whole screen; the continue link fades in once it has played (or was skipped) */
 <<StageTitle 1 "My new office...">><<ReturnFromEvent "A week passes...">><</StageTitle>>

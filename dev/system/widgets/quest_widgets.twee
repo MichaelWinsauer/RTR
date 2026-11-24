@@ -3,6 +3,8 @@
 	<<NextQuest $player [ShowNotification]>>
 	Finishes the line's current quest and moves on to the quest in its "next" field.
 	Optional quests after it whose "skip" is true are jumped over (setup.skipQuests, Define Quests).
+	Runs the finished quest's "set" (every lasting effect of its scene lives there, not in the passage) and shows
+	its "notify" texts, unless ShowNotification is "false" (SkipToQuest, skip intro).
 */
 <<widget "NextQuest">>
 	<<set _nqLine to $args[0]>>
@@ -35,6 +37,13 @@
 				<<run $events[_nqQ.eventId].finished = true>>
 			<</if>>
 		<</for>>
+
+		/* what the finished quest unlocked ("notify": "New task for $mom.callName: ..."). Quiet when skipping */
+		<<if $args[1] != "false" and _done.notify>>
+			<<for _nqN = 0; _nqN < _done.notify.length; _nqN++>>
+				<<run Notification.show(wikifyText(_done.notify[_nqN]), { type: Notification.INFORMATION })>>
+			<</for>>
+		<</if>>
 
 		/* "New main quest!" / "New quest for Mr. Walsh!" (setup.questLineLabel). Hidden quests stay quiet */
 		<<if $args[1] != "false" and !setup.getCurrentQuest(_nqLine).hidden>>

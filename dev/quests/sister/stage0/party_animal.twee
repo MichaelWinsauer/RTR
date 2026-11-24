@@ -83,13 +83,11 @@ I don't last much longer. I groan and cum hard, thick ropes of it landing across
 <<Chat _msgs>>
 She gets up slowly, wobbling, and collapses onto her bed with a long, happy sigh. Her eyes are closing before her head has properly landed on the pillow.
 Before I go, I take out my phone and snap a few pictures of her sprawled there under the fairy lights. I don't know yet what I'll do with them. I just don't want to be the only one who remembers tonight.
-<<set $sister.flags.photoTaken to true>>
 I pull her door shut behind me as quietly as I can. I have no idea how much of this she'll remember in the morning. I'm curious how much of it she'll feel anyway.
 
 <<UpdateStat "+" "SisterCorruption" 10>>
 <<UpdateStat "+" "SisterRelation" 8>>
 <<ProfileLog $sister "Making It Up to Me" "She came home drunk from her party and 'thanked' me in her room. I had $company.prototype.name on its highest setting the whole time, and I think it stuck: she made me promise she can keep making it up to me, every day.">>
-<<set setup.getMealById("party_animal").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 <</linkreplace>>

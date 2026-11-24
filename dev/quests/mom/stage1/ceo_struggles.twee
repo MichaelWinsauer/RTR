@@ -101,7 +101,6 @@ When the doors close I turn back to the desk. The spreadsheet is still there, an
 <<UpdateStat "-" "MomResistance" 2>>
 <<ProfileLog $mom "Private Attention" "After a long evening at the office she gave me a back massage, and she agreed to make it a regular thing. She thinks she's taking care of her $mom.playerRelation. It's in the schedule now.">>
 <<NextQuest $mom>>
-<<run Notification.show("New task for " + $mom.callName + ": Private Attention", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

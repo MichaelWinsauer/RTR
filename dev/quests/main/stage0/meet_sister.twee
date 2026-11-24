@@ -25,7 +25,6 @@ I drop onto the couch. The faint hum from the kitchen, the same lamp, $sister.ca
 <<silently>>
 	<<NextQuest $player>>
 	<<UseAction>>
-  <<set setup.getMealById("welcome_home").isActive to true>>
 <</silently>>
 
 

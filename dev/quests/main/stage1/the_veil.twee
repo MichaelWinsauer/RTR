@@ -114,7 +114,6 @@ I'm the last one in the room. I wipe off my sun and leave his array where it is.
 <<UpdateStat "+" "Morale" 3>>
 <<UpdateStat "+" "Corruption" 1>>
 <<NextQuest $player>>
-<<run Notification.show("New project available: " + $company.devices.valenxVeil.name, { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

@@ -48,7 +48,6 @@ I wait until she's saying her goodbyes, then push the door open like I just walk
 I take the charger and stop in the doorway for a second. She's already picked her phone back up and is scrolling without reading anything, eyes still wet. I think she'll ask. Maybe not tomorrow, but soon, and when she does I want to be the easiest person in this house to ask.
 
 <<UpdateStat "+" "SisterRelation" 3>>
-<<set setup.getMealById("struggling_student").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 <</linkreplace>>

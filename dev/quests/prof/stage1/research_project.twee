@@ -83,7 +83,6 @@ $sister.callName doesn't know yet that she's about to become the face of a resea
 <<UpdateStat "+" "Reputation" 3>>
 <<ProfileLog $sister "The Face of the Project" "Her old calculus professor wants her as the face of his research project at the college: more tutoring, on campus too, with the students he picks. She doesn't know yet. She'll say yes, she always does when it has something to do with me.">>
 <<NextQuest $prof>>
-<<run Notification.show("New task for " + $sister.callName + ": Tutoring at the college", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent "Back to my desk">>
 <</linkreplace>>
 <</linkreplace>>

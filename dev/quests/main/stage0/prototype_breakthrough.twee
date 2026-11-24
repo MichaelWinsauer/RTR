@@ -23,7 +23,6 @@ None of it happens in a closet, though. I need a bigger office, and nobody is go
 
 <<silently>>
 	<<ProfileLog $mom "The Start of Something" "She really did it, just like I told her to. I caught her in bed 'relieving some stress', and what a sight that was. I bet she'll keep at it. I should check on her again...">>
-	<<set setup.getMealById("prototype_test_run_effect").isActive to true>>
 	<<NextQuest $player>>
 <</silently>>
 

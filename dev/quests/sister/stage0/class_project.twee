@@ -65,7 +65,6 @@ We spend the next half hour on the kind of explanation that fits on a slide: sen
 She ruffles my hair on her way out, something she hasn't done since we were kids, and I let her. Once the door is shut, I switch the prototype off and write down exactly where I had the dial.
 
 <<UpdateStat "+" "SisterRelation" 5>>
-<<set setup.getMealById("class_project").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 <</linkreplace>>

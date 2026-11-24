@@ -48,9 +48,7 @@ She's already googling flyer templates and reading me the worst ones out loud, t
 
 <<UpdateStat "+" "SisterRelation" 5>>
 <<UpdateStat "+" "SisterCorruption" 2>>
-<<set $sister.flags.isTutoring to true>>
 <<ProfileLog $sister "Pulling Her Weight" "She's going to waitress at the diner and tutor other students at college to bring some extra money into the family. Her idea, mostly.">>
-<<set setup.getMealById("sister_diner_tutor").isActive to true>>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 

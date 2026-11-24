@@ -128,7 +128,6 @@ In the hallway I open the dashboard on my phone. Her column used to go grey righ
 <<UpdateStat "+" "Corruption" 1>>
 <<ProfileLog $mom "Overtime" "She says working for me is the best job she's had in years, and she sleeps through the night again. She also feels like she could be doing more, so now she stays late at the office whenever I put her evenings in the schedule.">>
 <<NextQuest $mom>>
-<<run Notification.show($mom.callName + "'s weekday evenings are open in the schedule now", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

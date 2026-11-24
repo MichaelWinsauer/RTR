@@ -24,7 +24,6 @@ The first customers trickle in around six, coats still zipped, eyes still half s
 
 Okay. Let's see what you can do.
 
-<<set $sister.flags.worksAtDiner to true>>
 [[Continue|Diner Test-Run 2]]
 <</linkreplace>>
 

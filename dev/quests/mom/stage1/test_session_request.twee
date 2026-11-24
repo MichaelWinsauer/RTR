@@ -141,7 +141,6 @@ I add up the scores after she's gone. Calm went from six to eight, and the comfo
 <<UpdateStat "+" "MomResistance" 1>>
 <<ProfileLog $mom "Test Subject" "I asked her to help me test the official $company.prototype.name in the evenings, because she's the only one at the company who doesn't know how it works. She agreed right away. She thinks the white box with the blue light does the work.">>
 <<NextQuest $mom>>
-<<run Notification.show("New task for " + $mom.callName + ": Test Session", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

@@ -110,8 +110,6 @@ She gives herself a little shake and heads back down to the kitchen. A moment la
 
 <<ReturnFromEvent>>
 <<NextQuest $player>>
-<<run setup.activateQuest("mom_stressRelief")>>
-<<set $events[3].active to true>>
 <</linkreplace>>
 
 <</linkreplace>>

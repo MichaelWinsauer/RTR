@@ -88,7 +88,6 @@ Once, just once, she glances across the office at me. Then she looks back at $br
 <<Feel $sister "player" -1>>
 <<ProfileLog $sister "Be Nice to $brian.name" "I asked her to be extra friendly to $brian.name for a while: dress nice, stay at his desk longer, rub his shoulders when he's hunched over a board. I said it without looking up. She laughed first, and then she did the math, and then she said sure, of course. That afternoon she undid one more button and took him a coffee.">>
 <<NextQuest $sister>>
-<<run Notification.show("New task for " + $sister.callName + ": Extra Friendly", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

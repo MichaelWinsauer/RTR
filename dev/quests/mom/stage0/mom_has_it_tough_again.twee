@@ -57,7 +57,6 @@ Out in the hallway I stand still and listen to the click of her lamp. Tomorrow s
 <<UpdateStat "+" "MomCorruption" 3>>
 <<UpdateStat "-" "MomResistance" 4>>
 <<ProfileLog $mom "Dressing for the Boss" "With a little help from $company.prototype.name, she decided to wear shorter skirts and lower tops to work to keep her boss happy. She thinks it was her idea.">>
-<<set setup.getMealById("mom_has_it_tough_again").isActive to true>>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>
 <</linkreplace>>

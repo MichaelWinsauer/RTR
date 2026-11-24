@@ -36,7 +36,5 @@ If it's this bad on the days she does everything right, I can't help wondering w
 <<UpdateStat "+" "Corruption" 2>>
 <<UpdateStat "+" "MomCorruption" 1>>
 <<UpdateStat "-" "MomResistance" 3>>
-<<set $locations[12].name to "$mom.callName's Work">>
-<<set setup.getMealById("mom_has_it_tough").isActive to true>>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>

@@ -112,7 +112,6 @@ She finds her shoe with her foot, picks up the tray and heads for the kitchen, a
 <<Feel $sister "ethan" 1>>
 <<ProfileLog $sister "Office Gossip" "She dropped by my desk after her coffee rounds and told me everything about the staff: the noodles, the glass door, the cologne. I asked her to come by every evening and tell me how her day went. She thinks I just like hearing her talk.">>
 <<NextQuest $sister>>
-<<run Notification.show("In the evening you can now ask " + $sister.callName + " and " + $mom.callName + " how their day was.", { type: Notification.INFORMATION })>>
 <<ReturnFromEvent>>
 <</linkreplace>>
 <</linkreplace>>

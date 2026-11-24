@@ -26,7 +26,6 @@
 	<<run setup.syncNameFields()>>
 
     <<set $locations[7].open to [0, 1, 2, 3, 4, 5, 6]>>
-    <<set $events[3].active to true>>
     <<set $flags.introDone = true>>
     <<SkipToQuest $player "main_breakthrough" "false">>
     <<SkipToQuest $mom "mom_relation25" "false">>
@@ -39,6 +38,8 @@
         <</if>>
     <</for>>
     
+    /* the skipped quests switched on their story meals in their sets: none of those scenes happened, so the meals stay off */
+    <<run $meals.forEach((meal) => { if (meal.isImportant) { meal.isActive = false; } })>>
     <<goto "Hallway">>
 <</link>>
 <br>
@@ -91,10 +92,7 @@
     
     <<set $mom.flags.workUnlocked = true>>
     <<set $sister.flags.collegeUnlocked = true>>
-    <<set $sister.flags.photoTaken = true>>
     
-    <<run $company.employees.push($mom)>>
-    <<run $company.employees.push($sister)>>
     
     <<set $company.stage to 1>>
     <<set $company.finances.money += $player.money>>
@@ -102,18 +100,16 @@
     <<set $rent to 3750>>
     <<set $locations[12].name to "$boss.callName's Company">>
     
+    /* after the skipped sets: the set of False Sympathy (mom line, skipped after the main line) left her on stage0_fired */
     <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
     <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
 
-    /* what the skipped Stage 0 scenes did (not quest sets, so SkipToQuest doesn't run them) */
-    <<set $events[3].active to true>>
-    <<set $mom.flags.rentHelp to false>>
+    /* what the skipped Stage 0 event did (Mom Bed Masturbation is a repeatable event, not a quest set) */
     <<set $mom.flags.bedMasturbationSeen to true>>
     <<set $player.flags.hasMomClip to true>>
-    <<set $sister.flags.worksAtDiner to true>>
-    <<set $sister.flags.isTutoring to true>>
-    <<set $sister.flags.passedTest to true>>
     
+    /* the skipped quests switched on their story meals in their sets: none of those scenes happened, so the meals stay off */
+    <<run $meals.forEach((meal) => { if (meal.isImportant) { meal.isActive = false; } })>>
     <<goto "Hallway">>
 <</link>>
 <br>
@@ -166,10 +162,7 @@
     
     <<set $mom.flags.workUnlocked = true>>
     <<set $sister.flags.collegeUnlocked = true>>
-    <<set $sister.flags.photoTaken = true>>
     
-    <<run $company.employees.push($mom)>>
-    <<run $company.employees.push($sister)>>
     
     <<set $company.stage to 1>>
     <<set $company.finances.money += $player.money>>
@@ -177,17 +170,13 @@
     <<set $rent to 3750>>
     <<set $locations[12].name to "$boss.callName's Company">>
     
+    /* after the skipped sets: the set of False Sympathy (mom line, skipped after the main line) left her on stage0_fired */
     <<run setup.useRoutine("mom", "weekday", "mom_stage1")>>
     <<run setup.useRoutine("sister", "weekday", "sister_stage1")>>
 
-    /* what the skipped Stage 0 scenes did (not quest sets, so SkipToQuest doesn't run them) */
-    <<set $events[3].active to true>>
-    <<set $mom.flags.rentHelp to false>>
+    /* what the skipped Stage 0 event did (Mom Bed Masturbation is a repeatable event, not a quest set) */
     <<set $mom.flags.bedMasturbationSeen to true>>
     <<set $player.flags.hasMomClip to true>>
-    <<set $sister.flags.worksAtDiner to true>>
-    <<set $sister.flags.isTutoring to true>>
-    <<set $sister.flags.passedTest to true>>
 
     /* ---- from here on: everything up to the start of the new Stage 1 quests (The Veil, The Booze Night, The Ask) ----
        The main line has hired the staff and held the "It'll be official" meeting, mom is past A Knock at Night (corruption
@@ -249,6 +238,8 @@
     <<set $sister.flags.officeExcuses to 5>>
     <<set $locations[12].name to "$boss.callName's Office">>
     
+    /* the skipped quests switched on their story meals in their sets: none of those scenes happened, so the meals stay off */
+    <<run $meals.forEach((meal) => { if (meal.isImportant) { meal.isActive = false; } })>>
     <<goto "Hallway">>
 <</link>>
 

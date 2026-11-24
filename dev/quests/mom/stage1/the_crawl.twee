@@ -137,7 +137,6 @@ I touch her cheek with two fingers, once, and that's all it takes. She closes he
 
 She gets up slowly, rubbing her knees, and pads back to the bathroom for her heels and her work clothes. On the way she stops at Gerald the fern and straightens one of his leaves.
 
-<<set setup.getMealById("crawl_thank_you").isActive to true>>
 <<UpdateStat "+" "MomExhibition" 3>>
 <<UpdateStat "+" "MomCorruption" 8>>
 <<UpdateStat "-" "MomResistance" 6>>

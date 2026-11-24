@@ -12,6 +12,7 @@
         needsEvent: true,
         passage: "Meet Sister",
         returnPassage: "Living Room",
+        set: [ "setup.getMealById('welcome_home').isActive = true" ],
     },
     {
     	id: "main_plan",
@@ -75,6 +76,7 @@
         passage: "Prototype Test-Run",
         device: { target: "mom", impact: 6 },
         returnPassage: "Bedroom",
+        set: [ "setup.activateQuest('mom_stressRelief')", "$events[3].active = true" ],
     },      
     {
     	id: "main_continueMom",
@@ -98,9 +100,10 @@
         needsEvent: true,
         passage: "Prototype Breakthrough",
         returnPassage: "Bedroom",
-        set: [ 
-        	"$company.prototype.maxProgress to 70", 
-            "setup.activateQuest('sister_classProject')"
+        set: [
+            "$company.prototype.maxProgress to 70",
+            "setup.activateQuest('sister_classProject')",
+            "setup.getMealById('prototype_test_run_effect').isActive = true",
         ],
     },
     {
@@ -127,7 +130,7 @@
         passage: "More Time Needed",
         device: { target: "sister", impact: 4 },
         returnPassage: "Living Room",
-        set: [ "$sister.flags.doesChores to true" ],
+        set: [ "$sister.flags.doesChores to true", "setup.getMealById('more_time_needed').isActive = true" ],
         requirements: ["$sister.stats.relation >= 25"],
         requirementsText: ["$sister.name's relation >= 25"],
     },
@@ -199,6 +202,7 @@
         passage: "Diner Test-Run",
         device: { target: "general", impact: 6 },
         returnPassage: "Diner",
+        set: [ "$sister.flags.worksAtDiner = true" ],
     },
     {
     	id: "main_expansionRequest",
@@ -236,7 +240,7 @@
         needsEvent: true,
         passage: "Family Landlord Help",
         returnPassage: "Residential Area",
-        set: [ "$waitForLandlordMessage to $date.dayCount" ],
+        set: [ "$waitForLandlordMessage to $date.dayCount", "setup.getMealById('landlord_help_awkward').isActive = true" ],
     },
     {
     	id: "main_waitLandlord",
@@ -271,7 +275,8 @@
             "\nFinish $mom.callName's quest \"Business Relations\"",
             "\nMoney >= 10000",
         ],
-        set: ["$companyLocationIdReference = 13"]
+        /* Stage 1: the corruption cap of the player rises to 100 (Stage 0: 40), and both of them work at my office now */
+        set: [ "$companyLocationIdReference = 13", "$company.stage = 1", "$player.stats.max.corruption = 100", "setup.useRoutine('mom', 'weekday', 'mom_stage1')", "setup.useRoutine('sister', 'weekday', 'sister_stage1')", "$company.employees.push($mom)", "$company.employees.push($sister)" ]
     },    
     {
     	id: "main_finishingRenovations",
@@ -357,6 +362,7 @@
         requirements: [ "setup.questDone('prof_researchProject')" ],
         requirementsText: [ "Hear out what $prof.callName wants" ],
         set: [ "setup.unlockProject('project_company_veil')" ],
+        notify: [ "New project available: $company.devices.valenxVeil.name" ],
     },
     {
     	/* 4.3 The night the Veil is finished. The project (onComplete) makes the device owned, this is its first switch-on */
@@ -418,6 +424,7 @@
             "setup.unlockProject('project_marketing_veil')",
             "$flags.pressClient = true",
         ],
+        notify: [ "New project available: $marketingFirm.name" ],
     },
     {
     	/* hidden: a few days after the first sale the mail of the gym owner arrives ($company.mails[5]) */
@@ -536,6 +543,7 @@
             "setup.unlockProject('project_company_anchor')",
             "setup.getTaskById('task_sister_be_nice_to_brian').active = false",
         ],
+        notify: [ "New project available: The Anchor (only $brian.name can work on it)" ],
     },
     {
     	/* 4.9 Only needs the company account in the black. Unlocks the Catalyst project. The old friend gets his
@@ -557,6 +565,7 @@
             "setup.unlockProject('project_company_catalyst')",
             "$ethan.equity = 2",
         ],
+        notify: [ "New project available: $company.devices.valenxCatalyst.name" ],
     },
     {
     	/* 5.8 and 6.6 as ONE event: the Catalyst night of both. Part 1 (office, evening) is her milestone into stage 2
@@ -844,7 +853,7 @@
         needsEvent: true,
         passage: "Mom Has It Tough",
         returnPassage: "Living Room",
-        set: [ "$mom.flags.workUnlocked = true" ],
+        set: [ "$mom.flags.workUnlocked = true", "$locations[12].name = \"$mom.callName's Work\"", "setup.getMealById('mom_has_it_tough').isActive = true" ],
     },
     {
     	id: "mom_helpfulSon",
@@ -903,6 +912,7 @@
         returnPassage: "Hallway",
         requirements: ["$player.stats.corruption >= 15"],
         requirementsText: ["Corruption >= 15"],
+        set: [ "setup.getMealById('mom_has_it_tough_again').isActive = true" ],
     },    
     {
     	id: "mom_secondConfrontation",
@@ -970,6 +980,8 @@
         returnPassage: "Hallway",
         requirements: ["setup.questDone('main_familyLandlordHelp')"],
         requirementsText: ["Finish the main quest \"Family's there for one another.\""],
+        /* fired: she stays home on weekdays (Define Schedule), and no paycheck means no more $500 a week toward the rent */
+        set: [ "setup.getMealById('false_sympathie').isActive = true", "setup.useRoutine('mom', 'weekday', 'stage0_fired')", "$mom.flags.rentHelp = false", "$locations[12].name = \"$boss.callName's Office\"" ],
     }, 
     {
     	id: "mom_businessRelations",
@@ -1020,6 +1032,7 @@
             "Give them a few days to settle in",
         ],
         set: [ "setup.getTaskById('task_mom_private_attention').active = true" ], /* unlocks the "Private Attention" task */
+        notify: [ "New task for $mom.callName: Private Attention" ],
     },
     {
     	id: "mom_waitNewJobImpression",
@@ -1048,6 +1061,7 @@
         requirementsText: ["Finish your first project"],
         /* finishing it opens her weekday Evening cells (rows 12-14) in the scheduler: see the task rows of
            the routine mom_stage1 in Define Schedule */
+        notify: [ "$mom.callName's weekday evenings are open in the schedule now" ],
     },
     {
     	id: "mom_waitTestSessionRequest",
@@ -1074,6 +1088,7 @@
         returnPassage: $locations[13].passage,
         device: { key: "valenx", target: "mom", impact: 2 },
         set: [ "setup.getTaskById('task_mom_test_session').active = true" ], /* unlocks the "Test Session" task */
+        notify: [ "New task for $mom.callName: Test Session" ],
     },
     {
     	/* the first test without the device: she undresses in my room because I ask her to. The last paragraph of
@@ -1150,6 +1165,7 @@
             "Give her a few days after the handover",
             "$mom.callName needs 80 lust ({{Math.min(80, $mom.stats.lust)}}/80)",
         ],
+        notify: [ "New interaction with $mom.callName: Ask her to take care of you" ],
     },
 
     /* ==== Stage 1, her line after A Knock at Night (STAGE1_PROPOSAL.md, section 5) ===============================
@@ -1217,6 +1233,7 @@
             "Progress the main quest",
         ],
         set: [ "setup.getTaskById('task_mom_flirt_duty').active = true" ],
+        notify: [ "New task for $mom.callName: Flirt Duty" ],
     },
     {
     	/* 5.4 Handjobs are not enough, she says no, I send her away. Starts the silence ($mom.flags.silence).
@@ -1280,7 +1297,7 @@
         returnPassage: "Company Stage 1",
         requirements: [ "setup.questDone('main_gymMeeting')" ],
         requirementsText: [ "Progress the main quest" ],
-        set: [ "$mom.flags.morningRoutine = true" ],
+        set: [ "$mom.flags.morningRoutine = true", "setup.getMealById('crawl_thank_you').isActive = true" ],
     },
     {
     	/* 5.7 OPTIONAL: only if I sent her to the gym dinner (main_gymDinner sets $mom.flags.gymDinner).
@@ -1345,6 +1362,7 @@
             "$mom.callName's corruption is full",
         ],
         set: [ "$mom.flags.freeUse = true" ],
+        notify: [ "New interaction with $mom.callName: Whenever I want" ],
     },
     {
     	/* 5.10 OPTIONAL: only if I offer her to the boss (The Arrangement, boss line 7.2).
@@ -1406,7 +1424,7 @@
         passage: "Class Project",
         device: { target: "sister", impact: 3 },
         returnPassage: "Bedroom",
-        set: [ "$sisterQuestWait to $date.dayCount + 3" ],
+        set: [ "$sisterQuestWait to $date.dayCount + 3", "setup.getMealById('class_project').isActive = true" ],
     },    
     {
     	id: "sister_waitClassProject",
@@ -1431,6 +1449,7 @@
         needsEvent: true,
         passage: "Struggling Student",
         returnPassage: "Hallway",
+        set: [ "setup.getMealById('struggling_student').isActive = true" ],
     },
     {
     	id: "sister_planningAhead",
@@ -1475,6 +1494,7 @@
         set: ["$sister.flags.collegeUnlocked = true", "$events[4].active to true"],
         requirements: ["$company.prototype.progress >= 70"],
         requirementsText: ["Prototype progress >= 70"],
+        notify: [ "$sister.callName will start masturbating from now on!", "The college is now unlocked!" ],
     },
     {
     	id: "sister_fakingIt",
@@ -1489,7 +1509,7 @@
         passage: "Faking It",
         device: { target: "general", impact: 5 },
         returnPassage: "College",
-        set: [ "$sisterExamDate to $date.dayCount" ],
+        set: [ "$sisterExamDate to $date.dayCount", "$sister.flags.passedTest = true" ],
         requirements: ["$company.prototype.progress >= 70"],
         requirementsText: ["Prototype progress = 70"],
     },
@@ -1516,6 +1536,7 @@
         needsEvent: true,
         passage: "She Made It",
         returnPassage: "Living Room",
+        set: [ "setup.getMealById('sister_exam_passed').isActive = true" ],
     },
     {
     	id: "sister_partyAnimal",
@@ -1530,6 +1551,7 @@
         passage: "Party Animal",
         device: { target: "sister", impact: 10 },
         returnPassage: "Hallway",
+        set: [ "$sister.flags.photoTaken = true", "setup.getMealById('party_animal').isActive = true" ],
     },
     {
     	id: "sister_doAnythingForMe",
@@ -1543,7 +1565,7 @@
         needsEvent: true,
         passage: "She'd Do Anything For Me",
         returnPassage: "Hallway",
-        set: [ "$sisterStartWork to $date.dayCount" ],
+        set: [ "$sisterStartWork to $date.dayCount", "$sister.flags.isTutoring = true", "setup.getMealById('sister_diner_tutor').isActive = true" ],
     },
     {
     	id: "sister_waitWork",
@@ -1584,6 +1606,7 @@
         returnPassage: "Bedroom",
         requirements: ["setup.questDone('main_familyLandlordHelp')"],
         requirementsText: ["Finish the main quest \"Family's there for one another.\""],
+        set: [ "setup.getMealById('sister_internship').isActive = true" ],
     },
     {
     	id: "sister_waitSupportiveSister",
@@ -1663,6 +1686,7 @@
         requirementsText: [
         ],
         set: [ "setup.getTaskById('task_sister_internship_overview').active = true" ],
+        notify: [ "New task for $sister.callName: Internship Overview" ],
     },
     {
     	id: "sister_waitMostlyDone",
@@ -1696,7 +1720,8 @@
         ],
         /* from now on she is at the office from Noon on (and her Noon cells open in the scheduler, Define Schedule).
            Her visits to the staff show up as micro events in the main room (Her rounds in Define Events) */
-        set: [ "setup.useRoutine($sister.sysName, 'weekday', 'sister_stage1_noon')"]
+        set: [ "setup.useRoutine($sister.sysName, 'weekday', 'sister_stage1_noon')"],
+        notify: [ "$sister.callName is at the office from Noon on now. Her Noon actions are open in the scheduler." ],
     },
 
     /* ==== Stage 1, her line after Good News? (STAGE1_PROPOSAL.md, section 6) ======================================
@@ -1767,6 +1792,7 @@
         requirementsText: [
             "Progress the main quest",
         ],
+        notify: [ "You can now ask $sister.callName and $mom.callName how their day was." ],
     },
     {
     	/* 6.4 The videos at night, then I walk in on her. Three parts. Phase 5 (main_gymMeeting) */
@@ -1829,6 +1855,7 @@
             "Progress the main quest",
         ],
         set: [ "setup.getTaskById('task_sister_be_nice_to_brian').active = true" ],
+        notify: [ "New task for $sister.callName: Extra Friendly" ],
     },
     {
     	/* her Catalyst night (6.6) is part of the main event main_catalystNight */
@@ -2037,6 +2064,7 @@
         requirements: [ "$date.dayCount > ($company.mails[3].answeredDay || 0)" ],
         requirementsText: [ "Wait for the day of the meeting" ],
         set: [ "setup.getTaskById('task_sister_tutoring_college').active = true" ],
+        notify: [ "New task for $sister.callName: Tutoring at the college" ],
     },
     {
     	id: "prof_end",
