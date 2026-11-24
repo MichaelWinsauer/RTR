@@ -194,7 +194,7 @@ From the first full playthrough of Stage 1.
 - [ ] **After the club, they offer to tell him.** After Night Shift, mom and sister should each offer to tell him how it went inside, as a POV passage with the club background.
 
 **More to do in Stage 1**
-- [ ] **Too few tasks for mom and sister.** Stage 1 has too little to actually do. New tasks should open up gradually over the stage (the side lines will add some, but they aren't open yet). **Plan the task list together with the author first**, then build.
+- [ ] **Too few tasks for mom and sister.** Stage 1 has too little to actually do. New tasks should open up gradually over the stage (the side lines will add some, but they aren't open yet). *Planned with the author: [STAGE1_TASKS.md](STAGE1_TASKS.md) (task list, stages, systems, build order).*
 
 **Day report**
 - [ ] **"How was your day?" shows up even with nothing to report.** It should only appear (and only be highlighted) when one of them really has a new entry.
