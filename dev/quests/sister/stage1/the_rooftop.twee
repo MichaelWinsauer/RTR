@@ -37,6 +37,7 @@ She says it so fast she has to laugh at herself afterwards. Then she asks what t
 <<Chat _msgs>>
 
 <<linkreplace "The rooftop">>
+<<silently>><<SetBackground "images/locations/rooftop.jpg">><</silently>>
 /* MEDIA: images/characters/sister/events/the_rooftop/terrace.jpg | A rooftop terrace at night, string lights, the city behind, well-dressed people with wine glasses, Sister in a dark dress near the bar */
 $investor.callName's building is the kind with a doorman who knows your name before you give it. The rooftop is all glass railings and string lights and little heaters shaped like torches, and beyond it the whole city, lit up and silent, like a model of itself.
 

@@ -1,4 +1,5 @@
 :: First Boss Confrontation [event mom_quest] {"position":"3150,1075","size":"100,100"}
+<<silent>><<SetBackground "images/locations/reception.jpg">><</silent>>
 The glass doors slide open for me again, and the lobby greets me with the same marble floor and the same expensive lighting that makes everyone look like they belong here, which somehow never quite works on me. The receptionist recognizes me this time and doesn't bother standing up.
 
 <<silently>>
@@ -9,9 +10,12 @@ The glass doors slide open for me again, and the lobby greets me with the same m
 <</silently>>
 <<Chat _msgs>>
 
+<<linkreplace "Take the elevator up">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 The elevator has mirrors on three walls, so I get to ride up with three chubby guys in hoodies who all look like they took a wrong turn somewhere. I stop looking at them and think about $mom.callName instead, and how flushed she was the last time I left her desk.
 
 <<linkreplace "Step out on floor 6">>
+<<silently>><<SetBackground $locations[12].img>><</silently>>
 The doors open on floor 6 and the noise rolls in: keyboards, phones, someone laughing too loudly at the coffee machine. It takes me about two seconds to find $mom.callName. She's sitting at her desk, shoulders up around her ears, and $boss.callName is standing over her like a cloud that hasn't decided where to rain yet.
 
 <<Video "images/characters/mom/events/first boss confrontation/boss_yelling.mp4" "" "" 500>>
@@ -73,4 +77,5 @@ That error bugs me, though. It has never refused anyone before. Either he's buil
 
 <<NextQuest $mom>>
 <<ReturnFromEvent>>
+<</linkreplace>>
 <</linkreplace>>

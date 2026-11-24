@@ -1,4 +1,5 @@
 :: Second Boss Confrontation [event mom_quest] {"position":"3275,700","size":"100,100"}
+<<silent>><<SetBackground "images/locations/reception.jpg">><</silent>>
 By now the lobby feels almost familiar. Same marble, same lighting, same receptionist, who glances up from her screen and waves me through before I've even reached the desk.
 
 <<silently>>
@@ -9,9 +10,12 @@ By now the lobby feels almost familiar. Same marble, same lighting, same recepti
 <</silently>>
 <<Chat _msgs>>
 
+<<linkreplace "Take the elevator up">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 This time I spend the elevator ride with the prototype in my hand instead of my pocket, turning it over and over. I've been recalibrating it every night since he laughed at me, and the error hasn't come back once in testing. Then again, I haven't tested it on anyone quite as pleasant as him.
 
 <<linkreplace "Arrive at floor 6...">>
+<<silently>><<SetBackground $locations[12].img>><</silently>>
 The doors open, and the first thing I see is $mom.callName.
 
 She's wearing what we talked about. A white blouse with one button more undone than she'd ever choose on her own, a fitted brown skirt with a slit up the side, her hair loose over one shoulder. She's bent over a notebook, writing fast, and every few seconds she tugs at her neckline without seeming to notice she's doing it.
@@ -71,6 +75,7 @@ The hum in my pocket is so faint I can barely feel it, but I can see it working.
 <<Chat _msgs>>
 
 <<linkreplace "Take the elevator down">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 On the way out I walk past $mom.callName's desk. She gives me a little wave and mouths //thank you//. I wave back.
 
 The elevator is empty. I lean against the mirrored wall and make a list in my head, because lists are easier than thinking about what's on them. Five thousand from my savings, which is going to hurt. A clip, which means waiting outside her door one night with my phone and the prototype. And her laptop, late, when the house is asleep.
@@ -83,6 +88,7 @@ Downstairs the receptionist wishes me a nice day, and I tell her I'm having one.
 <<UpdateStat "+" "MomCorruption" 2>>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

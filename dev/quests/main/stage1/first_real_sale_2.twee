@@ -3,9 +3,8 @@
    A good night. He says "Don't tell me what the dial does, boss. I like not knowing", and the way he holds his glass says he
    doesn't quite mean it. Kept light: no real foreshadowing yet. The quest's set unlocks project_marketing_veil and sets
    $flags.pressClient ($marketingFirm.name launches the rival company at the end of Stage 1). Ends at home. */
+<<silent>><<SetBackground "images/locations/bar.jpg">><</silent>>
 The bar is two blocks from the office and has a neon sign in the window that says OPEN in a font that's trying very hard. Inside it's dark wood and a jukebox that only plays songs from before either of us was born, and a bartender who calls $ethan.name by name, which tells me something about where $ethan.name goes after he leaves the office at nine.
-
-/* MEDIA: images/events/first_real_sale/bar.jpg | A dim, wood-paneled bar, two beers on the counter, a neon OPEN sign in the window */
 
 He orders for both of us without asking: two of something dark from a tap with a hand-drawn label. He clinks his glass against mine so hard the foam slops over.
 

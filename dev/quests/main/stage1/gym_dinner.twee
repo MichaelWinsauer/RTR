@@ -32,6 +32,7 @@ I look across the office. $mom.callName is at her desk on the phone with a clien
 <<Offer>>
 <<plain "I'll take him to dinner myself" `"a stiff evening and " + _gdDiscount + "% off the contract"`>>
 <<silently>>
+<<SetBackground "images/locations/steakhouse.jpg">>
 <<set $mom.flags.gymDinner to false>>
 <<run setup.getProjectById("project_gym_veil").reward = Math.round(setup.getProjectById("project_gym_veil").reward * (1 - _gdDiscount / 100))>>
 <</silently>>

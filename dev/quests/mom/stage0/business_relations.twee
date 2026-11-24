@@ -1,4 +1,5 @@
 :: Business Relations [event mom_quest] {"position":"3275,1075","size":"100,100"}
+<<silent>><<SetBackground "images/locations/reception.jpg">><</silent>>
 I walk into the lobby with a thick envelope in the inside pocket of my jacket, and I'm very aware of it the whole time, like it might start glowing. The receptionist barely looks up.
 
 <<silently>>
@@ -9,9 +10,12 @@ I walk into the lobby with a thick envelope in the inside pocket of my jacket, a
 <</silently>>
 <<Chat _msgs>>
 
+<<linkreplace "Take the elevator up">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 The elevator mirror shows me a guy in his only decent jacket, trying to look like he does this kind of thing all the time.
 
 <<linkreplace "Arrive at floor 6...">>
+<<silently>><<SetBackground $locations[12].img>><</silently>>
 The doors open on the usual noise. Somebody has already moved a potted plant onto $mom.callName's old desk, and her chair is pushed in neatly, like she just went to lunch. Her nameplate is gone.
 
 I walk straight past it to the corner office. The prototype is on in my pocket, set to the same spot that worked last time. <<UseQuestDevice $mom>>I knock once and go in. He's leaning back in his chair with his hands folded on his stomach, like he's been expecting a pizza.
@@ -44,6 +48,7 @@ I put the envelope on his desk. He doesn't count it, which somehow feels more in
 <<Chat _msgs>>
 
 <<linkreplace "Leave the office">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 He's already turning back to his screen when I close the door behind me. On the way to the elevator I walk past her old desk again. Someone has put a coffee mug on it.
 
 Two clients now. One of them is a diner whose manager still thinks of me as the guy who mops the floors, and the other is the man who fired my $mom.relation this week, for reasons she'll never know. And right in the middle of both, smiling and taking notes and trying her best, there's going to be $mom.callName.
@@ -56,6 +61,7 @@ I press the button for the lobby, and it takes me a few floors to notice I'm whi
 <<UpdateStat "-" "Money" "5000">>
 
 <<ReturnFromEvent>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

@@ -1,4 +1,5 @@
 :: The Helpful Son [event mom_quest] {"position":"3150,700","size":"100,100"}
+<<silent>><<SetBackground "images/locations/reception.jpg">><</silent>>
 The glass doors slide apart before I'm even close to them, like the building has already decided I'm allowed in. Inside, LED strips run along the ceiling, and the marble floor throws their light back up so the whole lobby glows. There's a lounge corner with leather chairs nobody is sitting in and a coffee machine that probably costs more than my car. I try not to look impressed, and I'm pretty sure it doesn't work.
 
 Behind the reception desk a young woman in a blazer is already smiling at me with professional patience.
@@ -16,6 +17,8 @@ Behind the reception desk a young woman in a blazer is already smiling at me wit
 <</silently>>
 <<Chat _msgs>>
 
+<<linkreplace "Take the elevator up">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 One of the elevators is already waiting with its doors open, as if it's been expecting me too. Inside it's more marble and mirrors on three sides, so I get to watch several versions of myself press the button for the sixth floor. None of them look like they belong here. The doors close with a soft chime and the floor numbers start counting up.
 
 <<linkreplace "Step out">>
@@ -60,6 +63,7 @@ I'm angry, but it's a quiet kind of angry, and mostly I just watch: how small sh
 Eventually the door opens. He walks off toward his office without looking at anyone, and $mom.callName comes back to her desk, where I'm already waiting.
 
 [[Talk to her|The Helpful Son 2]]
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 

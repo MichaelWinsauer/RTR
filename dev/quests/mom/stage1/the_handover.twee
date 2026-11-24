@@ -3,7 +3,7 @@
    of the tower. She does everything she was briefed to do, in the outfit, and her old boss gets his hands on her three times:
    the hello, the demo, the signature. He's so pleased that he signs on for maintenance and consulting, with her as his
    consultant. Finishing the quest unlocks the repeatable project "Support for $boss.callName" (its set in Define Quests). */
-<<silent>><<SetBackground $locations[12].img>><</silent>>
+<<silent>><<SetBackground "images/locations/car.jpg">><</silent>>
 $brian.name drives. He has both hands on the wheel at ten and two the whole way, like he's taking his test again, and he keeps his eyes on the road with a dedication that would get him a medal from any driving school in the state. $mom.callName sits in the passenger seat with the checklist on her lap. Every time the van goes over a pothole, $brian.name's ears turn a little redder.
 
 <<silently>>
@@ -16,6 +16,7 @@ $brian.name drives. He has both hands on the wheel at ten and two the whole way,
 <<Chat _msgs>>
 
 <<linkreplace "Go up to the sixth floor">>
+<<silently>><<SetBackground "images/locations/reception.jpg">><</silently>>
 The receptionist in the lobby is the same one as last time, and she looks up this time. She looks up and stays up.
 
 <<silently>>
@@ -26,11 +27,14 @@ The receptionist in the lobby is the same one as last time, and she looks up thi
 <</silently>>
 <<Chat _msgs>>
 
+<<linkreplace "Take the elevator up">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 The elevator has the same mirror as last time. The last time it showed me a guy in his only decent jacket, trying to look like he did this kind of thing every day. Today it shows me a better jacket, $brian.name behind a case on a hand truck, and $mom.callName in champagne silk, holding her checklist flat against her chest. Somewhere between the second and the third floor she lowers it to her side. Nobody told her to.
 
 When the doors open on six, the floor goes quiet in a ripple, desk by desk, from the elevator to the corner office. Somebody's potted plant is still standing on her old desk.
 
 <<linkreplace "Walk into his office">>
+<<silently>><<SetBackground $locations[12].img>><</silently>>
 $boss.callName doesn't get up when we come in. He leans back first and takes his time, from her shoes up, and only then does he get up, buttoning his jacket over his stomach.
 
 <<silently>>
@@ -103,6 +107,7 @@ $mom.callName has the contract ready on the tablet before he's finished the sent
 <<Chat _msgs>>
 
 <<linkreplace "Go back down">>
+<<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 In the elevator $brian.name stands as far into the corner as the hand truck allows and reads the inspection certificate on the wall with great interest. $mom.callName watches the numbers count down. Somewhere around three she lets out a breath, long and slow, and then she checks herself in the mirror, pulls the silk straight across her chest, and finds out it doesn't help.
 
 <<silently>>
@@ -125,6 +130,7 @@ On the way out she tells the receptionist to have a lovely day. The receptionist
 <<ProfileLog $mom "The Handover" "She handed over the prototype on her old floor, in the silk blouse I picked and nothing under it. Her old boss had his hands on her three times, and she laughed every time, the way I briefed her. He signed on for weekly maintenance, as long as she keeps coming over as his consultant.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

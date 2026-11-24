@@ -5,10 +5,8 @@
      true   "Where are you? I need to talk to you. Come to the office." "Tomorrow."
      false  a voicemail I don't listen to until morning
    The way home is Night Shift 3. */
-<<silent>><<SetBackground $locations[7].img>><</silent>>
+<<silent>><<SetBackground "images/locations/cluboutside.jpg">><</silent>>
 $club.name doesn't have a sign. It has a black door between a closed bank and a shoe repair shop, a doorman in a dark coat, and a small brass plate with a number on it that you'd only notice if you were looking for it.
-
-/* MEDIA: images/events/night_shift/door.jpg | A black door on a dark downtown street, a doorman in a long coat, a single brass number plate, rain on the pavement */
 
 <<if $flags.supplierOffered === true>>
 I park across the street. Neither of them has said a word the whole way, and in the rearview mirror I can see their hands, still linked on the seat between them.
@@ -47,7 +45,7 @@ I sit in the car outside for a while with the case on the passenger seat, not st
 <</if>>
 
 <<linkreplace "Wait">>
-<<silently>><<AdvanceTimeTo 6>><</silently>>
+<<silently>><<AdvanceTimeTo 6>><<SetBackground "images/locations/car.jpg">><</silently>>
 The rain gets heavier, the doorman stands under the awning and smokes, and nobody comes out. The clock on the dashboard says 11:39, and then it says 11:40.
 
 My phone lights up on the seat beside me.
@@ -100,7 +98,7 @@ I don't listen to it. Whatever it is, it's $ethan.name, and $ethan.name can wait
 /* Quest "The Night Shift" (main_nightShift), the end: after the call. If they went, the car home, the two of them in the
    back seat, in silence, and $sister.callName sleeps in $mom.callName's room. If I paid, home alone with the case. Ends the
    quest; The Morning After is next. */
-<<silent>><<SetBackground $locations[7].img>><</silent>>
+<<silent>><<SetBackground "images/locations/car.jpg">><</silent>>
 <<if $flags.supplierOffered === true>>
 They come out at ten past two.
 

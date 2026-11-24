@@ -3,7 +3,7 @@
    the rehearsal. She comes out to the car as the hostess, calm and quiet, the way we rehearsed it, and gets into the back
    seat, and sees $mom.callName. They both stop. They know. $mom.callName takes her hand. Neither says a word, and I watch it in
    the rearview mirror. Silence. Advances her line. */
-<<silent>><<SetBackground $locations[7].img>><</silent>>
+<<silent>><<SetBackground "images/locations/car.jpg">><</silent>>
 $mom.callName is already in the back seat when $sister.callName comes out of the house. I told them both to sit in the back, and I didn't tell either of them why.
 
 $sister.callName walks down the driveway in the dress from the rehearsal and the heels she practiced in, with her coat over her arm, calm and quiet, the way we ran it. She opens the rear door on the other side, bends down to get in, and stops.
