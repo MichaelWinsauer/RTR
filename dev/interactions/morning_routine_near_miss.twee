@@ -1,0 +1,228 @@
+:: Morning Routine Near Miss Weekday [interaction] {"position":"775,1900","size":"100,100"}
+/* A near miss on a weekday: $sister.callName knocks and talks through the door. Her corruption stage changes how
+   $mom.callName takes it (1 freezes and panics afterwards, 2 freezes and likes it, 3 doesn't stop). Once
+   $sister.callName is past Everything (_mrSisterClose) she adds a line that $mom.callName hears and asks about.
+   Included by Morning Routine. */
+/* morning_blowjob_nearmiss_weekday_0: dressed for work, kneeling beside the bed, before the knock */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_nearmiss_weekday_0.mp4" "" "" 600>>
+
+<<if _mrStage >= 3>>
+I wake up to the coffee on the nightstand and $mom.callName already on her knees next to the bed in her work clothes, with the blanket folded back. She doesn't wait for me anymore.
+<<elseif _mrStage == 2>>
+Six-thirty, and she's in before she's even finished knocking. She's dressed for the office, and she kneels down next to the bed with a small, crooked smile, as if the two of us are getting away with something.
+<<else>>
+Six-forty, the knock, the smell of coffee, and then her, dressed for work, with her hair pinned up and her lipstick on. She sets the mug down and kneels beside the bed, careful of her stockings, and folds the blanket back.
+<</if>>
+
+<<linkreplace "Lie back">>
+Halfway through, somebody knocks on my door. Two quick, impatient raps, and they're definitely not hers.
+
+/* morning_blowjob_nearmiss_weekday_1: she stops (or nearly), her eyes on the door, my hand on her head */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_nearmiss_weekday_1.mp4" "" "" 600>>
+
+<<if _mrStage >= 3>>
+$mom.callName's eyes go to the door, and then back up to mine, and she keeps going. Slower, and very quiet, but she doesn't stop.
+<<elseif _mrStage == 2>>
+$mom.callName stops dead. Her eyes come up to mine, and I can feel her breath going fast and hot against me, and the color climbing up her throat, and it isn't only fright.
+<<else>>
+$mom.callName goes completely still. Her eyes come up to mine, enormous, and she doesn't move a muscle, and I'm fairly sure she has stopped breathing.
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Are you up? I need your charger, the long one. Mine only works now if I hold it at a very specific angle, and I don't have time to stand in the corner of my room all morning like a floor lamp." },
+{ who: $player, text: "It's at the office. Take the one in the kitchen drawer." },
+{ who: $sister, text: "The kitchen drawer one is a liar. It says it's charging and it isn't." },
+{ who: $player, text: "Then hold it at an angle." },
+{ text: "There's a pause on the other side of the door, the kind she leaves when she's deciding whether I'm worth a comeback this early." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _mrSisterClose>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Also, you were supposed to text me last night. I waited up, you know. You can apologize properly later." },
+{ text: "She says properly in a way that's meant for me and nobody else. Below me, $mom.callName's eyes move very slightly toward the door." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "And is $mom.callName still home? Her car's in the driveway and there's a whole pot of coffee downstairs that nobody's drinking, which is frankly suspicious." },
+{ who: $player, text: "She's around somewhere." },
+{ who: $sister, text: "Well, if you see her, tell her I took the last of the cream, and that I'm not sorry." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+Her footsteps go off down the hall, and then down the stairs.
+
+<<linkreplace "Wait until she's gone">>
+<<if _mrStage >= 3>>
+$mom.callName never stopped, and now that the stairs are quiet she stops being quiet about it.
+<<elseif _mrStage == 2>>
+She waits until the kitchen door bangs downstairs, and then she presses her forehead against my hip and her shoulders start shaking, and it takes me a second to realize she's laughing without making a sound. When she starts again she's faster than before, and she doesn't stop smiling.
+<<else>>
+She stays frozen for a few more seconds, listening to the stairs. Then she lets her forehead drop against my hip and breathes out, long and shaky. And then, slowly, with her eyes still on the door, she starts again.
+<</if>>
+
+/* morning_blowjob_nearmiss_weekday_2: the finish */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_nearmiss_weekday_2.mp4" "" "" 600>>
+
+<<if _mrStage >= 3>>
+<<silently>>
+<<set _msgs = [
+{ text: "Afterwards she does her lipstick in my closet mirror, perfectly calm, and catches my eye in it." },
+{ who: $mom, text: "She sounds happy lately, doesn't she, honey? I've noticed that. She sings in the shower again." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _mrStage == 2>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "We are never, ever doing that again." },
+{ text: "She's grinning when she says it. She's still grinning when she fixes her lipstick, and she gets it wrong the first time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh my God, honey. Oh my God. You didn't lock the door, did you? I didn't lock it, I never lock it, why would I lock it, it's my own house. I'm going to buy one of those rubber wedges, the ones that go under the door, they sell them at the hardware store by the register, I've seen them..." },
+{ who: $player, text: "She didn't come in." },
+{ who: $mom, text: "She could have, sweetie. That's my whole point." },
+{ text: "She does her lipstick twice, because her hand isn't steady enough the first time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<if _mrSisterClose>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What did she mean, apologize properly?" },
+{ who: $player, text: "I said I'd read her paper last night, and I forgot." },
+{ text: "She looks at me in the mirror for a moment. Then she caps her lipstick and says that's nice, that the two of you help each other so much these days, and goes down to work." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+Then her heels on the stairs, a bright good morning to $sister.callName in the kitchen in a completely normal voice, and the front door.
+<</if>>
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning Routine Near Miss Weekend [interaction] {"position":"775,2025","size":"100,100"}
+/* A near miss on the weekend: $sister.callName opens the door without knocking, looking for $mom.callName, and takes the
+   second mug. $mom.callName hides (stage 1 drops to the floor beside the bed, 2 and 3 are under the blanket, 3 doesn't
+   stop). Once $sister.callName is past Everything (_mrSisterClose) she wants to come back to bed. Included by Morning Routine. */
+/* morning_blowjob_nearmiss_weekend_0: robe, two mugs on the nightstand, before the door opens (stage 1 on the edge of the
+   bed, from stage 2 under the blanket) */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_nearmiss_weekend_0.mp4" "" "" 600>>
+
+<<if _mrStage >= 2>>
+It's a slow weekend morning. Two mugs on the nightstand, her robe somewhere on my floor, and $mom.callName somewhere under the blanket, taking her time.
+<<else>>
+It's a slow weekend morning. Two mugs on the nightstand, and $mom.callName in her robe on the edge of my bed, taking her time and telling me about the gutters in between.
+<</if>>
+
+<<linkreplace "Let her take her time">>
+There's no knock. The handle just turns.
+
+/* morning_blowjob_nearmiss_weekend_1: the door opening, me in bed, no sign of her (on the floor on the far side of the bed,
+   or a shape under the blanket) */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_nearmiss_weekend_1.mp4" "" "" 600>>
+
+<<if _mrStage >= 3>>
+Under the blanket $mom.callName goes flat against me and very still for exactly one second. Then she carries on, slow and silent, while the door swings open.
+<<elseif _mrStage == 2>>
+Under the blanket $mom.callName goes flat against me, and stays there, and I pull the blanket up to my chest and thank God for the thick winter one.
+<<else>>
+$mom.callName drops off the side of the bed like a sack of flour, robe and all, into the gap between the bed and the wall. It's the fastest I've ever seen her move.
+<</if>>
+
+$sister.callName is in the doorway in an old T-shirt of mine and not much else, with her hair in a knot and the look of someone who stayed out much too late.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Have you seen $mom.callName? Her car's here and her bed's made, and she isn't in the kitchen, which I didn't think was physically possible on a weekend." },
+{ who: $player, text: "She said something about the garden." },
+{ who: $sister, text: "The garden. At this hour." },
+{ text: "She squints at me, and then at the nightstand." },
+{ who: $sister, text: "Why do you have two coffees?" },
+{ who: $player, text: "She brought me two. She worries." },
+{ who: $sister, text: "She worries about me too, you know. She just never expresses it in caffeine." },
+{ text: "She walks in, right up to the bed, takes the second mug, the faded sunflower one that $mom.callName has been drinking out of since before either of us was born, and takes a long sip with her eyes closed." },
+{ who: $sister, text: "Oh, that's so much better than being alive. Thank you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _mrSisterClose>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Scoot over. I'm coming back to bed for an hour." },
+{ who: $player, text: "Not now. I'm getting up in a minute." },
+{ who: $sister, text: "Fine. Later, then." },
+{ text: "She says later the way she's been saying it lately, and takes the mug with her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+She takes the mug with her. The door clicks shut behind her, and I hear her padding down the stairs, calling for $mom.callName in the direction of the garden.
+<</if>>
+
+<<linkreplace "Breathe">>
+<<if _mrStage >= 3>>
+$mom.callName never stopped. The door is barely shut when she pushes the blanket off her head, looks up at me with her hair all over her face, and goes right back to it.
+<<elseif _mrStage == 2>>
+$mom.callName comes up from under the blanket, flushed and wild-haired, and buries her face in my chest to keep from laughing out loud.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "She took my coffee, honey. That's my sunflower mug." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then she goes back under.
+<<else>>
+After a long minute $mom.callName climbs back up from the floor, red to the roots of her hair, clutching her robe shut at the neck.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "She drank my coffee. She was standing right there, sweetie, she was this close, and she drank my coffee." },
+{ who: $player, text: "She didn't see anything." },
+{ who: $mom, text: "I know, I know she didn't. I'm just saying, that was my mug." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then, because she said every morning and she meant it, she kneels back down.
+<</if>>
+
+/* morning_blowjob_nearmiss_weekend_2: the finish */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_nearmiss_weekend_2.mp4" "" "" 600>>
+
+<<if _mrSisterClose>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Later what, honey?" },
+{ who: $player, text: "She wants me to look at her laptop." },
+{ text: "$mom.callName looks at the door for a while. Then she says that's nice, that the two of you get along so well these days, and goes downstairs to make herself another coffee." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+Afterwards she ties her robe, takes my mug, since hers is gone, and goes downstairs to make a fresh pot. From the window I watch $sister.callName wander around the garden in my T-shirt, looking for her behind the hedges.
+<</if>>
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>

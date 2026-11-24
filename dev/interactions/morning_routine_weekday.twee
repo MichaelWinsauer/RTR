@@ -1,0 +1,161 @@
+:: Morning Routine Weekday 1 [interaction] {"position":"525,1900","size":"100,100"}
+/* A weekday, her corruption stage 1. She's dressed for work and it's done against the clock, kneeling by the bed.
+   Included by Morning Routine. */
+/* morning_blowjob_weekday_1_0: she comes in dressed for the office, mug and phone, kneels down beside the bed */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_1_0.mp4" "" "" 600>>
+
+Six-forty, and the knock comes right on schedule, two soft raps and then a third, the way she's knocked on my door ever since I was old enough to lock it. She doesn't wait for an answer anymore. She comes in already dressed for the office, hair pinned up, lipstick on, my mug in one hand and her phone in the other.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Morning, sweetie. You've got the diner people at ten, and $darius.name wants the numbers before that, so don't let him corner you at the coffee machine, he does that thing where he asks one little question and it turns into forty minutes." },
+{ text: "She sets the mug on the nightstand with the handle toward me and kneels down beside the bed, tugging her skirt so it won't ride up and checking her stockings for runs. Only then does she fold the blanket back." },
+{ who: $mom, text: "And there's a banana in your bag, and don't make that face, I've seen what you call breakfast." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her get on with it">>
+/* morning_blowjob_weekday_1_1: kneeling beside the bed in her work clothes, her phone on the floor next to her */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_1_1.mp4" "" "" 600>>
+
+She's careful at first, with her lipstick and her stockings, and most of all with the time. Her phone lies face up on the carpet next to her knee, and every so often her eyes slide over to it. She has this down to the minute, and it would take nothing at all to make her late. I put my hand on the back of her head and slow her down, just to see what she does.
+
+She lets me. Her eyes go to the phone one more time, and after that they don't go there again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You're going to be late." },
+{ text: "She makes a small, put-upon noise, the one she makes when somebody walks across her clean kitchen floor in their shoes, and keeps going." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Finish">>
+/* morning_blowjob_weekday_1_2: the finish */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_1_2.mp4" "" "" 600>>
+
+Afterwards she sits back on her heels, a little out of breath, and wipes the corner of her mouth with her thumb. She gets up, checks her lipstick in the mirror on my closet door, fixes it with two quick dabs, and picks her purse up off the floor.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Seven minutes. I'm going to say it was the traffic on Fifth, honey, and if anybody asks, you're going to back me up." },
+{ who: $player, text: "Nobody's going to ask." },
+{ who: $mom, text: "$darius.name will. Well, he won't ask, he'll just look at his watch and not say anything, which is so much worse." },
+{ text: "She bends down on her way to the door and kisses my forehead, the same as she did every school morning of my life." },
+{ who: $mom, text: "Drink your coffee." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then her heels on the stairs, her keys, the front door, and her car backing out of the driveway seven minutes later than it does on any other weekday.
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning Routine Weekday 2 [interaction] {"position":"525,2025","size":"100,100"}
+/* A weekday, her corruption stage 2 (after The Catalyst Night). She's stopped hurrying: she moves a meeting for it, comes
+   in with her blouse still open, lies across the bed in her work clothes. Included by Morning Routine. */
+/* morning_blowjob_weekday_2_0: she comes in half dressed for work, blouse not buttoned yet, sits down on the bed */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_2_0.mp4" "" "" 600>>
+
+She's early today. It's barely six-thirty when the door opens, and the knock comes after she's already in the room, which is the wrong way around. She's in her work skirt and stockings, but her blouse is only buttoned halfway up, as if she ran out of patience with it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I moved the nine o'clock to nine-thirty. Don't look at me like that, it was a very boring nine o'clock, and I thought, well, why should you get the rushed version when you're the one who..." },
+{ text: "She doesn't finish that one either. She sets the coffee down, sits on the edge of the bed and runs her hand down my chest and under the blanket, taking her time about it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Since that night in her bed she's stopped acting as if this is a favor she's doing me. She just comes in and does it, the way she'd come in to open the curtains.
+
+<<linkreplace "Pull her closer">>
+/* morning_blowjob_weekday_2_1: she lies across the bed in her work clothes, lipstick on, no hurry */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_2_1.mp4" "" "" 600>>
+
+She stretches out across the bed with her shoes still on, skirt and all, and doesn't worry about her lipstick at all. Every now and then she stops to talk, as if we're at the breakfast table.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Did you sleep all right, honey? You were up so late, I saw your light still on at one." },
+{ who: $player, text: "You're asking me that now?" },
+{ who: $mom, text: "Well, I'm your $mom.relation, I'm allowed to ask whenever I like." },
+{ text: "And she goes back to it, as if that settles something." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Finish">>
+/* morning_blowjob_weekday_2_2: the finish */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_2_2.mp4" "" "" 600>>
+
+When she sits up there's a ring of her lipstick on me, and she laughs out loud at it, delighted. She licks her thumb and rubs at it the way she used to rub jam off our faces in the car before church.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, look at that, I've ruined you. Hold still, sweetie." },
+{ who: $player, text: "It's fine." },
+{ who: $mom, text: "It is not fine, you have a client call at eleven." },
+{ text: "She buttons her blouse on her way to the door, all the way up this time, and comes back halfway to kiss me goodbye on the mouth, quickly. She tastes like coffee." },
+{ who: $mom, text: "I'll see you at the office, honey. Don't be late, I can only move that nine-thirty so far." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning Routine Weekday 3 [interaction] {"position":"525,2150","size":"100,100"}
+/* A weekday, her corruption stage 3 (after The Calendar). She starts before I'm awake, like the first time, but without
+   working up to it. She reads me my day from her phone, and she's blocked out lunch for me (the Whenever card). Included by
+   Morning Routine. */
+/* morning_blowjob_weekday_3_0: I wake up and she's already at it, kneeling by the bed in her work clothes, the mug steaming */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_3_0.mp4" "" "" 600>>
+
+I don't hear the knock today, if there was one. When I open my eyes the room is still dark blue, the coffee is steaming on the nightstand, and $mom.callName is already on her knees next to the bed in her work clothes, with the blanket folded back and her mouth on me.
+
+The first morning went like this too, except back then she stood next to the bed for a while first, working up to it. Since the day she put that printout on my desk, she doesn't wait for anything.
+
+<<linkreplace "Wake up properly">>
+/* morning_blowjob_weekday_3_1: still kneeling, her phone propped against the mug, she glances at it */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_3_1.mp4" "" "" 600>>
+
+She's propped her phone against the mug, and she stops now and then to glance at it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You've got $gymOwner.name at eleven, and he's going to want to talk about a second location again, so just let him, honey, he likes the sound of it, and then you've got nothing until two." },
+{ who: $player, text: "You're doing my schedule. Right now." },
+{ who: $mom, text: "I can do two things at once, sweetie, I raised two kids." },
+{ text: "Then she turns the phone face down and shows me she can also do one thing at a time, very well." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Finish">>
+/* morning_blowjob_weekday_3_2: the finish */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekday_3_2.mp4" "" "" 600>>
+
+She doesn't rush afterwards. She gets up, smooths her skirt, does her lipstick in my closet mirror, and stops at the door with her hand on the frame.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'm free at lunch, by the way, twelve-thirty to one. I've blocked it out." },
+{ who: $player, text: "Blocked it out for what?" },
+{ who: $mom, text: "For whatever you need, sweetheart." },
+{ text: "She says it in exactly the voice she uses to tell me there's lasagna in the fridge." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+When I look at the shared calendar later, the half hour is there, in the same dark green as that dress. She's titled it Lunch (CEO).
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>

@@ -4,7 +4,7 @@
    Booze Night: she was almost sure it still fits) and crawls to my desk across the empty office. Her first blowjob, and I
    insult her while she does it. At the end I tell her that from now on she brings my coffee in the morning and does this
    with it, and she says yes. No device.
-   The quest's set unlocks the morning routine ($mom.flags.morningRoutine, not built yet). This scene switches on the meal
+   The quest's set unlocks the morning routine ($mom.flags.morningRoutine, passage Morning Routine). This scene switches on the meal
    crawl_thank_you: the next morning she thanks me for letting her make it up, at breakfast, in front of $sister.callName. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 By five on a Friday, the office is a ghost town. $ethan.name left at four with a wink and the words "long weekend, boss, I can feel it in my bones", though it isn't one. $brian.name left at four-fifteen because $ethan.name left. $darius.name left at four-thirty, exactly, with his notebook under his arm. $sister.callName left with him, because her seminar starts at six.

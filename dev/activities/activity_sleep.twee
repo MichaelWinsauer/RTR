@@ -84,7 +84,7 @@ I sleep like a rock. No dreams, or none that stick. When I wake up, the light is
   <</link>>
 <<elseif setup.morningRoutineReady()>>
   /* the morning routine (after The Crawl): she brings the coffee, and that with it. "Not this morning" skips it */
-  <<link "$mom.callName knocks, with my coffee..." "Morning Routine">>
+  <<link "Let $mom.callName wake me..." "Morning Routine">>
       <<UseAction _sleepActions>>
   <</link>>
   <<link "Not this morning" "Bedroom">>

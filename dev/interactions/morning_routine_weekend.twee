@@ -1,0 +1,141 @@
+:: Morning Routine Weekend 1 [interaction] {"position":"650,1900","size":"100,100"}
+/* The weekend, her corruption stage 1. Late, her robe, two mugs, slow. She talks about the house the whole time and stays
+   for her coffee afterwards. Included by Morning Routine. */
+/* morning_blowjob_weekend_1_0: late morning sun, she comes in in her robe with two mugs, sits on the edge of the bed */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_1_0.mp4" "" "" 600>>
+
+On weekends she lets me sleep. It's after nine when the knock comes, and the sun has made it most of the way across my floor. She comes in in her robe and slippers with two mugs instead of one and bumps the door shut behind her with her hip.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Morning, sleepyhead. I made the good coffee, the one in the bag with the parrot on it, the one you said tastes like a candle." },
+{ who: $player, text: "It does taste like a candle." },
+{ who: $mom, text: "A very nice candle, though." },
+{ text: "She puts both mugs on the nightstand, sits down on the edge of the bed and spends a while smoothing the blanket over my knees, as if that's what she came up here for." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her take her time">>
+/* morning_blowjob_weekend_1_1: on the edge of the bed in her robe, slow, unhurried */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_1_1.mp4" "" "" 600>>
+
+There's no clock to watch on a weekend, and she doesn't watch one. She's slow about it, almost lazy, and in between she talks: about the gutters, which need doing again, and the Kowalskis' new dog, which still hasn't made its peace with the mailman, and $sister.callName's room, which has become, in her words, an active crime scene.
+
+I'm not sure she notices how strange it is to tell me about the gutters halfway through. Maybe that's the point of telling me.
+
+<<linkreplace "Finish">>
+/* morning_blowjob_weekend_1_2: the finish */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_1_2.mp4" "" "" 600>>
+
+Afterwards she sits up, tucks her hair behind her ear and reaches for her mug, and picks the gutters up exactly where she left them.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So I was thinking, if you're not too busy this afternoon, you could hold the ladder for me? Just for an hour, honey, two at the most, depending on what's living up there." },
+{ who: $player, text: "Sure." },
+{ who: $mom, text: "Wonderful. I'll make sandwiches." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She pats the blanket over my knee, picks up her coffee and goes, and leaves mine on the nightstand to get cold, which it does.
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning Routine Weekend 2 [interaction] {"position":"650,2025","size":"100,100"}
+/* The weekend, her corruption stage 2 (after The Catalyst Night). No knock. She lies down next to me first, her hand under
+   the blanket while she tells me her dream, then goes under it. Afterwards she asks if I'm happy. Included by Morning Routine. */
+/* morning_blowjob_weekend_2_0: robe, bare feet, she lies down next to me on top of the blanket, head on my shoulder */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_2_0.mp4" "" "" 600>>
+
+It's late, the sun is all the way across the floor, and she comes in without knocking at all, which is new. Robe, bare feet, two mugs. She puts them down and lies down next to me on top of the blanket with her head on my shoulder, the way she used to on the couch on movie nights.
+
+Her hand finds its way under the blanket while she tells me about the dream she had.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "...and then he wanted me to row, honey, my old dentist, in my good shoes, and I said absolutely not, and the boat just sort of agreed with me and went on by itself." },
+{ who: $player, text: "That's a weird dream." },
+{ who: $mom, text: "I know, isn't it? I've been thinking about it all morning." },
+{ text: "Her hand hasn't stopped moving the whole time. It doesn't stop now either." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Pull the blanket back">>
+/* morning_blowjob_weekend_2_1: she slides down under the blanket, her robe coming open */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_2_1.mp4" "" "" 600>>
+
+After a while she stops talking and slides down, and her robe comes open on the way and she leaves it. For a long time the only sign of her is the shape of her under the blanket and her hair spread across my stomach.
+
+<<linkreplace "Finish">>
+/* morning_blowjob_weekend_2_2: the finish, then her head on my stomach */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_2_2.mp4" "" "" 600>>
+
+She doesn't get up afterwards. She stays where she is, with her head on my stomach, looking at the ceiling and drawing small circles on my hip with one finger.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Are you happy, honey? With everything, I mean. With the company, and the... with all of it." },
+{ who: $player, text: "Yeah. I am." },
+{ who: $mom, text: "Good. That's good, sweetie, that's all I wanted to know." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We lie there until both coffees are stone cold. Then she takes the mugs down to make a fresh pot, and a few minutes later she calls up the stairs to ask whether I want pancakes, in exactly the voice she's used to ask me that since I was five.
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Morning Routine Weekend 3 [interaction] {"position":"650,2150","size":"100,100"}
+/* The weekend, her corruption stage 3 (after The Calendar). She drops the robe on my floor and gets in with me. She stays,
+   and she'd stay all day. Included by Morning Routine. */
+/* morning_blowjob_weekend_3_0: two mugs on the nightstand, she lets her robe drop and gets under the blanket with me */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_3_0.mp4" "" "" 600>>
+
+She puts both mugs on the nightstand, unties her robe and lets it fall right there on my floor. That's how I know it's the weekend: on a weekday she'd have hung it on the hook behind the door. Then she lifts the blanket and gets in with me.
+
+She's warm from the shower and smells like the lavender soap she buys in packs of six, and she fits herself along my side as if she's been doing it for years.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't you dare get up. It's cold out there, and I've made a decision about today." },
+{ who: $player, text: "What decision?" },
+{ who: $mom, text: "That the coffee can wait." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let it wait">>
+/* morning_blowjob_weekend_3_1: under the blanket, naked, unhurried, enjoying it */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_3_1.mp4" "" "" 600>>
+
+She disappears under the blanket and takes her time. After a while I can feel her rocking against my leg, slowly, and she makes a sound she doesn't seem to know she's making. It takes me a moment to understand that this morning she isn't only doing it for me.
+
+<<linkreplace "Finish">>
+/* morning_blowjob_weekend_3_2: the finish, then she lies on my chest */
+<<Video "images/characters/mom/events/morning wakeup/morning_blowjob_weekend_3_2.mp4" "" "" 600>>
+
+She comes back up with her hair everywhere and her face pink, and lies down on my chest with a long, happy sigh.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "We could stay here all day, you know. I mean it, honey. Who's going to stop us?" },
+{ text: "I can think of one person. I don't say so." },
+{ who: $mom, text: "I'd have to get up for lunch, I suppose. And the laundry. And I told the Kowalskis I'd look at their roses, which honestly are beyond help, but she's so proud of them..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Next door the Kowalskis' lawnmower starts up, right on time. $mom.callName sighs and says she really should put the laundry on, and doesn't move for another ten minutes. When she finally goes, she leaves her mug on my nightstand, half full, as if she means to come back for it.
+
+<<include "Morning Routine End">>
+<</linkreplace>>
+<</linkreplace>>
