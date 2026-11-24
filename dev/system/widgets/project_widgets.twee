@@ -11,7 +11,7 @@
 	<<ProgressProjects>>
 	One action of project work. "Action Update" runs it once for every action spent, after the clock
 	has moved on. The staff work when the action that was just spent lies in $company.workHours;
-	I add +1 to every requirement while $playerWorking is set (Work, Skip Work Day, Complete Task).
+	I add +1 to every requirement while $playerWorking is set (the Work card at the desk and any quick link with working: true).
 	Staff work is scaled by company Efficiency, the morale it costs by company Morale and the vent unit
 	(setup.efficiencyFactor / setup.moraleDrainFactor, Define Company). My own work stays flat.
 */

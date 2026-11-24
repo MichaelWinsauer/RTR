@@ -182,7 +182,7 @@
 	/* ——— the device pulse ———
 	   The heartbeat of the glow is the CSS animation dp-beat (StoryStylesheet). Its keyframes as 0-1, so the
 	   tendrils surge on the same beat: a strong beat, a short dip, a weaker second beat, then rest */
-	var BEAT = [[0, 0], [0.10, 1], [0.22, 0.29], [0.32, 0.79], [0.60, 0], [1, 0]];
+	var BEAT = [ [0, 0], [0.10, 1], [0.22, 0.29], [0.32, 0.79], [0.60, 0], [1, 0] ];
 	function beatAt(phase) {
 		for (var i = 1; i < BEAT.length; i++) {
 			if (phase <= BEAT[i][0]) {

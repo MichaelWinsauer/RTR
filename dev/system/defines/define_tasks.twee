@@ -569,7 +569,7 @@
            prompt:   "...",    the question in the dialog when she shows up
            accept:   "...",    optional button text to start the scene (default "Let her")
            decline:  "...",    optional button text to send her away (default "Not now")
-           summary:  "...",    notification when it finishes without its scene (Skip Work Day / Complete Task)
+           summary:  "...",    notification when it finishes without its scene (a desk shortcut that spends several actions)
            waiting:  "...",    optional notification when it starts and I'm not there yet: I still have that
                                first action to get there (default: "<callName> is waiting for me at <place>.")
            missed:   "...",    notification when I don't make it in time. It then doesn't happen at all,
@@ -597,8 +597,8 @@
      3. The scene ends with <<EndTaskScene>>: it spends the task's remaining actions, so the task finishes
         the normal way (onComplete, count, stages), and goes back to my location. If no action is left
         (I walked in on a one-action task), setup.completeTaskSceneEntry() finishes it directly.
-     4. When it finishes without a scene (several actions spent at once, like Skip Work Day or Complete
-        Task, so no passage showed while it started), it still counts if I'm in "where" (summary
+     4. When it finishes without a scene (several actions spent at once, like the desk shortcuts that work until
+        the end of a task, so no passage showed while it started), it still counts if I'm in "where" (summary
         notification), otherwise it is missed. entry.doneDay stops it from finishing twice in one day.
    $taskScene { sysName, taskId, entryId, passage } is set while a scene runs.
 
@@ -912,20 +912,28 @@
 
 
 /* Running tasks ===============================================================
-   setup.getRunningTaskEnd()   the endRow of the scheduled task (mom or sister) that is running right now
-                               and ends first, or -1 when none runs. Used by the "Complete Task" button. */
-<<set setup.getRunningTaskEnd = () => {
+   setup.getRunningTask()      the scheduled task (mom or sister) that is running right now and ends first,
+                               { sysName, entry, task (the live task) }, or null when none runs
+   setup.getRunningTaskEnd()   its endRow, or -1 when none runs. Used by the desk shortcut "Until ... is done"
+                               (Define Quick Links). */
+<<set setup.getRunningTask = () => {
     const v = State.variables;
-    if (v.date.today.value > 4) { return -1; }
+    if (v.date.today.value > 4) { return null; }
     const row = v.time.current.value * v.time.actions.max + (v.time.actions.max - v.time.actions.left);
-    let end = -1;
+    let found = null;
     for (const sysName of ["mom", "sister"]) {
         for (const entry of (v.activeTasks[sysName] || [])) {
             if (!entry.inProgress || row < entry.startRow || row >= entry.endRow) { continue; }
-            if (end === -1 || entry.endRow < end) { end = entry.endRow; }
+            if (found === null || entry.endRow < found.entry.endRow) {
+                found = { sysName: sysName, entry: entry, task: setup.getLiveTask(entry.task) };
+            }
         }
     }
-    return end;
+    return found;
+}>>
+<<set setup.getRunningTaskEnd = () => {
+    const running = setup.getRunningTask();
+    return running ? running.entry.endRow : -1;
 }>>
 
 
@@ -941,7 +949,7 @@
                                       Otherwise it lies ahead (startRow later than now). Entries that were already
                                       offered, played, missed or done today are skipped. Whether she has the energy
                                       to start it is not known yet, so it is not checked.
-   Used by the CMD cards "Work until ..." / "Join ..." and the "Go to work" quick link (Define Quick Links). */
+   Used by the quick links "work_task", "join_task" and "go_work" (Define Quick Links). */
 <<set setup.getTaskPlaces = (task) => {
     const live = setup.getLiveTask(task);
     if (!live) { return []; }

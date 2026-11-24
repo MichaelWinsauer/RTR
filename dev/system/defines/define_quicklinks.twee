@@ -1,13 +1,26 @@
 :: Define Quick Links [system] {"position":"1250,150","size":"100,100"}
 /* Quick links ==================================================================
-   Shortcuts in the sidebar ("Quick Caption") that only show up when they save the player pointless clicks:
-   the way to work in the morning, the next meal, bed at night, the way home. They are constants, the game state
-   holds nothing about them. They only show on location passages (tag "location") after the intro, so they never
-   cut into a scene, an activity or a dialog. My Desk hides the sidebar, the dashboard has its own cards there
-   (CMD Actions).
+   Shortcuts that only show up when they save the player pointless clicks: the way to work in the morning, the
+   next meal, bed at night, the way home, her report, how long to work at the desk. They are constants, the game
+   state holds nothing about them. They show in two places:
+     "sidebar"  the sidebar ("Quick Caption"), on location passages (tag "location") after the intro, so they
+                never cut into a scene, an activity or a dialog
+     "desk"     the actions panel of the dashboard at My Desk ("CMD Actions"), which hides the sidebar. Links with
+                card: "work" go into its Work card (how long I work or wait), the rest into the list next to it
+   This list is the one place for both: a new shortcut is one entry here, and "where" says where it shows.
 
    setup.quickLinks = [ {
        id:        "go_work",          unique key, the sidebar passes it back on click
+       where:     ["sidebar", "desk"], optional, where it shows (default ["sidebar"])
+       card:      "work",             optional, desk only: a button of the Work card instead of a list row.
+                                      A Work card link whose cost comes out as 0 is left out
+       slot:      0-3,                Work card only: its tile. The card always shows all four tiles, so it never
+                                      changes its size; a tile without a link shows setup.deskWorkSlots[slot].
+                                      Two links that never apply at the same time may share a tile
+       items:     (ctx) => [ { key, ... } ],  optional: one link per item (one per quest that is ready). The
+                                      functions below then get the item too: when(ctx, item), label(ctx, item)...
+       working:   true,               optional: I work while its actions are spent ($playerWorking: +1 per
+                                      requirement of every active project and action, like "One action")
        priority:  40,                 higher first. "wait" has 0 and always comes last
        when:      (ctx) => bool,      show it right now?
        label:     (ctx) => "...",     link text (build names from State.variables, never type one out)
@@ -24,15 +37,21 @@
        here      the location object the player is at, atHome = in the house (ids 0-6)
        atOffice  one of setup.officeLocations (Stage 0 office, Stage 1 rooms, Stage 2 office)
 
-   The cost follows the CMD card "Go Home": a trip between home and anywhere else costs one action, although
-   walking there through the location tiles costs nothing. Moving inside the house stays free.
+   Going somewhere is free (work, home, bed, over to her), like walking there through the location tiles. Only
+   waiting and working cost actions.
 
    Helpers:
    setup.quickLinkContext()        the ctx above
-   setup.getQuickLinks()           the links to show now, sorted, each resolved to
-                                   { id, label, hint, important, minor, cost, costText }
-   setup.prepareQuickLink(id)      on click: checks "when" again, runs "before" and returns { cost, target },
-                                   or null when the link no longer applies. The caller spends the cost and goes
+   setup.getQuickLinks([where])    the links to show now in "sidebar" (default) or "desk", sorted, each resolved to
+                                   { id, label, hint, important, minor, card, working, cost, costText }
+   setup.prepareQuickLink(id)      on click: checks "when" again, runs "before" and returns { cost, target, working },
+                                   or null when the link no longer applies. The caller spends the cost (working
+                                   while it does, if set) and goes on
+   setup.quickLinkUntilText(cost)  "until Afternoon": the time slot reached after cost more actions (for hints)
+   setup.deskWorkSlots             the four tiles of the Work card: { label, idle(ctx) }, shown greyed out while
+                                   no link fills that tile, idle saying why
+   setup.questQuickLinkTargets(ctx)  the quests that are ready and only wait for me to go somewhere:
+                                   [ { key (quest id), quest, location } ], the "Head to ..." links
    setup.quickLinkWorkTask()       setup.getNextTaskWithPlayer() if that task happens in the office, else null
    setup.quickLinkWorkPlace()      where "Go to work" leads: My Desk in Stage 1 (the office of the current stage
                                    otherwise), or the place of a task with me that is already waiting
@@ -91,8 +110,44 @@
     return null;
 }>>
 
+<<set setup.quickLinkUntilText = (cost) => {
+    const v = State.variables;
+    const ctx = setup.quickLinkContext();
+    const slot = Math.min(v.timeSlots.length - 1, Math.floor((ctx.row + cost) / v.time.actions.max));
+    return "until " + v.timeSlots[slot].text;
+}>>
+
+<<set setup.deskWorkSlots to [
+    { label: "One action", idle: () => "" },
+    { label: "Until the end of the work day", idle: (ctx) => (ctx.weekday ? "The work day is over" : "No work on the weekend") },
+    { label: "Until her next task", idle: () => "No task with me later today" },
+    { label: "Until her task is done", idle: () => "No task running right now" },
+]>>
+
+/* A quest is ready (setup.getEligibleQuests: right day and time, requirements and device met) and its event
+   starts as soon as I walk into one of its places. Hidden quests stay hidden, and a place that is closed right
+   now or the one I am already on does not count. My Desk is its own passage here: an event in the office does
+   not start at the desk */
+<<set setup.questQuickLinkTargets = (ctx) => {
+    const v = State.variables;
+    const result = [];
+    for (const quest of setup.getEligibleQuests()) {
+        if (quest.hidden || !quest.needsEvent) { continue; }
+        const places = (quest.where || []).map((place) => (typeof place === "object"
+            ? v.locations[place.id]
+            : v.locations.find((loc) => loc.passage === place)));
+        const location = places.find((loc) => loc && loc.passage && Story.has(loc.passage)
+            && (loc.open || []).includes(ctx.slot) && loc.passage !== ctx.passage);
+        if (location && !places.some((loc) => loc && loc.passage === ctx.passage)) {
+            result.push({ key: quest.id, quest: quest, location: location });
+        }
+    }
+    return result;
+}>>
+
 <<set setup.reportQuickLink = (sysName) => ({
     id: "report_" + sysName,
+    where: ["sidebar", "desk"],
     priority: 50,
     when: () => setup.dayReportReachable(sysName) !== null,
     label: () => "Hear about " + State.variables[sysName].callName + "'s day",
@@ -119,6 +174,126 @@
 })>>
 
 <<set setup.quickLinks to [
+    /* ——— My Desk: the Work card ——— */
+    {
+        /* one action of my own work, at any time */
+        id: "work_one",
+        where: ["desk"],
+        card: "work",
+        slot: 0,
+        priority: 100,
+        when: () => true,
+        label: () => "One action",
+        working: true,
+        cost: 1,
+        target: (ctx) => ctx.passage,
+    },
+    {
+        /* before the work day: wait for it, without working */
+        id: "work_wait",
+        where: ["desk"],
+        card: "work",
+        slot: 1,
+        priority: 95,
+        when: (ctx) => ctx.weekday && State.variables.company.workHours.indexOf(true) > ctx.row,
+        label: () => "Until work starts",
+        hint: () => "Just waiting",
+        cost: (ctx) => State.variables.company.workHours.indexOf(true) - ctx.row,
+        target: (ctx) => ctx.passage,
+    },
+    {
+        /* a task with me comes up later today: work until it starts, then be where it needs me */
+        id: "work_task",
+        where: ["desk"],
+        card: "work",
+        slot: 2,
+        priority: 90,
+        when: (ctx) => {
+            const next = setup.getNextTaskWithPlayer();
+            return !!next && !next.waiting && next.entry.startRow > ctx.row;
+        },
+        label: () => {
+            const next = setup.getNextTaskWithPlayer();
+            return "Until " + State.variables[next.sysName].callName + "'s " + next.task.title;
+        },
+        hint: (ctx) => setup.quickLinkUntilText(setup.getNextTaskWithPlayer().entry.startRow - ctx.row),
+        working: true,
+        cost: (ctx) => setup.getNextTaskWithPlayer().entry.startRow - ctx.row,
+        target: () => setup.getTaskPlace(setup.getNextTaskWithPlayer().task).passage,
+    },
+    {
+        /* one of her tasks is running: work until the first one is done */
+        id: "work_task_end",
+        where: ["desk"],
+        card: "work",
+        slot: 3,
+        priority: 80,
+        when: (ctx) => {
+            const running = setup.getRunningTask();
+            return !!running && running.entry.endRow > ctx.row;
+        },
+        label: () => {
+            const running = setup.getRunningTask();
+            return "Until " + State.variables[running.sysName].callName + "'s " + running.task.title + " is done";
+        },
+        hint: (ctx) => setup.quickLinkUntilText(setup.getRunningTask().entry.endRow - ctx.row),
+        working: true,
+        cost: (ctx) => setup.getRunningTask().entry.endRow - ctx.row,
+        target: (ctx) => ctx.passage,
+    },
+    {
+        /* during the work day: work through to its end */
+        id: "work_day",
+        where: ["desk"],
+        card: "work",
+        slot: 1,
+        priority: 70,
+        when: (ctx) => {
+            const hours = State.variables.company.workHours;
+            return ctx.weekday && hours.indexOf(true) >= 0 && hours.indexOf(true) <= ctx.row && hours.lastIndexOf(true) >= ctx.row;
+        },
+        label: () => "Until the end of the work day",
+        hint: (ctx) => setup.quickLinkUntilText(State.variables.company.workHours.lastIndexOf(true) + 1 - ctx.row),
+        working: true,
+        cost: (ctx) => State.variables.company.workHours.lastIndexOf(true) + 1 - ctx.row,
+        target: (ctx) => ctx.passage,
+    },
+
+    /* ——— the list (sidebar, and next to the Work card at the desk) ——— */
+    {
+        /* a task with me has started in another room of the office and she is waiting there (the meeting room).
+           Outside the office, the Go to work link takes me there instead */
+        id: "join_task",
+        where: ["sidebar", "desk"],
+        priority: 60,
+        when: (ctx) => {
+            const next = setup.getNextTaskWithPlayer();
+            if (!ctx.atOffice || !next || !next.waiting) { return false; }
+            const place = setup.getTaskPlace(next.task);
+            return !!place && place.passage !== ctx.passage;
+        },
+        label: () => {
+            const next = setup.getNextTaskWithPlayer();
+            return "Join " + State.variables[next.sysName].callName + " in the " + wikifyText(setup.getTaskPlace(next.task).name);
+        },
+        hint: () => "She is already waiting",
+        important: () => true,
+        cost: 0,
+        target: () => setup.getTaskPlace(setup.getNextTaskWithPlayer().task).passage,
+    },
+    {
+        /* one per quest that is ready and only waits for me to walk into its place (setup.questQuickLinkTargets) */
+        id: "quest",
+        where: ["sidebar", "desk"],
+        priority: 55,
+        items: (ctx) => setup.questQuickLinkTargets(ctx),
+        when: () => true,
+        label: (ctx, item) => "Head to " + wikifyText(item.location.name),
+        hint: (ctx, item) => wikifyText(setup.questDisplay(item.quest).title),
+        important: () => true,
+        cost: 0,
+        target: (ctx, item) => item.location.passage,
+    },
     setup.reportQuickLink("mom"),
     setup.reportQuickLink("sister"),
     {
@@ -178,6 +353,7 @@
         /* Night and Late Night: straight into bed, from anywhere. No action is spent on the way: sleeping ends the
            day anyway, and an action spent on the last one of Late Night would start the next day before the sleep */
         id: "go_bed",
+        where: ["sidebar", "desk"],
         priority: 20,
         when: (ctx) => ctx.slot >= 5,
         label: (ctx) => ctx.atHome ? "Go to bed" : "Head home to bed",
@@ -196,6 +372,7 @@
     {
         /* anywhere outside the house. The street out front has its own Home tile right there */
         id: "back_home",
+        where: ["sidebar", "desk"],
         priority: 10,
         when: (ctx) => !ctx.atHome && ctx.here.sysName !== "residentialarea",
         label: () => "Go home",
@@ -213,39 +390,59 @@
     },
 ]>>
 
-<<set setup.getQuickLinks = () => {
+<<set setup.getQuickLinks = (where) => {
     const v = State.variables;
-    if (!v.flags.introDone || !tags().includes("location")) { return []; }
+    const place = where || "sidebar";
+    if (!v.flags.introDone) { return []; }
+    if (place === "sidebar" && !tags().includes("location")) { return []; }
     const ctx = setup.quickLinkContext();
-    const value = (field) => (typeof field === "function" ? field(ctx) : field);
     return setup.quickLinks
-        .filter((link) => link.when(ctx))
-        .sort((a, b) => b.priority - a.priority)
-        .map((link) => {
+        .filter((link) => (link.where || ["sidebar"]).includes(place))
+        .flatMap((link) => setup.quickLinkInstances(link, ctx))
+        .filter((one) => one.link.when(ctx, one.item))
+        .sort((a, b) => b.link.priority - a.link.priority)
+        .map((one) => {
+            const link = one.link;
+            const value = (field) => (typeof field === "function" ? field(ctx, one.item) : field);
             const cost = Math.max(0, Math.floor(Number(value(link.cost)) || 0));
             return {
-                id: link.id,
+                id: one.id,
                 label: value(link.label),
                 hint: link.hint ? value(link.hint) : "",
                 important: link.important ? !!value(link.important) : false,
                 minor: !!link.minor,
+                card: place === "desk" ? link.card || "" : "",
+                slot: link.slot || 0,
+                working: !!link.working,
                 cost: cost,
                 costText: cost > 0 ? cost + (cost === 1 ? " action" : " actions") : "",
             };
-        });
+        })
+        .filter((link) => !(link.card === "work" && link.cost === 0));
+}>>
+
+/* An entry with "items" stands for one link per item, with the id "entry id:item key". All others are one link */
+<<set setup.quickLinkInstances = (link, ctx) => {
+    if (typeof link.items !== "function") { return [{ link: link, item: null, id: link.id }]; }
+    return (link.items(ctx) || []).map((item) => ({ link: link, item: item, id: link.id + ":" + item.key }));
 }>>
 
 <<set setup.prepareQuickLink = (id) => {
-    const link = setup.quickLinks.find((entry) => entry.id === id);
-    if (!link || !State.variables.flags.introDone) { return null; }
+    if (!State.variables.flags.introDone) { return null; }
     const ctx = setup.quickLinkContext();
-    if (!link.when(ctx)) { return null; }
-    const cost = Math.max(0, Math.floor(Number(typeof link.cost === "function" ? link.cost(ctx) : link.cost) || 0));
-    const target = link.target(ctx);
+    let one = null;
+    for (const link of setup.quickLinks) {
+        one = setup.quickLinkInstances(link, ctx).find((entry) => entry.id === id) || null;
+        if (one) { break; }
+    }
+    if (!one || !one.link.when(ctx, one.item)) { return null; }
+    const link = one.link;
+    const cost = Math.max(0, Math.floor(Number(typeof link.cost === "function" ? link.cost(ctx, one.item) : link.cost) || 0));
+    const target = link.target(ctx, one.item);
     if (!target || !Story.has(target)) {
         console.error('setup.prepareQuickLink: the quick link "' + id + '" leads to "' + target + '", which is no passage');
         return null;
     }
-    if (link.before) { link.before(ctx); }
-    return { cost: cost, target: target };
+    if (link.before) { link.before(ctx, one.item); }
+    return { cost: cost, target: target, working: !!link.working };
 }>>

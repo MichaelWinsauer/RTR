@@ -53,8 +53,8 @@
 	<li>If you are somewhere else when it starts, you get a notice that she's waiting. Its first action is your time to get there: walk over and she asks you as soon as you arrive.</li>
 	<li>Say no (or close the window) and you send her away. That counts the same as not being there.</li>
 	<li>If you are still not there once that first action is over, it doesn't happen that day and she spends no energy. But she came by for nothing, and depending on the task she can lose some Relation and Morale for every action it would have taken.</li>
-	<li>If you skip past it from your desk (<b>Skip Work Day</b>, <b>Complete Task</b>) while you are where it needs you, it still counts, without the scene.</li>
-	<li>To get the scene without clicking Work over and over, use the <a href="#" data-help="Help Company Actions">Work until ...</a> card. Away from the office, the <b>Go to work</b> quick link in the sidebar tells you when the next one is.</li>
+	<li>If you skip past it from your desk (<b>Until the end of the work day</b>, <b>Until her task is done</b>) while you are where it needs you, it still counts, without the scene.</li>
+	<li>To get the scene without clicking Work over and over, use <b>Until her task</b> in the <a href="#" data-help="Help Company Actions">Work card</a>. Away from the office, the <b>Go to work</b> quick link in the sidebar tells you when the next one is.</li>
 	<li>Two tasks with you can't overlap, not even across both columns. You can only be in one place at a time.</li>
 	<li>Like other tasks, they can change the more often they are done.</li>
 </ul>

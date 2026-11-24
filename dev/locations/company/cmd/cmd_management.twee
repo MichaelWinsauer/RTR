@@ -1,4 +1,22 @@
 :: CMD Management [nobr] {"position":"2350,3250","size":"200,100"}
+<<script>>
+/* She can be called when she is somewhere in the office (the call button on her card). Defined before the cards, which use it */
+window.canCallToDesk = function(sysName) {
+  return [10, 13, 14, 15, 16].includes(State.variables[sysName].location.id);
+};
+
+window.callFamilyToDesk = function(sysName) {
+  Dialog.close();
+  State.variables.interactionCharacter = sysName;
+  /* remembers where she was called from, so the interaction screen does not send the player away */
+  State.variables.interactionDesk = {
+    npc: sysName,
+    npcLoc: State.variables[sysName].location.id,
+    playerLoc: State.variables.player.location.id
+  };
+  Engine.play("NPC Interaction");
+};
+<</script>>
 <div class="cmd-management-wrapper">
     <<for _i = 0; _i < $company.employees.length; _i++>>
     	<<set _employee to $company.employees[_i]>>
@@ -51,6 +69,10 @@
                     </div>
                 </div>
             </div>
+            /* mom and the sister: call her to my desk while she is somewhere in the office (callFamilyToDesk, at the top) */
+            <<if ["mom", "sister"].includes(_employee.sysName) && canCallToDesk(_employee.sysName)>>
+                <button class="cmd-call-btn" @data-call="_employee.sysName" @title="'Call ' + State.variables[_employee.sysName].callName + ' to my desk'" @aria-label="'Call ' + State.variables[_employee.sysName].callName + ' to my desk'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></button>
+            <</if>>
         </div>
     <</for>>
 </div>
@@ -85,6 +107,29 @@
 .cmd-management-employee-card:hover {
 	transform: translateX(.25rem);
 }
+
+.cmd-management-employee-card { position: relative; }
+
+/* the call button in the corner of her card */
+.cmd-call-btn {
+  position: absolute;
+  top: .3rem;
+  right: .3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid #EAAF4C;
+  border-radius: 50%;
+  background: rgba(234,175,76,.15);
+  color: #EAAF4C;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.cmd-call-btn svg { width: .8rem; height: .8rem; fill: currentColor; }
+.cmd-call-btn:hover { background: #EAAF4C; color: #1a1408; }
 
 .cmd-management-employee-image {
   height: 90%;
@@ -203,6 +248,13 @@
       card.addEventListener('click', function() {
         const sysName = this.getAttribute('@id') || this.getAttribute('id');
         openEmployeeDialog(sysName);
+      });
+    });
+    /* the call button sits on the card, so its click must not open the dialog too */
+    document.querySelectorAll('.cmd-call-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        callFamilyToDesk(this.dataset.call);
       });
     });
   }, 100);
@@ -421,25 +473,6 @@
     if (r) charts.push(r);
   }
 })();
-<</script>>
-
-<<script>>
-/* She can be called when she is somewhere in the office (also used by the "Call ... to my desk" actions) */
-window.canCallToDesk = function(sysName) {
-  return [10, 13, 14, 15, 16].includes(State.variables[sysName].location.id);
-};
-
-window.callFamilyToDesk = function(sysName) {
-  Dialog.close();
-  State.variables.interactionCharacter = sysName;
-  /* remembers where she was called from, so the interaction screen does not send the player away */
-  State.variables.interactionDesk = {
-    npc: sysName,
-    npcLoc: State.variables[sysName].location.id,
-    playerLoc: State.variables.player.location.id
-  };
-  Engine.play("NPC Interaction");
-};
 <</script>>
 
 <style>

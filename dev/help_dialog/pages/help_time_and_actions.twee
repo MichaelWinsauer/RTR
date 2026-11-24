@@ -6,10 +6,11 @@
 <div class="help-note">The small bar under the diamonds shows how far through the day you are.</div>
 
 <h3>Quick links</h3>
-<p>Below the people in the sidebar, a few shortcuts show up when they would save you a walk. They only appear on places, never during a scene. If one costs time, the link says how many actions.</p>
+<p>Below the people in the sidebar, a few shortcuts show up when they would save you a walk. They only appear on places, never during a scene. If one costs time, the link says how many actions. At your desk in the office the sidebar is hidden, and the same shortcuts sit in the <a href="#" data-help="Help Company Actions">actions panel</a> of the dashboard.</p>
 <ul>
 	<li><b>Go to work</b>: once the company has its own office, on weekdays until the work day is over. It takes you straight to your desk and costs nothing. It also tells you when your next appointment at the office is, and lights up when someone is already waiting for you.</li>
 	<li><b>Wait for breakfast / lunch / dinner</b>: at home, waits until the next <a href="#" data-help="Help Meals">meal</a> and takes you to the kitchen. It costs the actions until then, or nothing if the meal is ready now. It lights up when the meal is one you shouldn't miss.</li>
+	<li><b>Head to ...</b>: lights up when a quest is ready right now and only waits for you to go to its place. It takes you there for free, and the quest starts as you arrive.</li>
 	<li><b>Go to bed</b>: at Night and Late Night, from anywhere. It costs nothing extra, because sleeping ends the day anyway.</li>
 	<li><b>Go home</b>: from anywhere outside the house, straight to your bedroom, for free.</li>
 	<li><b>Wait</b>: spends <b>1 action</b> and you stay where you are.</li>

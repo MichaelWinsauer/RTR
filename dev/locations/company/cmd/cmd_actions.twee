@@ -1,167 +1,95 @@
 :: CMD Actions [nobr] {"position":"2475,3375","size":"200,100"}
-/* My own buttons on the dashboard. Each one spends actions with <<UseAction>>, which runs the full update
-   (tasks, project work) for every single action, and then redraws the desk.
-     Work            one action of my own work: $playerWorking adds +1 to every requirement of every active project
-     Skip Work Day   I work through to the end of today's work hours ($company.workHours).
-                     Only on weekdays, while work hours are left
-     Complete Task   waits until the running task that ends first is done (setup.getRunningTaskEnd). The staff
-                     keep working, I don't. Only while a task runs
-     Wait for Work   before today's work hours: waits until they start. Weekdays only
-     Work until ...  a task with me (setup.getNextTaskWithPlayer, Define Tasks) comes up later today: I work, as with
-                     Work, until the action it starts on, then I'm where it needs me (the dialog opens there).
-                     Weekdays only, while it lies ahead
-     Join ...        that task has started somewhere else in the office (the meeting room) and she's waiting:
-                     goes there without spending an action, so I still arrive in time
-     Go Home         after today's work hours (or on the weekend): one action to get home, straight to my bedroom */
-<<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
-<<set _caWeekday to $date.today.value < 5>>
-<<set _caFirst to $company.workHours.indexOf(true)>>
-<<set _caLast to $company.workHours.lastIndexOf(true)>>
-<<set _caSkip to (_caWeekday ? _caLast + 1 - _caRow : 0)>>
-<<set _caWait to (_caWeekday && _caFirst > _caRow ? _caFirst - _caRow : 0)>>
-<<set _caAfterWork to !_caWeekday || _caFirst < 0 || _caRow > _caLast>>
-<<set _caTaskEnd to setup.getRunningTaskEnd()>>
-<<set _caWp to setup.getNextTaskWithPlayer()>>
-<<if _caWp>>
-    <<set _caWpNpc to State.variables[_caWp.sysName]>>
-    <<set _caWpPlace to setup.getTaskPlace(_caWp.task)>>
-<</if>>
-<div class="cmd-actions-action-wrapper">
-    <div class="cmd-actions-action">
-        <div>
-	        <<Media "images/misc/work.png" "" "" "false">>
+/* My own shortcuts on the dashboard. They are the quick links of "Define Quick Links" with "desk" in their
+   "where" (the desk hides the sidebar, so this panel stands in for it):
+     left   the Work card: the links with card: "work", how long I work or wait (one action, until her task,
+            until her running task is done, until the end of the work day, until work starts)
+     right  everything else that applies right now (join her in the meeting room, her report, home, bed),
+            the highlighted ones first
+   A click works like the sidebar: setup.prepareQuickLink checks the link again, the actions are spent one at a
+   time with <<UseAction>> (working while they are, if the link says so) and then it goes to the target, which
+   is this desk again for most of them. Calling mom or the sister to the desk is on their cards in CMD Management.
+   window.cmdRefreshActions() redraws the panel, e.g. after a task was put into or taken out of the schedule. */
+<<set _caLinks to setup.getQuickLinks("desk")>>
+<<set _caWork to _caLinks.filter((l) => l.card === "work")>>
+<<set _caList to _caLinks.filter((l) => !l.card).sort((a, b) => (b.important ? 1 : 0) - (a.important ? 1 : 0))>>
+<div class="ca">
+    <div class="ca-col">
+        <div class="ca-head">
+            <span class="ca-title">Work</span>
+            <span class="ca-now"><<= $time.current.text>> · <<= $time.actions.left>> left</span>
         </div>
-        <<link "Work">>
-        	<<set $playerWorking to true>>
-            <<UseAction>>
-            <<set $playerWorking to false>>
-            <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
-        <</link>>
+        <div class="ca-work">
+            <<for _caSlot = 0; _caSlot < setup.deskWorkSlots.length; _caSlot++>>
+                <<set _caItem to _caWork.find((l) => l.slot === _caSlot)>>
+                <<if !_caItem>>
+                    /* nothing fills this tile right now: it stays, greyed out, and says why */
+                    <div class="ca-btn idle">
+                        <span class="ca-label"><<= setup.deskWorkSlots[_caSlot].label>></span>
+                        <span class="ca-meta"><span class="ca-hint"><<= setup.deskWorkSlots[_caSlot].idle(setup.quickLinkContext())>></span></span>
+                    </div>
+                    <<continue>>
+                <</if>>
+                <<capture _caItem>>
+                <div @class="'ca-btn' + (_caItem.slot === 0 ? ' primary' : '')">
+                    <span class="ca-label">
+                        <<link _caItem.label>>
+                            <<set _caRun to setup.prepareQuickLink(_caItem.id)>>
+                            <<if _caRun>>
+                                <<set $playerWorking to _caRun.working>>
+                                <<UseAction `_caRun.cost`>>
+                                <<set $playerWorking to false>>
+                                <<goto `_caRun.target`>>
+                            <</if>>
+                        <</link>>
+                    </span>
+                    <span class="ca-meta">
+                        <<if _caItem.hint>><span class="ca-hint"><<= _caItem.hint>></span><</if>>
+                        <span class="ca-cost"><<= _caItem.costText>></span>
+                    </span>
+                </div>
+                <</capture>>
+            <</for>>
+        </div>
     </div>
-    <<if _caSkip > 0>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/workskip.png" "" "" "false">>
-            </div>
-            <<link "Skip Work Day">>
-                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
-                <<set _caSkip to $company.workHours.lastIndexOf(true) + 1 - _caRow>>
-                <<if _caSkip > 0>>
-                    <<set $playerWorking to true>>
-                    <<UseAction _caSkip>>
-                    <<set $playerWorking to false>>
-                <</if>>
-                <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
-            <</link>>
+    <div class="ca-col">
+        <div class="ca-head">
+            <span class="ca-title">Right now</span>
         </div>
-    <</if>>
-    <<if _caTaskEnd > _caRow>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/worktask.png" "" "" "false">>
-            </div>
-            <<link "Complete Task">>
-                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
-                <<set _caTaskEnd to setup.getRunningTaskEnd()>>
-                <<if _caTaskEnd > _caRow>>
-                    <<UseAction `_caTaskEnd - _caRow`>>
-                <</if>>
-                <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
-            <</link>>
+        <div class="ca-list">
+            <<if _caList.length === 0>>
+                <div class="ca-empty">Nothing else needs me.</div>
+            <</if>>
+            <<for _caItem range _caList>>
+                <<capture _caItem>>
+                <div @class="'ca-row' + (_caItem.important ? ' important' : '')">
+                    <span class="ca-label">
+                        <<link _caItem.label>>
+                            <<set _caRun to setup.prepareQuickLink(_caItem.id)>>
+                            <<if _caRun>>
+                                <<set $playerWorking to _caRun.working>>
+                                <<UseAction `_caRun.cost`>>
+                                <<set $playerWorking to false>>
+                                <<goto `_caRun.target`>>
+                            <</if>>
+                        <</link>>
+                    </span>
+                    <span class="ca-cost"><<= _caItem.costText || "free">></span>
+                    <<if _caItem.hint>><span class="ca-hint"><<= _caItem.hint>></span><</if>>
+                </div>
+                <</capture>>
+            <</for>>
         </div>
-    <</if>>
-    <<if _caWp && !_caWp.waiting>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/workwait.png" "" "" "false">>
-            </div>
-            <<link `"Work until " + _caWpNpc.callName + "'s " + _caWp.task.title`>>
-                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
-                <<set _caWp to setup.getNextTaskWithPlayer()>>
-                <<if _caWp && !_caWp.waiting>>
-                    <<set $playerWorking to true>>
-                    <<UseAction `_caWp.entry.startRow - _caRow`>>
-                    <<set $playerWorking to false>>
-                    /* where she will be: my desk counts for the office, anything else (the meeting room) is a walk */
-                    <<set _caWpPlace to setup.getTaskPlace(_caWp.task)>>
-                <</if>>
-                <<if _caWpPlace && _caWpPlace.passage != passage()>>
-                    <<goto `_caWpPlace.passage`>>
-                <<else>>
-                    <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
-                <</if>>
-            <</link>>
-        </div>
-    <</if>>
-    <<if _caWp && _caWp.waiting && _caWpPlace>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/call.png" "" "" "false">>
-            </div>
-            <<link `"Join " + _caWpNpc.callName + " in the " + wikifyText(_caWpPlace.name)`>>
-                <<goto `_caWpPlace.passage`>>
-            <</link>>
-        </div>
-    <</if>>
-    <<if _caWait > 0>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/workwait.png" "" "" "false">>
-            </div>
-            <<link "Wait for Work">>
-                <<set _caRow to $time.current.value * $time.actions.max + ($time.actions.max - $time.actions.left)>>
-                <<set _caWait to $company.workHours.indexOf(true) - _caRow>>
-                <<if $date.today.value < 5 && _caWait > 0>>
-                    <<UseAction _caWait>>
-                <</if>>
-                <<run setTimeout(() => Engine.play(State.active.title, null, "back"), 80)>>
-            <</link>>
-        </div>
-    <</if>>
-    <<if _caAfterWork>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/home.png" "" "" "false">>
-            </div>
-            <<link "Go Home">>
-                <<goto "Bedroom">>
-                <<UseAction>>
-            <</link>>
-        </div>
-    <</if>>
-    /* callFamilyToDesk also stores $interactionDesk, so the interaction screen knows she is still at work */
-    <<if canCallToDesk("mom")>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/call.png" "" "" "false">>
-            </div>
-            <<link "Call $mom.callName to my desk">>
-                <<run callFamilyToDesk("mom")>>
-            <</link>>
-        </div>
-    <</if>>
-    <<if canCallToDesk("sister")>>
-        <div class="cmd-actions-action">
-            <div>
-                <<Media "images/misc/call.png" "" "" "false">>
-            </div>
-            <<link "Call $sister.callName to my desk">>
-                <<run callFamilyToDesk("sister")>>
-            <</link>>
-        </div>
-    <</if>>
+    </div>
 </div>
 
-
-/* a click anywhere on a card clicks its link. Delegated and replaced on every render, so it is bound once.
-   window.cmdRefreshActions() redraws the cards, e.g. after a task was put into or taken out of the schedule */
 <<script>>
 window.cmdRefreshActions = function () {
     $('.cmd-actions').empty().wiki('<<include "CMD Actions">>');
 };
+/* a click anywhere on a button or row clicks its link. Delegated and replaced on every render, so it is bound once */
 $(document)
     .off('click.cmd-action')
-    .on('click.cmd-action', '.cmd-actions-action', function (e) {
+    .on('click.cmd-action', '.ca-btn, .ca-row', function (e) {
         if (!$(e.target).closest('a').length) {
             const $link = $(this).find('a').first();
             if ($link.length) {
@@ -171,3 +99,44 @@ $(document)
         }
     });
 <</script>>
+
+<style>
+/* The panel is much wider than tall, so the two parts sit side by side: the Work card on the left, the list
+   on the right. Neither of them ever grows the panel; a long list scrolls inside its own column */
+.cmd-actions { display: flex; min-height: 0; }
+.ca { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.1fr 1fr; gap: .6rem; }
+.ca-col { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.ca-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; margin-bottom: .35rem; padding: 0 .1rem .25rem; border-bottom: 1px solid var(--card-border); }
+.ca-title { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #EAAF4C; }
+.ca-now { font-size: .62rem; color: rgba(235,221,197,.6); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.ca a { color: inherit !important; text-decoration: none; }
+.ca-label { font-weight: 600; line-height: 1.2; color: #EBDDC5; }
+.ca-hint { font-size: .62rem; color: rgba(235,221,197,.6); line-height: 1.2; }
+.ca-cost { font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; color: rgba(235,221,197,.75); font-variant-numeric: tabular-nums; }
+
+/* Work card: always the same four tiles in a fixed 2 x 2 grid, so nothing moves when one comes or goes.
+   The first one (one action) stands out, a tile with nothing to do is greyed out */
+.ca { text-align: left; }
+.ca-work { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: .4rem; }
+.ca-btn { display: flex; flex-direction: column; justify-content: space-between; gap: .25rem; min-width: 0; min-height: 0; overflow: hidden; padding: .45rem .55rem; border: 1px solid var(--card-border); border-radius: .55rem; background: rgba(235,221,197,.04); font-size: .72rem; text-align: left; cursor: pointer; transition: border-color .15s, background-color .15s, transform .1s; }
+.ca-btn .ca-label { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ca-btn.idle { cursor: default; background: transparent; border-style: dashed; opacity: .5; }
+.ca-btn.idle:hover { border-color: var(--card-border); background: transparent; transform: none; }
+.ca-btn.idle .ca-label { font-weight: 500; }
+.ca-btn:hover { border-color: rgba(234,175,76,.7); background: rgba(234,175,76,.1); transform: translateY(-1px); }
+.ca-btn .ca-meta { display: flex; justify-content: space-between; align-items: end; gap: .4rem; }
+.ca-btn.primary { border-color: rgba(234,175,76,.55); background: rgba(234,175,76,.12); }
+.ca-btn.primary .ca-label { color: #EAAF4C; font-size: .85rem; }
+.ca-btn.primary:hover { background: rgba(234,175,76,.2); }
+
+/* the list: compact rows, label and cost on one line, the hint under it */
+.ca-list { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .3rem; overflow-y: auto; scrollbar-width: thin; }
+.ca-row { text-align: left; display: grid; grid-template-columns: 1fr auto; align-items: baseline; column-gap: .5rem; row-gap: .05rem; padding: .35rem .55rem; border: 1px solid var(--card-border); border-radius: .55rem; font-size: .72rem; cursor: pointer; transition: border-color .15s, background-color .15s; }
+.ca-row .ca-hint { grid-column: 1 / -1; }
+.ca-row:hover { border-color: rgba(234,175,76,.7); background: rgba(234,175,76,.08); }
+.ca-row.important { border-color: #EAAF4C; background: rgba(234,175,76,.14); }
+.ca-row.important .ca-label { color: #EAAF4C; }
+.ca-row.important .ca-label::before { content: ""; display: inline-block; width: .45em; height: .45em; margin: 0 .4em .1em 0; border-radius: 50%; background: #EAAF4C; box-shadow: 0 0 6px #EAAF4C; vertical-align: middle; }
+.ca-empty { margin: auto; font-size: .68rem; font-style: italic; color: rgba(235,221,197,.45); }
+</style>

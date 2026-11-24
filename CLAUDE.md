@@ -346,7 +346,7 @@ Each card runs its own block on click. The levels (Charm, Warm-up, Entertain, Ha
 ### The company, Stage 1 (`define_company.twee`, `dev/locations/company/`)
 - `$company.stage`: 0 = home + small office, 1 = third-floor office with staff, 2 = placeholder, 3 = placeholder. Money: in Stage 0 it's `$player.money`; from Stage 1 on, `<<CalculateFinances>>` sweeps it into `$company.finances.money`.
 - **My Desk** (`Company Stage 1 Desk`) shows the **Company Management Dashboard**, built from `CMD *` panels in `dev/locations/company/cmd/`:
-  - Header; Actions (the player's own Work button, `$playerWorking`); Schedule + Slots (drag tasks onto mom's/sister's day); Stats; Management (employee cards/dialogs).
+  - Header; Actions (the desk quick links: the Work card, how long the player works with `$playerWorking`, and a list of the other shortcuts); Schedule + Slots (drag tasks onto mom's/sister's day); Stats; Management (employee cards/dialogs, the call-to-desk button on mom's/sister's card).
   - Projects; Mails; Finances (chart from `finances.history`); CCTV + Control (watch mom/sister, CCTV clips per activity); Other.
 
   A panel refreshes itself with `$("#cmd-x").empty().wiki('<<include "CMD X">>')`.
@@ -359,7 +359,7 @@ Each card runs its own block on click. The levels (Charm, Warm-up, Entertain, Ha
 
 ### Other
 - Sidebar: `StoryCaption` → `dev/system/caption/*` (quests, time, location, player, mom, sister, prototype, quick actions), using `<<SbMeter>>`, `<<SbNpc>>` and `<<SbQuest>>` from `sidebar_widgets.twee`.
-- Quick links (`Quick Caption`, data in `define_quicklinks.twee`): situational sidebar shortcuts (go to work, wait for the next meal, go to bed, go home, wait). Each is a `setup.quickLinks` entry with `when`/`label`/`cost`/`target`; add new shortcuts there, not as `<<if>>`s in the caption. Debug links belong in `Dev Caption`.
+- Quick links (data in `define_quicklinks.twee`): situational shortcuts (go to work, wait for the next meal, her report, go to bed, go home, wait, and at My Desk how long to work). Each is a `setup.quickLinks` entry with `where` (`"sidebar"` = `Quick Caption`, `"desk"` = `CMD Actions`), `when`/`label`/`cost`/`target` and optionally `card: "work"` + `slot` (one of the four fixed tiles of the desk Work card, `setup.deskWorkSlots`), `items` (one link per item, like the "Head to ..." link per ready quest) and `working` (sets `$playerWorking` while its actions are spent). Going somewhere is free, only waiting costs actions. Add new shortcuts there, not as `<<if>>`s in the caption or the panel. Debug links belong in `Dev Caption`.
 - Settings (`$settings`, `Define Settings` + handlers at the top of StoryScript), audio (`Define Audio`, `<<PlayAudio>>` runs automatically from each location's `audio`), help dialog (`dev/help_dialog/`), main menu/gallery/changelog (`dev/intro/main_menu/`).
 
 ---

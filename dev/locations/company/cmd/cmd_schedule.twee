@@ -58,7 +58,7 @@ window.placeTask = function (task, startRow, saveToState) {
         State.variables.activeTasks[character.sysName].push(newTaskEntry);
     }
     window.renderTaskElement(newTaskEntry, true);
-    if (saveToState && window.cmdRefreshActions) window.cmdRefreshActions();   /* "Work until ..." card */
+    if (saveToState && window.cmdRefreshActions) window.cmdRefreshActions();   /* the Work card (Until her task) */
     if (saveToState && window.cmdRefreshHeader) window.cmdRefreshHeader();     /* "Next up" task items */
 };
 
@@ -66,7 +66,7 @@ window.removeScheduledTask = function (sysName, entryId) {
     State.variables.activeTasks[sysName] = State.variables.activeTasks[sysName].filter(t => t.id !== entryId);
     $("#cmd-schedule").empty().wiki('<<include "CMD Schedule">>');
     if (window.cmdRefreshHeader) window.cmdRefreshHeader();   /* "Next up" task items */
-    if (window.cmdRefreshActions) window.cmdRefreshActions();   /* "Work until ..." card */
+    if (window.cmdRefreshActions) window.cmdRefreshActions();   /* the Work card (Until her task) */
 };
 
 window.getTaskBlockState = function (entry, live) {

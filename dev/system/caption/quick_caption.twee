@@ -13,7 +13,9 @@
 					<<link _qlItem.label>>
 						<<set _qlRun to setup.prepareQuickLink(_qlItem.id)>>
 						<<if _qlRun>>
+							<<set $playerWorking to _qlRun.working>>
 							<<UseAction `_qlRun.cost`>>
+							<<set $playerWorking to false>>
 							<<goto `_qlRun.target`>>
 						<</if>>
 					<</link>>

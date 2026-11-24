@@ -1015,13 +1015,13 @@ $(document).on(':passagerender', function () {
 */
 (function () {
     $(document).one(':storyready', function () {
-        $(document).on("mouseenter", "a, button, .link-internal, .link-external, .cmd-actions-action, .cmd-management-employee-card, .cmd-projects-project-wrapper, .cmd-inbox-mail, .cmd-schedule-action", function () {
+        $(document).on("mouseenter", "a, button, .link-internal, .link-external, .ca-btn:not(.idle), .ca-row, .cmd-management-employee-card, .cmd-projects-project-wrapper, .cmd-inbox-mail, .cmd-schedule-action", function () {
           	if (settings.volSfx == 0) return;
             var volume = (typeof settings !== 'undefined' && settings.volSfx != null ? settings.volSfx : 50) / 100  / 2;
           	SimpleAudio.select("effect-hover").volume(volume).loop(false).play();
         });
 
-        $(document).on("click", "a, button, .link-internal, .link-external, .cmd-actions-action, .cmd-management-employee-card, .cmd-projects-project-wrapper, .cmd-inbox-mail, .cmd-schedule-action", function () {
+        $(document).on("click", "a, button, .link-internal, .link-external, .ca-btn:not(.idle), .ca-row, .cmd-management-employee-card, .cmd-projects-project-wrapper, .cmd-inbox-mail, .cmd-schedule-action", function () {
           	if (settings.volSfx == 0) return;
           	var volume = (typeof settings !== 'undefined' && settings.volSfx != null ? settings.volSfx : 50) / 100  / 2;
             SimpleAudio.select("effect-click").volume(volume).loop(false).play();

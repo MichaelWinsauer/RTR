@@ -2358,55 +2358,6 @@ Saves dialog (frame, scrollbar and font are shared with the Settings dialog abov
   padding: 0;
 }
 
-.cmd-actions-action-wrapper {
-  grid-area: actions;
-  display: flex;
-  justify-content: flex-start;
-  align-items: start;
-  flex-wrap: wrap;
-  gap: .5rem;
-}
-
-.cmd-actions-action {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: .5rem;
-  aspect-ratio: 1;
-  display: grid;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: .5rem;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  width: 15%;
-  font-size: .65rem;
-  text-align: center;
-  box-sizing: border-box;
-  height: stretch;
-  height: -webkit-fill-available;
-  grid-template-rows: 1fr 1fr;
-  padding: .75rem 0;
-  overflow: hidden;
-  position: relative;
-  letter-spacing: .5px;
-}
-
-.cmd-actions-action:hover {
-  transform: translateY(-.25em);
-}
-
-.cmd-actions-action a, .cmd-actions-action .link-innternal {
-  color: #EBDDC5 !important;
-  font-weight: 300;
-  line-height: 1.25;
-}
-
-.cmd-actions-action img {
-  border: none !important;
-  width: 2em;
-  aspect-ratio: 1;
-}
-
 /*Schedule Grid*/
 
 .cmd-schedule-grid {
