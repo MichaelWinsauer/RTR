@@ -65,6 +65,7 @@ window.placeTask = function (task, startRow, saveToState) {
     if (saveToState) {
         State.variables.activeTasks[character.sysName].push(newTaskEntry);
         if (partnerEntry) State.variables.activeTasks[partner.who.sysName].push(partnerEntry);
+        setup.markTaskPicked(task);   /* no more "New" badge in the picker (Define Tasks) */
     }
     window.renderTaskElement(newTaskEntry, true);
     if (partnerEntry) window.renderTaskElement(partnerEntry, true);
@@ -479,6 +480,8 @@ window.displaySingleTask = function (task, selectedStart, issue) {
     }
 
     const badges = [];
+    /* unlocked but never planned yet, also in the dimmed rows (setup.taskIsNew, Define Tasks) */
+    if (setup.taskIsNew(task)) badges.push(`<span class="tp-badge tp-badge-new" title="Unlocked, and I haven't planned it yet.">New</span>`);
     if (withMe) badges.push(`<span class="tp-badge tp-badge-me" title="${meText}">With me</span>`);
     /* a task for two, off-site, private, her report, the stage (STAGE1_TASKS.md) */
     const partner = setup.taskPartner(task);
@@ -859,6 +862,8 @@ window.updateCurrentTimeLine = function () {
 .tp-badge-me { color: #EAAF4C; border-color: #EAAF4C80; }
 .tp-badge-report { color: #1cd88d; border-color: #1cd88d80; }
 .tp-badge-warn { color: #ff6479; border-color: #ff647980; }
+/* filled, so it still stands out in a dimmed row */
+.tp-badge-new { color: #22222e; background: #EAAF4C; border-color: #EAAF4C; }
 
 .tp-place {
   font-size: .76rem;

@@ -1401,6 +1401,27 @@
     return !!live.report || (live.stages || []).some((stage) => !!stage.report);
 }>>
 
+/* New tasks in the picker =========================================================
+   setup.taskIsNew(task)        unlocked, but I have never put it on the schedule: the picker shows a "New" badge,
+                                in every row, the dimmed ones included. A task that is already on the schedule or has
+                                run before (placed by the story or Skip Intro) is not new
+   setup.markTaskPicked(task)   I put it on the schedule (window.placeTask): no longer new, its pair partner neither
+   The flag is live.picked on the $tasks entry. */
+<<set setup.taskIsNew = (task) => {
+    const v = State.variables;
+    const live = setup.getLiveTask(task);
+    if (!live || !live.active || live.picked || (Number(live.count) || 0) > 0) { return false; }
+    return ![ "mom", "sister" ].some((key) => (v.activeTasks[key] || []).some((e) => e.task.id === live.id));
+}>>
+
+<<set setup.markTaskPicked = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live) { return; }
+    live.picked = true;
+    const partner = live.pair ? setup.getTaskById(live.pair) : null;
+    if (partner) { partner.picked = true; }
+}>>
+
 
 /* Team Spirit =================================================================
    The sister spends the task with whoever on the staff has the lowest morale. The pick is made the first time it is
