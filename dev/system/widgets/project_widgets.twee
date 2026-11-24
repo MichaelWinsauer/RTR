@@ -75,9 +75,10 @@
 						});
 
 						/* the morale the work costs: a flat effort per action they worked (split over their projects),
-						   times the drain factor (company Morale and the vent level). About 14 a day on the Low vent, which
-						   the nightly recovery (+15 at company Morale 50) almost makes up for; Medium and High wear
-						   them down. Whole points come off the stat, the fraction waits in moraleCarry. */
+						   times the drain factor (company Morale and the vent level). About 13 a day on the Low vent at company
+						   Morale 50, against +8 overnight: the week costs them a little, the weekend gives most of it back,
+						   and Medium and High wear them down (balance notes in "Company stats", Define Company).
+						   Whole points come off the stat, the fraction waits in moraleCarry. */
 						if (totalWorkThisTick > 0) {
 							const drain = setup.companyStatTuning.moraleDrainPerAction * drainFactor / Math.max(1, employee.assignedProjectCount)
 								+ (Number(employee.moraleCarry) || 0);

@@ -39,6 +39,6 @@
 	<tr><td><<= _hcdLevel.name>><<if _hcdLevel === setup.ventLevel()>> <span class="help-pill">Now</span><</if>></td><td><<= _hcdLevel.output>>%</td><td><<= _hcdLevel.efficiency>></td><td>×<<= _hcdLevel.drain>></td></tr>
 	<</for>>
 </table>
-<p>On Low the team keeps going at a steady pace. Medium gets more done and leaves them at about two thirds of their morale. High gets the most done for a week or so, then they run out of morale and fall behind even Medium, so it's for the week before a deadline; the header reminds you while it is still running there. Efficiency follows the level by <<= setup.companyStatTuning.efficiencyRise>> points per night, so switch a few days early.</p>
+<p>Off lets them recover. On Low the team loses a little morale over a week, and a weekend or a couple of Coffee Breaks make up for it. Medium gets more done and wears them down over two or three weeks unless the company's Morale is high. High gets the most done for a few days, then they run out of morale by the end of the week and fall behind even Medium, so it's for the week before a deadline; the header reminds you while it is still running there. Efficiency follows the level by <<= setup.companyStatTuning.efficiencyRise>> points per night, so switch a few days early.</p>
 <</if>>
 <div class="help-note">A finished device doesn't glitch while you calibrate it. Only the unfinished prototype from Stage 0 does.</div>

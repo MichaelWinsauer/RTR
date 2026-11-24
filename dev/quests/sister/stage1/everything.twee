@@ -17,7 +17,7 @@ She comes in at seven, after her seminar, and stands in the doorway with her bag
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "Can we talk? About last night?" },
-{ text: "Last night she stood on a rooftop in a dress I chose, laughed at $investor.callName's stories, and let him introduce her to people as 'the charming young lady from that clever little company'. Later she stood very still while a man from $retailChain.name kept his hand on her bare back. She did everything I asked, and she did it well, and she hasn't said a word about it all day." },
+{ text: "Last night she stood on a rooftop in a dress I chose, laughed at $investor.callName's stories, and let him introduce her to people as 'the charming young lady from that clever little company'. " + ($sister.flags.rooftopSignal === false ? "Later a man from $retailChain.name put his hand on her bare back, and she waited for my signal, and slipped away to the bar when it didn't come." : "Later she stood very still while a man from $retailChain.name kept his hand on her bare back.") + " She did everything I asked, and she did it well, and she hasn't said a word about it all day." },
 { who: $sister, text: "I did all of it, for you. And the whole way home I kept thinking, what am I to you, actually, that I'd do something like that?" },
 ]>>
 <</silently>>

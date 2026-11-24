@@ -30,8 +30,9 @@
 <<CalculateFinances true>>
 
 <<run 
-	$mom.stats.energy = Math.clamp($mom.stats.energy + 20 + Math.round($mom.stats.energy * .3), $mom.stats.min.energy, $mom.stats.max.energy);
-	$sister.stats.energy = Math.clamp($sister.stats.energy + 20 + Math.round($sister.stats.energy * .7), $sister.stats.min.energy, $sister.stats.max.energy);
+	/* a flat amount each night, so a packed week adds up (setup.taskEnergyTuning, Define Tasks) */
+	$mom.stats.energy = Math.clamp($mom.stats.energy + setup.taskEnergyTuning.nightly.mom, $mom.stats.min.energy, $mom.stats.max.energy);
+	$sister.stats.energy = Math.clamp($sister.stats.energy + setup.taskEnergyTuning.nightly.sister, $sister.stats.min.energy, $sister.stats.max.energy);
     
     /* how much morale everyone wins back depends on the company Morale (setup.moraleRecovery, Define Company) */
     const moraleBack = setup.moraleRecovery();

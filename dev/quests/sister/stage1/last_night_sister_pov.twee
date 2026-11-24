@@ -1,0 +1,90 @@
+:: Last Night Sister POV [scene pov] {"position":"5275,1900","size":"100,100"}
+/* POV passage, her side of the Night Shift (main_nightShift) inside $club.name, if I offered them to $supplier.callName
+   ($flags.supplierOffered). Opened from her end-of-day report on the day after: Night Shift 3 logs it with
+   setup.logDay(..., { day: tomorrow }), because tonight's log is cleared before she wakes up. Its line and link are in
+   setup.dayReports.sister.last_night (Define NPCs). No effects here: they are in Night Shift 3.
+   The same night as Last Night Mom POV, from her side. She does the evening exactly the way we rehearsed it, and it works,
+   until "not yet" runs out and $supplier.callName says it's later now. His room at the back, the piano nobody plays. She gets
+   through it by holding on to "outside" and by writing a text in her head to her best friend that she'll never send. When
+   she comes out, her mother is sitting on the hallway floor waiting for her, and buttons her coat up to the chin. She tells
+   me all of it, because I wrote the script and I should have to hear how it went.
+   Variant: the rooftop signal ($flags.retailIntro "sister").
+   Clips: none yet (MEDIA comments below). */
+<<silent>><<SetBackground setup.getLocationBySysName("club").img>><</silent>>
+<<PovHeader $sister>>
+It works. That's what I keep coming back to, all night long: every single thing we practiced in that dim meeting room actually works.
+
+$supplier.callName is the man from the phone, the soft voice $player.name did for me in the meeting room, only in real life it comes with a camel cardigan and very small, very clean hands. He takes us upstairs, to a long room with leather chairs and five men in them, and he sits me next to him on a little sofa by the window, with him between me and the room. So he feels like he has me to himself. I could have drawn the seating chart myself.
+
+I laugh a little before his punch lines. I touch his arm. I keep his glass full and he never once sees me do it. Every time I get it right he looks pleased, and some small, stupid part of me is pleased too, like I'm back in the meeting room getting a good grade.
+
+/* MEDIA: images/characters/sister/events/last_night/sofa.jpg | A small sofa by a dark window in a lamplit room, Sister in a black dress laughing with her hand on the arm of a gray-haired man in a camel cardigan */
+
+$mom.callName is across the room on the arm of somebody's chair, being delightful about a boat. She doesn't look at me once in two hours. She also doesn't stop watching me for a second, which is a thing only she can do, and only with me. I've known she could do that since I was six.
+
+Since the car, I know other things too. I know where her nights go. I know what she is to him, and she knows what I am, and we've spent months in the same kitchen, each of us working so hard to keep the other one out of it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $supplier, text: "There's a quieter room at the back. Would you like to see it?" },
+{ who: $sister, text: "Not yet. You haven't finished telling me about Lisbon." },
+{ text: "I touch his arm when I say it, and I smile like I mean later, exactly the way I practiced. He laughs, and he tells me the rest of Lisbon." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It holds for another hour. I say not yet twice more, and both times it works, and both times I can feel it working less.
+
+The last time, he's already standing.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Not yet..." },
+{ who: $supplier, text: "My dear, it's later now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We never rehearsed this part. $player.name played him all the way up to the door, and then we went back to the top and did it all again, and neither of us ever said what came after not yet. I suppose we both knew.
+
+I take his hand. Behind me I hear $mom.callName get up, and then I hear her not follow, and I don't turn around, because if I see her face right now, I won't be able to walk.
+
+<<linkreplace "The room at the back">>
+His room has a piano in it, a little black upright with the lid closed and a vase of white flowers on top, which I spend a lot of time looking at later. A couch, a lamp, a rug that probably costs more than my tuition. No window. I check.
+
+/* MEDIA: images/characters/sister/events/last_night/back_room.jpg | A small paneled room, a black upright piano with white flowers on it, a lamp, a leather couch, Sister standing with her back to the closed door */
+
+<<if $flags.retailIntro === "sister">>On the rooftop there was always somebody across the terrace to look at, and a hand that could go up to an ear. In here there's the piano.<</if>>
+
+He's very gentle about everything, which turns out not to help at all. He unzips my dress himself, slowly, like he's opening a present he's been told not to shake, and he says "lovely" about every single thing he finds underneath. Then he sits back on the couch and has me come to him.
+
+I'm good at this, and that's still the worst thing I know about myself. I'm on top of him on the couch for most of it, with his small clean hands on my hips, and I move the way he likes, and I make the sounds he likes, and somewhere in my head I'm writing a text to $bestFriend.name.
+
+<i>so I'm at this club,</i> it starts. I never get further than that. I delete it and start again maybe thirty times, and it's never any longer than that, and it's the only thing that gets me through.
+
+That, and outside. He's outside, in the car, the whole time, across the street. I hold on to that word the way you hold on to the side of a pool. Around one o'clock, with $supplier.callName's breath on my neck, it occurs to me that I have absolutely no way of knowing whether he's still there, and that I believed him anyway, and that I'd believe him again tomorrow. I'm not sure which part of that scares me most.
+
+/* MEDIA: images/characters/sister/events/last_night/couch.jpg | Lamplight on a leather couch, Sister astride a gray-haired man, her face turned away toward a black piano with white flowers on it */
+
+When it's over, he kisses the back of my hand like we've been dancing, and tells me I'm a credit to the company, and to take my time. I get dressed. My feet hurt so much that I don't even try the heels, I just carry them.
+
+<<linkreplace "The hallway">>
+$mom.callName is sitting on the hallway floor, right across from my door, with her back to the wall and her coat over her knees. She has her earrings in, and her lipstick's perfect, and her eyes are not perfect at all.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "$mom.callName..." },
+{ text: "She gets up without using her hands, which I didn't know she could still do, and puts her coat around my shoulders." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She buttons it all the way to my chin, the top button too. I always hated the top button. When I was a kid she used to do it up at the bus stop and I'd undo it as soon as the bus pulled away, and she knew, and did it again every morning anyway. I leave it done up.
+
+We walk out past the bar and through the black door, and it's raining, and the car is there. It was there the whole time.
+
+He's going to want to know how it went. Maybe he'll ask, or maybe he'll do what he always does and wait until I bring it up on my own, like it's a present I owe him. Either way I'm telling him, all of it, the cardigan and Lisbon and the piano and how many times I said not yet. He wrote the script. He can sit through the review.
+
+<<EndPov>>
+<</linkreplace>>
+<</linkreplace>>

@@ -50,7 +50,7 @@ He has a soft, unhurried voice, the voice of a man who has never once in his lif
 <</silently>>
 <<Chat _msgs>>
 
-He doesn't say anything else. Maybe he's heard about the rooftop, or about $mom.callName on the sixth floor, or maybe he's just a man who has made this offer before and knows how it lands. Either way he waits, breathing softly on the line, while I look at the company account on my screen. <<if _suStalls > 0>>Since my last call, his price has gone up to $<<= _suPrice.toLocaleString("en-US")>>.<</if>>
+He doesn't say anything else. Maybe he's heard about <<if $flags.retailIntro === "sister">>the rooftop, or about <</if>>$mom.callName on the sixth floor, or maybe he's just a man who has made this offer before and knows how it lands. Either way he waits, breathing softly on the line, while I look at the company account on my screen. <<if _suStalls > 0>>Since my last call, his price has gone up to $<<= _suPrice.toLocaleString("en-US")>>.<</if>>
 
 <<Offer>>
 <<plain "Pay him" `"-$" + _suPrice.toLocaleString("en-US") + " up front"` _suPrice>>
@@ -95,7 +95,7 @@ Every Monday for ten weeks I'll be paying the man who used to yell at $mom.callN
 { who: $player, text: "What if I brought you two hostesses for an evening at your club? Really good ones." },
 { text: "There's a pause on the line, and for the first time his voice isn't quite as soft when he answers." },
 { who: $supplier, text: "Two of them. Well, that is a very generous offer, $player.name." },
-{ who: $supplier, text: "The day after tomorrow, then, at ten o'clock. You can drive them yourself, though you'll wait outside, of course. The club is for members only." },
+{ who: $supplier, text: "I'll let you know which evening. My members like a little notice, and a little anticipation never hurt anyone. You can drive them yourself, though you'll wait outside, of course. The club is for members only." },
 { who: $player, text: "Of course." },
 ]>>
 <</silently>>
@@ -103,7 +103,7 @@ Every Monday for ten weeks I'll be paying the man who used to yell at $mom.callN
 
 He hangs up. I sit there for a while with the phone in my hand and the account balance on the screen, untouched.
 
-I haven't told either of them yet, and neither of them knows the other one is going. Tomorrow evening I'll take $sister.callName into the meeting room and rehearse it with her, and I'll tell $mom.callName what to wear, and I'm hoping neither of them asks why.
+I haven't told either of them yet, and neither of them knows the other one is going. Before the night comes I'll take $sister.callName into the meeting room and rehearse it with her, and I'll tell $mom.callName what to wear, and I'm hoping neither of them asks why.
 
 <<UpdateStat "+" "Corruption" 4>>
 <<NextQuest $player>>

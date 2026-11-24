@@ -6,7 +6,7 @@
 	<li>Every <b>active project pays its daily revenue</b> into the company account, weekends too.</li>
 	<li>The <a href="#" data-help="Help Company Finances">finance chart</a> gets a new entry, and the income and expense totals are recalculated for the new day.</li>
 	<li>Every <a href="#" data-help="Help Company Devices">device</a> you own recharges by <b>15%</b>, and the early prototype by <<= $company.prototype.rechargePerDay || 10>>%.</li>
-	<li>Every employee recovers morale: <b><<= setup.moraleRecovery()>></b> right now, from 5 to 25 depending on the company's Morale (see <a href="#" data-help="Help Company Stats">Company stats</a>).</li>
+	<li>Every employee recovers morale: <b><<= setup.moraleRecovery()>></b> right now, from 4 to 12 depending on the company's Morale (see <a href="#" data-help="Help Company Stats">Company stats</a>).</li>
 	<li>The company's <b>Efficiency</b> moves toward its target: up to <<= setup.companyStatTuning.efficiencyRise>> points up, or <<= setup.companyStatTuning.efficiencyFall>> down.</li>
 	<li>Every client project that is overdue costs <b>1 Reputation</b>.</li>
 	<li>$mom.callName and $sister.name recover <b>energy</b>. $sister.name recovers more than $mom.callName.</li>
@@ -18,7 +18,7 @@
 	<li>The <b>rent</b> is due. Bring it to the landlord before the evening, or he comes for it, see <a href="#" data-help="Help Company Finances">Finances</a>.</li>
 	<li>The whole week of <a href="#" data-help="Help Company Employees">wages</a> is paid out of the company account.</li>
 	<li>In Stage 0, while $mom.callName still helps with the rent, her <b>$500</b> for the week arrives.</li>
-	<li>The company's <b>Morale</b> settles 5 points back toward 50.</li>
+	<li>The company's <b>Morale</b> settles <<= setup.companyStatTuning.moraleWeeklyDrift>> points back toward 50.</li>
 </ul>
 
 <h3>On weekends</h3>

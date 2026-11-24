@@ -69,7 +69,7 @@
   letter-spacing: .22em;
   text-transform: uppercase;
   text-align: left;
-  color: #EAAF4C;
+  color: var(--accent);
   cursor: pointer;
 }
 .help-group-head::after { content: "\25B8"; opacity: .6; transition: transform .15s; }
@@ -91,7 +91,7 @@
   transition: background-color .15s, color .15s;
 }
 .help-link:hover { background: rgba(235,221,197,.1); color: #fff; }
-.help-link.active { background: rgba(234,175,76,.16); color: #fff; }
+.help-link.active { background: rgba(235,221,197,.16); color: #fff; }
 
 .help-page {
   overflow-y: auto;
@@ -116,14 +116,14 @@
 .help-body ul { margin: 0 0 .9em; padding-left: 1.2em; }
 .help-body li { margin-bottom: .3em; }
 .help-body b { color: #fff; }
-.help-body a[data-help] { color: #EAAF4C; font-weight: 600; text-decoration: none; border-bottom: 1px dotted rgba(234,175,76,.6); cursor: pointer; }
+.help-body a[data-help] { color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px dotted rgba(235,221,197,.6); cursor: pointer; }
 .help-body a[data-help]:hover { color: #fff; }
 .help-note {
   margin: 1em 0 .85em;
   padding: .6em .9em;
-  border: 1px solid rgba(234,175,76,.3);
+  border: 1px solid rgba(235,221,197,.3);
   border-radius: .5em;
-  background: rgba(234,175,76,.08);
+  background: rgba(235,221,197,.08);
   font-size: .9em;
 }
 .help-stats { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: .55rem 1rem; margin: 0 0 1em; }
@@ -134,10 +134,10 @@
 
 .help-table { width: 100%; margin: 0 0 1em; border-collapse: collapse; font-size: .85em; }
 .help-table th, .help-table td { padding: .4em .6em; border-bottom: 1px solid var(--card-border); text-align: left; vertical-align: top; }
-.help-table th { font-size: .78em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #EAAF4C; background: transparent; border-top: none; }
+.help-table th { font-size: .78em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: transparent; border-top: none; }
 .help-table td:first-child { font-weight: 700; color: #fff; }
 /* a small marker inside a table cell or a line ("With me") */
-.help-pill { display: inline-block; margin-left: .3em; padding: 0 .5em; border: 1px solid rgba(234,175,76,.5); border-radius: 999px; color: #EAAF4C; font-size: .75em; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; vertical-align: middle; }
+.help-pill { display: inline-block; margin-left: .3em; padding: 0 .5em; border: 1px solid rgba(235,221,197,.5); border-radius: 999px; color: var(--accent); font-size: .75em; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; vertical-align: middle; }
 .help-empty { opacity: .7; font-style: italic; }
 
 @media (max-width: 760px) {

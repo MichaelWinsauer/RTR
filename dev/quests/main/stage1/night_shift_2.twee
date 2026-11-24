@@ -21,7 +21,7 @@ I park across the street. Neither of them has said a word the whole way, and in 
 
 They cross the street together, in the rain, in the black dresses and the heels, $mom.callName half a step ahead the way she walks when she's taking someone to the doctor. The doorman looks at them, then at a list on his phone, then steps aside and opens the black door.
 
-$sister.callName looks back once, at the car. I don't know if she can see me through the windshield. I don't touch my ear.
+$sister.callName looks back once, at the car. I don't know if she can see me through the windshield.<<if $flags.retailIntro === "sister">> I don't touch my ear.<</if>>
 
 The door closes behind them.
 
@@ -97,7 +97,10 @@ I don't listen to it. Whatever it is, it's $ethan.name, and $ethan.name can wait
 :: Night Shift 3 [event main_quest] {"position":"6325,500","size":"100,100"}
 /* Quest "The Night Shift" (main_nightShift), the end: after the call. If they went, the car home, the two of them in the
    back seat, in silence, and $sister.callName sleeps in $mom.callName's room. If I paid, home alone with the case. Ends the
-   quest; The Morning After is next. */
+   quest; The Morning After is next.
+   If they went, both of them offer to tell me about the club the next day: an entry for tomorrow in their end-of-day
+   reports (setup.dayReports.<sysName>.last_night, Define NPCs; tonight's log is cleared overnight), which opens their POV
+   passages Last Night Mom POV and Last Night Sister POV. */
 <<silent>><<SetBackground "images/locations/car.jpg">><</silent>>
 <<if $flags.supplierOffered === true>>
 They come out at ten past two.
@@ -125,6 +128,8 @@ I sit at the kitchen table in the dark for a long time. My phone is still face d
 <<Feel $sister "supplier" -3 "lasting">>
 <<ProfileLog $mom "The Last Night" "I drove her and $sister.callName to $supplier.callName's club in the black dresses I picked, and waited outside. In the back seat they saw each other and understood. They came out at ten past two and didn't say a word the whole way home. She took $sister.callName into her room.">>
 <<ProfileLog $sister "The Last Night" "I drove her and $mom.callName to $supplier.callName's club, the way we rehearsed it, and waited outside. In the back seat she saw $mom.callName, and they both knew. They came out at ten past two. She slept in $mom.callName's room.">>
+<<run setup.logDay("mom", "event", "last_night", { day: $date.dayCount + 1 })>>
+<<run setup.logDay("sister", "event", "last_night", { day: $date.dayCount + 1 })>>
 <<else>>
 I drive home through the empty streets with the case on the passenger seat. At home everyone's asleep, $mom.callName's door closed, $sister.callName's light off.
 

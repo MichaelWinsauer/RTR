@@ -1,0 +1,108 @@
+:: Mom Gym Dinner POV [scene pov] {"position":"4650,1200","size":"100,100"}
+/* POV passage, her side of the gym dinner (quest "Was That Right?", mom_gymDinner). Opened from part 1 (Mom Gym Dinner
+   Report, where she starts telling me), and <<EndPov>> goes on to part 2 (Mom Gym Dinner Report 2) through $povReturn.
+   No effects here: they are all in part 2.
+   The steakhouse downtown with $gymOwner.name, in the green dress (its third outing in twenty years). Shared: she's early,
+   he's already there, ice baths and kettlebells, the arm touch I coached in Flirt Duty, she only sips because she's driving,
+   and the bread basket: she's so busy asking herself what I'd want her to do that she nearly knocks her wine into his lap
+   (The Catalyst Night calls back to that). Then by $mom.flags.gymDinnerLetHim:
+     true   after the second bottle he moves around the corner of the table and puts his hand on her knee. It stays through
+            dessert and coffee and goes an inch higher than she'll admit to me. She wraps cheesecake for me with his hand
+            on her thigh. She'll tell me it stayed on her knee, a nearly-true thing she thinks I'd want.
+     false  his hand finds her knee once, she puts it back on the tablecloth and asks about the twelfth location, and she
+            has a genuinely nice evening. In the car she starts to wonder whether light was what I wanted.
+   Both end in the driveway with the dome light on, the moment I saw from the window. */
+<<silent>><<SetBackground "images/locations/steakhouse.jpg">><</silent>>
+<<PovHeader $mom>>
+The young man at the podium takes my coat, and for one awful second I can't remember what I'm wearing underneath it. Then I remember. It's the green dress, out of the closet for the third time in twenty years, and the second time doesn't bear thinking about in a nice restaurant, so I don't.
+
+$gymOwner.name is already at the table, which I didn't expect. Men like him are usually late on purpose, so you have time to look at the door and wonder. He stands up when he sees me, all the way up, and buttons his jacket, and his face does something that makes me want to check my teeth for lipstick. I don't need to. I checked in the car, more than once.
+
+/* MEDIA: images/characters/mom/events/gym_dinner_pov/arrival.jpg | A dim steakhouse, white tablecloths, a broad tanned man in a suit standing up from a corner table as Mom comes toward him in the green dress */
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Well, now this is a surprise. They told me I'd be having dinner with the company, and they sent me the best-looking part of it." },
+{ who: $mom, text: "Oh, stop it. They told you you'd be having dinner with the client consultant, and I'm afraid that's me, so you'll just have to make do." },
+{ text: "He laughs and pulls my chair out himself before the waiter can get there. I sit down and tell myself it's a client dinner like the hundred others I've sat through, only with a nicer steak, which is exactly what I told $player.name this afternoon, and it sounded very convincing at the time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He orders a bottle of something red and tells me where the grapes grew up and practically which school they went to, and then he tells me about his mornings. He gets up at four-thirty. He sits in a tub of ice for six minutes, which he says the way other men tell you they go to church, and after that there's something with kettlebells I don't completely follow. I laugh where I'm supposed to, and when he says something funny I touch his wrist, just lightly, the way $player.name showed me in the office, and it works so well and so fast that I feel a little sorry for men in general.
+
+I'm driving, so I let him fill my glass and only ever drink the top inch of it. He doesn't notice. He thinks we're keeping up with each other, which is nice for him.
+
+The whole time there's a little voice in the back of my head going, what would $player.name want me to do now, is this all right, was that, and when the waiter leans in with the bread basket I'm listening to it so hard that I swing my hand right into my glass. I catch it, mostly. The wine goes all over the tablecloth and misses $gymOwner.name's lap by about an inch, and he thinks it's the funniest thing that's happened to him all year.
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Easy there! If you wanted my pants off, you only had to ask." },
+{ text: "I laugh, because that's what you do with a line like that, and put my napkin over the stain and pat it like a little dog that's had an accident." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $mom.flags.gymDinnerLetHim === true>>
+After the second bottle, which is mostly the first bottle's fault, he picks up his plate and his glass and moves around the corner of the table, so that he's sitting next to me instead of across. He says it's so he doesn't have to shout. You could hear a fork drop in here.
+
+His hand comes down on my knee in the middle of a sentence about retention rates, and it stays there.
+
+I've known it was coming since this afternoon, when I asked $player.name what to do if he got friendly, and he said let him, within reason, and I said okay, and then I went back to my desk and called this restaurant to ask about a dress code that doesn't exist, just to hear somebody say something normal. So I'm ready. What I wasn't ready for is how warm a man's hand is through stockings, and how heavy, like being picked up and set down somewhere without anybody asking.
+
+/* MEDIA: images/characters/mom/events/gym_dinner_pov/knee.jpg | Under the tablecloth's edge, a man's big hand on Mom's knee over dark stockings, the green dress just above it, her own hand flat on the table beside her plate */
+
+I keep smiling. I ask him about the twelfth location, and he tells me, and while he does his thumb starts to move on the inside of my knee, back and forth, very slowly, as though he doesn't know he's doing it. He knows. They always know.
+
+Within reason, $player.name said. I sit there holding my water glass and try to work out where reason is, exactly. Whether it's a place on a leg, like a hemline, and whether I'll know it when we get there. His hand slides an inch higher, under the edge of the dress, and stops, and I decide that isn't it yet.
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "You're a good listener, you know that? My ex-wife never once let me finish a story. Not once in nine years." },
+{ who: $mom, text: "Well, maybe she'd heard the ending already, but I haven't, so go on, what happened with the franchise people?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He orders the cheesecake for the table and a coffee, and his hand stays where it is through both of them. I'm warm the whole time, and I put that down to the wine, the wine I haven't been drinking. When the cheesecake comes, I eat two bites and wrap a slice in a napkin for $player.name, because he loves cheesecake and never orders it for himself, and I put it in my purse with $gymOwner.name's fingers still resting on the inside of my thigh. I don't think about that part too hard, and then I don't think about it at all.
+
+At ten past ten he takes his hand back so he can sign. He does it right there on the back of the wine list, with my pen, and when he gives it back he holds on to it a moment, and to my fingers with it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $gymOwner, text: "Full price. You tell that boss of yours he's got himself one hell of a consultant." },
+{ who: $mom, text: "I'll tell him you said so." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+In the parking garage I sit in the car for a while before I start it. My knee still feels his hand on it, which is silly, it's a knee. When I tell $player.name about tonight, I'm going to say it stayed on my knee. That's nearly true, and I think it's the kind of nearly true he'd want from me.
+<<else>>
+After the second bottle his hand finds my knee under the table. It isn't subtle, but it isn't much of anything either, more of a question than a grab, the way a man reaches for the check to see if you'll fight him for it.
+
+Keep it light, $player.name said. So I do what I've been doing since I was twenty-two: I pick the hand up by the wrist, put it back on the tablecloth next to his plate as though it's something he dropped, and give it a little pat.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Now, you were telling me about the twelfth location, and I want to hear every bit of it, so don't you dare skip anything." },
+{ text: "He looks at his hand on the tablecloth, and then at me, and for about a second he's a little boy who's just been told there's no more dessert." },
+{ who: $gymOwner, text: "You're a tough customer, you know that?" },
+{ who: $mom, text: "I've raised two teenagers, I'm the toughest customer you'll ever meet. The twelfth location, please." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He laughs, a big honest laugh that turns heads two tables over, and orders the cheesecake, and tells me about the twelfth location. It's going to have a juice bar and a sauna you can book by the hour, and he's very proud of the sauna.
+
+/* MEDIA: images/characters/mom/events/gym_dinner_pov/laugh.jpg | Mom laughing at the corner table with her hand over her mouth, the man across from her mid-story, cheesecake between them */
+
+And I have a lovely time. That's the funny part. I sit there across from a man who just had his hand on my leg, listening to him go on about saunas, and I laugh, really laugh, and for almost an hour I don't think about the office or the bills or anything at all. When the cheesecake comes, I wrap a slice in a napkin for $player.name, because he loves cheesecake and never orders it for himself.
+
+He signs on the back of the wine list, full price. I think it's because nobody has told him no that nicely in years, and he wants to see if I'll do it again.
+
+It's only in the car, with the engine off in the parking garage, that I start to wonder. $player.name said keep it light, and I did, and it was easy, and it worked. But he said it so quickly, and he was watching my face while he said it, and now I can't stop asking myself whether light was what he really wanted, or only what he thought I could manage. I'm going to ask him. I'm going to try very hard not to, and then I'm going to ask him anyway.
+<</if>>
+
+At home I pull into the driveway and turn the engine off, and the living room light is still on. He waited up for me, of course he did. I sit there with the dome light on and look at my hands on the wheel until they stop looking like they belong to somebody else, and then I go in and tell him.
+
+<<EndPov "Go on">>

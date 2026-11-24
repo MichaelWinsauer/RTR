@@ -15,7 +15,7 @@ window.helpLastPage = window.helpLastPage || null;
    setup.helpFreeRows(who)       the cells of the CMD schedule she can be given tasks in, on a weekday (today, or
                                  Monday on weekends): "Morning (from the 2nd action) to Afternoon", or ""
    setup.helpTasks()             the unlocked tasks (task.active) for the task table: { title, sysName, who, place, takes,
-                                 starts, pays, energy, withMe, description }. title, place and description may
+                                 starts, pays, energy, withMe, report, description }. title, place and description may
                                  contain variables, so print them with <<= >>
    setup.helpEmployees()         the live NPC objects of $company.employees (the list itself holds copies) */
 setup.helpSlotRange = function (slots) {
@@ -64,8 +64,10 @@ setup.helpTasks = function () {
         takes: t.apCost,
         starts: setup.helpSlotRange(t.startTime),
         pays: Number(t.revenue) || 0,
-        energy: Number(t.baseEnergyCost) || 0,
+        /* the cost at full morale: base plus the per-action part (setup.taskEnergyCost, Define Tasks) */
+        energy: (Number(t.baseEnergyCost) || 0) + setup.taskEnergyTuning.perAction * (Number(t.apCost) || 0),
         withMe: setup.isTaskWithPlayer(t),
+        report: setup.taskHasReport(t),
         description: t.description || ""
       };
     })

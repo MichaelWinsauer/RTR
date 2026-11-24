@@ -97,17 +97,17 @@
 .ni-sub { margin-top: .15rem; font-size: .85em; opacity: .75; }
 
 .ni-group { margin-bottom: .8rem; }
-.ni-group-h { margin-bottom: .35rem; padding-bottom: .2rem; border-bottom: 1px solid var(--card-border); font-size: .68rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #EAAF4C; }
+.ni-group-h { margin-bottom: .35rem; padding-bottom: .2rem; border-bottom: 1px solid var(--card-border); font-size: .68rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--accent); }
 .ni-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .35rem; }
 
 .ni-opt { display: flex; flex-direction: column; padding: .3rem .6rem; border: 1px solid var(--card-border); border-radius: .5em; background: var(--link-bg); backdrop-filter: blur(5px); text-align: left; line-height: 1.25; transition: border-color .2s, background-color .2s; }
-.ni-opt:hover:not(.locked) { border-color: #EAAF4C; background: var(--link-bg-transparent); }
+.ni-opt:hover:not(.locked) { border-color: var(--accent); background: var(--link-bg-transparent); }
 .ni-opt { position: relative; }
 .ni-opt:not(.locked) { cursor: pointer; }
 .ni-opt a { font-weight: 700; font-size: .92em; color: var(--accent); text-decoration: none; cursor: pointer; }
 /* the link stretches over the whole card, so the entire card is clickable */
 .ni-opt a::after { content: ''; position: absolute; inset: 0; }
-.ni-opt:hover:not(.locked) a { color: #EAAF4C; }
+.ni-opt:hover:not(.locked) a { color: #fff; }
 .ni-meta { font-size: .7em; color: rgba(235,221,197,.6); }
 
 .ni-opt.locked { opacity: .55; }

@@ -86,7 +86,7 @@
 		},
 		{
 			/* her end-of-day report (End-of-day report in Define NPCs): its own group at the top, at any time of day,
-			   while today has something she did not tell me yet or a story I did not hear in full. Not once a day:
+			   only while today has something she did not tell me yet. Not once a day:
 			   whatever comes in later the same day brings it back. The passage applies the Relation (once a day) */
 			id: "dayReport", group: "report", text: "How was your day?", cost: 1, highlight: true,
 			requires: "setup.hasDayReport('{sysName}')",

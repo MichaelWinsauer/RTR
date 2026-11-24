@@ -28,9 +28,9 @@
 
 <h3>Morale</h3>
 <ul>
-	<li>Every action of project work costs about <b>2 morale</b> (on the Low vent, at company Morale 50), split over their projects, so a full work day costs about 14 and a night's rest gives it back. How much depends on the company's <a href="#" data-help="Help Company Stats">Morale</a> (low company Morale makes work cost more) and on the level of the <a href="#" data-help="Help Company Devices">vent unit</a> (Medium and High cost more).</li>
+	<li>Every action of project work costs about <b><<= setup.companyStatTuning.moraleDrainPerAction>> morale</b> (on the Low vent, at company Morale 50), split over their projects, so a full work day costs about 13, more than a night's rest gives back. Over a week on the Low vent they lose a little, and the weekend makes up most of it; a few Coffee Breaks keep them level. How much depends on the company's <a href="#" data-help="Help Company Stats">Morale</a> (low company Morale makes work cost more) and on the level of the <a href="#" data-help="Help Company Devices">vent unit</a> (Medium and High cost more).</li>
 	<li>When someone's morale drops to 33 or less, a warning appears once a day: <b>Employee Morale is low!</b></li>
-	<li>Every night everyone recovers morale: <b><<= setup.moraleRecovery()>></b> right now (5 at company Morale 0, 15 at 50, 25 at 100).</li>
+	<li>Every night everyone recovers morale: <b><<= setup.moraleRecovery()>></b> right now (4 at company Morale 0, 8 at 50, 12 at 100).</li>
 	<li>Low morale also makes the <a href="#" data-help="Help Company Tasks">tasks</a> of $mom.callName and $sister.callName cost more energy.</li>
 </ul>
 <div class="help-note">Your own Work button adds +1 to every requirement and doesn't use morale.</div>

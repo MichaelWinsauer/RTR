@@ -1,9 +1,10 @@
 :: Mom Gym Dinner Report [event mom_quest] {"position":"4650,1075","size":"100,100"}
-/* Quest "Was That Right?" (mom_gymDinner), STAGE1_PROPOSAL.md 5.7. Optional: only if I sent her to the gym dinner
-   ($mom.flags.gymDinner). It stays an event, told like her end-of-day report: she comes home from the steakhouse and
-   tells me how it went. What happened depends on what I told her before she left ($mom.flags.gymDinnerLetHim): his hand
-   on her knee, or a light evening and a disappointed client. Either way the contract is signed, and either way she ends
-   with the question: was that right? She wants a yes. My answer sets her feelings toward me and toward $gymOwner.name.
+/* Quest "Was That Right?" (mom_gymDinner), STAGE1_PROPOSAL.md 5.7, part 1 of 2. Optional: only if I sent her to the gym
+   dinner ($mom.flags.gymDinner). She comes home from the steakhouse, and the evening itself is her POV passage
+   (Mom Gym Dinner POV, the steakhouse background): what happened depends on what I told her before she left
+   ($mom.flags.gymDinnerLetHim), his hand on her knee or a light evening and a disappointed client. Its <<EndPov>> goes on
+   to part 2 (Mom Gym Dinner Report 2, $povReturn), where she asks: was that right? She wants a yes. My answer there sets
+   her feelings toward me and toward $gymOwner.name, and part 2 holds every effect and the NextQuest.
    The first time somebody else touched her because I sent her, and I feel something about it that isn't guilt. */
 <<silent>><<SetBackground $locations[2].img>><</silent>>
 I hear her car at a quarter to eleven, and then nothing for a long time. When I look out the window she's still sitting in the driveway with the engine off and the dome light on, looking at her hands on the steering wheel.
@@ -20,91 +21,6 @@ She comes in eventually. She doesn't go upstairs. She comes and stands in the do
 <</silently>>
 <<Chat _msgs>>
 
-She sits on the arm of the couch, which she has told me not to do my entire life, and drops her heels on the rug.
+She sits on the arm of the couch, which she has told me not to do my entire life, and drops her heels on the rug. She takes a breath to start and lets it out again, and then she starts anyway, at the very beginning, with the parking garage.
 
-<<if $mom.flags.gymDinnerLetHim === true>>
-<<silently>>
-<<set _msgs = [
-{ who: $mom, text: "It was fine at first, honestly. He talked about his ice baths for forty minutes, I swear, and I laughed at everything and did the arm thing, the way you showed me." },
-{ who: $mom, text: "And then after the second bottle he moved his chair around the corner of the table, so he was sitting next to me instead of across, and he put his hand on my knee." },
-{ text: "She looks down at her knee as if it's still there. She smooths the dress over it, slowly, twice." },
-{ who: $mom, text: "And it stayed there, through dessert and all through the coffee. He was going on about retention rates the whole time, and his thumb kept... moving, just a little, and I kept smiling." },
-{ who: $mom, text: "I did what you said, honey, I let him. Within reason. He never went any higher than... it was within reason." },
-]>>
-<</silently>>
-<<Chat _msgs>>
-
-I listen to all of it and keep my face still. Something in my chest isn't still at all, and it isn't guilt. It's simpler and older than that: another man had his hand on something of mine for an hour and a half, and he only had it because I lent it to him. I tell myself it was an investment, which it was, and the contract is signed at full price.
-
-I tell myself that twice.
-<<else>>
-<<silently>>
-<<set _msgs = [
-{ who: $mom, text: "It was nice, actually. He's a lot, he talked about his ice baths for forty minutes, I swear, but he was a gentleman. Mostly." },
-{ who: $mom, text: "Once, after the second bottle, his hand sort of wandered onto my knee, and I did what you said. I put it back on the table and smiled and asked him about his twelfth location, because he loves talking about the twelfth location." },
-{ who: $mom, text: "He looked a little disappointed for about a second, and then he ordered the cheesecake." },
-{ text: "She laughs, and it's a real laugh, loose and a little tipsy. Then it fades, and she looks at me, and I can see her checking something." },
-]>>
-<</silently>>
-<<Chat _msgs>>
-<</if>>
-
-<<silently>>
-<<set _msgs = [
-{ who: $mom, text: "So..." },
-{ text: "She twists the strap of her purse around one finger." },
-{ who: $mom, text: "Was that right? What I did?" },
-]>>
-<</silently>>
-<<Chat _msgs>>
-
-She isn't asking if the contract is good. She knows the contract is good. She's asking if she was good. She's sitting on the arm of the couch at eleven at night in a dress from twenty years ago, waiting for me to tell her.
-
-<div id="gdr-choice">
-<div><<link "Tell her it was exactly right">><<replace "#gdr-choice">>
-<<silently>>
-<<set _msgs = [
-{ who: $player, text: "It was exactly right. I don't think anybody else could have pulled that off." },
-{ text: "It goes through her like warm water. Her shoulders come down from somewhere near her ears, and she closes her eyes for a second." },
-{ who: $mom, text: "Oh, good. I wasn't sure, honey. I kept sitting there thinking, what would he want me to do, and then I just did that." },
-{ who: $player, text: "That's all you ever have to do." },
-]>>
-<</silently>>
-<<Chat _msgs>>
-
-She picks up her heels and kisses the top of my head on her way past, and goes upstairs humming. Halfway up she stops and calls down, very softly, that she saved me some of the cheesecake, it's in her purse, in a napkin. It is.
-
-<<UpdateStat "+" "MomCorruption" 4>>
-<<UpdateStat "+" "MomRelation" 2>>
-<<UpdateStat "-" "MomResistance" 3>>
-<<Feel $mom "player" 2 "lasting">>
-<<if $mom.flags.gymDinnerLetHim === true>><<Feel $mom "gymOwner" -1>><<else>><<Feel $mom "gymOwner" 1>><</if>>
-<<ProfileLog $mom "Was That Right?" "She came home from the dinner with $gymOwner.name with the contract signed at full price. She told me everything and then asked me if what she did was right. I told her it was exactly right. That was all she needed.">>
-<<NextQuest $mom>>
-<<ReturnFromEvent "Continue" "Living Room">>
-<</replace>><</link>></div>
-<div><<link "Tell her next time she can do more">><<replace "#gdr-choice">>
-<<silently>>
-<<set _msgs = [
-{ who: $player, text: "It was fine. Next time, though, you can do more." },
-{ text: "She waits for the rest of the sentence, and there isn't any. Her finger stops twisting the strap." },
-{ who: $mom, text: "More?" },
-{ who: $player, text: "He signed tonight. The next one might not, unless somebody gives him a reason to." },
-{ who: $mom, text: "Right. No, of course, you're right, honey. I just didn't... no, you're right." },
-]>>
-<</silently>>
-<<Chat _msgs>>
-
-She picks up her heels and goes upstairs without kissing the top of my head, and I hear the shower run for a long time. In the morning her eyes are a little puffy and she's extra cheerful at breakfast, and she asks me twice if my eggs are all right.
-
-<<UpdateStat "+" "MomCorruption" 5>>
-<<UpdateStat "+" "MomResistance" 2>>
-<<UpdateStat "+" "MomExhibition" 1>>
-<<Feel $mom "player" -2>>
-<<if $mom.flags.gymDinnerLetHim === true>><<Feel $mom "gymOwner" -2 "lasting">><</if>>
-<<UpdateStat "+" "Corruption" 2>>
-<<ProfileLog $mom "Was That Right?" "She came home from the dinner with $gymOwner.name with the contract signed at full price, and asked me if what she did was right. I told her it was fine, and that next time she can do more. She went upstairs without saying goodnight.">>
-<<NextQuest $mom>>
-<<ReturnFromEvent "Continue" "Living Room">>
-<</replace>><</link>></div>
-</div>
+<div class="navigation-link"><<link "Let her tell it">><<set $povReturn to "Mom Gym Dinner Report 2">><<goto "Mom Gym Dinner POV">><</link>></div>

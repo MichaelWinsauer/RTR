@@ -1353,13 +1353,14 @@
     const live = setup.getLiveTask(entry.task);
     if (!live) { return "rest"; }
     if (setup.taskRestsToday(live)) { return "rest"; }
-    if (v[sysName].stats.energy < (Number(live.baseEnergyCost) || 0)) { return "energy"; }
+    /* the whole cost, not just the base ("Energy cost" below) */
+    if (!setup.taskHasEnergy(live, v[sysName])) { return "energy"; }
     if (setup.taskPrivacyIssue(live, sysName, entry.startRow, entry.endRow)) { return "private"; }
     const partner = setup.taskPartner(live);
     if (partner) {
         const other = sysName === "mom" ? "sister" : "mom";
         const pe = (v.activeTasks[other] || []).find((e) => e.pairId !== undefined && e.pairId === entry.pairId);
-        if (!pe || setup.taskRestsToday(partner) || v[other].stats.energy < (Number(partner.baseEnergyCost) || 0)) { return "pair"; }
+        if (!pe || setup.taskRestsToday(partner) || !setup.taskHasEnergy(partner, v[other])) { return "pair"; }
     }
     return null;
 }>>
@@ -1442,14 +1443,37 @@
 }>>
 
 /* Energy cost ===================================================================
-   A task costs her its baseEnergyCost, plus a surcharge for the morale she is missing: (max morale - morale) *
-   apCost / 10. So a 3-action task with base 15 costs her 30 at morale 50. It starts once she has the base
-   (checkTaskProgression, StoryScript) and is paid when it ends (completeTaskEntry).
-   setup.taskEnergyCost(task [, npc])   what it costs her right now (npc: her live object, default task.who) */
+   A task costs her its baseEnergyCost, plus setup.taskEnergyTuning.perAction for every action it takes, plus a
+   surcharge for the morale she is missing: (max morale - morale) * apCost / 10. So a 3-action task with base 15
+   costs her 21 at full morale and 36 at morale 50. It only starts when she has that much (checkTaskProgression,
+   StoryScript, through setup.taskStartBlock) and is paid when it ends (completeTaskEntry).
+   Energy comes back overnight (a flat amount, Daily Update) and a little for every free task row of a weekday
+   (an hour at her desk with nothing scheduled, checkTaskProgression).
+   Balance (playtest 2026-11-24: it never ran out), simulated over three weeks at full morale: two short tasks a day
+   stay around 80, three hold, four 2-action tasks a day (or the 4-action consultant job and two more) leave her
+   near empty by Friday, and from there the expensive ones stop starting. The weekend fills her up again. Low
+   morale makes all of it come sooner.
+   setup.taskEnergyTuning                 the numbers
+   setup.taskEnergyCost(task [, npc])     what it costs her right now (npc: her live object, default task.who)
+   setup.taskHasEnergy(task [, npc])      she has enough to start it */
+<<set setup.taskEnergyTuning to {
+    perAction: 2,
+    /* per free task row of a weekday, while no task of hers runs */
+    idlePerRow: 1,
+    /* overnight, every night (weekends too) */
+    nightly: { mom: 30, sister: 35 },
+}>>
+
 <<set setup.taskEnergyCost = (task, npc) => {
     const her = npc || State.variables[task.who.sysName];
     const missingMorale = her.stats.max.morale - her.stats.morale;
-    return (Number(task.baseEnergyCost) || 0) + Math.round(missingMorale * (Number(task.apCost) || 0) / 10);
+    const actions = Number(task.apCost) || 0;
+    return (Number(task.baseEnergyCost) || 0) + setup.taskEnergyTuning.perAction * actions + Math.round(missingMorale * actions / 10);
+}>>
+
+<<set setup.taskHasEnergy = (task, npc) => {
+    const her = npc || State.variables[task.who.sysName];
+    return her.stats.energy >= setup.taskEnergyCost(task, her);
 }>>
 
 /* Tasks with the player =======================================================

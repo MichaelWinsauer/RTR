@@ -256,7 +256,7 @@
   background: #EBDDC51a;
 }
 
-.pov-badge.active    { color: #EAAF4C; border-color: #EAAF4C60; background: #EAAF4C14; }
+.pov-badge.active    { color: #EBDDC5; border-color: #EBDDC560; background: #EBDDC514; }
 .pov-badge.available { color: #1cd88d; border-color: #1cd88d60; background: #1cd88d14; }
 .pov-badge.new       { color: #1a1408; border-color: #EAAF4C; background: #EAAF4C; }
 .pov-badge.locked    { color: #ff6479; border-color: #DB354C60; background: #DB354C14; }
@@ -346,7 +346,7 @@
 .pov-money {
   font-size: 1.05rem;
   font-weight: 800;
-  color: #EAAF4C;
+  color: var(--accent);
 }
 
 .pov-sub {

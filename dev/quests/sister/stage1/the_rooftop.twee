@@ -4,7 +4,10 @@
    report. In the office I ask her to host; she says yes before I've finished the sentence. We agree on a signal: a touch
    on my ear means yes. On the rooftop $investor.callName takes to her, and later a man from $retailChain.name puts his
    hand on her waist, and she looks across the terrace for me. Giving the signal is the whole scene.
-   The introduction is free either way. Everything (sister_everything) is the night after. */
+   The introduction is free either way. Everything (sister_everything) is the night after.
+   The choice is kept in $sister.flags.rooftopSignal. After the drive home I can ask her about the corner by the heaters:
+   her POV passage (Sister Rooftop POV), whose <<EndPov>> takes me home to bed ($povReturn). It has no effects, so the
+   scene finishes (ReturnFromEvent) before the link is offered. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 At six the office is empty except for us. She's at her desk, packing up, and I stop next to it with my hands in my pockets.
 
@@ -85,6 +88,7 @@ On the drive home she sits with her heels in her lap and the window down, lookin
 <</silently>>
 <<Chat _msgs>>
 
+<<set $sister.flags.rooftopSignal to true>>
 <<UpdateStat "+" "SisterExhibition" 4>>
 <<UpdateStat "+" "SisterCorruption" 4>>
 <<UpdateStat "-" "SisterResistance" 2>>
@@ -95,6 +99,7 @@ On the drive home she sits with her heels in her lap and the window down, lookin
 <<ProfileMemory $sister "The signal" "In the car she took my hand off the gearshift and touched my ear with one finger, very lightly, and let go. On the way home she talked about everyone from the terrace except him.">>
 <<NextQuest $sister>>
 <<AdvanceTimeTo 6>>
+<div class="navigation-link"><<link "Ask her about the man in the gray suit">><<set $povReturn to "Bedroom">><<goto "Sister Rooftop POV">><</link>></div>
 <<ReturnFromEvent "Home" "Bedroom">>
 <</replace>><</link>></div>
 <div><<link "Leave your hand where it is">><<replace "#rt-choice">>
@@ -115,6 +120,7 @@ On the drive home she talks nonstop about the doorman and the heaters and the ma
 <</silently>>
 <<Chat _msgs>>
 
+<<set $sister.flags.rooftopSignal to false>>
 <<UpdateStat "+" "SisterExhibition" 2>>
 <<UpdateStat "+" "SisterCorruption" 2>>
 <<UpdateStat "+" "SisterRelation" 2>>
@@ -122,6 +128,7 @@ On the drive home she talks nonstop about the doorman and the heaters and the ma
 <<ProfileLog $sister "The Rooftop" "She hosted $investor.callName's rooftop evening for the company, in the black dress I picked. Late in the evening a man from $retailChain.name had his hand on her bare back and she looked across the terrace at me for the signal. I didn't give it, and she slipped away to the bar. The introduction is free anyway.">>
 <<NextQuest $sister>>
 <<AdvanceTimeTo 6>>
+<div class="navigation-link"><<link "Ask her what it was like in that corner">><<set $povReturn to "Bedroom">><<goto "Sister Rooftop POV">><</link>></div>
 <<ReturnFromEvent "Home" "Bedroom">>
 <</replace>><</link>></div>
 </div>

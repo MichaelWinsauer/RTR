@@ -1,0 +1,101 @@
+:: Last Night Mom POV [scene pov] {"position":"5025,1200","size":"100,100"}
+/* POV passage, her side of the Night Shift (main_nightShift) inside $club.name, if I offered them to $supplier.callName
+   ($flags.supplierOffered). Opened from her end-of-day report on the day after: Night Shift 3 logs it with
+   setup.logDay(..., { day: tomorrow }), because tonight's log is cleared before she wakes up. Its line and link are in
+   setup.dayReports.mom.last_night (Define NPCs). No effects here: they are in Night Shift 3.
+   The same night as Last Night Sister POV, from her side. Since the back seat she knows what her daughter is to me. Upstairs
+   at the club, in the members' room, she watches her daughter do the evening and recognizes my lessons in it. When
+   $supplier.callName takes her daughter to the back, she gets up to follow, and this time
+   a member stops her: they have their own room. She keeps the promise she made in the kitchen. Afterwards she waits in the
+   hallway, on the floor, for forty minutes, until her daughter's door opens. That is the part she won't tell me.
+   Clips: none yet (MEDIA comments below). */
+<<silent>><<SetBackground setup.getLocationBySysName("club").img>><</silent>>
+<<PovHeader $mom>>
+Teo has my gin and tonic ready before we're even at the bar, the way he always does, and then he sees our faces, or maybe the dresses, and he puts it down on the counter and doesn't push it over to me. He just goes on drying a glass that's already dry. I suppose a bartender in a place like this knows what kind of evening it is from the shoes.
+
+$supplier.callName comes down to get us himself, from a staircase at the back that I'd honestly never noticed in all the evenings we've spent here. He's smaller than his voice. Gray at the temples, very clean little hands, and a cardigan, a soft camel cardigan with leather buttons, the kind I'd buy for somebody's grandfather at Christmas. For some reason that's the thing that frightens me most all night.
+
+/* MEDIA: images/characters/mom/events/last_night/staircase.jpg | A narrow staircase at the back of a dark club, a gray-haired man in a camel cardigan holding out his hand, two women in black dresses at the foot of the stairs */
+
+<<silently>>
+<<set _msgs = [
+{ who: $supplier, text: "Ladies. You're even lovelier than he promised, and he promised quite a lot. Please, come up, my friends have been looking forward to this all week." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Upstairs it's one long room with low lamps, a card table nobody is playing at, and leather chairs, and in the chairs there are five men, all of them older than me and none of them in a hurry. One of them has a cigar going, and another one, Gordon, has a big signet ring that he keeps turning around and around his finger with his thumb. They don't get up the way Lyle did. They look at us, and then at each other, and then they go back to talking, like we're the dessert and it isn't time yet.
+
+So I do what I'm good at. I find out who wants a drink and who wants another, and I sit on the arm of a chair and laugh at a story about a boat, because there's always a boat. My face knows how to do all of that on its own by now, which leaves my eyes free, and my eyes are on $sister.callName.
+
+She's with $supplier.callName on the little sofa by the window. I watch her laugh at something he says, a moment before he gets to the end of it, so he thinks it's funnier than it is, and touch his arm when she does it, and leave her hand there exactly long enough.
+
+I know that touch. I've had it done to me across my own kitchen table, by my own $mom.playerRelation, when he wanted me to agree to something. And in the car tonight, under that little dome light, I finally understood where she learned it, and from whom, and what else she's learned from him. I thought I'd been protecting her from all of this. She's been in it the whole time, right next to me, and I never once let myself see it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $supplier, text: "Would you like to see the rest of the club? It's much quieter at the back." },
+{ who: $sister, text: "Not yet. I'm having far too nice a time out here." },
+{ text: "She says it with her hand on his arm, smiling, like she's promising him something. He smiles back and lets it go, and twenty minutes later he asks again, and she says it again, just as sweetly." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The third time, a little after midnight, he doesn't ask. He stands up and holds his hand out to her.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Not yet..." },
+{ who: $supplier, text: "My dear, it's later now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He says it so kindly. She looks at his hand for a second, and then she takes it and gets up.
+
+I'm off the arm of the chair before I know I've moved. Wherever she's going, she isn't going there without me. That's what I promised $player.name, and it's the only promise of the whole evening that I actually wanted to keep.
+
+Gordon takes hold of my wrist without getting up. He doesn't squeeze, he just holds it, the way you'd hold a dog's leash in a crowd.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Gordon", text: "$supplier.name likes his privacy, sweetheart. Don't you worry about her. You and I have a room of our own, just down the hall." },
+{ who: $mom, text: "I only want to see that she's..." },
+{ text: "He smiles at me and doesn't let go. Across the room, $supplier.callName opens a door in the paneling that I hadn't even noticed was a door, and $sister.callName goes through it ahead of him without looking back, and it closes behind them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/mom/events/last_night/hallway.jpg | A dim hallway with numbered padded doors, a man's hand around Mom's wrist, leading her along */
+
+The hallway has four doors with little brass numbers on them. Ours is three. Hers, I find out later, is one, at the very end, and the whole time I'm in three I'm thinking about the two in between.
+
+I said yes in the kitchen. I said it to my own $mom.playerRelation, standing at my own ironing board, and he didn't make it any easier for me, and he was right not to. So when Gordon asks me to take my dress off, I say yes. I take the earrings off too, without being asked, and put them in my purse, and I don't let myself think about why.
+
+/* MEDIA: images/characters/mom/events/last_night/room_three.jpg | A small lamplit room, Mom standing beside a bed in her slip and seamed stockings, her earrings in her palm, her face turned toward the wall */
+
+He's heavy, and slow, and he isn't cruel, which I keep reminding myself of, like it's worth something. He likes the stockings. He wants me on my back with my knees up and the stockings on, and he wants me to look at him while he does it, and I do that too, because he asks, and I've said yes. My body does all the things a body does. I've stopped being surprised by that this year, and I've stopped being ashamed of it, mostly. It's just a body, and tonight it's a payment, and I'm making it on time.
+
+There's a wall between me and room one, and then another wall, and then her. I don't hear anything through them. I listen the whole time, and I don't hear a single thing.
+
+When he's finished he gets dressed and thanks me, very politely, as if I'd lent him an umbrella, and tells me to take all the time I need. I put my dress on. I put my earrings back in. I sit on the edge of the bed for a minute with my hands in my lap, and then I go out into the hallway and sit down on the carpet, right across from door number one, with my back against the wall and my coat over my knees.
+
+It's forty minutes before the door opens. I know because I watch every one of them go by on my phone.
+
+<<silently>>
+<<set _msgs = [
+{ text: "When she comes out, she's carrying her heels in one hand. She sees me sitting there on the floor and stops." },
+{ who: $sister, text: "$mom.callName..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I get up and put my coat around her shoulders, and button it, all the way up to her chin, the way I used to do it at the bus stop in winter when she was little and hated the top button. My hands are perfectly steady. I'm actually quite proud of that.
+
+We don't say anything. There's nothing I could say in that hallway that she doesn't already know, and nothing she could say that I want to hear while we're still inside this building.
+
+Teo doesn't look up when we go past the bar. The man at the door holds it open for us and says good night, and it's raining, and across the street the car is right where $player.name said it would be.
+
+When he asks me about it, and he will, I'll tell him it went well. I'll tell him about the cardigan and the boat and Gordon's ring, all of it, the way he likes things done, thoroughly. I'll leave out the forty minutes in the hallway. Those are mine.
+
+<<EndPov>>

@@ -718,7 +718,7 @@
   font-weight: 800;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #EAAF4C;
+  color: var(--accent);
 }
 
 .prj-head::after {
@@ -877,13 +877,13 @@
   margin-top: 1rem;
   padding: .8rem .9rem;
   text-align: left;
-  border: 1px solid #EAAF4C40;
+  border: 1px solid #EBDDC540;
   border-radius: .75rem;
-  background: #EAAF4C0d;
+  background: #EBDDC50d;
 }
 
 .prj-task .prj-label {
-  color: #EAAF4C;
+  color: var(--accent);
   opacity: .9;
 }
 

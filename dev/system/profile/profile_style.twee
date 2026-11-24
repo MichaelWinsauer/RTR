@@ -317,7 +317,7 @@
 	white-space: nowrap;
 	opacity: 0.55;
 }
-.pf-plan-time.is-now { opacity: 1; color: #EAAF4C; }
+.pf-plan-time.is-now { opacity: 1; color: var(--accent); }
 .pf-plan-cell {
 	container-type: size;
 	min-width: 0;
@@ -354,7 +354,7 @@
 	.pf-plan-badge { display: none; }
 }
 .pf-plan-cell.is-past { opacity: 0.38; }
-.pf-plan-cell.is-task { border-color: #EAAF4C80; }
+.pf-plan-cell.is-task { border-color: #EBDDC566; }
 .pf-plan-cell.is-now {
 	background: #EBDDC526;
 	border-color: #EBDDC5;
@@ -367,8 +367,8 @@
 	font-weight: 800;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
-	color: #EAAF4C;
-	border: 1px solid #EAAF4C80;
+	color: var(--accent);
+	border: 1px solid #EBDDC580;
 	border-radius: 999px;
 }
 

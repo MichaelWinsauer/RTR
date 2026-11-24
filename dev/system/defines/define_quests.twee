@@ -1978,11 +1978,11 @@
     },
     {
     	/* 6.8c OPTIONAL: only if I offer them to the supplier (main_supplier sets $flags.supplierOffered).
-    	   The evening before the last night */
+    	   An evening before the last night: the supplier names the date later, and the Client Evenings come in between */
     	id: "sister_rehearsal",
     	next: "sister_lastNight",
     	title: "Rehearsal",
-        task: "Tomorrow night is $supplier.callName's evening. Tonight $sister.callName and I run through it.",
+        task: "$supplier.callName's evening is coming. Before it does, $sister.callName and I run through it.",
         where: [ setup.getLocationBySysName("companystage1meeting") ],
         whenTime: [4],
         whenDay: [0, 1, 2, 3, 4, 5, 6],

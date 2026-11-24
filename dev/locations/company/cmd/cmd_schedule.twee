@@ -101,8 +101,8 @@ window.getTaskBlockState = function (entry, live) {
     if (row >= entry.endRow) {
         return (live.lastCompletedAt === day && day > 0) ? "done" : "past";
     }
-    /* it starts as soon as she has the base cost (checkTaskProgression), so only less than that is low */
-    if (v[live.who.sysName].stats.energy < (Number(live.baseEnergyCost) || 0)) return "low";
+    /* it only starts when she has its whole cost (setup.taskHasEnergy, Define Tasks) */
+    if (!setup.taskHasEnergy(live)) return "low";
     return "";
 };
 
@@ -144,7 +144,7 @@ window.renderTaskElement = function (taskEntry, isNew) {
     el.style.gridRowEnd = "span " + rows;
     el.dataset.row = taskEntry.startRow;
     el.title = [title, place, rows + (rows === 1 ? " action" : " actions"), energy + " energy",
-        revenue > 0 ? "+$" + revenue : "", withMe ? "with me" : "",
+        revenue > 0 ? "+$" + revenue : "", withMe ? "with me" : "", setup.taskHasReport(live) ? "in her report" : "",
         state === "rest" ? "rests today, " + setup.taskRestText(live) : setup.taskCooldownText(live)].filter(Boolean).join(" · ");
 
     const bg = document.createElement("div");
@@ -161,6 +161,14 @@ window.renderTaskElement = function (taskEntry, isNew) {
     titleEl.className = "st-title";
     titleEl.textContent = title;
     head.appendChild(titleEl);
+    /* the task leaves an entry in her end-of-day report: a small green speech bubble, like the Report badge of the picker */
+    if (setup.taskHasReport(live)) {
+        const report = document.createElement("span");
+        report.className = "st-report";
+        report.title = "She tells me about it when I ask how her day was.";
+        report.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2.5h10a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5H7.5L4.5 14v-2.5H3A1.5 1.5 0 0 1 1.5 10V4A1.5 1.5 0 0 1 3 2.5z" fill="currentColor"/></svg>`;
+        head.appendChild(report);
+    }
     const badgeText = badges[state] || (withMe ? "With me" : "");
     if (badgeText) {
         const badge = document.createElement("span");
@@ -464,8 +472,12 @@ window.displaySingleTask = function (task, selectedStart, issue) {
     const v = State.variables;
     const live = setup.getLiveTask(task);
     const npc = v[task.who.sysName];
-    const lowEnergy = npc.stats.energy < (Number(task.baseEnergyCost) || 0);
+    const lowEnergy = !setup.taskHasEnergy(task, npc);
     const withMe = setup.isTaskWithPlayer(task);
+    /* the tooltip of the energy cost: base, per action, morale surcharge (setup.taskEnergyCost, Define Tasks) */
+    const energyBase = Number(task.baseEnergyCost) || 0;
+    const energyActions = setup.taskEnergyTuning.perAction * (Number(task.apCost) || 0);
+    const energyMorale = setup.taskEnergyCost(task, npc) - energyBase - energyActions;
 
     const row = document.createElement(issue ? "div" : "button");
     if (!issue) row.type = "button";
@@ -513,7 +525,7 @@ window.displaySingleTask = function (task, selectedStart, issue) {
         <span class="tp-side">
             ${task.revenue > 0 ? `<span class="tp-money">+$${task.revenue}</span>` : `<span class="tp-money tp-money-none">no pay</span>`}
             <span class="tp-cost">${task.apCost} ${task.apCost === 1 ? "action" : "actions"}</span>
-            <span class="tp-cost${lowEnergy && !issue ? " tp-cost-warn" : ""}" title="${task.baseEnergyCost} plus ${setup.taskEnergyCost(task, npc) - (Number(task.baseEnergyCost) || 0)} for her missing morale">${setup.taskEnergyCost(task, npc)} energy</span>
+            <span class="tp-cost${lowEnergy && !issue ? " tp-cost-warn" : ""}" title="${energyBase} base, ${energyActions} for ${task.apCost === 1 ? "the action" : "the " + task.apCost + " actions"}${energyMorale > 0 ? ", " + energyMorale + " for her missing morale" : ""}">${setup.taskEnergyCost(task, npc)} energy</span>
         </span>`;
 
     if (!issue) {
@@ -654,7 +666,7 @@ window.updateCurrentTimeLine = function () {
   font-weight: 800;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: #EAAF4C;
+  color: var(--accent);
 }
 
 .tp-kicker::after {

@@ -80,7 +80,7 @@ The shop is squeezed in between a nail salon and a place that has said "opening 
 
 .shop-item-price {
 	font-weight: 700;
-	color: #EAAF4C;
+	color: #fff;
 }
 
 .shop-item-desc {
@@ -110,8 +110,8 @@ The shop is squeezed in between a nail salon and a place that has said "opening 
 }
 
 .shop-item-buy a:hover {
-	color: #EAAF4C;
-	border-color: #EAAF4C;
+	color: #fff;
+	border-color: var(--accent);
 }
 
 .shop-item-buy.locked {

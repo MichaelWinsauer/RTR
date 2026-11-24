@@ -227,6 +227,8 @@ function targetsOf(lineText) {
   for (const m of lineText.matchAll(/<<(?:link|button)\s+(?:"[^"]*"|'[^']*')\s*,?\s*(["'])((?:(?!\1).)+)\1/g)) out.push(m[2].trim());
   for (const m of lineText.matchAll(/data-passage\s*=\s*["']([^"']+)["']/g)) out.push(m[1].trim());
   for (const m of lineText.matchAll(/Engine\s*\.\s*(?:play|goto)\s*\(\s*["']([^"']+)["']/g)) out.push(m[1].trim());
+  // a POV passage goes on to $povReturn (<<EndPov>>), so a scene that sets it before the POV leads there
+  for (const m of lineText.matchAll(/\$povReturn\s+(?:to|=)\s*(["'])((?:(?!\1).)+)\1/g)) out.push(m[2].trim());
   return out.filter((t) => t && !/\$|<<|\+|\(|["{]|^_[\w.[\]]+$|^https?:|\.(jpg|png|gif|mp4|webm|mp3|ogg)$/i.test(t));
 }
 
@@ -372,8 +374,22 @@ for (const n of needs.keys()) if (!color.get(n)) dfs(n, []);
 for (const [name, users] of declared) {
   if (users.length > 1) report('WARN', where(users[1].L, users[1].i), `Passage "${name}" is used by ${users.map((u) => label(u.L, u.i)).join(' and ')}`);
 }
+// POV passages of events and deals are opened from her end-of-day report: setup.dayReports.<sysName>.<id>.passage
+// (Define NPCs). Those count as reached, and each of them has to exist.
+const dayReportPassages = new Set();
+{
+  const def = passages.get('Define NPCs');
+  const text = def ? def.lines.map((l) => l.text).join('\n') : '';
+  const block = /<<set\s+setup\.dayReports\s+to\s+\{([\s\S]*?)\n\}>>/.exec(text);
+  if (block) {
+    for (const m of block[1].matchAll(/passage:\s*["']([^"']+)["']/g)) {
+      dayReportPassages.add(m[1]);
+      if (!passages.has(m[1])) report('ERROR', `${def.file}:${def.line}`, `setup.dayReports: passage "${m[1]}" does not exist`);
+    }
+  }
+}
 for (const p of passages.values()) {
-  if (QUEST_DIR.test(p.file) && !declared.has(p.name) && !reachedAll.has(p.name)) {
+  if (QUEST_DIR.test(p.file) && !declared.has(p.name) && !reachedAll.has(p.name) && !dayReportPassages.has(p.name)) {
     report('WARN', `${p.file}:${p.line}`, `Orphan: "${p.name}" is in the quests folder but no quest uses it or leads to it`);
   }
 }

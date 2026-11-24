@@ -121,15 +121,15 @@ window.callFamilyToDesk = function(sysName) {
   width: 1.5rem;
   height: 1.5rem;
   padding: 0;
-  border: 1px solid #EAAF4C;
+  border: 1px solid var(--accent);
   border-radius: 50%;
-  background: rgba(234,175,76,.15);
-  color: #EAAF4C;
+  background: rgba(235,221,197,.15);
+  color: var(--accent);
   cursor: pointer;
   transition: background-color .15s, color .15s;
 }
 .cmd-call-btn svg { width: .8rem; height: .8rem; fill: currentColor; }
-.cmd-call-btn:hover { background: #EAAF4C; color: #1a1408; }
+.cmd-call-btn:hover { background: var(--accent); color: #1a1408; }
 
 .cmd-management-employee-image {
   height: 90%;
@@ -544,7 +544,7 @@ window.callFamilyToDesk = function(sysName) {
   font-weight: 800;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #EAAF4C;
+  color: var(--accent);
 }
 
 .emp-head::after {

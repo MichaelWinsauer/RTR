@@ -12,7 +12,7 @@
 	<tr><th>Task</th><th>Who</th><th>Place</th><th>Takes</th><th>Starts in</th><th>Pays</th><th>Energy</th></tr>
 	<<for _hctTask range _hctTasks>>
 	<tr>
-		<td><<= _hctTask.title>><<if _hctTask.withMe>> <span class="help-pill">With me</span><</if>></td>
+		<td><<= _hctTask.title>><<if _hctTask.withMe>> <span class="help-pill">With me</span><</if>><<if _hctTask.report>> <span class="help-pill">Report</span><</if>></td>
 		<td><<= _hctTask.who>></td>
 		<td><<= _hctTask.place>></td>
 		<td><<= _hctTask.takes>></td>
@@ -22,7 +22,7 @@
 	</tr>
 	<</for>>
 </table>
-<p>The energy column is the base cost. Low morale adds to it (see <b>Running a task</b> below).</p>
+<p>The energy column is what a task costs at full morale. Low morale adds to it (see <b>Running a task</b> below).</p>
 
 <h3>What they do</h3>
 <dl class="help-stats">
@@ -40,10 +40,10 @@
 
 <h3>Running a task</h3>
 <ul>
-	<li>When a task's first action comes, it <b>starts</b>, but only if the person has at least its base energy. If she is too tired it simply doesn't start that day, and it pays nothing.</li>
+	<li>When a task's first action comes, it <b>starts</b>, but only if the person has the energy it costs. If she is too tired it simply doesn't start that day, and it pays nothing.</li>
 	<li>When its last action ends, it <b>finishes</b>: the company is paid and the energy is spent.</li>
-	<li>The energy spent is the base cost, plus a surcharge for the <a href="#" data-help="Help Company Skills">morale</a> she is missing: the longer the task and the lower her morale, the more it costs. A 3-action task with a base cost of 15 costs her 30 at half morale. The picker and the tiles in the schedule always show the real cost.</li>
-	<li>Energy comes back every night, and $sister.callName recovers more than $mom.callName.</li>
+	<li>The energy spent is the task's own cost, plus <<= setup.taskEnergyTuning.perAction>> for every action it takes, plus a surcharge for the <a href="#" data-help="Help Company Skills">morale</a> she is missing: the longer the task and the lower her morale, the more it costs. The picker and the tiles in the schedule always show the real cost.</li>
+	<li>Energy comes back every night (<<= setup.taskEnergyTuning.nightly.mom>> for $mom.callName, <<= setup.taskEnergyTuning.nightly.sister>> for $sister.callName), and a little more for every hour of her working day that has no task in it. A packed weekday costs more than one night gives back, so a full schedule every day wears her out by the end of the week. Leave gaps, or let the weekend fill her up again.</li>
 </ul>
 
 <h3>Tasks with you</h3>
@@ -65,7 +65,8 @@
 
 <h3>The marks in the task picker</h3>
 <ul>
-	<li><b>Report</b>: she tells you about it when you ask how her day was. Tasks without it leave nothing to tell.</li>
+	<li><b>Report</b>: she tells you about it when you ask how her day was. Tasks without it leave nothing to tell. In the schedule these tasks carry a small green speech bubble next to their name.</li>
+	<li><b>New</b>: a task you have unlocked but never planned yet. The mark goes away once you put it into the schedule.</li>
 	<li><b>Private</b>: it only happens while nobody else is around. Some need the room to themselves (the other one of the two can't have a task in the same place at the same time), some also have to lie after work hours, when the staff has gone home. The picker tells you if a slot doesn't work, and a private task that suddenly has company that day simply doesn't start.</li>
 	<li><b>Off-site</b>: it takes her somewhere you never go yourself. There is no camera there, so the only way to find out what happened is to ask her that evening.</li>
 	<li><b>With ...</b>: a task for the two of them together. Placing it puts it into both columns at once, taking it off removes both, and it only happens when both of them have the energy.</li>

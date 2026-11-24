@@ -1,0 +1,97 @@
+:: Sister Rooftop POV [scene pov] {"position":"4775,1900","size":"100,100"}
+/* POV passage, her side of The Rooftop (sister_rooftop). Opened from the end of that scene, when I ask her about the
+   corner by the heaters; <<EndPov>> takes me home ($povReturn "Bedroom"). No effects here: they are all in The Rooftop.
+   Shared: the black dress with no back that I picked, the heels she practiced in the hallway, her trick for names
+   ($investor.callName's wife Lorraine is the one she brags about in the car), "that clever little company", and me at the
+   railing, always already looking. Near eleven the big man in the gray suit (wedding ring, a canoe trip with his
+   brother-in-law that ends with a bear stealing their cooler; Front Desk 2 calls back to the bear) gets her in the corner
+   by the heaters and puts his hand on her bare back. She has a move for that since she was eighteen and doesn't use it:
+   she looks for me instead, and knows she's asking permission for something she can handle alone. By
+   $sister.flags.rooftopSignal:
+     true   the signal is relief, like being told the answer is C. She lets him, he says something into her ear, his other
+            hand goes to her hip, and she realizes she isn't doing any of it for him. His wife calls, and the move works.
+     false  she waits two breaths, does the move, and at the bar she is disappointed for a second, then decides I did it
+            for her. She hears the bear ending later, from across the room. In the car she'll thank me, and knows why. */
+<<silent>><<SetBackground "images/locations/rooftop.jpg">><</silent>>
+<<PovHeader $sister>>
+I'm good at parties. It's one of the few things in my life I never had to study for, and this is a party, technically, if you ignore that everyone on the roof is fifty and owns something with their name on the front of it.
+
+The dress is the hard part. It's black and it's gorgeous and it has no back at all, and $player.name picked it, which is a thought I'm saving for later, when there aren't forty people around. Every time the wind comes up off the street I can feel exactly where the dress stops. Before we left I spent an hour walking up and down the hallway at home in these heels, until $mom.callName asked through the bathroom door whether we'd bought a horse.
+
+/* MEDIA: images/characters/sister/events/the_rooftop_pov/names.jpg | Sister in the backless black dress shaking hands with an older woman in pearls under the string lights, smiling, a tray of glasses behind her */
+
+I do my name thing. You say the name back once, out loud, and you hang something on it. Lorraine, $investor.callName's wife: pearls, hates the cold, has a grandson at Dartmouth she wants somebody to ask her about. By ten I've got twenty-six of them filed away, and $investor.callName has started introducing me as "the charming young lady from that clever little company", which is very sweet of him, apart from the "little".
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "And this is the young lady I was telling you about. Ask her anything. I promise you, she knows more about that company than its founder does." },
+{ who: $sister, text: "That's only because he lets me do all the talking. It's a strategy. He's very clever like that." },
+{ text: "Everybody laughs, and I look over at the railing to see if he heard it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's always at the railing, with a glass of wine he isn't drinking. Every time I find him he's already looking at me, and every time, it does something warm to my stomach that has absolutely no business happening at a work event, and that's the whole problem in one sentence.
+
+Near eleven, a big man in a gray suit gets me into the corner by one of the heaters. He's got a wedding ring and a laugh that bounces off the building across the street, and he's telling me about a fishing trip, a long one, with his brother-in-law and a canoe that was only ever meant for two. Somewhere around the second portage, his hand finds the small of my back, where the dress isn't.
+
+It's not exactly a shock. Guys have been putting a hand on my back at parties since I was eighteen, and I've got a move for it, a good one: you turn a little, like you've spotted someone you know, touch his arm, tell him his glass is empty, and you're gone before he finishes his sentence. I could do it in my sleep. I think I have, a couple of times.
+
+I don't do it. I look across the terrace for $player.name instead.
+
+/* MEDIA: images/characters/sister/events/the_rooftop_pov/corner.jpg | Her point of view: over the shoulder of a big man in a gray suit, past a patio heater, across the terrace to a young man at the glass railing with a wine glass */
+
+I know exactly what that means, by the way. There's a part of me, the part that got an A in Logic, standing off to the side with a clipboard, pointing out that I'm asking permission for something I've handled on my own about a hundred times. I tell that part to go get a drink.
+
+<<if $sister.flags.rooftopSignal === true>>
+He lifts his glass with his left hand and touches his right ear, two fingers, quick, like he's brushing away a strand of hair he doesn't have.
+
+And after that it's so easy. It's like when you've been going back and forth between C and D for twenty minutes, and you'd have been fine with either one, and then the professor leans over your desk and taps C, and you don't have to be fine anymore. You just have to write it down.
+
+I turn back to the gray suit and laugh at the end of his story, which ends, I swear to God, with a bear. A black bear strolls out of the trees and walks off with their cooler while the three of them stand in the lake up to their waists and watch it go. I laugh louder than any bear deserves. The hand on my back moves, slowly, back and forth, and I let it.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Gray suit", text: "You've got a hell of a laugh, you know that? I bet you hear that all the time." },
+{ who: $sister, text: "Only from people who tell very good stories." },
+{ text: "He says the next part right into my ear, low, about how his wife never laughs at that one anymore, and while he's down there his other hand settles on my hip like it's been invited." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I look over at $player.name one more time, quickly. I'm not asking anymore, I've got my answer. I just want to see his face. He's watching, and he doesn't look away, and he doesn't look like somebody watching a thing he hates.
+
+So I stay where I am. I stand in the warm air off the heater with a married man's hands on me and keep up my half of a conversation about walleye, and the thing I notice, the thing I'm going to lie awake noticing, is that none of it is for the man in the gray suit. He could be anybody. He could be a coat rack with a laugh. It's for the guy at the railing. I'm good at this, and I want him to see how good.
+
+/* MEDIA: images/characters/sister/events/the_rooftop_pov/hip.jpg | Close: a man's hand on her hip, the other spread on her bare back, her face turned toward the terrace, smiling, eyes somewhere far across the roof */
+
+Eventually his wife calls. He answers it with "Hey, hon" and his hand still on my hip, and when he takes it away to cover his other ear, I touch his arm and tell him his glass is empty, and I'm gone. So the move still works. Good to know.
+
+In the ladies' room downstairs I look at my back in the mirror over my shoulder. There's nothing there, obviously. I'm not sure what I thought there'd be. I fix my lipstick and go back up, and find $player.name at the railing, and stand next to him without a word, and he doesn't say anything either, and that's the best part of the whole night.
+<<else>>
+His hand stays on the railing.
+
+I wait, to be sure. I give it one slow breath, then another, while the gray suit explains that the canoe was rated for two adults and a medium dog. $player.name's hand doesn't move, and neither do his eyes.
+
+So I do the move. I touch the arm, I tell him his glass is empty, and I'm at the bar before he gets to the rapids.
+
+Here's the part I'm not telling anybody, him included, and on most days not even me: for a second, standing at the bar waiting on a fresh glass, I'm disappointed. Not a lot. About as disappointed as you are when a party you were dreading gets canceled and you'd already done your hair.
+
+Then I look back across the terrace, and he's still watching me, and I decide he did it for me. That he saw a stranger's hand on my back and didn't want it there. It's the version I like best, so it's the one I keep, and for the rest of the night I stay where he can see me, bring people napkins and feel about nine feet tall.
+
+<<silently>>
+<<set _msgs = [
+{ text: "Much later, by the elevator, I hear him telling it again, to $investor.callName this time." },
+{ who: "Gray suit", text: "...and there's the three of us up to our waists in the lake, and this bear just strolls out of the trees, cool as you like, and takes the whole cooler. Beer, sandwiches, everything. Didn't even look at us." },
+{ who: $investor, text: "A bear! Good heavens." },
+{ text: "I laugh out loud from across the roof. He looks over, pleased, and lifts his glass to me, and I lift mine back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/events/the_rooftop_pov/bar.jpg | Sister at the rooftop bar with a fresh glass, laughing, looking back across the string lights toward the railing */
+
+I'm going to thank $player.name in the car, I already know that. And I'll mean it, which is the part that worries me a little, because you only thank somebody for not asking when you'd have said yes.
+<</if>>
+
+<<EndPov "Home">>

@@ -1153,7 +1153,8 @@ window.checkTaskProgression = function () {
         if (!hasActiveTaskThisTick && 
             setup.isTaskRow(sysName, currentGlobalRow)) {
             
-            const updatedEnergy = State.variables[sysName].stats.energy + 5;
+            /* a free hour at her desk gives a little back (setup.taskEnergyTuning, Define Tasks) */
+            const updatedEnergy = State.variables[sysName].stats.energy + setup.taskEnergyTuning.idlePerRow;
             State.variables[sysName].stats.energy = Math.min(
                 updatedEnergy, 
                 State.variables[sysName].stats.max.energy

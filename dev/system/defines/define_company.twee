@@ -482,13 +482,16 @@
                 plus story beats (the official product meeting). It never drifts.
    morale       The climate in the office. Every employee keeps an own morale for their own exhaustion;
                 this one decides how fast they get it back and how fast work eats it:
-                overnight recovery setup.moraleRecovery() = 5 + morale / 5 (+5 to +25, +15 at 50),
+                overnight recovery setup.moraleRecovery() = 4 + morale / 12.5 (+4 to +12, +8 at 50),
                 work drain tuning.moraleDrainPerAction per action of project work x setup.moraleDrainFactor()
-                = (1.5 - morale / 100) x the drain of the vent level. Their work is scaled by their own morale
-                (50% at 0, 100% at full), so on Low they keep going at about 85%, Medium gets more done at
-                about 70% morale, and High is a crunch: the most work for a week or so, then they run dry.
+                = (1.2 - morale / 250) x the drain of the vent level (x1.2 at 0, x1 at 50, x0.8 at 100). Their
+                work is scaled by their own morale (50% at 0, 100% at full, nothing at all at 0).
+                Balance (playtest 2026-11-24: it never ran out), 8 work actions a weekday, company Morale 50:
+                Off holds them at about 80, Low costs about 8 a week (two Coffee Breaks a week make up for it),
+                Medium wears them down over two or three weeks, High empties them by the end of the first week.
+                High company Morale is the reward: at 90 Low and Medium hold, and only High still drains.
                 +2 per Coffee Break, +2 for a project finished on time, -2 for one finished late,
-                plus story beats. Moves 5 points toward 50 every week.
+                plus story beats. Moves tuning.moraleWeeklyDrift points toward 50 every week.
    suspicion    Inactive until Stage 2 (setup.suspicionActive): it stays 0, the sidebar and the CMD hide it and
                 UpdateStat / changeCompanyStat ignore it. Planned for Stage 2: device use on clients, turning
                 the vent unit up, risky tasks; a lawyer and clean projects bring it down; thresholds that fire
@@ -517,11 +520,16 @@
 <<set setup.companyStatTuning to {
     efficiencyRise: 6,
     /* morale an employee spends per action of project work, before setup.moraleDrainFactor (ProgressProjects) */
-    moraleDrainPerAction: 1.8,
+    moraleDrainPerAction: 1.6,
+    /* overnight morale an employee wins back: moraleRecoveryBase + company Morale / moraleRecoveryDiv (setup.moraleRecovery) */
+    moraleRecoveryBase: 4,
+    moraleRecoveryDiv: 12.5,
     efficiencyFall: 2,
     lowMoraleFrom: 40,
     moraleBaseline: 50,
-    moraleWeeklyDrift: 5,
+    /* the company Morale gets many small boosts (rounds, coffee, micro events), so it has to settle back fast enough
+       that keeping it high takes steady work */
+    moraleWeeklyDrift: 10,
     onTimeReputation: 3,
     lateReputationPerDay: 1,
     onTimeMorale: 2,
@@ -535,7 +543,7 @@
       text: "The 18% baseline I set it to on day one. It keeps the room warm and focused, and nobody would ever think to blame the ceiling." },
     { name: "Medium", output: 35, efficiency: 65, drain: 1.25,
       text: "A real push. The team gets a lot more done and goes home more tired than they can explain." },
-    { name: "High", output: 60, efficiency: 80, drain: 1.6,
+    { name: "High", output: 60, efficiency: 80, drain: 1.8,
       text: "Everybody works like the deadline was yesterday. It burns through their morale fast, so it's for a crunch week, not for every day." },
 ]>>
 
@@ -605,13 +613,14 @@
 }>>
 
 <<set setup.moraleRecovery = () => {
-    if (!setup.companyStatsActive()) { return 15; }
-    return Math.round(5 + State.variables.company.stats.morale / 5);
+    const tuning = setup.companyStatTuning;
+    if (!setup.companyStatsActive()) { return Math.round(tuning.moraleRecoveryBase + 50 / tuning.moraleRecoveryDiv); }
+    return Math.round(tuning.moraleRecoveryBase + State.variables.company.stats.morale / tuning.moraleRecoveryDiv);
 }>>
 
 <<set setup.moraleDrainFactor = () => {
     if (!setup.companyStatsActive()) { return 1; }
-    return (1.5 - State.variables.company.stats.morale / 100) * setup.ventLevel().drain;
+    return (1.2 - State.variables.company.stats.morale / 250) * setup.ventLevel().drain;
 }>>
 
 <<set setup.reputationRewardFactor = (project) => {

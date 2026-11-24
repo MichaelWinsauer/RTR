@@ -1,9 +1,93 @@
 :: Last Night Mom [event mom_quest] {"position":"5025,1075","size":"100,100"}
 /* Quest "The Last Night" (mom_lastNight), part of The Night Shift (main_nightShift), STAGE1_PROPOSAL.md 5.11. Optional: only if
-   I offered them to $supplier.callName. At home she wears what I picked for the night and tells me she's ready. I tell her to
-   look after $sister.callName, and I don't say why. Advances her line. */
-<<silent>><<SetBackground $locations[5].img>><</silent>>
-Her bedroom door is open. She's standing in front of the long mirror on the closet door in the dress I picked: black, simple, a hem that stops well above the knee and a neckline she adjusted twice before I came in and once while I watched. Her hair is up. She's wearing the earrings $dad.callName gave her for their tenth anniversary, and I don't think she knows she chose them.
+   I offered them to $supplier.callName. I get home and find her in the kitchen, ironing the dress I picked. She knows it's
+   another evening at $club.name and nothing else, so before she goes I tell her: it isn't a client, it's the man who owns the
+   club, he's the price of something the company needs, and whatever he asks for in there, she says yes. She asks if it's only
+   her. I say he asked for the best people I have, and she hears what she wants to hear. Then the mirror: she wears what I
+   picked and tells me she's ready, I tell her to look after $sister.callName, and I don't say why. Advances her line. */
+<<silent>><<SetBackground $locations[3].img>><</silent>>
+The whole house smells like spray starch. $mom.callName has the ironing board up in the kitchen, wedged in between the table and the fridge where it doesn't really fit, and the black dress is lying across it under a damp dish towel, which is how she irons anything she's afraid of scorching. She's still in her robe, with her hair pinned up on one side and not yet on the other.
+
+She knows tonight is another evening at $club.name, because she left the office early for it, and she knows I picked the dress. That's all she knows. It's all I've told her.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There you are! I was starting to think you'd forgotten your own evening, sweetie. There's a plate in the microwave, it's only chicken from yesterday, but you should have something in your stomach before you drive all the way downtown." },
+{ who: $player, text: "Thanks, I'll have it later. Can you stop for a minute? I want to talk to you about tonight first." },
+{ text: "She stands the iron up on its heel. It ticks and hisses on the board between us, and she keeps one hand flat on the dish towel, like the dress might get up and leave." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Tell her what tonight is">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Tonight isn't like the evenings with Lyle. It isn't a client. It's the man who owns the club, $supplier.callName." },
+{ who: $mom, text: "Oh! Well, that's good, isn't it? For once we're the ones buying something, and I can be very nice to a man who's selling me something, honey, you should have seen me with the plumber last spring." },
+{ who: $player, text: "He has something the company needs, and nobody else will sell it to us. He wants more money for it than we have. So he said he'd take an evening instead." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes her hand off the dish towel, folds the towel in half, and then in half again, and puts it down on the counter, very square.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "An evening." },
+{ who: $player, text: "You know what kind of place it is." },
+{ who: $mom, text: "I know what kind of place it is, sweetheart." },
+{ who: $player, text: "Whatever he asks for tonight, in there or anywhere else, I need you to say yes to it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't make it softer. Usually this is where I'd smile, or touch her arm, or make some joke about the chicken, and she's waiting for one of those. I lean against the counter and wait instead.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey, when you say whatever, do you mean..." },
+{ text: "She stops. She picks the iron up again, looks at it, and puts it back down." },
+{ who: $mom, text: "...do you mean I should wear the good stockings? The ones with the seam up the back. I only have the one pair, and I'd hate to waste them on a man who doesn't even..." },
+{ text: "She stops again, and this time she doesn't try to finish it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I still don't help her. After a while she nods, slowly, to herself more than to me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well, it's for the company, isn't it. And you wouldn't ask if there were any other way, I know you wouldn't. You've never once asked me for something you didn't really need." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There was another way, and it had a dollar sign in front of it. I let her keep the version where there wasn't.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is it just me, then? Did he only ask for me?" },
+{ who: $player, text: "He asked for the best people I have." },
+{ text: "Her shoulders come down half an inch. She's heard the answer she wanted, and she lets out a breath that's almost a laugh." },
+{ who: $mom, text: "Then it's me. Good. That's good, at least $sister.callName gets a quiet night in for once, she's been running herself ragged with all these evenings and her classes and everything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Upstairs, $sister.callName's shower has been running for twenty minutes. I don't say anything about it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Right. Then I'd better finish this, hadn't I, or I'll be meeting your $supplier.callName in a wrinkled dress, and that's no way to make a first impression on anybody." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lifts the dish towel off the dress and starts ironing again, with her back to me, very carefully, along the hem.
+
+<<linkreplace "Let her get dressed">>
+<<silently>><<SetBackground $locations[5].img>><</silently>>
+Her bedroom door is open. She's standing in front of the long mirror on the closet door in the dress I picked: black, simple, a hem that stops well above the knee and a neckline she adjusted twice before I came in and once while I watched. Her hair is up. She's wearing the earrings $dad.callName gave her for their tenth anniversary, and I don't think she knows she chose them. She's wearing the stockings with the seam.
 
 /* MEDIA: images/characters/mom/events/last_night/mirror.jpg | Mom in a short black dress in front of her closet mirror, hair up, earrings, looking at her own reflection */
 
@@ -14,19 +98,19 @@ She sees me in the mirror and doesn't turn around.
 { who: $mom, text: "Is it right? You said black, and this is the only black one I have." },
 { who: $player, text: "It's right. You look really good, $mom.callName." },
 { who: $mom, text: "Okay. Good." },
-{ text: "She smooths the dress over her hips with both hands, slowly, as if she's ironing it on her body." },
-{ who: $mom, text: "I'm ready, honey, whatever tonight turns out to be." },
+{ text: "She smooths the dress over her hips with both hands, slowly, as if she's ironing it all over again on her body." },
+{ who: $mom, text: "I'm ready, honey. I mean it, I am. I've just never been ready in heels this high before." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She doesn't ask what tonight is. She asked once, in the kitchen, and I said a client, an important one, and that she'd understand when we got there. She nodded and didn't ask again. Since the calendar she doesn't ask.
+She doesn't bring up the kitchen again. Since the calendar, once she has said yes to something, she doesn't go back and pick at it.
 
 <<silently>>
 <<set _msgs = [
 { who: $player, text: "One more thing. Tonight, I want you to look after $sister.callName." },
 { text: "She turns around for the first time." },
-{ who: $mom, text: "$sister.callName? Why would I need to..." },
+{ who: $mom, text: "$sister.callName? But you said... she's staying home tonight. Isn't she?" },
 { who: $player, text: "Just stay close to her tonight, okay? Keep an eye on her for me." },
 { text: "She looks at me for a long moment. Then she nods, slowly, the way she nods when she's decided not to ask a question because she might not like the answer." },
 { who: $mom, text: "Always, sweetheart. You know I always do." },
@@ -40,3 +124,5 @@ She picks up her purse and her coat, checks her lipstick in the mirror one more 
 <<UpdateStat "+" "MomExhibition" 3>>
 <<NextQuest $mom>>
 <div class="navigation-link"><<link "Go down to the car" "Last Night Sister">><</link>></div>
+<</linkreplace>>
+<</linkreplace>>

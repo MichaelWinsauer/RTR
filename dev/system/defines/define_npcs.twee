@@ -93,6 +93,7 @@
     movedDesk: false,       /* Sister Office New Spot happened */
     /* STAGE1-STUB: set by the stub scenes of the Stage 1 quests (Define Quests). null = not decided yet */
     datePhoto: null,        /* Two Towns Over: true = I said boyfriend (the classmate posts a photo), false = brother */
+    rooftopSignal: null,    /* The Rooftop: true = I touched my ear and she let the man in the gray suit, false = I didn't (Sister Rooftop POV) */
     handjobs: 0,            /* times the Handjob interaction was played (Sister Handjob), after What Are We */
     teamSpirit: null,       /* Team Spirit task: { day, who } of the staff member she picked today (setup.teamSpiritTarget) */
     teamSpiritName: "",     /* his name, for her report line */
@@ -761,9 +762,10 @@
        requires optional TwineScript condition, checked when the entry is made: while false there is no entry
 
    The card shows once the report exists in the story (setup.dayReportsUnlocked: after Office Gossip,
-   sister_officeGossip), at any time of day, while today's log has something she hasn't told me yet or a story I
-   haven't heard in full. Listening is worth a little Relation once a day (Day Report). If I never ask, nothing
-   breaks: the log is cleared overnight.
+   sister_officeGossip), at any time of day, but only while today's log has something she hasn't told me yet. A story
+   I didn't hear in full doesn't keep the card up on its own: it stays in the list of the Day Report, which comes back
+   with her next new entry that day (and things on camera stay behind the CCTV arrow). Listening is worth a little
+   Relation once a day (Day Report). If I never ask, nothing breaks: the log is cleared overnight.
 
    <<LogDay $sister "diner_incident" ["deal"]>>   an entry for an event or a deal (Profile Widgets)
    setup.logDay(who, kind, id [, extra])          the same from code; extra is merged into the entry
@@ -772,7 +774,7 @@
    setup.dayReportEntries(who)                    today's entries with a source:
                                                   [{ entry, index, line, ask, passage, told, heard }] (index into dayLog)
    setup.dayReportsUnlocked()                     the report exists in the story
-   setup.hasDayReport(who)                        the card is offered right now: something untold, or unheard
+   setup.hasDayReport(who)                        the card is offered right now: something untold (= dayReportNews)
    setup.dayReportNews(who)                       she has something new to tell (an entry that isn't told yet)
    setup.dayReportReachable(who)                  for the quick link: where she is, if I can walk up to her right
                                                   now and the card would be usable there ({ location }), else null
@@ -784,8 +786,22 @@
 /* events and deals that she reports on, by sysName. Empty until the first scenes use them (the Diner Incident,
    Was That Right?, The Friend, see STAGE1_TODO.md) */
 <<set setup.dayReports to {
-    mom: {},
-    sister: {},
+    mom: {
+        /* the club, the day after the Night Shift (logged by Night Shift 3 for the next day) */
+        last_night: {
+            line: "About last night, honey. If you want to hear it, I'll tell you all of it, every bit, and if you'd rather not, that's all right too, I only... I'd rather you heard it from me, that's all.",
+            ask: "Let her tell you about the club",
+            passage: "Last Night Mom POV",
+        },
+    },
+    sister: {
+        /* the club, the day after the Night Shift (logged by Night Shift 3 for the next day) */
+        last_night: {
+            line: "You can ask about last night, you know. I'm not going to fall apart on you. I just think you should have to hear it.",
+            ask: "Ask her about the club",
+            passage: "Last Night Sister POV",
+        },
+    },
 }>>
 
 <<set setup.logDay = (who, kind, id, extra) => {
@@ -853,10 +869,7 @@
 
 <<set setup.dayReportsUnlocked = () => setup.questDone("sister_officeGossip")>>
 
-<<set setup.hasDayReport = (who) => {
-    if (!setup.dayReportsUnlocked()) { return false; }
-    return setup.dayReportEntries(who).some((r) => !r.told || (r.passage && !r.heard));
-}>>
+<<set setup.hasDayReport = (who) => setup.dayReportNews(who)>>
 
 <<set setup.dayReportNews = (who) => {
     if (!setup.dayReportsUnlocked()) { return false; }

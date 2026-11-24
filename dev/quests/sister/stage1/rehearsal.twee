@@ -1,22 +1,45 @@
 :: Rehearsal [event sister_quest] {"position":"5150,1775","size":"100,100"}
 /* Quest "Rehearsal" (sister_rehearsal), STAGE1_PROPOSAL.md 6.8c. Optional: only if I offered them to $supplier.callName
-   ($flags.supplierOffered). The evening before the last night, the meeting room, device off: the Catalyst stays in my
-   drawer and she doesn't ask for it. I play the supplier. Where to sit, how to laugh, when to let a hand stay, how to say
+   ($flags.supplierOffered). Some evening before the last night (the date is his to name, and the Client Evenings come in
+   between), the meeting room, device off: the Catalyst stays in my drawer and she doesn't ask for it. I play the supplier. Where to sit, how to laugh, when to let a hand stay, how to say
    no so it sounds like later. Halfway through she understands what she's being prepared for and asks: "Will you be
    there?" "Outside." "Then I can do it." We run it once more from the top, and she's good, which is the worst part.
-   The mirror of the rooftop: there she waited for my signal, here she learns to do it without one. */
-<<silent>><<SetBackground $locations[15].img>><</silent>>
+   The mirror of the rooftop: there she waited for my signal, here she learns to do it without one.
+   What she has hosted before decides a few lines:
+     _rhHosted "rooftop"    she hosted the rooftop evening ($flags.retailIntro "sister"): the signal, "like the rooftop"
+     _rhHosted "thursdays"  no rooftop, but she has done the Thursday evenings at the investor's (task_sister_hostess)
+     _rhHosted "none"       she has never hosted anything for me */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _rhHosted to ($flags.retailIntro === "sister" ? "rooftop" : (setup.getTaskById("task_sister_hostess").count > 0 ? "thursdays" : "none"))>>
+	<<set _rhSmile to (_rhHosted == "rooftop" ? "the rooftop smile" : (_rhHosted == "thursdays" ? "the smile she wears at the door on Thursdays" : "the smile she gives a professor right before she asks for an extension"))>>
+	<<set _rhNotLike to (_rhHosted == "rooftop" ? "This isn't like the rooftop." : (_rhHosted == "thursdays" ? "This isn't like Thursdays." : "This isn't hostessing."))>>
+<</silent>>
 I've set the meeting room up like a club booth: two chairs pushed together on one side of the table, a bottle of wine I won't open, two glasses, and the lights turned down as far as the dimmer goes. It looks less like a club than like a very sad date, but it'll do.
 
-She comes in at seven in the dress I told her to wear tomorrow, so she can practice walking in it, and stops in the doorway when she sees the room.
+She comes in at seven in the dress I picked for the night, so she can practice walking in it, and stops in the doorway when she sees the room.
 
 <<silently>>
 <<set _msgs = [
 { who: $sister, text: "So either this is the world's most depressing candlelit dinner, or we're doing a drill." },
-{ who: $player, text: "A drill. Tomorrow night you're a hostess again, at a private club, for a client who matters a lot. I'd like you to be ready for him." },
-{ who: $sister, text: "Like the rooftop?" },
-{ who: $player, text: "Like the rooftop, only a little more." },
+{ who: $player, text: "A drill. $supplier.callName wants a hostess for an evening at his club, and he matters a lot to us. He hasn't named the night yet, and when he does it'll be short notice, so I'd like you to be ready for him before then." },
 ]>>
+<<if _rhHosted == "rooftop">>
+	<<run _msgs.push(
+		{ who: $sister, text: "Like the rooftop?" },
+		{ who: $player, text: "Like the rooftop, only a little more." }
+	)>>
+<<elseif _rhHosted == "thursdays">>
+	<<run _msgs.push(
+		{ who: $sister, text: "So, Thursdays at " + $investor.callName + "'s, except with worse lighting and no view." },
+		{ who: $player, text: "Like Thursdays, only a little more." }
+	)>>
+<<else>>
+	<<run _msgs.push(
+		{ who: $sister, text: "A hostess. So I take coats, I keep the glasses full and I laugh at his jokes, even the bad ones?" },
+		{ who: $player, text: "That, and a little more." }
+	)>>
+<</if>>
 <</silently>>
 <<Chat _msgs>>
 
@@ -33,7 +56,7 @@ I sit down next to her, closer than I'd sit to anyone at a business dinner, and 
 { who: $sister, text: "Wow. Is that really what he's like?" },
 { who: $player, text: "Pretty much. Stay in it." },
 { who: $sister, text: "Sorry, sorry. I'm in it." },
-{ text: "She takes a breath, and her face changes. The smile comes up, bright and easy, the rooftop smile." },
+{ text: "She takes a breath, and her face changes. The smile comes up, bright and easy, " + _rhSmile + "." },
 { who: $sister, text: "They told me you were difficult. Nobody said anything about funny." },
 ]>>
 <</silently>>
@@ -73,7 +96,7 @@ Her smile goes away.
 <<linkreplace "Wait">>
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "This isn't like the rooftop." },
+{ who: $sister, text: _rhNotLike },
 { who: $player, text: "No, it isn't." },
 { who: $sister, text: "This is about the back room. That's what all the not-yets are for." },
 { text: "She isn't crying. She's very quiet and very still, with my hand still on her knee, and she doesn't move it." },
@@ -82,7 +105,7 @@ Her smile goes away.
 <</silently>>
 <<Chat _msgs>>
 
-<<if $flags.retailIntro === "sister">>On the rooftop I was across the terrace the whole time, and she watched me for the signal. Tomorrow there won't be a terrace.<</if>>
+<<if _rhHosted == "rooftop">>On the rooftop I was across the terrace the whole time, and she watched me for the signal. At the club there won't be a terrace.<</if>>
 
 <<silently>>
 <<set _msgs = [
@@ -105,14 +128,14 @@ She thinks about it. I can see her turning the word over, outside, the way she t
 <<linkreplace "From the top">>
 We run it again from the top, all of it: the door and the coat, the walk to the booth, the joke and the laugh a little before the punch line, the hand on the knee, the glass she keeps full without seeming to, the back room, not yet, the touch on the arm.
 
-This time she doesn't look at me once for a signal, because tomorrow there won't be one, and she's already learned to manage without it.
+<<if _rhHosted == "rooftop">>This time she doesn't look at me once for a signal, because on the night there won't be one, and she's already learned to manage without it.<<else>>She doesn't look over at me once to see how she's doing. On the night there won't be anybody in the room to look at, and she's already learned to manage without it.<</if>>
 
 I know that's the worst part. I make her run it one more time anyway, and she does, without a single mistake, and at the end she gives me the not-yet smile, and I can't tell if it's for the client or for me.
 
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "What time do we leave tomorrow?" },
-{ who: $player, text: "Half past nine. I'll drive." },
+{ who: $sister, text: "So when is it? Roughly. I'd like to know how many nights I get to lie awake about it." },
+{ who: $player, text: "When he calls. A week, maybe two. I'll drive you myself." },
 { text: "She nods, stands up, smooths the dress and picks up her purse. At the door she stops with her hand on the frame, the way she did after the first meeting in this room, when she told me I was kind of good at the boss thing." },
 { who: $sister, text: "And you'll be right outside." },
 { who: $player, text: "Right outside. I'm not going anywhere." },
@@ -120,14 +143,14 @@ I know that's the worst part. I make her run it one more time anyway, and she do
 <</silently>>
 <<Chat _msgs>>
 
-She goes. I sit in the dim meeting room for a while with the unopened bottle and the two clean glasses, and then I turn the lights back up and push the chairs back where they belong, so tomorrow nobody will know.
+She goes. I sit in the dim meeting room for a while with the unopened bottle and the two clean glasses, and then I turn the lights back up and push the chairs back where they belong, so in the morning nobody will know.
 
 <<UpdateStat "+" "SisterCorruption" 5>>
 <<UpdateStat "+" "SisterExhibition" 3>>
 <<UpdateStat "-" "SisterResistance" 3>>
 <<UpdateStat "+" "Corruption" 3>>
 <<Feel $sister "player" -1>>
-<<ProfileLog $sister "Rehearsal" "The evening before $supplier.callName's club, I rehearsed it with her in the meeting room, with the device in my drawer. I played him. Halfway through she understood what she was being prepared for and asked if I'd be there. I said outside. She said then she could do it. We ran it again, and she was perfect.">>
+<<ProfileLog $sister "Rehearsal" "Before $supplier.callName's evening at his club, I rehearsed it with her in the meeting room, with the device in my drawer. I played him. Halfway through she understood what she was being prepared for and asked if I'd be there. I said outside. She said then she could do it. We ran it again, and she was perfect.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
 <</linkreplace>>

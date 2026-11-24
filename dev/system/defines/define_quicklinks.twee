@@ -1,7 +1,7 @@
 :: Define Quick Links [system] {"position":"1250,150","size":"100,100"}
 /* Quick links ==================================================================
    Shortcuts that only show up when they save the player pointless clicks: the way to work in the morning, the
-   next meal, bed at night, the way home, her report, how long to work at the desk. They are constants, the game
+   next meal, bed at night, the way home, her report, how long to work at the desk, the way to an office quest. They are constants, the game
    state holds nothing about them. They show in two places:
      "sidebar"  the sidebar ("Quick Caption"), on location passages (tag "location") after the intro, so they
                 never cut into a scene, an activity or a dialog
@@ -50,8 +50,9 @@
    setup.quickLinkUntilText(cost)  "until Afternoon": the time slot reached after cost more actions (for hints)
    setup.deskWorkSlots             the four tiles of the Work card: { label, idle(ctx) }, shown greyed out while
                                    no link fills that tile, idle saying why
-   setup.questQuickLinkTargets(ctx)  the quests that are ready and only wait for me to go somewhere:
-                                   [ { key (quest id), quest, location } ], the "Head to ..." links
+   setup.questQuickLinkTargets(ctx [, onlyPlaces])  the quests that are ready and only wait for me to go somewhere:
+                                   [ { key (quest id), quest, location } ], the "Head to ..." links at the desk
+                                   (only for setup.questQuickLinkPlaces, the office and the meeting room)
    setup.quickLinkWorkTask()       setup.getNextTaskWithPlayer() if that task happens in the office, else null
    setup.quickLinkWorkPlace()      where "Go to work" leads: My Desk in Stage 1 (the office of the current stage
                                    otherwise), or the place of a task with me that is already waiting
@@ -127,8 +128,11 @@
 /* A quest is ready (setup.getEligibleQuests: right day and time, requirements and device met) and its event
    starts as soon as I walk into one of its places. Hidden quests stay hidden, and a place that is closed right
    now or the one I am already on does not count. My Desk is its own passage here: an event in the office does
-   not start at the desk */
-<<set setup.questQuickLinkTargets = (ctx) => {
+   not start at the desk. onlyPlaces (location sysNames) limits the places that count: the desk link only offers
+   the office and the meeting room (setup.questQuickLinkPlaces) */
+<<set setup.questQuickLinkPlaces to [ "companystage1", "companystage1meeting" ]>>
+
+<<set setup.questQuickLinkTargets = (ctx, onlyPlaces) => {
     const v = State.variables;
     const result = [];
     for (const quest of setup.getEligibleQuests()) {
@@ -137,6 +141,7 @@
             ? v.locations[place.id]
             : v.locations.find((loc) => loc.passage === place)));
         const location = places.find((loc) => loc && loc.passage && Story.has(loc.passage)
+            && (!onlyPlaces || onlyPlaces.includes(loc.sysName))
             && (loc.open || []).includes(ctx.slot) && loc.passage !== ctx.passage);
         if (location && !places.some((loc) => loc && loc.passage === ctx.passage)) {
             result.push({ key: quest.id, quest: quest, location: location });
@@ -282,11 +287,13 @@
         target: () => setup.getTaskPlace(setup.getNextTaskWithPlayer().task).passage,
     },
     {
-        /* one per quest that is ready and only waits for me to walk into its place (setup.questQuickLinkTargets) */
+        /* one per quest that is ready and only waits for me to walk into its place (setup.questQuickLinkTargets).
+           Desk only, and only for the office and the meeting room: in the sidebar it turned the game into a click
+           through the links (playtest 2026-11-24). Everywhere else the location hints show where a quest waits */
         id: "quest",
-        where: ["sidebar", "desk"],
+        where: ["desk"],
         priority: 55,
-        items: (ctx) => setup.questQuickLinkTargets(ctx),
+        items: (ctx) => setup.questQuickLinkTargets(ctx, setup.questQuickLinkPlaces),
         when: () => true,
         label: (ctx, item) => "Head to " + wikifyText(item.location.name),
         hint: (ctx, item) => wikifyText(setup.questDisplay(item.quest).title),
