@@ -1,0 +1,118 @@
+:: Task Mom Flirt Duty 3 [scene pov] {"position":"2900,3925","size":"100,100"}
+/* POV passage, her side of the task Flirt Duty (task_mom_flirt_duty), stage 3 (her corruption stage 2, after four
+   rounds at stage 2). It plays for every round after that too, so the opening has a random variant (_fd3). Opened with
+   the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task's onComplete.
+   The staff have turned it around: they've started needing help on purpose, and she knows, and helps anyway. All three
+   of her report lines happen here: the chair of the joker that has nothing wrong with it, the printer problem of the
+   hardware guy at three every afternoon (she has to lean over him), the chart the analyst already had an opinion on.
+   Clips (images/characters/mom/tasks/, activity flirt_duty3): sitting on the edge of the desk of the joker with his
+   chair; leaning over the hardware guy at the printer; standing behind the analyst at his chart */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _fd3 to random(0, 2)>>
+<</silent>>
+<<PovHeader $mom>>
+<<if _fd3 == 0>>
+Somewhere in the last couple of weeks, the boys worked out that they don't have to wait for me to come around. I'm not sure who figured it out first. My money is on $ethan.name, because $ethan.name figures out everything first and then pretends he didn't.
+<<elseif _fd3 == 1>>
+I don't plan my rounds anymore. They plan them for me, the three of them, and they think I haven't noticed, which is the sweetest part of it.
+<<else>>
+I wore the skirt with the slit today. I didn't tell myself it was for any reason, I just put it on. I've stopped needing a reason in the mornings, and I don't miss it.
+<</if>>
+
+It starts at ten, the way it always starts now, with $ethan.name leaning back in his chair and calling across the office as if it's only just occurred to him.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Hey, sorry, can I borrow you for a sec? My chair's doing the thing again." },
+{ who: $mom, text: "The thing, honey?" },
+{ who: $ethan, text: "The sinking thing. I sit down, and it slowly lowers me into the earth like a dying king. It's very sad." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+There's nothing wrong with his chair. I know there isn't, because last Tuesday I had $brian.name look at it while $ethan.name was at lunch, and $brian.name sat in it for a whole minute and said "It's fine", and then, after a long pause, "He knows it's fine."
+
+/* MEDIA: images/characters/mom/tasks/flirt_duty3_0.mp4 | Mom sitting on the edge of a cluttered desk, legs crossed, bending to look at the lever of an office chair while the man in it grins up at her */
+
+So I go over. I sit on the edge of his desk, between his keyboard and a mug that says WORLD'S OKAYEST PROGRAMMER, and cross my legs, and lean down to look at the lever under his seat. It takes a while to look at a lever properly. He holds very still for it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well, I'm no engineer, sweetie, but I think the trouble might be that you keep pulling this." },
+{ who: $ethan, text: "That's a bold theory. Have you considered that it's haunted? $brian.name thinks the printer is haunted, maybe it spread." },
+{ who: $mom, text: "There's nothing wrong with this chair, is there." },
+{ who: $ethan, text: "There is absolutely nothing wrong with this chair. It's a great chair. Best chair I've ever had." },
+{ text: "He says it with a straight face, and then he can't keep it straight and grins up at me, and I grin back, and neither of us moves. My knee is about four inches from his shoulder. He knows the exact number of inches, I can tell." },
+{ who: $mom, text: "Well, as long as it's fixed now." },
+{ who: $ethan, text: "Totally fixed. You've got magic hands. I'll probably need you again Thursday, though, it's an old chair." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I help him anyway. I pump the chair back up for him, slowly, with my foot, while he sits in it, and I pat his cheek when I get off his desk, and he puts his headphones back on and doesn't type anything for the next ten minutes. I watch him not type, from my desk.
+
+$darius.name is subtler about it, because $darius.name is subtler about everything. He sends me a message, a real one, with a greeting and a full stop. <i>When you have a moment, I'd value your opinion on something.</i> And when I come over, he turns his monitor toward me and shows me a chart.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "It's for the next client deck. I can't decide between the blue and the green. I'd like a second pair of eyes before I commit." },
+{ who: $mom, text: "Oh, let me see. Can you scoot over a little, sweetie?" },
+{ text: "He doesn't scoot. He rolls his chair back exactly far enough for me to stand between him and the desk, and not one inch farther, so that when I lean on the desk to look at the screen, I'm leaning over his knees." },
+{ who: $mom, text: "The blue, I think. The green looks like something you'd get at the doctor's." },
+{ who: $darius, text: "The blue. Yes. Could you look at the axis labels too, while you're there? Take your time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/mom/tasks/flirt_duty3_1.mp4 | Mom leaning on a desk in front of a monitor with a chart, the analyst sitting very straight behind her, not looking at the chart */
+
+I take my time. I look at the axis labels, and the legend, and a little footnote at the bottom that I'm fairly sure is about me, though I'd never say so. He doesn't look at the chart once the whole while. I can see him in the dark edge of the screen, sitting very straight, with his hands folded in his lap like a man in church.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Darling, you knew it was the blue before I even got here, didn't you?" },
+{ who: $darius, text: "I confess I settled on the blue around nine this morning. I find, though, that I make much better decisions when someone is standing where you're standing." },
+{ who: $mom, text: "That's a very elegant way of saying you made me walk all the way over here for nothing." },
+{ who: $darius, text: "I'd dispute 'for nothing'. The axis labels were genuinely in need of you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+And then there's $brian.name, and the printer, and three o'clock.
+
+It started the week before last. At three o'clock exactly the printer by his desk jams, the same jam every time, tray two, the paper folded over at the corner in the same neat little triangle. On the third day I realized nobody folds paper that neatly by accident. On the fourth day I started finishing my round at three so I wouldn't miss it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Um. It's. The printer. Again." },
+{ who: $mom, text: "Tray two, honey?" },
+{ who: $brian, text: "Tray two." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He doesn't get up. He never gets up. The tray is on the far side of his chair, against the wall, and the only way to reach it is to lean right across him, one hand on the back of his chair and the other down by his knee, and that's what I do, and he sits there with his hands in the air like somebody in a bank robbery.
+
+/* MEDIA: images/characters/mom/tasks/flirt_duty3_2.mp4 | Mom leaning across a heavyset man in a band shirt to reach a printer tray, her blouse at his eye level, his hands held up awkwardly at his sides */
+
+I take my time with the paper, too. I can feel his breath on my collarbone. He's holding it most of the time, and then he forgets and lets it out all at once, warm, and holds the next one.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There. It's that little corner again, see? Somebody keeps folding it." },
+{ who: $brian, text: "Hm. Weird." },
+{ text: "He goes red from his collar to his hairline, and he doesn't say anything else, and he doesn't look away from me either, which is new. A month ago he'd have run for the kitchen." },
+{ who: $brian, text: "Same time tomorrow. Um. Probably." },
+{ who: $mom, text: "Probably, sweetie." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't scold any of them. I could. I know exactly what the ladies from my old church would have said about a woman who lets three grown men invent broken furniture so they can look down her blouse, and I can hear them saying it, all at once, over the coffee urn. I hear it, and I go and help with the chair anyway.
+
+Because they need me. The clients need me too, in their way, and $boss.callName needs me the way a man needs an ashtray, but these three need me the way you need the window open in a warm room, and I like being the window. I like it so much I've started to worry I'll miss it on the weekends.
+
+When I sit back down at my desk, $player.name is watching, of course. I cross my legs and pick up my pen and let him watch, and I don't press the smile flat this time.
+
+<<EndPov>>

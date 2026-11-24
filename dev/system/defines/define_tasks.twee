@@ -3,7 +3,24 @@
    id is a string, task_<who>_<what> ("task_mom_test_session"). Look a task up with setup.getTaskById(id)
    and store the id, never the array index or the task object (state copies go stale). Stages are part of
    the task itself (see "Task Stages" in the Story JavaScript), so the id has no stage number.
-   Optional cooldown: N (days) makes a task happen at most once every N days ("Task cooldown" below). */
+   Optional cooldown: N (days) makes a task happen at most once every N days ("Task cooldown" below).
+
+   More optional fields (STAGE1_TASKS.md):
+     effects:  { ... }        what one run does, on the task or on a stage (the stage wins key by key). Applied when
+                              it finishes, before onComplete ("Task effects" below)
+     private:  "room"         only while the other one of mom and sister is not at the same place (the meeting room)
+               "afterHours"   that, and only outside the work hours, when the staff has gone home ("Private tasks")
+     pair:     "task_..."     a task for two: placing it puts the partner task into the other column at the same time,
+                              and it only starts when both can ("Tasks for two")
+     npcLabel: "Clients"      the column of the task picker when there is no story NPC to name (npc left out)
+     intro:    { passage, where, whenTime [, whenDay] , requirements }
+                              the task starts locked (active: false) and a short scene unlocks it: an event that is
+                              generated from this field ("Task introductions"). The scene ends with <<EndTaskIntro>>
+     onUnlock: [ fns ]        run once when it is unlocked (setup.unlockTask)
+   A task at an off-site place (a location with offsite: true, Define Locations) has no camera: her end-of-day
+   report is the only door to its POV passages.
+   Stages may also wait for her corruption stage (corruptionStage) or a quest (quest), next to minCount
+   ("Task Stages" in the Story JavaScript). */
 <<set $tasks to [
 	{
     	id: "task_mom_secretary_work",
@@ -185,9 +202,9 @@
     	id: "task_mom_private_attention",
     	who: $mom,
         title: "Massage",
-        description: "",
+        description: "She works the knots out of my shoulders in the meeting room. Raises her <b class='accent'>Relation</b> and <b class='accent'>Lust</b>, and it goes further the more often she does it.",
         location: $locations[15], /*Meeting Room*/
-        apCost: 1,
+        apCost: 2,
         active: false, /* unlocked by the quest "Being a CEO is hard..." (mom_ceoStruggles) */
         startTime: [ 1, 2, 3 ],
         npc: $player,
@@ -227,6 +244,15 @@
                 minCount: 5,
                 requirements: [ () => setup.corruptionTotal("mom") >= 100 ],
                 requirementsText: [ "$mom.callName needs corruption stage 1" ],
+            },
+            {
+                /* after The Crawl (mom_crawl): it ends on her knees now, the version from that night */
+                activity: "giving_massage4",
+                passage: "Task Mom Massage 4",
+                minCount: 3,
+                quest: "mom_crawl",
+                /* on top of onComplete: it ends under the table now */
+                effects: { corruption: 1, lust: -12, feel: { player: 1 } },
             },
         ],
         onComplete: [
@@ -317,7 +343,7 @@
     	id: "task_mom_test_session",
     	who: $mom,
         title: "Test Session",
-        description: "Boosts the <b class='accent'>testing</b> progress of active projects by <b class='accent'>3</b>.",
+        description: "Boosts the <b class='accent'>testing</b> progress of active projects by <b class='accent'>3</b>, and the <b class='accent'>calibration</b> of the original for her by 2.",
         location: $locations[15], /*Meeting Room*/
         apCost: 3,
         active: false, /* unlocked by the quest "Can you help me a little more?" (mom_testSessionRequest) */
@@ -343,6 +369,8 @@
             { activity: "testing_prototype", passage: "Task Mom Test Session 1", corruption: 2, lust: 3, requirements: [ () => setup.getTaskById("task_mom_test_session").count > 2 ], },
             { activity: "testing_prototype", passage: "Task Mom Test Session 2", corruption: 2, lust: 4, requirements: [ () => setup.getTaskById("task_mom_test_session").count > 5 ],  },
             { activity: "testing_prototype", passage: "Task Mom Test Session 3", corruption: 3, lust: 5, requirements: [ () => setup.getTaskById("task_mom_test_session").count > 7 ],  },
+            /* her corruption stage 3: she asks for a session herself, and wants it without the device */
+            { activity: "testing_prototype", passage: "Task Mom Test Session 4", corruption: 2, lust: 5, minCount: 3, corruptionStage: 3 },
         ],
         onComplete: [
         	() => {
@@ -358,6 +386,12 @@
                         p.progress.testing += 3;
                     }
                 });
+                /* every session tells me more about her: the calibration of the original for her gets a little
+                   better, up to 100 (it has to be calibrated for her already) */
+                const vx = v.company.devices && v.company.devices.valenx;
+                if (vx && vx.calibration === "mom" && vx.calibrationQuality > 0) {
+                    vx.calibrationQuality = Math.min(100, vx.calibrationQuality + 2);
+                }
             },
         ],
         revenue: 0,
@@ -444,6 +478,19 @@
                         "$brian.name walked into the glass door again. I wasn't even trying that time, sweetie. Well. Not very hard.",
                         "$ethan.name stopped making jokes when I sat on the corner of his desk. I didn't know he could do that.",
                         "I got $darius.name to laugh. Out loud. He looked so surprised at himself, I almost apologized.",
+                    ],
+                    ask: "Ask about her rounds",
+                },
+            },
+            {
+                /* her corruption stage 2: she sits on the edge of their desks, and the staff start needing help on purpose */
+                activity: "flirt_duty3", passage: "Task Mom Flirt Duty 3", minCount: 4, corruptionStage: 2,
+                staffMorale: 5, companyMorale: 3, exhibition: 2, corruption: 1, proud: true,
+                report: {
+                    line: [
+                        "$ethan.name asked me to help him with his chair, sweetie. There is nothing wrong with his chair. I helped him anyway.",
+                        "$brian.name has a new printer problem every afternoon at three now. It is always the same problem, and I always have to lean over him to fix it.",
+                        "$darius.name asked for my opinion on a chart. He knew exactly what he thought about that chart. He just wanted me to stand there a while.",
                     ],
                     ask: "Ask about her rounds",
                 },
@@ -541,11 +588,836 @@
         count: 0,
         lastCompletedAt: 0,
     },
+
+    /* ==== Stage 1 task plan (STAGE1_TASKS.md) =====================================================================
+       Every task below starts locked and is unlocked by its own short scene (intro, see "Task introductions").
+       Stages wait for a count on the stage before (minCount) and her corruption stage or a quest. What one run does
+       is in effects, on the stage that was played ("Task effects"). Tasks without me have a POV passage per stage
+       (dev/tasks/<npc>/, tag pov), behind the CCTV arrow, or only behind her report when the place is off-site.
+       Tasks with me have a scene per stage (tag task_scene). */
+
+    /* ---- Mom ---- */
+    {
+    	id: "task_mom_client_lunch",
+    	who: $mom,
+        title: "Client Lunch",
+        description: "She takes a client to lunch on the company card. Raises company <b class='accent'>Reputation</b> and her <b class='accent'>Exhibition</b>. Off-site: no camera there, I only hear about it from her.",
+        location: $locations[21], /* the steakhouse downtown, off-site */
+        apCost: 3,
+        active: false,
+        startTime: [ 2 ],
+        npcLabel: "Clients",
+        activity: "client_lunch0",
+        intro: {
+            passage: "Task Intro Client Lunch",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_firstSale', 1)", "!setup.momSilent()" ],
+        },
+        stage: 0,
+        stages: [
+            {
+                activity: "client_lunch0", passage: "Task Mom Client Lunch 0",
+                effects: { reputation: 2, exhibition: 1 },
+                report: { line: "He talked about his boat for forty minutes, sweetie. I know more about bilge pumps now than any woman should. He signed, though.", ask: "Ask how the lunch went" },
+            },
+            {
+                /* a hand on her knee that she does not move */
+                activity: "client_lunch1", passage: "Task Mom Client Lunch 1", minCount: 3, corruptionStage: 1,
+                effects: { reputation: 3, exhibition: 2, corruption: 1, lust: 2 },
+                report: { line: "He kept his hand on my knee all through dessert, honey. I didn't move it. I'm not really sure why I'm telling you that.", ask: "Ask about the client" },
+            },
+            {
+                /* the dress I picked, and she lets the client choose the wine and the topic */
+                activity: "client_lunch2", passage: "Task Mom Client Lunch 2", minCount: 3, corruptionStage: 1,
+                effects: { reputation: 3, exhibition: 2, corruption: 1, lust: 3 },
+                report: { line: "I wore the dress you picked. He chose the wine, and he chose what we talked about, and I let him have both. Mostly we talked about me.", ask: "Ask what they talked about" },
+            },
+            {
+                /* her corruption stage 2: dessert in the car of the client */
+                activity: "client_lunch3", passage: "Task Mom Client Lunch 3", minCount: 4, corruptionStage: 2,
+                effects: { reputation: 4, exhibition: 3, corruption: 2, lust: 3 },
+                report: { line: "We had dessert in his car. That's all I'm going to say about dessert, sweetie. Unless you ask.", ask: "Ask about dessert" },
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 15,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_product_demos",
+    	who: $mom,
+        title: "Product Demos",
+        description: "She shows the official unit to clients in the meeting room, on herself. Pushes the <b class='accent'>sales</b> and <b class='accent'>consulting</b> progress of active projects, raises <b class='accent'>Reputation</b> and her <b class='accent'>Exhibition</b>.",
+        location: $locations[15], /*Meeting Room*/
+        apCost: 2,
+        active: false,
+        startTime: [ 1, 2, 3 ],
+        npcLabel: "Clients",
+        activity: "product_demo0",
+        intro: {
+            passage: "Task Intro Product Demos",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_catalystNight', 2)", "!setup.momSilent()" ],
+        },
+        stage: 0,
+        stages: [
+            {
+                /* she wears the unit and the clients watch it calm her down on the screen */
+                activity: "product_demo0", passage: "Task Mom Product Demos 0",
+                effects: { progress: { categories: [ "sales", "consulting" ], amount: 4 }, reputation: 2, exhibition: 2, corruption: 1 },
+                report: { line: "I wore the unit on my wrist and let them watch my pulse go down on the big screen. One of them asked if it comes in my size. I think that was a joke.", ask: "Ask about the demo" },
+            },
+            {
+                /* a client gets the dial */
+                activity: "product_demo1", passage: "Task Mom Product Demos 1", minCount: 3, corruptionStage: 2,
+                effects: { progress: { categories: [ "sales", "consulting" ], amount: 5 }, reputation: 3, exhibition: 3, corruption: 1, lust: 4 },
+                report: { line: "I let the client hold the dial today. He turned it up when he thought I wasn't looking. I was looking, honey.", ask: "Ask about the dial" },
+            },
+            {
+                /* her corruption stage 3: a live demonstration, on the meeting room table */
+                activity: "product_demo2", passage: "Task Mom Product Demos 2", minCount: 3, corruptionStage: 3,
+                effects: { progress: { categories: [ "sales", "consulting" ], amount: 6 }, reputation: 4, exhibition: 3, corruption: 2, lust: 5 },
+                report: { line: "They called it a live demonstration. It was very live. Somebody should probably wipe down the meeting room table before tomorrow.", ask: "Ask about the demonstration" },
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 10,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_lunch_break",
+    	who: $mom,
+        title: "Lunch Break",
+        description: "She brings my lunch to the meeting room and stays a while after I have eaten it. Only while her daughter is somewhere else.",
+        location: $locations[15], /*Meeting Room*/
+        apCost: 2,
+        active: false,
+        startTime: [ 2 ],
+        npc: $player,
+        activity: "lunch_break0",
+        private: "room",
+        intro: {
+            passage: "Task Intro Lunch Break",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('mom_nightVisit', 1)", "!setup.momSilent()" ],
+        },
+        withPlayer: {
+            where: [ 15 ],
+            prompt: "$mom.callName backs into the meeting room with a paper bag from the deli downstairs and closes the door with her hip.",
+            accept: "Let her in",
+            decline: "Not today",
+            summary: "$mom.callName brought my lunch to the meeting room and stayed a while after I finished it.",
+            waiting: "$mom.callName is waiting in the meeting room with my lunch. My lunch, and the rest of it.",
+            missed: "$mom.callName sat in the meeting room with my sandwich going cold, and I never came.",
+            declined: "I sent $mom.callName back out. She left the paper bag on my desk anyway.",
+            missedCost: { relation: 1, morale: 2 },
+        },
+        stage: 0,
+        stages: [
+            { activity: "lunch_break0", passage: "Task Mom Lunch Break 0", effects: { corruption: 1, lust: -10, relation: 1, feel: { player: 1 } } },
+            /* after The Crawl (mom_crawl) */
+            { activity: "lunch_break1", passage: "Task Mom Lunch Break 1", minCount: 3, quest: "mom_crawl", effects: { corruption: 1, lust: -15, relation: 1, feel: { player: 1 } } },
+            /* after The Calendar (mom_calendar) */
+            { activity: "lunch_break2", passage: "Task Mom Lunch Break 2", minCount: 3, quest: "mom_calendar", effects: { corruption: 1, lust: -20, relation: 1, feel: { player: 1 } } },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_working_late",
+    	who: $mom,
+        title: "Working Late",
+        description: "She stays after everyone has gone home and keeps me company at my desk while I work. Only after work hours, when the office is empty.",
+        location: $locations[14], /*My Desk*/
+        apCost: 2,
+        active: false,
+        startTime: [ 4 ],
+        npc: $player,
+        activity: "working_late0",
+        private: "afterHours",
+        intro: {
+            passage: "Task Intro Working Late",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 4 ],
+            requirements: [ "setup.questDoneDaysAgo('mom_crawl', 1)", "!setup.momSilent()" ],
+        },
+        withPlayer: {
+            where: [ 14 ],
+            prompt: "The others went home an hour ago. $mom.callName switches off the lights over their desks one by one, and then she comes over to mine.",
+            accept: "Keep working",
+            decline: "Send her home",
+            summary: "$mom.callName stayed late and kept me company at my desk while I worked.",
+            waiting: "$mom.callName is waiting at my desk in the empty office. I should get over there.",
+            missed: "$mom.callName waited at my desk in the dark office until she gave up and went home.",
+            declined: "I sent $mom.callName home. She said goodnight from the door, twice.",
+            missedCost: { relation: 1, morale: 2 },
+        },
+        stage: 0,
+        stages: [
+            /* under the desk while I work */
+            { activity: "working_late0", passage: "Task Mom Working Late 0", effects: { corruption: 1, lust: -15, relation: 1, feel: { player: 1 } } },
+            /* after the Catalyst Night: on the desk */
+            { activity: "working_late1", passage: "Task Mom Working Late 1", minCount: 3, quest: "main_catalystNight", effects: { corruption: 1, lust: -20, relation: 1, feel: { player: 1 } } },
+            /* her corruption stage 3: she leaves the door open */
+            { activity: "working_late2", passage: "Task Mom Working Late 2", minCount: 3, corruptionStage: 3, effects: { corruption: 1, lust: -20, exhibition: 1, relation: 1, feel: { player: 1 } } },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_mom_client_evening",
+    	who: $mom,
+        title: "Client Evening",
+        description: "She and her daughter take a client out for the night, together. Good money and a lot of <b class='accent'>Reputation</b>. Off-site: I only hear about it from them.",
+        location: $locations[23], /* the club, off-site */
+        apCost: 3,
+        active: false,
+        startTime: [ 5 ],
+        npcLabel: "Clients",
+        activity: "client_evening0",
+        pair: "task_sister_client_evening",
+        /* the intro sits on this task and unlocks both (setup.unlockTask follows pair) */
+        intro: {
+            passage: "Task Intro Client Evening",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3, 4 ],
+            /* after The Supplier, and after the rehearsal if I offered them: it is their warm-up before the Night Shift,
+               which waits for three of them (main_nightShift) */
+            requirements: [ "setup.questDone('mom_calendar')", "setup.questDone('sister_everything')", "setup.questDoneDaysAgo('main_supplier', 1)", "$flags.supplierOffered !== true || setup.questDone('sister_rehearsal')", "!setup.momSilent()" ],
+        },
+        stage: 0,
+        stages: [
+            {
+                activity: "client_evening0", passage: "Task Mom Client Evening 0",
+                effects: { reputation: 3, exhibition: 3, corruption: 1 },
+                report: { line: "$sister.callName and I took a client out tonight, honey. We were very professional. We both very professionally didn't watch what the other one was doing.", ask: "Ask about the evening" },
+            },
+            {
+                /* the private room at the back of the club */
+                activity: "client_evening1", passage: "Task Mom Client Evening 1", minCount: 2,
+                effects: { reputation: 4, exhibition: 3, corruption: 2, lust: 4 },
+                report: { line: "There's a private room at the back of $club.name. The door locks from the inside. I know, because I checked.", ask: "Ask about the private room" },
+            },
+        ],
+        revenue: 250,
+        baseEnergyCost: 20,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+
+    /* ---- Sister ---- */
+    {
+    	id: "task_sister_socials",
+    	who: $sister,
+        title: "Socials",
+        description: "She runs the company accounts and is the face in the pictures. Pushes the <b class='accent'>sales</b> and <b class='accent'>marketing</b> progress of active projects, raises <b class='accent'>Reputation</b> and her <b class='accent'>Exhibition</b>.",
+        location: $locations[15], /* the meeting room doubles as her photo studio */
+        apCost: 2,
+        active: false,
+        startTime: [ 1, 2, 3 ],
+        activity: "socials0",
+        intro: {
+            passage: "Task Intro Socials",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_firstSale', 2)" ],
+        },
+        stage: 0,
+        stages: [
+            {
+                /* product shots, only her hands */
+                activity: "socials0", passage: "Task Sister Socials 0",
+                effects: { progress: { categories: [ "sales", "marketing" ], amount: 2 }, reputation: 1, exhibition: 1 },
+                report: { line: "I took forty pictures of the unit on a desk today. The desk looks amazing. The unit looks like a smoke detector.", ask: "Ask about the photos" },
+            },
+            {
+                /* her face becomes the brand, and the comments start */
+                activity: "socials1", passage: "Task Sister Socials 1", minCount: 3, corruptionStage: 1,
+                effects: { progress: { categories: [ "sales", "marketing" ], amount: 3 }, reputation: 2, exhibition: 2, corruption: 1 },
+                report: { line: "My face got more likes than the product. Somebody asked in the comments if I come with the unit. I'm choosing to take that as a compliment.", ask: "Ask about the comments" },
+            },
+            {
+                /* the gym-wear shoot for the gym chain */
+                activity: "socials2", passage: "Task Sister Socials 2", minCount: 4, corruptionStage: 2,
+                effects: { progress: { categories: [ "sales", "marketing" ], amount: 3 }, reputation: 3, exhibition: 3, corruption: 1, lust: 2 },
+                report: { line: "Gym-wear shoot in the meeting room. $brian.name came in for a cable, saw me, and left without the cable.", ask: "Ask about the shoot" },
+            },
+            {
+                /* her corruption stage 3: the outtakes she sends me first */
+                activity: "socials3", passage: "Task Sister Socials 3", minCount: 3, corruptionStage: 3,
+                effects: { progress: { categories: [ "sales", "marketing" ], amount: 4 }, reputation: 3, exhibition: 3, corruption: 2, lust: 3 },
+                report: { line: "There are outtakes from today. You get them first, and they're not going on the company page.", ask: "Ask about the outtakes" },
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 10,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_field_test",
+    	who: $sister,
+        title: "Field Test",
+        description: "She trains at $gymChain.name with a sensor on, so the gym project gets real data. Pushes the <b class='accent'>testing</b> progress of the gym project, raises her <b class='accent'>Exhibition</b>. Hard work: it costs a lot of energy.",
+        location: $locations[20], /*Gym*/
+        apCost: 3,
+        active: false,
+        startTime: [ 1, 2, 3 ],
+        npcLabel: "The gym",
+        activity: "field_test0",
+        intro: {
+            passage: "Task Intro Field Test",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_gymMeeting', 1)" ],
+        },
+        /* the chain has cameras of its own, and the router project gives me access to them */
+        onUnlock: [ () => { State.variables.cctv.cameras.gym = State.variables.date.dayCount; } ],
+        stage: 0,
+        stages: [
+            {
+                /* a normal workout with a sensor on her wrist */
+                activity: "field_test0", passage: "Task Sister Field Test 0",
+                effects: { progress: { categories: [ "testing" ], amount: 5, project: "project_gym_veil" }, exhibition: 1 },
+                report: { line: "Forty minutes on the bike with a sensor taped to my wrist. Apparently my data is very clean. Thanks, I guess?", ask: "Ask about the gym" },
+            },
+            {
+                /* the outfit I picked */
+                activity: "field_test1", passage: "Task Sister Field Test 1", minCount: 3, corruptionStage: 1,
+                effects: { progress: { categories: [ "testing" ], amount: 6, project: "project_gym_veil" }, exhibition: 2, corruption: 1 },
+                report: { line: "The outfit you picked got me three free smoothies and one guy who walked straight into the mirror.", ask: "Ask about the outfit" },
+            },
+            {
+                /* a trainer corrects her form */
+                activity: "field_test2", passage: "Task Sister Field Test 2", minCount: 4, corruptionStage: 2,
+                effects: { progress: { categories: [ "testing" ], amount: 6, project: "project_gym_veil" }, exhibition: 3, corruption: 1, lust: 3 },
+                report: { line: "There's a trainer who keeps correcting my form. My form is fine. He corrects it anyway. With both hands.", ask: "Ask about the trainer" },
+            },
+            {
+                /* her corruption stage 3: a private session after closing */
+                activity: "field_test3", passage: "Task Sister Field Test 3", minCount: 4, corruptionStage: 3,
+                effects: { progress: { categories: [ "testing" ], amount: 7, project: "project_gym_veil" }, exhibition: 3, corruption: 2, lust: 4 },
+                report: { line: "He gave me a private session after closing. He locked the front door so nobody would bother us. Nobody did.", ask: "Ask about the private session" },
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 25,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_overtime",
+    	who: $sister,
+        title: "Overtime",
+        description: "She stays late at the office, after everyone else has gone. Only after work hours, when the office is empty.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: false,
+        startTime: [ 4 ],
+        npc: $player,
+        activity: "overtime0",
+        private: "afterHours",
+        intro: {
+            passage: "Task Intro Overtime",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 4 ],
+            requirements: [ "setup.questDoneDaysAgo('sister_whatAreWe', 1)" ],
+        },
+        withPlayer: {
+            where: [ 13 ],
+            prompt: "The last of the staff left at six. $sister.callName didn't. She's sitting on the edge of her desk with her shoes off, waiting for me to notice.",
+            accept: "Notice",
+            decline: "Send her home",
+            summary: "$sister.callName stayed late, and I stayed with her.",
+            waiting: "$sister.callName is still at the office, in the dark, waiting for me.",
+            missed: "$sister.callName waited at the empty office for me, and went home alone.",
+            declined: "I told $sister.callName to go home. She said 'fine' in the voice that means the opposite.",
+            missedCost: { relation: 1, morale: 3 },
+        },
+        stage: 0,
+        stages: [
+            { activity: "overtime0", passage: "Task Sister Overtime 0", effects: { corruption: 1, lust: -10, relation: 1, feel: { player: 1 } } },
+            /* the show she sent me (Send Me Something), live */
+            { activity: "overtime1", passage: "Task Sister Overtime 1", minCount: 3, quest: "sister_sendMeSomething", effects: { corruption: 1, lust: -15, exhibition: 1, relation: 1, feel: { player: 1 } } },
+            /* after Everything (sister_everything) */
+            { activity: "overtime2", passage: "Task Sister Overtime 2", minCount: 2, quest: "sister_everything", effects: { corruption: 1, lust: -20, relation: 1, feel: { player: 1 } } },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_photo_review",
+    	who: $sister,
+        title: "Photo Review",
+        description: "We go through her shoots in the meeting room, the outtakes too. Only while her mother is somewhere else.",
+        location: $locations[15], /*Meeting Room*/
+        apCost: 2,
+        active: false,
+        startTime: [ 2, 3 ],
+        npc: $player,
+        activity: "photo_review0",
+        private: "room",
+        intro: {
+            passage: "Task Intro Photo Review",
+            where: [ 13, 14 ],
+            whenTime: [ 2, 3 ],
+            requirements: [ "(setup.getTaskById('task_sister_socials').stage || 0) >= 1", "setup.questDone('sister_sendMeSomething')" ],
+        },
+        withPlayer: {
+            where: [ 15 ],
+            prompt: "$sister.callName is in the meeting room with her laptop open and the blinds already down. 'I sorted them,' she says. 'Mostly.'",
+            accept: "Sit down next to her",
+            decline: "Not now",
+            summary: "I went through the new shoot with $sister.callName in the meeting room, the outtakes too.",
+            waiting: "$sister.callName is waiting in the meeting room with the new photos.",
+            missed: "$sister.callName waited in the meeting room with her laptop, and I never came.",
+            declined: "I told $sister.callName the photos would have to wait. She closed the laptop very slowly.",
+            missedCost: { relation: 1, morale: 2 },
+        },
+        stage: 0,
+        stages: [
+            { activity: "photo_review0", passage: "Task Sister Photo Review 0", effects: { corruption: 1, lust: 3, exhibition: 1, relation: 1 } },
+            /* her corruption stage 2: a private shoot, just for me */
+            { activity: "photo_review1", passage: "Task Sister Photo Review 1", minCount: 3, corruptionStage: 2, effects: { corruption: 1, lust: -10, exhibition: 2, relation: 1, feel: { player: 1 } } },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_team_spirit",
+    	who: $sister,
+        title: "Team Spirit",
+        description: "She spends time with whoever on the staff needs it most right now (the lowest morale): a big <b class='accent'>morale</b> boost for him, company <b class='accent'>Efficiency</b>, and her <b class='accent'>Exhibition</b>.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: false,
+        startTime: [ 1, 2, 3, 4 ],
+        npcLabel: "The staff",
+        activity: "team_spirit0",
+        intro: {
+            passage: "Task Intro Team Spirit",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_anchor', 2)" ],
+        },
+        /* staffMorale: for the one she picks (setup.teamSpiritTarget, "Team Spirit" below) */
+        stage: 0,
+        stages: [
+            {
+                /* lunch with him */
+                activity: "team_spirit0", passage: "Task Sister Team Spirit 0", staffMorale: 8,
+                effects: { efficiency: 1, exhibition: 1 },
+                report: { line: "I had lunch with $sister.flags.teamSpiritName today. He talked the whole time. I think he needed that more than the lunch.", ask: "Ask about $sister.flags.teamSpiritName" },
+            },
+            {
+                /* her corruption stage 2: she sits on his desk */
+                activity: "team_spirit1", passage: "Task Sister Team Spirit 1", minCount: 3, corruptionStage: 2, staffMorale: 10,
+                effects: { efficiency: 2, exhibition: 2, corruption: 1 },
+                report: { line: "I sat on the edge of the desk of $sister.flags.teamSpiritName for an hour. He got more done than all week. Don't ask me how that works.", ask: "Ask about $sister.flags.teamSpiritName" },
+            },
+            {
+                /* her corruption stage 3: employee of the week, a private show in the meeting room */
+                activity: "team_spirit2", passage: "Task Sister Team Spirit 2", minCount: 3, corruptionStage: 3, staffMorale: 12,
+                effects: { efficiency: 2, exhibition: 3, corruption: 2, lust: 3 },
+                report: { line: "$sister.flags.teamSpiritName is employee of the week. He got his prize in the meeting room. With the blinds down.", ask: "Ask about the prize" },
+            },
+        ],
+        onComplete: [
+        	() => {
+            	const v = State.variables;
+                const live = setup.getTaskById("task_sister_team_spirit");
+                const played = setup.getTaskStage(live) || {};
+                const who = setup.teamSpiritTarget();
+                const npc = who ? v[who] : null;
+                if (npc && npc.stats) {
+                    npc.stats.morale = Math.clamp(npc.stats.morale + (played.staffMorale || 8), npc.stats.min.morale, npc.stats.max.morale);
+                    setup.feel("sister", who, 1);
+                }
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_front_desk",
+    	who: $sister,
+        title: "Front Desk",
+        description: "She greets clients and visitors at the door now that they come to us. A little <b class='accent'>Reputation</b> every time, and her <b class='accent'>Exhibition</b>.",
+        location: $locations[13], /*Stage 1 Office*/
+        apCost: 2,
+        active: false,
+        startTime: [ 1, 2, 3 ],
+        npcLabel: "Visitors",
+        activity: "front_desk0",
+        intro: {
+            passage: "Task Intro Front Desk",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_retailPitch', 2)" ],
+        },
+        stage: 0,
+        stages: [
+            {
+                activity: "front_desk0", passage: "Task Sister Front Desk 0",
+                effects: { reputation: 2, exhibition: 1 },
+                report: { line: "A courier asked me out. Then a client asked me out. Then the courier came back. It was a whole thing.", ask: "Ask about the visitors" },
+            },
+            {
+                /* her corruption stage 2: the short skirt, and the sign-in sheet on the low table */
+                activity: "front_desk1", passage: "Task Sister Front Desk 1", minCount: 3, corruptionStage: 2,
+                effects: { reputation: 2, exhibition: 2, corruption: 1 },
+                report: { line: "I moved the sign-in sheet to the low table. Everybody signs in very, very slowly now.", ask: "Ask about the sign-in sheet" },
+            },
+            {
+                /* her corruption stage 3: visitors who wait on the couch with her */
+                activity: "front_desk2", passage: "Task Sister Front Desk 2", minCount: 3, corruptionStage: 3,
+                effects: { reputation: 3, exhibition: 3, corruption: 1, lust: 3 },
+                report: { line: "One of the retail guys came early, so I kept him company on the couch. He wasn't in any hurry to go in to his meeting.", ask: "Ask about the couch" },
+            },
+        ],
+        revenue: 0,
+        baseEnergyCost: 5,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_hostess",
+    	who: $sister,
+        title: "Hostess",
+        description: "She hosts the evenings of $investor.callName and his friends. Pays, raises <b class='accent'>Reputation</b> a lot, and her <b class='accent'>Exhibition</b>. Off-site: I only hear about it from her.",
+        location: $locations[22], /* the rooftop, off-site */
+        apCost: 3,
+        active: false,
+        startTime: [ 4 ],
+        npc: $investor,
+        activity: "hostess0",
+        intro: {
+            passage: "Task Intro Hostess",
+            where: [ 13, 14, 15 ],
+            whenTime: [ 1, 2, 3 ],
+            requirements: [ "setup.questDoneDaysAgo('main_retailPitch', 3)" ],
+        },
+        stage: 0,
+        stages: [
+            {
+                activity: "hostess0", passage: "Task Sister Hostess 0",
+                effects: { reputation: 3, exhibition: 2 },
+                report: { line: "Coats, wine, smiling. $investor.callName introduced me to a man who owns four hundred car washes. I didn't know one person could own that many car washes.", ask: "Ask about the evening" },
+            },
+            {
+                /* her corruption stage 2: the friends of the investor, and their tips */
+                activity: "hostess1", passage: "Task Sister Hostess 1", minCount: 2, corruptionStage: 2,
+                effects: { reputation: 4, exhibition: 3, corruption: 1, lust: 3 },
+                report: { line: "His friends tip. In cash, straight into my hand, and they hold on to the hand for a bit while they do it.", ask: "Ask about his friends" },
+            },
+            {
+                /* her corruption stage 3: after midnight the party moves on to the club */
+                activity: "hostess2", passage: "Task Sister Hostess 2", minCount: 2, corruptionStage: 3,
+                effects: { reputation: 5, exhibition: 3, corruption: 2, lust: 4 },
+                report: { line: "After midnight the whole party moved on to $club.name, and I went with it. I'll tell you about it if you want. You probably want.", ask: "Ask about $club.name" },
+            },
+        ],
+        revenue: 150,
+        baseEnergyCost: 20,
+        count: 0,
+        lastCompletedAt: 0,
+    },
+    {
+    	id: "task_sister_client_evening",
+    	who: $sister,
+        title: "Client Evening",
+        description: "She and her mother take a client out for the night, together. Good money and a lot of <b class='accent'>Reputation</b>. Off-site: I only hear about it from them.",
+        location: $locations[23], /* the club, off-site */
+        apCost: 3,
+        active: false, /* unlocked together with the task of mom (pair, intro on that task) */
+        startTime: [ 5 ],
+        npcLabel: "Clients",
+        activity: "client_evening0",
+        pair: "task_mom_client_evening",
+        stage: 0,
+        stages: [
+            {
+                activity: "client_evening0", passage: "Task Sister Client Evening 0",
+                effects: { reputation: 3, exhibition: 3, corruption: 1 },
+                report: { line: "Me and $mom.callName, a client, a bottle of something French. We're good at this together. That's either great or really weird.", ask: "Ask about the evening" },
+            },
+            {
+                activity: "client_evening1", passage: "Task Sister Client Evening 1", minCount: 2,
+                effects: { reputation: 4, exhibition: 3, corruption: 2, lust: 4 },
+                report: { line: "The private room at $club.name has a couch and a lock and no windows. $mom.callName sat on one end and I sat on the other. That's the clean version.", ask: "Ask for the other version" },
+            },
+        ],
+        revenue: 250,
+        baseEnergyCost: 20,
+        count: 0,
+        lastCompletedAt: 0,
+    },
 ]>>
 
 <<set $activeTasks to {
     mom: [],
     sister: []
+}>>
+
+/* Unlocking tasks =============================================================
+   setup.taskUnlocked(id)            the task is active (in the picker)
+   setup.unlockTask(id [, quiet])    makes it active, runs its onUnlock, unlocks its pair partner too, and shows
+                                     "New task for ..." unless quiet. The story uses <<EndTaskIntro>> (Task Widgets)
+   setup.questDoneDaysAgo(id, n)     the quest is done, and at least n days ago (intro requirements: the task
+                                     shows up the day after the scene that leads to it, not on the same evening) */
+<<set setup.taskUnlocked = (id) => {
+    const live = setup.getTaskById(id);
+    return !!(live && live.active);
+}>>
+
+<<set setup.unlockTask = (id, quiet) => {
+    const v = State.variables;
+    const live = setup.getTaskById(id);
+    if (!live) { console.error('setup.unlockTask: there is no task "' + id + '"'); return; }
+    const partner = live.pair ? setup.getTaskById(live.pair) : null;
+    [ live, partner ].forEach((task) => {
+        if (!task || task.active) { return; }
+        task.active = true;
+        (task.onUnlock || []).forEach((fn) => fn());
+    });
+    if (quiet) { return; }
+    const names = [ live ].concat(partner ? [ partner ] : []).map((task) => v[task.who.sysName].callName).join(" and ");
+    Notification.show("New task for " + names + ": " + wikifyText(live.title), { type: Notification.QUEST });
+}>>
+
+/* setup.lockTask(id)   the opposite, when the story ends a task: inactive again (and its partner), off both schedules */
+<<set setup.lockTask = (id) => {
+    const v = State.variables;
+    const live = setup.getTaskById(id);
+    if (!live) { console.error('setup.lockTask: there is no task "' + id + '"'); return; }
+    const ids = [ live.id ].concat(live.pair ? [ live.pair ] : []);
+    ids.forEach((taskId) => {
+        const task = setup.getTaskById(taskId);
+        if (task) { task.active = false; }
+    });
+    [ "mom", "sister" ].forEach((key) => {
+        v.activeTasks[key] = (v.activeTasks[key] || []).filter((e) => !ids.includes(e.task.id));
+    });
+}>>
+
+<<set setup.questDoneDaysAgo = (id, days) => {
+    const quest = setup.getQuestById(id);
+    if (!quest || !quest.done) { return false; }
+    return State.variables.date.dayCount - (Number(quest.doneDay) || 0) >= (Number(days) || 0);
+}>>
+
+
+/* Task introductions ==========================================================
+   A task with an intro field gets an event that unlocks it, generated here ($events, Define Events, id = index):
+       intro: { passage: "Task Intro Client Lunch", where: [ 13, 14, 15 ], whenTime: [ 1, 2, 3 ] [, whenDay],
+                requirements: [ "TwineScript", ... ] }
+   where is a list of location ids (the event plays in their passages), whenDay defaults to the weekdays. The event
+   waits until the requirements pass and the task is still locked, and it comes after the quest events in $events, so a
+   quest scene at the same place always goes first. The scene is tagged [event] and ends with <<EndTaskIntro "id">>. */
+<<set setup.generateTaskIntroEvents = () => {
+    const v = State.variables;
+    v.tasks.forEach((task) => {
+        if (!task.intro) { return; }
+        const intro = task.intro;
+        const passages = (intro.where || []).map((id) => v.locations[id] && v.locations[id].passage).filter(Boolean);
+        v.events.push({
+            id: v.events.length,
+            passage: intro.passage,
+            returnPassage: passages[0] || "Company Stage 1 Desk",
+            where: passages,
+            whenTime: intro.whenTime || [ 1, 2, 3 ],
+            whenDay: intro.whenDay || [ 0, 1, 2, 3, 4 ],
+            requirements: (intro.requirements || []).concat([ "!setup.taskUnlocked('" + task.id + "')" ]),
+            chance: 100,
+            cooldown: 0,
+            once: true,
+            active: true,
+            finished: false,
+            completedAtDay: 0,
+            taskIntro: task.id,
+        });
+    });
+}>>
+<<run setup.generateTaskIntroEvents()>>
+
+
+/* Task effects ================================================================
+   What one finished run does, applied by completeTaskEntry (Story JavaScript) before onComplete. The fields can sit on
+   the task and on its stages; the stage that was played wins key by key.
+       effects: {
+           exhibition, corruption, lust, relation, morale, resistance   her own stats (+/-, kept inside her min/max)
+           staffMorale                                                  every employee except mom and sister
+           reputation, efficiency, companyMorale                        company stats (setup.changeCompanyStat)
+           progress: { categories: [ "sales" ], amount: 3 [, project: "project_gym_veil"] }
+                                                                        every active project (or only that one) that
+                                                                        needs one of the categories gets the amount
+                                                                        there, never past what it needs
+           feel: { player: 1 }                                          her mood toward them (Feelings, Define NPCs)
+       }
+   setup.taskEffects(task)                 the merged effects of the current stage
+   setup.applyTaskEffects(sysName, task)   applies them */
+<<set setup.taskEffects = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live) { return {}; }
+    const stage = setup.getTaskStage(live) || {};
+    return Object.assign({}, live.effects || {}, stage.effects || {});
+}>>
+
+<<set setup.applyTaskEffects = (sysName, task) => {
+    const v = State.variables;
+    const fx = setup.taskEffects(task);
+    const npc = v[sysName];
+    [ "exhibition", "corruption", "lust", "relation", "morale", "resistance" ].forEach((key) => {
+        if (!fx[key] || !npc || !npc.stats) { return; }
+        npc.stats[key] = Math.clamp((Number(npc.stats[key]) || 0) + fx[key], npc.stats.min[key], npc.stats.max[key]);
+    });
+    if (fx.staffMorale) {
+        (v.company.employees || []).forEach((e) => {
+            const staff = v[e.sysName];
+            if (!staff || !staff.stats || e.sysName === "mom" || e.sysName === "sister") { return; }
+            staff.stats.morale = Math.clamp(staff.stats.morale + fx.staffMorale, staff.stats.min.morale, staff.stats.max.morale);
+        });
+    }
+    if (fx.reputation) { setup.changeCompanyStat("reputation", fx.reputation); }
+    if (fx.efficiency) { setup.changeCompanyStat("efficiency", fx.efficiency); }
+    if (fx.companyMorale) { setup.changeCompanyStat("morale", fx.companyMorale); }
+    if (fx.progress) {
+        const cats = fx.progress.categories || [];
+        v.company.projects.forEach((p) => {
+            if (!p.active || (fx.progress.project && p.id !== fx.progress.project)) { return; }
+            cats.forEach((cat) => {
+                const need = Number(p.requirements[cat]) || 0;
+                if (need > 0) { p.progress[cat] = Math.min(need, (Number(p.progress[cat]) || 0) + (Number(fx.progress.amount) || 0)); }
+            });
+        });
+    }
+    Object.keys(fx.feel || {}).forEach((key) => setup.feel(sysName, key, fx.feel[key]));
+}>>
+
+
+/* Private tasks, tasks for two, starting a task ==================================
+   private: "room"         the other one of mom and sister has no task at the same place at the same time
+   private: "afterHours"   that, and every action of it lies outside $company.workHours (the staff has gone home)
+   pair: "task_..."        placing it places the partner task in the other column at the same rows (CMD Schedule); the
+                           two entries share a pairId, are taken off the schedule together, and only start together
+
+   setup.taskPrivacyIssue(task, sysName, startRow, endRow)   why the private task can not happen in those rows, or null
+                                                             (read by the scheduler and when it starts)
+   setup.taskPartner(task)                                   the live partner task of a task for two, or null
+   setup.taskStartBlock(sysName, entry)                      checkTaskProgression: why the entry does not start
+                                                             now ("rest", "energy", "private", "pair"), or null */
+<<set setup.taskPrivacyIssue = (task, sysName, startRow, endRow) => {
+    const v = State.variables;
+    const live = setup.getLiveTask(task);
+    if (!live || !live.private) { return null; }
+    if (live.private === "afterHours") {
+        for (let r = startRow; r < endRow; r++) {
+            if (v.company.workHours[r] === true) { return "Only after work hours, when the staff has gone home"; }
+        }
+    }
+    const other = sysName === "mom" ? "sister" : "mom";
+    const day = v.date.dayCount;
+    for (const e of (v.activeTasks[other] || [])) {
+        if (!(e.startRow < endRow && e.endRow > startRow)) { continue; }
+        if (e.missedDay === day || setup.taskRestsToday(e.task)) { continue; }
+        const t = setup.getLiveTask(e.task);
+        if (t && t.location && setup.sameLocation(t.location.id, live.location.id)) {
+            return v[other].callName + " is there then (" + wikifyText(t.title) + ")";
+        }
+    }
+    return null;
+}>>
+
+<<set setup.taskPartner = (task) => {
+    const live = setup.getLiveTask(task);
+    return (live && live.pair) ? (setup.getTaskById(live.pair) || null) : null;
+}>>
+
+<<set setup.taskStartBlock = (sysName, entry) => {
+    const v = State.variables;
+    const live = setup.getLiveTask(entry.task);
+    if (!live) { return "rest"; }
+    if (setup.taskRestsToday(live)) { return "rest"; }
+    if (v[sysName].stats.energy < (Number(live.baseEnergyCost) || 0)) { return "energy"; }
+    if (setup.taskPrivacyIssue(live, sysName, entry.startRow, entry.endRow)) { return "private"; }
+    const partner = setup.taskPartner(live);
+    if (partner) {
+        const other = sysName === "mom" ? "sister" : "mom";
+        const pe = (v.activeTasks[other] || []).find((e) => e.pairId !== undefined && e.pairId === entry.pairId);
+        if (!pe || setup.taskRestsToday(partner) || v[other].stats.energy < (Number(partner.baseEnergyCost) || 0)) { return "pair"; }
+    }
+    return null;
+}>>
+
+
+/* Stages in the picker ===========================================================
+   setup.taskStageInfo(task)    { stage, of } for a task with stages (1-based), or null
+   setup.taskStageNeeds(task)   what the next stage still waits for, in words without spoilers:
+                                [ "2 more times", "her corruption stage 2", "something still has to happen" ],
+                                [] when it only waits for the next run, null when there is no next stage */
+<<set setup.taskStageInfo = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live || !Array.isArray(live.stages) || live.stages.length < 2) { return null; }
+    return { stage: (Number(live.stage) || 0) + 1, of: live.stages.length };
+}>>
+
+<<set setup.taskStageNeeds = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live || !Array.isArray(live.stages)) { return null; }
+    const next = live.stages[(Number(live.stage) || 0) + 1];
+    if (!next) { return null; }
+    const needs = [];
+    const done = (Number(live.count) || 0) - (Number(live.stageStartCount) || 0);
+    const more = (Number(next.minCount) || 0) - done;
+    if (more > 0) { needs.push(more === 1 ? "1 more time" : more + " more times"); }
+    if (next.corruptionStage !== undefined && setup.corruptionStage(live.who.sysName) < next.corruptionStage) {
+        needs.push("her corruption stage " + next.corruptionStage);
+    }
+    if ((next.quest && !setup.questDone(next.quest)) || (next.requirements || []).some((req) => !req())) {
+        needs.push((next.requirementsText || []).length ? wikifyText(next.requirementsText.join(", ")) : "something still has to happen");
+    }
+    return needs;
+}>>
+
+/* setup.taskHasReport(task)   the task (or one of its stages) leaves an entry in her end-of-day report */
+<<set setup.taskHasReport = (task) => {
+    const live = setup.getLiveTask(task);
+    if (!live) { return false; }
+    return !!live.report || (live.stages || []).some((stage) => !!stage.report);
+}>>
+
+
+/* Team Spirit =================================================================
+   The sister spends the task with whoever on the staff has the lowest morale. The pick is made the first time it is
+   asked for on a day and kept for that day ($sister.flags.teamSpirit = { day, who }), so the CCTV, her POV passage,
+   her report line and onComplete all name the same man. $sister.flags.teamSpiritName holds his name for the report line.
+   setup.teamSpiritTarget()   the sysName of today's pick ("ethan", "brian", "darius"), or null without staff */
+<<set setup.teamSpiritTarget = () => {
+    const v = State.variables;
+    const day = v.date.dayCount;
+    const flags = v.sister.flags;
+    if (flags.teamSpirit && flags.teamSpirit.day === day) { return flags.teamSpirit.who; }
+    const staff = [ "ethan", "brian", "darius" ].filter((key) => (v.company.employees || []).some((e) => e.sysName === key) && v[key] && v[key].stats);
+    if (!staff.length) { return null; }
+    staff.sort((a, b) => v[a].stats.morale - v[b].stats.morale);
+    flags.teamSpirit = { day: day, who: staff[0] };
+    flags.teamSpiritName = v[staff[0]].name;
+    return staff[0];
 }>>
 
 /* Energy cost ===================================================================

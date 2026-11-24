@@ -1,0 +1,114 @@
+:: Task Mom Product Demos 2 [scene pov] {"position":"3275,4175","size":"100,100"}
+/* POV passage, her side of the task Product Demos (task_mom_product_demos), stage 2 (her corruption stage 3, after The
+   Calendar, three demos at stage 1). Opened with the CCTV arrow while the task runs, or from her end-of-day report.
+   Effects are in the task data.
+   Two clients have heard from somebody in Dale's circle that the demo is worth seeing, and they ask for "a live
+   demonstration". They want to see the line go up instead of down. She switches the box off (she doesn't need it for
+   this part), closes the blinds, and lets them have her on the meeting room table with the band on her wrist and her
+   pulse on the big screen. One takes her on the table, she takes the other in her mouth. Afterwards she looks at the
+   table and, for once in her life, leaves it. Her report line: they called it a live demonstration, it was very live,
+   somebody should wipe down the table. A line differs with $mom.flags.calendarChoice. The clients are one-off extras.
+   Clips (images/characters/mom/tasks/, activity product_demo2): the blinds, the band and the box switched off, the table,
+   the line on the screen climbing */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+<<PovHeader $mom>>
+They're from a bank, the two of them, the kind with the little branches in supermarkets: Curtis, who runs the region, tall and gray and very polite, and Stan, who runs something under Curtis and laughs a beat after Curtis laughs, every time, as if he's checking first.
+
+Curtis tells me, while I'm pouring the coffee, that he plays golf with Dale. Dale says the demo is really something to see.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Curtis", text: "He told us the line goes down, which is very impressive. I'm sure it is. But I'm a banker, and a banker always wants to see the other direction." },
+{ who: $mom, text: "The other direction?" },
+{ who: "Curtis", text: "Up. We'd like to see what makes it go up. Dale was very clear that we should ask for a live demonstration." },
+{ who: "Stan", text: "A live one. He said live." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I put the coffee pot down on its little mat. I know exactly what Dale meant, and so do they, and I can feel all three of us knowing it in the quiet.
+
+It's funny how calm I am. A year ago I'd have spilled the coffee, and then dropped the pot trying to catch it, and then gone home and cried in the shower about the coffee.
+
+<<if $mom.flags.calendarChoice === "anchor">>
+But I chose this. I chose all of it, I'm as sure of that as I am of my own name, and I would choose it again in the morning. I don't have to think about it anymore, and it's such a relief not to have to think.
+<<else>>
+I can't tell anymore which part of me is the box and which part is just me. I sat with that question for two hours once, at the end of this very table, and when I stood up I'd decided to stop asking it. I haven't asked since.
+<</if>>
+
+So I fasten the band around my wrist, and the number comes up on the wall, 76, and then I reach over and switch the box off.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Stan", text: "Wait, isn't that supposed to be on?" },
+{ who: $mom, text: "Not for this part, sweetie. You wanted to see it go up. You don't need a box for that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/mom/tasks/product_demo2_0.mp4 | Mom closing the blinds on the glass wall of the meeting room, the office going dark behind the slats, the band on her wrist */
+
+I close the blinds on the glass wall first, one after the other, the long cords clicking, because $ethan.name is just on the other side of them with his feet on his wastebasket, and there are some things a person shouldn't have to see before lunch. The camera in the corner of the ceiling doesn't have blinds. I don't look at it. I don't have to. I know who's on the other end of it, and I know he isn't looking away.
+
+Then I unbutton my blouse, from the top, the way I'd do it at home at the end of a long day, and lay it over the back of a chair so it won't crease.
+
+On the wall the number says 88.
+
+<<linkreplace "The live demonstration">>
+Curtis is the one who stands up. He's very polite about it even now. He asks if he may, and I tell him he may, and his hands are big and dry and warm on my waist when he lifts me up onto the edge of the table. The table is cold under my thighs. I push the conference phone out of the way, the gray one that looks like a spider, and it slides off the far edge and hangs there by its cord, and I don't get up to fix it, which is a first.
+
+Stan doesn't stand up. Stan watches the screen.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Stan", text: "Ninety-four. Ninety-seven. Hey, it actually works, look at this." },
+{ who: "Curtis", text: "Stan." },
+{ who: "Stan", text: "Sorry. A hundred and two." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I laugh, I can't help it, lying back on the table with my skirt pushed up around my waist and Curtis between my knees, because Stan sounds exactly like the man on the radio who reads the stock prices, and then Curtis takes my panties off and I stop laughing.
+
+/* MEDIA: images/characters/mom/tasks/product_demo2_1.mp4 | Mom lying back across the meeting room table, skirt pushed up, a gray-haired man standing between her knees, the pulse line on the big screen climbing behind them */
+
+He has a condom in his wallet. He takes it out and looks at it and then at me, with the face of a man of sixty who's just found out he still carries one like a teenager, and that makes me laugh again, and I take it from him and put it on him myself, because my hands are steadier than his.
+
+When he pushes into me, the table creaks, and I hear the number on the wall jump, or I imagine I do. It doesn't make a sound. It only feels like it should.
+
+He's slow, at first, and careful, as if the table belonged to somebody important. I put my heels on the edge of it and lift my hips to him so he'll stop being careful, and he does, and the whole table starts to move with us, an inch at a time, toward the screen.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Stan", text: "A hundred and twenty. That's, uh. That's a lot." },
+{ who: $mom, text: "Stan, honey, come here. You're going to sprain something reading numbers all afternoon." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He does as he's told. He comes around the table and stands by my head, looking down at me upside down, and he's so nervous his hands shake on his belt, and I help him with that too. I turn my head and take him into my mouth, and he makes a little sound like he's been stepped on, and puts one hand flat on the table next to my face to hold himself up.
+
+I don't know how long it goes on. Long enough that the light through the slats of the blinds moves across the ceiling. Long enough that I stop thinking in sentences. I know that the table is hard under my shoulder blades and Curtis's hands are tight on my hips, and that I'm being wanted, by two strangers at once, on the table where I eat my lunch, and that every bit of how much I like it is up there on the wall in green numbers for anyone to read.
+
+When I come, I hear Stan say "a hundred and forty" through his teeth, as if he can't stop himself even now, and I would laugh if I had any breath left to laugh with.
+
+<<linkreplace "Afterwards">>
+They dress quickly, the way men do, with their backs half turned. Curtis tucks his shirt in and straightens his tie and is entirely a banker again within a minute, and he thanks me, very formally, and says that he'll recommend a unit for every branch in the region, and that he'll be in touch about a second demonstration for the board. Stan can't look at me at all. He picks the conference phone up off the floor and puts it back in the middle of the table, very carefully, which is sweet of him.
+
+I walk them to the elevator in my blouse with one button done up wrong, and I don't notice until the doors have closed.
+
+/* MEDIA: images/characters/mom/tasks/product_demo2_2.mp4 | The empty meeting room afterwards, blinds still down, Mom standing at the end of the long table looking at it, a pack of wipes in her hand */
+
+When I come back, the room is very quiet. The band is still on my wrist, and on the wall my line is coming down on its own, slowly, 98, 94, 91, with no box to help it.
+
+The table is a mess. There's the long smear where my back slid, and a damp patch at the edge where I was sitting, and the mark of one of Stan's hands, and a little pile of crumbs from the cookies, which I had put out on the good plate, as if it were any other demo.
+
+I've got the wipes in my hand. I always keep them in the drawer under the screen, the lemon ones, and I've wiped that table down after every lunch meeting since we moved in, because somebody has to and nobody else ever does.
+
+I stand there looking at it for a long time.
+
+Then I put the wipes back in the drawer and close it, and open the blinds, and go back to my desk.
+
+<<EndPov>>
+<</linkreplace>>
+<</linkreplace>>

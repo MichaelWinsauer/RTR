@@ -1,0 +1,64 @@
+:: Task Sister Socials 0 [scene pov] {"position":"3025,4500","size":"100,100"}
+/* POV passage, her side of the task Socials (task_sister_socials), stage 0: product shots, only her hands. Opened with
+   the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   Her first days as the whole marketing department. She builds a desk on the meeting room table (the plant from
+   $mom.callName, a latte, the notebook of $darius.name) and takes forty pictures of the unit. She keeps her face out of
+   them: hands are a start, and a face with a company name under it is hard to take back. The report line: the desk looks
+   amazing, the unit looks like a smoke detector.
+   Clips (images/characters/sister/tasks/, activity socials0): the staged desk on the table; her hands around the cup next
+   to the unit; her standing on a chair to shoot from above */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+<<PovHeader $sister>>
+The meeting room is my studio now, which so far means I've closed the blinds halfway, pushed five of the six chairs against the wall and taped a sheet of white poster board to the sixth so it curves up behind the table like a real backdrop. I watched three videos about it on the bus this morning. As far as the internet is concerned, that makes me a professional.
+
+/* MEDIA: images/characters/sister/tasks/socials0_0.mp4 | The meeting room table staged as a desk: a plant, a latte, a leather notebook, the white unit in the middle, poster board curving up behind it */
+
+Nobody wants to look at a box on an empty table, so I'm building it a desk. A latte from the place downstairs, a leather notebook I borrowed from $darius.name's desk without asking, which he'll notice, because he notices everything, and the plant from next to $mom.callName's monitor.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Of course you can borrow him, sweetie, just have him back by five, he gets a little sulky when the light changes. And turn his left side to the camera if you can, the right side had a bad winter by the radiator and he's still very self-conscious about it." },
+{ who: $sister, text: "You know it's a plant." },
+{ who: $mom, text: "I know exactly what he is, and he's been through a lot, so you be nice to him." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I turn his left side to the camera.
+
+Then I take forty pictures. I know it's forty because I counted them afterwards, sitting cross-legged on the table with the laptop, which I'm fairly sure is not how the professionals do it. There's the unit from above, from the side, and next to the latte. There's my hand reaching for the latte, my hand resting on the notebook, my fingers on the edge of the table as if they just happened to wander into the shot. There's one of me standing on a chair, shooting straight down, which took four tries because the chair has wheels.
+
+/* MEDIA: images/characters/sister/tasks/socials0_1.mp4 | Close on her hands: freshly painted nails, fingers around the latte cup, the unit soft in the background */
+
+There isn't a single picture of my face. $marketingOwner.name said a face, and I read her email twice, and I'm giving them hands. Hands are a start. A face is something you can't really take back once it's out there with a company name under it, and I'd like to know what I'm getting into before I sign my face over to anything. Also, I did my nails last night, and somebody might as well see them.
+
+<<silently>>
+<<set _msgs = [
+{ text: "There's a knock on the door frame, and $ethan.name leans in with a mug, looking at the setup on the table the way people look at someone else's toddler." },
+{ who: $ethan, text: "Wow, this is fancy. Is that our unit?" },
+{ who: $sister, text: "It's our unit on a very nice desk." },
+{ who: $ethan, text: "Huh. You know, from here it looks like it's about to start beeping because the battery's low." },
+{ who: $sister, text: "Thank you, $ethan.name, that's incredibly helpful. Do you want to hold it for me? I need something in the shot for scale." },
+{ who: $ethan, text: "Nope. These hands are for typing and pizza, strictly. I don't model." },
+{ text: "He toasts me with the mug and leaves, and he doesn't close the door behind him, so I get up and close it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's right, which is the annoying part. I go through all forty on the laptop, and the desk looks amazing, I'd buy the desk in a heartbeat. The unit looks like a smoke detector in every single one. From above it looks like a smoke detector, from the side it looks like a smoke detector seen from the side, and in the one where I tilted it to be interesting it looks like a smoke detector that fell off the ceiling.
+
+I post the one with my hand around the cup, because the unit is a little out of focus in that one and you can mostly forget what it is.
+
+<<silently>>
+<<set _msgs = [
+{ text: "Within a minute, $mom.callName likes it and comments with three hearts and a sunflower. $ethan.name likes it. A bakery account that likes everything likes it." },
+{ text: "And $player.name likes it four minutes after it goes up. I said within the hour. I don't mention that I checked the time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+By the end of the afternoon there's exactly one comment from a person who isn't related to me or on the payroll. It says <i>cute nails</i>.
+
+So that's the first thing anyone on the internet has ever said about our company. I take a screenshot of it anyway, and then I carry the plant back to $mom.callName's desk and put it down with its left side to the window, the way he likes it.
+
+<<EndPov>>

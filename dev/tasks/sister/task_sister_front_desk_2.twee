@@ -1,0 +1,92 @@
+:: Task Sister Front Desk 2 [scene pov] {"position":"3275,4700","size":"100,100"}
+/* POV passage, her side of the task Front Desk (task_sister_front_desk), stage 2: her corruption stage 3, after
+   Everything. Opened with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   A man from $retailChain.name comes forty-five minutes early for a ten o'clock, and she keeps him company on the couch.
+   If she hosted the rooftop evening ($flags.retailIntro "sister"), it is the big man in the gray suit from that night,
+   who had his hand on her back; otherwise a regional man she has never met. He watches her openly, and his hand goes
+   from her knee to under the hem of her skirt, the other one to her waist, while she keeps up the small talk and lets
+   her knees come apart. $ethan.name sees it from the coffee machine and looks away. The camera over the door. The limit
+   is watched and handled: no sex (that is level 2 of the offer ladder). $darius.name comes to collect him at ten, and he
+   is in no hurry. He never signed in, so she signs him in herself.
+   Clips (images/characters/sister/tasks/, activity front_desk2): the two of them on the couch with coffee; his hand on
+   her thigh under the hem, her face calm, talking; her alone afterwards, writing his name on the sign-in sheet */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+<<PovHeader $sister>>
+<<if $flags.retailIntro === "sister">>
+The elevator dings at a quarter past nine, and it's the man from the rooftop. The big one in the gray suit, with the wedding ring and the laugh you can hear through walls, the one with the fishing story that ended with a bear. His meeting is at ten. He's forty-five minutes early, and the way he smiles when he sees me behind the desk tells me he knew exactly who'd be sitting here.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Visitor", text: "Well, look at this. The hostess with the mostest. I was hoping it'd be you." },
+{ who: $sister, text: "Good morning! You're early. Did the bear finally let you go?" },
+{ text: "He laughs, delighted that I remember, and it really does fill the whole office. Down the room, $brian.name flinches at his desk." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+The elevator dings at a quarter past nine. It's one of the men from $retailChain.name, a regional director of something, broad and tanned and pleased with himself, in a gray suit that cost more than my tuition. His meeting is at ten. He's forty-five minutes early, and he doesn't seem sorry about it at all.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Visitor", text: "I'm early, I know. Traffic was kind to me for once. I hope that's not a problem." },
+{ who: $sister, text: "Not at all. Can I get you a coffee while you wait?" },
+{ who: "Visitor", text: "Only if you'll have one with me. I hate waiting alone, it makes me feel like I'm at the dentist." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+So I get two coffees and sit down with him on the couch. Keeping visitors company is in the job description. I know, because I wrote the job description.
+
+/* MEDIA: images/characters/sister/tasks/front_desk2_0.mp4 | The couch by the window, her in the short skirt sitting close beside a big man in a gray suit, both with coffee, him turned toward her */
+
+He takes up most of the couch, so I end up with my knee against his. He doesn't move his, and I don't move mine. We talk about his drive in, and his kids' soccer schedule, which is apparently a nightmare, and the stores, and what I'm studying. He looks at me the whole time he's talking, openly, with no effort at all to hide where his eyes go, down to my legs and up again, and he takes his time about it. I let him. I sip my coffee and answer his questions and let him look as long as he likes.
+
+Around half past nine he puts his hand on my knee. He does it in the middle of a sentence about parking, like a man resting his hand on a table.
+
+I keep talking. I tell him about the parking garage across the street, which charges by the quarter hour and has a machine that only takes exact change.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Visitor", text: "Exact change. In this day and age." },
+{ who: $sister, text: "I know. It's practically a crime." },
+{ text: "His thumb moves on the inside of my knee, small slow circles, while he shakes his head about the parking garage. Then his hand slides up, over the hem of my skirt, and under it." },
+{ who: "Visitor", text: "You're a very relaxing person to wait with, you know that?" },
+{ who: $sister, text: "That's what they pay me for." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/front_desk2_1.mp4 | Close: his big hand high on her thigh under the plaid hem, her coffee cup held steady on her other knee, her face calm, mid-sentence */
+
+His hand is warm and heavy, and it stops high on my thigh, where the skirt has ridden up so far there's barely any skirt left. His other arm has been on the back of the couch since he sat down, and now it comes down around my waist, and his fingers find the strip of skin between my top and my skirt and stay there, spread out, like he's measuring me. I can smell his aftershave and the coffee on his breath.
+
+I let my knees come apart a little. Just a little. I don't think about it first. It's the same as leaning forward over the sign-in sheet, or holding still on the yoga mat. My body has stopped waiting for me to decide these things.
+
+His thumb finds the edge of my underwear and traces it, slowly, back and forth, and stays on the outside of it. He seems to know exactly where the line is, or maybe he just likes being near it. I can feel how warm I am under his thumb, and I'm sure he can too.
+
+$ethan.name comes out to the coffee machine with his mug. He sees us. I watch him see us, the hand, the skirt, my face, and he stands there with the empty mug for a second, and then he fills it and goes back to his desk without looking over again. He doesn't even make a joke.
+
+There's a camera over the door, angled at the couch. I don't look up at it. If $player.name is at his desk, he can see the couch from there without it anyway, and I don't look over there either. I know what I'd see, and I don't need to check. I'm his. He told me what that would mean, all of me, whatever he needs, and the man with his hand under my skirt is something he needs, so here I am, keeping him company on the couch.
+
+It doesn't feel the way I thought it would feel. It feels warm and far away, like the moment just before you fall asleep in the sun.
+
+<<silently>>
+<<set _msgs = [
+{ text: "At ten o'clock exactly, the meeting room door opens and $darius.name comes out, buttoning his jacket. He takes in the couch in one look, and his face doesn't change at all." },
+{ who: $darius, text: "Good morning. We're ready for you whenever you'd like to join us." },
+{ who: "Visitor", text: "Be right there." },
+{ text: "He isn't right there. He finishes his coffee first. His hand comes out from under my skirt slowly, the whole length of my thigh, and he gives my knee a pat on the way, the way you'd pat a good dog." },
+{ who: "Visitor", text: "Thanks for the company, sweetheart. Same time next week?" },
+{ who: $sister, text: "I'll be right here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He stands up, straightens his tie and takes his time crossing the room. $darius.name holds the door for him and doesn't look at me at all, which from him is a kind of politeness.
+
+/* MEDIA: images/characters/sister/tasks/front_desk2_2.mp4 | Her alone at the low table, skirt smoothed down, bent over the clipboard, writing a name and a time in neat handwriting */
+
+I pull my skirt down and sit there for a minute with the two empty cups. My thigh is still warm where his hand was. Then I notice that he never signed in, so I pull the clipboard over and do it for him, his name and his company and 9:15, in my neatest handwriting, and put it back on the low table, squared with the edge.
+
+<<EndPov>>

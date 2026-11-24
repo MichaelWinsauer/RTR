@@ -160,6 +160,8 @@
                 { first: 4, last: 11 },
                 /* the evening opens up after How is your new job? */
                 { first: 12, last: 14, requirements: [ "setup.questDone('mom_newJobImpression')" ] },
+                /* the night, for the Client Evening with her daughter (Define Tasks) */
+                { first: 15, last: 17, requirements: [ "setup.taskUnlocked('task_mom_client_evening')" ] },
             ],
         },
         /* Saturday and Sunday, every stage */
@@ -264,6 +266,10 @@
             tasks: [ 
                 { first: 9, last: 11 },
                 { first: 6, last: 8, requirements: [ "setup.questDone('sister_mostlyDone')" ] },
+                /* the evening opens up after What Are We: she starts staying late, to be near me (Overtime) */
+                { first: 12, last: 14, requirements: [ "setup.questDone('sister_whatAreWe')" ] },
+                /* the night, for the Client Evening with her mother (Define Tasks) */
+                { first: 15, last: 17, requirements: [ "setup.taskUnlocked('task_sister_client_evening')" ] },
             ],
         },
         sister_stage1_noon: {

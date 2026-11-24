@@ -1,0 +1,79 @@
+:: Task Mom Product Demos 0 [scene pov] {"position":"3025,4175","size":"100,100"}
+/* POV passage, her side of the task Product Demos (task_mom_product_demos), stage 0 (her corruption stage 2). Opened
+   with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   She wears the sensor band on her wrist, the official unit does its work, and two clients watch her pulse go down on
+   the big screen. One of them asks whether it comes in her size. Her report line quotes that, and isn't sure it was a
+   joke. The clients are one-off extras (two partners from a law firm).
+   Clips (images/characters/mom/tasks/, activity product_demo0): the band on her wrist, the line on the big screen, the
+   two men watching her instead of the screen */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+<<PovHeader $mom>>
+The two of them are from a law firm across the river, partners, both in the kind of gray suit that costs more the less you notice it. The older one is called Harold and has a cold he keeps apologizing for. The younger one is called Brent and hasn't apologized for anything since he walked in, including sitting in $player.name's chair.
+
+I give them coffee, and I put the cookies on the good plate, and then I sit down at the head of the table and hold out my wrist for the band like a woman at the doctor's office.
+
+/* MEDIA: images/characters/mom/tasks/product_demo0_0.mp4 | Close on Mom's wrist on the meeting room table as the sensor band is fastened, the blue light of the unit behind it */
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "So this little band just reads how I'm doing, my pulse and my skin and so on, and it tells the box. And the box tells the room. And then you can all see it up there, which is the part I'm still getting used to, to be honest." },
+{ who: "Harold", text: "You're nervous?" },
+{ who: $mom, text: "Well, look at it, Harold. Everybody in this room can see my heart. You'd be nervous too." },
+{ text: "He laughs, and coughs, and apologizes for the cough. On the screen behind him my number is jumping around in the high eighties like a child on a trampoline." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then I switch the box on.
+
+It's a funny thing, the first minute. I'm always waiting for it, and I'm never sure whether I feel it or whether I'm only waiting so hard that I make it happen. There's a softness that comes into the room, around the edges first, like the moment in the evening when you finally take your shoes off. My hands stop wanting to straighten things. My shoulders find out they were up by my ears and come down without asking me.
+
+And the line comes down with them. 84, 80, 77. Both men turn in their chairs to watch it.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Brent", text: "That's real time?" },
+{ who: $mom, text: "Real time. You can ask me something upsetting if you like, and you'll see it go back up. Go on, I don't mind." },
+{ who: "Brent", text: "Okay. Do you think the Eagles are going to make the playoffs?" },
+{ who: $mom, text: "Oh, honey, I don't know anything about football. I'm afraid that one's not going to do it." },
+{ text: "And it doesn't. The line barely flickers, and Harold laughs so hard he has to blow his nose." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell them about the waiting rooms and the call centers and the conference rooms, all the places the unit is already sitting on a shelf, and while I talk, my number settles around seventy and stays there, smooth, as if somebody ironed it. I think it's the most relaxed I've ever been in front of two lawyers. I sat on a jury once, for two whole weeks, and I don't think I was this relaxed in front of a lawyer for a single minute of it.
+
+$player.name told me this one only goes so high, the official one, the one we sell. It's the gentle kind. But I'm not sure it's only the box today, if I'm honest. I've been like this for days now, ever since that night. I sleep, I wake up before the alarm, I hum in the car. It could be the box, and it could be me, and it could be that I've finally stopped asking.
+
+/* MEDIA: images/characters/mom/tasks/product_demo0_1.mp4 | The big screen with a pulse line falling and flattening, Mom at the head of the table in the foreground, leaning back, the two men looking at her and not at the screen */
+
+At some point I notice that neither of them is watching the screen anymore. They're watching me. Harold has the good grace to look a little guilty about it. Brent doesn't.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Brent", text: "Okay, I'm sold. One question, though." },
+{ who: $mom, text: "Of course. Ask me anything." },
+{ who: "Brent", text: "Does it come in her size?" },
+{ text: "He says it to Harold, not to me, and Harold laughs into his tissue, and Brent leans back in $player.name's chair and smiles at me over his coffee cup while he waits to see what I'll do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I laugh too, because it's a joke. I'm almost sure it's a joke.
+
+And I watch the screen while I laugh, because I can't help it, because I want to know, and my number goes up. It's only a little, to seventy-eight or seventy-nine, a bump like a car going over a speed bump, but it goes up, and all three of us can see it, up there on the wall where you could see it from the hallway.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well, you'll have to take that up with my boss, Brent. I only do the demonstrations." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He writes something down on the brochure. I'd love to know what.
+
+When they've gone, I take the band off and rub my wrist, where it's left a little pink mark, and I tidy the cups onto the tray and the cookies back into the tin. The screen is still on. My line has dropped back to flat and gray, waiting for the next wrist.
+
+I look up at the camera in the corner of the ceiling, the little black dome. I know $player.name was watching. I hope he saw the bump.
+
+<<EndPov>>

@@ -1,0 +1,60 @@
+:: Task Sister Field Test 1 [scene pov] {"position":"3625,4650","size":"100,100"}
+/* POV passage, her side of the task Field Test (task_sister_field_test), stage 1: from her corruption stage 1 on. Opened
+   with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task's onComplete.
+   I picked her outfit this time: white leggings and a cropped top, left in a bag on her chair. She knows what white does
+   under gym lights in a squat, and wears it anyway, and does her squats where the camera can see them. Both beats of her
+   report line happen here: three free smoothies from the boy at the bar, and a man who walks into the mirror.
+   Clips (images/characters/sister/tasks/, activity field_test1): the outfit in the locker room mirror; squats at the rack,
+   from the camera; the smoothie boy with the third cup; the man and the mirrored pillar */
+<<silent>><<SetBackground $locations[20].img>><</silent>>
+<<PovHeader $sister>>
+There was a bag on my chair this morning, a plain paper one, folded over twice at the top. Inside: a pair of white leggings, a cropped top in pale gray, and a sticky note in $player.name's handwriting that said <i>for the study</i>. Nothing else. No smiley face, and no explanation of what exactly about the study requires white.
+
+I know what white leggings do. Every woman who has ever owned a pair knows what they do in a deep squat under bright lights, which is why every woman I know owns them in black.
+
+/* MEDIA: images/characters/sister/tasks/field_test1_0.mp4 | Locker room mirror, she turns to check the white leggings from behind, holding the paper bag in one hand */
+
+In the locker room I put them on and turn around in front of the mirror and look over my shoulder, and then I do it again, and then I stand there for a while with my old black ones in my hand, because they're right there in my gym bag and nobody would ever know.
+
+He'd know. He'd see it on the camera the moment I walked in.
+
+I put the black ones back in the bag and zip it shut.
+
+The first smoothie happens before I've even warmed up. The boy at the bar, who has a nose ring and a name tag that just says <i>HI</i>, slides a cup across the counter while I'm walking past and says it's a new recipe and he needs a second opinion. It's mango and something green, and it's honestly very good, and he watches me drink it like I'm grading his thesis.
+
+Then I go to the squat rack.
+
+There are three racks along the back wall, and I pick the middle one, because the camera dome is right above the mirror in front of it, and because that's where I'd have pointed it if I were him. I tell myself the middle one has the best bar.
+
+<<silently>>
+<<set _msgs = [
+{ text: "Bar on my back, feet a little wider than my hips, down until my thighs are past parallel. The lights in here are the kind they use in operating rooms. Somewhere behind me someone drops a dumbbell and doesn't pick it up." },
+{ text: "On the fourth rep of the second set I see him in the mirror: a guy in a sleeveless shirt walking back from the water fountain, very slowly, with his bottle halfway to his mouth and his eyes not on where he's walking." },
+{ text: "He walks straight into the mirrored pillar between the racks. Forehead first, and the bottle second. The whole thing makes a sound like someone knocking on a door." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/field_test1_1.mp4 | Squat rack from the camera dome above the mirror, her in white leggings going down slowly; behind her a man walks into a mirrored pillar */
+
+I rack the bar before I drop it. He's standing there rubbing his forehead and looking at the pillar as though it moved on purpose, and when he notices me noticing, he points at it, which doesn't help him at all.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Guy by the pillar", text: "That's new. That wasn't there yesterday." },
+{ who: $sister, text: "It's been there since the building went up, I'm pretty sure. Are you all right?" },
+{ who: "Guy by the pillar", text: "Yep. Fine. Totally. Great squats." },
+{ text: "He leaves with as much dignity as a man can manage holding a dented water bottle, and I put my face in my towel and laugh until my abs hurt more than they did from the squats." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The second smoothie shows up while I'm on the mat doing hip bridges. The boy with the nose ring brings it over himself, crouches down next to me and says I looked thirsty, which is a terrible line, and he knows it, and he goes red right after he says it, which I find kind of sweet. The third one is waiting on the counter when I come out of the locker room with my hair wet. There's a little heart drawn on the lid in marker. I take it, because it would be rude not to.
+
+/* MEDIA: images/characters/sister/tasks/field_test1_2.mp4 | The smoothie bar, the boy with the nose ring pushes a cup with a heart on the lid across the counter, she laughs */
+
+By the end of the session I've had three free smoothies, one man has given himself a mild concussion, and the whole free weights area has developed a sudden interest in the stretching corner. That's a lot of attention for one pair of leggings.
+
+On the way out I don't look up at the dome. I don't need to. I know exactly which square on his screen I was in, and I know he picked the white ones for a reason. What I keep turning over on the bus home is the black pair, still folded in the bottom of my bag, and how I never even unzipped it to change back.
+
+<<EndPov>>

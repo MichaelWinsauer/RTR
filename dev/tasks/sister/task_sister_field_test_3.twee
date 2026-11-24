@@ -1,0 +1,85 @@
+:: Task Sister Field Test 3 [scene pov] {"position":"3875,4650","size":"100,100"}
+/* POV passage, her side of the task Field Test (task_sister_field_test), stage 3: from her corruption stage 3 on. Opened
+   with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task's onComplete.
+   She takes Derek up on the private session after closing. He locks the front door. An assisted stretch on the mat that
+   turns into his hands everywhere, her leggings down to her knees and his fingers in her, and she comes under the camera
+   dome she chose to lie under. When he wants more, she ends the session, smoothly, and leaves. Watched and handled, no
+   sex. Since Everything she belongs to me, and she knows the blue dot of her phone is on my map; she does this for the
+   camera, and the question for her is only whether I'm watching.
+   Clips (images/characters/sister/tasks/, activity field_test3): the front door, his hand turning the lock; the dark gym,
+   only the stretching corner lit; the mat, his hands on her thighs; her face turned up toward the dome */
+<<silent>><<SetBackground $locations[20].img>><</silent>>
+<<PovHeader $sister>>
+The music goes off at closing time, all at once, and the gym gets very big and very quiet. The cleaning crew does the bathrooms and leaves. The girl with the ponytail says goodnight to Derek and gives me a look on her way out that I decide not to read.
+
+Then it's just the two of us and about four hundred machines.
+
+He walks over to the front door and turns the lock, and makes a little show of it, rattling the handle afterwards to prove it's shut.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "So nobody bothers us. You'd be amazed how many people knock on that glass at ten at night like we're a pharmacy." },
+{ who: $sister, text: "Very considerate." },
+{ who: "Derek", text: "I'm a considerate guy. Lights?" },
+{ who: $sister, text: "Leave the ones in the corner on. I like to see what I'm doing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/field_test3_0.mp4 | The glass front door at night, a man's hand turning the lock, her reflection behind him in the glass */
+
+He turns the rest off at a panel by the desk, row by row, until the only light left is the strip over the stretching area at the back, and the little red one in the camera dome above it. I chose the mat that's right under it. He thinks I chose it for the foam roller.
+
+The blue dot on $player.name's map is sitting in a closed gym at ten at night. He'll know where I am, whether he's watching or not. I've stopped pretending that I don't want him to be.
+
+We actually do the workout first, which surprises me. Squats, lunges, a set of deadlifts he barely touches me for, and I'm sweating and a little shaky when he says it's time to stretch and points at the mat.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "On your back. I'm going to work your hamstrings, and you're going to hate me for about thirty seconds, and then you're going to love me." },
+{ who: $sister, text: "That's a big promise." },
+{ who: "Derek", text: "I keep my promises." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He puts my heel on his shoulder and leans in, slowly, until the back of my thigh is burning, and he's not lying about the thirty seconds. Then he switches legs, and then he stops pretending. His hands slide down from my knee along the inside of my thigh, slowly, kneading as they go, and when they get to the top neither of us says anything about hamstrings.
+
+/* MEDIA: images/characters/sister/tasks/field_test3_1.mp4 | The lit corner of a dark gym, her on her back on a mat, one leg on the trainer's shoulder, his hands high on the inside of her thighs */
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "Your hip flexors are really tight. I can get at them better without these." },
+{ text: "He hooks his thumbs into the waistband of my leggings and waits, which I didn't expect, and which I'll give him credit for later." },
+{ who: $sister, text: "Go ahead." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He peels them down to my knees, and my underwear with them, and there I am on a gym mat in the only lit corner of the building, bare from my waist to my knees with my legs pinned together by my own leggings, while a man whose last name I don't know looks at me like I'm the best thing that's happened to him all year.
+
+I look up past his shoulder at the dome.
+
+He touches me slowly at first, as if he's still pretending it's part of the stretch, and then not slowly at all. He knows what he's doing, which I suppose he should, it's his job to know where everything is. Two fingers, and his other hand flat on my stomach, holding me down the way he did on the bench, and I can hear myself in the empty gym, every sound bouncing off the mirrors and the steel and coming back louder.
+
+I keep my eyes on the red light the whole time. I picture the little square on his screen, the one I tapped with my fingernail, and him leaning back in his chair the way he does when he's reading something he likes. I don't know if he's there. I come with my back arched off the mat and my eyes wide open, looking straight up into the camera, in case he is.
+
+/* MEDIA: images/characters/sister/tasks/field_test3_2.mp4 | Close on her face from the dome above, flushed, eyes open and looking straight up into the camera, his arm moving at the edge of the frame */
+
+<<silently>>
+<<set _msgs = [
+{ text: "It takes me a minute to come back. When I do, he's already working on his own drawstring with one hand." },
+{ who: "Derek", text: "Okay. Okay, I think we're both ready for the next part of the program." },
+{ who: $sister, text: "That was the program." },
+{ who: "Derek", text: "Come on. You can't just..." },
+{ who: $sister, text: "I can, though. You were great, honestly. Ten out of ten, I'd tell all my friends, but I'm not going to." },
+{ text: "I pull my leggings back up while I say it, and stand, and give his shoulder a little pat on my way past him, the way you'd pat a big dog that tried its best." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He walks me to the front door anyway, because he's a considerate guy, and he unlocks it with a face like someone who just watched his flight leave. He asks if I'll come back on Thursday. I tell him maybe.
+
+Outside it's cold, and my legs are shaking in a way that has nothing to do with the deadlifts. I check my phone at the bus stop. No message from $player.name, nothing at all. I spend the first half of the ride trying to decide whether that means he didn't see it, or that he saw every second and wants to hear me tell it, and the second half working out how I'll tell it, just in case.
+
+<<EndPov>>

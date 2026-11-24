@@ -1,0 +1,84 @@
+:: Task Intro Lunch Break [event] {"position":"2150,4425","size":"100,100"}
+/* Introduction of the task "Lunch Break" (task_mom_lunch_break), at the office, at least a day after A Knock at Night
+   (mom_nightVisit). That night she promised: whenever it gets bad, come and find me, and you don't have to wait until it's
+   that bad. Here I take her up on it and give it a time and a place: she brings my lunch from the deli downstairs to the
+   meeting room at noon, where nobody goes in. The cover story is one the whole office already believes, that I forget to
+   eat. She agrees by fussing about the sandwich first, and only says the real part at the very end. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+She made pancakes the morning after, the way she said she would, even though nobody had asked for pancakes. She hummed while she flipped them. She asked $sister.callName about her seminar and me about the office and laughed at everything either of us said, and she didn't look at me directly once until I was already out the door.
+
+At the office it's been the same. She's nice to me and very busy, and she keeps a desk or two between us wherever she can, as if the meeting room and my bed happened to two other people she's only heard about.
+
+Then she comes to my desk with the shared calendar open on her tablet, to ask whether the supplier call can move to Thursday.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "It's only that Thursday morning is already a bit of a zoo, honey, so if you'd rather keep Wednesday I can just squeeze the dentist somewhere else, it's no trouble at all, I mean it." },
+{ who: $player, text: "Thursday's fine. Can I ask you something?" },
+{ who: $mom, text: "Of course you can." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it brightly. Then she holds the tablet against her chest with both arms, and I don't think she knows she's doing it.
+
+<<linkreplace "Ask her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "The other night, you told me to come and find you. You said I didn't have to wait until it got really bad." },
+{ who: $mom, text: "I did say that." },
+{ who: $player, text: "The thing is, I'm here from eight until whenever, and by the time I get home you're asleep, or $sister.callName is on the couch, or both. Finding you is kind of hard." },
+{ text: "She glances over her shoulder at the main room. $ethan.name has his headphones on. $brian.name is under his desk doing something to a cable. Nobody is listening, and she checks anyway." },
+{ who: $mom, text: "Sweetheart, we can't... not here, there are people right over..." },
+{ who: $player, text: "Not here, no. In the meeting room, at lunch. Nobody goes in there at lunch. Everybody eats at their desks or goes down to the deli." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She opens her mouth to say no. I can see the no forming, and I can see it run into the promise she made in my room, with my door closed and the dials in my drawer turned all the way up, and get stuck there.
+
+<<linkreplace "Give her the reason">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You keep saying I don't eat lunch." },
+{ who: $mom, text: "Because you don't! On Monday you had a granola bar out of the bottom of your bag, I watched you, and it was so flat it looked like it had been ironed." },
+{ who: $player, text: "So bring me lunch. From the deli downstairs. Bring it to the meeting room at twelve, and if anybody asks, you're making sure I eat something, which is a thing everybody here already thinks you'd do." },
+{ who: $mom, text: "Well, they're not wrong, are they." },
+{ text: "She says it before she's decided anything, the way she'd agree that it looks like rain. Then she hears herself and goes quiet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks down at the tablet against her chest. For a while she doesn't say anything at all, and then, when she does, it isn't about any of it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You always get the turkey there, don't you, with no tomatoes. You pick the tomatoes out and leave them in a little pile on the paper, and then I find the pile." },
+{ who: $player, text: "No tomatoes, yeah." },
+{ who: $mom, text: "And you'll actually eat it. The whole thing, honey, first, before anything else, I mean it. I'm not going to have you running this whole company on a granola bar." },
+{ who: $player, text: "The whole thing. Promise." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her decide">>
+She taps her tablet. I watch her open tomorrow in the shared calendar, put a block at twelve and type <i>Lunch with $player.name</i> into it. She looks at that for a second, deletes everything after the first word and saves it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Only on the bad days." },
+{ who: $player, text: "Sure." },
+{ who: $mom, text: "I mean it, sweetie, only if it's a bad one." },
+{ who: $player, text: "Around noon they're pretty much all bad, $mom.callName." },
+{ text: "She laughs, short and surprised, and then she stops laughing, because I didn't." },
+{ who: $mom, text: "No tomatoes. I'll remember." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She walks back to her desk with the tablet still held against her chest. Halfway there she stops at Gerald the fern and pinches off a brown leaf that was perfectly fine yesterday.
+
+<<EndTaskIntro "task_mom_lunch_break" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,0 +1,94 @@
+:: Task Intro Client Evening [event] {"position":"4100,4750","size":"100,100"}
+/* Task introduction for Client Evening (task_mom_client_evening and its pair task_sister_client_evening, a task for two).
+   The day after both The Calendar (mom_calendar, her stage 3) and Everything (sister_everything, her stage 3). A hotel
+   client wants to be taken out by "the company's best people" at $club.name, where he's a member. I ask each of them
+   separately. $mom.callName says yes at once and worries about her daughter; she will keep an eye on her. $sister.callName
+   says yes at once and assumes her mother is the respectable half; she will keep her out of the way of anything that isn't
+   respectable. Neither says what the evening is, and neither asks what the other one knows. Night Shift (main_nightShift)
+   is where they find out; nothing here may give that away.
+   Ends with <<EndTaskIntro>>, which unlocks both tasks. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+The man on the phone owns fourteen hotels across three states, and he spends the first five minutes of the call telling me which of them has the best pool. His name is Lyle. He's interested in a unit for every lobby and every hotel bar, which would be the biggest order we've ever had, and he's in no hurry at all to place it.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Lyle", text: "Here's how I like to do business, $player.name. I don't read brochures. I go out for an evening with the people who'd be looking after my account, and if I have a good time, I sign. Simple." },
+{ who: $player, text: "That sounds very reasonable. What did you have in mind?" },
+{ who: "Lyle", text: "I'm a member at a place called $club.name. Send me your best people one evening. Good company, good conversation. I'll take it from there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He hangs up before I can ask who he thinks my best people are. I already know who I'm going to send, though. I knew it about halfway through the pool.
+
+<<linkreplace "Find $mom.callName">>
+$mom.callName is at the window by the kitchen with her little green watering can, doing the plants in the order she always does them, Gerald last because he's her favorite.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey. Can you keep an evening free for me this week? I've got a client who'd like to be taken out for drinks, and I want you there." },
+{ who: $mom, text: "Of course, honey. Who is he?" },
+{ who: $player, text: "A guy with a lot of hotels. He likes a nice evening before he signs something, and he's a member at some private club downtown." },
+{ who: $mom, text: "Oh, one of those. My old boss had a few of those, they always want the good whiskey and then they tell you about their boat. I can do a boat." },
+{ who: $player, text: "$sister.callName is coming too." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The watering can stops over Gerald. A little stream of water runs over the edge of the pot and onto the windowsill, and she doesn't notice it for a second.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "$sister.callName? Sweetie, are you sure that's... I mean, she's got her evening seminar, hasn't she?" },
+{ who: $player, text: "She'll skip it. She's really good with people, you know. And you'll be right there." },
+{ text: "She sets the can down and dabs at the windowsill with the hem of her cardigan." },
+{ who: $mom, text: "Well, I will be, won't I. I'll be right there the whole time." },
+{ who: $mom, text: "And this man, is he the kind of client who..." },
+{ text: "She stops, folds the cardigan hem over the wet patch, and picks the sentence up from somewhere else." },
+{ who: $mom, text: "...who has dinner first, or is it just drinks? Because if it's just drinks, I'm making the two of you eat something before we go, and I don't want to hear a word about it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her it's just drinks. She nods, and says she'll make sandwiches, and goes back to Gerald, who's had more than enough water by now.
+
+<<linkreplace "Find $sister.callName">>
+$sister.callName is in the meeting room with her laptop, cropping product photos, and she gives me the look she's been giving me since that night on the office couch, warm and a little bit owned, when I close the door behind me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Hi. Is this a work visit, or the other kind?" },
+{ who: $player, text: "Work, sorry. One night this week there's a client I need taken out. Drinks at a private club, a hotel guy, and he wants to be shown a good time before he signs anything." },
+{ who: $sister, text: "I can do that. I'm extremely good at showing people a good time. It's on my résumé, under hobbies." },
+{ who: $player, text: "$mom.callName's coming too." },
+{ text: "She actually laughs, surprised." },
+{ who: $sister, text: "$mom.callName? At a private club? Okay, that's kind of adorable. So she's the respectable one who talks about the contract, and I'm the fun one who laughs at his jokes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't say yes, and I don't say no, and she takes that as yes. She closes the laptop halfway and looks at it for a second, chewing on the inside of her cheek.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Does she know? What kind of evening it is, I mean. With a guy like that." },
+{ who: $player, text: "She knows it's a client, and that he likes good company." },
+{ who: $sister, text: "Okay. Then I'll do the good company, and she can do the talking, and if he gets... you know. If he gets like that, I'll make sure it's with me and not with her. She doesn't need to deal with that part." },
+{ who: $sister, text: "And don't tell her I said that, please. She'd do the whole 'sweetie, I'm a grown woman' thing at me for a week." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I promise not to tell her. It's an easy promise to keep.
+
+<<linkreplace "Get back to work">>
+An hour later $mom.callName stops by my desk with a mug of tea I didn't ask for and asks, very quietly, whether the blue dress would be too much for a place like that, or not enough. I tell her the red one instead, the one she wore to the Christmas party two years ago and never again. She nods and goes, and doesn't mention $sister.callName once.
+
+Around four it's $sister.callName, on her way back from the printer, leaning down as if she's pointing at something on my screen. She wants to know if she can borrow the company card for a cab home afterwards, because heels and the bus don't mix. I tell her yes. She doesn't mention her $mom.relation either.
+
+I open the calendar and put the first evening on it, with Lyle's name and $club.name and nothing else.
+
+<<EndTaskIntro "task_mom_client_evening" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

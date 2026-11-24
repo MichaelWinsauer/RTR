@@ -1,0 +1,64 @@
+:: Task Sister Socials 2 [scene pov] {"position":"3275,4500","size":"100,100"}
+/* POV passage, her side of the task Socials (task_sister_socials), stage 2: her corruption stage 2, after the Catalyst
+   Night. Opened with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   The joint post with $gymChain.name: a box of their gym wear, a yoga mat in the meeting room, the router unit on the
+   shelf behind her, and the tagline from $gymOwner.name ("feel the flow", the gym meeting). $brian.name walks in for a
+   cable while she is bent over in a stretch, sees her upside down between her own knees, and leaves without the cable.
+   She doesn't move. A few months ago she would have grabbed the towel; now she holds the pose and wonders if her
+   $sister.playerRelation is watching on the camera, and hopes so. Later she brings the cable to his desk.
+   Clips (images/characters/sister/tasks/, activity socials2): changing into the gym wear; the stretch, the door opening
+   behind her; handing the cable over at the desk of $brian.name */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+<<PovHeader $sister>>
+$gymChain.name sent a box. Two sports bras, two pairs of leggings, a pair of shorts I'd describe as aspirational, a water bottle and a towel with the logo on it, and a card in $gymOwner.name's handwriting that says <i>Feel the flow!</i> with the exclamation mark underlined twice. It's going on the post, apparently. He wrote the tagline himself, and nobody had the heart to tell him.
+
+The idea is simple. Their members, their gyms, and our unit up on the ceiling looking like a router. So I'm the member, the meeting room is the gym, and the router is on the shelf behind me, sitting next to the plant, which $mom.callName has lent me again with a lot of instructions.
+
+/* MEDIA: images/characters/sister/tasks/socials2_0.mp4 | Meeting room, blinds down, her pulling a sports bra on over her head, the gym-wear box open on the table */
+
+I change in the meeting room with the blinds down. I pick the gray sports bra and the black leggings, which fit like they were painted on, which I suppose is what people pay for. I roll a yoga mat out between the table and the whiteboard, set the tripod low, and check the shot on my phone. I look good. I'm allowed to say that, it's my job now.
+
+Lunges first. Then the side stretch, the plank, and then the one where you fold over with your palms flat on the floor and your hips in the air, the one the entire fitness internet seems to be built on. I've got the remote in my hand and I'm clicking away, counting my breathing the way the videos say, and the door opens behind me.
+
+<<silently>>
+<<set _msgs = [
+{ text: "I see him upside down, between my own knees. $brian.name, in the doorway, in his band shirt, holding the handle with one hand and absolutely nothing with the other." },
+{ who: $brian, text: "Um." },
+{ who: $sister, text: "Hi." },
+{ who: $brian, text: "Cable. There's a, uh, a cable. In the cabinet." },
+{ who: $sister, text: "Go ahead, it's fine. I'm not in your way." },
+{ text: "I am completely in his way. The cabinet is right behind me." },
+{ who: $brian, text: "Hm. No. I'll... later. It's fine. Later." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He closes the door very gently, the way you'd close the door on a sleeping baby, and his footsteps go away much faster than they came.
+
+/* MEDIA: images/characters/sister/tasks/socials2_1.mp4 | From behind, her folded over on the yoga mat in the gray sports bra and leggings, the door half open, a man frozen in it */
+
+I don't move. That's the part I keep turning over afterwards. Not long ago I'd have yelped and grabbed the towel and spent the rest of the day apologizing to him in the kitchen. Today I stay folded over with my palms on the mat and my hair hanging down, and the first thing I think, before I've even worked out who it was, is whether $player.name has the meeting room open on his screen right now.
+
+There's a camera in the top corner by the window. I know exactly where it is. I hold the pose until my hamstrings start shaking, and I hope he was watching, and I don't even try to talk myself out of hoping it.
+
+It's easier, since that night. I used to stand at the edge of everything with him and decide whether to take another step. Now I just look for what he'd want and do it, and the deciding has stopped feeling like my job. I thought that would feel like losing something. Mostly it feels like putting down a heavy bag.
+
+I finish the set. I get the shot. It's a really good shot.
+
+<<silently>>
+<<set _msgs = [
+{ text: "When I'm dressed again, I take the cable out of the cabinet. It's a long blue one, coiled very neatly and tied with a twist tie, so obviously it's his. I carry it across the office to his desk." },
+{ who: $sister, text: "You forgot this." },
+{ who: $brian, text: "Oh. Thanks. Sorry. For the... door. I didn't knock." },
+{ who: $sister, text: "You didn't see anything a few thousand people won't see on Thursday." },
+{ who: $brian, text: "Hm. Yeah. Okay." },
+{ text: "He takes the cable without looking up, and his ears go red all the way to the top, and when I walk away I can hear him putting it down very carefully on his desk, as if it might also do something he isn't ready for." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Back in the meeting room I go through the set. The one I'll post is a lunge with the router in soft focus over my shoulder. The one I'm keeping for myself is the one I took without meaning to, the moment the door opened: my clicker thumb twitched, and the camera caught me folded over on the mat with a strip of light from the hallway falling across my back.
+
+I don't post that one. I look at it for a long time, and then I send it to $player.name with no message at all.
+
+<<EndPov>>

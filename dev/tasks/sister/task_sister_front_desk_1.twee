@@ -1,0 +1,62 @@
+:: Task Sister Front Desk 1 [scene pov] {"position":"3150,4700","size":"100,100"}
+/* POV passage, her side of the task Front Desk (task_sister_front_desk), stage 1: her corruption stage 2. Opened with the
+   CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   The short skirt (the plaid one he once said looked good, in passing), and the sign-in sheet moved from her desk to the
+   low glass table in front of the couch, so that she sits on the couch and leans forward to show visitors the line, and
+   they have to bend down to sign. Everybody signs in very slowly. A man from $retailChain.name takes forever over a
+   four-letter name, a delivery guy signs on the wrong line twice, and a woman from $marketingFirm.name looks at the skirt,
+   then at her, and signs in four seconds. The camera over the door. The report line: the low table, everybody slow.
+   Clips (images/characters/sister/tasks/, activity front_desk1): her on the couch in the short skirt leaning forward to
+   point at the clipboard; a visitor bent over the low table, not looking at the clipboard; the woman signing fast */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+<<PovHeader $sister>>
+I moved the sign-in sheet this morning. My desk is tiny and the clipboard kept sliding off the corner into the trash can, which is a completely real reason and also the one I'd give if anyone asked. Nobody asked. Now it lives on the low glass table in front of the couch, next to a bowl of mints and the good magazines, which I did end up ordering.
+
+And I'm wearing the plaid skirt. It's short, shorter than anything I own that isn't for the beach, and I bought it in my first semester and then never wore it because I couldn't figure out where a person goes in a skirt like that. A few weeks ago $player.name saw it in my laundry pile and said, without even looking up from his phone, that it looked good. That was all he said, and it's been on the top of my pile ever since.
+
+/* MEDIA: images/characters/sister/tasks/front_desk1_0.mp4 | Her on the couch by the window in a short plaid skirt and a fitted top, leaning forward to tap the clipboard on the low glass table */
+
+So the routine goes like this now. The elevator dings, I get up and say good morning, and then I sit down on the couch, on the edge, and lean forward to show them where to sign. The table is low. They have to bend down to it. I point at the line with one finger, and they look at the line, and then they look at the rest of the view, and then they take a very long time to write their names.
+
+The first one is from $retailChain.name, here for the eleven o'clock, in a navy suit, with a wedding ring and a nicer watch than anyone in this office owns.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Right there, on the next line. Name, company, and the time you came in." },
+{ who: "Visitor", text: "Sure. Of course. The time." },
+{ text: "He crouches down by the table with the pen in his hand, and he doesn't write anything. He's looking at my knees, then a little higher, then he catches himself and looks at the clipboard, and then my knees again, as if they might have moved while he wasn't watching." },
+{ who: "Visitor", text: "What's the... sorry, what's today's date again?" },
+{ who: $sister, text: "It's on the line above yours. Everybody's written it." },
+{ who: "Visitor", text: "Right. Right, yes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+His name has four letters. It takes him about forty seconds. When he stands up he has to hold on to the back of the couch for a second, and I pretend not to see that, and I offer him a mint.
+
+/* MEDIA: images/characters/sister/tasks/front_desk1_1.mp4 | A man in a navy suit bent over the low table with a pen, eyes not on the clipboard, her legs crossed in the foreground */
+
+I'd be lying if I said I don't notice what I'm doing. I notice all of it. I know that when I lean forward the skirt slides up at the back, and I know exactly how far, because I checked in the bathroom mirror before nine with my phone held low. I know there's a camera over the door, angled right at the couch, and that the feed goes to the screen on $player.name's desk. I chose the couch knowing that.
+
+A few months ago, this would have been the kind of thing I'd text a friend about at midnight, half proud and half horrified. Now I just do it, and the part of me that used to sit there being horrified has gotten very quiet. When I look for her, what I find instead is a question, the one I ask myself about almost everything these days, which is whether he'd like it. Then I lean forward a little more.
+
+The delivery guy at ten past eleven signs on the wrong line. I tell him, and he apologizes, crosses it out and signs on the wrong line again, the one under it this time. I laugh, really laugh, and he goes completely red and laughs too, and on the way out he walks into the door frame with his shoulder and says sorry to it.
+
+<<silently>>
+<<set _msgs = [
+{ text: "At half past eleven a woman from $marketingFirm.name comes up for $darius.name. She's in her forties, very put together, with reading glasses on a chain." },
+{ who: $sister, text: "Good morning! If you could just sign in for me, right here..." },
+{ text: "She looks at the clipboard on the low table. She looks at the skirt, and then at me, slowly and without any expression at all, the way a customs officer looks at a passport she has doubts about." },
+{ text: "Then she picks the clipboard up off the table, holds it against her hip like a normal person and signs in four seconds flat." },
+{ who: "Visitor", text: "There you go, dear." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/front_desk1_2.mp4 | A woman with reading glasses on a chain signing the clipboard standing up, looking at her over the top of her glasses */
+
+She puts it back on the table exactly where it was, which is somehow worse than if she'd said anything. I feel my face go hot all the way down my neck, and I sit there and let it, and I don't cross my legs.
+
+After she's gone into the meeting room, I look up at the camera over the door. I hold it for a second, the way you'd look at someone across a room to say, did you see that. Then I pull the clipboard back to its spot, square it with the edge of the table, and wait for the elevator.
+
+<<EndPov>>

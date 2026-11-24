@@ -30,3 +30,14 @@
 		<<goto $player.location.passage>>
 	<</link>>
 <</widget>>
+
+/* Usage: =====================================================================
+	<<EndTaskIntro "task_mom_client_lunch" ["Link text"]>>
+	The end of a task introduction (an event generated from the task's intro field, "Task introductions" in Define
+	Tasks). Unlocks the task (and its partner, for a task for two) with a "New task" notification, ends the event and
+	goes back to where I was. Default text: "Back to work".
+*/
+<<widget "EndTaskIntro">>
+	<<run setup.unlockTask(_args[0])>>
+	<<ReturnFromEvent `_args[1] || "Back to work"` $player.location.passage>>
+<</widget>>

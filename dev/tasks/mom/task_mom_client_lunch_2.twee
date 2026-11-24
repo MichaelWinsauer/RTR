@@ -1,0 +1,83 @@
+:: Task Mom Client Lunch 2 [scene pov] {"position":"3275,4050","size":"100,100"}
+/* POV passage, her side of the task Client Lunch (task_mom_client_lunch), stage 2 (her corruption stage 1, after six
+   lunches). Off-site, so this only opens from her end-of-day report. Effects are in the task data. It plays for every
+   lunch at this stage, so the opening has a random variant (_cl2).
+   She wears the dress I picked for the lunches, and she lets the client choose the wine and what they talk about. He
+   chooses her. The client is a one-off extra, a younger man who runs three boutique hotels. Her report line: the dress,
+   he chose the wine and the topic, she let him have both, mostly they talked about her.
+   Clips (images/characters/mom/tasks/, activity client_lunch2): the wine-red wrap dress, him pouring, her laughing with
+   her chin on her hand */
+<<silent>>
+	<<SetBackground "images/locations/steakhouse.jpg">>
+	<<set _cl2 to random(0, 1)>>
+<</silent>>
+<<PovHeader $mom>>
+<<if _cl2 == 0>>
+The dress came in a flat white box that was sitting on my chair one Monday morning, with a yellow sticky note on the lid in $player.name's handwriting. It said <i>For lunches.</i> Nothing else, not even an x, and I stood there holding that sticky note for so long that $ethan.name asked me if it was bad news.
+<<else>>
+I've worn the dress five times now, and the waiters have started to recognize it. Luis said "Ah, the red one" today when he pulled out my chair, very quietly, the way you'd mention a mutual friend.
+<</if>>
+
+It's a wrap dress, a dark wine red, soft as anything, and it ties at the waist with a bow on the side that I have to retie in the ladies' room twice per lunch because it slips. It's not short, exactly. It's just that the skirt opens when I sit down, all the way up, unless I hold it, and I've stopped holding it.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch2_0.mp4 | Mom sliding into a chair at the steakhouse in a wine-red wrap dress, the skirt falling open over her crossed legs */
+
+I'd never have picked it for myself, not in a hundred years. I keep thinking that he must have stood in a store somewhere, or sat at his desk scrolling, and looked at all the dresses, and thought: that one, for her. I think about that more than I think about almost anything else.
+
+Today it's Martin, who runs three little hotels downtown, the kind with a dog in the lobby and no prices on the room service menu. He's maybe forty-five, tanned in November, and he has the easy kind of manners that people only get when they've never once been told no.
+
+When Luis brings the wine list, I start to say that I'll just have an iced tea, because I always have an iced tea at lunch, and Martin holds out his hand for the list without looking at it.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Martin", text: "May I? I know this list better than I should." },
+{ who: $mom, text: "Oh, please. I'd only pick whatever had the nicest label." },
+{ who: "Martin", text: "That's actually not a bad system. But today you're having the Rioja, and you're going to tell me afterwards that you don't even like red wine." },
+{ who: $mom, text: "I don't, usually." },
+{ who: "Martin", text: "I know. You have the face of a woman who orders the white because it's safe." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I laugh, because he's right, and it's rude, and I let him order it.
+
+It's lovely, of course. It's the kind of wine that makes you understand why people talk about wine.
+
+I've brought the folder with the brochure and the installation plan, and I get it as far as the table. Every time I open my mouth about the lobbies, though, Martin closes the folder for me with one finger and asks me something else.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Martin", text: "Where did you grow up?" },
+{ who: $mom, text: "Oh, nowhere interesting, a little town two hours north of here. We had one stoplight and it was mostly for decoration. But about your lobbies, $player.name thinks the..." },
+{ who: "Martin", text: "$player.name is your boss?" },
+{ who: $mom, text: "He's my... yes. Well. He's the boss, yes." },
+{ who: "Martin", text: "And does your boss know what he's got?" },
+{ text: "I don't know what to say to that, so I drink some of the Rioja, which turns out to be an answer of sorts." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+So we talk about me. He wants to know what I did before this, and I tell him about my old job, the nice parts, and he can tell I'm leaving the rest out and doesn't make me say it. He asks what I do on weekends, and I tell him I garden, and he asks what I grow, and I end up telling him about the tomatoes that come back every year in the same corner no matter what I do. He asks whether there's a husband who gets to eat the tomatoes, and I say not really, not anymore, and he nods and refills my glass and lets that be enough.
+
+He asks what I wanted to be when I was twenty. Nobody has asked me that since I was twenty.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch2_1.mp4 | Mom with her chin on her hand, laughing, a half-full glass of red wine in front of her, the man across from her leaning in */
+
+At some point I realize I've been talking for twenty minutes without asking him a single question, which I have never done in my life, not with anybody. I should feel bad about it. Instead I feel the way you do on the first warm day of the year, when you go out on the porch without a coat just to see if you can.
+
+He looks at me the whole time. He looks at the dress too, quite openly, every time I uncross my legs, but mostly he looks at my face, as if I'm the most interesting thing in the room, and I know perfectly well that's a trick, because it's exactly the trick I use on people myself, and it's working on me anyway.
+
+When the check comes, he takes the folder with the brochure and puts it in his bag unopened.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Martin", text: "Send me whatever needs signing. Three lobbies. I didn't need the brochure, I decided while you were telling me about the tomatoes." },
+{ who: $mom, text: "That's not how you're supposed to buy things, you know." },
+{ who: "Martin", text: "It's exactly how I buy things. I buy them from people I'd like to have lunch with again." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pay with the card. I retie the bow in the ladies' room, and I look at myself in the mirror for a while, at my cheeks, which are pink from the wine, and at the dress $player.name picked, and I try to remember what I said about the units. I'm fairly sure I said something about the units.
+
+<<EndPov>>

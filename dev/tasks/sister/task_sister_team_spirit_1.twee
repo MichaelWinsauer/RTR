@@ -1,0 +1,131 @@
+:: Task Sister Team Spirit 1 [scene pov] {"position":"4350,4500","size":"100,100"}
+/* POV passage, her side of the task Team Spirit (task_sister_team_spirit), stage 1 (her corruption stage 2, after the
+   Catalyst Night): an hour on the edge of his desk, legs crossed, doing her own work on her laptop while he does his. He
+   gets more done than all week (the report line). She knows exactly how that works and pretends she doesn't. One variant
+   per man (setup.teamSpiritTarget):
+     ethan    jokes for five minutes, then types like a man possessed, and once forgets she's there and then really doesn't
+     brian    looks at her shoe once, then never again; the board is done in an hour, and he says one whole sentence
+     darius   names what she's doing out loud, politely. Shut out ($flags.dariusBroughtIn false): he asks if she was sent
+     null     nobody: she sits on her own desk
+   Clips (images/characters/sister/tasks/, activity team_spirit1): her on the edge of the desk, legs crossed, laptop on her
+   knee; his hands on the keyboard; the shoe dangling from her toes */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _tsWho to setup.teamSpiritTarget()>>
+	<<set _tsMan to State.variables[_tsWho]>>
+<</silent>>
+<<PovHeader $sister>>
+I've worked out that the lunches are nice, but they're slow. A lunch fixes somebody's mood for an afternoon, and then the next morning he's hunched over his desk again like nothing happened.
+
+So now I do something else. I take my laptop and my coffee, I pick a skirt that's a little shorter than the office really calls for, and I sit on the edge of whoever's desk it is today, and I do my own work there for an hour. That's it. I don't flirt, or barely. I don't even talk much. I just sit there, close, and cross my legs.
+
+It's how I sit on my $sister.playerRelation's desk, these days. Since that night in the empty office I've stopped pretending I sit there by accident, and somewhere between his desk and this one I worked out what he actually wants from me on these rounds: he wants them to work, and he wants me to be the reason. So I give them the corner of the desk, and I keep everything else for him.
+
+<<if _tsWho == "ethan">>
+/* MEDIA: images/characters/sister/tasks/team_spirit1_0.mp4 | Her sitting on the corner of his desk with her laptop on her knee, legs crossed, him leaning back in his chair with both hands behind his head */
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Hi. Hello. Can I help you with something, or is my desk a café now?" },
+{ who: $sister, text: "It's a café now. Don't mind me, I'm just working." },
+{ who: $ethan, text: "Okay, cool, totally normal. I'll just be over here. Coding. With my eyes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+For about five minutes he tries to be funny about it. He asks if I want a refill, he asks if I'm comfortable, he asks if the café has wifi, and I answer every one without looking up from my spreadsheet.
+
+Then he gives up, puts his headphones on, and something changes. He starts typing and doesn't stop. Every so often his eyes flick sideways, to my knee, to the hem of the skirt, and then straight back to the screen, and every time he looks back, he types faster, like he's trying to outrun something.
+
+At one point he's so deep in it that he reaches for his coffee and picks up mine instead, and drinks half of it, and only notices when he puts it down next to his own.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Oh no. I'm so sorry. I'll get you a new one." },
+{ who: $sister, text: "Keep it. You look like you need it more." },
+{ who: $ethan, text: "I closed eleven tickets. Eleven. I haven't closed eleven tickets since we moved in." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He looks honestly puzzled about it, staring at his ticket list as if somebody else had done it while he wasn't looking. I uncross my legs and cross them the other way, and he goes back to the screen and closes a twelfth.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit1_1.mp4 | Close on his hands flying over the keyboard, her crossed legs at the edge of the frame */
+
+<<elseif _tsWho == "brian">>
+/* MEDIA: images/characters/sister/tasks/team_spirit1_0.mp4 | Her on the edge of his workbench between a box of parts and a magnifying lamp, legs crossed, laptop on her knee, him bent over a board */
+
+I clear a little space between his box of resistors and the magnifying lamp, and I sit. $brian.name stops with the soldering iron in midair, the way he does.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Is this okay? I won't touch anything, I promise." },
+{ who: $brian, text: "Hm. Yeah. Yes. It's okay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He looks at my shoe. Just once, for about half a second, at the shoe that's hanging off my toes, and then he turns the magnifying lamp so it's between us, and I don't think he looks at me again for the whole hour.
+
+But I can tell he knows exactly where I am, because his back is very straight, and he's breathing like someone who's been told to be quiet in a library. And he works. He works like I've never seen him work, not even in the weeks I was bringing him coffee. Little pieces go onto the board one after another, and the soldering iron goes in and out of its stand with a soft click, click, click, regular as a clock.
+
+At the end of the hour he puts the iron down, unplugs it, and holds the board up to the lamp.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "It's done. The whole board. I thought this would take me till Thursday." },
+{ who: $sister, text: "Wow, really? What happened?" },
+{ who: $brian, text: "I don't know. I just didn't... I didn't make any mistakes today." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He says it to the board, very quietly, like he's afraid it'll hear him and stop.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit1_1.mp4 | Him holding a finished board up to the lamp, her shoe dangling in the blurry foreground */
+
+<<elseif _tsWho == "darius">>
+/* MEDIA: images/characters/sister/tasks/team_spirit1_0.mp4 | Her on the edge of his very tidy desk, legs crossed, him in a pressed shirt looking up at her over his monitor with a faint smile */
+
+$darius.name's desk is the tidiest one in the office, so the corner I sit on is the only thing out of place on it, and he notices that before he notices anything else.
+
+He doesn't say anything at first. He moves his pen two inches to the left to make room for my laptop, and goes on working. For twenty minutes he types, and reads, and types, steadily, and then he leans back and looks at me over his monitor with his hands folded.
+
+<<if $flags.dariusBroughtIn === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "I hope you'll forgive me for saying it out loud, but I can see what you're doing." },
+{ who: $sister, text: "I'm doing a budget for the trade fair." },
+{ who: $darius, text: "You're also improving my output, quite noticeably. I've just finished a model that I'd scheduled for tomorrow afternoon." },
+{ who: $sister, text: "So I'm good for you." },
+{ who: $darius, text: "Evidently. I've decided not to examine it too closely. It's the first time in my career I've chosen not to look at a result, and I find I don't mind at all." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "May I ask you a direct question?" },
+{ who: $sister, text: "You're going to anyway." },
+{ who: $darius, text: "Did someone ask you to sit here?" },
+{ text: "He asks it so politely. He isn't upset. He just wants to know, the way he wants to know everything." },
+{ who: $sister, text: "Nobody asks me to do anything, $darius.name. I like your desk. It's the only clean one in the building." },
+{ who: $darius, text: "That's a very good answer. I don't believe it, but it's a very good answer, and I'm grateful for the company either way." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+And then he goes back to work, and he works through the rest of the hour without stopping once, and I sit there feeling looked at even though he doesn't look up again. It's a strange feeling. With most guys it's my legs. With him I think it's me, the whole of me, as a puzzle he's agreed not to solve for now.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit1_1.mp4 | Him back at his screen, typing calmly, her legs crossed on the corner of his desk */
+
+<<else>>
+Today there's nobody on the list. I sit on the edge of my own desk instead, and swing my foot, and nobody's productivity goes up at all.
+<</if>>
+
+When the hour's over I slide off the desk, straighten my skirt, and pick up my laptop. My $sister.playerRelation is at his desk across the room. He isn't looking at me. He's looking at his dashboard, and I know what's on it, because he showed me once: a little line for each of them, going up.
+
+I know exactly how it works. It works because I'm wearing the shortest skirt I own and my $sister.playerRelation asked me to take care of them. I'm just not going to say that out loud to anyone, so if anybody asks, I have no idea.
+
+<<EndPov>>

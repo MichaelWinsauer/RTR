@@ -1,0 +1,70 @@
+:: Task Sister Client Evening 0 [scene pov] {"position":"4225,4875","size":"100,100"}
+/* POV passage, her side of the task Client Evening (task_sister_client_evening, a task for two with her mother), stage 0:
+   drinks with a client at $club.name. Opened from her end-of-day report (off-site, no camera). Effects are in the task data.
+   The same evening as Task Mom Client Evening 0, from her side: the sandwiches, the cab, Lyle and the bottle of something
+   French. She thinks her mother is the respectable half, and she sees the red dress and his hand on her mother's knee and
+   decides it is champagne and good manners. She keeps pulling his attention back to herself to spare her, without
+   noticing that her mother is doing exactly the same thing for her. Her report line: "We're good at this together.
+   That's either great or really weird."
+   Nothing here may give away what the Night Shift reveals (that both of them belong to me).
+   Clips (images/characters/sister/tasks/, activity client_evening0): her in a green satin dress in the booth, leaning in to
+   the client; the bottle; the two of them at the restroom mirror */
+<<silent>><<SetBackground "images/locations/cluboutside.jpg">><</silent>>
+<<PovHeader $sister>>
+$mom.callName made us eat sandwiches before we left. Turkey and Swiss, standing at the kitchen counter in our dresses, bent forward over the sink like a pair of very glamorous raccoons. It's the most $mom.callName thing that has ever happened, and I'm including the time she brought a thermos of soup to my driving test.
+
+Then I got a proper look at her dress, and I nearly choked on the Swiss.
+
+It's red. It's the red one, the one from the Christmas party two years ago that she never wore again because, quote, it gives people ideas. I didn't say anything. I said the cab was here.
+
+$club.name is the kind of place where the door doesn't have a handle on the outside. There's a man in a coat who decides whether it opens, and he decides yes, and then it's dark and warm and expensive in there, and the music is so low you mostly feel it in your ribs. Lyle's in a booth at the back, and he sits us one on each side of him, like bookends.
+
+/* MEDIA: images/characters/sister/tasks/client_evening0_0.mp4 | A velvet booth in a dim club, Sister in a green satin dress leaning in to laugh at something the man beside her said, Mom in red on his other side */
+
+He orders champagne, a bottle of something French that I'm told is very good, and that I'd describe, if anybody asked, as expensive-tasting. He's loud and pleased with himself and not actually unpleasant, which in my experience is about the best you can hope for from a man who owns fourteen swimming pools.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Lyle", text: "So what does a girl like you do at a tech company? Don't tell me. You're the brains, and that one's the beauty." },
+{ who: $sister, text: "Wow. Okay. I'm going to tell her you said that, and then I'm going to watch her pretend to be offended for about a week." },
+{ who: "Lyle", text: "Ha! Look at that, she's quick. Your boss knows what he's doing." },
+{ who: $sister, text: "He usually does. It's one of his more irritating qualities." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He puts his hand on my back after that, flat, right where the dress stops, and I let it be there and keep my smile exactly where it was. I'm not new to this. I have done whole parties on less champagne than this, with worse men's hands on my back, and none of those men were going to buy something from my $sister.playerRelation.
+
+Then $mom.callName asks him something about towels.
+
+And he turns to her, and she laughs, and I see his hand go down under the table, and I see where it goes, because I've got a perfect angle on the hem of that red dress from where I'm sitting.
+
+I look at my glass. I decide very firmly that it's the champagne. $mom.callName is a hugger, she touches everybody's arm when she laughs, she once kissed a pizza delivery guy on the cheek because he was early, and a man's hand on her knee in a dark booth after two glasses of something French is just what happens to warm people in places like this. She doesn't know what kind of evening this is supposed to be. She thinks it's about service plans.
+
+So every time his hand goes quiet on her side and I can tell he's about to lean in, I lean in first. I ask him about the hotel in Miami. I put my hand on his arm and make him show me his watch. Twice I make him laugh so hard he needs both hands to hold his glass, and I'm a little proud of that.
+
+/* MEDIA: images/characters/sister/tasks/client_evening0_1.mp4 | Sister touching the client's arm, her head tipped toward his shoulder, a champagne bottle in an ice bucket in the foreground */
+
+Weirdly, every time I do, she seems to do the same thing from her side about five minutes later. He keeps turning from one of us to the other like a man at a tennis match, and he looks about as happy as I've ever seen anyone look.
+
+In the restroom we end up side by side at the mirror, under some very flattering lighting.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Are you having a nice time, sweetie?" },
+{ who: $sister, text: "Super nice. You?" },
+{ who: $mom, text: "Oh, lovely. He's a sweet man, really, under all that tile." },
+{ who: $sister, text: "Totally. Very sweet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I could say it right there. Something like hey, his hand, are you okay. I watch her put on her lipstick in the mirror with that tiny frown she makes, the same frown she's made since before I can remember, and I can't think of a single way to say it that doesn't also mean I watched. So I blot my own lipstick and follow her back out.
+
+/* MEDIA: images/characters/sister/tasks/client_evening0_2.jpg | Sister and Mom side by side at a dim restroom mirror, both fixing their lipstick, neither looking at the other */
+
+He's going to sign. He said so twice at the door, with an arm around each of us. In the cab I text $player.name: <i>he's signing. you owe me a croissant the size of my head.</i> Next to me, $mom.callName is texting someone too, probably one of her friends from the old job, holding the phone the way she does, way out in front of her face.
+
+I don't know. We're kind of good at this, the two of us together. I can't decide if that's great or really weird.
+
+<<EndPov>>

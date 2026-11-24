@@ -1,0 +1,70 @@
+:: Task Intro Team Spirit [event] {"position":"4100,4500","size":"100,100"}
+/* Task introduction for Team Spirit (task_sister_team_spirit). Two days after The Anchor (main_anchor), which gave
+   $brian.name his own project and took her off his desk (the end of Extra Friendly). I widen it: from now on she looks
+   after whoever on the staff needs it most that day, and I tell her who that is. She makes fun of it, asks if that
+   includes $darius.name (she turned him down in The Ask), and says yes. Establishes: it was my idea, the pick is "whoever is
+   having the worst week", and she does it for me. Ends with <<EndTaskIntro>>, which unlocks the task. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+$brian.name hasn't looked up from his bench in two days. He's got the parts for the Anchor spread over a towel like a surgeon's tray, and when $sister.callName brought him a coffee yesterday he said "thanks" to the coffee and went straight back to his coil. She stood there for a second with her hand still half out, and then went back to her desk.
+
+So this morning, when she drops off mine, I ask her to sit for a minute.
+
+<<linkreplace "Pull the chair over">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Uh oh. The chair. Am I being fired from the coffee department?" },
+{ who: $player, text: "Promoted, actually. You did a really good job with $brian.name, you know. He says good morning to people now. To their actual faces." },
+{ who: $sister, text: "To their shoulders, mostly. But I'll take the credit, sure." },
+{ who: $player, text: "He's on something of his own for a few weeks, so he's going to be pretty buried. Which means I'd like you to do the same thing for everyone else, kind of. Whoever's having the worst week, you take care of them for a bit. Lunch, company, whatever they need." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes the lid off her own coffee and blows on it, which she only does when she wants a second to think, because she drinks it lukewarm anyway.
+
+<<linkreplace "Wait for her">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "So I'm a morale program now. Do I get a lanyard? I feel like a program should have a lanyard." },
+{ who: $player, text: "I'll get you a lanyard." },
+{ who: $sister, text: "And how am I supposed to know who's having the worst week? I can't exactly go around asking people to rate their feelings from one to ten." },
+{ who: $player, text: "You don't have to. I've got all of it on the dashboard anyway. I'll tell you who." },
+{ text: "She looks at my screen, then at me, with one eyebrow up, like she's deciding whether that's impressive or creepy, and lets it go." },
+{ who: $sister, text: "Whoever, though. Like, anyone?" },
+{ who: $player, text: "Anyone on the team, yeah." },
+{ who: $sister, text: "$darius.name is on the team." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it lightly, to the coffee cup. A few weeks ago he stood at her desk and asked her out properly, with a time and a place, and she said no and came over here afterwards to tell me about it.
+
+<<linkreplace "Answer her">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "He is. If it's him one day, it's him. I trust you to handle that." },
+{ who: $sister, text: "Oh, I can handle $darius.name. I'm just saying that lunch with a guy you turned down is a very specific kind of lunch. There's a lot of chewing." },
+{ who: $player, text: "Then you'll be the best chewer he's ever eaten with." },
+{ who: $sister, text: "That's genuinely the worst compliment anyone has ever given me, and I'm keeping it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stands up, takes my empty cup from yesterday that I forgot to throw away, and holds it for a moment like she's about to say something else.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You'll tell me when I'm doing it right, though? Because with $brian.name I honestly couldn't tell, half the time, whether it was working or whether I was just a girl sitting next to a soldering iron." },
+{ who: $player, text: "I'll tell you. I'm watching the numbers. Trust me, it works." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That seems to be what she wanted. She tucks both cups against her chest and walks back to her desk, and on the way she stops behind $ethan.name's chair, reads over his shoulder for a second and says something that makes him laugh out loud.
+
+On my dashboard, the Morale column for the team is sorted lowest first. I've had it set up that way since Monday.
+
+<<EndTaskIntro "task_sister_team_spirit" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

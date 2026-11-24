@@ -1,0 +1,90 @@
+:: Task Intro Client Lunch [event] {"position":"2900,4050","size":"100,100"}
+/* Task introduction for Client Lunch (task_mom_client_lunch). The day after The First Real Sale (main_firstSale).
+   $marketingOwner.name has started passing our name around, and the first strangers are writing in. People at that level
+   want to be taken to lunch before they buy anything, and I decide she is the one who takes them: she is good with
+   people, and it is only lunch on the company card. Establishes the steakhouse downtown, the company card, and that she
+   tells me afterwards how it went (the task is off-site, so I only hear about it from her). Ends with EndTaskIntro. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+By ten there are two names in my inbox I've never seen before. Both of them say $marketingOwner.name gave them my address, and both of them, in slightly different words, would love to "grab a bite sometime and hear more about what you're doing over there."
+
+/* MEDIA: images/characters/mom/events/task_intro_client_lunch/inbox.jpg | His desk screen with two short emails from strangers, the office out of focus behind it */
+
+I read the second one out loud without meaning to. $darius.name, who has the desk nearest mine and hears everything, answers without taking his eyes off his screen.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "That's how it works at that level, I'm afraid. Nobody buys anything from a website. They buy it from whoever picked up the check last." },
+{ who: $player, text: "So I'm going to be eating a lot of lunches." },
+{ who: $darius, text: "Someone is. With the greatest respect, I'm not convinced it should be you. You eat as though you expect somebody to take the plate away." },
+{ who: $player, text: "I grew up across the table from $sister.callName. Somebody usually did." },
+{ text: "He smiles at his spreadsheet, which for $darius.name is a belly laugh." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's right, though, and I know it. I'm fine on the phone, where nobody can see me sweat. Across a table I talk too fast, I check my phone when I get nervous, and I always end up explaining the emitters to people who only asked how I'm doing.
+
+On the other side of the office, $mom.callName is on the phone with a supplier who has been late twice this month. She's laughing, one hand flat on the desk, and by the sound of it she's about to get a discount out of him for the trouble, and he's going to thank her for it.
+
+<<linkreplace "Call her over">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You rang, sweetie? If it's about the toner, I already ordered more, and I put a note on the printer so nobody shakes the cartridge again. Somebody did, and I'm not saying who, but he sits right over there and his left sleeve is still gray." },
+{ who: $player, text: "It's not the toner. How do you feel about steak?" },
+{ who: $mom, text: "In general? I'm in favor. Why, are you taking me out? Because I've got chicken thawing at home, honey, and it won't keep forever." },
+{ who: $player, text: "Not me. I've got two people who want to be taken to lunch before they'll even think about buying anything, and if this works, there'll be more. I want you to take them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs, and then she sees I'm not laughing, and sits down on the edge of the chair next to my desk.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Me? Honey, I do the invoices. I'm the one who knows where the stapler is." },
+{ who: $player, text: "You're also the one every client asks for when they call. Half of them think you run the place." },
+{ who: $mom, text: "Well, somebody has to sound like a grown-up on the phone, and $ethan.name answered it with 'yello' last week, so..." },
+{ who: $player, text: "It's just lunch. You eat, you ask about their kids, you let them talk about whatever they want to talk about, and when the check comes you pay for it, so they leave thinking we're nice people." },
+{ who: $mom, text: "And who's paying for all these steaks, exactly? Because you know what a steak costs downtown, sweetie, it's practically a car payment." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hand her the card">>
+I take the company card out of my drawer and put it on the desk in front of her. It's black, with our name on it in silver, and it's been in that drawer since the bank sent it because I was scared to use it.
+
+She doesn't pick it up right away. She looks at it the way she looks at a dessert menu, like a woman telling herself she's only looking.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I've never had one of these. Your $dad.relation had one at his old job, and he used to hide the receipts from me in the glovebox, as if I wasn't the one who cleaned out the glovebox." },
+{ who: $player, text: "You don't have to hide anything. Just give the receipts to $darius.name, he gets excited about receipts." },
+{ who: $darius, text: "I do not get excited. I get thorough." },
+{ who: $mom, text: "And what if they ask me something technical? I can't tell anybody what an emitter does, honey, I'd make something up and then they'd buy the wrong thing." },
+{ who: $player, text: "Then you tell them $brian.name will call them, and you order dessert." },
+{ who: $mom, text: "Dessert I can do. Dessert I'm actually very good at." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She picks the card up and turns it over to look at the back, where somebody has to sign it. Then she takes a pen out of the cup on my desk and signs it, slowly, in her best handwriting, the one she uses on birthday cards.
+
+<<linkreplace "Let her think about it">>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What does a person wear to something like that? Not the cardigan, I suppose." },
+{ who: $player, text: "Whatever you'd wear to meet somebody you want to like you." },
+{ who: $mom, text: "Oh, that's no help at all, sweetie, I want everybody to like me. That's my whole problem." },
+{ text: "But she's already thinking about it, I can tell. Her eyes have gone to the window, and she's moving her mouth a little, the way she does in front of her closet in the morning." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She slides the card into her wallet, behind her library card, and pats the wallet once before she puts it away.
+
+I watch her walk back to her desk and pick the phone up again, and I think about the two strangers in my inbox sitting across a white tablecloth from her for an hour and a half, with her laughing at their stories and asking about their kids and meaning every word of it. Nobody has ever left a table with her and felt worse about himself. I'd love to know what that's worth per contract, and the first receipt that lands on $darius.name's desk is going to tell me.
+
+<<EndTaskIntro "task_mom_client_lunch" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

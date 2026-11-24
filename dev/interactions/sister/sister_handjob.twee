@@ -1,0 +1,157 @@
+:: Sister Handjob [interaction] {"position":"150,2475","size":"100,100"}
+/* Intimate scene, reached from the "Ask her to take care of you" card of the NPC Interaction screen (id "handjobSister").
+   Unlocked by the quest What Are We (sister_whatAreWe); the card's requirements, privacy rule and once-per-day limit live in
+   define_interactions.twee. This passage applies the stat changes itself (like Mom Handjob).
+   Until now it was always her coming to my room at night, "is tonight a sometimes?" (Souvenirs, Send Me Something). The card
+   is me letting her know, the way I said I would.
+   The scene changes with the place (_shjPlace: her room, the living room, my room, the office after hours, anywhere else) and
+   with how often she has done it on my asking ($sister.flags.handjobs): the first time she can't quite believe I'm the one
+   asking, then it's ours and she teases me through it, and from the sixth time on she offers before I can.
+   In private she calls me by name now, never by the sibling word (What Are We).
+   MEDIA: images/characters/sister/interactions/handjob/<place>_0.mp4 | her hand starting, per place (sisterroom, livingroom,
+          bedroom, office, other)
+   MEDIA: images/characters/sister/interactions/handjob/<place>_1.mp4 | the end of it, per place */
+<<silent>>
+<<set _shjCount to $sister.flags.handjobs || 0>>
+<<set _shjTier to (_shjCount == 0 ? "first" : (_shjCount < 5 ? "routine" : "eager"))>>
+<<set _shjSys to $player.location.sysName>>
+<<if _shjSys == "sisterroom">><<set _shjPlace to "sisterroom">>
+<<elseif _shjSys == "livingroom">><<set _shjPlace to "livingroom">>
+<<elseif _shjSys == "bedroom">><<set _shjPlace to "bedroom">>
+<<elseif ["companystage1", "companystage1desk", "companystage1meeting"].includes(_shjSys) and !setup.isOfficeWorkTime()>><<set _shjPlace to "office">>
+<<else>><<set _shjPlace to "other">>
+<</if>>
+<</silent>>
+<<switch _shjPlace>>
+<<case "sisterroom">>
+Her door is open a hand's width, which in this house counts as an invitation. She's lying on her stomach on the bed under the fairy lights with her laptop and one earbud in, and when I come in and push the door shut behind me, she takes the earbud out without pausing whatever she's watching.
+<<case "livingroom">>
+$sister.callName has the whole couch to herself, stretched out with her feet on the armrest and a bowl of popcorn balanced on her stomach. From the kitchen I can hear the radio, and the dishwasher being loaded the way $mom.callName loads it, plate by plate, with commentary. When I sit down on the end of the couch, $sister.callName lifts her feet to make room and then puts them down in my lap.
+<<case "bedroom">>
+She's in my room when I come in, sitting cross-legged on my bed and reading something on my laptop that I'm fairly sure she isn't supposed to be reading. She closes it with no sign of guilt whatsoever.
+<<case "office">>
+The office is dark apart from my desk lamp. Everyone else has gone home, and $sister.callName hasn't, which is nothing new by now. When I look over she's already watching me from her desk, chin in her hand.
+<<default>>
+There's nobody else around for a moment, and $sister.callName notices it at the same time I do. She glances past me, once, to check, and then back at me, and waits to hear what I'm going to say.
+<</switch>>
+
+<<silently>>
+<<if _shjTier == "first">>
+	<<set _msgs = [
+	{ who: $player, text: "Remember that night with the photos? You asked if you could do it more often, and I said I'd let you know when." },
+	{ who: $sister, text: "I remember. I've been waiting for you to let me know for a while, actually. I was starting to think you'd forgotten, so I just kept knocking on your door instead." },
+	{ who: $player, text: "I'm letting you know." },
+	{ text: "She looks at me for a moment as if she isn't sure she heard me right. Then something in her face goes soft and very pleased." },
+	{ who: $sister, text: "You're asking. You've never asked, $player.name. It was always me showing up at your door at midnight like some kind of raccoon." },
+	]>>
+<<elseif _shjTier == "routine">>
+	<<set _msgs = [
+	{ who: $player, text: either("Got a minute for me?", "I'm letting you know.", "It's been a long day.") },
+	{ who: $sister, text: either("For you? I might be able to squeeze you in. Let me check my calendar. Oh look, it's free.", "You're doing the face again, the one that means you've been in meetings since nine.", "You don't even have to say anything, you know. You just come and stand next to me and look tragic.") },
+	{ who: $player, text: either("Is that a yes?", "I don't look tragic.", "Very funny.") },
+	{ who: $sister, text: either("It's always a yes. Come here.", "You look extremely tragic. Come here and I'll fix it.", "I'm hilarious, and you love it. Come here.") },
+	]>>
+<<else>>
+	<<set _msgs = [
+	{ text: "I haven't opened my mouth yet, and she's already smiling at me, the slow lopsided one she used to use when she'd figured out what I got her for Christmas." },
+	{ who: $sister, text: either("Don't bother asking, I already know. Come here.", "I was wondering how long it'd take you today. I had a bet with myself, and I won.", "You know you can just come to me, right? Any time. You don't have to work up to it.") },
+	{ who: $player, text: "How did you know?" },
+	{ who: $sister, text: "$player.name, I've been looking at you your whole life. I knew what you wanted for lunch before you did when you were six. This is not that much harder." },
+	]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her take care of you">>
+/* MEDIA: images/characters/sister/interactions/handjob/<place>_0.mp4 | her hand starting, per place */
+<<switch _shjPlace>>
+<<case "sisterroom">>
+She shuts the laptop, pushes it off the end of the bed onto the rug and rolls onto her side, then pulls me down next to her by the front of my shirt. Her pillow smells of the strawberry shampoo, and the fairy lights blink over both of us in their lazy pattern.
+<<case "livingroom">>
+She sets the popcorn bowl on the floor and turns the TV up two notches, so that it covers whatever it needs to cover. Then she slides down the couch until she's sitting next to me under the throw blanket, her eyes on the kitchen door, and her hand finds my belt under the blanket without any trouble at all.
+<<case "bedroom">>
+She doesn't move from my bed. She just pats the mattress next to her, and when I sit down she shuffles around behind me on her knees and reaches around me from behind, with her chin on my shoulder.
+<<case "office">>
+She comes over and sits on the corner of my desk, the way she does now, hooks her feet over the armrests of my chair and pulls me in until my knees bump the desk.
+<<default>>
+She steps in close, close enough that anybody coming around the corner would just see the two of us standing together, talking, and slips her hand under my waistband without looking down.
+<</switch>>
+
+<<silently>>
+<<if _shjTier == "first">>
+	<<set _msgs = [
+	{ text: "She's done this enough times by now that her hands know what they're doing. But she's slower today, careful, as if she wants to get this one exactly right because I asked for it." },
+	{ who: $sister, text: "Is this what you wanted? I mean, obviously it is, you asked. I just mean... is it the way you wanted it? You can say if it isn't." },
+	{ who: $player, text: "It's exactly how I wanted it." },
+	{ text: "She breathes out against my neck, and doesn't say anything else for a while, and doesn't need to." },
+	]>>
+<<elseif _shjTier == "routine">>
+	<<set _msgs = [
+	{ text: either("She's quick and sure about it, the way she is with everything she's decided she's good at.", "She takes her time, mostly to tease me, slowing down every time she can tell I'm getting close.", "She watches my face the whole time from a few inches away, with a little frown of concentration, like she's reading a contract.") },
+	{ who: $sister, text: either("You know you make a little noise right before, right? A tiny one. It's adorable. I'm never telling anybody about it.", "Tell me when. I want to hear you say it.", "Breathe, $player.name. You're allowed to breathe.") },
+	{ text: either("Every so often she squeezes her own thighs together and pretends she didn't.", "Her own breathing has gone short. She keeps it quiet, but not quiet enough.", "She presses her cheek against my shoulder and stays there.") },
+	]>>
+<<else>>
+	<<set _msgs = [
+	{ text: "She's very good at this now, and she knows exactly how good. She plays with it, takes me right to the edge and backs off and smiles about it, three times, until I say her name in a voice I don't recognize." },
+	{ who: $sister, text: either("There it is. That's the one I was waiting for.", "Say it again. Say my name like that again.", "Not yet. I'm not done with you.") },
+	{ who: $player, text: "You're enjoying this way too much." },
+	{ who: $sister, text: "I'm enjoying it exactly the right amount. Somebody has to." },
+	]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let go">>
+/* MEDIA: images/characters/sister/interactions/handjob/<place>_1.mp4 | the end of it, per place */
+She doesn't let go until I'm completely done, and for a moment afterwards she just stays where she is, with her forehead against my shoulder, getting her own breath back.
+
+<<silently>>
+<<switch _shjPlace>>
+<<case "sisterroom">>
+	<<set _msgs = [
+	{ who: $sister, text: "Stay a bit. Lie here. You don't have to run straight back to your room like it's a fire drill." },
+	{ text: "So I lie there for a while under her fairy lights, and she picks the laptop back up off the rug and restarts the episode from where she stopped it, and puts one of her earbuds in my ear without asking." },
+	]>>
+<<case "livingroom">>
+	<<set _msgs = [
+	{ text: "The dishwasher in the kitchen thunks shut, and a second later $mom.callName calls through the doorway to ask if anybody wants tea." },
+	{ who: $sister, text: "No thanks, we're good!" },
+	{ text: "She says it brightly, with the throw blanket pulled up to her chin, and then picks the popcorn bowl back up off the floor and offers it to me with a perfectly straight face." },
+	]>>
+<<case "bedroom">>
+	<<set _msgs = [
+	{ who: $sister, text: "I'm opening your laptop again, by the way. I was right in the middle of something." },
+	{ who: $player, text: "What were you reading?" },
+	{ who: $sister, text: "Your search history. It's honestly sad. You looked up 'how long can cooked rice stay out' four times this week." },
+	]>>
+<<case "office">>
+	<<set _msgs = [
+	{ text: "She slides off the desk, tosses the napkins in the bin under $ethan.name's desk, and then thinks better of it and moves them to the bin in the kitchenette instead." },
+	{ who: $sister, text: "I'll catch the next bus. Don't stay too long, $mom.callName says you're getting circles under your eyes, and for once I agree with her." },
+	]>>
+<<default>>
+	<<set _msgs = [
+	{ who: $sister, text: "There. Better?" },
+	{ text: "She wipes her hand on the back of my shirt, which is disgusting, and grins when I tell her so, and goes back to whatever she was doing as if she never stopped." },
+	]>>
+<</switch>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _shjTier == "first">>
+A little later, out of nowhere, she tells me to ask again soon, so she knows the first time wasn't a fluke. I tell her it wasn't, and she nods, as if that settles it.
+<<elseif _shjTier == "eager">>
+Before we go back to being normal, she takes my phone out of my pocket, opens my calendar, and puts a small heart in tomorrow evening, wedged between two client calls. I leave it there.
+<</if>>
+
+<<set $sister.flags.handjobs to _shjCount + 1>>
+<<UpdateStat "+" "Corruption" 1>>
+<<UpdateStat "+" "SisterCorruption" 2>>
+<<UpdateStat "+" "SisterLust" 3>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<UpdateStat "-" "SisterResistance" 1>>
+
+<div class="navigation-link"><<link "Continue" "NPC Interaction">><</link>></div>
+<</linkreplace>>
+<</linkreplace>>

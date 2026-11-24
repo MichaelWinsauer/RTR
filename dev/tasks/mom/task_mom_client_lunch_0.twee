@@ -1,0 +1,70 @@
+:: Task Mom Client Lunch 0 [scene pov] {"position":"3025,4050","size":"100,100"}
+/* POV passage, her side of the task Client Lunch (task_mom_client_lunch), stage 0: a proper business lunch, and she is
+   good at it. Off-site, so there is no camera: this only opens from her end-of-day report. Effects are in the task data.
+   The client is a one-off extra: a dentist with four practices and a boat, sent our way by $marketingOwner.name. Her
+   report line: forty minutes of boat, more about bilge pumps than any woman should know, and he signed.
+   Clips (images/characters/mom/tasks/, activity client_lunch0): the white tablecloth, the boat on a napkin, the card */
+<<silent>><<SetBackground "images/locations/steakhouse.jpg">><</silent>>
+<<PovHeader $mom>>
+The steakhouse is the kind of place where the waiter pulls your chair out for you, and you have to remember not to thank him three times. I got here twenty minutes early, because I get everywhere twenty minutes early, and I spent them in the ladies' room reading the menu on my phone so I wouldn't have to squint at the prices in front of a client.
+
+The company card is in my wallet, behind my library card. I've checked that it's still there four times since I parked.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch0_0.mp4 | Mom in her good navy blazer at a white tablecloth, laughing, a man across from her drawing something on a napkin */
+
+His name is Glenn, and he owns four dental practices on the east side and a mustache he is clearly very proud of. $marketingOwner.name told him we make waiting rooms bearable, which is a lovely thing to have somebody say about you, even if she said it about a box.
+
+I know dentists, as it happens. I answered the phones for one for two years when I was young, a man who wore golf shoes in the office and played panpipe music in the waiting room until the patients begged him to stop. So when Glenn starts telling me about his waiting rooms, I don't have to pretend to be interested.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Glenn", text: "The thing nobody tells you is that people are already scared when they walk in. They're scared in the parking lot. My hygienists spend the first ten minutes of every cleaning just talking them down." },
+{ who: $mom, text: "Oh, I remember. We had a man who used to sit in his car and call us from the parking lot to ask if the doctor was in a good mood. Every single appointment, for two years." },
+{ who: "Glenn", text: "You worked in a practice?" },
+{ who: $mom, text: "Front desk, a long time ago. Long enough that we still had a fax machine and a fish tank, and I was the only one who fed the fish." },
+{ who: "Glenn", text: "Then you know exactly what I'm talking about. That's the first time anybody's pitched me something who actually knows what my front desk smells like." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't pitch him, really. I tell him what the unit does in a waiting room, the way $player.name explained it to me at the kitchen table with the salt shaker standing in for the box, and that the people in the chairs will still be scared but a little less, and that his hygienists will get their ten minutes back. I don't say a single word about emitters. I promised myself in the car.
+
+Then I ask him what he does on the weekends, because a man who talks like that about his staff is a man who works too much, and he lights up like I've asked him about his children.
+
+He has a boat.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Glenn", text: "She's a thirty-two footer. Not new, I bought her from a guy who was getting divorced, so I got a deal, but I've redone basically everything below the waterline myself." },
+{ who: $mom, text: "Yourself? With your hands?" },
+{ who: "Glenn", text: "Every weekend for two summers. Here, let me show you the problem I had with the bilge, because this is actually fascinating." },
+{ text: "He takes a pen out of his jacket and starts drawing on his napkin. It's a boat, from the side, and then it's the inside of a boat, and then it's a second napkin." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It goes on for forty minutes. I know it's forty, because I watched the clock over the bar go around while he explained the difference between a manual pump and an automatic one, and why you want both, and what happens when the float switch sticks. I nod in the right places. I ask what a float switch is, which buys me another ten minutes, and then I ask if the float switch is the one that stuck, and he points his pen at me and says "exactly" as if I'd passed a test.
+
+The funny thing is I don't mind. He's happy, and he's so happy to have somebody listen that he forgets to eat his steak until it's cold, and I tell him he has to send it back, it's a sin to eat a steak like that cold, and he does, and the waiter smiles at me over his shoulder like we're in on something.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Glenn", text: "I've been talking about my boat for an hour. My wife would have kicked me under the table thirty minutes ago." },
+{ who: $mom, text: "Well, I think it's wonderful. Most people don't fix anything anymore, they just throw it out and buy a new one." },
+{ who: "Glenn", text: "That's exactly what I keep telling my kids. They look at me like I've asked them to floss." },
+{ who: $mom, text: "Now, I don't want to keep you, because I know you've got a three o'clock. Shall I have the paperwork sent to your office, or would you like to look at it now? I happen to have it with me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I did happen to have it with me. I'd printed it at home last night, and put it in a folder, and put the folder in my purse, and then taken it out again to check that I'd put it in.
+
+He signs it on the tablecloth, right next to the bilge pump. Four practices, one unit for each waiting room, and a note in the margin in his own handwriting asking whether we do a discount for boats.
+
+I pay with the card. My hand shakes a tiny bit when I hand it over, and I don't think anybody notices except me, and then the machine beeps and it's done, and nobody arrests me.
+
+In the car I sit for a minute with the engine off and the signed folder on the passenger seat, and I can't stop smiling. I fold the receipt in half for $darius.name and put it in the folder too, and then I fold Glenn's napkin with the boat on it and put it in my purse, because I have a feeling $player.name will want to see it. He won't, really, but he'll pretend to, for me.
+
+I know so much about bilge pumps now. I'm going to know about them for the rest of my life.
+
+<<EndPov>>

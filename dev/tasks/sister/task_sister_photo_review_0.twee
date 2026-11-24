@@ -1,0 +1,91 @@
+:: Task Sister Photo Review 0 [task_scene] {"position":"2025,5150","size":"100,100"}
+/* Scene of the task "Photo Review" (task_sister_photo_review), stage 0. Played every time the task starts while I'm in the
+   meeting room. Effects are in the task's stage entry (Define Tasks).
+   The blinds are down and $mom.callName is out. We sit side by side at the long table with her laptop and go through the
+   latest shoot, the keepers first and then the Taxes folder. She doesn't watch the screen, she watches my face, and every
+   picture I stay on a second goes into the folder with a little heart in the file name. Nothing happens except that. The
+   staff are right outside the door. Repeats: a random shoot and a random outtake (_pr0).
+   MEDIA: images/characters/sister/tasks/photo_review0_0.mp4 | The meeting room with the blinds down, Sister and him side by
+          side at the long table in front of her laptop, her looking at him instead of the screen */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _pr0Task to setup.getTaskById("task_sister_photo_review")>>
+	<<set _pr0First to (_pr0Task.count || 0) === (_pr0Task.stageStartCount || 0)>>
+	<<set _pr0 to random(0, 2)>>
+<</silent>>
+<<if _pr0First>>
+She's pushed two chairs together at the far end of the table, so close that the armrests touch, and she's put a bottle of water in front of each one, like this is an actual meeting with an actual agenda. The laptop is open between them. Outside the door, somebody is fighting the coffee machine and losing.
+<<else>>
+<<= either(
+"Two chairs pushed together at the end of the table again, two bottles of water, the laptop open between them. She's even written an agenda on the whiteboard, just to be safe: BRAND REVIEW, and under it, in much smaller letters, the sneeze one.",
+"She's already sitting in her chair with her shoes off and one foot tucked under her, scrolling through the shoot, and she pats the chair next to her without looking up.",
+"The blinds are down, and she's checked them twice. I watched her do it through the glass before she closed the last one, tugging each slat until it lay completely flat."
+)>>
+<</if>>
+
+<<linkreplace "Go through the keepers">>
+/* MEDIA: images/characters/sister/tasks/photo_review0_0.mp4 | Sister and him side by side at the long table in front of her laptop, her looking at him instead of the screen */
+The keepers go fast. <<= either("This week it was the unit on a bookshelf, the unit next to a coffee cup, and her holding the unit up next to her face like a prize she'd won at a fair.", "This week it was her at $ethan.name's desk pretending to code, with a pair of his glasses perched on her nose, and a dozen of her in front of the blue wall, laughing.", "This week it was the before-and-after for the $diner.name post, her behind the counter in an apron, with a slice of pie she ate right after the last shot.")>> She clicks through them with the confidence of someone who already knows they're good, and they are, and I say so, and she nods as if I've just read her the date.
+
+<<if _pr0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Those are the public ones. $mom.callName could look at those. Grandma could look at those, and she'd print them out for the fridge." },
+{ text: "She stops with the mouse over the Taxes folder." },
+{ who: $sister, text: "You have to promise you won't say anything while I scroll. You can look, but you're not allowed to comment. I'll know what you think anyway." },
+{ who: $player, text: "How will you know?" },
+{ who: $sister, text: "Because I'm not going to be looking at the screen." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: either("Okay, that's the boring part done.", "Right, the public ones. Your face says nice, so we're moving on.", "Those go up on Thursday. Now the ones that don't.") },
+{ text: "She opens the Taxes folder, and then she turns her chair a few degrees toward me, so that she can see my face better than the screen." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Look at the outtakes">>
+She scrolls slowly, and she doesn't look at the screen once. She looks at me.
+
+<<switch _pr0>>
+<<case 0>>
+A shot from the low angle she uses for the desk pictures, where she leaned over the table to move the unit and the camera caught straight down the front of her blouse. Then one where she's crouching to fix the tripod, her skirt pulled tight. Then one where she's just sitting on the edge of the table, between takes, chewing on the cord of her earphones and looking into the lens.
+<<case 1>>
+A sequence of six from the timer, where she's running back from the camera and doesn't quite make it into position before it goes off, and in every frame something has gone a bit more wrong: her hair, then her blouse, then her skirt catching on the chair. In the last one she's given up and is just laughing at the camera with her blouse half untucked and one shoulder bare.
+<<default>>
+A whole series she took at the end of the shoot after she'd stopped working, in my old gray hoodie and not much under it, sitting on the table with her knees up. In the first one she's laughing. By the fifth she isn't, and she's looking into the lens the way she looked into her phone the night she sent me those videos.
+<</switch>>
+
+Whenever I'm still looking at a picture when she's ready to scroll on, she notices, and her hand on the mouse waits for me. She doesn't say anything. She right-clicks it and renames it, adding a small heart to the end of the file name, and scrolls on. By the end of the folder there are <<= either("seven", "nine", "eleven")>> hearts, and her neck has gone pink all the way down into her collar.
+
+<<if _pr0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You're very easy to read, you know that? You think you've got such a poker face, and you have none at all. You just stop breathing a little." },
+{ who: $player, text: "I didn't say anything." },
+{ who: $sister, text: "You didn't have to. That one, the one on the table, you looked at that one like it owed you money." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Wrap it up">>
+Outside, a phone rings and somebody answers it, very close to the door, and we both go still until the voice moves away again. $sister.callName lets out a breath and closes the laptop.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: either("Same time next week? I'm planning something with the blue wall. Don't ask.", "The ones with the hearts stay in the folder. The rest I'll delete. I'm deleting them, I swear. Probably.", "I'm going to go and look extremely professional at my desk for a while now, so don't come over and talk to me.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She opens the blinds again before she opens the door, one slat at a time, and walks out to her desk with the laptop held against her chest. Halfway across the room $ethan.name asks her how the shoot went, and she tells him it went great, and that the new desk shots are going to blow up, and she isn't wrong about that either.
+
+<<EndTaskScene "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

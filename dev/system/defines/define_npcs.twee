@@ -43,7 +43,7 @@
 <<set $sister.stats.max = {
 	lust: 100,
     corruption: 100,
-    exhibition: 100,
+    exhibition: 40,         /* the cap grows with the game stage, see the max of mom below */
     relation: 100,
     reputation: 100,
 	resistance: 100,
@@ -93,6 +93,9 @@
     movedDesk: false,       /* Sister Office New Spot happened */
     /* STAGE1-STUB: set by the stub scenes of the Stage 1 quests (Define Quests). null = not decided yet */
     datePhoto: null,        /* Two Towns Over: true = I said boyfriend (the classmate posts a photo), false = brother */
+    handjobs: 0,            /* times the Handjob interaction was played (Sister Handjob), after What Are We */
+    teamSpirit: null,       /* Team Spirit task: { day, who } of the staff member she picked today (setup.teamSpiritTarget) */
+    teamSpiritName: "",     /* his name, for her report line */
 }>>
 
 /*Mom*/
@@ -141,7 +144,7 @@
 <<set $mom.stats.max = {
 	lust: 100,
     corruption: 100,
-    exhibition: 100,
+    exhibition: 40,         /* the cap grows with the game stage: 40 in Stages 0 and 1, 70 in Stage 2, 100 in Stage 3 (STAGE1_TASKS.md). The quest that starts a stage raises it in its set */
     relation: 100,
     reputation: 100,
 	resistance: 100,

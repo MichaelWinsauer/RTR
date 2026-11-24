@@ -53,7 +53,7 @@ The task list for the rest of Stage 1, agreed with the author on 2026-11-24 afte
 
 | Task | Unlocks | Where | What it does | Stages | Leads to |
 |---|---|---|---|---|---|
-| **Client Evening** *(new)* | The Calendar + Everything (both at stage 3) | off-site, the bar, then the club. Mom and Sister together, with clients | A lot of money and Reputation. Report and POV only | 0 drinks with a client, the two of them pretending not to notice what the other one does · 1 **2×** the club's private room. This is the setup mom was missing before the Night Shift | "Mother and daughter on the same shift" beats at every venue |
+| **Client Evening** *(new)* | The Calendar + Everything (both at stage 3), after The Supplier, and after Rehearsal if he offered them. The Night Shift then waits for three Client Evenings, and the Night Shift ends the task (`setup.lockTask`): after the back seat its POVs would no longer be true | off-site, the bar, then the club. Mom and Sister together, with clients | A lot of money and Reputation. Report and POV only | 0 drinks with a client, the two of them pretending not to notice what the other one does · 1 **2×** the club's private room. This is the setup mom was missing before the Night Shift | "Mother and daughter on the same shift" beats at every venue |
 
 ---
 
@@ -74,17 +74,19 @@ Left out on purpose: **Staff Meeting** (both of them with the player). Stage 2 a
 
 ## 6. Systems this needs
 
-- [ ] **Stage gates on tasks**: a stage can require a corruption stage, a count and optionally a quest (today stages only count repetitions).
-- [ ] **Exhibition caps per stage**: `maxPath` for `MomExhibition`/`SisterExhibition` (40 / 70 / 100).
-- [ ] **Weekend and evening tasks**: tasks only run on weekdays right now. Hostess, Client Evening and the landlord's Saturdays need weekend rows (routine and scheduler change).
-- [ ] **Off-site tasks**: no CCTV, report and POV only.
-- [ ] **Privacy check for scheduling**: private tasks only after the staff has left, or in the meeting room while the other one isn't in it.
-- [ ] **The sister's Evening rows**, opened by What Are We (`sister_stage1` routine, `tasks` with a requirement, like mom's after New Job Impression).
-- [ ] **Gym location**: a location object with gym.jpg, CCTV (the chain's own system), and a place in their schedules.
-- [ ] **Massage at 2 AP.**
-- [ ] **Test Session raises calibration quality.**
+- [x] **Stage gates on tasks**: a stage can require a corruption stage, a count and optionally a quest. *Built: `minCount`, `corruptionStage`, `quest` on a stage; the picker shows "Stage n/m" and what the next one waits for.*
+- [x] **Exhibition caps per stage**: `maxPath` for `MomExhibition`/`SisterExhibition` (40 / 70 / 100). *Built: `stats.max.exhibition` is 40; the quest that starts Stage 2 raises it. The last offer level (Handed over) needs 35 now instead of 50, so it stays reachable.*
+- [x] **Weekend and evening tasks**: *Decided while building: no weekend schedule for now (the whole scheduler repeats per weekday, a second weekend plan is a bigger change). Hostess runs on weekday evenings, the Client Evening at night; the Night rows open with it. The landlord's Saturdays come with the Landlord line and need the weekend plan then.*
+- [x] **Off-site tasks**: no CCTV, report and POV only. *Built: locations 21 to 23 with `offsite: true`.*
+- [x] **Privacy check for scheduling**: `private: "room"` / `"afterHours"`, checked in the scheduler and when the task starts.
+- [x] **The sister's Evening rows**, opened by What Are We.
+- [x] **Gym location**: location 20 (`Gym`, from the Residential Area after The Gym Meeting), its camera comes with the Field Test.
+- [x] **Massage at 2 AP.**
+- [x] **Test Session raises calibration quality** (+2 per session on the original, while it's calibrated for her).
 
 ---
+
+Also built: `effects` on tasks and stages (one place for what a run does), task introductions (an event per new task, `<<EndTaskIntro>>`), tasks for two (`pair`), the **Report** badge in the picker (from the playtest notes), and the sister's "Ask her to take care of you" card (after What Are We).
 
 ## 7. Build order
 

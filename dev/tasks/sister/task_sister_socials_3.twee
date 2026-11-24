@@ -1,0 +1,59 @@
+:: Task Sister Socials 3 [scene pov] {"position":"3400,4500","size":"100,100"}
+/* POV passage, her side of the task Socials (task_sister_socials), stage 3: her corruption stage 3, after Everything.
+   Opened with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   The real shoot (blazer, the company page) is done in twenty minutes. Then she locks the door and keeps going for him:
+   the blazer, the blouse, the bra, his chair at the head of the table, the table itself. She knows where the camera in
+   the corner is, and she poses for both lenses. She touches herself for the camera and stops before she finishes, and
+   sends him the whole set before she posts anything. She is calm and sure of herself here; the nerves of the videos she
+   sent him are gone. The report line: outtakes, he gets them first, not for the company page.
+   Clips (images/characters/sister/tasks/, activity socials3): the blazer shot for the page; topless in his chair with her
+   knees over the armrests; on the table on her back, her hand between her legs, looking into the lens; the upload bar */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+<<PovHeader $sister>>
+The shoot for the page takes twenty minutes. Navy blazer, white blouse, hair down, the unit in my hand, the smile that says I'm good at my job and you'd like to have a coffee with me. Forty-two pictures, and three of them are perfect. The company page can have those.
+
+/* MEDIA: images/characters/sister/tasks/socials3_0.mp4 | Her in the navy blazer at the meeting room table, the unit in her hand, a polished, professional smile at the camera */
+
+Then I lock the door.
+
+The ring light stays on. I move the tripod back a little so it gets the whole head of the table, and I look up at the corner by the window, at the little black dome up there. I don't know if he's watching right now. Sometimes he is, sometimes he's on the phone or out with a client, and it doesn't really matter either way, because these are for him whether he sees them live or tonight in bed. I give the dome a small wave, just in case.
+
+The first one is just the blazer coming off. I take my time with it, one shoulder and then the other, and click the remote with my thumb while it's halfway down my arms. It's funny how a picture of a woman taking off a jacket is a completely ordinary picture until you know who she's taking it off for.
+
+Then the blouse, one button per shot. I counted them once, there are seven. By the fourth button I've stopped smiling for the camera the way I smile for the page and started looking into it the way I look at him across the office when nobody's paying attention, the look $mom.callName would definitely notice if she ever looked up from her inbox at the wrong second.
+
+The bra goes on the back of a chair. I'm in nothing but my skirt and the little gold necklace, and the ring light is warm on my skin.
+
+/* MEDIA: images/characters/sister/tasks/socials3_1.mp4 | Topless in his chair at the head of the meeting room table, knees hooked over the armrests, skirt pushed up, looking straight into the lens */
+
+I sit down in his chair.
+
+It's the one at the head of the table, where he sits when clients come in and he walks them through numbers they've already decided to like. I've watched him in it a dozen times, leaning back, calm, with everybody in the room turned toward him. I push the skirt up to my hips and hook one knee over the armrest, and then the other one, and take the picture from exactly where the clients sit. That's what they'd see if they walked in right now. It's what he gets to see whenever he wants.
+
+The skirt comes off after that, and then the rest.
+
+I lie back on the table. It's cold under my shoulders, and the poster board backdrop curves up behind my head the way it curved up behind the forty smoke detectors, which is a thought that makes me laugh out loud, alone in a locked meeting room, completely naked. I take a picture of that too. He likes it when I laugh.
+
+/* MEDIA: images/characters/sister/tasks/socials3_2.mp4 | On her back on the meeting room table, one knee raised, her hand between her legs, her head turned to look into the lens */
+
+Then I stop laughing. I put the remote on my stomach, set it to burst, and slide my hand down between my legs, and I keep my eyes on the lens while I touch myself. Slowly at first, because I want him to see all of it, the way I open up for my own fingers and the way my breath goes when I find the right spot. The remote keeps clicking against my skin. The table creaks under me once. I imagine him at his desk with the feed open, or tonight in his room with my pictures on his phone in the dark, and either way his face doesn't change much, he just watches, and that's what makes me arch my back off the table and press harder.
+
+I could finish like this. I'm right there, my legs are shaking and the burst counter is somewhere past two hundred. I stop anyway and take my hand away and lie there breathing at the ceiling until it fades enough to stand up. If anyone gets that part, it's going to be him, in person, and not a tripod.
+
+<<silently>>
+<<set _msgs = [
+{ text: "I sit on the edge of the table, still naked, and go through them on my phone. I delete the blurry ones. I keep the rest, all eighty-three of them." },
+{ who: $sister, text: "You get these first. They're not going on the company page." },
+{ text: "The upload bar crawls across the screen. I watch the whole thing, swinging my feet." },
+{ who: $player, text: "Wow." },
+{ who: $sister, text: "That's all I get? I lay down on your meeting room table for these." },
+{ who: $player, text: "Give me a minute. I'm still on number twelve." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I get dressed in the order I undressed, which takes a lot less time than it did the other way around, and fix my hair in the mirror on the ring light. Then I post one of the perfect blazer pictures to the company page. Within an hour somebody asks in the comments whether I come with the unit. I leave a heart on it.
+
+The last thing I do is wipe down the table and the armrests of his chair with one of the disinfecting wipes from $mom.callName's bottom drawer. There's a client in here at two, and he always puts his elbows on the table.
+
+<<EndPov>>

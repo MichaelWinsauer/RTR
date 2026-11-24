@@ -1,0 +1,95 @@
+:: Task Intro Overtime [event] {"position":"1900,5000","size":"100,100"}
+/* Task introduction of "Overtime" (task_sister_overtime). The evening after What Are We (sister_whatAreWe).
+   Everybody goes home at six, $mom.callName first to cook. $sister.callName stays, to finish a website that has been finished
+   since Tuesday. She stayed to be near me, in the one place where nobody is listening through a wall. I make it a standing
+   arrangement: she does overtime whenever she likes, it goes in her internship journal for $mom.callName, and the evenings at
+   the office are ours. Nothing happens tonight except her feet in my lap.
+   Also the start of her habit of sitting on the corner of my desk (Catalyst Night calls it "the way she does now").
+   EndTaskIntro unlocks the task, and with it her Evening rows. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+At six the office empties the way it always does, in order of who has the least reason to stay. $darius.name goes first, laptop already zipped into his bag at five to, with a polite goodnight for each desk he passes. $brian.name takes eleven minutes to wind up one cable. $ethan.name puts his jacket on, announces that he's just finishing something, and is still finishing it twenty minutes later, when he finally gives up, salutes me with the fork from his noodle cup and leaves the cup on his desk for tomorrow.
+
+$mom.callName stops at $sister.callName's desk with her coat over her arm.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Are you coming, sweetheart? I'm making the chicken with the lemons tonight, and I'd really love it if just once the two of you were home before it got cold." },
+{ who: $sister, text: "I have to finish the website first. Save me some, I'll take the bus." },
+{ who: $mom, text: "The website, still? Honey, you've been on that website since Tuesday." },
+{ who: $sister, text: "It's a very big website." },
+{ text: "$mom.callName looks over at me, as if I'm the one who can confirm that. I nod at my screen without looking up." },
+{ who: $mom, text: "Well, don't let her stay too late, and you either. There's half a muffin in the kitchenette with nobody's name on it, so one of you eat that, please, before it turns into a science project." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The door swings shut behind her, and I listen to her heels go down all three flights of stairs, because the elevator in this building has been "almost fixed" since the day we moved in.
+
+<<linkreplace "Keep working">>
+I actually do keep working for a while. There are four mails from $boss.callName's office about an invoice, and I answer them in the order of how much they annoy me.
+
+Across the room, $sister.callName doesn't type anything. Her screen saver comes on after ten minutes, the company logo bouncing slowly from corner to corner, and she lets it bounce. When I look up she's taken her shoes off and lined them up under her desk, side by side, the way she leaves them at the front door at home.
+
+Then she pads across the floor in her tights and sits down on the corner of my desk, right on top of a printout I'll need tomorrow.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "How's the website coming along?" },
+{ who: $sister, text: "The website's been done since Tuesday. You know that, you signed off on it." },
+{ who: $player, text: "I thought maybe you'd found a typo." },
+{ who: $sister, text: "I found three, and I fixed them at lunch. I'm very thorough." },
+{ text: "She picks up the stapler from my desk and turns it over in her hands, inspecting it as if it might have a typo too." },
+{ who: $sister, text: "I'm not staying for the website, $player.name." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her say it">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "At home there's $mom.callName, and the walls, and that step on the stairs that creaks, and every time I'm in your room I spend the whole time listening for her instead of actually being there. And here, after six, there's nobody. There's you and the fridge humming in the kitchenette, and that's it." },
+{ who: $sister, text: "I wanted to sit somewhere with you where I don't have to listen for anyone. That's the whole confession. In my head it was a lot shorter and I came across much cooler." },
+{ who: $player, text: "You came across fine." },
+{ who: $sister, text: "Fine. You keep saying fine to me, you know. One day you're going to have to find another word." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She puts the stapler back exactly where it was, lined up with the edge of the desk, and then pushes it a little crooked again with one finger.
+
+I hadn't thought about the office after six as anything but a room full of empty chairs. The only people with a key are me and $mom.callName, and $mom.callName leaves at six because somebody has to cook. The staff are gone until nine the next morning. The camera in the corner records to my desk and nowhere else. I look at all of that now and it's suddenly a very different room.
+
+<<linkreplace "Make it a thing">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Then stay. Not only tonight. Whenever you feel like it, stay late." },
+{ who: $sister, text: "Like, officially?" },
+{ who: $player, text: "Put it in your internship journal as overtime. $mom.callName will be thrilled, she already thinks this internship is the best thing that ever happened to you." },
+{ who: $sister, text: "And what exactly do I do on this overtime of mine?" },
+{ who: $player, text: "Sit on my desk, apparently. You've got a real talent for it." },
+{ text: "She laughs and looks down at herself, at where she's sitting and what she's sitting on, as if she hadn't noticed until now. She doesn't get off it." },
+{ who: $sister, text: "You'd stay too, though? Because if I do overtime by myself, then it's just overtime, and I'd have to start a second website." },
+{ who: $player, text: "I'm here till seven most nights anyway. Now I'll have a reason." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Nothing happens that night, which surprises both of us a little. I go back to $boss.callName's invoice, and she sits on the corner of my desk and reads me the worst one-star reviews of $diner.name off her phone, with voices, until I have to put my hand over her mouth to finish a sentence. Somewhere around eight she swings her legs around and puts her feet in my lap without asking. I type the rest of my mails around them.
+
+At half past eight she slides off the desk and goes to find her shoes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I'll go first. If we walk in the front door together, $mom.callName is going to look at our faces and ask what's so funny, and I don't have an answer for that yet." },
+{ who: $player, text: "Tell her the website was really big." },
+{ who: $sister, text: "Wow. You're hilarious. Eat the muffin." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I eat the muffin.
+
+<<EndTaskIntro "task_sister_overtime" "Back to my mails">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

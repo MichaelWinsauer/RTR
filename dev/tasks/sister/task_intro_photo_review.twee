@@ -1,0 +1,74 @@
+:: Task Intro Photo Review [event] {"position":"1900,5150","size":"100,100"}
+/* Task introduction of "Photo Review" (task_sister_photo_review). After she has run the company accounts for a while
+   (Socials stage 1: her face is the brand now, and the comments have started) and after Send Me Something.
+   She comes to my desk after a shoot with her laptop. Nine pictures go up, and the rest are outtakes: the button that gave
+   up, the shots between the shots. They're in her trash folder, and she couldn't make herself empty it before I'd seen them.
+   I make it a standing thing: she doesn't delete anything, she brings me every shoot, we go through all of it together in
+   the meeting room and I pick what goes up. Her condition: the blinds down, and only while $mom.callName is out.
+   EndTaskIntro unlocks the task. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+$sister.callName comes back from the meeting room with her laptop under her arm and the little tripod folded up in her other hand like a closed umbrella. She's been in there since lunch with the door shut, shooting next week's posts, and she has the slightly glazed look of someone who has said "one more" to herself about sixty times.
+
+She sets the laptop down on the corner of my desk and turns it so the screen faces me and not the room.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Two hundred and twelve pictures. Nine of them are going up, and I'm very proud of all nine, so you're allowed to say nice things about them." },
+{ text: "She clicks through them. They're good. Her at a desk with the unit, her laughing at something off camera, her in profile with the city behind her and the logo in the corner where nobody can miss it." },
+{ who: $player, text: "They're really good. People are going to keep asking if you come with the product." },
+{ who: $sister, text: "Somebody asked again this morning, actually. I've stopped answering, it only encourages them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Ask about the other two hundred">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "And the other two hundred and three?" },
+{ who: $sister, text: "Outtakes. Blinks, bad angles, one where I sneezed. They're in the trash." },
+{ who: $player, text: "So empty the trash." },
+{ text: "She doesn't answer right away. She glances over her shoulder at the room, at $ethan.name with his headphones on and $brian.name with his back to us, and then she opens the trash folder and scrolls, not very far." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Some of them really are blinks. Some of them are something else. One where the second button of her blouse has given up halfway through a laugh and she hasn't noticed yet. Several from the timer, where she's walking back from the camera and the shutter caught her half turned around, adjusting her skirt. One where she's sitting on the table between takes with her shoes off, looking straight into the lens, not smiling at all, and I know exactly who she was thinking about when she took it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I was going to empty it. I had the mouse on the button. And then I thought, he should see these first, which is a completely insane thing to think about a trash folder, I'm aware of that." },
+{ who: $sister, text: "I don't even know what I wanted you to do with them. Laugh at the sneeze one, maybe. It's a really good sneeze." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Close the laptop">>
+I close the laptop, gently, before $ethan.name takes his headphones off.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Don't delete anything. Not this shoot and not the next one." },
+{ who: $sister, text: "And do what with them?" },
+{ who: $player, text: "Bring them to me. Every shoot, all of it, and we go through it together, and I pick what goes up. Officially the CEO has to sign off on the brand. I read that in a book I didn't finish." },
+{ who: $sister, text: "You hate books like that." },
+{ who: $player, text: "I do. It's still a good cover." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at the closed laptop for a moment, and then she picks it up and holds it against her chest with both arms, the way she used to carry her binders across the quad.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Then we do it in the meeting room, and the blinds go down. And only when $mom.callName's out, at $boss.callName's or wherever, because she walks past that window about twelve times a day with the watering can, and I'm not explaining the sneeze one to her." },
+{ who: $player, text: "The sneeze one's fine." },
+{ who: $sister, text: "The sneeze one is the only fine one, $player.name, and you know it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes back to her desk and sits down and opens the laptop again, and from where I'm sitting I can see her drag the whole trash folder into a new one and name it. Later, when she's at the coffee machine, I lean over far enough to read the name. It says <i>Taxes</i>, because, she tells me that evening, nobody in the history of the world has ever opened a folder called Taxes for fun.
+
+<<EndTaskIntro "task_sister_photo_review" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>

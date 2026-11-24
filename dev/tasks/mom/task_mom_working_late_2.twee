@@ -1,0 +1,151 @@
+:: Task Mom Working Late 2 [task_scene] {"position":"2400,4800","size":"100,100"}
+/* Scene of the task "Working Late" (task_mom_working_late), stage 2, her corruption stage 3 (after The Calendar) and three
+   evenings on the desk. Played every time the task starts while I'm at my desk. Effects are in the task's stage entry.
+   Stage 2: she leaves the office door open on purpose, wedged with the rubber doorstop, so the dark hallway and the
+   stairwell are right there. She wants to face it: bent over my desk, looking at the door. Somewhere in the building a
+   light is on, and it might be somebody (picked at random): the stairwell light on its motion sensor, $ethan.name's desk
+   lamp left on with his jacket still on the chair, or the elevator stopping one floor down. Nobody comes. Her line about it
+   depends on $mom.flags.calendarChoice. Only the risk of somebody, nothing about what $ethan.name does later. */
+<<silent>>
+	<<SetBackground $locations[14].img>>
+	<<set _wl2Task to setup.getTaskById("task_mom_working_late")>>
+	<<set _wl2First to (_wl2Task.count || 0) === (_wl2Task.stageStartCount || 0)>>
+	<<set _wl2 to random(0, 2)>>
+	<<set _wl2Anchor to $mom.flags.calendarChoice === "anchor">>
+<</silent>>
+There's a draft. It takes me a minute to work out where it's coming from, and then I see the front door of the office standing wide open, wedged with the rubber doorstop that normally lives behind the coat rack. Beyond it the hallway is dark, with only the green exit sign over the stairwell and the faint gray of the window at the far end.
+
+<<if _wl2 == 0>>
+The stairwell light is off. It's on a motion sensor, the cheap kind $landlord.callName put in to save money, and it clicks on whenever anybody sets foot on the landing, and sometimes when nobody does.
+<<elseif _wl2 == 1>>
+Over in the main room, $ethan.name's desk lamp is still on. His jacket is hanging on the back of his chair. His bag is gone, I think, though I can't be sure from here, and I can't remember whether he said goodnight or only "back in a bit".
+<<else>>
+Somewhere in the building, the elevator hums. It does that sometimes in the evening, when the people who rent the second floor stay late, and the sound comes up the shaft and through the open door as clear as if it was in the room.
+<</if>>
+
+<<if _wl2First>>
+I get up to close the door. $mom.callName is standing by the coat rack with her cardigan already off, folded over her arm, and she shakes her head at me before I've taken two steps.
+
+<<silently>>
+<<if _wl2Anchor>>
+<<set _msgs = [
+{ who: $mom, text: "Leave it, honey. I opened it." },
+{ who: $player, text: "Anybody could walk up those stairs." },
+{ who: $mom, text: "I know. I thought about that." },
+{ text: "She hangs the cardigan up, and smooths it on the hanger, and turns around." },
+{ who: $mom, text: "I want it open. I've thought about it all day, and it's what I want, and I'm allowed to want things, aren't I? It's my choice." },
+{ text: "She says it in a calm, bright, reasonable voice, as if she's choosing a paint color. I have heard that sentence before. I said it to her, in the meeting room, with the Anchor in my hand. She doesn't remember that, and I'm not going to remind her." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: "Leave it, honey. I opened it." },
+{ who: $player, text: "Anybody could walk up those stairs." },
+{ who: $mom, text: "I know. I thought about that." },
+{ text: "She hangs the cardigan up, and smooths it on the hanger, and turns around." },
+{ who: $mom, text: "I told you I'd decided I don't care anymore, sweetie, about the box and the rest of it. I've been finding out what else I don't care about. It turns out it's quite a lot." },
+{ text: "She laughs a little at that, at herself. Then she stops laughing and looks at the dark doorway, and her cheeks are pink, and she doesn't look away from it." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<= either(
+"I don't get up to close it anymore. $mom.callName opened it, the way she does now, and she's standing by the coat rack hanging up her cardigan and looking past me at the dark hallway.",
+"She's put the doorstop in herself. I watched her do it, on her knees, wedging it in hard with the heel of her hand, the way she wedges the back door open on hot days at home.",
+"The door was open before the others had even reached the bottom of the stairs. She was already standing next to it, waiting to hear the street door close down below."
+)>>
+<</if>>
+
+<<linkreplace "Let her come over">>
+She comes across the office to my desk in her stockings, and she doesn't sit on it this time. She turns around, puts both hands flat on the desk on either side of my keyboard, and looks back at me over her shoulder. From there, bent over my desk, she's facing the open door.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Like this. I want to see the door.", "Don't close it, honey. Not tonight, not ever, all right?", "If anybody comes up those stairs, I want to be the first to know.") },
+{ text: either("Her voice is very steady and her hands aren't.", "She says it lightly. Her knuckles have gone white against the desk.", "She means it as a joke, I think, and then halfway through it stops being one.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/mom/tasks/working_late2_0.mp4 | Mom bent forward over my desk, hands flat beside the keyboard, skirt up, looking past the camera at an open door and a dark hallway with a green exit sign */
+
+I push her skirt up over her hips. Under it she has stockings and nothing else. When I push into her she gasps out loud, not into her hand, out loud into the room, and the sound goes through the open door and down the hallway, and she hears it go.
+
+<<linkreplace "Keep going">>
+<<if _wl2 == 0>>
+The stairwell light clicks on.
+
+It's a hard white light, and it spills out onto the landing and into the hallway and lies across the floor of the office almost all the way to my desk. She goes rigid under me. Neither of us breathes.
+
+Nothing on the stairs. No footsteps, no voice, only the light, humming to itself.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is somebody... honey, is there somebody there?" },
+{ who: $player, text: "I don't know." },
+{ text: "And I don't. I watch the doorway over her back, and the light stays on, and nobody comes up into it, and after a minute I start to move again, slowly, and she lets me. She pushes back against me. She keeps her eyes on the light the whole time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It clicks off again after a while, the way it always does, and the hallway goes back to green.
+<<elseif _wl2 == 1>>
+She can see $ethan.name's lamp from where she is, the little pool of light on his desk with his jacket hanging next to it. I watch her look at it. I watch her work out the same thing I've been working out, which is that I don't know whether he's gone home or gone down to the corner for a burrito.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Did he say goodbye? Did $ethan.name say goodbye to you?" },
+{ who: $player, text: "I honestly don't remember." },
+{ text: "She makes a sound that isn't a word and pushes back against me, hard, and I don't think it's because she wants me to hurry." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Down below, the street door bangs. Footsteps cross the lobby, somebody's keys jingle, and a door on the ground floor opens and shuts. Then it's quiet again. She lets out a breath so long I think she's been holding it since the bang.
+<<else>>
+The elevator starts up again. It hums up the shaft, closer and closer, and stops with a soft clunk, and the doors open somewhere close, close enough that I hear the bell. She goes completely still under me. I can feel her heartbeat through my hands on her hips.
+
+The doors close again. The elevator goes back down. Whoever it was got off on the second floor, or never got on at all.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh my God. Oh, honey, I thought..." },
+{ who: $player, text: "So did I." },
+{ text: "She laughs, shaky and breathless, and lowers her forehead onto the back of her hands on my desk, and pushes back against me, and doesn't say anything else for a long time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Finish">>
+/* MEDIA: images/characters/mom/tasks/working_late2_1.mp4 | Closer: Mom's face over the desk, mouth open, eyes on the open door */
+She comes like that, bent over my desk with her eyes wide open on the empty doorway, and she doesn't put her hand over her mouth. She doesn't try. The sound she makes goes out into the hallway and down the stairwell, and for all I know all the way to the street, and she listens to it go. That finishes me. I hold on to her hips and come inside her, and she reaches back and puts her hand over mine and keeps it there.
+
+<<linkreplace "Afterwards">>
+For a while she just stays where she is, leaning on my desk, breathing. Then she straightens up, and pulls her skirt down, and turns around and sits on the edge of the desk next to my keyboard, flushed all the way down her neck, looking very pleased and a little bit astonished.
+
+<<silently>>
+<<if _wl2 == 1>>
+<<set _msgs = [
+{ text: "My phone buzzes on the desk next to her hip. She jumps a foot." },
+{ text: "It's a text from $ethan.name. <i>left my lamp on, can you kill it? i'm on the bus, i'm not coming back up there for a lamp, boss</i>" },
+{ who: $mom, text: "On the bus. He was on the bus the whole time." },
+{ text: "She laughs until she has to wipe her eyes. Then she gets up and goes over and switches off his lamp herself, very carefully, and straightens his jacket on the chair." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: either("Well. Nobody came.", "I think I'd like to do that again, sweetie. Not right now. But again.", "You can close the door now, honey. If you like.") },
+{ who: $player, text: either("Nobody came. Disappointed?", "We'll see.", "Do you want me to?") },
+{ who: $mom, text: either("Don't ask me that, I'll only tell you the truth.", "That's not a no, I heard that.", "No.") },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+She kicks the doorstop out on her way out, with the side of her stockinged foot, and catches the door before it can slam, and lets it close with a click. Then she opens it again, puts her head back in and tells me not to stay too long.
+
+<<EndTaskScene "Pack up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

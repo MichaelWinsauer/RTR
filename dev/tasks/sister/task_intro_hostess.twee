@@ -1,0 +1,121 @@
+:: Task Intro Hostess [event] {"position":"3500,4800","size":"100,100"}
+/* Task introduction for Hostess (task_sister_hostess), three days after The Retail Pitch (main_retailPitch).
+   $investor.callName calls about the pitch, and about his evenings: he hosts his friends and the people from
+   $retailChain.name every week, and his caterers keep letting him down on a hostess.
+     $flags.retailIntro === "sister"   she hosted the rooftop already, he asks after her by name, and I make it a standing
+                                       arrangement. She asks about the signal; this time I won't be there.
+     otherwise                         he only complains about his caterers, and offering her is my idea. It's new to her.
+   He insists on paying her for her time. Establishes: his evenings, off-site, and that I only hear about them from her. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+Three days after the pitch, $retailChain.name still hasn't said yes. They've said "very exciting" four times across two follow-up mails, and according to $darius.name, that's what large companies say instead of yes while they find out who's allowed to say it.
+
+At eleven $investor.callName calls me himself, without the woman and the baroque hold music this time, which I decide to take as a good sign.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "Mr. $player.surname. I hear your demonstration went over rather well. One of them called it 'uncanny' at dinner last night, and I believe he meant it kindly." },
+{ who: $player, text: "That's good to hear. They haven't told us much yet." },
+{ who: $investor, text: "They won't, for a while. Large companies make decisions the way glaciers make valleys. You'll know when you know." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $flags.retailIntro === "sister">>
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "I'll confess I had a second reason for calling. My wife has been asking after your $sister.relation. She's convinced that young woman is the only person in this city under sixty who knows how to hang up a coat." },
+{ who: $player, text: "She'll be glad to hear that. She talked about your rooftop the whole way home." },
+{ who: $investor, text: "I have a few friends up every Thursday. It isn't always the $retailChain.name people, but it's always people worth knowing. I'd be very pleased to see her there again, if you can spare her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He asks it the way he asks everything, as though it doesn't matter much to him either way. I think of her on the terrace, looking across at me over the shoulder of the man in the gray suit, waiting for my hand to move.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I can spare her every Thursday, if that suits you." },
+{ who: $investor, text: "Every Thursday. Well. You do know how to make an old man happy, Mr. $player.surname. I'll pay her for her time, naturally. I insist on that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "In the meantime, I have a few friends up to the roof every Thursday. Some of them are from $retailChain.name. It never hurts to be remembered by them, and a glass of wine helps people remember." },
+{ who: $investor, text: "The caterers sent me a boy last week who couldn't open a bottle without a demonstration. I had to do it myself, in front of everyone. At my age, that's an injury." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He says it as an aside again, chuckling, the same way he mentioned his hostess problem the first time we spoke, and he doesn't ask me for anything. I look across the office. $sister.callName is at her desk on the phone with someone, laughing, twisting a pen through her fingers.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "My $sister.relation could do it. She works for me, she knows the company, and she's honestly the best person with people I've ever met. Every Thursday, if you'd like." },
+{ text: "There's a short pause, the sound of a man setting down a glass." },
+{ who: $investor, text: "Your $sister.relation. What a thoughtful idea. Yes, I'd like that very much. I'll pay her for her time, naturally, so nobody can say I took advantage. Eight o'clock, and tell her to dress for the city at night." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Tell her">>
+<<silently>><<SetBackground $locations[13].img>><</silently>>
+I wait until she's off the phone, then sit on the corner of her desk, the way she always sits on mine.
+
+<<if $flags.retailIntro === "sister">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "$investor.callName called. He wants you back on the rooftop." },
+{ who: $sister, text: "Oh? When?" },
+{ who: $player, text: "Thursday. And the Thursday after that, and the one after that. I said yes to all of them. He's paying you, too." },
+{ text: "She puts the pen down very precisely, parallel to the edge of the keyboard." },
+{ who: $sister, text: "Every week. Are you coming too, then? You'll stand by the railing and not drink your wine?" },
+{ who: $player, text: "No. It's his roof and his friends, and I'm not invited. You'll be on your own up there." },
+{ who: $sister, text: "So no signal." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't answer that. She looks at me for a long moment, and then her hand goes up and tucks her hair behind her ear, and her fingers stay there for a second.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Okay. Then I guess I already know what you'd say." },
+{ who: $player, text: "You'll tell me how it went?" },
+{ who: $sister, text: "Every Thursday. In detail, probably more than you want." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "How would you feel about a second job? Thursday nights, on a rooftop downtown, with very good wine that you're not allowed to drink." },
+{ who: $sister, text: "That's the worst sales pitch I've ever heard, and I've heard you pitch to a gym." },
+{ who: $player, text: "$investor.callName hosts his friends every week, some of them from $retailChain.name. He needs a hostess. Taking coats, keeping glasses full, remembering everybody's name, making rich old men feel interesting." },
+{ who: $sister, text: "So basically what I do at every party anyway, except somebody pays me for it." },
+{ who: $player, text: "He insists on it, actually. And these are the people who decide whether four hundred stores buy from us." },
+{ who: $sister, text: "No pressure at all, then." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She leans back in her chair and looks at me for a while, chewing the end of her pen, the way she looks at a question on an exam that's too easy and must be a trap.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Are you coming too?" },
+{ who: $player, text: "No, it's his evening and his friends. You'll be on your own up there, and you'll have to tell me how it went." },
+{ who: $sister, text: "Hm. What do I wear?" },
+{ who: $player, text: "He said something that goes with the city at night." },
+{ who: $sister, text: "That's either very romantic or very creepy, and I genuinely can't tell which." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says yes anyway. She'd already said yes somewhere around the rich old men, I think, and the rest was her deciding how she felt about it.
+<</if>>
+
+<<EndTaskIntro "task_sister_hostess" "Back to work">>
+<</linkreplace>>

@@ -1,0 +1,124 @@
+:: Task Sister Overtime 0 [task_scene] {"position":"2025,5000","size":"100,100"}
+/* Scene of the task "Overtime" (task_sister_overtime), stage 0. Played every time the task starts while I'm in the office
+   after hours. Effects are in the task's stage entry (Define Tasks).
+   The Souvenirs level, moved to the office: she sits on the corner of my desk, pulls my chair in with her feet and uses her
+   hand. The difference from my room at home is that she doesn't listen for anyone, and she likes that it happens at the desk
+   where everybody comes to ask me for things all day. First time: she says so. Repeats: a random detail (_ot0), once with a
+   text from $mom.callName about dinner that she answers without stopping.
+   MEDIA: images/characters/sister/tasks/overtime0_0.mp4 | Office at night, only the desk lamp on, Sister sitting on the
+          corner of his desk in a blouse and tights, her feet hooked over the armrests of his chair, pulling it toward her
+   MEDIA: images/characters/sister/tasks/overtime0_1.mp4 | Closer: her hand on him, leaning down, her forehead almost
+          against his, the dark window behind them */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _ot0Task to setup.getTaskById("task_sister_overtime")>>
+	<<set _ot0First to (_ot0Task.count || 0) === (_ot0Task.stageStartCount || 0)>>
+	<<set _ot0 to random(0, 2)>>
+<</silent>>
+<<if _ot0First>>
+The office looks twice as big with nobody in it. The monitors have all gone to sleep, the street outside the big window has turned orange under the streetlights, and the only lamp still on is mine. Her shoes are lined up under her desk again.
+
+I wait to see what she'll do, and for a minute she doesn't do anything at all. She just sits there on the edge of her desk with her hands flat on either side of her and swings her feet, watching me, and I get the feeling she's enjoying the fact that she can.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You know what I figured out today? Nobody in this building is listening for us. Not one person. I could drop a stapler right now and nobody would come up the stairs to ask what that was." },
+{ who: $player, text: "Please don't drop my stapler." },
+{ who: $sister, text: "I'm making a point about freedom here, and you're worried about office supplies." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<switch _ot0>>
+<<case 0>>
+She's waiting the same way as always, on the edge of her desk with her shoes off, but tonight she's put her hair up and done her lipstick again at six o'clock, with nobody left in the building to see it but me. She sees me notice and pretends to be very busy with her phone.
+<<case 1>>
+She's eating the last of the cookies $mom.callName brought in this morning, the ones she said were for the staff, sitting cross-legged on top of her desk like it's a picnic blanket. She holds up the tin to show me it's empty and doesn't look sorry about it at all.
+<<default>>
+She's at the window when I look up, in her tights, with her forehead almost against the glass, watching the bus she's not going to take pull away from the stop below. When she hears my chair creak she turns around and smiles like she's been caught at something.
+<</switch>>
+<</if>>
+
+<<linkreplace "Turn your chair toward her">>
+/* MEDIA: images/characters/sister/tasks/overtime0_0.mp4 | Office at night, only the desk lamp on, Sister on the corner of his desk, her feet on the armrests of his chair, pulling him in */
+She crosses the room and sits on the corner of my desk, where my printouts used to live before they learned to stay out of her way. Then she hooks her bare feet over the armrests of my chair and pulls me in, slowly, wheels squeaking, until my knees are against the desk on either side of hers.
+
+<<if _ot0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Do you know how many people come to this desk every day? I counted once. Twenty-six, and that was a slow Wednesday." },
+{ who: $player, text: "You counted?" },
+{ who: $sister, text: "I sit across the room from you for eight hours, $player.name, I have time to count things. They all come over here and stand right where I'm sitting and want something from you. A signature or an answer or 'do you have a second'. You never have a second, and you give them one anyway." },
+{ text: "She leans down and opens my belt while she's still talking, as easily as if she were unbuckling a seatbelt for me." },
+{ who: $sister, text: "So this is me, being person twenty-seven. Except I'm the only one who isn't asking for anything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: either("How many people came to this desk today? I lost count after $ethan.name's third 'quick question'.", "You had your thinking face on all afternoon. The one where you look like you're doing long division in your head.", "$darius.name asked me if you're always this quiet after client calls. I said you're never quiet, you're just thinking very loudly.") },
+{ who: $player, text: either("It was a long day.", "I didn't think anybody noticed.", "Is that what you do over there all day? Watch me?") },
+{ who: $sister, text: either("Then let me take care of the end of it.", "Of course I noticed, I notice everything about you, it's honestly a little embarrassing for me.", "Somebody has to keep an eye on you, and $mom.callName goes home at six.") },
+{ text: "Her hand is already at my belt while she says it. She doesn't hesitate over it anymore, and she doesn't ask." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Let her">>
+/* MEDIA: images/characters/sister/tasks/overtime0_1.mp4 | Closer: her hand on him, leaning down, her forehead almost against his, the dark window behind them */
+In my room at home she always does this with her eyes on the door. Half her attention is on me, and the other half is out in the hallway, listening for the stairs. Here there's no door to watch, and I can see the difference in her face right away: all of her is here.
+
+She takes her time. She's learned exactly what I like since that first night with the photos, and she uses all of it, slow and then not slow, watching my face from a few inches away and adjusting every time my breathing changes, with the little frown of concentration she used to get over her calculus homework.
+
+<<if _ot0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You make the same face when you read $boss.callName's mails, did you know that? This exact face. I'm never going to be able to watch you read a mail again." },
+{ who: $player, text: "Thanks for that." },
+{ who: $sister, text: "You're welcome. I'm going to think about it every single time, in the middle of the day, across the room. You'll never know which time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _ot0 == 0>>
+Halfway through, her phone buzzes on the desk next to her hip. She glances at it without stopping.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "It's $mom.callName. She wants to know if we want the leftover lasagna or if she should make soup." },
+{ text: "She types an answer with her left thumb. Her right hand doesn't miss a beat, and she looks very pleased with herself about that." },
+{ who: $sister, text: "I told her lasagna. You like the lasagna better, and you're not exactly in a position to argue right now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _ot0 == 1>>
+Somewhere below us a door bangs, and we both freeze. It's only the guy from the second floor who sometimes forgets his gym bag, and his footsteps go back down the stairs and out the front door. She lets her breath out against my cheek in a laugh, and starts again, slower than before, as if to make up for the interruption.
+<<else>>
+She doesn't say much tonight. She rests her forehead against mine and just breathes, and every so often she whispers my name, not because she needs anything, I think, but because there's nobody here to hear her say it.
+<</if>>
+
+When I come, she keeps her forehead against mine through all of it and doesn't let go until I'm done. Then she leans back, very satisfied, and reaches across me into the bottom drawer of $ethan.name's desk, where he keeps the stack of napkins he steals from the noodle place, and helps herself to about six.
+
+<<linkreplace "Afterwards">>
+<<if _ot0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "He has a hundred of these. He's never going to notice." },
+{ who: $player, text: "He counts them, I'm pretty sure." },
+{ who: $sister, text: "Then he'll think he miscounted, and he'll feel terrible about it, and it'll be good for his character." },
+{ text: "She buckles my belt for me, pats it once, and slides off the desk. She stands there for a moment in her tights in the middle of the empty office, looking around at it the way people look at a hotel room on the first night." },
+{ who: $sister, text: "I really like it here after six. I didn't think I'd like an office this much." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+She buckles my belt for me and pats it once, the way she'd pat a pocket to check for her keys, and goes to find her shoes.
+<</if>>
+
+She leaves first, the way we agreed. She always takes the bus that goes the long way, so she'll get home a good twenty minutes before I do, and by the time I come in she'll be at the kitchen table with a plate, telling $mom.callName about the website.
+
+<<EndTaskScene "Lock up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,0 +1,157 @@
+:: Task Mom Test Session 4 [task_scene] {"position":"2025,4425","size":"100,100"}
+/* Scene of the task "Test Session", stage 4, her corruption stage 3 (after The Calendar). Played every time the task starts
+   while I'm in the meeting room. Effects are in the task's onComplete, the amounts of this stage in its stage entry.
+   Stage 4: she asked for this session herself, and she wants it without the device. She unplugs the white box before I
+   come in. After the truth ($mom.flags.calendarChoice "truth") she knows there's more than the box and asks for my phone
+   and the unit in the ceiling too; after the Anchor she doesn't know, and I switch them off myself where she can't see.
+   Her rules from the earlier stages still hold (mask, hands flat on the table, a number and nothing else). At the bottom of
+   the sheet she has written a thirteenth question of her own: touch. For the first time in one of these sessions I touch
+   her, and she finishes with the mask on. Afterwards the 'Control: no stimulus' column of the grid gets its second row,
+   and her numbers there are higher than any row with the box on. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ts4Task to setup.getTaskById("task_mom_test_session")>>
+	<<set _ts4First to (_ts4Task.count || 0) === (_ts4Task.stageStartCount || 0)>>
+	<<set _ts4Truth to $mom.flags.calendarChoice !== "anchor">>
+	<<set _ts4 to random(0, 2)>>
+<</silent>>
+The sign is on the door, SESSION IN PROGRESS, with the little drawing of the box. Under the drawing, since this week, there's a second line in her handwriting, smaller: <i>(unplugged)</i>.
+
+<<if _ts4First>>
+She asked me for this one at lunch. She's never done that before. Every session until now was something I put in the calendar and she turned up for, with her clipboard and her two pens. This time she came to my desk, waited until $ethan.name had his headphones on, and asked whether I had time for a session tonight, and whether we could do it the way we did it in my room. No box.
+
+When I come in, the white box is sitting on the table where it always sits. The cable is lying next to it, unplugged, coiled into a neat loop with a twist tie around it.
+<<else>>
+<<= either(
+"The white box is unplugged again, the cable coiled up beside it with a twist tie. She does that first now, before she even takes her blazer off.",
+"She has turned the box around so the dead blue light faces the wall, like a picture of an ex.",
+"The box isn't even on the table tonight. She's put it on the windowsill, behind the blinds, unplugged, where it can't see anything."
+)>>
+<</if>>
+
+<<silently>>
+<<if _ts4Truth>>
+<<set _msgs = [
+{ who: $mom, text: either("Phone, honey.", "Your phone, please. And the one in the ceiling.", "You know the rules. My rules, I mean.") },
+{ text: either("She holds out her hand, palm up, the way she used to for car keys when I was sixteen.", "She holds out her hand, palm up, and looks up at the air vent, and then back at me.", "She holds out her hand, palm up, and waits.") },
+{ who: $player, text: "You really don't trust me, huh?" },
+{ who: $mom, text: "I trust you completely, sweetie. I just want to know which numbers are mine." },
+{ text: "I take my phone out and switch the unit in the ceiling off where she can see the screen, and then I put the phone in her hand. She puts it face down in her purse and zips the purse shut and hangs it on the hook behind the door, all the way across the room." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: either("No box tonight, honey. I'd like to see what I'm like on my own.", "I unplugged it already, I hope that's all right. It's my choice, isn't it?", "Just us and the questions tonight, sweetie.") },
+{ who: $player, text: "Sure. No box." },
+{ text: "She doesn't know about the phone. She doesn't know about the unit behind the air vent either, not anymore. Under the table I switch both of them off, and put my phone face down on the chair beside me, the same way I put it in my drawer the night she sat on my bed. If I'm going to find out, I can't cheat." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Start the session">>
+She puts the mask on herself. She lays both hands flat on the table. I didn't ask for either.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Calm, one to ten." },
+{ who: $mom, text: "Eight." },
+{ who: $player, text: "Focus." },
+{ who: $mom, text: "Six." },
+{ text: "Her focus is always six. It was six the very first night, with the box on full, and it's six tonight. Some things about her nobody is ever going to move." },
+{ who: $player, text: "How attractive do you feel right now?" },
+{ who: $mom, text: either("Nine.", "Nine, honey. I'm sorry, I mean nine.", "Ten. No, nine. Write nine, I don't want to be greedy.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That one, in my room, with nothing switched on, was a five. I write the nine down very neatly.
+
+I go through the rest of $darius.name's twelve. Around question nine her blouse comes off, folded, onto the chair beside her, the way it does in every session, and her hands go back to the table. With the box on, they used to shake when they went back. Tonight they don't.
+
+<<linkreplace "Turn the page">>
+Under question twelve, at the bottom of the sheet, there's a line I didn't write. It's in her handwriting, in the blue pen, small and careful, the way she fills in forms at the doctor's.
+
+<<if _ts4First>>
+<i>13. Touch (one to ten).</i>
+<<else>>
+<i><<= ["13. Touch (one to ten).", "13. Same as last time, please.", "13. Subject's choice."][_ts4]>></i>
+<</if>>
+
+<<silently>>
+<<if _ts4First>>
+<<set _msgs = [
+{ who: $player, text: "There's a thirteenth question on here." },
+{ who: $mom, text: "Yes. I added it." },
+{ who: $player, text: "I see that." },
+{ who: $mom, text: "In all of these sessions, honey, all those evenings, you've never once touched me in here. Not once, I counted. You've done everything else, but never in here." },
+{ text: "She swallows. The mask makes her face blank, and the rest of her isn't blank at all." },
+{ who: $mom, text: "And I'd like to know what number that is. Without anything switched on. If it's going to be in the data, I'd like it to be real data." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $player, text: "Question thirteen." },
+{ text: "That's all I say. Her lips part under the edge of the mask, and her fingers spread a little wider on the table, and she waits." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Touch her">>
+/* MEDIA: images/characters/mom/tasks/testing_prototype4_0.mp4 | Meeting room at night, the white box dark and unplugged, Mom in the sleep mask and her bra at the table, hands flat, my hand on her bare shoulder */
+I get up and walk around the table, and stand behind her chair, and for a while I don't do anything. She can hear where I am. Her head turns a little, following me, and her breathing goes short.
+
+Then I put one hand on her bare shoulder.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Number." },
+{ who: $mom, text: "Seven." },
+{ text: "My hand goes down over her collarbone, slowly, and under the strap of her bra, and her chest comes up to meet it." },
+{ who: $player, text: "And now?" },
+{ who: $mom, text: "Eight. Nine, sweetie, it's nine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She keeps her hands on the table. Nobody has told her she can move them, and she doesn't, even when my other hand goes down her stomach and under the waistband of her skirt, even when she's pressing her thighs together around my wrist and her fingernails are scraping the varnish on the table. She gives me a number every time I ask. The numbers stop making sense after a while, they go up and down and up, and she gives them anyway, breathless and very obedient.
+
+<<linkreplace "Don't stop this time">>
+The last time we did this in here, I told her to stop, and she stopped. She's waiting for it now. I can feel her waiting for it, every muscle in her ready for the word.
+
+I don't say it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey, are you... aren't you going to..." },
+{ who: $player, text: "No. Not tonight." },
+{ text: "She makes a sound that's almost a sob. Her hands stay flat on the table. She comes like that, blind, with her head thrown back against my stomach and her hands pressed to the wood as if the table is the only thing holding her in the chair, and she says a number at the end of it, I think, though it isn't one that exists." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I hold her through it. When she's still, I take my hand back, and put the blouse in her lap, and go back around the table to my chair.
+
+<<linkreplace "Fill in the sheet">>
+She pushes the mask up onto her forehead and blinks at the light. Her face is wet under the mask, and she's smiling, and she doesn't seem to have noticed either.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Well? What did I get?", "Write it down before you forget, honey, I want it on the sheet.", "Was that real data? Tell me it was real.") },
+{ who: $player, text: either("You got a ten. I think.", "I'm writing.", "It was real.") },
+{ who: $mom, text: either("You think. After all that, he thinks.", "Good. Neatly, please, $darius.name has to read that.", "Good. That's all I wanted to know.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She gets dressed while I add up the sheet. Way over on the right of $darius.name's grid, the 'Control: no stimulus' column has a new row, and tonight's numbers are higher than the night on my bed. They're higher than most of the rows with the box on full, too, and I sit there with the pen and look at that for a while.
+
+Either the box never did as much as I thought it did, or it did its job so well that she doesn't need it anymore, and I honestly don't know which one it is. I'm not even sure which one I'd rather it be. The calibration will take the numbers either way, and it's never had a baseline this clean.
+
+She takes her purse off the hook on her way out<<if _ts4Truth>> and hands me back my phone, warm from being zipped up with her things<</if>>. At the door she turns the sign around so the other side shows, the blank side, and then she turns it back, and leaves it on <i>(unplugged)</i>.
+
+<<EndTaskScene "Lock up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

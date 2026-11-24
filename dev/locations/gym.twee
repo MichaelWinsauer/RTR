@@ -1,0 +1,15 @@
+:: Gym [location] {"position":"2650,1325","size":"100,100"}
+/* The flagship of $gymChain.name, open once The Gym Meeting is done (setup.gymUnlocked, Define Locations). The sister does
+   her Field Test task here (Define Tasks), and the chain's own cameras show it on my dashboard. */
+<<CheckLocation>>
+$gymChain.name has turned an old furniture warehouse into something that looks like a phone ad. Everything is white, glass or brushed steel, the front desk has a wall of backlit logo behind it, and the music is the kind that never quite has a chorus. The ceiling still gives the building away: bare ducts, steel beams, and a row of small gray boxes up in the girders that nobody here has ever looked at twice.
+
+Rows of machines run all the way to the back, most of them busy, and in the corner a smoothie bar sells drinks in colors that don't occur in nature for eleven dollars each. The girl at the desk waves me through without asking for a card. Apparently my name is on a list now.
+
+<<CheckNPCLocation>>
+
+<<nobr>>
+<div class="navigation-link">
+	[[Back outside|Residential Area]]
+</div>
+<</nobr>>

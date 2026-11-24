@@ -1,0 +1,60 @@
+:: Task Intro Working Late [event] {"position":"2150,4675","size":"100,100"}
+/* Introduction of the task "Working Late" (task_mom_working_late), in the evening at the office, at least a day after The
+   Crawl (mom_crawl). The office has emptied out and she's still at her desk "finishing the invoices", which were finished
+   days ago. I make it a standing thing: when I need the invoices finished, I put it in the calendar, and she stays. The
+   cover story for the staff and for $sister.callName at home is month-end. She agrees with a joke, then without one. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+The office empties the way it does every evening. $darius.name goes first, on the dot, with a polite goodnight to the room in general. $ethan.name goes next, and stops by my desk on his way out to tell me that a man who stays after six on a weekday is a man who has given up on love. $brian.name leaves without saying anything to anybody and comes back thirty seconds later for his headphones.
+
+<<if setup.npcIsAt("sister", "companystage1")>>$sister.callName leaves with $brian.name, still in the middle of a story about her seminar that he clearly can't follow but is nodding along to anyway. <</if>>$mom.callName doesn't leave.
+
+She's at her desk with the old adding machine she brought from home, the one with the paper roll, and a stack of invoices in front of her. Every so often it chatters and spits out another few inches of paper, and she tears it off and lays it on the stack.
+
+<<linkreplace "Go and see">>
+I walk over with my coffee and look over her shoulder. They're last week's invoices. I know they are, because she showed them to me a few days ago, all done, with a sticky note on top that said <i>DONE!</i> and a little smiley face.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Didn't you finish these days ago?" },
+{ who: $mom, text: "I'm double-checking them, honey. You can't be too careful with invoices, one wrong digit and the client calls, and then I'm on the phone for an hour being apologetic at a man in Ohio." },
+{ who: $player, text: "Find anything?" },
+{ who: $mom, text: "Not yet." },
+{ text: "She punches in another number. The adding machine chatters. She doesn't look at the paper it spits out, she looks at the reflection of my desk lamp in the dark window across the room." },
+{ who: $mom, text: "I thought you might be staying late. You usually are. And it seemed silly for me to go home and sit there and wait for you to come home, when I could sit here and... well." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Make it a standing thing">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You know, the invoices could probably use double-checking more often." },
+{ text: "Her fingers stop on the keys." },
+{ who: $player, text: "When I'm working late, I'll put it in the calendar. 'Invoices.' And you stay." },
+{ who: $mom, text: "Your $sister.relation is going to ask why I'm never home for dinner anymore." },
+{ who: $player, text: "Tell her it's month-end." },
+{ who: $mom, text: "Sweetheart, it can't be month-end every week." },
+{ who: $player, text: "It's a startup, $mom.callName. Nobody at home knows when month-end is." },
+{ text: "She laughs at that, a real laugh, and shakes her head at the adding machine as if it was the one who said it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wait for her answer">>
+She sits there a moment with her hand on the keys. Then she reaches for the tablet, opens the shared calendar and finds next week, and I watch her make an entry for one evening in a pale purple that I've never seen her use for anything else. <i>Invoices.</i> She's given it its own color.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'll leave a lasagna for your $sister.relation on those nights. She can heat it up herself, she's a grown woman, she has a college degree half done." },
+{ who: $player, text: "Thanks, $mom.callName." },
+{ who: $mom, text: "Don't thank me, honey. Go and do your work. I'll be right here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She tears off the paper from the adding machine, folds it, and starts again at the top of the stack. When I sit back down at my desk, she's still adding, slowly, and every time the machine chatters she looks over at me.
+
+<<EndTaskIntro "task_mom_working_late" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

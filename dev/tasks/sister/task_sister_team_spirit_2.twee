@@ -1,0 +1,150 @@
+:: Task Sister Team Spirit 2 [scene pov] {"position":"4475,4500","size":"100,100"}
+/* POV passage, her side of the task Team Spirit (task_sister_team_spirit), stage 2 (her corruption stage 3, after
+   Everything): "employee of the week". Whoever has the lowest morale (setup.teamSpiritTarget) gets a printed certificate
+   and his prize in the meeting room with the blinds down: a private show. She strips to nothing for him and sits on his
+   lap, and stops there; there is no sex. Her rules are hands on the armrests, and she decides when they come off. She
+   does it for me, and wonders the whole time if I'm watching the camera. One variant per man:
+     ethan    the feedback-form joke, then no more jokes; "best benefits package I've ever had" stings on the way out
+     brian    takes his glasses off to be polite, can't see, puts them back on; his hands never leave the armrests
+     darius   watches her face instead of her body. Brought in: he says he's aware how it looks and has decided not to
+              care. Shut out: he asks whose idea it was, she says hers, he doesn't believe her and thanks her anyway
+     null     nobody on the list: she takes the certificate home
+   Clips (images/characters/sister/tasks/, activity team_spirit2): the certificate on the table; the blinds coming down; her
+   dancing in her underwear; on his lap, his hands on the armrests */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _tsWho to setup.teamSpiritTarget()>>
+	<<set _tsMan to State.variables[_tsWho]>>
+<</silent>>
+<<PovHeader $sister>>
+<<if _tsWho>>
+Employee of the week is a real thing now. I made the certificates myself: heavy paper, a gold foil star from the craft store, and a frame around the edge that I'm honestly a little proud of. Under <i>awarded to</i> there's a blank line, and every week I write a name on it in my best handwriting.
+
+The name is always whoever's had the worst week. That's a strange way to run an awards program, and I'm aware of that. Nobody has complained.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_0.jpg | The certificate on the meeting room table, a gold foil star, a name written by hand on the line */
+
+At three I knock on _tsMan.name's desk and tell him he's won, and he has to come to the meeting room to collect his prize. I close the door behind him, and then I go to the window and let the blinds down, one after the other, slowly, so he has time to understand what kind of prize this is.
+
+There's a chair in the middle of the room. I've already moved the table back.
+
+My rules are short. He sits. His hands stay on the armrests until I say otherwise. I decide everything else.
+
+And there's a camera in the corner above the whiteboard. I know who's on the other end of it, if anyone is. I never know if he's watching, and I always do this as if he were.
+<</if>>
+
+<<if _tsWho == "ethan">>
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Okay. Wow. Is this, like, a team-building thing? Because I'll be honest, I'm going to give it a really good score on the feedback form." },
+{ who: $sister, text: "Sit down, $ethan.name." },
+{ who: $ethan, text: "Sitting. Yep. Look at me, sitting." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He sits, and he puts his hands on the armrests without being told twice, and he tries one more joke, something about whether there's a dress code, and it dies halfway out of his mouth, because I've started on the buttons of my blouse.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_1.mp4 | The meeting room with the blinds down, her in front of his chair, unbuttoning her blouse to music from her phone */
+
+I put on a song from my phone, something slow with a lot of bass, and take my time. The blouse, then the skirt, which I let drop and step out of, kicking it toward the wall. I dance for him in my underwear, close enough that my knees brush his, and then I turn around and unhook my bra and let it fall in his lap.
+
+He hasn't made a sound in two minutes. That might be a record for $ethan.name.
+
+When I turn back to him I'm wearing nothing but my heels. I sit down on his lap facing him, my knees on either side of his hips, and I can feel exactly how much he's enjoying his prize. I take his hands off the armrests and put them on my waist, and I let them stay there, and I move on him slowly until the song is over, and not one second after.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_2.mp4 | Her naked on his lap in the chair, his hands on her waist, her head tipped back */
+
+Then I get up and get dressed again, and he sits there breathing like he just took the stairs.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Tell your $sister.playerRelation this is the best benefits package I've ever had. Seriously. Better than dental." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He means it as a joke, and he laughs at it, a little shakily. I laugh too. It only catches me later, back at my desk, that he thinks my $sister.playerRelation arranged this, and that he's right.
+
+<<elseif _tsWho == "brian">>
+$brian.name sits down in the chair like it might be wired to something. He's holding the certificate against his chest with both hands, and I have to take it from him and put it on the table before I can start.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_1.mp4 | The meeting room with the blinds down, him stiff in the chair, her in front of him starting on her blouse */
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Um. Am I... is it okay if I look?" },
+{ who: $sister, text: "$brian.name. That's the whole prize." },
+{ who: $brian, text: "Oh. Okay. Right." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+And then, because he's $brian.name, he takes his glasses off. I think it's meant to be polite, some idea of not staring, and it lasts about four seconds, until he realizes he can't see anything, and puts them back on, and turns a shade of red I've never seen on a living person.
+
+I have to stop and laugh. He laughs too, a little, at the floor, and somehow after that it's easier for both of us.
+
+I take everything off slowly. I don't dance much for him; I think it would be too much. I just let him look, one piece at a time, and stand in front of him naked except for my heels and let him look some more, and his hands grip the armrests so hard that his knuckles go white.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_2.mp4 | Her naked on his lap, his hands still clamped on the armrests, his face turned up to hers */
+
+When I sit down on his lap, I tell him he can let go of the chair now. He doesn't. He keeps his hands right where they are the whole time, while I move on him, while I put my arms around his neck and my breasts are right in front of his glasses, and he breathes in short little bursts through his nose and never once lets go.
+
+Afterwards, while I'm getting dressed, he picks the certificate up off the table again and holds it in both hands.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "I'm going to frame this." },
+{ who: $sister, text: "It's already got a frame. I drew it." },
+{ who: $brian, text: "A real one. With glass." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<elseif _tsWho == "darius">>
+$darius.name reads the certificate twice before he sits down, and then he folds his hands in his lap, and sets them on the armrests only when I point at them.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_1.mp4 | The meeting room with the blinds down, him composed in the chair, her undoing her blouse in front of him */
+
+I start on my blouse, and the strange thing about $darius.name is that he doesn't look where the others look. He watches my face. The whole time I'm undressing, button by button, the skirt, the bra, he keeps his eyes on mine, and I end up standing in front of him in nothing but heels, more naked than I've ever felt, because he's looking at the one part of me I can't take off.
+
+<<if $flags.dariusBroughtIn === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "I want you to know that I'm aware of how this would look from the outside. I've thought about it, quite carefully, over the last thirty seconds." },
+{ who: $sister, text: "And?" },
+{ who: $darius, text: "And I've decided that I don't care in the least. Which is very unlike me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Whose idea was this?" },
+{ who: $sister, text: "Mine." },
+{ text: "He looks at me for a long moment, quite kindly." },
+{ who: $darius, text: "I don't believe you. But thank you for saying it, and thank you for this. I mean that sincerely." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+Then he finally lets himself look at the rest of me, slowly, all the way down and back up, like a man reading something he intends to remember.
+
+I sit on his lap. I let his hands come off the armrests, and they go to my hips and stay there, very correctly, as if there were a right way to hold a naked woman in a meeting room and he'd read up on it. I move on him until I can feel his composure going, piece by piece, under me. When his breath catches for the first time I stop, and get up, and get dressed.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit2_2.mp4 | Her naked on his lap, his hands on her hips, his eyes on her face */
+
+He straightens his tie before he opens the door. His hands aren't quite steady doing it, and that's the closest thing to a crack I've ever seen in him.
+
+<<else>>
+There's no name on the certificate this week. My $sister.playerRelation says nobody's having a bad enough week to need it, so I take it home, blank, and stick it on my mirror, and write my own name on the line.
+<</if>>
+
+<<if _tsWho>>
+When the door has closed behind him, I put the blinds back up, one after the other, and the afternoon light comes back into the room like nothing happened. I straighten the chair. I move the table back where it goes.
+
+Then I look up at the camera above the whiteboard for a second, the way you'd look at someone across a room, before I go back to my desk.
+<</if>>
+
+<<EndPov>>

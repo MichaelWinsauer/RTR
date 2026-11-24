@@ -1,0 +1,148 @@
+:: Task Mom Massage 4 [task_scene] {"position":"1900,4425","size":"100,100"}
+/* Scene of the task "Massage" (task_mom_private_attention), stage 4, after The Crawl (mom_crawl) and three massages on
+   stage 3. Played every time the task starts while I'm in the meeting room. Effects are in the task's onComplete.
+   Stage 4 continues stage 3: the same outfit she keeps in the garment bag in the supply closet, and I'm on the phone. In
+   stage 3 she offered more and I said later. Now later is part of the appointment: the massage, and then she goes down on
+   her knees under the meeting room table while I stay on the call. The caller is picked at random: $boss.callName, who asks
+   about his consultant and gets told she's at the deli; $manager.callName and his pie case, about which she has opinions
+   afterwards; or $landlord.callName, who asks after his "helpers", and she knocks our old knock on my knee. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _ms4Task to setup.getTaskById("task_mom_private_attention")>>
+	<<set _ms4First to (_ms4Task.count || 0) === (_ms4Task.stageStartCount || 0)>>
+	<<set _ms4 to random(0, 2)>>
+<</silent>>
+<<if _ms4 == 0>>
+The phone in the middle of the meeting table goes off two minutes before the ergonomics check, and it's $boss.callName again, who has found a new thing to be unhappy about: <<= either("the font on our invoices, which he says looks like a children's menu", "the fact that his unit doesn't have an off switch he can find, which it does, on the back, where it says OFF", "a competitor's brochure somebody left on his desk, which he would like to read to me in full")>>.
+<<elseif _ms4 == 1>>
+The phone in the middle of the meeting table goes off two minutes before the ergonomics check, and it's $manager.callName from the diner, calling about the analysis. He did what it said and moved the pie case up front by the register, and now, he says, people keep walking into the pie case.
+<<else>>
+The phone in the middle of the meeting table goes off two minutes before the ergonomics check, and it's $landlord.callName, who never calls about anything good. Today it's <<= either("the elevator inspection, and whether we've been 'overloading' his elevator", "the radiator on our floor, which he says we've been 'abusing'", "a parking space somebody from our office has been using that he says is his, though he hasn't owned a car since the nineties")>>.
+<</if>>
+
+The door opens, and $mom.callName slips in and closes it behind her and lets the blinds down, all without a sound.
+
+<<if _ms4First>>
+She's in the white top and the checked skirt from the garment bag, the stockings, the heels she walks so carefully in. All of it the same as before, except for the hair tie. She has it around her wrist, a plain black one, and while she crosses the room she pulls it off and ties her hair back with it, quickly, the practical way she does before she cleans the oven.
+
+Last time I told her later. She's apparently decided that later is now part of the appointment, and booked it in.
+<<else>>
+She's in the outfit from the garment bag again. <<= either(
+"She's already tying her hair back on her way across the room.",
+"She's taken her earrings out and left them on her desk. The little gold hoops catch on things, she told me once, about something else entirely.",
+"Her lipstick is a shade lighter than it was at breakfast. She's figured out that the dark one shows."
+)>>
+<</if>>
+
+I don't hang up. I point at my shoulders.
+
+<<linkreplace "Lean back">>
+/* MEDIA: images/characters/mom/tasks/giving_massage4_0.mp4 | Meeting room, blinds down, I'm on the phone leaning back in my chair, Mom behind me in the white top and checked skirt working on my shoulders */
+Her hands find my shoulders, and I let my head fall back and look up at her upside down while the voice on the phone goes on. She smiles down at me. She has a way of smiling with her mouth shut when she's trying not to make a sound, and her eyes do all the work.
+
+<<silently>>
+<<if _ms4 == 0>>
+<<set _msgs = [
+{ who: $boss, text: "...I'm not unreasonable, kid. Ask anybody. Ask my ex-wives, all three of them, they'll tell you I'm a very reasonable man." },
+{ who: $player, text: "I'm sure they will." },
+{ text: "Her thumbs dig into the knot under my shoulder blade, and she mouths <i>three</i> at me, eyebrows up, scandalized and delighted." },
+]>>
+<<elseif _ms4 == 1>>
+<<set _msgs = [
+{ who: $manager, text: "...so now I've got pie on the floor twice a day, founder. Twice. Your analysis didn't say anything about pie on the floor." },
+{ who: $player, text: "It said up front. It didn't say in the doorway." },
+{ text: "Her hands stop for a second because she's laughing without a sound, her forehead nearly on the top of my head. Then they start again." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $landlord, text: "...and I'm not sayin' it's you, kid, I'm sayin' it's your floor, and your floor is your problem, you follow me?" },
+{ who: $player, text: "I follow you, Mr. $landlord.surname." },
+{ text: "Her thumbs keep moving, but slower, and her mouth has gone flat. She's been up to his apartment every week since the rent deal. She knows exactly what his voice sounds like when he's leaning back in that recliner." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+Then her hands come down over my chest and keep going, the same way they did last time, all the way down to my belt. And this time they don't stop and wait there.
+
+<<linkreplace "Push your chair back">>
+I push my chair back from the table a foot, the phone cord stretching. She comes around the chair and gets down, first on one knee and then on both, and goes in under the edge of the table in front of me. A tablecloth would have hidden her completely. The table doesn't have one, so if anybody opened that door they'd see the soles of her shoes and the back of her checked skirt, and she knows that, and she goes under anyway.
+
+/* MEDIA: images/characters/mom/tasks/giving_massage4_1.mp4 | Under the meeting room table: Mom on her knees on the carpet between my legs, hair tied back, the checked skirt, the phone cord hanging down from above */
+
+She opens my belt and my pants and takes me in her mouth, and I keep talking.
+
+<<silently>>
+<<if _ms4 == 0>>
+<<set _msgs = [
+{ who: $boss, text: "And my consultant. I want to go over Thursday with her. Put her on." },
+{ text: "Under the table she goes still, with me in her mouth, and looks up." },
+{ who: $player, text: "She's down at the deli. I'll have her call you back." },
+{ who: $boss, text: "At the deli. Fine. Tell her the gray skirt." },
+{ text: "She hears herself be at the deli. She pinches the back of my calf, hard, and when I glance down she isn't sorry at all, and she starts again, slower, taking her time, as if she has a whole lunch break to herself down there." },
+]>>
+<<elseif _ms4 == 1>>
+<<set _msgs = [
+{ who: $manager, text: "So what do I do, move it back? Then what was the analysis for? I paid for that analysis, kid, I paid real money." },
+{ who: $player, text: "Give me a second to think." },
+{ text: "I don't think at all. Under the table she's found a rhythm, steady and patient, her hands flat on my thighs, and every time he says 'pie' her shoulders shake." },
+{ who: $manager, text: "Take all the seconds you want, it's not like I'm running a business here." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $landlord, text: "Anyway. How're your girls doin'? Tell 'em the stairs miss 'em. Tell 'em I been savin' up some 'chores'." },
+{ text: "Under the table she goes still." },
+{ who: $player, text: "I'll pass it on." },
+{ text: "Then her knuckles knock on my knee. Two soft taps, a pause, and a third. It's the knock from when we were kids, the one she used on our doors at night, and I don't know if she's telling me she's here, or telling herself. Then she goes back to me, harder, as if she could wash the sound of his voice out that way." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wrap up the call">>
+<<if _ms4 == 0>>
+It takes him another ten minutes to run out of complaints. I don't hear most of them. I say <i>sure</i> and <i>I hear you</i> in the right places, and once I say <i>absolutely</i> in a place that was probably wrong, and he doesn't notice.
+<<elseif _ms4 == 1>>
+I tell him to put the pie case by the window, where people can see it from the street. I have no idea if that's right. He grumbles that it might work, and says he'll try it, and that if it doesn't he's sending me the bill for the pie.
+<<else>>
+He circles back to whatever he called about in the first place and starts it over from the top. I let him. I don't hear a word. I hang up on him in the middle of a sentence, finally, and he probably doesn't notice for a while.
+<</if>>
+
+I put the receiver down. The room goes quiet, and now there's nothing in it but her, and the small wet sounds she's been keeping so carefully down while I talked, and she stops keeping them down.
+
+I put my hand on the back of her head. She makes a sound of relief against me, as if that's what she's been waiting for the whole call, and takes me deeper, and it doesn't take long after that. When I come she stays there, eyes closed, and swallows, and then she rests her cheek against my thigh under the table for a moment with her eyes still closed.
+
+<<linkreplace "Afterwards">>
+She backs out from under the table on her knees, and sits back on her heels on the carpet, and tucks me in and buckles my belt, all of it in the right order.
+
+<<silently>>
+<<if _ms4 == 0>>
+<<set _msgs = [
+{ who: $mom, text: "At the deli. You told him I was at the deli." },
+{ who: $player, text: "Where would you rather have been?" },
+{ who: $mom, text: "Well, not with him on the line, honey, that's for sure. I'll call him back at three. In the gray skirt, apparently, over the phone." },
+]>>
+<<elseif _ms4 == 1>>
+<<set _msgs = [
+{ who: $mom, text: "The window was a good idea, sweetie, but tell him to put a little sign on it, handwritten, not printed. People trust a handwritten sign about pie." },
+{ who: $player, text: "Is that true?" },
+{ who: $mom, text: "Of course it's true. I've bought a lot of pie in my life." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: "He called us your girls." },
+{ who: $player, text: "He calls everybody something." },
+{ who: $mom, text: "I know. It's all right, honey, don't make that face, I'm not upset." },
+{ text: "She smooths her skirt over her knees, slowly, and says nothing else about it, and I can't tell if she's upset or not, which is new." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+She pulls the hair tie out and shakes her hair loose, gives the blinds a look as if they've been very good and deserve some credit, and lets herself out with the door held so it closes without a click. Through the slats I watch her walk to the supply closet and her garment bag with her chin up, brushing carpet fuzz off her knees as she goes.
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

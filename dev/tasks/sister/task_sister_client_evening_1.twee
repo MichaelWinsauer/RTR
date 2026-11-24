@@ -1,0 +1,87 @@
+:: Task Sister Client Evening 1 [scene pov] {"position":"4350,4875","size":"100,100"}
+/* POV passage, her side of the task Client Evening (task_sister_client_evening), stage 1: the private room at the back of
+   $club.name. Opened from her end-of-day report (off-site, no camera). Effects are in the task data.
+   The same evening as Task Mom Client Evening 1. Conrad holds out his hand to her, she goes, meaning to keep her mother
+   out of it, and her mother follows anyway and bolts the door. The clean version (her report line) is the seating: her
+   mother on one end, her on the other. The other version: she undresses first and fast so he'll look at her, he asks her
+   mother too, and he handles them both on the couch; no sex. She tells herself her mother does it the way she does
+   everything for her son, out of pure mom-ness, and that it isn't the same as what she does for him. One look between
+   them over his head, the only one. The strap and the zipper in the hallway.
+   Nothing here may give away what the Night Shift reveals (that both of them belong to me).
+   Clips (images/characters/sister/tasks/, activity client_evening1): the padded door closing; her stepping out of the cream
+   dress in the lamplight; on the couch, his hand under her skirt, her eyes on the ceiling */
+<<silent>><<SetBackground "images/locations/cluboutside.jpg">><</silent>>
+<<PovHeader $sister>>
+The private room at $club.name has a couch and a lock and no windows. $mom.callName sat on one end and I sat on the other.
+
+That's the version I'm going to tell. I've been polishing it since the cab, and I think it's pretty good.
+
+Here's the other one.
+
+Tonight's client is a man named Conrad who sells cars and doesn't like to talk about it. He's in his sixties, silver hair, cufflinks shaped like little steering wheels, which is the only funny thing about him. He listens to everything we say with his head tilted, smiling, like someone deciding which one of us to buy.
+
+At half past eleven he decides. He says there's a quieter room in the back, and he holds his hand out to me.
+
+I take it, because that's the job, and because I'd much rather it was me than her. I've got it all worked out on the four steps to the door: $mom.callName stays at the booth with Teo and her gin and tonic, I go and keep Conrad happy for half an hour, and nobody in my family ever has to know what the back room of a club looks like.
+
+Then I hear her heels behind us.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "Oh, good. I was hoping you'd both come." },
+{ who: $mom, text: "Well, I can't let you two have all the quiet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She says it in her chirpiest voice, the one she uses for dentists. I want to grab her by the arm and say go back, go sit down, finish your drink. I don't. Saying it would mean saying why.
+
+/* MEDIA: images/characters/sister/tasks/client_evening1_0.mp4 | A padded door closing on a small lamplit room with a leather couch, Sister in a cream dress glancing back over her shoulder */
+
+The room is tiny and warm and smells like leather and somebody's cologne. While Conrad pours, $mom.callName goes straight to the door and slides the bolt across, and back, and across again, the way you'd test a fire exit in a hotel you don't trust. My stomach drops a little, watching her. She's scared, I think. She's checking how to get out.
+
+She leaves it locked, though.
+
+Conrad sits in the middle. $mom.callName sits at one end, I sit at the other, and we both sit like we're at a job interview, knees together, hands folded. Then he asks us, very nicely, to stand up in front of the lamp, and then, just as nicely, whether we'd mind if he saw a little more.
+
+I don't wait to be asked twice. If I'm fast, he's looking at me, and if he's looking at me, he isn't looking at her. So I reach back for my zipper and pull it all the way down in one go and step out of the cream dress, and then out of my bra, and stand there in my heels and underwear with my chin up like it's a beach.
+
+/* MEDIA: images/characters/sister/tasks/client_evening1_1.mp4 | Sister stepping out of a cream dress in the lamplight, bare-breasted, chin up, eyes fixed on the ceiling */
+
+It doesn't work. He smiles at me, and then he looks past me, and next to me I hear the little clink of the buckle on $mom.callName's belt.
+
+I look at the ceiling. It's black, with tiny lights set into it like stars, and someone has clearly paid a lot of money for that. I'm not going to look at her. She's doing it because she's $mom.callName, because she'd crawl over broken glass for her $mom.playerRelation's company, the same way she sews buttons back on $brian.name's shirts and remembers everybody's coffee. It's just who she is, that's all. It's nothing like what I do for $player.name. She has no idea about him and me, and she never will, and if this is the price of keeping it that way, fine.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "Lovely. Truly. Come and sit with me now, one on each side." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+On the couch his arm goes around me, and his hand goes everywhere it wants, slow and patient, and eventually under my skirt and between my legs, over my underwear, rubbing little circles. I'm good at this part. I lean into him and make a soft sound for him, and he likes the sound, and I make it again. It isn't even all acting, which I'm going to think about later, or possibly never.
+
+/* MEDIA: images/characters/sister/tasks/client_evening1_2.mp4 | On the couch, the client between them, his hand under Sister's skirt, her head tipped back against the leather, eyes on the starry ceiling */
+
+On his other side, $mom.callName doesn't make any sound at all. She's staring at the lamp like it owes her money.
+
+Once, just once, he leans his head back against the couch and closes his eyes, and for a second there's nothing between us but the top of his silver head, and I look over, and she's looking at me.
+
+It lasts about as long as a camera flash. Then we both look away, her at the lamp and me at the ceiling, and that's the only time we look at each other all night.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "Forty units. Tell your boss I said thank you, and that I'll call him myself in the morning." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Forty units is a lot of units. My $sister.playerRelation is going to be very happy, and I hold on to that while I put my dress back on with my back to the room.
+
+In the hallway, under the little red light, $mom.callName reaches over without a word and fixes the strap on my shoulder that I hadn't noticed was twisted. Her zipper is open at the top, one last inch she couldn't reach, and I pull it up for her.
+
+We don't say anything about it, in the hallway or in the cab or on the stairs at home.
+
+So that's the other version. He's getting the clean one.
+
+<<EndPov>>

@@ -782,6 +782,19 @@
 			passage: "{npc} Handjob"
 		},
 		{
+			/* the same card for the sister, unlocked by What Are We (sister_whatAreWe), together with her Overtime task.
+			   Sister Handjob changes with the place and with $sister.flags.handjobs, and applies the effects itself */
+			id: "handjobSister", group: "intimate", text: "Ask her to take care of you", cost: 2, once: true,
+			who: ["sister"],
+			requires: "setup.questDone('sister_whatAreWe')",
+			private: true,
+			needs: { lust: 20 },
+			max: { resistance: 50 },
+			blocked: _busy.concat(["working", "studying", "working_diner", "tutor_college"]),
+			effect: { corruption: 2, lust: 3, relation: 1, resistance: -1 },
+			passage: "{npc} Handjob"
+		},
+		{
 			/* free use (STAGE1_PROPOSAL.md 5.9): after The Calendar ($mom.flags.freeUse) she gives me whatever I need,
 			   whenever I want it, without the device. One action, no daily limit, private for now (Stage 2 may drop
 			   that). The passage changes with the place and with $mom.flags.whenever, and applies the stat changes */

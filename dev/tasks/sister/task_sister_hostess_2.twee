@@ -1,0 +1,120 @@
+:: Task Sister Hostess 2 [scene pov] {"position":"3750,4950","size":"100,100"}
+/* POV passage, her side of the task Hostess (task_sister_hostess), stage 2: from her corruption stage 3 on. Off-site, no
+   camera: opened only from her end-of-day report. Effects are in the task's onComplete.
+   After midnight the party leaves the roof for $club.name, and she goes with it, in the car of $investor.callName. In a
+   booth she sits between his two friends from stage 1 (the silver-haired one, the one with the white teeth), their hands
+   on her under the dress while $investor.callName watches from across the table. She lets it go on, and ends it herself
+   before it goes further. Watched and handled, no sex: the Night Shift is where the club goes further.
+   Variants: if she hosted the rooftop ($flags.retailIntro "sister") she gives herself the signal, a touch on her own ear;
+   if she was at the club on the last night ($flags.supplierOffered and sister_lastNight done) the doorman knows her, and
+   she has the not-yet from the rehearsal.
+   Clips (images/characters/sister/tasks/, activity hostess2): the black door of the club; the booth, her between two men;
+   a hand under the hem of her dress; her hand going up to her ear */
+<<silent>>
+	<<SetBackground "images/locations/rooftop.jpg">>
+	<<set _sh2Been to ($flags.supplierOffered === true and setup.questDone("sister_lastNight"))>>
+<</silent>>
+<<PovHeader $sister>>
+At midnight, when I start bringing out the coats, $investor.callName puts his hand up and stops me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "Leave those, my dear. Hold on to them. The night is still young, even if the rest of us aren't." },
+{ who: "Silver hair", text: "Are we doing it? Are we going on somewhere?" },
+{ who: $investor, text: "We're going to $club.name. Gordon, I take it you're going home to bed like a sensible person." },
+{ who: "Gordon", text: "Past my bedtime by an hour already. Somebody has to run four hundred car washes in the morning." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Gordon gives me my fifty, pats my hand twice, and goes. The others are already putting their coats back on, the ones I just brought them, laughing about something I missed, and $investor.callName turns to me with my own coat over his arm, holding it open for me like a gentleman in an old film.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "You'll come along, of course. A hostess doesn't leave before the party does." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He doesn't say it like a question, and I don't answer it like one. I put my arms into the sleeves.
+
+<<linkreplace "After midnight">>
+<<silently>><<SetBackground "images/locations/cluboutside.jpg">><</silently>>
+/* MEDIA: images/characters/sister/tasks/hostess2_0.mp4 | A black door with a brass number plate between dark shopfronts, a doorman in a long coat holding it open, she steps through on an older man's arm */
+$club.name doesn't have a sign. It has a black door between a closed bank and a shoe repair shop, and a doorman in a long dark coat who opens it before $investor.callName's driver has even turned off the engine.
+
+<<if _sh2Been>>
+The doorman looks at me, and then he looks at me again, and gives me a very small nod, like we share a secret, which I suppose we do. I've been through this door once before, on a night I don't tell anybody about. I don't nod back.
+<<else>>
+I've never been anywhere you get into by knowing someone instead of paying. It turns out it feels exactly like you'd think. The doorman says "Mr. $investor.surname" like he's been waiting for him all evening, and nobody so much as glances at the rest of us.
+<</if>>
+
+Inside it's dark wood and low lamps and a woman playing piano in a corner, much too well for anyone to be listening to her. There's a booth at the back that seems to have been waiting for us, deep red leather in a horseshoe around a low table, and somehow, when everybody has sat down, I'm in the middle of it, between the man with the silver hair and the younger one with the very white teeth. $investor.callName sits across the table with a brandy and his legs crossed, like a man settling in for the second act.
+
+<<silently>>
+<<set _msgs = [
+{ who: "White teeth", text: "So what does a hostess do when there's nothing left to host?" },
+{ who: $sister, text: "She drinks the good stuff, for once. On the roof I'm not allowed to." },
+{ who: "Silver hair", text: "Then we'll have to make up for lost time." },
+{ text: "He orders a bottle of something that comes with its own waiter. The glass he hands me is the first drink I've had all night, and it goes straight down my spine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "The booth">>
+The first hand is on my knee before the second glass. It's the silver-haired one, of course, his long fingers resting there while he tells $investor.callName about a merger, as casually as if my knee were the arm of a chair. A minute later the white teeth find my other knee, and now I have one on each side, and they're both talking over me about interest rates, and neither of them is looking at me at all.
+
+Then the hands start to move.
+
+/* MEDIA: images/characters/sister/tasks/hostess2_1.mp4 | The red leather booth in low lamplight, her in the middle between two men in suits, their hands on her thighs, the investor watching from across the table with a brandy */
+
+They go up slowly, under the hem of my dress, like they're taking turns. The silver-haired one strokes the inside of my thigh with the backs of his fingers, back and forth, a little higher every time. The other one is less patient. His hand slides all the way up to my hip, under the dress, and finds the thin strap of my underwear and hooks one finger under it and just holds it there, as if he's marking his place in a book.
+
+Across the table, $investor.callName watches over the rim of his brandy glass. He doesn't look surprised. He looks like a man watching a horse he bought run exactly the race he paid for.
+
+<<if $flags.retailIntro === "sister">>
+On the roof, all those weeks ago, I had someone to look at. There's nobody to look at in here. So I lift my hand and tuck my hair behind my ear, slowly, and let my fingertips rest on it for a second, and I give myself the signal, because I already know what he'd say.
+<<else>>
+I think about $player.name, because I always do now. I think about his face when I put the money on his desk last week, and how he didn't say anything, and how he didn't have to.
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ text: "I lean back into the leather and let my knees fall open, just a little, just enough." },
+{ who: "Silver hair", text: "There she is." },
+{ text: "The white-teeth one's hand slides down the front of my dress and cups my breast through the silk, right there at the table, with the piano playing and a waiter two steps away pretending to look at the ceiling. The silver-haired one's fingers find the wet spot through my underwear, and press, and stay." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/hostess2_2.mp4 | Close in the booth, her head back against the red leather, a man's hand under her dress, her own hand rising to her ear */
+
+I let it go on for one whole song. It's a slow one. I can feel every eye in the booth on me, and I can feel every stroke of their fingers, and I keep my face perfectly calm and my breathing almost even. It turns out that's the hardest part, and the part I'm best at.
+
+Then the white teeth lean in and say something into my ear about a room upstairs, and that's where I stop it.
+
+<<if _sh2Been>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Not yet." },
+{ text: "I touch his arm when I say it, and I smile like I mean later, exactly the way I learned it in a dim meeting room with two clean glasses. It works perfectly. It works on both of them." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I think somebody here promised me the good stuff, and my glass is empty." },
+{ text: "I take both hands off me as I slide out of the booth, gently, the way you'd lift a sleeping cat off your lap, and set them down on the leather where I was sitting. Neither man seems to mind. They're too busy watching me walk to the bar." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+$investor.callName's driver takes me home at a quarter to three. The money is in my coat pocket this time, more of it than last week, and I don't count it. I sit in the back of a car that smells like leather and somebody else's cigar, with my underwear still pulled crooked under my dress, and I look out at the empty streets and try to put the night into words, the version for the report and the other version.
+
+I'll give him the other one, if he asks. He'll ask.
+
+<<EndPov>>
+<</linkreplace>>
+<</linkreplace>>

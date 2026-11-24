@@ -1,0 +1,145 @@
+:: Task Sister Overtime 2 [task_scene] {"position":"2275,5000","size":"100,100"}
+/* Scene of the task "Overtime" (task_sister_overtime), stage 2 (after Everything, sister_everything, and two more evenings).
+   Played every time the task starts while I'm in the office after hours. Effects are in the task's stage entry.
+   Sex on the office couch, the one where she had her first time. At home she sleeps in my bed most nights now, but there she
+   has to be quiet (A Knock at Night, Again). Here she doesn't, and the first time she finds out she's loud, and laughs at
+   herself for it. She brought a blanket from home "because $ethan.name naps on this couch". She's on top this time; she wants
+   to watch my face. Afterwards she texts $mom.callName that we're both working late. Repeats: a random opening and position (_ot2).
+   MEDIA: images/characters/sister/tasks/overtime2_0.mp4 | The dark office, Sister spreading an old plaid blanket over the
+          couch in the corner, looking back over her shoulder
+   MEDIA: images/characters/sister/tasks/overtime2_1.mp4 | On the couch, Sister on top of him under the blanket, her hands on
+          his chest, the streetlight from the window across her back */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _ot2Task to setup.getTaskById("task_sister_overtime")>>
+	<<set _ot2First to (_ot2Task.count || 0) === (_ot2Task.stageStartCount || 0)>>
+	<<set _ot2 to random(0, 2)>>
+<</silent>>
+<<if _ot2First>>
+She's not on her desk tonight. She's over by the couch in the corner, the one with the saggy middle cushion, shaking out a blanket she's brought from home in her tote bag: the old red plaid one from the hall closet that nobody has used since we went camping as kids, and that still smells faintly of it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Before you say anything, this is purely about hygiene. $ethan.name takes his nap on this couch every single day after lunch, with his shoes on, and he drools. I've seen it. I'm putting a blanket between us and that." },
+{ who: $player, text: "You didn't seem to mind the other night." },
+{ who: $sister, text: "The other night I wasn't thinking about $ethan.name at all. Tonight I sat across from him at lunch, and he told me about his nap, in detail, and now I can't stop." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She tucks the corners of the blanket in under the cushions, very neatly, the way $mom.callName taught us to make a bed, and then she stands back and looks at the couch with her hands on her hips. Then she looks at me.
+<<else>>
+<<switch _ot2>>
+<<case 0>>
+The red plaid blanket is already on the couch when I look up. She keeps it rolled up in the bottom drawer of her desk during the day, under a box of spare charging cables, and so far nobody has asked why the intern needs a blanket.
+<<case 1>>
+She's lying on the couch on top of the plaid blanket with her shoes off and her phone held up over her face, scrolling, like someone waiting for a train. When she hears me get up she lowers the phone onto her chest and doesn't say anything at all, just watches me cross the room.
+<<default>>
+She's still at her desk when the last of them leave, pretending to work, and she keeps pretending until the downstairs door has closed behind $brian.name. Then she shuts her laptop, gets up, and goes to the couch without a word, unbuttoning her blouse on the way.
+<</switch>>
+<</if>>
+
+<<linkreplace "Go to her">>
+/* MEDIA: images/characters/sister/tasks/overtime2_0.mp4 | The dark office, Sister spreading an old plaid blanket over the couch in the corner, looking back over her shoulder */
+<<if _ot2First>>
+The first time, on this same couch, she was scared and holding on to me with both hands, and it hurt, and she told me not to stop. Tonight she undresses herself, in the light from the street, and she isn't scared of anything. She pushes me down onto the blanket and climbs on top of me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I want to be on top this time. Is that all right? I want to see your face. Last time I had my eyes shut for basically all of it, and I keep thinking about everything I must have missed." },
+{ who: $player, text: "It's all right." },
+{ who: $sister, text: "Good, because I wasn't really asking." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<switch _ot2>>
+<<case 0>>
+She undresses me before herself tonight, slowly, like she's unwrapping something she's not allowed to tear. Then she pulls me down onto the blanket on top of her and wraps her legs around me before I've even got my balance.
+<<case 1>>
+She doesn't bother getting fully undressed. She takes off her skirt and leaves the blouse on, unbuttoned, and climbs on top of me with her phone still somewhere in the folds of the blanket, buzzing once against my hip and then going quiet.
+<<default>>
+She kneels on the couch with her hands on the back of it and looks at me over her shoulder, and there's nothing shy about it at all.
+<</switch>>
+<</if>>
+
+<<linkreplace "Let her">>
+/* MEDIA: images/characters/sister/tasks/overtime2_1.mp4 | On the couch, Sister on top of him under the blanket, her hands on his chest, the streetlight from the window across her back */
+<<if _ot2First>>
+She's slow about it at first, careful, finding the angle, with her hands braced flat on my chest and her lip between her teeth. Then she finds it, and her eyes go wide, and she lets out a sound she clearly didn't plan on, loud enough that it fills the whole empty office.
+
+She claps her hand over her mouth and stares at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Was that me? That was me. I didn't know I did that." },
+{ who: $player, text: "There's nobody here." },
+{ who: $sister, text: "I know. That's the thing. At home I bite the pillow, every single time, because $mom.callName is right down the hall. I've never once been allowed to find out what I actually sound like." },
+{ text: "She takes her hand away from her mouth, slowly, like she's letting go of a railing." },
+{ who: $sister, text: "I'm loud. Apparently I'm very loud. That's genuinely news to me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She laughs at herself, and the laugh turns into a gasp when she starts moving again, and after that she doesn't try to keep quiet at all. It echoes off the empty desks and the glass. She rides me with her head thrown back and her hair falling down past her shoulders, and every time she opens her eyes she finds my face and looks at it, the way she said she wanted to, as if she's taking notes for later.
+<<else>>
+<<= either(
+"She's loud again tonight, and she doesn't even think about it anymore. The sound bounces off the empty desks and the glass and comes back, and she laughs at it once, breathless, and doesn't stop.",
+"The couch creaks under us in a rhythm that I'm sure is audible on the second floor. She hears it too, and grins, and doesn't slow down in the slightest.",
+"She talks the whole time tonight, quietly, right into my ear: how she watched me across the room all afternoon, what she thought about while she was answering comments, what she wanted to do when $darius.name leaned over my desk for ten minutes. Some of it makes me laugh, and she bites my shoulder for that."
+)>>
+
+<<if _ot2 == 2>>
+I take her from behind, with her hands gripping the back of the couch and her knees on the plaid blanket, and she pushes back against me every time, harder, until the couch starts to inch across the floor.
+<<else>>
+She keeps her eyes on my face as much as she can, as if she's still finding out what it looks like.
+<</if>>
+<</if>>
+
+<<silently>>
+<<if !_ot2First and _ot2 == 2>>
+<<set _msgs = [
+{ who: $sister, text: either("Don't stop. Please, $player.name, don't you dare stop.", "Harder. Nobody can hear us, so don't be careful with me.") },
+{ text: "When she comes she grips the back of the couch with both hands and says my name loud enough for the whole floor to hear, if anybody were on it, and then she sags forward against the cushions and laughs into them." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $sister, text: either("Don't stop. Please, $player.name, don't you dare stop.", "Tell me I'm yours. I want to hear you say it in here.", "Right there. Stay right there, I'm so close.") },
+{ text: either("She comes before I do, shaking, her forehead pressed against mine, and keeps moving anyway until I follow her.", "She comes with her face buried in my neck, and this time she doesn't bite down on anything, she lets the whole sound out.") },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Afterwards">>
+We lie on the narrow couch under the plaid blanket, with her mostly on top of me because there isn't room for anything else. The streetlight comes through the window in an orange stripe across the floor. Down on the street a bus goes past, the one she was supposed to take.
+
+<<if _ot2First>>
+She digs her phone out of the folds of the blanket and types something with one thumb, and then holds the screen up so I can read it before she sends it. <i>Both still at the office, big deadline, don't wait up! Love you.</i>
+
+A minute later $mom.callName answers with a picture of two plates covered in foil, sitting on the stovetop, and a heart.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "She made the potato thing." },
+{ who: $player, text: "We'll have it cold." },
+{ who: $sister, text: "It's better cold, anyway. Don't tell her I said that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She puts the phone face down on my chest and rests her chin on top of it, and looks at me for a long time without saying anything. I think she's just enjoying not having to whisper.
+<<else>>
+<<= either(
+"She texts $mom.callName that we're both still at the office, which is true, and that it's a big deadline, which is a little less true. The answer is a thumbs-up and a picture of the oven.",
+"She falls asleep for ten minutes, the way $ethan.name does on this couch after lunch, and I don't wake her. When she opens her eyes again she's horrified to find that she's drooled on my shoulder, and makes me swear on the company that I'll never tell him.",
+"She traces the outline of the window light on my chest with one finger and tells me which of the staff she thinks would be the most shocked if they walked in now. She decides it would be $darius.name, and that he'd apologize, and then he'd ask a very polite follow-up question."
+)>>
+<</if>>
+
+Before we leave, she rolls the blanket up tight and stuffs it back into her bottom drawer under the box of cables, and she checks the couch cushions very carefully on both sides, in case $ethan.name finds something tomorrow during his nap.
+
+<<EndTaskScene "Lock up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,0 +1,149 @@
+:: Task Mom Lunch Break 0 [task_scene] {"position":"2150,4550","size":"100,100"}
+/* Scene of the task "Lunch Break" (task_mom_lunch_break), stage 0, after A Knock at Night. Played every time the task starts
+   while I'm in the meeting room. Effects are in the task's stage entry (Define Tasks).
+   Stage 0: her hand. She brings my lunch from the deli downstairs and makes me eat all of it first, because that was the
+   deal. Then she does it from behind my chair, the way she does the massage, talking into my ear, while the office goes on
+   behind the blinds. The napkins from the deli bag turn out to be part of her plan. She takes the bag with her, so the
+   meeting room bin has nothing in it. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _lb0Task to setup.getTaskById("task_mom_lunch_break")>>
+	<<set _lb0First to (_lb0Task.count || 0) === (_lb0Task.stageStartCount || 0)>>
+	<<set _lb0 to random(0, 2)>>
+<</silent>>
+/* MEDIA: images/characters/mom/tasks/lunch_break0_0.mp4 | Mom unpacking a paper deli bag on the meeting room table, blinds down, me in the chair at the head of the table */
+<<if _lb0First>>
+She sets the bag down on the table and stands there looking at it, both hands flat on either side of it, like she's waiting for the bag to tell her what happens next.
+
+Then she unpacks it, because unpacking things is something she knows how to do. A turkey sandwich, no tomatoes, cut in half on the diagonal. A bag of chips. A pickle in its own little wax paper envelope. A bottle of water, which she opens for me. And napkins, a whole fat wad of them, far more than one sandwich could ever need, which she squares into a neat stack at the corner of the table and doesn't explain.
+<<else>>
+She unpacks the bag the way she always does now, in the same order every time: the sandwich, the chips, the pickle in its wax paper, the water, which she opens for me, and the stack of napkins, which goes at the corner of the table. <<= either(
+"Today the deli guy has written <i>NO TOM!!</i> on the wrapper in marker, two exclamation points. She shows it to me like a report card.",
+"Today there's a cookie in there too, wrapped in its own paper. She says the deli guy threw it in for free. I've seen the receipt in the bag, and she paid for it.",
+"Today she's got a salad for herself as well. She sets it at her elbow, opens the lid and never touches it."
+)>>
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Eat, honey. All of it. That was the deal.", "Go on, eat, I'm not saying another word until that sandwich is gone.", "Both halves, sweetie. I'm counting.") },
+{ who: $player, text: "Are you going to watch me the whole time?" },
+{ who: $mom, text: either("I watched you eat for eighteen years, I think I can manage another ten minutes.", "Somebody has to. Left to yourself you'd eat half and call it a meal.", "Yes. Somebody in this company has to make sure the boss doesn't fall over.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Eat">>
+So I eat, and she watches, sitting sideways on the chair next to mine with her knees pressed together and her hands in her lap. Through the door the office is having its lunch hour. <<= either(
+"$ethan.name is losing an argument with the printer, loudly, and the printer is winning.",
+"Somebody's phone keeps ringing on an empty desk, and nobody gets up for it.",
+"$darius.name is on a call just outside, pacing, and every time he walks past, his shadow slides across the blinds and away again."
+)>> $brian.name's keyboard clatters along under everything, steady as rain.
+
+<<if _lb0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You eat too fast. You always have, you used to inhale your fish sticks and then complain your stomach hurt." },
+{ who: $player, text: "I'm hungry." },
+{ who: $mom, text: "You're nervous. I know the difference, honey." },
+{ text: "She steals one of my chips and eats it in two small, careful bites. She's nervous too. She's looked at the door four times since she sat down." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("How was the call with the bank? You had your phone face down all morning, which you only do when you don't want me to see who's calling.", "$ethan.name says the new build is 'basically fine', and I don't like 'basically', honey. Is it fine?", "Your $sister.relation asked me where you go at lunch. I said you go to eat. It's even true.") },
+{ who: $player, text: either("It was fine. They want another form.", "It's fine. 'Basically' is just how he talks.", "Good answer.") },
+{ who: $mom, text: either("They always want another form. Give it to me later, I'll do it.", "Well, if you say so. Eat your pickle.", "I thought so too.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+I finish the second half. She checks, actually checks, leaning over to look at the paper for crumbs and tomatoes, and then she takes a napkin off the top of the stack, wipes a smear of mustard from the corner of my mouth and folds the napkin into a small square.
+
+Then she gets up, and walks around behind my chair.
+
+<<linkreplace "Lean back">>
+/* MEDIA: images/characters/mom/tasks/lunch_break0_1.mp4 | From behind my chair, Mom leans down over my shoulder, her cheek near mine, one hand down in my lap, the deli wrappers still on the table */
+For a moment it's the massage. Her hands come down on my shoulders where they always do, and her thumbs find the knot under my left shoulder blade, and I can feel her breathing against the back of my head. Then her right hand keeps going: down my chest, over my stomach, to my belt.
+
+She does the buckle without looking, leaning over my shoulder with her cheek next to mine. Her hair falls forward and hides most of what her hand is doing, even from me.
+
+<<if _lb0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is this... is it all right like this, from back here? I thought it would be easier if I couldn't see your face, and then I realized that's silly, because I can see it anyway, you're right here." },
+{ who: $player, text: "It's all right." },
+{ who: $mom, text: "Good. Then shush and let me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("There. That's what I've been waiting for all morning, that face.", "You were sitting like a coat hanger all through that sandwich, honey. Let it go.", "Shh. Don't help. Just let me.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+She's slow at first, the way she was in my bed, and very quiet about it. She talks the whole time, so low that it's mostly breath against my ear: that I'm all right, that I work so hard, that she's right here. It's the voice from the night with the tea. Out of her mouth, at noon, in an office, it sounds almost exactly the same.
+
+<<linkreplace "Hold still">>
+The office doesn't stop. That's the thing about it. On the other side of the blinds somebody laughs, and a chair rolls back, and the microwave in the kitchenette beeps three times and then three more because nobody came for it. Every sound goes through her. I can feel it in her hand.
+
+<<if _lb0 == 0>>
+Footsteps come down the hall and stop right outside the door. Her hand stops with them. We both wait, her cheek against mine, and I can hear her heart, or mine, I honestly can't tell which. Then the water cooler next to the door glugs, and the footsteps go away again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, God. It's only the water cooler. Somebody's thirsty, that's all, somebody's just..." },
+{ text: "She laughs into my hair without a sound, and her hand starts again, faster than before, as if she's decided we'd better hurry." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _lb0 == 1>>
+Her phone buzzes on the table next to the pickle. She looks at it over my shoulder and doesn't stop. It's a client, the screen says, the one who wants everything twice.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "He can leave a message. I'm on my lunch break." },
+{ text: "She says it very primly, like a woman who has never once in her life let a phone ring out, and keeps going." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+Out in the main room $ethan.name shouts her name, the way he shouts for anybody who might know where the good stapler went. She freezes. He shouts it again, then answers himself: never mind, found it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "That stapler lives in the top drawer, I've told him a hundred times, I've labeled the drawer." },
+{ text: "It comes out in a whisper and a rush, and her hand never quite stops. I don't think she could stop it right now if she tried." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+When I come, she's ready for it. That's what the napkins were for. She has three of them off the stack before I've even caught my breath, and she cleans me up and then her hand, quickly and very thoroughly, and buckles my belt for me from behind like she's dressing a little boy for church.
+
+<<linkreplace "Afterwards">>
+She balls the napkins into the empty deli bag, adds the wrappers and the wax paper from the pickle, and folds the top of the bag down twice. It goes with her. Nothing from lunch ever stays in the meeting room bin.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Better?", "There. Now you can get through the afternoon.", "Was the sandwich all right? They were out of the good bread, I had to take the other one.") },
+{ who: $player, text: either("A lot better.", "Thanks, $mom.callName.", "The sandwich was great.") },
+{ who: $mom, text: either("Good. Drink the rest of that water, you hardly touched it.", "Then that's what I'm here for. Give me a minute's head start, honey.", "Well, I'll get the good bread tomorrow. If you're having a bad day tomorrow, I mean. If.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She lifts one slat of the blinds with a finger and looks out first, then smooths her blouse and opens the door with the bag held in front of her like it's what she came in for. Through the gap I hear her ask $brian.name if he's eaten anything today, in her ordinary voice, and the long pause before he admits to a bag of chips.
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

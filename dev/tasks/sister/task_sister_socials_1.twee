@@ -1,0 +1,64 @@
+:: Task Sister Socials 1 [scene pov] {"position":"3150,4500","size":"100,100"}
+/* POV passage, her side of the task Socials (task_sister_socials), stage 1: her corruption stage 1, after Souvenirs.
+   Opened with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   One picture with her face in it, taken by accident, did better than everything else on the account together, so now
+   her face is the brand. She reads the comments ("does she come with the unit", a guy from her seminar), almost answers
+   one, and leaves it. Under it: there are photos of her on his phone that nobody else will ever see, and now there are
+   photos everybody can see, and she catches herself picking them by what he would like. She sends him the set first,
+   and he picks the one with the button undone. The report line: more likes than the product, the comment, a compliment.
+   Clips (images/characters/sister/tasks/, activity socials1): her doing her makeup in front of the ring light; holding
+   the unit at her collarbone and smiling into the lens; reading the comments on her phone */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+<<PovHeader $sister>>
+The picture that changed everything was an accident. I was holding the unit up next to my face to show how small it is, and $ethan.name yelled something through the door about the coffee machine having feelings, and I laughed right as the timer went off. I posted it on a Friday as a joke. By Monday it had more likes than everything else on the account put together, including the forty smoke detectors.
+
+$marketingOwner.name sent $player.name a one-line email about it, <i>There she is.</i> He forwarded it to me without writing anything, and I've reread those three words more times than I'd admit to anyone.
+
+So my face is the brand now. That's a sentence I never expected to say about a company that sells boxes for ceilings.
+
+/* MEDIA: images/characters/sister/tasks/socials1_0.mp4 | The ring light on its stand, her leaning into a small mirror propped against it, doing her lashes */
+
+The ring light came, the real kind, and it makes everyone look like they slept nine hours and drink a lot of water. I spend twenty minutes on my makeup in front of it, which is fifteen more than I spend for class. I'm wearing the cream blouse, the fitted one. The unit sits in my palm just under my collarbone, where your eye goes to it, then to my face, then back to it. That's the theory, anyway.
+
+Between sets I read the comments, which I've been told not to do by literally everybody, including $mom.callName, who reads all of them and then tells me not to.
+
+<<silently>>
+<<set _msgs = [
+{ text: "<i>where can I buy one</i>. An actual customer question, finally. I click on the profile, and it's a bot." },
+{ text: "<i>ok but what's her @</i>" },
+{ text: "<i>I'd let her calm me down</i>" },
+{ text: "<i>does she come with the unit?</i>" },
+{ text: "And three fire emojis from a guy in my statistics seminar, under his real name, with his real face. I sit two rows behind him on Tuesdays. He's going to know that I've seen it, and I'm going to know that he knows, and we're both going to pretend to care a lot about regression analysis." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I look at the one about the unit for a long time. I start typing a reply from the company account, <i>sold separately</i>, and then I sit there with my thumb over the button and delete it, because it sounds like a yes with a price tag on it, and I'm not sure that's a joke I should be making.
+
+I don't delete the comment either, though. Forty-seven people have liked it. I'm choosing to take that as a compliment.
+
+/* MEDIA: images/characters/sister/tasks/socials1_1.mp4 | Her holding the unit at her collarbone, blouse with the top button undone, smiling straight into the lens */
+
+There's a thing I keep catching myself doing, and I'm only going to think about it once. When I pick which pictures go up, I'm not really thinking about the guy with the fire emojis, or about whether anyone wants to buy a box. I'm thinking about $player.name, and which ones he'd keep.
+
+He has pictures of me on his phone that nobody else is ever going to see. He told me so, and I believe him, and some nights I lie in bed and think about them sitting in there, in the dark. Now there are pictures of me that everybody can see, a few thousand people by now, and I'm the one choosing those. I honestly can't tell which of the two makes me feel stranger.
+
+I undo the second button for the next set. It reads better on camera. The light catches the collarbone instead of the fabric.
+
+That's what I tell myself, anyway, and then I take sixty pictures and send him the best six before anything goes up anywhere. For approval, I write, which he has never once asked for.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "These are really good." },
+{ who: $sister, text: "Which one, though? You have to pick one." },
+{ text: "The dots come up, go away, and come up again." },
+{ who: $player, text: "The second one." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The second one is the one with the button. I knew it would be, and I still sit there on the edge of the table holding my phone with both hands and feeling my face get warm, which is ridiculous, because all he did was type three words.
+
+I post the second one. He likes it in under a minute.
+
+<<EndPov>>

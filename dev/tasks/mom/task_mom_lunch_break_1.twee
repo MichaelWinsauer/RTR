@@ -1,0 +1,141 @@
+:: Task Mom Lunch Break 1 [task_scene] {"position":"2275,4550","size":"100,100"}
+/* Scene of the task "Lunch Break" (task_mom_lunch_break), stage 1, after The Crawl (mom_crawl) and three lunches. Played
+   every time the task starts while I'm in the meeting room. Effects are in the task's stage entry (Define Tasks).
+   Stage 1: her mouth. She already does it every morning with my coffee, so at noon it's practical: she brings the cushion
+   off her own desk chair for her knees (the carpet marks from the crawl), wipes her lipstick off with a deli napkin first,
+   and makes me eat my sandwich while she starts. Somebody comes to the door every time, and I have to answer through it
+   while she keeps going: $ethan.name, $darius.name or $brian.name, picked at random. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _lb1Task to setup.getTaskById("task_mom_lunch_break")>>
+	<<set _lb1First to (_lb1Task.count || 0) === (_lb1Task.stageStartCount || 0)>>
+	<<set _lb1 to random(0, 2)>>
+<</silent>>
+<<if _lb1First>>
+She has the paper bag in one hand and, tucked under her other arm, the gray seat cushion off her desk chair, the one she brought from home in the first week because the office chairs were "murder on her back".
+
+She puts the bag on the table. The cushion she drops on the carpet beside my chair, and nudges it into place with her foot, and doesn't say a word about it.
+
+She brought my coffee up to my room at seven this morning and knelt by my bed while I drank it, the way she has every morning since the night she crawled across the office. I hadn't really thought about what that would do to noon. Apparently she has.
+<<else>>
+The cushion comes in under her arm, the way it does now, and goes down on the carpet beside my chair before the bag even reaches the table. <<= either(
+"$ethan.name saw her carry it in here on Monday and asked if the meeting room chairs are that bad. She told him yes, they're a disgrace, and he believed her completely.",
+"She's put a fresh pillowcase on it. It has little lemons on it. I don't ask where it came from.",
+"She stands it on its edge against the table leg while she unpacks, so it'll be right there."
+)>>
+<</if>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Turkey, no tomatoes, and I made him put extra pickles on, because you look peaky.", "They were out of turkey, so it's chicken, and before you say anything, chicken is a perfectly good bird.", "The deli boy asked if it was for my husband. I said it was for my boss, which was the simplest answer.") },
+{ who: $player, text: "Thanks." },
+{ text: "She unwraps it and puts it in my hand. Then she takes a napkin off the stack, turns away from me and wipes her lipstick off, carefully, every last bit of it, and checks the napkin and folds it away." },
+{ who: $mom, text: "It gets everywhere otherwise, honey. I had to scrub your collar after the last time, and you can imagine what the dry cleaner would think." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Turn your chair">>
+I push my chair back from the table and swivel it toward her. She looks at the sandwich in my hand, and then at me, and puts one finger on my wrist and pushes the sandwich back up toward my mouth.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You eat. I'll... you just eat your lunch, sweetie." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She kneels down on the cushion. She tucks her skirt under her knees first, smooths it, and undoes the top two buttons of her blouse so nothing gets on it, all of it in the same brisk, sensible order she'd use to get the laundry started. Then she opens my belt.
+
+/* MEDIA: images/characters/mom/tasks/lunch_break1_0.mp4 | Mom kneeling on a seat cushion beside my swiveled chair in the meeting room, blouse open at the top, my sandwich in my hand in the corner of the frame */
+
+<<if _lb1First>>
+In the mornings she still keeps her eyes closed for it, as if it's happening in the dark. Here the fluorescent lights are on, and the blinds glow with the daylight behind them, and she keeps her eyes open. I think that's the difference she's noticed too, and she doesn't look away from it.
+<<else>>
+<<= either(
+"She takes her time. She has thirty-five minutes left of her lunch break and she knows it to the minute.",
+"She hums. I don't think she knows she's doing it. It's the song from the radio in the kitchen this morning, and I feel it as much as hear it.",
+"She keeps one hand flat on my knee, and every so often she squeezes it, the way she squeezes your hand at the doctor's."
+)>>
+<</if>>
+
+I eat my sandwich. It's a strange thing to do, and I do it anyway, because she told me to and because she'd stop to check if I didn't. Out in the office the printer starts up, and somebody's ringtone plays half a pop song and cuts off.
+
+<<linkreplace "Keep eating">>
+Then somebody knocks on the meeting room door.
+
+Her mouth stops. She doesn't pull back. She goes perfectly still, with her eyes turned up at me and her hands on my thighs, waiting to see what I do.
+
+<<if _lb1 == 0>>
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Hey, man, you in there? Is your $mom.relation with you? The guy from the bank is on hold, and he says he only wants to talk to 'the nice lady who does the invoices', which, rude to me, honestly." },
+{ who: $player, text: "She's here, we're going over the invoices. Tell him she'll call him back in half an hour." },
+{ who: $ethan, text: "Over lunch? You two have a problem, you know that? Somebody should stage an intervention." },
+{ who: $player, text: "Put it in the calendar." },
+{ text: "He laughs and goes. Halfway through the joke she starts moving again, and I have to put the sandwich down." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _lb1 == 1>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Forgive me for interrupting. I'd like to book the room at one, if it's free. I have a call that would benefit from a door." },
+{ who: $player, text: "It's yours at one. We'll be out in twenty minutes." },
+{ who: $darius, text: "Thank you. Enjoy your lunch." },
+{ text: "His footsteps go away, unhurried. Somewhere in the middle of his thank you she started again, slowly, and she's still looking up at me, and I don't think she blinked once the whole time he was talking." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+Nobody says anything. Through the blinds I can see a wide shadow standing right outside the door, not moving, the shape of a man who has knocked and is now deeply regretting it. Then a yellow sticky note slides in under the door. The shadow leaves.
+
+From where I'm sitting I can read it. In $brian.name's tiny square capitals it says <i>PRINTER JAMMED AGAIN. SORRY. NOT URGENT.</i>
+
+<<silently>>
+<<set _msgs = [
+{ text: "She can't see it from down there. She waits until the shadow is gone, then she starts again, and I can feel her smiling around me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Let her finish">>
+/* MEDIA: images/characters/mom/tasks/lunch_break1_1.mp4 | Closer: Mom on the cushion, my hand in her hair, the blinds bright behind her */
+I put my hand in her hair. She leans into it, and after that there's no more pretending that I'm eating lunch. She's quicker now than she was a minute ago, as if the knock is still in her somewhere and she's trying to outrun it, her breath fast and hot through her nose, her fingers digging into my legs.
+
+When I come she stays where she is and swallows, the way she did on the office floor that first night, and then she sits back on her heels and takes a napkin off the stack without looking for it. She knew exactly where it was.
+
+<<linkreplace "Afterwards">>
+She buttons her blouse, all the way up, and does her lipstick again from a little tube in her skirt pocket, using the blank screen of her phone as a mirror. The cushion goes back under her arm.
+
+<<silently>>
+<<if _lb1 == 0>>
+<<set _msgs = [
+{ who: $mom, text: "The bank. Oh, honey, I'd better call that man back before he tells the whole branch I'm unreliable." },
+{ who: $player, text: "You've got lettuce on your knee." },
+{ text: "She picks it off and looks at it, and laughs out loud, and claps her hand over her mouth, and goes out still laughing behind her hand." },
+]>>
+<<elseif _lb1 == 1>>
+<<set _msgs = [
+{ who: $mom, text: "One o'clock, he said. I'll open a window in here before he comes, it's stuffy." },
+{ text: "She opens the window and lifts the blinds halfway, and to be on the safe side she sprays a little perfume into the air from the bottle in her purse. Then she looks at the cloud and realizes $darius.name has smelled that perfume every day for months, and waves her hand through it, which doesn't help at all." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $mom, text: "What does it say? The note?" },
+{ who: $player, text: "The printer's jammed." },
+{ who: $mom, text: "Well, of course it is, it's been jammed since Tuesday. Poor thing, he should have just come in." },
+{ text: "She bends down for the note, reads it, smiles at it, and sticks it on the back of her hand to take to him." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+The other half of my sandwich is still lying on its paper. She stops at the door and points at it, and doesn't leave until I've picked it up.
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

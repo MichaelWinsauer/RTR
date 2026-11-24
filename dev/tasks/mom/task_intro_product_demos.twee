@@ -1,0 +1,89 @@
+:: Task Intro Product Demos [event] {"position":"2900,4175","size":"100,100"}
+/* Task introduction for Product Demos (task_mom_product_demos). Two days after The Catalyst Night (main_catalystNight),
+   her corruption stage 2. The official unit sells better when people see it work on somebody, and I decide that somebody
+   is her: in the meeting room, with a sensor band on her wrist and her pulse on the big screen. She asks whether it will
+   really be the box calming her or whether she will only be acting calm; I tell her the screen can't tell the
+   difference, and she decides she doesn't need to either. (The real reckoning with the box is The Calendar, later; this
+   only touches it.) Ends with EndTaskIntro. */
+<<silent>><<SetBackground $locations[15].img>><</silent>>
+$brian.name has turned the meeting room into a science fair. There's a unit of $company.devices.valenxOfficial.name in the middle of the table, the same plain box we ship, a laptop cabled to the big screen on the wall, and, coiled next to the box, something he's been building all week out of a fitness tracker and a lot of electrical tape.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "It's, um. A sensor band. It reads pulse and skin conductance, and it talks to the box, so the box knows what it's doing. Ehh, sort of. Then it puts it up there." },
+{ text: "He points at the screen, where a flat gray line is waiting for somebody to wear the band." },
+{ who: $player, text: "That's great, man. That's exactly what I wanted." },
+{ who: $brian, text: "The strap's small. I built it for, uh. A wrist." },
+{ text: "He leaves before I can ask whose wrist, carrying a roll of tape he didn't come in with." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$darius.name has a theory, and I think he's right: people don't believe a box can make them calm. They've all bought a white-noise machine or an app that was supposed to change their life, and here comes another one. But if they watch it calm somebody down, right in front of them, with a number on a screen going down, they start reaching for their checkbooks.
+
+I could wear the band myself. A nervous nineteen-year-old with a resting heart rate like a hummingbird would make a very convincing before picture, and absolutely no after picture at all.
+
+<<linkreplace "Call $mom.callName in">>
+She comes in with a coffee for me that I didn't ask for and sets it down at my elbow, and her hand stays on my shoulder after she's let go of the cup. It's been like that since the night in her room. She touches my arm when she passes my desk, and the back of my neck when she leans over me to point at something on the screen, small touches that she doesn't seem to notice she's making. She hasn't said one word about that night, and she hasn't made a single rule either, and every time she touches me she looks a little happier about it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What on earth is all this? It looks like that thing they hook you up to at the hospital when they want to keep you overnight." },
+{ who: $player, text: "It's a demo setup. Clients come in here, somebody wears the band, the box does its thing, and they watch the person's pulse go down on the big screen." },
+{ who: $mom, text: "Oh, that's clever. Who's the somebody?" },
+{ text: "I just look at her, and she laughs, and then she stops laughing." },
+{ who: $mom, text: "Me? Sweetie, I can't sit there in front of strangers with my heart up on a television. What if it does something embarrassing? What if it goes up?" },
+{ who: $player, text: "Then we tell them that's what you look like before the box gets going." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Put the band on her">>
+She holds out her wrist, which is how I know she's already agreed. I fasten the strap. $brian.name was right, it's small, and it fits her exactly.
+
+The gray line on the screen comes to life and starts to jump. 88, 91, 86. She stares at it as if it's a stranger who knows her name.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is that me? That's me, isn't it. Oh, I don't like that at all, it looks so nervous." },
+{ who: $player, text: "It is nervous. Sit down, and give it a minute." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I switch the box on. The light comes up blue, soft, the same blue as the white box she's sat next to for months of evenings in this room, and she sits down across from it and folds her hands on the table without being told to.
+
+The number drops. 84, 80, 77. She watches it go down and her shoulders go down with it, and I honestly can't tell which one is following the other.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Honey, can I ask you something? Is it really the box doing that, or is it just me sitting here doing what I'm told, because that's what you want to see?" },
+{ who: $player, text: "Does it matter? The screen can't tell the difference." },
+{ text: "She thinks about it. She watches the line for a long time, while it settles around 72 and stays there, smooth as a lake." },
+{ who: $mom, text: "Well, if the screen can't tell, I don't suppose I need to either." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Test it">>
+I stand up and walk around the table, behind her chair, and put my hand on the back of her neck, the way she's been putting hers on mine ever since.
+
+The line on the screen jumps straight up, 72 to 94, so fast the graph has to rescale.
+
+She sees it. Everybody would see it. She goes bright pink, from her collar to her hairline, and laughs, and swats at my hand without really trying to move it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well, don't do that in front of the clients, for heaven's sake! They'll think it's broken." },
+{ who: $player, text: "Or they'll think it's very sensitive. Which is good. It's a selling point." },
+{ who: $mom, text: "You're terrible. Go on, put it in my calendar, then, before I think about it and change my mind." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take my hand away, and we both watch the line come back down. It takes its time.
+
+<<EndTaskIntro "task_mom_product_demos" "Put it in her calendar">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

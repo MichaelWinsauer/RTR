@@ -67,6 +67,7 @@ sugarcube-2:
     DevicePulse: {}
     CheckTaskScene: {}
     EndTaskScene: {}
+    EndTaskIntro: {}
     SetBackground: {}
     SetLocation: {}
     ShowInformationPanel: {}

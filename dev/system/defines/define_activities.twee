@@ -368,6 +368,196 @@
 
             ],
         },
+        /* task Flirt Duty, stage 3 (her corruption stage 2): perched on the edge of their desks, the staff needing help on purpose */
+        flirt_duty3: {
+            id: "flirt_duty3",
+            base: "flirt_duty",
+            text: "doing her rounds with the staff",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Massage, stage 4 (after The Crawl): it ends on her knees under the meeting room table */
+        giving_massage4: {
+            id: "giving_massage4",
+            base: "giving_massage",
+            text: "giving a massage",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Lunch (task_mom_client_lunch), off-site, no camera: only her report. Stage 0: a proper business lunch */
+        client_lunch0: {
+            id: "client_lunch0",
+            base: "client_lunch",
+            text: "having lunch with a client",
+            locations: [
+                setup.getLocationBySysName("steakhouse"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Lunch, stage 1: the hand on her knee she does not move */
+        client_lunch1: {
+            id: "client_lunch1",
+            base: "client_lunch",
+            text: "having lunch with a client",
+            locations: [
+                setup.getLocationBySysName("steakhouse"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Lunch, stage 2: the dress I picked, he chooses the wine and the topic */
+        client_lunch2: {
+            id: "client_lunch2",
+            base: "client_lunch",
+            text: "having lunch with a client",
+            locations: [
+                setup.getLocationBySysName("steakhouse"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Lunch, stage 3: dessert in his car */
+        client_lunch3: {
+            id: "client_lunch3",
+            base: "client_lunch",
+            text: "having lunch with a client",
+            locations: [
+                setup.getLocationBySysName("steakhouse"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Product Demos (task_mom_product_demos), stage 0: the unit on her wrist, her pulse on the big screen */
+        product_demo0: {
+            id: "product_demo0",
+            base: "product_demo",
+            text: "demonstrating the unit to clients",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Product Demos, stage 1: a client holds the dial */
+        product_demo1: {
+            id: "product_demo1",
+            base: "product_demo",
+            text: "demonstrating the unit to clients",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Product Demos, stage 2: the live demonstration on the meeting room table */
+        product_demo2: {
+            id: "product_demo2",
+            base: "product_demo",
+            text: "giving a live demonstration",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Lunch Break (task_mom_lunch_break), with me in the meeting room. Stage 0: lunch, then her hand */
+        lunch_break0: {
+            id: "lunch_break0",
+            base: "lunch_break",
+            text: "on her lunch break with me",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Lunch Break, stage 1 (after The Crawl): her mouth */
+        lunch_break1: {
+            id: "lunch_break1",
+            base: "lunch_break",
+            text: "on her lunch break with me",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Lunch Break, stage 2 (after The Calendar): on the meeting room table */
+        lunch_break2: {
+            id: "lunch_break2",
+            base: "lunch_break",
+            text: "on her lunch break with me",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Working Late (task_mom_working_late), with me at my desk after hours. Stage 0: under the desk while I work */
+        working_late0: {
+            id: "working_late0",
+            base: "working_late",
+            text: "working late",
+            locations: [
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Working Late, stage 1 (after the Catalyst Night): on the desk */
+        working_late1: {
+            id: "working_late1",
+            base: "working_late",
+            text: "working late",
+            locations: [
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Working Late, stage 2 (her corruption stage 3): the office door open */
+        working_late2: {
+            id: "working_late2",
+            base: "working_late",
+            text: "working late",
+            locations: [
+                setup.getLocationBySysName("companystage1desk"),
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Evening (task_mom_client_evening, a task for two with her daughter), off-site. Stage 0: drinks at the club */
+        client_evening0: {
+            id: "client_evening0",
+            base: "client_evening",
+            text: "out with a client",
+            locations: [
+                setup.getLocationBySysName("club"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Evening, stage 1: the private room at the back of the club */
+        client_evening1: {
+            id: "client_evening1",
+            base: "client_evening",
+            text: "out with a client",
+            locations: [
+                setup.getLocationBySysName("club"),
+            ],
+            media: [],
+            cctv: [],
+        },
     },
     /*
     ==========================================================================================================
@@ -518,6 +708,8 @@
                 "working_10.mp4",
             ],
             cctv: [],
+            /* her office outfit by corruption stage (STAGE1_TASKS.md): fill in the files, an empty list uses media */
+            stageMedia: { 1: [], 2: [], 3: [] },
         },
         bring_coffee: {
             id: "bring_coffee",
@@ -530,6 +722,8 @@
                 "bringing_coffee_0.mp4",
             ],
             cctv: [],
+            /* her office outfit by corruption stage: fill in the files, an empty list uses media */
+            stageMedia: { 1: [], 2: [], 3: [] },
         },
         /* task Extra Friendly (task_sister_be_nice_to_brian), stage 0: coffee and a lot of quiet company */
         extra_friendly0: {
@@ -631,6 +825,275 @@
             ],
             cctv: [],
         },
+        /* task Socials (task_sister_socials), the meeting room as her studio. Stage 0: product shots, only her hands */
+        socials0: {
+            id: "socials0",
+            base: "socials",
+            text: "shooting pictures for the company accounts",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Socials, stage 1: her face is the brand now */
+        socials1: {
+            id: "socials1",
+            base: "socials",
+            text: "shooting pictures for the company accounts",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Socials, stage 2: the gym-wear shoot */
+        socials2: {
+            id: "socials2",
+            base: "socials",
+            text: "shooting pictures for the company accounts",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Socials, stage 3: the outtakes */
+        socials3: {
+            id: "socials3",
+            base: "socials",
+            text: "shooting pictures for the company accounts",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Field Test (task_sister_field_test) at the gym, on the camera of the chain. Stage 0: the bike, a sensor on her wrist */
+        field_test0: {
+            id: "field_test0",
+            base: "field_test",
+            text: "working out with a sensor on",
+            locations: [
+                setup.getLocationBySysName("gym"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Field Test, stage 1: the outfit I picked */
+        field_test1: {
+            id: "field_test1",
+            base: "field_test",
+            text: "working out with a sensor on",
+            locations: [
+                setup.getLocationBySysName("gym"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Field Test, stage 2: the trainer corrects her form */
+        field_test2: {
+            id: "field_test2",
+            base: "field_test",
+            text: "working out with a trainer",
+            locations: [
+                setup.getLocationBySysName("gym"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Field Test, stage 3: the private session after closing */
+        field_test3: {
+            id: "field_test3",
+            base: "field_test",
+            text: "in a private session with a trainer",
+            locations: [
+                setup.getLocationBySysName("gym"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Overtime (task_sister_overtime), with me at the office after hours. Stage 0: her hand */
+        overtime0: {
+            id: "overtime0",
+            base: "overtime",
+            text: "staying late",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Overtime, stage 1: the show she sent me, live */
+        overtime1: {
+            id: "overtime1",
+            base: "overtime",
+            text: "staying late",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Overtime, stage 2 (after Everything): the office couch */
+        overtime2: {
+            id: "overtime2",
+            base: "overtime",
+            text: "staying late",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1desk"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Photo Review (task_sister_photo_review), with me in the meeting room. Stage 0: the outtakes on her laptop */
+        photo_review0: {
+            id: "photo_review0",
+            base: "photo_review",
+            text: "going through her photos with me",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Photo Review, stage 1: a private shoot, just for me */
+        photo_review1: {
+            id: "photo_review1",
+            base: "photo_review",
+            text: "posing for me",
+            locations: [
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Team Spirit (task_sister_team_spirit), whoever has the lowest morale. Stage 0: lunch with him */
+        team_spirit0: {
+            id: "team_spirit0",
+            base: "team_spirit",
+            text: "keeping one of the staff company",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Team Spirit, stage 1: on the edge of his desk */
+        team_spirit1: {
+            id: "team_spirit1",
+            base: "team_spirit",
+            text: "keeping one of the staff company",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Team Spirit, stage 2: employee of the week, a private show in the meeting room */
+        team_spirit2: {
+            id: "team_spirit2",
+            base: "team_spirit",
+            text: "keeping one of the staff company",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+                setup.getLocationBySysName("companystage1meeting"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Front Desk (task_sister_front_desk). Stage 0: greeting visitors */
+        front_desk0: {
+            id: "front_desk0",
+            base: "front_desk",
+            text: "at the front desk",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Front Desk, stage 1: the short skirt and the sign-in sheet on the low table */
+        front_desk1: {
+            id: "front_desk1",
+            base: "front_desk",
+            text: "at the front desk",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Front Desk, stage 2: visitors who wait on the couch with her */
+        front_desk2: {
+            id: "front_desk2",
+            base: "front_desk",
+            text: "at the front desk",
+            locations: [
+                setup.getLocationBySysName("companystage1"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Hostess (task_sister_hostess), off-site, no camera: only her report. Stage 0: coats and wine */
+        hostess0: {
+            id: "hostess0",
+            base: "hostess",
+            text: "hosting an evening",
+            locations: [
+                setup.getLocationBySysName("rooftop"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Hostess, stage 1: his friends and their tips */
+        hostess1: {
+            id: "hostess1",
+            base: "hostess",
+            text: "hosting an evening",
+            locations: [
+                setup.getLocationBySysName("rooftop"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Hostess, stage 2: after midnight the party moves on to the club */
+        hostess2: {
+            id: "hostess2",
+            base: "hostess",
+            text: "hosting an evening",
+            locations: [
+                setup.getLocationBySysName("rooftop"),
+                setup.getLocationBySysName("club"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Evening (task_sister_client_evening, a task for two with her mother), off-site. Stage 0: drinks at the club */
+        client_evening0: {
+            id: "client_evening0",
+            base: "client_evening",
+            text: "out with a client",
+            locations: [
+                setup.getLocationBySysName("club"),
+            ],
+            media: [],
+            cctv: [],
+        },
+        /* task Client Evening, stage 1: the private room at the back of the club */
+        client_evening1: {
+            id: "client_evening1",
+            base: "client_evening",
+            text: "out with a client",
+            locations: [
+                setup.getLocationBySysName("club"),
+            ],
+            media: [],
+            cctv: [],
+        },
     },
 }>>
 
@@ -678,8 +1141,10 @@
     const activity = setup.getActivity(sysName, id);
     if (!activity) { return ""; }
     let folder = "activities";
-    let files = setup.activityByStage(sysName, activity.stageMedia) || activity.media || [];
-    const cctv = setup.activityByStage(sysName, activity.stageCctv) || activity.cctv || [];
+    /* a stage list that is still empty falls back to the plain list */
+    const nonEmpty = (list) => (Array.isArray(list) && list.length ? list : undefined);
+    let files = nonEmpty(setup.activityByStage(sysName, activity.stageMedia)) || activity.media || [];
+    const cctv = nonEmpty(setup.activityByStage(sysName, activity.stageCctv)) || activity.cctv || [];
     if (kind === "cctv" && cctv.length) {
         folder = "tasks";
         files = cctv;

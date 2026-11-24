@@ -1,0 +1,151 @@
+:: Task Sister Photo Review 1 [task_scene] {"position":"2150,5150","size":"100,100"}
+/* Scene of the task "Photo Review" (task_sister_photo_review), stage 1 (her corruption stage 2, after three reviews).
+   Played every time the task starts while I'm in the meeting room. Effects are in the task's stage entry.
+   I don't sit down at her laptop. I put my phone on the table with the camera open: a private shoot, for me, on my phone,
+   and none of it goes in the Taxes folder. She's the professional in the room now, and she corrects how I hold the phone
+   before she lets me start. Then she poses the way she does for the company page, and I tell her to stop doing that, and she
+   looks at the lens the way she looks at me instead. Out of her clothes, on the long table, and at the end her hand, while
+   I film. The staff are right outside the door; the first time, $brian.name knocks about an adapter and she answers him,
+   naked on the table, in a perfectly steady voice. Repeats: a random opening, direction and interruption (_pr1).
+   MEDIA: images/characters/sister/tasks/photo_review1_0.mp4 | The meeting room with the blinds down, the ring light on,
+          Sister by the blue wall unbuttoning her blouse, looking into the phone camera, filmed from his hand
+   MEDIA: images/characters/sister/tasks/photo_review1_1.mp4 | Sister naked on the long table under the ring light, leaning
+          back on one hand, the other between her legs, biting her wrist, filmed from his phone */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _pr1Task to setup.getTaskById("task_sister_photo_review")>>
+	<<set _pr1First to (_pr1Task.count || 0) === (_pr1Task.stageStartCount || 0)>>
+	<<set _pr1 to random(0, 2)>>
+<</silent>>
+<<if _pr1First>>
+The laptop is open on the table, the new shoot is loaded, and she has her finger on the trackpad, ready to go. I don't sit down next to her. I take my phone out of my pocket, open the camera and lay it on the table in front of her laptop, face up.
+
+She looks at the phone, and then at me, and I watch her get there.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "That's not my camera." },
+{ who: $player, text: "No. Today's shoot is mine. It goes on my phone, and none of it ends up in Taxes." },
+{ who: $sister, text: "Right now? Here? $player.name, $ethan.name is about nine feet that way." },
+{ who: $player, text: "Then we'll have to be quiet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She closes the laptop. She doesn't say yes, exactly. She gets up, goes to the corner where her equipment lives, and comes back with the ring light, and starts setting it up at the end of the table with the quick, practiced hands of someone who has done this forty times this month.
+<<else>>
+<<switch _pr1>>
+<<case 0>>
+She doesn't even open the laptop anymore. When I come in, the ring light is already set up at the end of the table, and she holds her hand out for my phone without a word.
+<<case 1>>
+The laptop is open, for appearances, on a slide that says Q3 Brand Review in a font she picked to be as boring as possible. The ring light is behind the door, plugged in and waiting. She looks up at me and raises her eyebrows, which means: well?
+<<default>>
+She's sitting on the table already, in front of the blue wall, swinging her feet, with the ring light on and pointed at nothing. She's done her makeup for it, the camera kind, slightly heavier than she wears it for the office.
+<</switch>>
+<</if>>
+
+<<linkreplace "Take the phone">>
+<<if _pr1First>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "No, no, no. You're holding it like somebody's grandpa at a school play. Turn it sideways. Lower. Lower than that, you're shooting down at me like I'm a sandwich you're about to post." },
+{ who: $player, text: "Like this?" },
+{ who: $sister, text: "Better. Don't use the zoom, it's terrible, walk closer instead. And tap on my face before you start, or it'll focus on the wall and make me look like a ghost." },
+{ text: "She takes my hand and moves it two inches to the left, and checks the screen over my shoulder, and nods, satisfied. Then she goes and stands in front of the blue wall, and the professional drains out of her face all at once, and she's just my $sister.relation, standing in a meeting room, about to take her clothes off for me with the whole office on the other side of the door." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: either("Sideways. You always forget sideways.", "Tap my face first. Last time you got a very sharp picture of the whiteboard.", "Lower. You know where.") },
+{ text: either("She checks my framing over my shoulder, approves it, and walks to the blue wall.", "She doesn't bother checking anymore. She just walks over to the wall and turns around.", "She adjusts the ring light one notch brighter, looks at the screen, and makes it one notch darker again.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Start filming">>
+/* MEDIA: images/characters/sister/tasks/photo_review1_0.mp4 | Ring light on, Sister by the blue wall unbuttoning her blouse, looking into the phone camera */
+She starts the way she starts every shoot for the company page. A hand on her hip, a turn of the shoulder, the chin down a little and the eyes up. She undoes the top button of her blouse with the smile that gets the comments, and then the second, and it's very good, and it's exactly what two thousand strangers see every morning.
+
+<<if _pr1First>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Stop doing that." },
+{ who: $sister, text: "Doing what?" },
+{ who: $player, text: "The thing you do for the page. Two thousand people get that smile every morning, and I'd like something they don't get." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stops. For a second she doesn't know what to do with her hands, and she drops them to her sides. Then she looks into the lens again, and the smile is gone, and what's left is the face from the outtakes, the ones she renamed with little hearts.
+<<else>>
+<<= either(
+"She remembers before I have to say anything this time. Halfway through the smile she lets it go, and looks into the lens the other way, the way she only looks at me.",
+"I tell her to stop posing. She makes a face at me for it, and then she stops, and the next button she undoes slowly, with no expression at all, watching the phone.",
+"She doesn't pose at all today. She just stands against the blue wall and takes her clothes off, unhurried, the way she'd get undressed at home, and looks at the lens while she does it."
+)>>
+<</if>>
+
+The blouse comes off. Then the skirt, which she steps out of and kicks under the table, and then the rest, slowly, while I walk closer, the way she told me, instead of zooming. When she's naked she stands there in the ring light with her arms at her sides and lets me film her. Her breathing has gone short, and every time somebody laughs outside the door her eyes flick toward it and come back to the phone.
+
+<<linkreplace "Tell her to get on the table">>
+/* MEDIA: images/characters/sister/tasks/photo_review1_1.mp4 | Sister naked on the long table under the ring light, leaning back on one hand, the other between her legs, biting her wrist */
+She sits on the edge of the long table, where the clients put their coffee cups, and then lies back on one elbow. I don't have to tell her what comes next. Her hand slides down her stomach and between her legs, and she watches the phone with her lips parted.
+
+<<if _pr1First>>
+Somebody knocks on the door.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Um. Sorry. Is the, uh... the HDMI adapter in there? The white one?" },
+{ text: "She doesn't move her hand. She doesn't sit up. She looks straight into my phone, naked on the meeting table, and answers in her normal office voice, friendly and a little bored." },
+{ who: $sister, text: "It's in the second drawer of the cabinet by the printer, $brian.name. Under the toner." },
+{ who: $brian, text: "Oh. Okay. Thanks. Sorry." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+His footsteps go away. She keeps looking into the lens, and she presses the back of her free wrist against her mouth, and I realize she's laughing, completely silently, shaking with it, and that her hand never stopped moving the whole time.
+<<else>>
+<<switch _pr1>>
+<<case 0>>
+Outside, $ethan.name starts telling a story at the top of his voice, something about his landlord's parrot, and the whole office laughs. She laughs too, silently, into her wrist, without stopping.
+<<case 1>>
+The handle of the door moves. Just a little, a quarter turn, and stops against the lock, and somebody outside says "oh" to nobody and walks away. She stares at the door with huge eyes, and then back at the phone, and her hand speeds up.
+<<default>>
+It's quiet outside today, the kind of quiet where you can hear every keyboard. She has to be completely silent, and she manages it, mostly, except for her breathing, which she can't do anything about.
+<</switch>>
+<</if>>
+
+When she comes, she bites down on her own wrist so hard she leaves a mark, and her heels drum once on the edge of the table, and that's the only sound. She lies back flat afterwards, on the table where we sign contracts, with her eyes closed and her chest heaving, and I keep filming until she opens them again and looks at me.
+
+<<linkreplace "Stop filming">>
+<<if _pr1First>>
+She holds her hand out for my phone, still lying on the table, and I give it to her. She watches the whole thing from start to finish, the sound turned all the way down, without a word. Twice she covers her face with her free hand, and then takes it away again so she can keep watching.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "This doesn't go in any folder. It stays on your phone, and your phone stays in your pocket, and if you ever lose your phone I'm moving to another country under a different name." },
+{ who: $player, text: "I won't lose it." },
+{ who: $sister, text: "You lost it twice last month. Once it was in the fridge." },
+{ text: "She hands it back to me anyway, and then sits up and looks at the mark on her wrist, the shape of her own teeth, and rubs it with her thumb, and smiles at it a little." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<= either(
+"She takes my phone, watches the first ten seconds, says 'no, absolutely not, I can't', and watches the rest.",
+"She doesn't ask to see it today. She just lies there with her arm over her eyes and asks me if it was good, and I tell her it was, and she nods with her arm still over her eyes.",
+"She sits up and holds out her hand for the phone, and sends one of the stills to herself. I raise an eyebrow at her. She says it's for her own reference, professionally, and doesn't explain any further."
+)>>
+<</if>>
+
+Getting dressed again takes her about ninety seconds. She does her buttons in the reflection of the dark laptop screen, fishes her skirt out from under the table, puts the ring light back in its corner and pulls the blinds up. By the time she opens the door, she's carrying the laptop against her chest with the Q3 Brand Review slide on it, and she tells the room the new posts will be up by Thursday.
+
+<<EndTaskScene "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

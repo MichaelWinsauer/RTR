@@ -58,4 +58,17 @@
 	<li>Two tasks with you can't overlap, not even across both columns. You can only be in one place at a time.</li>
 	<li>Like other tasks, they can change the more often they are done.</li>
 </ul>
+
+<h3>Stages</h3>
+<p>Many tasks grow over time. The task picker shows where one is (<b>STAGE 2/4</b>), and hovering over that badge tells you what the next stage still waits for: a few more runs, how far she has come (her corruption stage), or something that still has to happen in the story. A new stage changes what she does there, what you see on the camera and what she tells you about it, and usually what the task does for you.</p>
+<p>Most new tasks don't simply appear: something happens first, at the office, and then the task is there.</p>
+
+<h3>The marks in the task picker</h3>
+<ul>
+	<li><b>Report</b>: she tells you about it when you ask how her day was. Tasks without it leave nothing to tell.</li>
+	<li><b>Private</b>: it only happens while nobody else is around. Some need the room to themselves (the other one of the two can't have a task in the same place at the same time), some also have to lie after work hours, when the staff has gone home. The picker tells you if a slot doesn't work, and a private task that suddenly has company that day simply doesn't start.</li>
+	<li><b>Off-site</b>: it takes her somewhere you never go yourself. There is no camera there, so the only way to find out what happened is to ask her that evening.</li>
+	<li><b>With ...</b>: a task for the two of them together. Placing it puts it into both columns at once, taking it off removes both, and it only happens when both of them have the energy.</li>
+</ul>
+
 <div class="help-note">Tasks only run on weekdays. Check the energy shown on the <a href="#" data-help="Help Company Employees">employee cards</a> before you stack the day.</div>

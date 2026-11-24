@@ -1,0 +1,54 @@
+:: Task Sister Field Test 0 [scene pov] {"position":"3500,4650","size":"100,100"}
+/* POV passage, her side of the task Field Test (task_sister_field_test), stage 0: a normal workout at the flagship of
+   $gymChain.name with $darius.name's sensor taped to her wrist. Opened with the CCTV arrow while the task runs (the chain's
+   own cameras), or from her end-of-day report. Effects are in the task's onComplete.
+   She enjoys it more than she expected, notices the boxes in the girders she heard about all afternoon, knows about the
+   camera, and gets the "very clean" text her report quotes. Nothing happens yet; the point is that she's comfortable.
+   Clips (images/characters/sister/tasks/, activity field_test0): taping the sensor on; the bike, from the camera over
+   the mirror; the text on her phone */
+<<silent>><<SetBackground $locations[20].img>><</silent>>
+<<PovHeader $sister>>
+The girl at the front desk has a ponytail so tight it looks load-bearing. When I give her my name she finds it on a list, hands me a towel, a key card and a bottle of water with the logo on it, and tells me to have an amazing session. I've been going to the gym near campus for three years, and they still make me show my student ID every single time.
+
+$darius.name's sensor is a black disc about the size of a bottle cap, and it came in an envelope with instructions in his handwriting. <i>Inside of the left wrist. Please don't adjust it during the session. Thank you.</i> He underlined the thank you. I tape it on in the locker room, which has lockers that actually lock and a shower with a rain head the size of a pizza, and I think seriously, for a moment, about moving in.
+
+/* MEDIA: images/characters/sister/tasks/field_test0_0.mp4 | Locker room, she presses a strip of white medical tape over a small black sensor on the inside of her wrist */
+
+Forty minutes on the bike, intervals. The bikes are in a long row facing a mirror wall, and above the mirror, up where the old warehouse beams cross, there's a camera dome with a tiny red light. I look at it once while I'm adjusting the seat. Then I make myself stop looking at it, because I am not going to be the girl who spends her workout checking whether her little $sister.callPlayerShort is watching.
+
+A bit higher, in the girders, there are two little boxes with stubby antennas and a green light that blinks every few seconds. I know exactly what they are, because I sat three desks away from $ethan.name for a whole afternoon while he argued about their color. They look like nothing at all. If I didn't know, I'd never look up.
+
+The guy on the next bike, sixty-ish, with a headband he must have owned since the eighties, nods at my wrist halfway through the second interval.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Headband guy", text: "Is that one of those blood sugar things? My wife's got one of those." },
+{ who: $sister, text: "It's for work, actually. Somebody at the office wants to know what my heart does when I'm suffering." },
+{ who: "Headband guy", text: "Ha! I could tell him that for free." },
+{ text: "He pedals off into his next interval, and so do I." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The strange part is how good it feels. I usually spend the first ten minutes of any cardio negotiating with myself about the last ten, and today I don't. I just ride. The music is that bland, chorus-free stuff every gym plays, and somehow I don't mind it, and somewhere around minute twenty-five I realize I've stopped looking at the timer altogether. When the program beeps at forty, I'm almost annoyed.
+
+I'm stretching by the water fountain, with my face bright red and my hair stuck to my neck, when my phone buzzes in my bag.
+
+/* MEDIA: images/characters/sister/tasks/field_test0_1.mp4 | The row of bikes in front of a mirror wall, seen from the camera dome above it, her in the middle, riding hard */
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Your session came through. The data is very clean. Thank you." },
+{ who: $sister, text: "Thanks, I guess? What does clean mean?" },
+{ who: $darius, text: "Consistent, without artifacts or gaps. It means you didn't touch the sensor and you didn't stop halfway through to check your phone. You'd be surprised how rare that is." },
+{ who: $sister, text: "I'm choosing to take that as a compliment." },
+{ who: $darius, text: "It was intended as one." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Very clean. I'm going to have that on a mug by Christmas.
+
+On my way out I glance up at the dome over the mirrors, just once, quickly, the way you check whether you locked the car. Then I wave at it, a tiny wave down at my hip where nobody else would notice, and I go and buy an eleven-dollar smoothie on the company card, because it's for science.
+
+<<EndPov>>

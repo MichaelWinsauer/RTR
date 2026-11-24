@@ -1,0 +1,59 @@
+:: Task Sister Hostess 0 [scene pov] {"position":"3500,4950","size":"100,100"}
+/* POV passage, her side of the task Hostess (task_sister_hostess), stage 0: an ordinary Thursday on the roof of
+   $investor.callName. Off-site, no camera: opened only from her end-of-day report. Effects are in the task's onComplete.
+   Coats, wine and smiling. She's good at it and enjoys being good at it. $investor.callName introduces her to Gordon,
+   who owns four hundred car washes (her report line). One opening line differs with whether she hosted the rooftop
+   before ($flags.retailIntro "sister"). Nothing happens yet; the hands come at stage 1.
+   Clips (images/characters/sister/tasks/, activity hostess0): her at the elevator taking coats; walking the terrace with
+   a tray; laughing with the car wash man by the heaters */
+<<silent>><<SetBackground "images/locations/rooftop.jpg">><</silent>>
+<<PovHeader $sister>>
+<<if $flags.retailIntro === "sister">>
+The doorman remembers me. He says good evening and my name before I've even reached the desk, and he presses the button for the roof for me, and in the elevator mirror I check my lipstick and try not to think about the corner by the heaters, which is still there, of course, because corners don't go anywhere.
+<<else>>
+The doorman knows my name before I give it, which is either very classy or a little alarming. In the elevator up to the roof I check my lipstick in the mirror three times and tell myself it's a party, and I'm good at parties. I'm great at parties. I just usually don't get paid for them.
+<</if>>
+
+The roof is glass railings and string lights and tall heaters shaped like torches, and past the railing, the whole city, lit up and silent, like somebody built a model of it and forgot to put in the noise. $investor.callName kisses me on both cheeks and tells me I look "exactly right", which I decide is a compliment, and then he gives me the job in about four sentences. Coats go in the guest room, second door on the left. Red with the meat, white with everything else, and nobody's glass should ever be empty or completely full. Remember everybody's name. Smile.
+
+/* MEDIA: images/characters/sister/tasks/hostess0_0.mp4 | The elevator opening onto a lit rooftop, she takes a camel coat off an older man's shoulders, smiling */
+
+I take eleven coats in the first half hour, and I remember eleven names. That's one of my secret talents, which until tonight nobody has ever paid for. Hand me a name and a face and I'll keep them forever, which is great at parties and terrible when you run into your ex's parents at the grocery store.
+
+They're nice to me, mostly in the way rich men are nice to the person carrying the tray, which is warmly and without really looking. Their wives are nicer, and they look a lot more. One of them asks where I got my dress, and when I tell her, she says "oh, how fun", in a voice I'll be imitating at the office tomorrow.
+
+Around nine, $investor.callName finds me by the bar with his hand barely touching my elbow, the way he does it, as if I'm a glass he's not quite ready to pick up.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "Come, there's someone you should meet. He's a dreadful bore, but he's a rich dreadful bore, and he's terribly fond of young people who listen." },
+{ text: "The dreadful bore is a short, round, cheerful man called Gordon, with a pink face and a pink tie and a glass of red he's holding like a microphone." },
+{ who: "Gordon", text: "$investor.name tells me you're with the young fellow's company. The one that makes rooms feel nice." },
+{ who: $sister, text: "That's us. And what do you do, Gordon?" },
+{ who: "Gordon", text: "Car washes." },
+{ who: $sister, text: "Like, you own one?" },
+{ who: "Gordon", text: "I own four hundred and six of them. Four hundred and eight by March, if the zoning board in Tulsa stops being so precious about it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I genuinely didn't know one person could own that many car washes. I'm not sure I knew there were that many car washes. He tells me all about them for twenty minutes, about the foam and the brushes and how the trick is a free air freshener at the end, because people will drive across town for a free air freshener that costs you four cents. It's honestly interesting. I ask questions, and he lights up like a kid at every single one of them.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Gordon", text: "You've got a head for business, young lady. Your boss should watch out, or you'll have his job." },
+{ who: $sister, text: "Please don't tell him that. He gets nervous." },
+{ who: "Gordon", text: "Ha! I'll keep it between us." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/hostess0_1.mp4 | By a patio heater, a short round man in a pink tie talks with his hands, she laughs with a bottle of red in one hand */
+
+The rest of the evening is glasses and names and more glasses. Somebody's husband tells me a joke about a golf course that I've heard before, and I laugh at it anyway, a little before the punch line, which makes him so happy that he tells it again to the next person who walks past. At eleven $investor.callName's wife goes to bed, and the men loosen their ties and get louder, and at midnight I give everyone their coats back in the right order without checking the tags once.
+
+$investor.callName walks me to the elevator himself. He presses an envelope into my hand, says it's for my time, and tells me I'm "a credit to the firm". He says it to my face, but he looks past me at the elevator doors when he says it, as if he's already thinking about next Thursday.
+
+In the cab I open the envelope. It's more than I make in a week of answering mails, and all I did was smile and remember people's names. I lean my head against the window and watch the city go by, and I think about how I'll tell $player.name about the car washes, and whether he'll laugh, and I'm already a little bit looking forward to next week.
+
+<<EndPov>>

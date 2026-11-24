@@ -1,0 +1,84 @@
+:: Task Sister Field Test 2 [scene pov] {"position":"3750,4650","size":"100,100"}
+/* POV passage, her side of the task Field Test (task_sister_field_test), stage 2: from her corruption stage 2 on. Opened
+   with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task's onComplete.
+   Derek, one of the trainers at the flagship (a regular of the gym, no story variable), decides her form needs
+   correcting, at the squat rack and then on the hip thrust bench, with both hands. Her form is fine, and she knows it.
+   She lets him, under the camera, and finds she doesn't mind being watched while it happens; she minds a little that she
+   doesn't mind. At the end he offers her a private session after closing (stage 3).
+   Clips (images/characters/sister/tasks/, activity field_test2): his hands on her hips at the rack; his palm flat on her
+   stomach; the hip thrust bench, him kneeling, both hands on her hips */
+<<silent>><<SetBackground $locations[20].img>><</silent>>
+<<PovHeader $sister>>
+His name is Derek. I know that because it's printed on the back of his shirt in big white letters, over the word <i>COACH</i>, in case anyone was confused about his job. He's maybe twenty-eight, tanned in a way that doesn't happen in this town in this season, with forearms like bowling pins and the relaxed walk of a man who gets told yes a lot.
+
+He's been circling the free weights for twenty minutes. On the third lap he stops behind my rack.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "Hey, sorry, quick thing. Do you mind? Your knees are caving in a little at the bottom." },
+{ text: "They aren't. I've been squatting since I was sixteen, and I filmed myself for a whole semester to get my knees right. I rack the bar anyway and smile at him in the mirror." },
+{ who: $sister, text: "Are they? Show me." },
+{ who: "Derek", text: "Go again, light. Sit back into my hands, and don't think about it, just feel where I'm pushing you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He puts his hands on my hips, one on each side, his thumbs at the top of my leggings and his fingers spread wide over the front of the bones. When I go down, he goes down with me, a little behind and very close, and at the bottom he presses, gently, as if there were anything to fix.
+
+/* MEDIA: images/characters/sister/tasks/field_test2_0.mp4 | The squat rack from the camera dome, a trainer in a COACH shirt behind her, both hands on her hips as she sinks into the squat */
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "There, that's it, feel that? That's better already." },
+{ who: $sister, text: "So much better. I don't know how I ever squatted without you." },
+{ who: "Derek", text: "Ha! See, everybody says that. Now brace for me. Right here." },
+{ text: "He takes one hand off my hip and lays it flat on my stomach, just under my navel, where the cropped top stops and the leggings haven't started yet, and presses until I can feel the heat of his palm all the way through." },
+{ who: "Derek", text: "Push against my hand. Harder than that. Good girl." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I should hate the good girl. Normally I would. I'd roll my eyes so hard he'd hear it, and I'd tell the story at lunch and everybody would make gagging noises. Instead I stand there with ninety-five pounds across my shoulders and a stranger's hand under my belly button, and I push against it, and the dome above the mirror blinks its little red light at me like it's keeping count.
+
+I wonder if $player.name has the window open. I wonder if he'd want me to step away, and I already know that he wouldn't, and that's why I don't.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "Let's do some hip thrusts. Your glutes are doing maybe sixty percent of what they could be doing, and I'm being generous." },
+{ who: $sister, text: "Only sixty? That's insulting." },
+{ who: "Derek", text: "It's an opportunity." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The hip thrust bench is in the middle of the floor, under the lights, in view of absolutely everybody. I lie back with my shoulders on the bench and the padded bar across my hips, and he kneels at my feet. He says my knees are flaring out, which they aren't, and puts a hand on the inside of each one, and when that's fixed, he says my hips are tilting, and moves both hands up to them and holds them down while I push up into the bar.
+
+/* MEDIA: images/characters/sister/tasks/field_test2_1.mp4 | The hip thrust bench, her on her back driving the bar up, the trainer kneeling between her feet with both hands on her hips */
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "Drive through the heels. Up. Squeeze at the top and hold it for me. One, two, three..." },
+{ text: "He counts slowly. At the top of every rep, with my hips off the bench and my back arched, he looks at what he's holding, and then up at my face, to make sure I've seen him looking." },
+{ who: "Derek", text: "...and down. Beautiful. See, it's a whole different exercise now." },
+{ who: $sister, text: "It definitely feels different." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It does. That's the problem. My heart is going like I'm on the bike again, and it isn't from the weight, and $darius.name is going to look at this part of the graph tomorrow and draw his own conclusions in his tidy handwriting. A few machines over, a woman my age has stopped pretending to use the cable row and is just watching us. I let him keep his hands where they are for the whole set, all twelve reps, and I don't look at her, and I don't look at the camera either.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Derek", text: "You know, I do private sessions. After we close, so nobody's hogging the rack and nobody's watching you lift." },
+{ who: $sister, text: "Nobody's watching me lift now." },
+{ text: "He laughs at that, like I made a joke. Around us, three men find something very interesting about their own shoes." },
+{ who: "Derek", text: "On the house, for you. Think about it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell him I will. On the way to the locker room I can still feel the exact places his hands were, two on my hips and one under my navel, like warm spots on a car seat after someone gets up. I stand under the rain head until the water runs cold, which in this place takes a very long time.
+
+When I come out, there's a business card tucked under the strap of my gym bag. <i>Private sessions, after closing.</i> On the back he's written his number, and next to it a little drawing of a flexed arm, in case I'd forgotten which one he was.
+
+<<EndPov>>

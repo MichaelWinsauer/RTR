@@ -1,0 +1,121 @@
+:: Task Sister Overtime 1 [task_scene] {"position":"2150,5000","size":"100,100"}
+/* Scene of the task "Overtime" (task_sister_overtime), stage 1 (after three evenings of stage 0; Send Me Something is long done).
+   Played every time the task starts while I'm in the office after hours. Effects are in the task's stage entry.
+   The show from her second video, live. She tells me to stay in my chair: I'm the phone, and phones don't get up. On her desk,
+   the hoodie lifted to her ribs like in the first video, and this time she doesn't lunge for anything. Then the rest of it,
+   knees up, her hand, her eyes on me the whole time. A light comes on in a window across the street; she asks if they can see
+   in, I say maybe, and she keeps going. At the end she says my name out loud, the word I needed the volume turned up for.
+   Then she comes over and takes care of me. Repeats: a random variation of the middle (_ot1).
+   MEDIA: images/characters/sister/tasks/overtime1_0.mp4 | Office at night, Sister sitting on her own desk in his oversized
+          hoodie under the lamp, lifting the hem slowly to her ribs, looking straight at the camera
+   MEDIA: images/characters/sister/tasks/overtime1_1.mp4 | Same desk, hoodie on the floor, Sister in her underwear with her
+          knees up, then leaning back on one hand, her other hand slipping under the waistband, eyes on the camera */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _ot1Task to setup.getTaskById("task_sister_overtime")>>
+	<<set _ot1First to (_ot1Task.count || 0) === (_ot1Task.stageStartCount || 0)>>
+	<<set _ot1 to random(0, 2)>>
+<</silent>>
+<<if _ot1First>>
+Tonight she doesn't come over to my desk. When I look up she's moved the lamp from $darius.name's desk onto hers, so there are two of them now, both pointed at the same spot, and she's standing next to it in my old gray hoodie with her arms folded, the way a director stands next to a set.
+
+The heating in this building switches off at six on the dot, because $landlord.callName has it on a timer and considers anything after six to be a luxury. She found my hoodie on the back of my chair the first cold evening and never gave it back.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Stay in your chair, please. Whatever happens, you don't get up." },
+{ who: $player, text: "What happens?" },
+{ who: $sister, text: "You're the phone. In the video, the phone was on my desk, and it didn't get up, and it didn't say anything clever. So tonight you're the phone." },
+{ who: $player, text: "I can do that." },
+{ who: $sister, text: "We'll see. You've never been very good at not saying anything clever." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<switch _ot1>>
+<<case 0>>
+The two lamps are already set up on her desk when I look up, aimed at the same spot, and she's standing beside them in my hoodie waiting for me to turn my chair around. She points at me, then at the floor, which means stay.
+<<case 1>>
+She's sitting on her desk in the hoodie already, under the lamps, with her knees drawn up and her chin on them. She's been there a while, I think, deciding how she wants it to go tonight.
+<<default>>
+She turns off the big overhead lights herself tonight, one switch after the other, until it's only her two lamps and mine. Then she walks back to her desk in the dark and climbs up onto it without saying a word.
+<</switch>>
+<</if>>
+
+<<linkreplace "Stay in your chair">>
+/* MEDIA: images/characters/sister/tasks/overtime1_0.mp4 | Sister on her desk in his hoodie under the lamp, lifting the hem slowly to her ribs, looking straight at the camera */
+She sits on the edge of her desk, the way she sat on the end of her bed in the first video, and takes the hem of the hoodie in both hands. For a few seconds she just holds it, looking at a spot somewhere next to my head. Then she lifts it, slowly, over her stomach and up to her ribs, and stops there, exactly where she stopped that night.
+
+<<if _ot1First>>
+That night she panicked at this point and lunged for the phone, and the video ended on a blur of ceiling. She remembers it too. I can see her remember it. For one second her hands tense up as if they're about to go for something.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "There's nothing to grab. I just realized that. You can't stop a person." },
+{ text: "And she laughs, nervously, but she's laughing, and she pulls the hoodie up over her head and drops it on the floor next to the desk." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+She holds it there for a moment, mostly to make me wait. Then she pulls the hoodie over her head and lets it drop on the floor by the desk, where it'll be in the morning if she forgets about it, and she won't.
+<</if>>
+
+The blouse comes next, button by button, and then the skirt, which she wriggles out of sitting down because she refuses to stand up on the desk. Underneath it's plain cotton, like in the video. She draws her knees up and wraps her arms around them, and for a while she sits like that, looking at me over the top of her knees, red in the face and not looking away.
+
+<<linkreplace "Watch her">>
+/* MEDIA: images/characters/sister/tasks/overtime1_1.mp4 | Same desk, hoodie on the floor, Sister in her underwear with her knees up, then leaning back on one hand, her other hand slipping under the waistband */
+She lets go of her knees, leans back on one hand, and the other one slides down her stomach to the waistband and stays there while she breathes. Then it slips underneath.
+
+<<if _ot1First>>
+Across the street, a light comes on in a window on the second floor of the apartments, somebody's kitchen, with a calendar on the wall and a fern on the sill. She sees it at the same moment I do, and her hand stops.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Can they see in here?" },
+{ who: $player, text: "Maybe." },
+{ who: $sister, text: "That's not an answer. That's a weather forecast." },
+{ who: $player, text: "It's the honest one. If they look over, maybe." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at the window for a long moment. In the kitchen across the street a woman in a bathrobe fills a kettle with her back to us. $sister.callName watches her do it, and then she turns back to me, and her hand starts moving again, and she doesn't look at the window again for the rest of the evening.
+<<elseif _ot1 == 0>>
+Tonight she wants to hear it. Every few seconds she asks me what she should do now, faster or slower, and when I tell her, she does it, exactly, and watches my face to see if she got it right. After a while it stops being her show and turns into mine, and she knows it, and I think that's what she wanted.
+<<elseif _ot1 == 1>>
+She goes slow tonight. Very slow, slower than I think is comfortable for her, with her eyes on me the whole time, and every time she gets close she stops and waits and starts over, as if she's daring me to get up out of my chair. I stay where I am. She looks a little annoyed about that and a lot more turned on.
+<<else>>
+The kitchen light across the street is on again. She glances at it once and then deliberately turns a little toward the window, toward the glass and the street, and goes on with her eyes on me.
+<</if>>
+
+In the video she did this for thirty seconds and then reached out and stopped it. There's nothing to stop now. She keeps going, breathing through her mouth, her knees falling open, and the desk creaks under her in a slow rhythm that I'm going to hear every time I walk past it during the day.
+
+At the end she says my name. In the video I had to turn the volume all the way up to catch it. Tonight she says it out loud, to the empty office, twice, and the second time it breaks in the middle.
+
+<<linkreplace "Afterwards">>
+She stays where she is for a while, leaning back on both hands, getting her breath back. Then she gets off the desk, crosses the floor in nothing but her underwear and kneels down next to my chair, and her hands go to my belt.
+
+<<silently>>
+<<if _ot1First>>
+<<set _msgs = [
+{ who: $sister, text: "The phone was very well behaved. The phone gets a reward." },
+{ who: $player, text: "The phone didn't blink once." },
+{ who: $sister, text: "I know. I was watching. I don't think you breathed, either." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $sister, text: either("Your turn. Don't argue.", "You stayed in your chair the whole time. I'm honestly a little offended.", "I could get used to having an audience. Only this one, though.") },
+{ text: either("It doesn't take her long, and she looks extremely smug about that.", "She does it with her cheek resting on my knee, looking up at me, and doesn't say another word until I'm done.", "She uses her left hand, because her right one, she says, has had enough attention for one evening.") },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+Getting dressed takes her twice as long as getting undressed, mostly because the hoodie has gone under $darius.name's chair and she refuses to crawl after it in her tights. In the end I get it for her. She puts it on, rolls the sleeves up twice so she can find her hands again, and stands for a second looking at her desk under the two lamps.
+
+Then she switches them off, carries $darius.name's lamp back to his desk, and puts it down exactly where it was, at exactly the same angle, which is more care than anything on his desk has ever gotten from her during the day.
+
+<<EndTaskScene "Lock up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

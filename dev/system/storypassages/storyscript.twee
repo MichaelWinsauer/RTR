@@ -566,8 +566,8 @@ setup.statDefs = {
   sisterresistance:{ path: 'sister.stats.resistance',label: 'SisterResistance',goodIncrease: false, min: 0, max: 100, text: "$sister.name's Resistance" },
   sisterlust:	  { path: 'sister.stats.lust',	   label: 'SisterLust',	goodIncrease: true,  min: 0, max: 100, text: "$sister.name's Lust" },
   /* how comfortable she is being seen: the second gate of the family offers ("Family offers" in Define Quests) */
-  momexhibition:   { path: 'mom.stats.exhibition',    label: 'MomExhibition',    goodIncrease: true, min: 0, max: 100, text: "$mom.name's Exhibition" },
-  sisterexhibition:{ path: 'sister.stats.exhibition', label: 'SisterExhibition', goodIncrease: true, min: 0, max: 100, text: "$sister.name's Exhibition" },
+  momexhibition:   { path: 'mom.stats.exhibition',    label: 'MomExhibition',    goodIncrease: true, min: 0, maxPath: 'mom.stats.max.exhibition', text: "$mom.name's Exhibition", capText: "$mom.name's Exhibition can't go any higher for now." },
+  sisterexhibition:{ path: 'sister.stats.exhibition', label: 'SisterExhibition', goodIncrease: true, min: 0, maxPath: 'sister.stats.max.exhibition', text: "$sister.name's Exhibition", capText: "$sister.name's Exhibition can't go any higher for now." },
 };
 
 /* Helpers to read/write v.* via string paths */
@@ -1063,6 +1063,9 @@ window.completeTaskEntry = function (sysName, taskEntry) {
 
     taskEntry.inProgress = false;
 
+    /* the effects of the stage that was just played ("Task effects" in Define Tasks), before onComplete */
+    setup.applyTaskEffects(sysName, liveTask || task);
+
     if (task.onComplete && typeof task.onComplete.forEach === "function") {
         task.onComplete.forEach(func => func());
     }
@@ -1125,10 +1128,10 @@ window.checkTaskProgression = function () {
             const taskEntry = activeTasks[i];
             const task = taskEntry.task;
 
-            /* a task with a cooldown rests on some days (see "Task cooldown" in Define Tasks) */
+            /* it rests (cooldown), she is too tired, a private task has company, or the partner of a task
+               for two can't come ("Starting a task" in Define Tasks) */
             if (currentGlobalRow === taskEntry.startRow
-                && !setup.taskRestsToday(task)
-                && State.variables[sysName].stats.energy >= (task.baseEnergyCost || 0)) {
+                && !setup.taskStartBlock(sysName, taskEntry)) {
 
                 taskEntry.inProgress = true;
                 refreshScheduler = true;
@@ -1177,12 +1180,15 @@ arrow leads to:
             passage: "CCTV Mom Landlord 1",
             requirements: [ () => setup.corruptionTotal("mom") >= 30 ],
             requirementsText: [ "$mom.callName needs 30 corruption" ],
-            minCount: 3,     // times the task has to be finished on the previous stage
+            minCount: 3,          // times the task has to be finished on the previous stage
+            corruptionStage: 2,   // optional: her corruption stage at least this (setup.corruptionStage)
+            quest: "mom_crawl",   // optional: this quest is done (setup.questDone)
         },
     ],
 
 Every time the task is finished, the next stage is checked and unlocked when all its requirements
 pass. Story code can also force a stage with <<run setup.setTaskStage("task_mom_help_landlord", STAGE)>>.
+For the picker, setup.taskStageNeeds(task) (Define Tasks) lists what the next stage still waits for.
 */
 /* Tasks have string ids ("task_mom_test_session"), never use their index in $tasks */
 setup.getTaskById = function (id) {
@@ -1227,6 +1233,8 @@ setup.checkTaskStage = function (id) {
 
     const countOnStage = (live.count || 0) - (live.stageStartCount || 0);
     if (next.minCount && countOnStage < next.minCount) return false;
+    if (next.corruptionStage !== undefined && setup.corruptionStage(live.who.sysName) < next.corruptionStage) return false;
+    if (next.quest && !setup.questDone(next.quest)) return false;
     if ((next.requirements || []).some(req => !req())) return false;
 
     setup.setTaskStage(id, current + 1);

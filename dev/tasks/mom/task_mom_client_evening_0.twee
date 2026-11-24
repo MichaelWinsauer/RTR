@@ -1,0 +1,77 @@
+:: Task Mom Client Evening 0 [scene pov] {"position":"4225,4750","size":"100,100"}
+/* POV passage, her side of the task Client Evening (task_mom_client_evening, a task for two with her daughter), stage 0:
+   drinks with a client at $club.name. Opened from her end-of-day report (off-site, no camera). Effects are in the task data.
+   The same evening as Task Sister Client Evening 0, from her side. Lyle, the hotel man from the intro, a velvet booth, a
+   bottle of something French. His hand finds her daughter's back, and she pulls his attention over to herself, and lets
+   his hand settle on her own knee instead. She thinks her daughter is there as the charming one and knows nothing about
+   the box or about her evenings with me, and she means to keep it that way. Neither of them says a word about what the
+   other one is doing. Her report line: "We both very professionally didn't watch what the other one was doing."
+   Nothing here may give away what the Night Shift reveals (that both of them belong to me).
+   Clips (images/characters/mom/tasks/, activity client_evening0): the red dress in the booth; his hand on her knee under the
+   table; the two of them at the restroom mirror */
+<<silent>><<SetBackground "images/locations/cluboutside.jpg">><</silent>>
+<<PovHeader $mom>>
+I made them sandwiches before we left, turkey and Swiss, and we ate them standing at the kitchen counter in our good dresses, leaning forward so nothing would drip, like two women about to go on the strangest field trip of their lives. $sister.callName ate hers in about four bites and said, with her mouth full, that she'd never once in her life been sent to a nightclub by her $sister.playerRelation with a packed lunch. I told her it wasn't a nightclub, it was a private club, and that there's a difference, though I couldn't have told you what it was.
+
+We shared a cab. We talked about the weather, and about Gerald's new leaf, and about whether the cab smelled like pine or like something pretending to be pine. We didn't talk about the evening at all.
+
+$club.name doesn't even have a sign, just a black door and a very large man in a coat, and inside it's all low lights and velvet and music you feel in your stomach more than you hear it. Lyle is waiting in a booth at the back, and he stands up when he sees us, which I'll admit I didn't expect.
+
+/* MEDIA: images/characters/mom/tasks/client_evening0_0.mp4 | A velvet booth in a dim club, Mom in a red dress sliding in next to a heavyset man in an open-collared shirt, Sister on his other side */
+
+<<silently>>
+<<set _msgs = [
+{ who: "Lyle", text: "Well, would you look at that. He said he'd send his best people, and nobody warned me they came as a matched set." },
+{ who: $mom, text: "Oh, you're sweet. I'm the one who'll be boring you about service plans later, so enjoy the matched set while it lasts." },
+{ who: "Lyle", text: "No service plans tonight. Tonight we drink. Do you two like champagne? Of course you do. Everybody says they don't and then they do." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He orders a bottle of something French with a name I wouldn't try to pronounce sober, and then another one, and he tells us about his pools. There are fourteen of them, one for every hotel, and he has opinions about every single one, mostly about the tiles.
+
+I'm good at this part. I spent years in rooms with men like Lyle, nodding at the right places and remembering the name of their boat, and it turns out it all comes back like riding a bicycle, if the bicycle were wearing a push-up bra. I ask about the tiles. I laugh. I touch his arm when he gets to the funny part, and once when he doesn't.
+
+And somewhere around the second glass, his other hand finds $sister.callName's back.
+
+I see it out of the corner of my eye, his big hand flat on the bare skin between her shoulder blades, where the dress dips. She doesn't move away. She tips her head and says something to him that makes him laugh, and the hand slides down, slowly, toward the small of her back.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Lyle, you have to settle something for me, because my $mom.playerRelation says I'm wrong and I refuse to believe it. Is it true that you can tell how good a hotel is from the towels?" },
+{ who: "Lyle", text: "Is it true? $mom.name, sweetheart, it's the only thing that's true." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He turns to me, and he takes his hand back to make his point about thread counts, and when he's done with the point, the hand lands on my knee instead.
+
+/* MEDIA: images/characters/mom/tasks/client_evening0_1.mp4 | Under the booth table, a man's hand on Mom's knee at the hem of the red dress, her fingers loose around a champagne glass above it */
+
+I let it stay. It's a warm hand, heavy, and after a while it starts to move a little, up and down, his thumb going back and forth under the hem of my dress while he talks. Better there than on her, I tell myself. That's what I'm here for. $player.name asked me to keep an eye on her, and that's what I'm doing, with my eyes and with my knee.
+
+I don't look at her for the next half hour. I can hear her, though, laughing on his other side, that bright, easy laugh the whole office loves, and every so often the hand on my knee goes still, and I know without looking that he's turned to her, and then it comes back.
+
+She's just very good with people. She gets that from me, I suppose. She has no idea about any of the rest of it, about the box, or the meeting room, or the nights I go upstairs, and she never will, not if I have anything to say about it. Tonight she's a pretty girl from her $sister.playerRelation's company at a nice club with a client, and that's all she is, and that's all she's ever going to be.
+
+In the restroom we stand next to each other at the mirror, fixing our lipstick under a light so soft and flattering that it's almost rude.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Are you having a nice time, sweetie?" },
+{ who: $sister, text: "Super nice. You?" },
+{ who: $mom, text: "Oh, lovely. He's a sweet man, really, under all that tile." },
+{ who: $sister, text: "Totally. Very sweet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She blots her lipstick on a tissue, and I blot mine, and we look at our own faces in the mirror and not at each other's, and then we go back out.
+
+/* MEDIA: images/characters/mom/tasks/client_evening0_2.jpg | Mom and Sister side by side at a dim restroom mirror, both fixing their lipstick, neither looking at the other */
+
+At a quarter to one Lyle walks us to the door with an arm around each of us and tells the large man in the coat that we are the two most delightful people in the entire hospitality industry, which we're not in. In the cab I text $player.name that I think he's going to sign, honey, and that we're on our way home.
+
+Next to me, $sister.callName is typing on her phone too, with the screen turned toward the window. Probably one of her friends. I don't ask, and she doesn't ask me.
+
+<<EndPov>>

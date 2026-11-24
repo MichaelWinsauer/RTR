@@ -234,6 +234,47 @@
           ambience: { day: "ambience-home", night: "ambience-home-night" }
         }
     },
+    {
+        /* the gym chain of $gymOwner. Reachable from the Residential Area once The Gym Meeting is done
+           (setup.gymUnlocked). The sister does her Field Test task here, on the camera of the chain itself */
+        id: 20,
+        name: "$gymChain.name",
+        sysName: "gym",
+        passage: "Gym",
+        img: "images/locations/gym.jpg",
+        open: [ 1, 2, 3, 4 ],
+        audio: {
+          music: "music-residential-area",
+          ambience: { day: "ambience-shop", night: "ambience-shop-night" }
+        }
+    },
+
+    /* Off-site places (offsite: true): where a task takes her that I never go to myself. No passage, never open,
+       no camera. Their only door is her end-of-day report (STAGE1_TASKS.md) */
+    {
+        id: 21,
+        name: "the steakhouse downtown",
+        sysName: "steakhouse",
+        img: "images/locations/steakhouse.jpg",
+        offsite: true,
+        open: [],
+    },
+    {
+        id: 22,
+        name: "the rooftop of $investor.callName",
+        sysName: "rooftop",
+        img: "images/locations/rooftop.jpg",
+        offsite: true,
+        open: [],
+    },
+    {
+        id: 23,
+        name: "$club.name",
+        sysName: "club",
+        img: "images/locations/cluboutside.jpg",
+        offsite: true,
+        open: [],
+    },
 ]>>
 
 
@@ -251,6 +292,10 @@
 <<set $locations[15].locationToReturnTo to $locations[7]>>
 <<set $locations[16].locationToReturnTo to $locations[7]>>
 <<set $locations[19].locationToReturnTo to $locations[7]>>
+<<set $locations[20].locationToReturnTo to $locations[7]>>
+
+/* setup.gymUnlocked()   the gym can be visited (after The Gym Meeting) */
+<<set setup.gymUnlocked = () => setup.questDone("main_gymMeeting")>>
 
 <<set setup.getLocationBySysName = (name) => {
   let result = null;

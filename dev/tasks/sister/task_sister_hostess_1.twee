@@ -1,0 +1,68 @@
+:: Task Sister Hostess 1 [scene pov] {"position":"3625,4950","size":"100,100"}
+/* POV passage, her side of the task Hostess (task_sister_hostess), stage 1: from her corruption stage 2 on. Off-site, no
+   camera: opened only from her end-of-day report. Effects are in the task's onComplete.
+   The friends of $investor.callName have started to tip her, in cash, straight into her hand, and each of them holds on
+   to the hand while he does it, a little differently. $investor.callName watches it happen from his chair and approves.
+   She lets them, and counts it in the cab, and thinks about who she's doing it for. The report line is hers.
+   Clips (images/characters/sister/tasks/, activity hostess1): a folded bill pressed into her palm, a man's hands closing
+   hers around it; a man on a lounge chair holding her wrist while he talks; her in the back of a cab, counting */
+<<silent>><<SetBackground "images/locations/rooftop.jpg">><</silent>>
+<<PovHeader $sister>>
+It started with Gordon, a few Thursdays ago. He pressed a folded fifty into my hand when I brought him his coat, and closed my fingers over it with both of his hands, the way your grandfather gives you money for your birthday and makes you promise not to tell your parents. I said he really didn't have to, and he said that was what made it fun.
+
+Now all of them do it.
+
+I don't know if they talked about it, or if it's just the kind of thing that spreads at a party, like a yawn. But tonight the first one comes before I've even finished taking coats: a tall man with silver hair and a voice like a late-night radio host, who slides a bill into my palm while I'm helping him out of his jacket, and then doesn't let go of my hand.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Silver hair", text: "For your trouble." },
+{ who: $sister, text: "It's no trouble at all. That's sort of the point of me." },
+{ who: "Silver hair", text: "Then for your company." },
+{ text: "His thumb moves across the inside of my wrist, once, slowly, where the skin is thin, as if he's checking my pulse. Then he lets go and goes to find a drink, and I'm left standing there holding his coat in one hand and a hundred dollars in the other." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/sister/tasks/hostess1_0.mp4 | Close on her hand, a man's fingers pressing a folded bill into her palm and closing her hand around it, holding on */
+
+The clutch I brought is too small for this. By nine it doesn't close properly anymore.
+
+Every one of them does it a little differently. A man in a blue blazer holds my hand in both of his for a whole story about his boat. Gordon gives me his fifty the way he always does, and then pats my hand twice like he's checking it's still there. A younger one, forty maybe, with very white teeth, puts the bill into my hand and then laces his fingers through mine and keeps them there while he talks to someone else entirely, as if he's forgotten my hand is attached to me. I don't take it back. I stand there next to him with the tray balanced on my other palm and smile at whoever he's talking to, and after a minute or two he lets go and doesn't look at me.
+
+From his lounge chair by the heaters, $investor.callName watches all of it with his glass resting on his knee.
+
+<<silently>>
+<<set _msgs = [
+{ who: $investor, text: "My dear, come here a moment. Sit." },
+{ text: "He pats the arm of his chair. I sit on it. He doesn't touch me, which I didn't expect, and which somehow makes it stranger." },
+{ who: $investor, text: "They like you very much, you know. I've been hosting these evenings for eleven years, and I've never once seen those men compete to give a hostess money." },
+{ who: $sister, text: "I think they're mostly competing with each other." },
+{ who: $investor, text: "Of course they are, they're men. But it's you they're competing over. Your $sister.playerRelation should be very proud of you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It's the way he says it, so pleasantly, as if he were saying the wine was good. I tell him I hope he is, and I mean it more than I'd like, and $investor.callName smiles at me as if that were exactly the right answer, and sends me off to open another bottle.
+
+/* MEDIA: images/characters/sister/tasks/hostess1_1.mp4 | The investor in a lounge chair by a patio heater, her perched on the arm of it in a dark dress, the city lights behind them */
+
+The man with the silver hair finds me again near midnight, when I'm bringing out the coats. He tips me a second time, which is not how tipping works, and this time he doesn't take my hand. He takes my wrist, the whole thing, his fingers all the way around it, and holds it there between us, not tight, just to see if I'll pull away.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Silver hair", text: "Same time next week?" },
+{ who: $sister, text: "Every Thursday. It's in my contract." },
+{ who: "Silver hair", text: "Then I'll see you Thursday." },
+{ text: "He lets go one finger at a time." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't pull away. I'm not even sure I thought about it, and that's the part that stays with me in the cab.
+
+I count it on the way home, with the clutch open in my lap and the city sliding past the window. Six hundred and forty dollars, not counting $investor.callName's envelope, in crumpled fifties and hundreds that all smell a little like other men's cologne. I flatten them out one by one on my knee and stack them up neatly by size, and then I sit there with the stack in my hand and try to work out whether I'm going to give it to $player.name, or keep it, or whether that's even my decision anymore.
+
+I think I'll give it to him. I want to see his face when I put it on his desk.
+
+<<EndPov>>

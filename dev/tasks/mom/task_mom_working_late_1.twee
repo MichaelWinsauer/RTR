@@ -1,0 +1,115 @@
+:: Task Mom Working Late 1 [task_scene] {"position":"2275,4800","size":"100,100"}
+/* Scene of the task "Working Late" (task_mom_working_late), stage 1, after The Catalyst Night (main_catalystNight) and three
+   evenings under the desk. Played every time the task starts while I'm at my desk. Effects are in the task's stage entry.
+   Stage 1: on the desk. Since the Catalyst Night she wants to be wanted, not only needed, so she stops waiting under the
+   desk: she sits down on it, right in front of my monitor, between me and the dashboard. I take her there with the
+   dashboard glowing behind her. In the corner of the screen the CCTV tile shows the two of us, small and gray, from the
+   camera over the coffee machine. I look at that instead of her for a moment; she turns my face back. */
+<<silent>>
+	<<SetBackground $locations[14].img>>
+	<<set _wl1Task to setup.getTaskById("task_mom_working_late")>>
+	<<set _wl1First to (_wl1Task.count || 0) === (_wl1Task.stageStartCount || 0)>>
+	<<set _wl1 to random(0, 2)>>
+<</silent>>
+I'm halfway through the week's finance numbers when she comes over. I hear her heels cross the dark office, and then I don't hear them, because she's taken them off somewhere between her desk and mine.
+
+<<if _wl1First>>
+I push my chair back the usual foot, without looking up, the way I've done every evening since she started staying.
+
+She doesn't get down.
+
+She stands there by the chair for a moment, and then she puts one hand flat on my desk, moves my keyboard aside, and sits down on the edge of the desk, right in front of the monitor, so that the finance chart disappears behind her back and I'm looking at her stomach.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You've been looking at that screen since eight o'clock this morning, honey." },
+{ who: $player, text: "It's kind of my job." },
+{ who: $mom, text: "I know it is. I'm not saying anything against your job." },
+{ text: "She picks a bit of lint off my sleeve, and smooths the sleeve, and leaves her hand on my arm." },
+{ who: $mom, text: "I'd just like it if you looked at me for a while, that's all. If that's all right. You said... the other night, you said..." },
+{ text: "She doesn't finish. She doesn't need to. I was there, at her kitchen table, and I know exactly which part of that night she's been carrying around since." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+I don't push my chair back anymore. I wait, and she comes around the desk and moves my keyboard out of the way, and sits down on the edge of the desk in front of the monitor, where she sits now. <<= either(
+"The finance chart disappears behind her back. She's wearing the blue blouse, the one with the little buttons that take forever, and she's already undone half of them.",
+"She's let her hair down. She smells of the hand cream from her drawer and, faintly, of the coffee machine she cleaned before she came over.",
+"She's brought two mugs of tea and sets them down on either side of the mousepad, as if this is a meeting, and then forgets about them completely."
+)>>
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Hi.", "There you are. I've been watching you frown at that screen for an hour.", "Look at me, sweetie. Not the screen. Me.") },
+{ who: $player, text: either("Hi yourself.", "I wasn't frowning.", "I'm looking.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Look at her">>
+So I look at her. The dashboard lights her from behind, blue and white, and puts a thin bright edge on her hair and her shoulders, and leaves her face in the dark, so I have to lean in to see it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You're beautiful, you know that?" },
+{ who: $mom, text: "Oh, stop it." },
+{ who: $player, text: "I mean it. I don't think anybody told you enough." },
+{ text: "She laughs, embarrassed, and puts her hand over my mouth, and then she takes it away again, because she wanted to hear it." },
+{ who: $mom, text: "Say it again, honey. Just once, and then I'll stop being silly." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I say it again. She closes her eyes while I do, like she's listening to a song she likes on the radio.
+
+<<linkreplace "Stand up">>
+/* MEDIA: images/characters/mom/tasks/working_late1_0.mp4 | My desk at night, Mom on her back across the desk, the dashboard glowing behind her head, her skirt pushed up, her hands on my shoulders */
+I stand up and push her skirt up her thighs, and she leans back on her hands among my papers, and then all the way back, onto her elbows, with her head almost touching the bottom of the monitor. A pen rolls off the desk. Neither of us goes after it.
+
+She pulls me in with her legs. She's warm and wet and she sighs when I push into her, a long, satisfied sound, as if she's been holding it in since lunchtime, and maybe she has.
+
+<<if _wl1 == 0>>
+The desk is older than it looks and it thumps against the wall with every stroke, a dull, regular knock. She hears it and starts to laugh, helplessly, and has to hold on to my arms because she's laughing so much, and she doesn't stop me.
+<<elseif _wl1 == 1>>
+She keeps her eyes open the whole time. She looks at my face as if she's checking it, the way she looks at a cake through the oven door, and every time she finds whatever she was looking for, her hips come up to meet me.
+<<else>>
+She talks to me, softly, the whole time, and none of it is the thunderstorm voice anymore. It's my name, over and over, and things she has clearly never said out loud to anyone, and then she hears herself and covers her face with both hands and keeps saying them through her fingers.
+<</if>>
+
+<<linkreplace "Look at the screen">>
+Over her shoulder, in the corner of the dashboard, the CCTV tile is still open. The camera over the coffee machine looks down the length of the dark office, gray and grainy, and at the far end of it, small as two chess pieces, there's my desk with the two of us on it.
+
+I watch that for a moment instead of her. I can't help it. From up there it doesn't look like much of anything, two shapes bent over a desk at the end of a long day, the kind of footage a security guard would scroll right past.
+
+<<silently>>
+<<set _msgs = [
+{ text: "Then her hand comes up and turns my face back down to hers, gently, with two fingers on my chin, the way she used to turn my face toward the camera at birthday parties." },
+{ who: $mom, text: "Here, honey. I'm down here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Don't look away again">>
+I don't look away again. She holds my face in both hands and watches me, and when she comes she doesn't close her eyes, she just holds on and shakes and says my name once, very clearly, as if she wants to make sure I heard it. I come a moment later, inside her, with her heels locked behind my back.
+
+<<linkreplace "Afterwards">>
+She lies there on my desk for a while with her blouse open and my papers crumpled under her, getting her breath back, and doesn't seem to be in any hurry to move. When she finally sits up, there's a sticky note stuck to her shoulder blade. I peel it off and show it to her. It says <i>call bank re: overdraft</i>.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, that's mine. I've been looking for that all day." },
+{ text: "She takes it from me and sticks it on her own wrist so she won't lose it again, and slides off the desk, and starts straightening my papers into a pile, the crumpled ones on the bottom." },
+{ who: $mom, text: either("I'll iron these tomorrow, nobody will know.", "You should get a new desk, sweetie, this one has no manners.", "Go home after this, all right? You've looked at enough numbers for one day.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She fishes her heels out from under her own desk on the way to the coat rack. When I sit back down, the finance chart is still there where she left it, exactly as it was. Somebody on the CCTV tile is sitting alone at a desk at the far end of an empty office.
+
+<<EndTaskScene "Pack up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

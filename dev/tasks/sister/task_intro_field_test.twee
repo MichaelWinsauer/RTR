@@ -1,0 +1,78 @@
+:: Task Intro Field Test [event] {"position":"3500,4500","size":"100,100"}
+/* Task introduction for Field Test (task_sister_field_test), the day after The Gym Meeting (main_gymMeeting).
+   $gymOwner.name agreed to the pilot $darius.name asked for: two test units in the girders of his flagship, and access to
+   the chain's own camera system so the readings can be matched to what people are doing. The cameras now show up on my
+   dashboard. What's missing is real data from someone who really trains, with a sensor on. I send $sister.callName:
+   she's fit, and the footage will look good in a pitch. She works out that I can watch.
+   Establishes: the gym, the sensor, and the camera she knows about. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+$gymOwner.name's answer came in at twenty to six this morning, presumably between sets. $darius.name has it printed out on his desk, which he does with anything he intends to argue with, and he's already gone over it with a yellow highlighter.
+
+He waves me over before I've got my jacket off.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "He's agreed to the pilot. Two units in the ceiling of his flagship from Thursday, and two of his other locations without them, for comparison. I'm almost moved." },
+{ who: $player, text: "That was fast. I figured he'd want the dinner first." },
+{ who: $darius, text: "He still wants the dinner. This is the part he doesn't consider a commitment. He's also given us access to the building's camera system, so we can match the readings to what people are actually doing at the time." },
+{ who: $player, text: "He just handed over his cameras?" },
+{ who: $darius, text: "He asked whether they'd be useful, and I said they would. I believe he took it as a compliment to his gym." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I look over at my own screen on the way back to my desk. $ethan.name has been busy: there's a new tile on the dashboard, labeled in his usual style <i>GYM (do not show $gymOwner.name)</i>, and behind it a grid of grainy little feeds. Treadmills, a squat rack, the smoothie bar, the front desk with its wall of glowing logo. A man in a tank top is doing curls in front of a mirror and talking to his own reflection.
+
+<<linkreplace "Ask what the problem is">>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "The difficulty is the sensor data. His members won't be wearing our sensors, and I'd rather not build a retention study on people who don't know they're in one. That tends to end with a lawyer." },
+{ who: $player, text: "So what do you need?" },
+{ who: $darius, text: "One person who trains properly, three or four times a week, and keeps a sensor on from the moment they walk in until they leave. Somebody who actually works out, rather than someone who's there to be measured." },
+{ who: $player, text: "You look like you work out." },
+{ who: $darius, text: "I do. But I'd be measuring myself, and then interpreting my own numbers, and I'd trust the result about as much as I trust his body fat figures." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Across the office, $sister.callName is standing at the printer in a blouse with her sleeves pushed up, tapping her foot while it warms up. She runs four mornings a week, has since high school, and she complains about her gym near campus every time she comes home from it: the broken lockers, the guy who grunts, the one working shower.
+
+And somebody is going to have to make a video for the pitch, eventually. Footage of a gorgeous gym full of people having a great time is a lot easier to sell when one of those people is gorgeous too.
+
+<<linkreplace "Call her over">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey, are you busy for the next few weeks?" },
+{ who: $sister, text: "That's an ominous way to start a conversation. Why?" },
+{ who: $player, text: "How would you feel about working out at $gymChain.name a few times a week, on company time, with a free membership and a little sensor taped to your wrist so $darius.name gets his numbers?" },
+{ who: $sister, text: "Wait, the one in the old warehouse? With the smoothie bar?" },
+{ who: $darius, text: "The smoothies are eleven dollars. I'd consider that part of the study." },
+{ who: $sister, text: "Let me get this straight. You want me to skip the office, go to the nicest gym in the city, and you're calling it work." },
+{ who: $player, text: "It is work. There's data involved, and he'll want to talk to you about it afterwards, at length." },
+{ who: $sister, text: "That does sound like work." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She leans over my shoulder to look at what I've got open, and I don't bother closing it. She sees the grid of feeds, and I can tell exactly when she recognizes the smoothie bar.
+
+<<linkreplace "Let her look">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Is that live? That's the gym, right now?" },
+{ who: $player, text: "Their cameras. It's for the study, so we can line the readings up with whatever people are doing." },
+{ who: $sister, text: "So you'll be sitting here, at your desk, watching me sweat." },
+{ who: $player, text: "I'll be watching a heart rate graph. You'll be a very small part of a very large spreadsheet." },
+{ who: $sister, text: "Sure. A spreadsheet." },
+{ text: "She taps the little square with the squat rack in it, just once, with one fingernail, like she's marking a spot on a map." },
+{ who: $sister, text: "Then I'd better have good form." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes back to the printer, which has finally decided to print, and I hear her laugh at something on her phone on the way. $darius.name is already writing her name at the top of a new spreadsheet column. I leave the gym tile open in the corner of my screen.
+
+<<EndTaskIntro "task_sister_field_test" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

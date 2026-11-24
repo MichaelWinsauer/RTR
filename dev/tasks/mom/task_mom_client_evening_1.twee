@@ -1,0 +1,93 @@
+:: Task Mom Client Evening 1 [scene pov] {"position":"4350,4750","size":"100,100"}
+/* POV passage, her side of the task Client Evening (task_mom_client_evening), stage 1: the private room at the back of
+   $club.name. Opened from her end-of-day report (off-site, no camera). Effects are in the task data.
+   The same evening as Task Sister Client Evening 1. Conrad, a car-dealership man, invites them to the back. She follows
+   because she won't let her daughter go in there alone, and the first thing she does is check the bolt on the inside of
+   the door (her report line). A couch, a lamp, no windows. He has them stand and undress to the waist and looks, then
+   handles them both on the couch; no sex. She stares at the fringe of the lamp and doesn't look at her daughter, and tells
+   herself her daughter is doing it for the company, the way a good hostess would, and knows nothing about the rest. In the
+   hallway afterwards she straightens a strap and her daughter closes her zipper, without a word.
+   Nothing here may give away what the Night Shift reveals (that both of them belong to me).
+   Clips (images/characters/mom/tasks/, activity client_evening1): her hand on the brass bolt; standing in front of the
+   couch with the blue dress open to the waist; on the couch with his hand under her skirt, her face turned to the lamp */
+<<silent>><<SetBackground "images/locations/cluboutside.jpg">><</silent>>
+<<PovHeader $mom>>
+The man at the door knows us now. He nods when we come up the steps, and once he even said good evening, which from him is practically a hug. The bartender's name is Teo, he's saving up for a food truck that's going to sell nothing but grilled cheese, and he makes my drink without asking.
+
+Tonight's gentleman is called Conrad, and he sells cars, a great many cars, out of nine showrooms with his name on the front in letters taller than I am. He's older than Lyle was and a lot quieter, with silver hair and cufflinks, and he doesn't talk about himself at all, which I've learned is the kind you have to watch. He just listens, and smiles, and looks.
+
+At half past eleven he puts his glass down and says that it's very loud out here, and that there's a quieter room in the back where we could really talk. And he holds his hand out to $sister.callName.
+
+She takes it. Of course she does, she's a polite girl, and she's here to be nice to him.
+
+I'm on my feet before he's finished helping her up. I don't remember deciding to stand. I just know that $sister.callName is not walking through a door at the back of a place like this without me, no matter how much it's worth to the company.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "Oh, good. I was hoping you'd both come." },
+{ who: $mom, text: "Well, I can't let you two have all the quiet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The room is small, and warm, and it's got a long leather couch, a lamp with a fringed shade, a little table with an ice bucket and three glasses already on it, and no windows at all. The door is heavy and padded, and on the inside there's a brass bolt.
+
+While he's pouring, I slide the bolt across, and then back, and then across again, to see if it sticks. It doesn't. It moves very smoothly, like somebody oils it.
+
+/* MEDIA: images/characters/mom/tasks/client_evening1_0.mp4 | Mom's hand on a brass bolt on the inside of a padded door, her blue dress, the fringed lamp light behind her */
+
+I tell myself I'm checking it so a waiter doesn't come barging in on her. I tell myself I'm checking that I can open it again, if I need to, any time I want. Both are true, I think. I leave it locked.
+
+He sits in the middle of the couch. I sit on one end of it and $sister.callName sits on the other, with our knees together and our hands in our laps, like two job applicants waiting to be called in.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "I'll be honest with you both, since we're among friends. I don't need anything explained to me about the product. I've read the brochure. What I like is to look at beautiful things, quietly, without a crowd." },
+{ who: "Conrad", text: "Would you both stand up for me? Just there, in front of the lamp." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We stand. He looks at us for a long time, sipping his drink, the way you'd look at two cars on a lot. Then he asks if we'd mind letting him see a little more, so politely that it takes me a second to understand, and when I do, I realize he's looking at her when he says it.
+
+So I go first.
+
+My fingers are steady on the belt of the blue dress, which surprises me. I undo it and open the dress and let it down to my waist, and then I reach behind me for the clasp of my bra, the way you'd do it at home at the end of a long day, and let that go too. The air in the room is warm, and I'm not cold, and my nipples go tight anyway.
+
+/* MEDIA: images/characters/mom/tasks/client_evening1_1.mp4 | Mom standing in front of a leather couch in the lamplight, her blue dress open to the waist, bare-breasted, her eyes on the lamp */
+
+I look at the lamp. It has twenty-two tassels on the fringe, and I count them twice. Next to me there's the sound of a zipper going down in one quick pull, and a little rustle of fabric, and I keep counting. I don't look. I'm not going to look. If I don't look, it's only her dress, and she's only a hostess at a fancy club, being a good sport for her $sister.playerRelation's biggest client, and that's all it is.
+
+She doesn't know about the box. She doesn't know about the meeting room, or about the nights, or about what I am to $player.name now. She's never going to know, and I'll make sure of that if it's the last thing I do. Whatever she's doing in here tonight, she's doing it for the company, and that's a different thing altogether.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "Lovely. Truly. Come and sit with me now, one on each side." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He puts an arm around each of us and pulls us in against him. His hand closes over my breast, unhurried, and stays, his thumb moving like he's thinking about something else. After a while it moves down, over my stomach and under the dress bunched at my waist and under the hem of my skirt, and settles between my legs, over my underwear. He doesn't push. He just rubs, slowly, in little circles, while he talks to the room about the first dealership he ever bought, with a loan he still talks about like an old war.
+
+/* MEDIA: images/characters/mom/tasks/client_evening1_2.mp4 | On the couch, the client between them, his hand under Mom's skirt, her head turned away toward the lamp, her lips pressed together */
+
+And my body, God help me, answers. I can feel myself getting wet against his fingers and I hate it, and I hold very still, and I keep my face turned to the lamp.
+
+On his other side there's a sound, a small one, a soft catch of breath. It's a sound I don't let myself hear. She's good at pretending, my girl, she's always been the brave one in a room, and she's pretending now, for the company, and I'm sitting right here next to her, which is the whole point of me being in this room.
+
+It goes on for a long time. Then he pats both of us on the thigh like a man finishing a good meal, leans forward, and refills his glass.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Conrad", text: "Forty units. Tell your boss I said thank you, and that I'll call him myself in the morning." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+We dress with our backs to each other. I put my bra back on wrong the first time and have to do it again.
+
+In the hallway, under the little red light over the door, I see that one of her straps is twisted, and I reach over and turn it right without saying anything. A second later I feel her fingers at the back of my dress, where I couldn't reach, pulling the last inch of my zipper up.
+
+Neither of us says a word, all the way to the cab. When $player.name asks me about tonight, I'll tell him about the bolt. I'm not entirely sure yet why that's the part I want him to know.
+
+<<EndPov>>

@@ -1,0 +1,165 @@
+:: Task Sister Team Spirit 0 [scene pov] {"position":"4225,4500","size":"100,100"}
+/* POV passage, her side of the task Team Spirit (task_sister_team_spirit), stage 0: lunch with whoever on the staff has the
+   lowest morale today (setup.teamSpiritTarget, the same man as her report line and the onComplete). Opened with the
+   CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task's onComplete.
+   The report line: he talked the whole time, and he needed that more than the lunch. One variant per man:
+     ethan    pad thai at his desk, the drummer upstairs, the old physics lab, and one tired sentence he takes back
+     brian    the bench outside, and the pinball machine in his garage: the most she has ever heard him say
+     darius   the deli on the corner, after she turned him down. He clears that away first, then talks about the job he
+              left. Shut out ($flags.dariusBroughtIn false): one question about the office slips in, and she dodges it
+     null     nobody on the staff: a short lunch alone
+   Clips (images/characters/sister/tasks/, activity team_spirit0): two takeout boxes on a desk; her listening, chin in hand */
+<<silent>>
+	<<SetBackground $locations[13].img>>
+	<<set _tsWho to setup.teamSpiritTarget()>>
+	<<set _tsMan to State.variables[_tsWho]>>
+<</silent>>
+<<PovHeader $sister>>
+<<if _tsWho == "ethan">>
+$player.name sends me a name at eleven, just the name and nothing else, like a hit list for kindness. Today it's $ethan.name.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit0_0.mp4 | Two takeout boxes of pad thai on a cluttered desk, her pulling a chair up next to his */
+
+I know how $ethan.name takes his lunch, because I've watched him take it every day for months: at his desk, over the keyboard, with his headphones still on, eating whatever's closest. So I get two boxes of pad thai from the place downstairs and put one on top of his keyboard, which is the only way to get his attention.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Whoa. Okay. Either this is a very nice gesture or you need something fixed." },
+{ who: $sister, text: "It's a nice gesture. I'm on lunch duty, and today you're my lunch." },
+{ who: $ethan, text: "I don't fully understand that sentence, but I'm not going to argue with free noodles." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+That's the last full sentence I get in for about forty minutes.
+
+He tells me about the guy who moved in upstairs from him, who plays the drums, badly, and only between eleven at night and one in the morning, and how he's been leaving notes on the guy's door that started polite and are now, his words, entering their Old Testament period. He tells me about a bug he chased for two days that turned out to be a missing comma. He tells me, with his mouth full, about the physics lab back in high school, and the bike helmet with the baby monitor taped to it, and how my $sister.playerRelation once fell asleep sitting up on a lab stool and he drew a mustache on him with a whiteboard marker that didn't come off for a week.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "That was you? $mom.callName thought he'd done it himself to look older." },
+{ who: $ethan, text: "I'll take that to my grave. Well, apparently not, since I just told you." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He laughs a lot, mostly at his own stories, which makes them funnier. And somewhere around the bottom of the box he stops in the middle of a sentence and pokes at a bean sprout with his fork.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Honestly, I think I'm just kind of tired. Like, in a general way. It's been a lot of weeks in a row." },
+{ text: "Then he hears himself, and the grin comes right back, a little too fast." },
+{ who: $ethan, text: "Don't tell your $sister.playerRelation I said that. He'll make me take a vacation, and then who's going to fight the drummer?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I promise. He throws both boxes away for me, which I think is his way of saying thank you, and has his headphones back on before I'm out of his chair.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit0_1.mp4 | Her at his desk, chin in her hand, listening while he talks with his hands, a fork in one of them */
+
+<<elseif _tsWho == "brian">>
+$player.name sends me a name at eleven. It's $brian.name, which I could have told him myself, because $brian.name has been eating crackers out of the sleeve at his bench for two days and calling it lunch.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit0_0.mp4 | The little bench outside the building, two sandwiches in paper, him at the very far end of it */
+
+I tell him I'm taking him outside, and he comes, which surprises us both. There's a bench by the parking lot that gets the sun around noon. He sits at the far end of it, as far from me as the bench allows, and holds his sandwich in both hands without opening it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Um. Thanks. For the, uh. This." },
+{ who: $sister, text: "You're welcome. So what do you do on weekends? And you're not allowed to say work." },
+{ who: $brian, text: "Hm. I... there's a pinball machine. In my garage." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I say "oh, cool", in the voice you use to keep a conversation alive for one more breath, and that's all it takes. It turns out to be the right question.
+
+The machine is from 1987 and it's called something with "Space" in the name. It stood in the arcade at the bowling alley by his parents' house for most of his life, and he played it every Friday until the bowling alley closed, and then for six years he didn't know where it went. Last spring he found it online, in a barn three hours away, with a cracked backglass and mice living in the cabinet. He drove out with his cousin's truck and a hundred and fifty dollars in cash.
+
+He doesn't explain a single circuit. He tells me about the mice, and about the old man who sold it to him and wanted to play one last game first and got the high score, and about the backglass guy in Ohio he's been emailing for three months.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "The old guy's score is still on it. I could reset it. I just... ehh. I don't want to." },
+{ who: $sister, text: "No, you can't reset it. That's his." },
+{ who: $brian, text: "Yeah. That's what I think too." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then he notices his sandwich is still wrapped, and that he's been talking for half an hour, and his ears go red all at once.
+
+<<silently>>
+<<set _msgs = [
+{ who: $brian, text: "Sorry. I talked the whole time." },
+{ who: $sister, text: "That was kind of the idea. Eat your sandwich." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He eats it in about four bites, looking at the parking lot, and I'm pretty sure he's smiling at a minivan.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit0_1.mp4 | Him on the bench talking, drawing the shape of a pinball table in the air with both hands, her laughing */
+
+<<elseif _tsWho == "darius">>
+$player.name sends me a name at eleven, and it's $darius.name, and I look at it for a while.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit0_0.mp4 | A small corner deli, a table for two by the window, him in a pressed shirt holding the door for her */
+
+The last real conversation we had, he asked me out and I said no. I was nice about it, and so was he, and since then we've been very, very nice to each other in the kitchen. But my $sister.playerRelation says whoever's having the worst week, and apparently that's the guy I said no to.
+
+So I ask him to lunch. He looks at me for a second, the way he looks at a number that doesn't fit, and then says he'd like that, and holds the door of the deli on the corner for me, and pulls out my chair.
+
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "Before we order, I think I should say one thing, purely so it doesn't sit at the table with us all through lunch. I'm not going to ask again. You were perfectly clear, and kind about it, and I'd much rather have you as a colleague I enjoy than as a question I keep reopening." },
+{ who: $sister, text: "Okay. Thank you. That's... really decent of you, actually." },
+{ who: $darius, text: "I have my moments. Now, I'm told the pastrami here is a religious experience, and I'd like to test that claim." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+And after that, he talks.
+
+He talks beautifully, the way he writes his reports, every sentence built all the way to the end. He tells me about the basketball franchise, about four years of telling a front office which players were worth what, and the night a scout told him that numbers couldn't measure heart, two hours before the team traded its best defender for a man whose heart, as far as he could tell, was mostly in his agent. He tells me about his grandmother, who reads three newspapers a day and calls him to argue about all of them. He's funny in a quiet way that sneaks up on you, and I laugh into my iced tea more than once.
+
+<<if $flags.dariusBroughtIn === true>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "I'll admit, the new title has been more work than I anticipated. Your $sister.playerRelation keeps handing me data I didn't know we had, and every time I think I understand the shape of this company, it turns out to be larger." },
+{ who: $sister, text: "Is that a complaint?" },
+{ who: $darius, text: "Not remotely. It's the most interesting job I've ever had. I just haven't slept properly since I took it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $darius, text: "May I ask you something about the office? It's a small thing." },
+{ who: $sister, text: "Sure." },
+{ who: $darius, text: "Does it ever seem to you that the room changes when someone walks through it? Your $mom.relation, for example. Or you." },
+{ text: "He says it lightly, the way you'd ask if someone else finds the air conditioning cold. I look at my pastrami." },
+{ who: $sister, text: "I think people are just happier when somebody's nice to them. That's kind of my whole job right now." },
+{ who: $darius, text: "Yes. I expect you're right." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He changes the subject so smoothly that I only notice afterwards that he did.
+<</if>>
+
+He pays, and I let him, because I can tell it matters to him. On the walk back he says it was the best hour of his week, and he says it simply, like a fact he looked up, without any hope in it. I believe him, and I'm glad, and I feel a little bit guilty, and I can't decide which of those I'm supposed to feel most.
+
+/* MEDIA: images/characters/sister/tasks/team_spirit0_1.mp4 | Him across the deli table mid-story, her laughing into her iced tea */
+
+<<else>>
+$player.name doesn't send me a name today. When I ask, he says there's nobody who needs it, which I think is supposed to be good news.
+
+So I eat my salad alone at the window, which is honestly also kind of nice.
+<</if>>
+
+When I'm back at my desk, I look over at $player.name. He's got his dashboard open, and he's scrolling through some kind of chart with his chin in his hand. I don't know if he even noticed I was gone. Then he looks up and gives me a little thumbs up, and I'm much happier about it than one thumb deserves.
+
+<<EndPov>>

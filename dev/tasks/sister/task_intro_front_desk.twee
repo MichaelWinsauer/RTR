@@ -1,0 +1,66 @@
+:: Task Intro Front Desk [event] {"position":"2900,4700","size":"100,100"}
+/* Task introduction for Front Desk (task_sister_front_desk). The day after The Retail Pitch (main_retailPitch): since the
+   pitch, clients come up to the office in person, and the day the people from $retailChain.name came up they stood by
+   the door until somebody noticed them. I put a desk by the door, move the couch out of the meeting room as a waiting
+   corner with a low table in front of it, and offer the desk to $sister.callName: the first person anyone sees when they
+   step out of the elevator. She teases me about the job title and asks what she should wear; I leave it to her, and she
+   knows what that means. Establishes: her desk by the door, the sign-in sheet on it, the couch and the low table. */
+<<silent>><<SetBackground $locations[13].img>><</silent>>
+When the four people from $retailChain.name came up for the pitch, they stood just inside our door for a good while, holding their visitor badges from the lobby and looking around for someone to give them to. $brian.name walked past them twice with a soldering iron and didn't say anything either time. In the end $mom.callName came out of the kitchen, saw them, and rescued them with coffee, but I watched it happen from my desk, and it looked exactly like what it was: four very important people waiting at the entrance of a startup.
+
+They didn't sign anything. They asked for three more meetings, which according to $darius.name is how four hundred stores say maybe. Add the people $marketingOwner.name keeps sending over to look at her conference room unit, two couriers a day and a man from $gymChain.name who drops by whenever he's in the neighborhood, and the door has gotten busy.
+
+Somebody has to be at it.
+
+<<linkreplace "Set up a front desk">>
+It takes an afternoon. The spare desk goes against the wall by the door, where it's the first thing you see when the elevator opens. The couch comes out of the meeting room, the one $ethan.name has fallen asleep on more than once, and goes under the window next to it with a low glass table in front. On the desk, a clipboard with a sign-in sheet and a pen on a string, because $darius.name says clients steal pens at a rate he'd rather not quantify.
+
+$sister.callName watches the whole thing from her own desk with her chin on her fist. When the couch goes past, she raises an eyebrow at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Are we opening a dentist's office? Because I'd like to request the good magazines." },
+{ who: $player, text: "It's a front desk. People come up to us now, and somebody has to say hello to them before $brian.name scares them back into the elevator." },
+{ who: $sister, text: "In his defense, he was holding a very hot piece of metal." },
+{ who: $player, text: "That's kind of my point." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Offer it to her">>
+I sit down on the corner of her desk.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "I'd like it to be you. A few hours a day, mornings mostly, when the meetings are. You say hi, you get them a coffee, you make them sit on the couch and feel like they've come to the right place. Half of them already know your face from the company page anyway." },
+{ who: $sister, text: "So I'm the receptionist now." },
+{ who: $player, text: "Front desk. It's different." },
+{ who: $sister, text: "How is it different, exactly?" },
+{ who: $player, text: "There's no phone. Probably. I haven't decided about the phone yet." },
+{ text: "She laughs, and it's her real laugh, the one she doesn't do at work." },
+{ who: $sister, text: "I was an intern a few months ago, and now I'm the lady at the front desk. My career is going in a very interesting direction, little $sister.callPlayerShort." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She isn't saying no. She's already looking at the desk by the door, the way she looked at the meeting room when I gave her the accounts.
+
+<<linkreplace "Let her ask">>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Do I get a nameplate?" },
+{ who: $player, text: "You can order one." },
+{ who: $sister, text: "A nice one, with my whole name on it, in gold." },
+{ text: "Then she lowers her voice, even though nobody's close enough to hear." },
+{ who: $sister, text: "And what do I wear to it? The front desk, I mean." },
+{ who: $player, text: "Whatever you think works. You're the face, you'll know." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She looks at me for a moment, and I watch her decide that she does know. She doesn't ask anything else. She picks up her mug, walks over to the new desk, sits down behind it and tries the chair, turning left and right, and then sets the clipboard straight with the edge of the desk with one finger.
+
+<<EndTaskIntro "task_sister_front_desk" "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

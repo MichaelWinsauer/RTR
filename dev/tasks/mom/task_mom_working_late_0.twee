@@ -1,0 +1,113 @@
+:: Task Mom Working Late 0 [task_scene] {"position":"2150,4800","size":"100,100"}
+/* Scene of the task "Working Late" (task_mom_working_late), stage 0, after The Crawl. Played every time the task starts while
+   I'm at my desk. Effects are in the task's stage entry (Define Tasks).
+   Stage 0: under the desk while I keep working at the dashboard. I don't stop for her, that's the point of it: I answer my
+   mails, and when a client mail needs an answer I read it out, and she takes her mouth off me long enough to tell me what to
+   write, sensibly, like the office manager she is. Then she goes back to it. Afterwards she offers to start the car. */
+<<silent>>
+	<<SetBackground $locations[14].img>>
+	<<set _wl0Task to setup.getTaskById("task_mom_working_late")>>
+	<<set _wl0First to (_wl0Task.count || 0) === (_wl0Task.stageStartCount || 0)>>
+	<<set _wl0 to random(0, 2)>>
+<</silent>>
+The main room is dark now except for the green dot on the coffee machine and the strip of light over my desk. The dashboard throws its glow up at me: the project bars, the mail count, the finance chart that went up a little today and that I keep looking at for no reason.
+
+$mom.callName stops beside my chair with her arms folded, as if she's cold, though it isn't cold.
+
+<<if _wl0First>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Well, the invoices are double-checked. Triple-checked, actually, I could recite them to you." },
+{ who: $player, text: "I've still got about an hour of this." },
+{ who: $mom, text: "Oh. Well, that's fine, honey, I can wait, I'll just sit over there and..." },
+{ who: $player, text: "Or you could keep me company." },
+{ text: "I don't look away from the screen. I push my chair back from the desk about a foot, and that's all, and I open the next mail." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She understands. I can tell, because the arms come unfolded. She looks at the space under my desk, which is deep and dark and has a modesty panel on the front that the furniture guy was very proud of, and she looks at me, and I keep reading.
+
+She steps out of her heels and sets them side by side by the leg of my desk.
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("All done for today, sweetie. How much longer have you got?", "Your $sister.relation texted, she found the lasagna. She says it's 'adequate', the little brat.", "I turned the coffee machine off, it was making that noise again.") },
+{ who: $player, text: either("An hour, maybe.", "Tell her it was excellent.", "Thanks.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I push my chair back a foot. She steps out of her heels and sets them side by side by the leg of my desk, <<= either("without another word", "already unbuttoning her cardigan", "and tucks her hair behind her ears")>>.
+<</if>>
+
+<<linkreplace "Keep working">>
+/* MEDIA: images/characters/mom/tasks/working_late0_0.mp4 | My desk at night from the side, the dashboard glowing, Mom on her knees under the desk in the dark, only her hands and hair catching the light */
+She gets down on her knees and crawls in under the desk, and it's dark under there, so dark that I can only see her hands when they come up into the light to open my belt. Then I can't see them at all.
+
+I keep working. That's the thing I decided on before she even stood up, and I stick to it. I open $darius.name's project numbers and go through them line by line, and under the desk her mouth closes around me, warm and slow, and I read the same line three times before it means anything.
+
+<<if _wl0First>>
+She's careful, at first, because she can't see. She feels her way. Every so often I feel her hesitate, waiting for me to say something or put my hand on her, to tell her I'm paying attention, and I don't. I scroll. After a while she stops waiting and settles in, the way you settle in on a long drive.
+<<else>>
+<<= either(
+"She knows the dark under there by now. She knows where my knees are, and where to put her hands, and she doesn't wait for me to look down.",
+"Every so often her hand finds my shin in the dark and squeezes it, just to check I'm still there.",
+"She's slower tonight than usual, unhurried, as if she has all the time in the world and plans to use it."
+)>>
+<</if>>
+
+<<linkreplace "Answer a mail">>
+The mail at the top of my inbox is from a client. I read it out loud, in the voice I'd use for anybody.
+
+<<silently>>
+<<if _wl0 == 0>>
+<<set _msgs = [
+{ who: $player, text: "He says the unit's light is 'aggressive' and he wants to know if it comes in a softer blue. What do I tell him?" },
+{ text: "There's a pause under the desk. Then a small wet sound, and her voice comes up out of the dark, a little hoarse." },
+{ who: $mom, text: "Tell him the soft blue is a premium option, honey, and then tell him you'll make an exception for him because he's been such a good client. He'll feel special, and he won't ask about it again." },
+]>>
+<<elseif _wl0 == 1>>
+<<set _msgs = [
+{ who: $player, text: "She's asking for a second invoice copy. She's asked for one three times. What do I say?" },
+{ text: "She stops. I hear her take a breath down there." },
+{ who: $mom, text: "Don't say anything, sweetie, forward it to me. I'll call her in the morning, she's lonely, that's all it is, she just wants somebody to talk to about her invoices." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $player, text: "He wants to move Thursday's meeting to Friday. Do I have Friday?" },
+{ text: "She stops. I hear her take a breath down there." },
+{ who: $mom, text: "You have Friday at ten. Not eleven, at eleven you've got the dentist, and don't you dare skip it again, I had to call and apologize the last time." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+I type exactly what she said. She waits until she hears me hit send, and then she goes back to me, and her mouth is hotter than before, and I think it's because I listened to her.
+
+She's always wanted to be useful. Down there in the dark she gets to be useful twice.
+
+<<linkreplace "Let her finish">>
+I give up on $darius.name's numbers. I put my hand under the edge of the desk and find her hair, and that's all it takes, she makes a sound that the modesty panel swallows and takes me all the way in, again and again, her hands tight on my knees, until I come.
+
+She stays where she is afterwards. I feel her cheek against the inside of my knee, resting there, and her breath slowing down. I answer two more mails, and she doesn't move, and I don't ask her to.
+
+<<linkreplace "Afterwards">>
+She crawls back out into the light on her hands and knees, sits back on her heels on the carpet and puts herself back together: her hair, her collar, the corner of her mouth with the side of her thumb. Then she gets up and steps back into her heels, one and then the other.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Should I go and start the car? You always forget your jacket up here and then sit there shivering all the way home.", "I'll go and start the car, honey. Don't be another hour.", "Do you want me to wait, or should I go ahead and have dinner on the table?") },
+{ who: $player, text: either("Start the car. Ten minutes.", "Ten minutes, I promise.", "Go ahead. I'll be right behind you.") },
+{ who: $mom, text: either("Ten minutes. I'm timing you.", "You said that yesterday.", "All right. I'll keep it warm.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She gets her coat and her purse and switches off the last light over her own desk on the way to the door, so it's only me left in the glow of the dashboard. The answer to the client is still sitting at the top of my sent folder, in her words, with my name under it.
+
+<<EndTaskScene "Pack up">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

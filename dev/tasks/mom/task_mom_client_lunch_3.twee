@@ -1,0 +1,98 @@
+:: Task Mom Client Lunch 3 [scene pov] {"position":"3400,4050","size":"100,100"}
+/* POV passage, her side of the task Client Lunch (task_mom_client_lunch), stage 3 (her corruption stage 2, after four
+   lunches at stage 2). Off-site, so this only opens from her end-of-day report. Effects are in the task data.
+   The client is a one-off extra who owns a string of real estate offices. He skips dessert at the table and offers her
+   "something better" in his car, which is a terrible line, and she goes anyway. In the parking garage under the
+   restaurant: his hand under the red dress, then she goes down on him in the front seat. Since the Catalyst Night, being
+   wanted is what she answers to. He signs on the steering wheel. Her report line: dessert in his car, and that is all
+   she will say about it, unless I ask. The background switches to the car with the second step.
+   Clips (images/characters/mom/tasks/, activity client_lunch3): the table, the garage, the front seat */
+<<silent>><<SetBackground "images/locations/steakhouse.jpg">><</silent>>
+<<PovHeader $mom>>
+His name is Ray, and he owns eleven real estate offices with his face on the sign outside every one of them, smiling the same smile he's smiling at me now across the table. In person the smile has more wrinkles around it, and I like it better.
+
+I wore the red dress. I wear it to all of them now. I don't think about it anymore in the morning, I just reach for it, the way you reach for your keys.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch3_0.mp4 | Mom in the wine-red wrap dress at the steakhouse table, a man in an open-collared shirt leaning back, both laughing, two empty coffee cups */
+
+The business part was over before the steaks came. Ray decided in the first ten minutes that he wanted a unit for every office, and then he spent the next hour telling me stories about houses he's sold: the one with a whole room full of dolls, the one where the seller's ex-wife showed up during the open house with a lawyer and a casserole. He's funny. He knows he's funny, which usually spoils it, but somehow it doesn't with him.
+
+When Luis comes by with the dessert menu, Ray waves it away without even looking at it.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Ray", text: "No, thanks, Luis. We'll skip it." },
+{ text: "And then, to me, a little lower, with that sign smile:" },
+{ who: "Ray", text: "The desserts here are overrated anyway. I've got something much better down in my car." },
+{ who: $mom, text: "Oh, Ray, that's awful. That has to be the worst line I've ever heard, and I've heard a lot of them." },
+{ who: "Ray", text: "It's terrible, I know. I've been sitting on it since the appetizers, and I couldn't think of anything better." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I laugh so hard I have to put my napkin over my face. And then I fold the napkin and put it beside my plate and pay the check with the company card, and I already know, while I'm signing my name, that I'm going down to his car. I think I knew it at the appetizers too.
+
+<<linkreplace "Go down to the garage">>
+<<silently>><<SetBackground "images/locations/car.jpg">><</silently>>
+His car is on the second level of the garage under the building, in the far corner by a pillar with a big blue number on it, as if he parks there on purpose. Maybe he does. It's a big dark car that smells of leather and the little pine tree hanging from the mirror, and it's very quiet when the doors close, the way expensive cars are quiet.
+
+We sit there for a moment, side by side, like two people about to talk about the weather.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There's a camera over by the elevators, you know. I saw it on the way in." },
+{ who: "Ray", text: "It points at the elevators." },
+{ who: $mom, text: "Well, that's all right, then." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It isn't all right, of course, by any measure I'd have used a year ago. A year ago I'd have been home by now, vacuuming. But there's a feeling I've had since the night $player.name sat across from me at our kitchen table and told me I was wanted, as if he'd opened a window in a room I didn't know was stuffy. Ray wants me. He wanted me through two courses and a coffee and a very bad line, and I can feel it coming off him across the console like heat from an oven door, and I don't want to close the window again.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch3_1.mp4 | The front seats of a dark car in a parking garage, his hand under the hem of the red dress, her head back against the headrest */
+
+He puts his hand on my knee first, which makes me smile, because I know that one. Then it keeps going. The dress opens for it the way it opens for everything, and his fingers find the edge of my panties and push them aside, and I hear myself make a sound I don't make in front of anybody, and I put my hand over my mouth like I did with the napkin.
+
+He's slow about it. He takes his time, as if he's got all afternoon, and he watches my face the whole while, and I let him watch. I'm wet already, I have been since the appetizers, and he says so, out loud, pleased with himself, and I'm too far gone to be embarrassed about it, or I'm embarrassed and don't care.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Ray", text: "Look at you. You've been sitting across from me all lunch like this?" },
+{ who: $mom, text: "Don't you dare look so proud of yourself, honey, it was mostly the wine." },
+{ who: "Ray", text: "Sure it was." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+It wasn't the wine. I only had one glass.
+
+When I can't sit still under his hand anymore, I take his wrist and move it away, gently, and he looks almost disappointed until he sees what I'm doing. I lean across the console. His belt has one of those heavy buckles that never wants to open, and I get it on the second try, and his zipper, and then he's in my hand, warm and heavy, and I hear him let his breath out all at once.
+
+I bend down and take him in my mouth.
+
+It's awkward at first, with the gearshift pressing into my hip and the steering wheel right above my head, and I have to find a way to hold myself up with one hand on the leather. But I'm good at this now. I've learned it at home, and I learned it well, and I take my time, the way he took his, slow and deep, until his hand comes down on the back of my head and stays there. It isn't pushing. It's just resting there, the way Walt's hand rested on my knee, and I think, with the part of my mind that's still thinking at all, that men are always so surprised to be taken care of.
+
+He says my name, and then he says some things that aren't my name, and when he comes, he grips the headrest with his other hand so hard the leather creaks. I keep my mouth on him until he's finished, and I swallow, because there's nowhere else to put it in a car this nice.
+
+<<linkreplace "Afterwards">>
+I sit back up and fix my hair in the mirror on the sun visor. My lipstick is all gone, and there's a red mark on my hip from the gearshift that I can feel through the dress. I take a tissue out of my sleeve, and Ray laughs at me, a little breathless, and says his grandmother used to do that, and I tell him so did mine, and that it's a very useful habit and he should take it up.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Ray", text: "Okay. Okay, wow. Where do I sign?" },
+{ who: $mom, text: "Right here, sweetie. Use the steering wheel, it's nice and flat." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He signs for eleven offices on the steering wheel of his car, and I put the folder back in my purse, and I put my lipstick back on in the visor mirror, carefully, the same shade, so that when I walk back into the office nobody will be able to tell the difference. I take a mint from the little tin in the cup holder, because he offers, and because I'd rather not think about the alternative.
+
+He walks me to the elevator. The camera over the doors watches us the whole way, pointed exactly where he said it was.
+
+Driving back, I keep thinking about how I'll tell $player.name. I could tell him all of it. I could tell him about the line, and the gearshift, and the tissue, and he'd sit there at his desk and listen to me with that face he makes now, the still one, and I'd watch it to see what it does.
+
+Or I could just say we had dessert in his car, and see if he asks. I think I'd like him to ask.
+
+<<EndPov>>
+<</linkreplace>>
+<</linkreplace>>

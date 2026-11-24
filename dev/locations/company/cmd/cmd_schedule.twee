@@ -54,16 +54,34 @@ window.placeTask = function (task, startRow, saveToState) {
         endRow: endRow
     };
 
+    /* a task for two puts its partner into the other column at the same rows ("Tasks for two", Define Tasks) */
+    const partner = setup.taskPartner(task);
+    let partnerEntry = null;
+    if (partner) {
+        newTaskEntry.pairId = newTaskEntry.id;
+        partnerEntry = { id: Date.now() + Math.random(), task: partner, startRow: startRow, endRow: endRow, pairId: newTaskEntry.id };
+    }
+
     if (saveToState) {
         State.variables.activeTasks[character.sysName].push(newTaskEntry);
+        if (partnerEntry) State.variables.activeTasks[partner.who.sysName].push(partnerEntry);
     }
     window.renderTaskElement(newTaskEntry, true);
+    if (partnerEntry) window.renderTaskElement(partnerEntry, true);
     if (saveToState && window.cmdRefreshActions) window.cmdRefreshActions();   /* the Work card (Until her task) */
     if (saveToState && window.cmdRefreshHeader) window.cmdRefreshHeader();     /* "Next up" task items */
 };
 
 window.removeScheduledTask = function (sysName, entryId) {
-    State.variables.activeTasks[sysName] = State.variables.activeTasks[sysName].filter(t => t.id !== entryId);
+    const v = State.variables;
+    const entry = (v.activeTasks[sysName] || []).find(t => t.id === entryId);
+    v.activeTasks[sysName] = v.activeTasks[sysName].filter(t => t.id !== entryId);
+    /* a task for two goes off the schedule together with its partner */
+    if (entry && entry.pairId !== undefined) {
+        ["mom", "sister"].forEach(key => {
+            v.activeTasks[key] = (v.activeTasks[key] || []).filter(t => t.pairId !== entry.pairId);
+        });
+    }
     $("#cmd-schedule").empty().wiki('<<include "CMD Schedule">>');
     if (window.cmdRefreshHeader) window.cmdRefreshHeader();   /* "Next up" task items */
     if (window.cmdRefreshActions) window.cmdRefreshActions();   /* the Work card (Until her task) */
@@ -76,6 +94,8 @@ window.getTaskBlockState = function (entry, live) {
     if (v.date.today.value >= 5) return "monday";
     if (entry.missedDay === day) return "missed";
     if (setup.taskRestsToday(live)) return "rest";
+    /* a private task with company does not start (setup.taskPrivacyIssue, Define Tasks) */
+    if (!entry.inProgress && row < entry.startRow && setup.taskPrivacyIssue(live, live.who.sysName, entry.startRow, entry.endRow)) return "private";
     if (entry.inProgress && row >= entry.startRow && row < entry.endRow) return "now";
     if (row >= entry.endRow) {
         return (live.lastCompletedAt === day && day > 0) ? "done" : "past";
@@ -113,7 +133,7 @@ window.renderTaskElement = function (taskEntry, isNew) {
     /* the real cost: base plus her morale surcharge (setup.taskEnergyCost, Define Tasks) */
     const energy = setup.taskEnergyCost(live);
     const revenue = Number(live.revenue) || 0;
-    const badges = { now: "Now", done: "Done", missed: "Missed", rest: "Rests today", low: "Low energy" };
+    const badges = { now: "Now", done: "Done", missed: "Missed", rest: "Rests today", low: "Low energy", private: "Not private" };
 
     const el = document.createElement("div");
     el.className = "cmd-schedule-task st-rows-" + Math.min(rows, 3)
@@ -295,7 +315,7 @@ window.scheduleRowLabel = function (row) {
     return (slot ? slot.text : "?") + " " + (row % maxAP + 1);
 };
 
-window.getTaskPlacementIssue = function (task, startRow, character) {
+window.getTaskPlacementIssue = function (task, startRow, character, skipPartner) {
     const v = State.variables;
     const maxAP = v.time.actions.max;
     const timeslot = Math.floor(startRow / maxAP);
@@ -317,6 +337,17 @@ window.getTaskPlacementIssue = function (task, startRow, character) {
         if (startRow < existing.endRow && endRow > existing.startRow) {
             return "Overlaps " + wikifyText(existing.task.title);
         }
+    }
+
+    /* a private task needs the place to herself, some only after work hours (Define Tasks) */
+    const privacy = setup.taskPrivacyIssue(task, character.sysName, startRow, endRow);
+    if (privacy) return privacy;
+
+    /* a task for two needs the other one free at the same time */
+    const partner = setup.taskPartner(task);
+    if (partner && !skipPartner) {
+        const partnerIssue = window.getTaskPlacementIssue(partner, startRow, v[partner.who.sysName], true);
+        if (partnerIssue) return v[partner.who.sysName].callName + ": " + partnerIssue;
     }
 
     /* Tasks with me can't overlap across both columns: I can only be in one scene at a time */
@@ -347,13 +378,14 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
         .map(task => ({ task: task, issue: window.getTaskPlacementIssue(task, selectedStart, character) }));
     const placeOf = t => wikifyText(v.locations[t.task.location.id].name);
 
-    /* one group per task.npc.sysName, in the order of $tasks, me first (Array.sort is stable) */
+    /* one group per task.npc.sysName (or npcLabel, for people without a story variable: clients, visitors), in the
+       order of $tasks, me first (Array.sort is stable) */
     const groups = [];
     tasks.forEach(t => {
-        const key = (t.task.npc && t.task.npc.sysName) || "none";
+        const key = (t.task.npc && t.task.npc.sysName) || (t.task.npcLabel ? "label:" + t.task.npcLabel : "none");
         let group = groups.find(g => g.key === key);
         if (!group) {
-            group = { key: key, fits: [], blocked: [] };
+            group = { key: key, label: t.task.npcLabel, fits: [], blocked: [] };
             groups.push(group);
         }
         (t.issue ? group.blocked : group.fits).push(t);
@@ -384,8 +416,8 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
     board.style.setProperty("--tp-cols", Math.max(groups.length, 1));
 
     groups.forEach(group => {
-        const person = group.key !== "none" ? v[group.key] : null;
-        const name = person ? (person.callName || person.name) : "Alone";
+        const person = (group.key !== "none" && !group.key.startsWith("label:")) ? v[group.key] : null;
+        const name = person ? (person.callName || person.name) : (group.label ? wikifyText(group.label) : "Alone");
         const count = group.fits.length;
 
         const col = document.createElement("section");
@@ -448,6 +480,18 @@ window.displaySingleTask = function (task, selectedStart, issue) {
 
     const badges = [];
     if (withMe) badges.push(`<span class="tp-badge tp-badge-me" title="${meText}">With me</span>`);
+    /* a task for two, off-site, private, her report, the stage (STAGE1_TASKS.md) */
+    const partner = setup.taskPartner(task);
+    if (partner) badges.push(`<span class="tp-badge tp-badge-me" title="It goes into both columns at once, and only happens when both of them can.">With ${v[partner.who.sysName].callName}</span>`);
+    if (task.location && v.locations[task.location.id] && v.locations[task.location.id].offsite) badges.push(`<span class="tp-badge" title="There is no camera there. I only hear about it in her end-of-day report.">Off-site</span>`);
+    if (live.private) badges.push(`<span class="tp-badge" title="${live.private === "afterHours" ? "Only after work hours, and only while the other one isn't there." : "Only while the other one isn't in the same room."}">Private</span>`);
+    if (setup.taskHasReport(task)) badges.push(`<span class="tp-badge tp-badge-report" title="She tells me about it when I ask how her day was.">Report</span>`);
+    const stageInfo = setup.taskStageInfo(task);
+    if (stageInfo) {
+        const needs = setup.taskStageNeeds(task);
+        const nextText = needs === null ? "This is the last stage." : (needs.length ? "Next stage: " + needs.join(", ") : "The next stage comes with the next run.");
+        badges.push(`<span class="tp-badge" title="${nextText}">Stage ${stageInfo.stage}/${stageInfo.of}</span>`);
+    }
     const cooldownText = setup.taskCooldownText(task);
     if (cooldownText) badges.push(`<span class="tp-badge" title="On the days in between it rests, and she follows her routine instead.">${cooldownText}</span>`);
     if (lowEnergy && !issue) badges.push(`<span class="tp-badge tp-badge-warn" title="She has less energy than it costs. It won't start until she has enough.">Low energy</span>`);
@@ -813,6 +857,7 @@ window.updateCurrentTimeLine = function () {
 }
 
 .tp-badge-me { color: #EAAF4C; border-color: #EAAF4C80; }
+.tp-badge-report { color: #1cd88d; border-color: #1cd88d80; }
 .tp-badge-warn { color: #ff6479; border-color: #ff647980; }
 
 .tp-place {

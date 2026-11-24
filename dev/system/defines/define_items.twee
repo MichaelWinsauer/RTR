@@ -27,8 +27,8 @@
         /* the feeds only show on the Stage 1 dashboard. Every other camera feature needs one in the inventory */
         available: () => State.variables.company.stage >= 1,
         /* one camera per spot, and the ones already hung up or handed to mom or sister count too */
-        max: () => Object.keys(setup.cameraSpots).length,
-        used: () => Object.keys(State.variables.cctv.cameras).length + State.variables.cctv.pending.length,
+        max: () => Object.keys(setup.cameraSpots).filter((key) => setup.cameraSpots[key].by !== "system").length,
+        used: () => Object.keys(State.variables.cctv.cameras).filter((key) => (setup.cameraSpots[key] || {}).by !== "system").length + State.variables.cctv.pending.length,
     },
 }>>
 
@@ -110,6 +110,8 @@
     college:              { by: ["sister"], corruption: 60 },
     diner:                { by: ["sister"], corruption: 60 },
     landlordapartment:    { by: ["mom", "sister"], corruption: 75 },
+    /* the camera system of the gym chain itself: no camera of mine, access comes with the Field Test task (Define Tasks) */
+    gym:                  { by: "system" },
 }>>
 
 <<set setup.cameraPlaceKey = (place) => {

@@ -181,12 +181,12 @@ Revised against [LATER_STAGES_VISION.md](LATER_STAGES_VISION.md), see proposal s
 From the first full playthrough of Stage 1.
 
 **Blocking the story**
-- [ ] **No way to raise Exhibition.** Some of the sister's choices (and offers gated on Exhibition) can never be unlocked, because nothing in the normal game raises `MomExhibition`/`SisterExhibition` except a few scenes. Needs repeatable sources: tasks, interactions, micro events.
+- [x] **No way to raise Exhibition.** *The new tasks are the main source now ([STAGE1_TASKS.md](STAGE1_TASKS.md)), capped at 40 in Stage 1.* Some of the sister's choices (and offers gated on Exhibition) can never be unlocked, because nothing in the normal game raises `MomExhibition`/`SisterExhibition` except a few scenes. Needs repeatable sources: tasks, interactions, micro events.
 - [ ] **The family offers come too early.** The main line reaches its offer scenes (Gym Dinner, The Introduction, The Supplier) before the mom and sister lines have got far enough to unlock the family option, so it's nearly always locked. Give the main line more time before these big quests (longer waits, or requirements on the other lines' progress).
 
 **Continuity and missing scenes**
 - [ ] **Rehearsal assumes The Rooftop happened.** I skipped the rooftop hostess offer, but the rehearsal still talked as if she had hosted it. Several lines in [rehearsal.twee](dev/quests/sister/stage1/rehearsal.twee) mention the rooftop without checking `$flags.retailIntro === "sister"`. Add a variant for when she didn't host.
-- [ ] **No setup talk with mom before the club night.** She goes to the club with the sister without the player ever talking to her about it first. Add a scene (or a beat in Last Night Mom) where he asks or tells her.
+- [ ] **No setup talk with mom before the club night.** *Partly covered: the Client Evening task (its intro asks each of them separately) now has to run three times before the Night Shift when he offered them. A direct talk before the Night Shift itself could still be added.* She goes to the club with the sister without the player ever talking to her about it first. Add a scene (or a beat in Last Night Mom) where he asks or tells her.
 - [ ] **Remaining stubs and unfinished content**: finish them (`grep -rn STAGE1-STUB dev`; see section 3).
 
 **Her side of the story**
@@ -198,7 +198,7 @@ From the first full playthrough of Stage 1.
 
 **Day report**
 - [ ] **"How was your day?" shows up even with nothing to report.** It should only appear (and only be highlighted) when one of them really has a new entry.
-- [ ] **Show which tasks feed the report.** Mark tasks with a `report` (flirt duty has one, secretary work doesn't) with an indicator, in the CMD scheduler and wherever else tasks are listed.
+- [ ] **Show which tasks feed the report.** Mark tasks with a `report` (flirt duty has one, secretary work doesn't) with an indicator, in the CMD scheduler and wherever else tasks are listed. *Half done: the task picker has a **Report** badge now (`setup.taskHasReport`). The blocks in the schedule don't show it yet.*
 
 **Balancing**
 - [ ] **Employee morale never runs out.** The overnight recovery outpaces the work drain. Retune `setup.companyStatTuning`, `setup.moraleRecovery()` and the vent levels' `drain`.

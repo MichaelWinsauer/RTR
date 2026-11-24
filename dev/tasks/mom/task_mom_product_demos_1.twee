@@ -1,0 +1,83 @@
+:: Task Mom Product Demos 1 [scene pov] {"position":"3150,4175","size":"100,100"}
+/* POV passage, her side of the task Product Demos (task_mom_product_demos), stage 1 (her corruption stage 2, after three
+   demos). Opened with the CCTV arrow while the task runs, or from her end-of-day report. Effects are in the task data.
+   It plays for every demo at this stage, so the opening has a random variant (_pd1).
+   She hands a client the little demo dial so he can feel what it does. When he thinks she isn't looking, he turns it up.
+   She sees it in the glass wall, and lets him think he got away with it. Her report line: he turned it up when he thought
+   she wasn't looking, and she was looking. The clients are one-off extras (a car dealer and his sales manager).
+   Clips (images/characters/mom/tasks/, activity product_demo1): the dial in his hand under the table, her reflection
+   in the glass wall, her leaning back with her eyes half closed */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _pd1 to random(0, 1)>>
+<</silent>>
+<<PovHeader $mom>>
+<<if _pd1 == 0>>
+I've started looking forward to the band. I noticed it this morning, putting on my earrings: I was thinking about the little click of the strap closing around my wrist, and how the room goes quiet when the number comes up on the wall, the way a restaurant goes quiet when somebody brings out a birthday cake.
+<<else>>
+$brian.name has made the band a new strap. It's black leather now instead of tape, with a little steel buckle, and he left it on my desk this morning in a padded envelope with no note, and when I thanked him he said "Hm" to his monitor and went to the kitchen for twenty minutes.
+<</if>>
+
+Today it's a man called Dale, who owns four car dealerships along the highway and wears a ring with a stone in it the size of a cough drop, and his sales manager, a young woman with a ponytail who takes notes on everything, including, I think, me.
+
+$brian.name has built a dial for the demos as well, a little black remote that fits in your palm, with a knob on top that clicks when you turn it. It does what the one in the box does, only you can hold it in your hand. I explain that to Dale, and then I hand it to him, which is what $player.name told me to do: let them feel like they're the one doing it.
+
+/* MEDIA: images/characters/mom/tasks/product_demo1_0.mp4 | Mom at the meeting room table holding out a small black remote with a dial to a heavyset man in a sport coat, her wrist in the sensor band */
+
+<<silently>>
+<<set _msgs = [
+{ who: "Dale", text: "So I turn this, and you calm down." },
+{ who: $mom, text: "You turn it, and the room calms down, and I'm in the room. You'll feel it a little yourself, I promise. Everybody does." },
+{ who: "Dale", text: "And if I turn it all the way?" },
+{ who: $mom, text: "Then you'll see why we don't let it go any further than that. It's a very gentle box, Dale. It wouldn't hurt a fly." },
+{ text: "That's what $player.name says about the ones we sell, and I say it the way he says it, with a little smile at the end. Dale smiles back at the smile and turns the knob two clicks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I feel it come in, the softness, the shoes-off feeling. On the wall my number slides down from eighty to seventy-something, and the girl with the ponytail writes the numbers in her notebook, both of them, as if somebody will check her later.
+
+I talk them through the showrooms. People hate buying cars, everybody knows that, they walk in already braced for a fight, and if the room takes the fight out of them before the salesman says hello, they'll stay for coffee, and if they stay for coffee they'll buy the floor mats. Dale likes the floor mats part. He tells me about a customer who once bought a truck and then tried to return it because it was "too red", and I laugh, and I look over at the glass wall to the main office while I'm laughing.
+
+That's how I see it.
+
+The glass wall works like a mirror when the meeting room is brighter than the office, and from where I'm sitting it shows me the whole table, and under the table, Dale's hand. He's holding the remote down by his knee, out of sight, and while I'm looking the other way, while he thinks I'm looking the other way, his thumb turns the knob. Click, and click, and click again, all the way to the stop.
+
+/* MEDIA: images/characters/mom/tasks/product_demo1_1.mp4 | The glass wall of the meeting room as a dark mirror: the table, Mom's face, and under the table a man's thumb turning the dial to the stop */
+
+I could say something. I could turn around and wag my finger at him, the way I'd wag it at $ethan.name for taking the last cookie, and everybody would laugh and Dale would go red and hand me the remote, and that would be the end of it.
+
+I don't. I keep looking at the glass, and I let it happen.
+
+It isn't much, I know that. $player.name says the ones we sell stop where it's still polite. But it's enough that the edges of everything go warm and slow, like the bath when you've just gotten in, and I let my shoulders go, and my hands lie open on the table, and somewhere under the table my knees come apart a little without my asking them to. On the wall my number goes down to sixty-four and lies there like a cat in the sun.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Dale", text: "Look at that. You've gone all soft on me." },
+{ who: $mom, text: "Have I? It must be the company." },
+{ text: "I turn back from the glass and smile at him, slowly, a smile with nothing behind it at all, and I watch him decide I didn't notice." },
+{ who: "Dale", text: "It must be." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He leaves it on the stop for the rest of the demo. He thinks it's his secret. I sit there for twenty minutes in a warm, slow bath, answering questions about installation and service plans in a voice that's lower than my usual one, and every time I uncross my legs his eyes go under the table and come back up, and the ponytail girl writes something down.
+
+When I stand up at the end to shake his hand, I take the remote out of his palm and turn it back to zero in front of him, click by click, without looking at it, and hand it back.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There you go. You'll want to start lower than that with your customers, Dale. It's a lot, all the way up." },
+{ text: "He goes red at last, all the way to the collar, and the ponytail girl looks at her notebook and bites the inside of her cheek very hard." },
+{ who: "Dale", text: "Right. Yeah. I'll, uh, keep that in mind." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+They buy four. One for every showroom, and Dale asks, in the doorway, whether the dial comes with it. I tell him I'll check.
+
+When they've gone, I sit back down by myself for a minute before I take the band off. The number is still low, and I watch it come back up, slowly, eighty, eighty-three. I'm still warm. I'm not sure the warm is coming from the box anymore.
+
+On my way back to my desk I put the order down in front of $player.name. I don't say a word about the dial, and neither does he. He only looks up at me over his screen for a moment, and I can see that he saw all of it, the glass and the thumb and the knees, and I go to the kitchen to make myself a cup of tea and stand there waiting for the kettle with my cheeks burning, enjoying it.
+
+<<EndPov>>

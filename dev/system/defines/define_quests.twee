@@ -713,11 +713,16 @@
         requirements: [
             "$date.dayCount > setup.getQuestById('main_supplier').doneDay",
             "$flags.supplierOffered !== true || (setup.questReached('mom_lastNight') && setup.questReached('sister_lastNight') && $date.dayCount > setup.getQuestById('sister_rehearsal').doneDay)",
+            /* if I offered them: they go out with a client together first, three times (task Client Evening, Define Tasks) */
+            "$flags.supplierOffered !== true || setup.getTaskById('task_mom_client_evening').count >= 3",
         ],
         requirementsText: [
             "Wait until tomorrow",
             "Rehearse the evening with $sister.callName",
+            "Send them out with a client together first ({{setup.getTaskById('task_mom_client_evening').count}}/3)",
         ],
+        /* the Client Evening POVs assume neither knows about the other: after the back seat it ends */
+        set: [ "setup.lockTask('task_mom_client_evening')" ],
     },
     {
     	/* 4.13 End of Stage 1: the heist, the investigation, the rival launch.
@@ -2227,7 +2232,7 @@
     { name: "Charm",       corruption: 0,   exhibition: 0  },
     { name: "Warm-up",     corruption: 40,  exhibition: 10 },
     { name: "Entertain",   corruption: 140, exhibition: 25 },
-    { name: "Handed over", corruption: 300, exhibition: 50 },
+    { name: "Handed over", corruption: 300, exhibition: 35 },   /* under the Stage 1 Exhibition cap of 40 (Define NPCs) */
 ]>>
 
 <<set setup.offerStallDays to 3>>

@@ -1,0 +1,136 @@
+:: Task Mom Lunch Break 2 [task_scene] {"position":"2400,4550","size":"100,100"}
+/* Scene of the task "Lunch Break" (task_mom_lunch_break), stage 2, after The Calendar (mom_calendar) and three more lunches.
+   Played every time the task starts while I'm in the meeting room. Effects are in the task's stage entry (Define Tasks).
+   Stage 2: sex on the meeting room table. She breaks her own rule about eating first. The door has a lock now, which she
+   asked $brian.name to fit for "the confidential client files". Halfway through somebody knocks: $sister.callName if she's
+   at the office (she wants the company card for the deli, and $mom.callName answers her through the door), otherwise
+   $ethan.name, who finds the door locked. Afterwards she cleans the table and makes me eat. */
+<<silent>>
+	<<SetBackground $locations[15].img>>
+	<<set _lb2Task to setup.getTaskById("task_mom_lunch_break")>>
+	<<set _lb2First to (_lb2Task.count || 0) === (_lb2Task.stageStartCount || 0)>>
+	<<set _lb2Sis to setup.npcIsAt("sister", "companystage1")>>
+<</silent>>
+She turns the key in the lock behind her before she even puts the bag down.
+
+<<if _lb2First>>
+The lock is new. She asked $brian.name to put it in last week, for the confidential client files, she said, and he did it in ten minutes with a drill he keeps in his backpack and didn't ask a single question. The key lives on her own key ring now, between the house key and the little plastic shopping cart token she's had since $sister.callName was in kindergarten.
+
+She puts the bag on the table and doesn't unpack it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "No sandwich?" },
+{ who: $mom, text: "It'll keep. It's only turkey, honey, it isn't going anywhere." },
+{ who: $player, text: "I thought the rule was the whole thing first." },
+{ who: $mom, text: "It was my rule, so I suppose I'm allowed to change it." },
+{ text: "She says it lightly. Then she pushes the bag down to the far end of the table, all the way, until it's sitting by the whiteboard with the price sticker on it, and comes back and sits down on the edge of the table right in front of my chair." },
+{ who: $mom, text: "Don't you dare tell anybody I said that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<= either(
+"The bag goes to the far end of the table, unopened, the way it does now. Lunch comes after.",
+"She's already got her shoes off. She stepped out of them by the door on her way in, and they're standing there side by side, neatly, toes to the wall.",
+"She moves the conference phone off the table onto a chair first, and unplugs it, and puts the cord in a tidy loop on top. She learned that one the hard way."
+)>> She sits down on the edge of the table in front of my chair and looks at me with her hands on her knees, the way she sits on the edge of the tub when she's waiting for one of us to finish brushing our teeth.
+<</if>>
+
+Out in the office the lunch hour is going the way it always does. $ethan.name is telling somebody about a video of a raccoon, and the coffee machine is making its dying-whale noise, and somebody is microwaving fish, which is going to start a war again.
+
+<<linkreplace "Stand up">>
+I stand up and step in between her knees. She puts her hands on my chest and smooths my shirt flat, as if she's sending me off to school, and then her hands go down and open my belt.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: either("Quickly, sweetie, I've got the bank at one.", "Not on the folders, honey, those are $boss.callName's, move them.", "Wait, let me... there.") },
+{ text: either("I push her skirt up. There's nothing under it. She took them off in the restroom and they're folded in her skirt pocket, and she pats the pocket to show me, a little proud of herself for thinking ahead.", "I push her skirt up. She lifts her hips to help, and the table creaks, a long, wooden complaint, and we both freeze and listen to the office. Nothing. She bites down on a laugh.", "I push her skirt up to her waist. She lies back across the table on her elbows, among the folders and the napkins and the coffee rings nobody ever wipes up, and looks at me down the length of her own body.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/mom/tasks/lunch_break2_0.mp4 | The meeting room table, blinds down, Mom on her back on the edge of the table with her skirt up, her heels off, the deli bag at the far end */
+
+She pulls me in by my belt loops. She's wet already, and when I push into her she shuts her eyes and lets out a breath that's almost a word, and puts the back of her hand over her mouth to keep the rest of it in.
+
+<<linkreplace "Keep going">>
+It's not slow. It can't be, with the whole company twenty feet away, and she doesn't want it slow anyway. She holds on to the edge of the table with one hand and to my shirt with the other, and every time the table creaks she presses her lips together tighter and looks at the door, and then back at me, and her eyes are bright.
+
+That's the part that has changed since the calendar. The door used to be the reason she hurried, so it would be over before anyone came. Now she keeps glancing at it the way people watch a storm through a window, from somewhere warm, half hoping it'll get worse.
+
+<<linkreplace "Somebody's at the door">>
+The handle moves.
+
+It goes down, and catches on the new lock, and comes back up. Then somebody knocks.
+
+<<if _lb2Sis>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "$mom.callName? Are you in there? I need the company card, the deli guy won't put it on a tab for me, apparently I have 'a face that doesn't pay'." },
+{ text: "$mom.callName's eyes go wide. I'm still inside her. I don't move, and neither does she, and for a second I think she's going to push me away." },
+{ text: "She doesn't. She clears her throat." },
+{ who: $mom, text: "It's in my purse, sweetie, on my desk. The red wallet, the inside pocket, and bring me the receipt, please." },
+{ who: $sister, text: "Thank you, you're a saint. Is $player.name in there with you? Did he eat?" },
+{ who: $mom, text: "He's eating right now, honey." },
+{ text: "Her voice is perfectly steady. It's the voice she uses at the bank. And while she says it, she hooks one heel behind my leg and pulls me in, slowly, as deep as I'll go." },
+{ who: $sister, text: "Finally. Gold star for you, $mom.callName." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName's footsteps go off toward $mom.callName's desk. I hear the purse zip open, and close, and the front door of the office swing and fall shut.
+
+$mom.callName takes her hand off her mouth. She's shaking, all over, and it isn't fear, or not only fear.
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Since when does this door lock? What are you guys doing in there, launching nukes?" },
+{ text: "$mom.callName's eyes go wide. I'm still inside her. I don't move, and neither does she." },
+{ who: $mom, text: "Confidential files, sweetie! Client contracts, the boring kind. Did you need something?" },
+{ text: "Her voice is perfectly steady. It's the voice she uses at the bank. And while she says it, she hooks one heel behind my leg and pulls me in, slowly, as deep as I'll go." },
+{ who: $ethan, text: "Nah, just the whiteboard markers. Never mind, I'll steal $darius.name's, he's got the fancy ones." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He wanders off whistling. $mom.callName takes her hand off her mouth. She's shaking, all over, and it isn't fear, or not only fear.
+<</if>>
+
+<<linkreplace "Finish">>
+/* MEDIA: images/characters/mom/tasks/lunch_break2_1.mp4 | Closer: Mom holding on to the edge of the table, her free hand over her own mouth, eyes on mine */
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Don't stop, honey. Please, I'm almost..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I don't. She comes a minute later with her hand clamped over her mouth and her other hand fisted in my shirt, her whole body pulling tight around me, and the only sound she makes gets lost in her palm. It's enough to finish me too. She holds on to me through it, both arms around my neck now, her face in my shoulder, until I'm done.
+
+<<linkreplace "Afterwards">>
+She gets the napkins out of the bag first, before anything else. She cleans herself up, and me, and then the table, properly, with the little spray bottle she keeps in her desk for the coffee machine. She brought it in her skirt pocket, next to the folded underwear. She thought of everything, and she did it while unpacking a turkey sandwich.
+
+Then she unpacks the turkey sandwich, sets it in front of my chair, and pats the chair.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Now you eat. All of it." },
+{ who: $player, text: "You changed the rule." },
+{ who: $mom, text: "I changed the order, honey. The rule's still the rule." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _lb2Sis>>
+She leaves before I've finished the first half, to be back at her desk when $sister.callName comes up with the receipt. On the way out she stops with her hand on the key and looks back at the table, at the exact spot, and then she unlocks the door and goes out smiling.
+<<else>>
+She leaves before I've finished the first half. On the way out she stops with her hand on the key and looks back at the table, at the exact spot, and then she unlocks the door and goes out and offers $ethan.name a whiteboard marker from her own drawer.
+<</if>>
+
+<<EndTaskScene>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

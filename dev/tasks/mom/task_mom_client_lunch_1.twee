@@ -1,0 +1,74 @@
+:: Task Mom Client Lunch 1 [scene pov] {"position":"3150,4050","size":"100,100"}
+/* POV passage, her side of the task Client Lunch (task_mom_client_lunch), stage 1 (her corruption stage 1, after three
+   lunches). Off-site, so this only opens from her end-of-day report. Effects are in the task data.
+   The client is a one-off extra: an older insurance man who runs a call center. He asks for the round corner booth, and
+   when dessert comes his hand goes on her knee and stays there. She doesn't move it, and she can't quite say why. Her
+   report line: his hand on her knee all through dessert, she didn't move it, and she isn't sure why she's telling me.
+   If the gym dinner happened ($mom.flags.gymDinner, $mom.flags.gymDinnerLetHim), she compares the two.
+   Clips (images/characters/mom/tasks/, activity client_lunch1): the round booth, his hand on her knee under the table,
+   her spoon in the creme brulee */
+<<silent>><<SetBackground "images/locations/steakhouse.jpg">><</silent>>
+<<PovHeader $mom>>
+I'm getting good at this. I can say that to myself, I think, after three of them. I know which waiter is the nice one now (Luis, who has a kid at the state college and always brings extra bread without being asked), I know the corner table by the window gets the sun at one o'clock and makes everybody squint, and I know that if I order the salmon I can eat it and still talk, which you can't do with a steak.
+
+Today it's a man called Walt, who manages a call center for an insurance company out by the highway: forty people in headsets, eight hours a day, being yelled at by strangers about hail damage. He's somewhere past sixty, with very clean fingernails and a wedding ring he turns around and around when he's thinking.
+
+He asked Luis for the round booth in the back, the one where you end up sitting beside each other instead of across. I didn't think anything of it until I was already sliding in.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch1_0.mp4 | The round leather booth in the back of the steakhouse, Mom and an older man in a gray suit side by side, her laughing at something on his phone */
+
+<<silently>>
+<<set _msgs = [
+{ who: "Walt", text: "My people burn out in about eight months. I hire them in the spring, and by Christmas they're either gone or they've gone quiet, which is worse, because the quiet ones stay." },
+{ who: $mom, text: "Oh, that's so sad. You can always tell the quiet ones on the phone, can't you? They do that little sigh before they say the company name." },
+{ who: "Walt", text: "You've worked a phone." },
+{ who: $mom, text: "Sweetheart, I've worked every phone there is." },
+{ text: "That one slips out. I hear it a second after I say it, and I feel my face go warm, but he only laughs, a big pleased laugh, and turns his ring around twice." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The lunch itself is easy. He wants to hear that his people will feel better, and they will, so I tell him that, and I tell him about the office, about how everyone stays late without grumbling now and nobody's taken a sick day in weeks, which is true. I don't tell him why it's true. I'm not completely sure I know why it's true.
+
+He decides on dessert for both of us without asking, the crème brûlée, two spoons. And when Luis sets it down, Walt's hand goes on my knee.
+
+He doesn't look at me when he does it. He keeps looking at the dessert, and he keeps talking about the headsets, how the cheap ones pinch, how he's been fighting head office about it for two years. His hand is warm through my stockings. It's just resting there, the whole flat of it, the way you'd rest your hand on the arm of a chair.
+
+I wait for myself to move it.
+
+<<silently>>
+<<set _msgs = [
+{ who: "Walt", text: "So I said to them, you want me to keep people longer than eight months, give them a headset that doesn't feel like a vise. That's all I'm asking." },
+{ who: $mom, text: "That seems very reasonable to me." },
+{ text: "I break the crust of the crème brûlée with my spoon. It makes that lovely little crack, and I concentrate on the crack." },
+{ who: "Walt", text: "You're the first person from one of these outfits who hasn't tried to sell me a whole new system in the first ten minutes." },
+{ who: $mom, text: "Well, you didn't need a whole new system. You needed somebody to listen to you about the headsets." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+His thumb moves, once, and then it's still again.
+
+<<if $mom.flags.gymDinnerLetHim === true>>
+The last time a man put his hand on my knee in this restaurant, $player.name had told me beforehand to let him. I had a reason that night, and I could hold on to it all through the coffee. Nobody told me anything about Walt. I sit here with the spoon in my hand, looking for a reason, and I can't find one, and I still don't move it.
+<<elseif $mom.flags.gymDinner === true>>
+The last time a man put his hand on my knee in this restaurant, I picked it up and put it back on the table and asked him about his twelfth location, and it was the easiest thing in the world. I could do that now. I know exactly how. I sit here with the spoon in my hand, knowing exactly how, and I don't.
+<<else>>
+I've done this before, when I was young and men did it all the time, at office parties and in the backs of cars: picked the hand up, put it back where it came from and smiled so nobody had to be embarrassed. I know exactly how. I sit here with the spoon in my hand, knowing exactly how, and I don't.
+<</if>>
+
+It's for the company, I tell myself. It's a forty-seat contract, and he's a lonely man who wants to be listened to, and his hand is only on my knee, which is a perfectly ordinary part of a person. Nobody can see it under the tablecloth. $boss.callName did much worse in front of a whole floor, and I laughed for him, so I can certainly eat a crème brûlée for Walt.
+
+But that isn't why. I know it isn't, and I eat the whole crème brûlée anyway, all of it, scraping the little burned bits off the edge of the dish, while his hand stays where it is and the rest of me goes on talking about headsets as if it belonged to somebody else.
+
+When Luis brings the check, Walt takes his hand back to reach for his wallet, out of habit, and I tell him no, this one's on us, and he looks almost hurt. He signs for forty seats on the back of the receipt folder as a promise, and says he'll have his office send it over properly by Friday.
+
+Outside, he holds the door for me, and he squeezes my elbow when we say goodbye, and that's all.
+
+/* MEDIA: images/characters/mom/tasks/client_lunch1_1.mp4 | Mom alone in her car in the parking lot afterwards, both hands on the wheel, looking down at her knee */
+
+In the car, I look at my knee. There's nothing to see, of course. My stockings aren't even creased.
+
+I'm going to tell $player.name about it tonight. I already know I'm going to, the way I already know I'll have a second piece of pie at Thanksgiving, and I don't know whether I want him to be angry or to tell me I did well, and I'm not sure which one would be worse.
+
+<<EndPov>>

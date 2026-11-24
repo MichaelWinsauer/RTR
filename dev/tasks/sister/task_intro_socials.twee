@@ -1,0 +1,76 @@
+:: Task Intro Socials [event] {"position":"2900,4500","size":"100,100"}
+/* Task introduction for Socials (task_sister_socials). Two days after The First Real Sale (main_firstSale): the signed
+   pilot contract from $marketingOwner.name comes back with a free piece of advice, the company needs a face. I give the
+   company accounts to $sister.callName, the one of us who has never taken a bad picture, with the meeting room as her
+   studio twice a week. She teases me about the photos I took myself and says yes on her own terms (a ring light, the
+   final say, and I like every post). Establishes: she runs the accounts, the meeting room is her studio. */
+<<silent>><<SetBackground $locations[14].img>><</silent>>
+$marketingOwner.name's lawyer didn't find anything stupid in the contract. It comes back signed this morning, every page initialed in green ink, and at the bottom of the email there's a paragraph that has nothing to do with the pilot.
+
+<i>One more thing, free of charge. I looked at your website again. Your product photos look like evidence from an insurance claim. You need a face. Nobody follows a box.</i>
+
+I open our company page to check whether she's exaggerating. She isn't. There are four posts, all of them the unit on a white table, all of them taken by me with my phone, from an angle that somehow makes it look like it's sulking. Forty-one followers, and at least one of them is a bot that sells sunglasses.
+
+The face can't be mine. I've spent my whole life at the edge of the group photo, half cut off, usually blinking, and I don't think a chubby guy squinting into the flash is what $marketingOwner.name had in mind.
+
+Across the office, $sister.callName is at her desk with one foot tucked under her, typing up something for $darius.name and laughing at her own screen.
+
+<<linkreplace "Show her the email">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Hey, do you have a minute? I want to show you something, and I'm pretty sure you're going to make fun of me for it." },
+{ who: $sister, text: "That's very likely, yes. Show me." },
+{ text: "I put my laptop down on her desk and she reads the email with her chin in her hand. When she gets to the insurance claim, she snorts." },
+{ who: $sister, text: "Okay, that's mean, but she's not wrong. The one at the top looks like it fell off a truck and somebody's trying to get money for it." },
+{ who: $player, text: "I took that one." },
+{ who: $sister, text: "I know you did, little $sister.callPlayerShort. Your thumb is in the corner." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She zooms in on the thumb to prove it. It's definitely my thumb.
+
+<<linkreplace "Make her the offer">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So here's the thing. I'd like you to take the accounts over, all of them. The pictures, the posts, what we say and how we say it. You'd be the face." },
+{ who: $sister, text: "The face. Of the company." },
+{ who: $player, text: "Officially it's marketing, which would make you our whole marketing department. You'd get the meeting room twice a week as a studio, and a small budget for whatever you need. Within reason." },
+{ who: $sister, text: "You want me to be an influencer for a smoke detector." },
+{ who: $player, text: "It's not a smoke..." },
+{ who: $sister, text: "It's a little bit a smoke detector, though. You have to admit that." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's grinning, but she hasn't said no, and she keeps glancing past me at the meeting room door.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Why me, though? Seriously. I'm the intern." },
+{ who: $player, text: "Because every picture anybody's ever taken of you is good. I've seen the family albums. You're smiling at the camera in every single one, and I'm the kid in the back with his eyes shut." },
+{ who: $sister, text: "You do always have your eyes shut. It's honestly impressive." },
+{ who: $player, text: "So you'll do it?" },
+{ who: $sister, text: "Say the first part again. The part where I'm good at something and you're not." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Say it again">>
+I say it again, slower, and she listens with her eyes closed like it's music.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Fine, I'll do it. But I want a ring light, a real one, not the clip-on kind that makes everybody look like a hostage. I get the final say on what goes up. And you like every post within the hour, from your own account, so people can see the CEO is a fan." },
+{ who: $player, text: "That's three conditions for an intern." },
+{ who: $sister, text: "That's three conditions for the face of the company. You should've asked me before I knew I was the face, I'd have been much cheaper." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She's already looking at the meeting room again, at the window and the blinds and the blue wall, working out where the light falls in the afternoon. She hasn't asked what kind of pictures I have in mind, or who's going to be looking at them, and I don't bring it up.
+
+<<EndTaskIntro "task_sister_socials" "Order a ring light">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
