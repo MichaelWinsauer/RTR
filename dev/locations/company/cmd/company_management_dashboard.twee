@@ -12,6 +12,8 @@
     <section class="cmd-area cmd-finances">
     	<<include "CMD Finances">>
     </section>
+    /* the glow around Projects while a new project waits (CMD Projects): its own element right before the panel */
+    <div class="cmd-projects-glow" aria-hidden="true"></div>
     <section class="cmd-area cmd-projects" id="cmd-projects">
     	<<include "CMD Projects">>
     </section>

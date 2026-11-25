@@ -125,3 +125,97 @@
 <<set $interactionCharacter to "mom">>
 
 
+
+/* Media markup ================================================================
+   setup.mediaHtml(kind, args)   the markup of <<Image>> (kind "image") or <<Video>> (kind "video") for the
+                                 widget arguments: { tag, html }. tag is the bare img/video element ($imageReturn,
+                                 $videoReturn), html the framed version with its overlays that the widget prints.
+   Built in plain JS because the widgets run many times on every passage (portraits in the sidebar and on the
+   dashboard), and building the same string with one TwineScript macro per piece was slow. */
+<<set setup.mediaHtml = (kind, args) => {
+    const v = State.variables;
+    const path = v.path;
+    const settings = v.settings;
+    const isVideo = kind === "video";
+    const overlay = isVideo ? args[4] : args[6];
+    const border = args[5];
+    const hideBorder = border != undefined && (border == "none" || border == "false");
+    const close = ">";
+
+    let tag;
+    if (isVideo) {
+        tag = '<video src="' + path + args[0];
+        if (args[1] != undefined) { tag += args[1]; }
+        if (args[2] != undefined) { tag += args[2]; }
+        if (args[3] != undefined) { tag += '" style="max-width: ' + args[3] + 'px; max-height: ' + args[3] + "px;"; }
+        tag += '" loop muted autoplay' + close + '</video' + close;
+    } else {
+        tag = '<img src="' + path + args[0];
+        if (args[1] != undefined) { tag += args[1]; }
+        if (args[2] != undefined) { tag += args[2]; }
+        if (args[3] != undefined) { tag += '" width="' + args[3]; }
+        if (args[4] != undefined) { tag += '" height="' + args[4]; }
+        tag += '" alt="' + args[0];
+        if (args[1] != undefined) { tag += args[1]; }
+        if (args[2] != undefined) { tag += args[2]; }
+        tag += '"' + close;
+    }
+
+    const overlays = (overlay && overlay.includes(" ")) ? overlay.split(" ") : [ overlay ];
+    const cctvCorners = '<div class="video-camera-overlay" style="left: 2.5%; top: 2.5%; background-image: url(' + path + 'images/misc/cctv_1.png);"></div>'
+        + '<div id="video-camera-overlay-2" class="video-camera-overlay" style="right: 2.5%; top: 2.5%; background-image: url(' + path + 'images/misc/cctv_2.png);"></div>'
+        + '<div id="video-camera-overlay-3" class="video-camera-overlay" style="left: 2.5%; bottom: 2.5%; background-image: url(' + path + 'images/misc/cctv_3.png);"></div>'
+        + '<div id="video-camera-overlay-4" class="video-camera-overlay" style="right: 2.5%; bottom: 2.5%; background-image: url(' + path + 'images/misc/cctv_4.png);"></div>'
+        + '<div id="video-camera-overlay-5" class="video-camera-overlay" style="width: 4em; background-image: url(' + path + 'images/misc/cctv_5.png); align-self: center;"></div>';
+    const frame = "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative'" + close;
+
+    let html = "<div id='media-output' style='display: flex; justify-content: center; height: 100%; ";
+    if (hideBorder) { html += "width: 100%;"; }
+    html += "'" + close;
+    html += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative; border: 5px #EBDDC5 solid; padding: .25em;";
+    if (hideBorder) { html += ' border: none; padding: 0;'; }
+    else { html += isVideo ? ' width: initial; ' : ' width: initial;'; }
+    overlays.forEach((o) => { if (o == "cctv-max") { html += ' position: inherit;'; } });
+    html += "'" + close;
+
+    overlays.forEach((o) => {
+        if (settings.showCCTVOverlay != true) { return; }
+        if (o == "cctv-max") {
+            html += cctvCorners + "<div style='display: flex; justify-content: center; height: 100%; width: 100%;'" + close;
+        }
+        if (o == "cctv") {
+            html += frame + cctvCorners;
+        }
+        if (o == "dream") {
+            html += frame;
+            html += '<div class="dream-haze" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(230,245,255,0.35) 0%, rgba(255,230,245,0.25) 50%, rgba(240,255,255,0.3) 100%); mix-blend-mode: screen; pointer-events: none; z-index: 5; filter: blur(2px);"></div>';
+            html += '<div class="dream-light-orb1" style="position: absolute; top: 12%; left: 8%; width: 35%; height: 35%; background: radial-gradient(circle at 30% 30%, rgba(255,255,240,0.65) 0%, transparent 55%); border-radius: 50%; filter: blur(18px); animation: etherealPulse 9s infinite ease-in-out; pointer-events: none; z-index: 6;"></div>';
+            html += '<div class="dream-light-orb2" style="position: absolute; bottom: 18%; right: 12%; width: 28%; height: 28%; background: radial-gradient(circle at 70% 40%, rgba(240,255,255,0.55) 0%, transparent 60%); border-radius: 50%; filter: blur(22px); animation: etherealPulse 13s infinite ease-in-out; pointer-events: none; z-index: 6;"></div>';
+            html += '<div class="dream-sparkle1" style="position: absolute; top: 22%; right: 18%; width: 12px; height: 12px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 18px 6px rgba(255,255,255,0.85); border-radius: 50%; animation: dreamSparkle 2.8s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>';
+            html += '<div class="dream-sparkle2" style="position: absolute; bottom: 35%; left: 25%; width: 8px; height: 8px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 14px 5px rgba(200,230,255,0.9); border-radius: 50%; animation: dreamSparkle 3.5s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>';
+            html += '<div class="dream-sparkle3" style="position: absolute; top: 55%; left: 65%; width: 15px; height: 15px; background: radial-gradient(circle, #fff, transparent); box-shadow: 0 0 20px 7px rgba(255,245,230,0.8); border-radius: 50%; animation: dreamSparkle 2.2s infinite alternate ease-in-out; pointer-events: none; z-index: 7;"></div>';
+        }
+        if (o == "night") {
+            html += frame;
+            html += '<div class="night-tint" style="position: absolute; inset: 0; background: rgba(8, 18, 50, .5); mix-blend-mode: multiply; pointer-events: none; z-index: 5;"></div>';
+            html += '<div class="night-vignette" style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, .20) 42%, rgba(2, 8, 35, 0.6) 100%); pointer-events: none; z-index: 6;"></div>';
+            html += '<div class="night-glow" style="position: absolute; top: 15%; left: 20%; width: 32%; height: 32%; background: radial-gradient(circle, rgba(190, 215, 255, 0.16) 5%, transparent 65%); filter: blur(25px); pointer-events: none; z-index: 4;"></div>';
+        }
+        if (o == "prototype") {
+            html += "<div style='display: flex; justify-content: center; height: 100%; width: 100%; position: relative; overflow: hidden'" + close;
+        }
+    });
+
+    html += tag;
+
+    if (settings.showCCTVEffect == true) {
+        overlays.forEach((o) => {
+            if (o == "cctv-max" || overlay == "cctv") { html += '<div class="cctv-overlay"></div>'; }
+            if (o == "prototype") { html += '<div class="mindbend-overlay"></div><div class="corruption-overlay"></div><div class="influence-overlay"></div>'; }
+        });
+    }
+
+    if (overlay != undefined && overlay != "") { html += '</div>'; }
+    html += "</div></div>";
+    return { tag: tag, html: html };
+}>>

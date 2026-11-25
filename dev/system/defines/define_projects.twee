@@ -277,6 +277,13 @@
     },
 ]>>
 
+/* client: $boss above would store a full copy of him (quests and all) in the project, and the state is copied
+   and compressed on every passage change. The client is only ever read by sysName (the live NPC), so only
+   that is kept. */
+<<run $company.projects.forEach((project) => {
+    if (project.client) { project.client = { sysName: project.client.sysName }; }
+})>>
+
 /* Project logic ===============================================================
    <<StartProject ID>> sets project.due to a $date.dayCount. A project never fails: as soon as every
    requirement above zero is met it completes (setup.checkProjects runs on every action update) and

@@ -149,4 +149,12 @@
     },
 ]>>
 
+/* who: $landlord above would store a full copy of him (quests and all) in the mail and in every part of its
+   body, and the state is copied and compressed on every passage change. The sender is only ever read by sysName
+   (the live NPC: portrait, address, which side a part goes on), so only that is kept. */
+<<run $company.mails.forEach((mail) => {
+    mail.who = { sysName: mail.who.sysName };
+    mail.body.forEach((part) => { if (part.who) { part.who = { sysName: part.who.sysName }; } });
+})>>
+
 

@@ -1171,6 +1171,30 @@
     return !!here.location && setup.sameLocation(here.location, setup.getLocationBySysName("companystage1"));
 }>>
 
+/* Event lookup ================================================================
+   setup.pickEvent(passage)       the event of $events that plays now on this passage, or null (<<CheckForEvent>>,
+                                  on every passage). The first event in the list that is active (and not a finished
+                                  once-event), belongs to this passage, weekday and time slot, passes its requirements,
+                                  its device check and isn't stalled ("Family offers" in Define Quests), and whose
+                                  chance roll hits. The cheap checks come first, so the requirements (TwineScript)
+                                  only run for the few events that could play here right now. */
+<<set setup.pickEvent = (passageName) => {
+    const v = State.variables;
+    const weekday = v.date.today.value;
+    const slot = v.time.current.value;
+    for (const ev of v.events) {
+        if (!ev.active) { continue; }
+        if (!(ev.once == false || (ev.once == true && ev.finished == false))) { continue; }
+        if (!ev.where.some((place) => ((typeof place === "object") ? place.passage : place) == passageName)) { continue; }
+        if (!ev.whenDay.includes(weekday) || !ev.whenTime.includes(slot)) { continue; }
+        if (ev.requirements && !ev.requirements.every((req) => Scripting.evalTwineScript(req))) { continue; }
+        if (ev.device && !setup.questDevice(ev.device).ok) { continue; }
+        if (setup.offerStalled(ev)) { continue; }
+        if (random(1, 100) <= ev.chance) { return ev; }
+    }
+    return null;
+}>>
+
 /* Micro event lookup ==========================================================
    setup.pickMicroEvent([kind])   the micro event that happens now where I am, or null. Collects every event in
                                   $microEvents that passes its checks, then rolls them: chance 100 first (the meals),

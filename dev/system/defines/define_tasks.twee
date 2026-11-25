@@ -1169,6 +1169,17 @@
     },
 ]>>
 
+/* Slim who/npc ================================================================
+   The list above writes who: $mom and npc: $landlord for readability, but SugarCube would store a full copy of
+   that character in every task (quests and all, about 50 KB per task, and again in every scheduled copy in
+   $activeTasks). The state is copied, diffed and compressed on every passage change, so those copies made every
+   click slow. Everything reads these two fields by sysName only (State.variables[task.who.sysName]), so the
+   copies are cut down to that. Keep it that way: never read anything but sysName off task.who or task.npc. */
+<<run $tasks.forEach((task) => {
+    task.who = { sysName: task.who.sysName };
+    if (task.npc) { task.npc = { sysName: task.npc.sysName }; }
+})>>
+
 <<set $activeTasks to {
     mom: [],
     sister: []

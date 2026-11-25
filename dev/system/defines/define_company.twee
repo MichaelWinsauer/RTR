@@ -9,6 +9,16 @@
 
 ]>>
 
+/* setup.hireEmployee(sysName)   puts a copy of the NPC into $company.employees (the dashboard cards read name,
+                                 relation and skills off it, everything that changes is read live by sysName).
+   The copy leaves out quests: mom and the sister carry their whole quest line, and the state is copied and
+   compressed on every passage change, so it would only make every click slower. */
+<<set setup.hireEmployee = (sysName) => {
+    const copy = clone(State.variables[sysName]);
+    delete copy.quests;
+    State.variables.company.employees.push(copy);
+}>>
+
 /* The company stats (0-100). What each one does and where it comes from: "Company stats" at the end of this
    passage. Efficiency and Morale start in the middle, where they change nothing. */
 <<set $company.stats to {

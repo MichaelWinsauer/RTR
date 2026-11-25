@@ -2,51 +2,22 @@
 /* Usage: =====================================================================
 	<<set _passage to passage()>>
 	<<CheckForEvent _passage>>
+	Plays the event that happens on this passage now, if any. The checks are in setup.pickEvent (Define Events):
+	plain JS, because a TwineScript loop over every event on every passage was slow.
 */
 <<widget "CheckForEvent">>
-    <<set _cfe_passage to $args[0]>>
-    <<for _i = 0; _i < $events.length; _i++>>
-    	<<set _cfe_event to $events[_i]>>
-        
-        <<set _requirementsOk = true>>
-        <<if _cfe_event.requirements>>
-            <<for _r = 0; _r < _cfe_event.requirements.length; _r++>>
-                <<if !Scripting.evalTwineScript(_cfe_event.requirements[_r])>>
-                    <<set _requirementsOk = false>>
-                    <<break>>
-                <</if>>
-            <</for>>
-        <</if>>
-        <<if _requirementsOk and _cfe_event.device and !setup.questDevice(_cfe_event.device).ok>>
-            <<set _requirementsOk = false>>
-        <</if>>
-        /* a deal that was stalled waits a few days ("Family offers" in Define Quests) */
-        <<if _requirementsOk and setup.offerStalled(_cfe_event)>>
-            <<set _requirementsOk = false>>
-        <</if>>
+    <<set _cfe_event to setup.pickEvent($args[0])>>
+    <<if _cfe_event>>
+        <<set $CFE_EventRef to _cfe_event>>
+        <<set $currentEvent to _cfe_event.id>>
+        <<set $preEventLocation to $player.previousLocation>>
+        <<set $currentlyInEvent to true>>
 
-        <<if _cfe_event.where.some(function (place) { return ((typeof place === "object") ? place.passage : place) == _cfe_passage; }) &&
-        	 _cfe_event.whenDay.includes($date.today.value) && 
-             _cfe_event.whenTime.includes($time.current.value) &&
-             _requirementsOk>>
-        	<<if _cfe_event.active>>
-          		<<if (_cfe_event.once == true && _cfe_event.finished == false) || _cfe_event.once == false>>
-            		<<if random(1, 100) <= _cfe_event.chance>>
-                        <<set $CFE_EventRef to _cfe_event>>
-            			<<set $currentEvent to _cfe_event.id>>
-                        <<set $preEventLocation to $player.previousLocation>>
-                        <<set $currentlyInEvent to true>>
-                        
-                        /* a normal history entry: passage() and tags() then see the event, not the location (sidebar
-                           links, quick links, saves). $eventJustTriggered keeps PassageReady from running again for it. */
-        				<<run setTimeout(() => { Engine.play($CFE_EventRef.passage); }, 0)>>
-                        <<set $eventJustTriggered to true>>
-                        <<break>>
-            		<</if>>
-                <</if>>
-        	<</if>>
-        <</if>>
-    <</for>>
+        /* a normal history entry: passage() and tags() then see the event, not the location (sidebar
+           links, quick links, saves). $eventJustTriggered keeps PassageReady from running again for it. */
+        <<run setTimeout(() => { Engine.play($CFE_EventRef.passage); }, 0)>>
+        <<set $eventJustTriggered to true>>
+    <</if>>
 <</widget>>
 
 /* Usage: =====================================================================

@@ -447,17 +447,35 @@
 /* ——— new projects waiting in the overview ——— */
 .cmd-projects:has(.cmd-projects-new) {
   border-color: #EAAF4C80;
-  animation: cmd-projects-glow 2.6s ease-in-out infinite;
 }
 
-/* a click on the Next up entry in the header still flashes the panel */
-.cmd-projects.cmd-flash:has(.cmd-projects-new) {
-  animation: cmd-flash 1s ease-out;
+/* The pulsing glow is the box-shadow of an empty element in the same grid cell, right before the panel in the
+   markup (Company Management Dashboard), and only its opacity is animated. Animating the panel's own box-shadow
+   repainted the whole panel on every frame; an opacity animation runs on the compositor. The panel clips its
+   content (overflow: hidden), so the glow can't be a pseudo-element of it. Positioned like the panel, so it paints
+   in the same order against the other panels. */
+.cmd-projects-glow {
+  grid-area: projects;
+  position: relative;
+  border-radius: .75em;
+  box-shadow: 0 0 1.1rem -.15rem #EAAF4C70;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cmd-projects-glow:has(+ .cmd-projects .cmd-projects-new) {
+  animation: cmd-projects-glow 2.6s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* a click on the Next up entry in the header still flashes the panel, without the glow */
+.cmd-projects-glow:has(+ .cmd-projects.cmd-flash .cmd-projects-new) {
+  animation: none;
 }
 
 @keyframes cmd-projects-glow {
-  0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,.06) inset, 0 0 0 0 #EAAF4C00; }
-  50%      { box-shadow: 0 10px 30px rgba(0,0,0,.06) inset, 0 0 1.1rem -.15rem #EAAF4C70; }
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 1; }
 }
 
 .cmd-projects-new {
@@ -540,7 +558,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cmd-projects:has(.cmd-projects-new),
+  .cmd-projects-glow:has(+ .cmd-projects .cmd-projects-new),
   .cmd-projects-new-dot {
     animation: none;
   }

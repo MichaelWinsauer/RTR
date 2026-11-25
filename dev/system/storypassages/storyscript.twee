@@ -23,6 +23,59 @@ Config.saves.autosave = function () {
     return State.turns > 0 && (State.turns % 10 === 0);
 };
 
+/* Deferred session write ================================================
+   On every passage change SugarCube writes the whole history into sessionStorage (so that reloading the tab
+   brings the game back): stringified and LZ-compressed, synchronously, before the new passage is drawn.
+   That took most of the time of every click. The copy is only read again after a reload, so here the newest
+   one waits until the browser is idle after drawing (only the last of several quick clicks is written at
+   all). Leaving or reloading the page (pagehide), hiding the tab, and anything that reads the stored state
+   write it at once; deleting it (restart) drops the waiting copy. Other keys are written as before. */
+(function () {
+	var store = SugarCube.session;
+	var origSet = store.set, origGet = store.get, origHas = store.has, origDelete = store.delete;
+	var pending = null;
+	var scheduled = false;
+	var flush = function () {
+		scheduled = false;
+		if (pending === null) { return; }
+		var value = pending;
+		pending = null;
+		try { origSet.call(store, "state", value); }
+		catch (ex) { console.error("Session write failed:", ex); }
+	};
+	var schedule = function () {
+		if (scheduled) { return; }
+		scheduled = true;
+		if (typeof window.requestIdleCallback === "function") {
+			window.requestIdleCallback(flush, { timeout: 1000 });
+		} else {
+			requestAnimationFrame(function () { setTimeout(flush, 0); });
+		}
+	};
+	store.set = function (key, value) {
+		if (key !== "state") { return origSet.call(store, key, value); }
+		pending = value;
+		schedule();
+		return true;
+	};
+	store.get = function (key) {
+		if (key === "state") { flush(); }
+		return origGet.call(store, key);
+	};
+	store.has = function (key) {
+		if (key === "state") { flush(); }
+		return origHas.call(store, key);
+	};
+	store.delete = function (key) {
+		if (key === "state") { pending = null; }
+		return origDelete.call(store, key);
+	};
+	window.addEventListener("pagehide", flush);
+	document.addEventListener("visibilitychange", function () {
+		if (document.visibilityState === "hidden") { flush(); }
+	});
+})();
+
 /* Playtime ==============================================================
    $playtime (Define Misc) is the time played in milliseconds.
    - A 1 s ticker counts real time into a pending amount, but only while the tab is visible, the

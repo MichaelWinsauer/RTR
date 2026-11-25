@@ -276,7 +276,7 @@
             "\nMoney >= 10000",
         ],
         /* Stage 1: the corruption cap of the player rises to 100 (Stage 0: 40), and both of them work at my office now */
-        set: [ "$companyLocationIdReference = 13", "$company.stage = 1", "$player.stats.max.corruption = 100", "setup.useRoutine('mom', 'weekday', 'mom_stage1')", "setup.useRoutine('sister', 'weekday', 'sister_stage1')", "$company.employees.push($mom)", "$company.employees.push($sister)" ]
+        set: [ "$companyLocationIdReference = 13", "$company.stage = 1", "$player.stats.max.corruption = 100", "setup.useRoutine('mom', 'weekday', 'mom_stage1')", "setup.useRoutine('sister', 'weekday', 'sister_stage1')", "setup.hireEmployee('mom')", "setup.hireEmployee('sister')" ]
     },    
     {
     	id: "main_finishingRenovations",
@@ -3094,6 +3094,19 @@
     }
     return count;
 }>>
+
+/* Slim where ==================================================================
+   where: [ $locations[13] ] in the quests above would keep a full copy of the place (image, audio, opening hours)
+   in every quest and again in the event generated from it, and the state is copied, diffed and compressed on every
+   passage change. Only id, sysName, name and passage are ever read off these entries (the live place is
+   $locations[id]), so only those are kept. Passage names (strings) stay as they are. Runs before the events are
+   generated, so they get the slim copies too. */
+<<run setup.getQuestLines().forEach((line) => line.quests.forEach((quest) => {
+    if (!Array.isArray(quest.where)) { return; }
+    quest.where = quest.where.map((place) => ((place && typeof place === "object")
+        ? { id: place.id, sysName: place.sysName, name: place.name, passage: place.passage }
+        : place));
+}))>>
 
 /* Needs the helpers above, so it runs last. */
 <<GenerateEventsForQuests>>
