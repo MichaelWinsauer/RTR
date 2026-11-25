@@ -2385,10 +2385,10 @@ Saves dialog (frame, scrollbar and font are shared with the Settings dialog abov
   position: relative;
   min-height: 0;
   overflow: hidden;
-  border-radius: .45em;
+  border-radius: 0 .45em .45em 0;
   background: rgba(24, 22, 30, .85);
   border: 1px solid #EBDDC522;
-  box-shadow: inset 3px 0 0 var(--st-accent), 0 0px 14px rgba(0, 0, 0, .25);
+  box-shadow: inset 2px 0 0 var(--st-accent), 0 0px 14px rgba(0, 0, 0, .25);
   color: #EBDDC5;
   text-align: left;
   transition: border-color .15s ease, box-shadow .15s ease, opacity .15s ease;
