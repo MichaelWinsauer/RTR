@@ -3563,6 +3563,10 @@ body:has(.stage-card)::after { display: none; }
   font-weight: 300;
 }
 
+.npc-here-wrapper a {
+  color: var(--accent);
+}
+
 /* ==== Choices: the options of a scene, micro event, meal or interaction ====
    <div id="some-choice" class="choices"> ...one <<link>> per option, bare or in its own plain <div>... </div>
    The id stays the <<replace>> target, the class gives every choice the same look. Only the options are styled
@@ -3591,7 +3595,7 @@ body:has(.stage-card)::after { display: none; }
   text-decoration: none;
   transition: border-color .2s, background-color .2s, color .2s;
 }
-/* a small gold chevron in front of each option, nudged forward on hover */
+/* a small accent chevron in front of each option, nudged forward on hover */
 .choices > a::before,
 .choices > div:not([class]) > a::before {
   content: "";
@@ -3599,8 +3603,8 @@ body:has(.stage-card)::after { display: none; }
   width: .42em;
   height: .42em;
   margin-left: .1em;
-  border-top: 2px solid var(--gold);
-  border-right: 2px solid var(--gold);
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
   transform: rotate(45deg);
   opacity: .55;
   transition: transform .2s, opacity .2s;
@@ -3609,9 +3613,9 @@ body:has(.stage-card)::after { display: none; }
 .choices > div:not([class]) > a:hover,
 .choices > a:focus-visible,
 .choices > div:not([class]) > a:focus-visible {
-  border-color: var(--gold);
-  background: rgba(234, 175, 76, .1);
-  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-transparent);
+  color: #fff;
   outline: none;
 }
 .choices > a:hover::before,

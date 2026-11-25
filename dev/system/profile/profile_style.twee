@@ -15,6 +15,11 @@
 		"side head"        
 		"side stats"        
 		"tabs tabs";
+	grid-template-rows: 25vh auto 45vh;
+	grid-template-areas:
+		"side head " 
+		"side stats" 
+		"tabs tabs ";
     gap: 0.75rem;
     position: relative;
     left: 50%;
