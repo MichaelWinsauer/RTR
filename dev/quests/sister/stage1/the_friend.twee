@@ -27,6 +27,7 @@ She opens her mouth to tell me, and then doesn't. She looks at her phone, which 
 { who: $player, text: "Tell me anyway." },
 { who: $sister, text: "It's $bestFriend.name. You remember her, from freshman year, the one who threw up in $mom.callName's car after the homecoming thing." },
 { who: $player, text: "Hard to forget." },
+{ text: "It is. The first time she came over, she looked at me across the kitchen and asked $sister.callName, loud enough for me to hear, whether I was the creep helmet guy. $sister.callName laughed and said yes. She'd told the story to a whole new set of friends." },
 { who: $sister, text: "She keeps texting me, a lot, for a few weeks now, and I keep not answering. Not on purpose. I see it and think I'll answer later, when I have time to do it properly, and then it's three days later." },
 ]>>
 <</silently>>

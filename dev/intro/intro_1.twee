@@ -1,4 +1,6 @@
 :: Intro 1 [hide_sidebar] {"position":"175,800","size":"100,100"}
+/* The player's backstory, part two (PLAYER_BACKSTORY.md): the hallway photo, the parking garage in one line, dad's six weeks
+   and the spring after, and the attraction tied to all of it. */
 <<silently>>
 <<SetLocation "Bedroom">>
 <<CheckLocation>>
@@ -9,9 +11,17 @@
 <</silently>>
 <<Chat _msgs>>
 
-This is going to take some getting used to. It isn't my place anymore, it's home again. Not all of that is bad, though. I don't have to pay rent anymore, and having $mom.callName around has never been a downside. I've always gotten along great with my $mom.relation. She looked out for me, had dinner waiting when I had long days at school and helped with homework when she could, all while holding down her office job. I couldn't tell you much about the company she works for. From what I've picked up, she's the one in the office who keeps everybody's schedule straight and notices things before they fall through the cracks. She's great with people, quick to pick up on what someone actually wants, and somehow everybody walks away from her in a better mood.
+This is going to take some getting used to. It isn't my place anymore, it's home again. Not all of it is bad. I don't have to pay rent, the fridge is full, and $mom.callName still makes the best pancakes in the state and will make them for anyone who looks even slightly sad.
 
-Then there's the other part, the one I never say out loud. After more than a year away, I can barely keep it together. I've always been attracted to my $mom.relation, and to $sister.callName too, and there's no point lying to myself about it. I thought moving out would make it easier. Now that I'm back, it's worse than ever. I can't stop fantasizing about them.
+On the way up with the first box I passed the photo in the hallway, the one from $sister.callName's graduation. $dad.callName has his arm around her, $mom.callName is laughing at something off camera, and I'm on the end, half cut off by the frame, because whoever took it had to choose. Nobody did it on purpose, and nobody ever offered to take another one. It's still hanging there. I almost straightened it.
+
+I get along with $mom.callName. I always have. She looked out for me, had dinner waiting when I had long days at school and helped with homework when she could, all while holding down her office job. She's the one in that office who keeps everybody's schedule straight and notices things before they fall through the cracks. I've met her boss exactly once, in a parking garage, and that was plenty.
+
+The spring of my senior year, a few weeks after I turned eighteen, $dad.callName stopped talking to her. He didn't yell, he never yelled. He answered in single words and ate dinner with his phone propped against the salt shaker and let her try. And she tried. She cooked his chili and bought the beer he liked and laughed a little too loud at the TV so he'd look over, for six weeks, and then one Saturday he was gone. She sat at the kitchen table with me until two in the morning asking what she'd done, and I didn't have an answer for her. I had something else, though, something I've never said out loud: he'd run that whole house for six weeks, and all he'd had to do was nothing.
+
+For a few months after that, I was the one she leaned on. I carried the groceries and checked the locks at night and listened to her on the couch until she fell asleep against my shoulder. Then she got back on her feet, the way she always does, and when I moved out she helped me pack, cheerfully, and labeled every box. I was sweetie again.
+
+Then there's the other part, the one I never say out loud either. After more than a year away, I can barely keep it together. I've always been attracted to my $mom.relation, and to $sister.callName too, and there's no point lying to myself about it. I thought moving out would make it easier. Now that I'm back, it's worse than ever. Part of it is plain wanting. The rest of it is that spring, when for a few months I was the one she needed, and I never got to find out what came after.
 
 <<linkreplace "Think about $mom.callName...">>
 $mom.callName is $mom.age, though you'd never guess it. She has that easy, athletic way of moving that comes from never really sitting still. Her hair is long and wavy, a warm gold-blonde that catches the light and slides over her shoulder whenever she turns her head. Her eyes are a clear, light blue under darker brows, which gives even her friendliest look a bit of an edge. Her skin is fair and smooth, and her lips have a natural rose tint she covers with lipstick for work anyway. Even dressed down in a loose off-shoulder top and worn-in denim shorts, she carries herself with a quiet sort of confidence. And when I picture her without those clothes... her breasts are on the small side, a B-cup maybe, and they suit her frame perfectly. Her butt, on the other hand, is perfectly round, the kind of bubble butt half the women at her gym are paying a personal trainer for.
@@ -20,5 +30,3 @@ Anyway. I should drop my bags and settle in first. After that I'll go find $sist
 
 [[Settle in|Bedroom]]
 <</linkreplace>>
-
-

@@ -402,6 +402,7 @@ Each card runs its own block on click. The levels (Charm, Warm-up, Entertain, Ha
 | In-game help texts | `dev/help_dialog/pages/` |
 | The author's story plan | `dev/notes_for_me.twee`, `STAGE1_PROPOSAL.md`; where Stages 2+ are heading: `LATER_STAGES_VISION.md` |
 | How each character talks (language profiles) | `CHARACTER_VOICES.md` |
+| Why the player does it (his backstory with mom, sister and dad) | `PLAYER_BACKSTORY.md` |
 
 ---
 
@@ -414,7 +415,7 @@ A present-day American town: a residential area at its centre, the family's expe
 The player built `$company.prototype.name` (default "Valenx") to *read* rooms: heartbeats, light, movement, attention. When it stopped paying, he realised that reading people is a short step from steering them. The device nudges a person's state (calm, focus, agreeableness, desire). It needs charge and has to be calibrated to a target. Using it on someone raises their resistance. Every version sold to clients is a deliberately weakened one, and nobody else knows what the real one is capable of.
 
 ### Story so far
-- **Intro**: The player graduated from high school a year ago, founded an LLC, lost his only client (a café chain) and went broke. He worked at the diner under a manager who mocked him, then moved back home. He's bitter about a world where "connections matter more than effort" and decides: "If the game is already rigged, I'll just have to control the people playing it."
+- **Intro**: The player graduated from high school a year ago, founded an LLC, lost his only client (a café chain) and went broke. He worked at the diner under a manager who mocked him, then moved back home. He's bitter about a world where "connections matter more than effort" and decides: "If the game is already rigged, I'll just have to control the people playing it." The house runs on the same rules (`PLAYER_BACKSTORY.md`): the sister is liked, mom is useful, he was neither. Dad froze mom out for six weeks and left; mom refused him the $8,000 loan for the sister's tuition and laughed along when her boss mocked him; the sister let her friends call his headset "the creep helmet". He loves them and keeps score, and he knows he's copying his dad's silence.
 - **Stage 0** (home life, small office):
   - **Main line**: finish the prototype (40 → 70 → 100), test it on mom, use the sister's idea to pitch it to the diner (first client), then talk the landlord into a bigger office, with mom and sister "helping" to convince him. Pay $10,000 and move up.
   - **Mom's line**: she's worn down at work by her abusive boss. The player "helps" with the device, sabotages her work so she gets fired, and makes a deal with the boss ($5,000 and a secret clip of her), who becomes client two. She ends up working for her son.

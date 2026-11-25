@@ -34,6 +34,8 @@ $mom.callName is sitting at her vanity in the lamplight, putting on makeup, when
 
 I pull back and let out a long, relieved breath, mostly for her benefit. Underneath it I'm a lot calmer than I'm letting on. Five hundred a week, and I didn't even have to turn the dial all the way up.
 
+The last time I asked her for money, it was eight thousand dollars, a cup of tea and a no, and a little speech about something steadier. Tonight she started on the shifts again, out of habit, and one notch on the dial later she was apologizing for it. I'm fairly sure I know what that money she put aside was for. $sister.callName's next semester is going to be a little tighter than planned.
+
 <<ProfileLog $mom "Helping with the Rent" "She agreed to chip in $500 every week to help me cover the rent, so I can keep focusing on the company instead of picking up more shifts.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent>>

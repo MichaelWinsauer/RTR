@@ -1,4 +1,7 @@
 :: Prototype Breakthrough [event main_quest] {"position":"3150,0","size":"100,100"}
+/* The turn (PLAYER_BACKSTORY.md). It worked on mom, and what shakes him isn't the test result: it's that the woman who has
+   managed him all his life did what he told her, alone, with nobody watching. The office fantasy is the rules of the house
+   turned around: there, they'd be the ones who have to be useful to be loved. */
 I close my door harder than I mean to. The draft lifts a couple of printouts off the desk and skates them across the floor, and I just stand there with my back against the wood and my hand still on the handle, waiting for my pulse to come down to something reasonable.
 
 It worked. On a real person, two doors down the hall, in my own house. Getting $mom.callName to say yes in my room was the easy part; she says yes to most things if I ask nicely enough. Watching her actually go through with it hours later, alone, with nobody there to remind her, is something else entirely. I didn't think $company.prototype.name could do that yet. I'm not sure I ever really believed it could do that at all.
@@ -11,9 +14,11 @@ And it's nowhere near done. It's slow and buggy, half the code is held together 
 
 For a year I've been the guy nobody writes back to. The café chain that dropped me, $manager.callName smirking at me across the fryer, $landlord.callName and his broom closet, a whole folder of emails that went nowhere. If this is real, none of that has to stay the way it is.
 
+But that isn't what has my hands shaking, if I'm honest with myself. It's her. $mom.callName has been managing me my whole life, sweetly, with lists on the fridge and that soft voice she uses when she's already decided something for me. She decided about the eight thousand dollars. She decided I was fine to move out, and packed my boxes with a smile. And tonight she lay down in her own bed and did exactly what I told her to, with nobody in the room to please, because I said so.
+
 There's one more thought I've been stepping around all evening, and tonight it won't let me. If it works on $mom.callName, it works on $sister.callName. I've had fantasies about both of them for years and never told a soul, and I always assumed that's where they'd stay, in my head, where they couldn't hurt anybody. Tonight, with the sound from her room still in my ears, I'm a lot less sure.
 
-I try to think about something else and end up thinking about an office. A real one, with clients and employees and a door that locks, and both of them in it: $mom.callName running the paperwork, $sister.callName at a desk across from mine. A reason to keep them close every single day, somewhere nobody asks questions. They'd work for me. Give it enough time and enough care, and they might start to need me, and do what I ask, and believe every bit of it was their own idea.
+I try to think about something else and end up thinking about an office. A real one, with clients and employees and a door that locks, and both of them in it: $mom.callName running the paperwork, $sister.callName at a desk across from mine. A reason to keep them close every single day, somewhere nobody asks questions, somewhere the rules are mine. In that office, they'd be the ones who have to make themselves useful before anybody is nice to them. Give it enough time and enough care, and they might start to need me the way $mom.callName needed me that spring, except this time I'd be the one who decides when it stops. And they'd believe every bit of it was their own idea.
 
 I wait for that to bother me. After a minute or so I give up waiting.
 
@@ -25,5 +30,3 @@ None of it happens in a closet, though. I need a bigger office, and nobody is go
 	<<ProfileLog $mom "The Start of Something" "She really did it, just like I told her to. I caught her in bed 'relieving some stress', and what a sight that was. I bet she'll keep at it. I should check on her again...">>
 	<<NextQuest $player>>
 <</silently>>
-
-

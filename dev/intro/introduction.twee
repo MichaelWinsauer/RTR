@@ -1,5 +1,7 @@
 :: Introduction [hide_sidebar] {"position":"175,675","size":"100,100"}
-I graduated from high school a year ago. It all started with a school project. $ethan.name and I got paired up for it in junior year, and together we built a clunky headset out of an old bike helmet and a broken baby monitor that could listen to a room. He wrote most of the software, because he was a lot better at code than I was, but I was the one who couldn't let the idea go. After graduation we lost touch, the way you do, and I kept working on it on my own. I registered an LLC, bought a domain and started calling myself a founder. I wasn't sure I had earned the title, but I wanted people to take me seriously, and I figured that was how you started.
+/* The player's backstory (PLAYER_BACKSTORY.md). This passage carries the career failure, the creep helmet in one line, the
+   loan from mom and the rules of the house. Dad's six weeks and the hallway photo are in Intro 1. */
+I graduated from high school a year ago. It all started with a school project. $ethan.name and I got paired up for it in junior year, and together we built a clunky headset out of an old bike helmet and a broken baby monitor that could listen to a room. He wrote most of the software, because he was a lot better at code than I was, but I was the one who couldn't let the idea go. We showed it at the science fair, and by Monday $sister.callName's friends had a name for it, the creep helmet, which they thought was the funniest thing that had ever happened in our school. After graduation $ethan.name and I lost touch, the way you do, and I kept working on it on my own. I registered an LLC, bought a domain and started calling myself a founder. I wasn't sure I had earned the title, but I wanted people to take me seriously, and I figured that was how you started.
 
 I called it $company.prototype.name. It read the room as a whole rather than any one person in it: heartbeats, lighting, footsteps, how long someone stayed, how much they looked at their phone. It worked out whether a place felt welcoming or whether people wanted to leave, and then suggested small changes to fix that. It was honest and it was useful. I was proud of it.
 
@@ -7,19 +9,23 @@ A regional café chain took the pilot, a version I'd improved a lot since the sc
 
 Then the café's leadership changed, and the new people wanted "vendor consolidation." Around the same time an update broke an integration I depended on. "We're going in a different direction," they wrote. That was the whole message. The revenue was gone, the servers kept running and the bills kept coming. I had built everything around that one customer, and that was my mistake.
 
+That's when I did the one thing I'd promised myself I wouldn't, and asked $mom.callName for money. Eight thousand dollars, enough to keep the servers on for three months while I found the next client. She was lovely about it. She made tea and held my hand across the kitchen table and explained that $sister.callName's tuition was due at the end of the month, and that maybe this was a sign, sweetie, to try something a little steadier for a while, just until things settled down. She meant every word of it kindly, which made it very hard to be angry at her, so I got angry at her anyway, quietly, and I've stayed that way.
+
 I was broke soon after. I took a job at a diner and mopped floors and stacked chairs for people who had no idea who I was. My manager heard what I'd been doing, laughed, and brought it up whenever he felt like it. I told myself it was temporary.
 
-Then I had to choose between selling my office equipment and moving back home. I moved home. Same room, same dent in the wall from the controller I threw, same posters, and none of it feels the way it used to. $mom.callName kept asking how the company was doing and trying to sound upbeat about it. I said "fine" every time. I hated that I had to.
+Then I had to choose between selling my office equipment and moving back home. I moved home. Same room, same dent in the wall from the controller I threw, same posters, and none of it feels the way it used to. $mom.callName kept asking how the company was doing, in the bright, careful voice of someone who had already voted against it. I said "fine" every time. I hated that I had to.
 
 I kept working anyway. I cleaned up code nobody would read and built a dashboard nobody would open. I rewrote my outreach emails over and over, and nobody replied. Meanwhile I watched worse products get picked up because the people behind them knew somebody. $company.prototype.name worked. That was never the problem. Nobody cared whether it worked.
 
 I've figured out how it actually goes. Timing matters more than quality, and connections matter more than effort. If you know the right people, you succeed no matter what you do. I told myself to be honest, work hard and wait for my turn, but my turn never came. It goes to the people who are already liked.
 
+The funny thing is that I didn't have to go out into the world to learn that. I grew up in a house that runs on the same rules, I just never had the words for it. $sister.callName gets things because everybody likes her, and she's never once had to think about why. $mom.callName gets loved because she's useful to everyone she meets, and she works herself to the bone to stay that way. I was never much of either, so I got what was left over, warmly, with a hug and a plate in the microwave.
+
 Tonight the server bill is overdue again. My diner uniform is hanging on my chair, and I'm sick of looking at it. I have more unanswered emails than I can count. $company.prototype.name is open on my screen, and it's good software that nobody wants.
 
-I keep coming back to one thought I didn't dare to entertain until now. If you can read a room and the people in it, you can steer them. If you know when people are paying attention, you put the offer there. If you know when a street is busy, you can use that. That's not what I built, or not what I said I built. But the difference between measuring people and steering them is a lot smaller than I thought.
+I keep coming back to one thought I didn't dare to entertain until now. If you can read a room and the people in it, you can steer them. If you know when people are paying attention, you put the offer there. If you know what someone is afraid of losing, you know what they'll do to keep it. That's not what I built, or not what I said I built. But the difference between measuring people and steering them is a lot smaller than I thought.
 
-In every group photo from school I'm standing at the edge. I've spent most of my life asking people for permission, and I'm done with it. I want results.
+In every group photo I've ever been in, I'm standing at the edge. I've spent most of my life asking people for permission, and for money, and for a little bit of their attention, and I'm done with it. I want results.
 
 If the game is already rigged, I'll just have to control the people playing it.
 

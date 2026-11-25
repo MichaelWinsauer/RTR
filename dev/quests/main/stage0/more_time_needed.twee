@@ -7,6 +7,7 @@ I find $sister.callName on her bed, half watching reels, half arguing with a com
   { who: $sister,  text: "I wish, but I'm broke until Sunday. Do a round of chores and ask $mom.callName afterwards, that works every single time." },
   { who: $player,  text: "I would, but I'm buried today. If I spend two hours on dishes and vacuuming, I'm never going to make my deadline." },
   { who: $sister,  text: "Well, that's how it works around here. You make yourself useful and people are nice to you. Welcome home." },
+  { text: "She says it as a joke, flicking to the next reel. It's also the most honest thing anybody in this house has said to me since I got back, and she has no idea she said it." },
   { text: "I wake the prototype with a thumb press. The hum is barely there, like an air conditioner you only notice once it stops. I keep my voice easy." },
 ]>>
 <</silently>>

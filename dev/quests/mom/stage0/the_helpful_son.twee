@@ -21,6 +21,8 @@ Behind the reception desk a young woman in a blazer is already smiling at me wit
 <<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 One of the elevators is already waiting with its doors open, as if it's been expecting me too. Inside it's more marble and mirrors on three sides, so I get to watch several versions of myself press the button for the sixth floor. None of them look like they belong here. The doors close with a soft chime and the floor numbers start counting up.
 
+The only other time I've been in this building, I didn't get past the parking garage. It was the week I registered the LLC, and I came to pick her up, and she stepped out of the elevator with $boss.callName right behind her. She introduced me before I could stop her: "my $mom.playerRelation, he's got a little business going." He looked me up and down and asked what I was selling, lemonade? And she laughed. Not loud, and not for long, but she laughed, standing next to him, and in the car she patted my knee and said, "You have to pick your battles, honey." I've thought about that laugh more often than I'd like to admit. He won't remember any of it. I'd put money on that.
+
 <<linkreplace "Step out">>
 <<silently>>
 <<SetLocation "Moms Work">>

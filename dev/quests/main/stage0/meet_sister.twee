@@ -1,4 +1,6 @@
 :: Meet Sister [event main_quest] {"position":"3025,0","size":"100,100"}
+/* The player's backstory (PLAYER_BACKSTORY.md): private love, public distance. She teases him about the company the way she
+   always has, and he remembers the creep helmet. The lie at the end is the first crack under the warm surface. */
 <<silently>>
 <<set _msgs = [
   { who: $sister, text: "There you are! Another minute and I was coming up to raid your room. Get over here." },
@@ -8,13 +10,25 @@
   { who: $player, text: "It's good to see you." },
   { who: $sister, text: "You too. So, how was the drive? Did the old car make it?" },
   { who: $player, text: "Barely. It made it, though, and now half of what I own is sitting in boxes in the hallway." },
-  { who: $sister, text: "I'll help you unpack later. Did you see what $mom.callName did to your room? Nothing! She kept all your nerdy stuff." },
+  { who: $sister, text: "I'll help you unpack later. Did you see what $mom.callName did to your room? Nothing! She kept all your nerdy stuff. It's like a museum in there, I half expected a little plaque on the door." },
   { who: $player, text: "That's very $mom.callName. But no, I don't think I need help for now. It'll just take some time to settle back in, I guess." },
-  { who: $sister, text: "I'm not going to ask about the company. $mom.callName already did, and I heard how you answered." },
+  { who: $sister, text: "Well, if anybody can settle into his childhood bedroom with dignity, it's my little $sister.playerRelation, the CEO." },
+  { text: "She says it with that grin of hers, and then she sees my face, and the grin goes a little sideways." },
+  { who: $sister, text: "Sorry. That was a cheap one. I'm not going to ask about the company, $mom.callName already did, and I heard how you answered." },
   { who: $player, text: "Yeah, I figured you had. Thanks for not making me say it all again." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She didn't mean anything by it. She never does, and that's always been the trouble with her.
+
+At home, $sister.callName was my best friend. She snuck me into R-rated movies, she taught me to drive in the church parking lot, and she sat on my bed the night of the science fair and made me show her every wire in that headset, and she was really impressed. That same Monday, at school, her friends were calling it the creep helmet and making a little beeping noise whenever I walked past their lockers, and she laughed along with them. Telling them to knock it off would have cost her something, and she never paid it. I don't think she even remembers. I spent a year at that school as the creep helmet guy, and she spent it as the girl everybody wanted to sit with.
+
+<<silently>>
+<<set _msgs = [
   { who: $sister, text: "But I'm glad you're back. The house was way too quiet without you." },
   { who: $player, text: "I missed you too. It's strange being back, but I'm glad I am." },
-  { text: "That last part was a lie, but I wouldn't want to sound bitter the very first time we talk in person again." }
+  { text: "That last part was a lie, but I wouldn't want to sound bitter the very first time we talk in person again. And she's going to be useful, so it might as well be a nice lie." }
 ]>>
 <</silently>>
 <<Chat _msgs>>
@@ -26,5 +40,3 @@ I drop onto the couch. The faint hum from the kitchen, the same lamp, $sister.ca
 	<<NextQuest $player>>
 	<<UseAction>>
 <</silently>>
-
-
