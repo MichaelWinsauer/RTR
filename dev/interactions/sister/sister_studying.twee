@@ -196,7 +196,7 @@ She's sitting up in bed with her laptop on her knees and a highlighter cap betwe
 <</silently>>
 <<Chat _msgs>>
 
-<div id="sister-study-door">
+<div id="sister-study-door" class="choices">
 	<div>
 		<<link "Close the door">>
 			<<replace "#sister-study-door">>

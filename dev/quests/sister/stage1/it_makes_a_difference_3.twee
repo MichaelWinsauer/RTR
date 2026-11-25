@@ -61,7 +61,7 @@ Next to my keyboard, my own phone lights up: her name, right under the lasagna p
 <</silently>>
 <<Chat _msgs>>
 
-<div id="supportive-night-choice">
+<div id="supportive-night-choice" class="choices">
 	<div>
 		<<link "Reply">>
 			<<replace "#supportive-night-choice">>

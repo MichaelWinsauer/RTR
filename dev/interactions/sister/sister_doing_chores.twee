@@ -95,7 +95,7 @@ $sister.callName has a pen between her teeth and the chore chart in her hands, t
 <</silently>>
 <<Chat _msgs>>
 
-<div id="sister-chores-chart">
+<div id="sister-chores-chart" class="choices">
 	<div>
 		<<link "Take the deal">>
 			<<replace "#sister-chores-chart">>

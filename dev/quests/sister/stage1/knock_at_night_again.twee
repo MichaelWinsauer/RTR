@@ -31,7 +31,7 @@ $sister.callName stares at me without breathing. Then, in one movement, she yank
 The door isn't locked. It never is, and $mom.callName has never needed it to be.
 
 <<linkreplace "Answer the door">>
-<div id="kna-choice">
+<div id="kna-choice" class="choices">
 <div>
 <<link "Not tonight">><<replace "#kna-choice">>
 <<silently>>

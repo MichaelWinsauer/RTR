@@ -80,7 +80,7 @@ $sister.callName starts to answer as easily as she said hi. She gets as far as "
 
 I answer first.
 
-<div id="ttw-choice">
+<div id="ttw-choice" class="choices">
 <div>
 <<link "Her boyfriend">><<replace "#ttw-choice">>
 <<silently>>

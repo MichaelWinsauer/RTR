@@ -98,7 +98,7 @@ She goes pink so fast it's almost funny. She's worn that dress twice in twenty y
 
 It takes me a second to understand that she's asking me how far she should let it go, and that she would much rather I decide that than her.
 
-<div id="gd-choice">
+<div id="gd-choice" class="choices">
 <div><<link "Let him">><<replace "#gd-choice">>
 <<silently>>
 <<set _msgs = [

@@ -68,7 +68,7 @@ Then, over his shoulder, she looks across the terrace, straight at me, with the 
 
 She's waiting. The whole terrace is laughing and talking, and she's waiting for me to move my hand.
 
-<div id="rt-choice">
+<div id="rt-choice" class="choices">
 <div><<link "Touch your ear">><<replace "#rt-choice">>
 I lift my glass with my left hand and touch my right ear with two fingers, as casually as I can, the way you'd brush away a strand of hair.
 

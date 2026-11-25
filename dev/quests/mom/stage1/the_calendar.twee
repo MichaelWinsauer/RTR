@@ -47,7 +47,7 @@ The pink is almost always on an orange day, or on the day after a yellow one. Sh
 For the first time since this started, she's ahead of me. She sat at her desk for three nights and did the work, quietly, the way she does everything, and walked into my office with the proof in her hand. She's waiting to see what I'll do with it, and for a moment I honestly don't know.
 
 <<linkreplace "Decide">>
-<div id="cal-choice">
+<div id="cal-choice" class="choices">
 <div><<link "Tell her part of the truth">><<replace "#cal-choice">>
 <<silently>>
 <<set _msgs = [

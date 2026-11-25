@@ -107,7 +107,7 @@ I have it. It hurts to hand it over, but I have it.
 I have $<<= _funds>>. He wants $<<= _due>>.
 <</if>>
 <br><br>
-<span id="rent-choice">
+<div id="rent-choice" class="choices">
 <<if _short == 0>>
 <<link "Pay him">>
 	<<replace "#rent-choice">>
@@ -224,6 +224,6 @@ There's nothing left to say. I hand him the keys.
 <</if>>
 	<</replace>>
 <</link>>
-</span>
+</div>
 <</linkreplace>>
 <</capture>>

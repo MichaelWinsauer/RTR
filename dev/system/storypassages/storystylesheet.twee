@@ -3563,17 +3563,18 @@ body:has(.stage-card)::after { display: none; }
   font-weight: 300;
 }
 
-/* ==== Choices: the options of a micro event or a meal ====
-   <div id="some-choice" class="choices"> ...one <<link>> per option, bare or in its own <div>... </div>
+/* ==== Choices: the options of a scene, micro event, meal or interaction ====
+   <div id="some-choice" class="choices"> ...one <<link>> per option, bare or in its own plain <div>... </div>
    The id stays the <<replace>> target, the class gives every choice the same look. Only the options are styled
-   (a link or a .choice-locked span, directly in the container or one <div> deep), so the text that replaces
-   them reads like the rest of the passage. A locked option says why in a <small>:
+   (a link or a .choice-locked span, directly in the container or one plain <div> deep: a div with a class, like
+   the navigation-link of <<ReturnFromEvent>>, is left alone), so the text that replaces them reads like the
+   rest of the passage. A locked option says why in a <small>:
    <span class="choice-locked">Use the prototype<small>not enough charge</small></span> */
 .choices { margin: 1rem 0; }
 .choices > a,
-.choices > div > a,
+.choices > div:not([class]) > a,
 .choices > .choice-locked,
-.choices > div > .choice-locked {
+.choices > div:not([class]) > .choice-locked {
   display: flex;
   align-items: center;
   gap: .7rem;
@@ -3592,7 +3593,7 @@ body:has(.stage-card)::after { display: none; }
 }
 /* a small gold chevron in front of each option, nudged forward on hover */
 .choices > a::before,
-.choices > div > a::before {
+.choices > div:not([class]) > a::before {
   content: "";
   flex: none;
   width: .42em;
@@ -3605,18 +3606,18 @@ body:has(.stage-card)::after { display: none; }
   transition: transform .2s, opacity .2s;
 }
 .choices > a:hover,
-.choices > div > a:hover,
+.choices > div:not([class]) > a:hover,
 .choices > a:focus-visible,
-.choices > div > a:focus-visible {
+.choices > div:not([class]) > a:focus-visible {
   border-color: var(--gold);
   background: rgba(234, 175, 76, .1);
   color: var(--accent);
   outline: none;
 }
 .choices > a:hover::before,
-.choices > div > a:hover::before,
+.choices > div:not([class]) > a:hover::before,
 .choices > a:focus-visible::before,
-.choices > div > a:focus-visible::before {
+.choices > div:not([class]) > a:focus-visible::before {
   opacity: 1;
   transform: translateX(.2em) rotate(45deg);
 }
@@ -3641,8 +3642,10 @@ body:has(.stage-card)::after { display: none; }
   color: #ff9aa9;
   text-align: right;
 }
-/* older options were separated with <br>, the cards space themselves */
-.choices > a + br { display: none; }
+/* the cards space themselves: hide the <br>s between options (written ones, and the line breaks of passages
+   without nobr), but only while the options are there, not in the text that replaces them */
+.choices:has(> a, > .choice-locked, > div:not([class]) > a, > div:not([class]) > .choice-locked) > br,
+.choices > div:not([class]):has(> a, > .choice-locked) > br { display: none; }
 
 .mail-answer-locked { opacity: .55; cursor: not-allowed; }
 .mail-answer-locked small { color: #ff9aa9; margin-left: .4rem; }

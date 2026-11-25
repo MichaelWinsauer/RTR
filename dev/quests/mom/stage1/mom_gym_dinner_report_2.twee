@@ -31,7 +31,7 @@ She tells me about the ice baths, and the sauna you'll be able to book by the ho
 
 She isn't asking if the contract is good. She knows the contract is good. She's asking if she was good. She's sitting on the arm of the couch at eleven at night in a dress from twenty years ago, waiting for me to tell her.
 
-<div id="gdr-choice">
+<div id="gdr-choice" class="choices">
 <div><<link "Tell her it was exactly right">><<replace "#gdr-choice">>
 <<silently>>
 <<set _msgs = [

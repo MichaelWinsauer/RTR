@@ -58,7 +58,7 @@ He never calls. He texts, he sends memes at two in the morning, he leaves voice 
 
 It keeps ringing.
 
-<div id="ns-choice">
+<div id="ns-choice" class="choices">
 <div><<link `"Answer " + $ethan.name`>><<replace "#ns-choice">>
 <<silently>>
 <<set _msgs = [

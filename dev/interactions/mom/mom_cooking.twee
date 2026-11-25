@@ -60,7 +60,7 @@ Something red is going in the big pot, and the whole kitchen smells of garlic. $
 <</silently>>
 <<Chat _msgs>>
 
-<div id="mom-cook-taste">
+<div id="mom-cook-taste" class="choices">
 <<link "Tell her it's perfect">><<replace "#mom-cook-taste">>
 <<silently>>
 <<set _msgs = [

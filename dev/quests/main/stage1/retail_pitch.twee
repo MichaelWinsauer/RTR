@@ -80,7 +80,7 @@ My thumb is over the button anyway.
 
 /* MEDIA: images/events/retail_pitch/phone.jpg | His face in the dark, lit by a phone screen showing a grid of camera thumbnails */
 
-<div id="rp-choice">
+<div id="rp-choice" class="choices">
 <div>
 <<link "Leave the footage alone">><<replace "#rp-choice">>
 I lock the phone and put it face down on the nightstand.

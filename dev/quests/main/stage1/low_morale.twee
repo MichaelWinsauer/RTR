@@ -85,7 +85,7 @@ He isn't accusing me of anything. He's doing the most dangerous thing a smart pe
 He's the first one to put any of it together, and while he doesn't have all of it, he has more than I'm comfortable with. My mouth has gone dry, and I'm very aware that he's waiting for me to say something.
 
 <<linkreplace "Decide what to do with him">>
-<div id="morale-choice">
+<div id="morale-choice" class="choices">
 <div>
 <<link "Bring him in with a half-truth">><<replace "#morale-choice">>
 <<silently>>

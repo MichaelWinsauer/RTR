@@ -5,8 +5,8 @@
 <<silent>><<SetBackground setup.getLocationBySysName("companystage1desk").img>><</silent>>
 ''STAGE1-STUB:'' this scene isn't written yet (The Arrangement, STAGE1_PROPOSAL.md 7.2).
 
-<span id="arrangement-choice">
+<div id="arrangement-choice" class="choices">
 <<link "Pay for the hours">><<set $flags.bossArrangement to "pay">><<set $mom.flags.offeredToBoss to false>><<replace "#arrangement-choice">><<NextQuest $boss>><<ReturnFromEvent>><</replace>><</link>>
 <<link `"Offer " + $mom.callName`>><<set $flags.bossArrangement to "mom">><<set $mom.flags.offeredToBoss to true>><<replace "#arrangement-choice">><<NextQuest $boss>><<ReturnFromEvent>><</replace>><</link>>
 <<if $company.devices.valenxAnchor.owned and setup.deviceUsesLeft($company.devices.valenxAnchor) > 0>><<link "Break him with the Anchor">><<set $flags.bossArrangement to "anchor">><<set $mom.flags.offeredToBoss to false>><<replace "#arrangement-choice">><<NextQuest $boss>><<ReturnFromEvent>><</replace>><</link>><</if>>
-</span>
+</div>

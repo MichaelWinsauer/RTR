@@ -196,7 +196,7 @@ The channel changes. A very cheerful man is now crushing ice in a blender.
 <</silently>>
 <<Chat _msgs>>
 
-<div id="mom-tv-blender">
+<div id="mom-tv-blender" class="choices">
 <<link "Change it back">><<replace "#mom-tv-blender">>
 I hold out my hand for the remote. She looks at it. She looks at the blender man, who is now making frozen yogurt, and then she gives me the remote, because I'm holding out my hand, and that's still enough.
 
