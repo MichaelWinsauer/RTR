@@ -3,7 +3,8 @@
    The Ask I show her the photos from the night of the party (Party Animal, $sister.flags.photoTaken): her on her bed under the
    fairy lights, after. She remembers that night only as dreams. I don't threaten her. I call them special memories. She
    feels sick, and then touched that I kept them, and then she asks if she can touch me like that night. Her first
-   handjob she'll remember. Afterwards: "Can I do this more often?" No device. */
+   handjob she'll remember. Afterwards: "Can I do this more often?" No device.
+   EXPLICIT blocks: the act itself is left for the author, each block says what happens in it and what's around it. */
 <<silent>><<SetBackground $locations[1].img>><</silent>>
 I text her at eleven: <i>you up? come over for a sec</i>
 
@@ -93,6 +94,9 @@ Then I get up from the chair and sit down next to her on the bed.
 <<linkreplace "Let her">>
 She's slow about it, and shaky, and completely serious. She pushes the sleeves of the hoodie up to her elbows first, like someone about to wash dishes. She asks if it's okay twice. When she finally opens my jeans her fingers are cold, and she says sorry for that too, and rubs her hands together to warm them, and I almost laugh.
 
+/* EXPLICIT 1, the start. Her hand only, sober, the first time she'll remember. Slow, shaky, very serious about it, the
+   way she is about an exam. She looks down at what she's doing a lot, then up at his face to check. She kneels on the
+   bed beside him in the hoodie and sleep shorts. He sits still and lets her find her way. The Chat below runs during. */
 /* MEDIA: images/characters/sister/events/souvenirs/hj_0.mp4 | Sister kneeling on the bed beside him in the hoodie, sleeves pushed up, looking down, her hand on him */
 
 <<silently>>
@@ -105,7 +109,21 @@ She's slow about it, and shaky, and completely serious. She pushes the sleeves o
 <</silently>>
 <<Chat _msgs>>
 
-Halfway through she stops talking. Her breathing has changed. She's leaning against my shoulder now, her cheek on my arm, and her free hand has found a fistful of my shirt and is holding on to it.
+There's still one flake of face mask stuck to her chin, right at the edge of her jaw. I reach over and pick it off.
+
+She stares at me. Then she bursts out laughing, helplessly, with her forehead against my shoulder, and whatever was still wound tight in her comes loose all at once.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I can't believe you let me do this with a face mask on. You let me cry with a face mask on. I'm never going to be cool in front of you again, you know that? That's gone forever." },
+{ who: $player, text: "You were never cool in front of me." },
+{ who: $sister, text: "Excuse me, I was extremely cool, I was the coolest person in this house for twenty years, ask anyone." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her keep going">>
+After that she stops talking. Her breathing has changed. She's leaning against my shoulder now, her cheek on my arm, and her free hand has found a fistful of my shirt and is holding on to it.
 
 <<silently>>
 <<set _msgs = [
@@ -116,9 +134,12 @@ Halfway through she stops talking. Her breathing has changed. She's leaning agai
 <</silently>>
 <<Chat _msgs>>
 
+/* EXPLICIT 2, the middle and the finish. More sure of herself now that she's laughed, faster, her forehead against his
+   shoulder and her free hand holding a fistful of his shirt. She doesn't look down much anymore, she goes by his
+   breathing. When he comes she gasps as if she's the one who did, and doesn't let go. The line below picks up after. */
 /* MEDIA: images/characters/sister/events/souvenirs/hj_1.mp4 | Close, faster, her forehead against his shoulder */
 
-When I come, she gasps as if she's the one who did, and doesn't let go, and stares down at her hand and my stomach with an expression I can't quite read. Wonder, maybe, like someone who has just watched something hatch.
+Afterwards she stares down at her hand with an expression I can't quite read. Wonder, maybe, like someone who has just watched something hatch.
 
 <<linkreplace "Afterwards">>
 She cleans us both up with the tissues on my nightstand, carefully, thoroughly, the way she does everything when it matters to her. Then she sits back on her heels on the bed and looks at me with her hands in her lap.
@@ -158,6 +179,7 @@ Down the hall her door closes, and through the wall I hear her bed creak once as
 <<ProfileMemory $sister "That one counts" "She pushed the sleeves of my hoodie up to her elbows like she was about to wash dishes, and asked if it was okay twice. Afterwards she said that this one counts.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

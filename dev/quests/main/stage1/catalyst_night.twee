@@ -4,7 +4,9 @@
    take care of me "right here, in the open". I switch the Catalyst on (her entry of the quest device list) and tell her
    that to love someone means to give them everything, and ask for the proof. Her first blowjob, and she says "I love you"
    while she does it. Her love turned into an obligation. Her milestone into corruption stage 2 (Devoted).
-   Part 2: Catalyst Night 2, $mom.callName at home later that night (the link jumps to the Night). */
+   Part 2: Catalyst Night 2, $mom.callName at home later that night (the link jumps to the Night).
+   EXPLICIT blocks: the act itself is left for the author. Each block says what happens in it, how she reacts and what
+   the text around it already covers, so the written part can slot in without repeating it. */
 <<silent>><<SetBackground $locations[13].img>><</silent>>
 The Catalyst is finished. It sits on my desk in the empty office, a gray box a little smaller than a paperback, with a single amber light on the front that's off for now. According to $brian.name's last test log it does exactly what it says on the label, and the label says it amplifies what's already there. It doesn't say by how much.
 
@@ -69,15 +71,33 @@ Her eyes are wet, but she doesn't look away from me.
 <</silently>>
 <<Chat _msgs>>
 
-<<linkreplace "Let her">>
-/* MEDIA: images/characters/sister/events/catalyst_night/bj_0.mp4 | The dark office, Sister on her knees in front of his chair, the amber light of the gray box on the desk */
-
-She's clumsy at first, because she's never done this and she's trying to do it the way she thinks I'd want, and every few seconds she looks up to check my face. I put my hand in her hair and show her. She learns fast, the way she always has with things she cares about.
+<<linkreplace "Wait for her">>
+I don't move. The buckle she's opened a dozen times without thinking about it suddenly takes both her hands and two tries, and she laughs at herself under her breath.
 
 <<silently>>
 <<set _msgs = [
+{ who: $sister, text: "I swear this belt was easier last week. Did you buy a new one just to make this harder for me?" },
+{ text: "I don't answer. She glances up, sees that I'm not going to, and the smile goes out of her face. She wets her lips." },
+{ who: $sister, text: "Tell me if I do it wrong, okay? You know I've never actually... I mean, I've thought about it, which is a deeply weird thing to admit with my knees on the carpet, but thinking about it and doing it are not the same skill set, it turns out." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The amber light is the only light on this side of the room, and it lays a thin warm line along her cheekbone. Her hands are shaking a little. I put one of mine on her head, not pushing, only there, and she closes her eyes for a second and leans into it, the way a cat does once it's decided to forgive you.
+
+/* EXPLICIT 1, the start. Her first time using her mouth on him, and she has decided to do it, so no more hesitation once
+   she begins. Unsure what he likes, tries to do it the way she thinks he'd want, looks up at his face every few seconds to
+   check. He guides her with the hand in her hair and tells her what he likes, quietly, in full sentences, not orders.
+   She learns fast, the way she always does with things she cares about, and you can see her get a little proud of it.
+   Her POV detail to use: she keeps glancing at the dark windows of the office once or twice, then stops caring.
+   Already covered around it: the belt, her nerves, his hand on her head. Next block has the dialogue. */
+/* MEDIA: images/characters/sister/events/catalyst_night/bj_0.mp4 | The dark office, Sister on her knees in front of his chair, the amber light of the gray box on the desk */
+
+<<linkreplace "Make her say it">>
+<<silently>>
+<<set _msgs = [
 { who: $player, text: "Tell me you love me. Out loud this time." },
-{ text: "She pulls back, breathless, her lips wet, and looks up at me." },
+{ text: "She pulls back, breathless, and looks up at me, and for a second she looks like she's about to make a joke out of it. She doesn't." },
 { who: $sister, text: "I love you." },
 { who: $player, text: "Keep going. And keep saying it." },
 { who: $sister, text: "I love you. I love you, I love you..." },
@@ -86,24 +106,40 @@ She's clumsy at first, because she's never done this and she's trying to do it t
 <</silently>>
 <<Chat _msgs>>
 
+/* EXPLICIT 2, the middle. She goes on, stopping every few breaths to say it, and each time she says it she goes back to
+   him a little more eagerly, as if saying it and doing it are becoming one thing for her. More confident now, less
+   checking. He lets his hand rest in her hair and doesn't push. Keep the "I love you" lines in the text you write
+   (short, between breaths), so the Chat above is the start of it and not the only time she says it. */
 /* MEDIA: images/characters/sister/events/catalyst_night/bj_1.mp4 | Closer, his hand in her hair, her eyes up */
 
-When I come, she doesn't pull away. She stays there with her eyes closed, holding on to my thighs, until I'm done, and then she sits back on her heels, wipes her mouth with the back of her hand and laughs, a small, amazed laugh, as if she just did something brave.
+At some point I tell her she's doing well. It's the first warm thing I've said to her since she knelt down, and I watch what it does to her: her shoulders come down, her eyes close, and she makes a small happy sound like I just handed her something she'd been waiting all evening to be given.
+
+<<linkreplace "Don't stop her">>
+/* EXPLICIT 3, the finish. He warns her, or doesn't, your call. She doesn't pull away. She stays with her eyes closed,
+   holding on to his thighs, until he's done. Then the text below picks up when she sits back. */
+
+She sits back on her heels, wipes her mouth with the back of her hand and laughs, a small, amazed laugh, like someone who just jumped off the high board for the first time and is still surprised to find herself in the pool.
 
 <<linkreplace "Afterwards">>
+I pull her up off the carpet and onto my lap. The chair complains about it. She tucks her head under my chin and stays there, still breathing fast, one hand flat on my chest as if she's checking that my heart is going too.
+
 <<silently>>
 <<set _msgs = [
-{ who: $sister, text: "I actually said it out loud. About twenty times, I think, I lost count somewhere." },
-{ who: $player, text: "You did. I heard every one of them." },
-{ text: "I brush her hair back off her face, and she leans into my hand as if she's been waiting all evening for it." },
-{ who: $sister, text: "And I meant every single one. That's what you meant, right? With everything?" },
+{ who: $sister, text: "I actually said it out loud. About twenty times, I think, I lost count somewhere around the point where I stopped being able to feel my knees." },
+{ who: $player, text: "I counted. It was more than twenty." },
+{ who: $sister, text: "You did not count." },
+{ who: $player, text: "A little. I lost track around the same place you did." },
+{ text: "She laughs into my collar. Then she goes quiet, and when she talks again it's in her normal voice, the calm, sure one she uses on clients when she already knows they'll say yes." },
+{ who: $sister, text: "I meant every single one of them. That's what you meant, right? With everything?" },
 { who: $player, text: "Yeah. That's what I meant." },
 { who: $sister, text: "Okay. Then that's what you get from now on." },
+{ text: "She lifts her head and looks at me with a very straight face." },
+{ who: $sister, text: "Still not putting it on my resume, though." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-I switch the Catalyst back to standby, and the amber light goes out. She doesn't notice that either; she's busy straightening her blouse and her hair and grinning at the floor like it just told her a secret.
+I switch the Catalyst back to standby, and the amber light goes out. She doesn't notice that either; she's busy straightening her blouse and her hair in the dark window and grinning at her own reflection like it just told her a secret.
 
 I drive her home. On the way she holds my hand on the gearshift and doesn't say a word the whole drive, which isn't like her at all. At home she goes straight upstairs, and I hear her singing in the shower.
 
@@ -118,6 +154,8 @@ $mom.callName is still up. The kitchen light is on.
 <<ProfileLog $sister "The Catalyst Night" "She offered to take care of me in the empty office, the way she always does. I switched the Catalyst on and told her that if she loves me, I want everything, and that she has to be the one who gives it. She used her mouth for the first time, and said I love you between every breath until it sounded like a promise.">>
 <<ProfileMemory $sister "I love you" "The first time she said it out loud, she was on her knees on the office carpet. She said it about twenty times. She told me she meant every one.">>
 <div class="navigation-link"><<link "Later that night" "Catalyst Night 2">><<AdvanceTimeTo 5>><</link>></div>
+<</linkreplace>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

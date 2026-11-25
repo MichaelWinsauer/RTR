@@ -81,12 +81,12 @@ She lowers the tablet very slowly.
 { who: $player, text: "He looked back at your desk twice on his way out. I don't think that was about the coffee." },
 { text: "She opens her mouth to argue and then doesn't, because she was standing right there when he did it." },
 { who: $mom, text: "And what would I even wear to something like that? The last time I was in a steakhouse was your $dad.relation's fortieth, and I wore a cardigan, which I don't think is going to cut it." },
-{ who: $player, text: "I'd go with the green dress." },
+{ who: $player, text: "I'd go with the navy dress." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
-She goes pink so fast it's almost funny. She's worn that dress twice in twenty years, and the second time she ended up on her knees on this carpet.
+She goes pink so fast it's almost funny. The last time she wore that dress, she ended up on her knees on this carpet.
 
 <<silently>>
 <<set _msgs = [
@@ -120,7 +120,7 @@ She goes back to her desk and sits there for a while, perfectly still, and then 
 <<Feel $mom "player" -1>>
 <<set $mom.flags.gymDinner to true>>
 <<UpdateStat "+" "Corruption" 2>>
-<<ProfileLog $mom "The Gym Dinner" "$gymOwner.name wanted a dinner before he signed, and I sent her, in the green dress, as my client consultant. Before she left she asked me what to do if he got friendly. I told her to let him, within reason.">>
+<<ProfileLog $mom "The Gym Dinner" "$gymOwner.name wanted a dinner before he signed, and I sent her, in the navy dress, as my client consultant. Before she left she asked me what to do if he got friendly. I told her to let him, within reason.">>
 <<NextQuest $player>>
 <<ReturnFromEvent>>
 <</replace>><</link>></div>
@@ -143,7 +143,7 @@ She spends the rest of the afternoon working a little faster than usual and humm
 <<UpdateStat "+" "MomExhibition" 1>>
 <<set $mom.flags.gymDinner to true>>
 <<UpdateStat "+" "Corruption" 1>>
-<<ProfileLog $mom "The Gym Dinner" "$gymOwner.name wanted a dinner before he signed, and I sent her, in the green dress, as my client consultant. I told her to keep it light. She laughed when I warned her about the ice baths.">>
+<<ProfileLog $mom "The Gym Dinner" "$gymOwner.name wanted a dinner before he signed, and I sent her, in the navy dress, as my client consultant. I told her to keep it light. She laughed when I warned her about the ice baths.">>
 <<NextQuest $player>>
 <<ReturnFromEvent>>
 <</replace>><</link>></div>

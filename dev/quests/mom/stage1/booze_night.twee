@@ -69,7 +69,7 @@ I drink my wine instead and keep looking at her, and let her wonder what I'm thi
 She tucks her feet in tighter. A minute later she untucks them again, and her toes end up a few inches from my thigh, and she leaves them there and pretends that they're not there, and I pretend with her.
 
 <<linkreplace "Let the bottle run out">>
-The bottle goes down. She does most of the work. She tells me about the roommate, who married a dentist, and about the first apartment, which had a bathtub in the kitchen, and about the dress she wore to her cousin's wedding the year before I was born, which she still has, which still fits, she thinks, she's almost sure it would still fit.
+The bottle goes down. She does most of the work. She tells me about the roommate, who married a dentist, and about the first apartment, which had a bathtub in the kitchen, and about her favorite dress, a navy one at the back of her closet that she's hardly ever worn, because there's never anywhere nice enough to wear it to, and anyway, she says into her glass, who would she wear it for.
 
 Every time she stops talking she looks at me, and every time I just wait, and every time she starts talking again a little faster. She keeps touching her own collarbone. She keeps crossing and uncrossing her legs. At one point she gets up to get water, and stands at the kitchen counter for a long time with the glass in her hand and her back to me, and doesn't drink any of it.
 
@@ -101,7 +101,7 @@ I turn the TV off and finish my glass in the dark. Somewhere around the last sip
 <<UpdateStat "+" "MomCorruption" 2>>
 <<UpdateStat "+" "Corruption" 1>>
 <<ProfileLog $mom "The Booze Night" "She opened a bottle of wine on a weeknight and talked about $dad.callName, and about how nobody has picked her for anything in years. I listened and didn't touch her. She went upstairs on her own, and I heard her bed through the ceiling.">>
-<<ProfileMemory $mom "Picked" "She told me $dad.callName walked across a whole party to find her in the kitchen. She still has the dress from her cousin's wedding. She's almost sure it still fits.">>
+<<ProfileMemory $mom "Picked" "She told me $dad.callName walked across a whole party to find her in the kitchen. Her favorite dress is a navy one she's hardly ever worn. There's never anywhere to wear it, she said, and nobody to wear it for.">>
 <<NextQuest $mom>>
 <<ReturnFromEvent "Continue" "Living Room">>
 <</linkreplace>>

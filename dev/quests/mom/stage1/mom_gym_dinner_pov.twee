@@ -2,7 +2,7 @@
 /* POV passage, her side of the gym dinner (quest "Was That Right?", mom_gymDinner). Opened from part 1 (Mom Gym Dinner
    Report, where she starts telling me), and <<EndPov>> goes on to part 2 (Mom Gym Dinner Report 2) through $povReturn.
    No effects here: they are all in part 2.
-   The steakhouse downtown with $gymOwner.name, in the green dress (its third outing in twenty years). Shared: she's early,
+   The steakhouse downtown with $gymOwner.name, in the navy dress (its first outing since The Crawl). Shared: she's early,
    he's already there, ice baths and kettlebells, the arm touch I coached in Flirt Duty, she only sips because she's driving,
    and the bread basket: she's so busy asking herself what I'd want her to do that she nearly knocks her wine into his lap
    (The Catalyst Night calls back to that). Then by $mom.flags.gymDinnerLetHim:
@@ -14,11 +14,11 @@
    Both end in the driveway with the dome light on, the moment I saw from the window. */
 <<silent>><<SetBackground "images/locations/steakhouse.jpg">><</silent>>
 <<PovHeader $mom>>
-The young man at the podium takes my coat, and for one awful second I can't remember what I'm wearing underneath it. Then I remember. It's the green dress, out of the closet for the third time in twenty years, and the second time doesn't bear thinking about in a nice restaurant, so I don't.
+The young man at the podium takes my coat, and for one awful second I can't remember what I'm wearing underneath it. Then I remember. It's the navy dress, my favorite, and the last time I wore it doesn't bear thinking about in a nice restaurant, so I don't.
 
 $gymOwner.name is already at the table, which I didn't expect. Men like him are usually late on purpose, so you have time to look at the door and wonder. He stands up when he sees me, all the way up, and buttons his jacket, and his face does something that makes me want to check my teeth for lipstick. I don't need to. I checked in the car, more than once.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_pov/arrival.jpg | A dim steakhouse, white tablecloths, a broad tanned man in a suit standing up from a corner table as Mom comes toward him in the green dress */
+/* MEDIA: images/characters/mom/events/gym_dinner_pov/arrival.jpg | A dim steakhouse, white tablecloths, a broad tanned man in a suit standing up from a corner table as Mom comes toward him in the navy dress */
 
 <<silently>>
 <<set _msgs = [
@@ -50,7 +50,7 @@ His hand comes down on my knee in the middle of a sentence about retention rates
 
 I've known it was coming since this afternoon, when I asked $player.name what to do if he got friendly, and he said let him, within reason, and I said okay, and then I went back to my desk and called this restaurant to ask about a dress code that doesn't exist, just to hear somebody say something normal. So I'm ready. What I wasn't ready for is how warm a man's hand is through stockings, and how heavy, like being picked up and set down somewhere without anybody asking.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_pov/knee.jpg | Under the tablecloth's edge, a man's big hand on Mom's knee over dark stockings, the green dress just above it, her own hand flat on the table beside her plate */
+/* MEDIA: images/characters/mom/events/gym_dinner_pov/knee.jpg | Under the tablecloth's edge, a man's big hand on Mom's knee over dark stockings, the navy dress just above it, her own hand flat on the table beside her plate */
 
 I keep smiling. I ask him about the twelfth location, and he tells me, and while he does his thumb starts to move on the inside of my knee, back and forth, very slowly, as though he doesn't know he's doing it. He knows. They always know.
 

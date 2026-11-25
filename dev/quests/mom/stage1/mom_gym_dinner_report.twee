@@ -9,9 +9,9 @@
 <<silent>><<SetBackground $locations[2].img>><</silent>>
 I hear her car at a quarter to eleven, and then nothing for a long time. When I look out the window she's still sitting in the driveway with the engine off and the dome light on, looking at her hands on the steering wheel.
 
-She comes in eventually. She doesn't go upstairs. She comes and stands in the doorway of the living room in the green dress, holding her heels in one hand and her purse in the other, and her lipstick is gone, worn off by dinner and wine or by something else.
+She comes in eventually. She doesn't go upstairs. She comes and stands in the doorway of the living room in the navy dress, holding her heels in one hand and her purse in the other, and her lipstick is gone, worn off by dinner and wine or by something else.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_report/doorway.jpg | Mom in the living room doorway in the green dress, barefoot, heels in one hand, the house dark behind her */
+/* MEDIA: images/characters/mom/events/gym_dinner_report/doorway.jpg | Mom in the living room doorway in the navy dress, barefoot, heels in one hand, the house dark behind her */
 
 <<silently>>
 <<set _msgs = [

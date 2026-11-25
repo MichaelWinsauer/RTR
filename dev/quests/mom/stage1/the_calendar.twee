@@ -159,7 +159,9 @@ He sends a whale emoji. I look across the office. He's looking at his screen. Hi
 
 :: The Calendar 2 [event mom_quest] {"position":"4900,1075","size":"100,100"}
 /* Quest "The Calendar" (mom_calendar), part 2: that night, the hallway. The device stays in my drawer, and I test what she
-   promised. "Whatever you need." Advances her line; its set unlocks Whenever ($mom.flags.freeUse). */
+   promised. "Whatever you need." I make her leave my door open, with $sister.callName awake down the hall, and let her
+   decide what I need; she leads for the first time. EXPLICIT blocks are left for the author.
+   Advances her line; its set unlocks Whenever ($mom.flags.freeUse). */
 <<silent>><<SetBackground $locations[0].img>><</silent>>
 I leave the devices in my desk drawer, all of them, and go out into the hallway at eleven in my socks.
 
@@ -176,9 +178,103 @@ She doesn't ask what I want. She looks at my face, and then she unties the towel
 
 There's no box switched on, no dial turned, and she hasn't made a single rule about it.
 
-I take her hand and lead her back to my room, and she comes without a sound, past $sister.callName's door, with her free hand holding the robe closed until the moment I close mine.
+<<linkreplace "Take her to my room">>
+I take her hand and lead her back to my room, and she comes without a sound, past $sister.callName's door, with her free hand holding the robe closed. There's light under that door, and the tinny sound of a video playing on a laptop.
+
+I go in ahead of her and sit down on the edge of my bed. She comes in after me and reaches back for the door handle, out of habit.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Leave it open." },
+{ text: "Her hand stops on the handle. She looks down the hallway, at the strip of light and the little voices from the laptop, and back at me." },
+{ who: $mom, text: "Honey, she's right there, she's still up, if she so much as goes to brush her teeth she'll..." },
+{ text: "She hears herself and stops. Then she lets go of the handle, and the door swings back against the wall on its own, the way it always has, because nobody ever fixed that either." },
+{ who: $mom, text: "Open, then." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if $mom.flags.calendarChoice === "anchor">>
+She says it lightly, almost cheerfully, and comes over to me with that clear, untroubled look she's had all day, as if an open door were a thing she'd decided on herself, a long time ago, and was glad about.
+<<else>>
+She says it slowly, like a decision she's writing down so she can't lose it. Her eyes are perfectly clear. Whatever she worked out in the meeting room at lunch, she's still holding on to it.
+<</if>>
+
+<<linkreplace "Let her decide">>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You said whatever I need. So show me. What do you think I need?" },
+{ text: "She thinks about it seriously, the way she'd think about what to make for dinner when somebody's had a bad day." },
+{ who: $mom, text: "I think you need somebody who doesn't make you ask, sweetheart. You've had to ask for every little thing your whole life, from everyone, and I was one of them, wasn't I? I made you ask me for things I should have just given you." },
+{ who: $player, text: "Sometimes." },
+{ who: $mom, text: "Well. Not anymore." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She unties the robe and lets it drop on my floor, next to my shoes, and doesn't pick it up.
+
+/* EXPLICIT 1, she leads. The first time she takes the initiative without being told what to do: she undresses him,
+   then goes down on him without being asked (her mouth, which she learned at The Crawl, but this time unordered), and
+   after a while climbs onto him and has sex with him on his bed, her on top. He lets her set the pace; he barely
+   moves at first. The open door: she glances at it a few times in the beginning, then stops. Her mood: no nerves, no
+   apology, a kind of relief at not having to decide whether she's allowed. */
+/* MEDIA: images/characters/mom/events/the_calendar/night_0.mp4 | His room, the door open to the dark hallway, the night light by the stairs, Mom kneeling in front of him on the bed's edge */
+
+<<linkreplace "Listen to the house">>
+Down the hall the laptop goes quiet. $sister.callName's bed creaks, and then her light goes out, and the strip under her door goes dark.
+
+Not that long ago, in her own bed, $mom.callName froze at a creak in the floorboards and stayed rigid until the pipes knocked. Tonight she hears the bed and the light switch, and she looks at the open door, and then she looks back down at me and doesn't stop at all.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "She's asleep. Or she isn't, and either way, I don't..." },
+{ text: "She doesn't finish the sentence. I don't think she was ever going to." },
+{ who: $player, text: "You don't what?" },
+{ who: $mom, text: "I don't mind, honey. That's the funny part. I keep waiting to mind, and I don't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* EXPLICIT 2, the middle. She keeps going, on top of him, and talks to him the whole time in the low voice, not about
+   herself anymore but about him: how good he's been, how hard he works, that he never has to ask. She asks him what he
+   wants once, he tells her, she does it at once (one change of position, his choice). Neither of them is quiet about it
+   the way they were in her bed. */
+/* MEDIA: images/characters/mom/events/the_calendar/night_1.mp4 | On his bed, her on top, the hallway dark behind the open door */
+
+<<linkreplace "Let her finish it">>
+/* EXPLICIT 3, the finish. Him first this time, and she makes sure of it, because that's what she decided he needs.
+   Whether she comes too is up to you; if she does, it's after, and almost an afterthought to her, which says
+   something. The text below picks up after. */
+
+Afterwards she doesn't ask me to stay with her, and she doesn't ask if it was all right. She lies next to me for a minute with her hand flat on my chest, getting her breath back, and then she sits up and starts looking for her robe.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "What time do you want your coffee tomorrow? You've got that call at nine, so I was thinking half past seven, unless you'd rather sleep in a little and then I'll just bring it up at eight and we'll see." },
+{ who: $player, text: "Seven-thirty is fine." },
+{ who: $mom, text: "Seven-thirty, then." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She ties the robe, once, not twice, and goes. In the doorway she stops and looks back at the door, swung all the way open against the wall.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Open or closed, honey?" },
+{ who: $player, text: "Leave it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She leaves it. I listen to her walk down the hall, past $sister.callName's dark door, and she doesn't hurry and she doesn't tiptoe. The night light by the stairs is still on.
 
 <<UpdateStat "+" "MomCorruption" 2>>
 <<UpdateStat "-" "MomLust" 20>>
 <<NextQuest $mom>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

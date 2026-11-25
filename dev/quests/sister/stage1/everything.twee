@@ -7,7 +7,8 @@
    her I might feel something like love too, but my love belongs to the company, and I give her a choice: everything, here,
    now, or leave. She's unsure, and gives in; it's already too deep for anything else. Her first time, and her first full sex
    scene. Afterwards she gives me her phone, her passwords and her location, and asks me to choose her clothes every morning.
-   I say: soon (the Stage 2 hook for wardrobe orders). */
+   I say: soon (the Stage 2 hook for wardrobe orders).
+   EXPLICIT blocks: the act itself is left for the author, each block says what happens in it and what's around it. */
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 Everybody's gone. The office is dark except for my desk lamp and the green standby light of the gray box on the corner of my desk: the $company.devices.valenxCatalyst.name, a little smaller than a paperback, finished two weeks ago and calibrated to exactly one person.
 
@@ -115,15 +116,50 @@ I take her clothes off myself, slowly, and she lets me: the blouse first, then t
 
 I lay her down on the couch in the corner of the office, the one where $ethan.name naps after lunch, and she pulls me down with her.
 
-She's nervous and ready at the same time. It hurts her at first. She tells me so in a whisper, and tells me not to stop in the same breath, and holds on to my shoulders with both hands until it stops hurting, and then she holds on for a different reason.
-
+/* EXPLICIT 1, her first time. On the office couch, him on top. She's nervous and ready at the same time. It hurts her
+   at first: she tells him so in a whisper and tells him not to stop in the same breath, and holds on to his shoulders
+   with both hands until it stops hurting, and then holds on for a different reason. He is not especially gentle about
+   it, he is slow, and the slowness is for him (see the line after the hoodie beat). The hoodie beat below comes once
+   the hurting has stopped, so it can be funny. */
 /* MEDIA: images/characters/sister/events/everything/sex_0.mp4 | On the office couch, her arms around his neck, her face turned into his shoulder */
 
-I take my time with her, and it has nothing to do with being gentle. I want her to remember every minute of it, and to know who gave it to her. She says my name over and over, and once, near the end, she says she loves me, and once she says she's mine, as if she's trying it out, and I make her say it again until her voice doesn't shake.
+<<linkreplace "Keep going">>
+Something lumpy has been digging into her back the whole time. She reaches under herself without letting go of me, pulls it out from between the cushions and holds it up in the lamplight. It's a gray hoodie with a pizza place logo on it.
 
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Oh my God. This is $ethan.name's. I'm losing my virginity on $ethan.name's nap couch, on top of $ethan.name's hoodie, I'm going to have to look him in the eye tomorrow." },
+{ who: $player, text: "You could throw it on the floor." },
+{ who: $sister, text: "I'm going to throw it so far." },
+{ text: "She does. It lands on $brian.name's keyboard. She laughs so hard I can feel it, and then she stops laughing, because I haven't stopped moving." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I take my time with her after that, and it has nothing to do with being gentle. I want her to remember every minute of it, and to know who gave it to her.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "$player.name. Oh God, $player.name..." },
+{ who: $player, text: "Say what you said before. When you chose." },
+{ who: $sister, text: "I love you." },
+{ who: $player, text: "Not that one. The other one." },
+{ text: "She knows which one. She turns her face into my shoulder to say it." },
+{ who: $sister, text: "I'm yours." },
+{ who: $player, text: "Look at me and say it." },
+{ text: "She does, three times. The first time it shakes. By the third it doesn't, and she sounds almost surprised at herself, like someone who has just found out she can hold a note." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* EXPLICIT 2, the middle. Her nerves gone, she starts to move with him and to want things; one change of position is
+   enough (his choice, and he tells her). Her heels in the backs of his legs. She keeps saying it now without being asked,
+   between other things. The amber light on the desk is in view the whole time. */
 /* MEDIA: images/characters/sister/events/everything/sex_1.mp4 | Closer, faster, her heels digging into the backs of his legs, the amber light on the desk behind them */
 
-When she comes, she clings to me so hard it hurts, and cries a little, and laughs a little, and doesn't let go. When I finish, she wraps her legs around me and keeps me there.
+<<linkreplace "Don't let her go">>
+/* EXPLICIT 3, the finish. She comes first: clings to him so hard it hurts, cries a little and laughs a little, and
+   doesn't let go. When he finishes, she wraps her legs around him and keeps him there. */
 
 <<DevicePulse "off" "3s">>
 
@@ -172,6 +208,8 @@ I hold it and look at the blue dot for a while. Then I put it in my pocket.
 <<ProfileMemory $sister "The blue dot" "She switched on location sharing while I was holding her phone. A little blue dot on a map, right next to me, wearing my jacket. Always on, she said.">>
 <<NextQuest $sister>>
 <<ReturnFromEvent>>
+<</linkreplace>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

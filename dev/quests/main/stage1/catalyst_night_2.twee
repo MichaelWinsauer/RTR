@@ -4,7 +4,10 @@
    lust. I tell her the truth in a way she can't refuse: she's been good for weeks, and she's wanted. If she went to the gym
    dinner ($mom.flags.gymDinner), that's where I start. Their first full sex scene, in her bed. Afterwards she doesn't make a
    rule this time, and that's what I notice. Her milestone into corruption stage 2 (Willing). Both lines move on by their
-   wait quests. */
+   wait quests.
+   EXPLICIT blocks: the act itself is left for the author. Each block says what happens in it, how she reacts and what
+   the text around it already covers, so the written part can slot in without repeating it. The thread through all of
+   them: every time she tries to make it about him, he turns it back to her. Tonight is about her being wanted. */
 <<silent>><<SetBackground $locations[3].img>><</silent>>
 She's at the kitchen table with a cup of tea she's stopped drinking and the company calendar open on her tablet, color-coding next week. Her reading glasses are pushed up into her hair. She's in the big robe, the thick one, and her feet are bare on the cold tiles.
 
@@ -67,26 +70,85 @@ I can see it land. Whatever the Catalyst is doing in her, it looks like it's tak
 She takes her hand away from her mouth and looks at the stairs, toward $sister.callName's room, where the shower has stopped. Then she looks back at me, stands up and holds out her hand.
 
 <<linkreplace "Take her hand">>
-/* MEDIA: images/characters/mom/events/catalyst_night/bed_0.mp4 | Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
-She leads me up the stairs and into her bedroom, past my own door, past $sister.callName's door with the light still on under it, and closes hers very quietly. She turns the lamp down to its lowest setting. Then she stands at the foot of the bed she shared with $dad.callName, unties the robe, which she's knotted twice, and lets it fall.
-
-She's never stood in front of me like this without being told to, and she doesn't cover anything.
+She leads me up the stairs with her fingers laced through mine, and on the landing she stops so suddenly that I nearly walk into her. $sister.callName's door is closed, with a line of light under it and music playing very faintly behind it.
 
 <<silently>>
 <<set _msgs = [
-{ who: $mom, text: "Do you really... like this? Me?" },
-{ who: $player, text: "I really do. Come here." },
+{ who: $mom, text: "She's still awake, honey. She's right there, and if she comes out for a glass of water and sees us..." },
+{ who: $player, text: "Then we'll be quiet." },
+{ text: "She looks at the door, then at me, and her hand tightens around mine instead of letting go." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+/* MEDIA: images/characters/mom/events/catalyst_night/bed_0.mp4 | Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
+She closes her bedroom door so slowly that the latch doesn't click, and turns the lamp down to its lowest setting. She takes the reading glasses out of her hair, folds them and lines them up next to her alarm clock, very neatly, the way she does every night. Then she stands at the foot of the bed she shared with $dad.callName, unties the robe, which she's knotted twice, and lets it fall.
+
+She's never stood in front of me like this without being told to, and she doesn't cover anything. She does start talking, though.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I'm not exactly what I was at twenty-five, you know, honey. Things have moved around a bit, gravity's had twenty years to work on all of this, and I keep telling myself I'll get back into the yoga, but then there's always a client or the laundry or..." },
+{ who: $player, text: "You're not going to talk me out of this by listing everything you think is wrong with you." },
+{ text: "She laughs, shakily, and wipes one eye with her knuckle." },
+{ who: $mom, text: "No, I suppose I'm not. Come here, then." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her undress me">>
+She undresses me the way she does everything, carefully and a little too efficiently, and halfway through she catches herself folding my shirt and laying it over the back of her chair. She stares at it. Then she starts laughing without making a sound, with her forehead against my shoulder, until I'm laughing too.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Twenty years of laundry, honey. My hands just don't know any better." },
 ]>>
 <</silently>>
 <<Chat _msgs>>
 
 She lies back on her own bed and pulls me down with her, and for a moment she just holds my face in both hands and looks at me, as if she's memorizing something. Then she kisses me, and it's nothing like the kiss she puts on my forehead. She kisses me like a woman who wants someone.
 
+/* EXPLICIT 1, foreplay. Kissing and touching on her bed, the lamp low. She starts out attentive to him (that's who she
+   is: she wants to make it good for him, keeps asking if this is all right). He doesn't let her. He turns it around and
+   makes it about her body and her pleasure, and she has no idea what to do with being the one attended to: she's
+   flustered, tries to give back, he stops her. Her reactions: surprise first, then she lets go a little at a time.
+   Keep her quiet because of the room next door (her own hand, the pillow). The paragraph below follows on from it. */
 /* MEDIA: images/characters/mom/events/catalyst_night/bed_1.mp4 | In her bed, her arms around his neck, her face turned toward him */
 
-It's slow. She's careful at first, the way she's careful with everything, and then she isn't. She holds on to my shoulders and says my name, again and again, and once she says that she's wanted this, that she didn't let herself know she wanted it, and she sounds surprised and relieved in the same breath.
+Every time she tries to turn it back toward me, to make sure I'm comfortable, to ask if I want something else, I don't let her. It takes her a while to understand that I mean it, and once she does, I see her not know what to do with her hands for the first time in my life.
 
-When she comes, she pulls me down against her and holds on with her whole body, shaking, and doesn't let go for a long time.
+<<linkreplace "Don't let her look away">>
+/* EXPLICIT 2, the sex. Slow and careful at first, her on her back, holding his face, then she stops being careful.
+   Positions and how long are yours; one change of position is plenty. Her: she says his name again and again (not
+   loud), holds on to his shoulders, is surprised by herself. The Chat below runs during it, and the floorboard beat
+   after it comes in the middle of it, so write the first part before the Chat and the rest after the floorboard. */
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Keep your eyes open. I want you to know it's me." },
+{ who: $mom, text: "I know it's you, honey. I've known it's you for..." },
+{ text: "She doesn't finish. She hides her face in my neck instead, and when she comes back up she's crying a little and smiling, both at once." },
+{ who: $mom, text: "I wanted this. I don't even know since when, I didn't let myself know it, isn't that silly? A grown woman with a mortgage, and I didn't let myself know." },
+{ who: $player, text: "You're allowed to know it now." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Somewhere in the middle of it the hallway floor creaks, and we both freeze. She has a hand clamped over her own mouth and her eyes are huge over her fingers. We listen to nothing for what feels like a full minute. Then the pipes knock in the wall, the way they have every night for as long as I can remember.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "It's the house. It does that, it's always done that, your $dad.callName kept promising he'd call someone about it." },
+{ text: "Then she hears what she just said, and whose bed she said it in, and pulls me back down before either of us has to think about it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Hold on to her">>
+/* EXPLICIT 3, the finish. Her first: she pulls him down against her and holds on with her whole body, shaking, and has
+   to bite down on something (his shoulder, the pillow) to stay quiet. Then him. The paragraph below picks up after. */
+
+When it's over she doesn't let go. She keeps me where I am, her ankles hooked behind my knees, as if I might get up and leave the moment she loosens her grip.
 
 <<linkreplace "Afterwards">>
 She lies against me with her head on my chest. The lamp is still on. Her hair is all over the pillow, and she's tracing slow circles on my stomach with one finger, the same idle way $sister.callName played with my fingers on the gearshift a few hours ago, though neither of them will ever know that.
@@ -118,6 +180,9 @@ In my jacket on her floor, the Catalyst has gone dark. If $brian.name's label is
 <<ProfileMemory $mom "Wanted" "She said nobody had told her that in years and years. Then she stood up from the kitchen table and held out her hand.">>
 <<NextQuest $player>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>

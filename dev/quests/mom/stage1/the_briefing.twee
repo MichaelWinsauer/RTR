@@ -4,7 +4,8 @@
    humiliate her. I calm her with the device, brief her on what to say and how to act, and put her in the outfit I bought, without
    a bra. Then I turn the one dial I've never used on her, and she starts to feel how wound up I am. She sees what the outfit does
    to me (the second time, after Control Session), and she decides on her own to take care of it, "just this once".
-   The stage-up happens at the end of this part. Part 2 is "The Handover", which advances the quest. */
+   The stage-up happens at the end of this part. Part 2 is "The Handover", which advances the quest.
+   EXPLICIT blocks: the act itself is left for the author, each block says what happens in it and what's around it. */
 <<silent>><<SetBackground $locations[15].img>><</silent>>
 It's twenty past seven, and the office is still asleep. The others won't be in until nine, except for $brian.name, who's downstairs loading the case into the van. Judging by the noises coming up the stairwell, the case is winning.
 
@@ -162,9 +163,15 @@ She says 'just this once' the way she used to say 'just one more episode'.
 <<linkreplace "Let her">>
 I don't help her. I lean back in the chair and let her find the button of my pants by herself.
 
-She sinks down onto her knees beside the chair, in the skirt that was never made for kneeling, and it rides up so far that she gives up on it. Her fingers are cold on the zipper. She fumbles it, says sorry to it under her breath, and gets it on the second try, and then I'm in her hand and her hand isn't cold anymore.
+She sinks down onto her knees beside the chair, in the skirt that was never made for kneeling, and it rides up so far that she gives up on it. Her fingers are cold on the zipper. She fumbles it, says sorry to it under her breath, and gets it on the second try.
 
-She's careful at first. She's careful with everything she hasn't done before: slow, a little stiff at the wrist, her eyes on my face the whole time to check whether she's doing it right. The light on the box pulses behind her, and under the table I keep my thumb on the slider and leave it exactly where it is.
+/* EXPLICIT 1, the start. Her first time touching him, her hand only. Careful the way she is with everything she hasn't
+   done before: slow, a little stiff at the wrist, eyes on his face the whole time to check whether she's doing it right.
+   Her cold fingers warm up. The silk blouse, no bra, the skirt ridden up: she's aware of all of it for the first few
+   seconds and then forgets. He stays leaned back and doesn't help. The Chat below runs during it. */
+/* MEDIA: images/characters/mom/events/the_briefing/hj_0.mp4 | The meeting room in morning light, Mom kneeling beside his chair in the champagne blouse, the white box glowing blue on the table */
+
+The light on the box pulses behind her, and under the table I keep my thumb on the slider and leave it exactly where it is.
 
 <<silently>>
 <<set _msgs = [
@@ -177,9 +184,32 @@ She's careful at first. She's careful with everything she hasn't done before: sl
 <</silently>>
 <<Chat _msgs>>
 
-She talks the whole time, low and soft, the voice she uses on the phone when a client is about to walk. It's going to be fine. He's just a man in a big chair. I've done so well, I've done so much, I'm allowed to let go for a minute. Her free hand rests flat on my thigh, steadying herself, and the rhythm of the other one gets surer and surer until it isn't careful at all.
+<<linkreplace "Let her talk">>
+She talks the whole time, low and soft, the voice she uses on the phone when a client is about to walk. It's going to be fine. He's just a man in a big chair. I've done so well, I've done so much, I'm allowed to let go for a minute. Her free hand rests flat on my thigh to steady herself.
 
-When I come, she catches most of it in her palm and stays exactly where she is, a little out of breath herself, holding her palm very still and level, the way you carry a cup of coffee somebody filled to the brim.
+/* EXPLICIT 2, the middle. She gets surer and surer until she isn't careful at all, and her soothing talk keeps going
+   under it the whole time (keep a few of her murmured lines in, in her phone voice, honey and sweetie). The longer it
+   goes, the more it's about him and the less about the outfit she's in. */
+/* MEDIA: images/characters/mom/events/the_briefing/hj_1.mp4 | Closer, her free hand flat on his thigh, the silk falling forward */
+
+My phone buzzes on the table, face up, right next to her elbow. She jumps and stops.
+
+<<silently>>
+<<set _msgs = [
+{ text: "It's $brian.name: van loaded. case survived. barely. coming up or should i wait down here" },
+{ who: $mom, text: "Oh God, he's coming up, honey, he's going to walk right in here and..." },
+{ who: $player, text: "He's not. Don't stop." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I pick up the phone and type with one thumb, wait downstairs, 10 min, while she watches me do it with her mouth open. Then, because I told her to and because I haven't looked away from her, she starts again. She keeps one eye on the glass door the whole rest of the time, and she doesn't slow down once.
+
+<<linkreplace "Let her finish">>
+/* EXPLICIT 3, the finish. He doesn't warn her, or barely. She catches most of it in her palm. The paragraph below
+   picks up right after. */
+
+She stays exactly where she is afterwards, a little out of breath herself, holding her hand very still and level, the way you carry a cup of coffee somebody filled to the brim.
 
 <<linkreplace "Afterwards">>
 She gets up before I've done my pants back up. There's a box of tissues on the table that $darius.name keeps there for allergy season; she uses four of them, folds them into a neat square, and drops them into the wastebasket under the table, then pulls the next tissue halfway out of the box so the box looks the way it did before.
@@ -207,6 +237,8 @@ When she picks up her checklist to go and make the coffee, her hands are steadie
 <<ProfileMemory $mom "Just this once" "She came to the briefing with a checklist highlighted in four colors. She left it with her hands steady, after she'd knelt beside my chair in the skirt I bought her and told me to breathe.">>
 
 [[Drive to the tower|The Handover]]
+<</linkreplace>>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
