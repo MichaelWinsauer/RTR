@@ -175,7 +175,7 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/neighbors_moving.jpg | Through the window, a moving van outside the building with boxes on the sidewalk, Mom and Sister peeking out. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Offer to deal with it">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: either("Want me to say something? I don't mind.", "I can go over and talk to them. I'll be nice about it, promise.", "Leave it to me, $mom.callName.") },
@@ -185,7 +185,6 @@
 	<<UpdateStat "+" "MomRelation" 1>>
 	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 3, 0, 100)>>
 <</replace>><</link>>
-<br>
 <<link "Stay out of it">><<replace "#dm-choice">>
 	<p>I nod along and keep eating. Whatever's going on out there, I'd rather not get dragged into it.</p>
 <</replace>><</link>>
@@ -248,13 +247,12 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/dishes_rps.jpg | Sister holding out a fist, expectant grin, a stack of plates in the background. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "I'll do them">><<replace "#dm-choice">>
 	<p>"Fine, I'll do them," I say, already pushing back my chair. $mom.callName looks at me like I just offered to pay off the mortgage.</p>
 	<<UpdateStat "+" "MomRelation" 2>>
 	<<UpdateStat "+" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Rock, paper, scissors">><<replace "#dm-choice">>
 	<<set _rps to random(1, 3)>>
 	<<if _rps == 1>>
@@ -294,12 +292,11 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/wifi_password.jpg | A sticky note with a long password stuck on the fridge, Sister squinting at it with her phone in hand. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "I'll check the router tonight">><<replace "#dm-choice">>
 	<p>"I'll look at the router after dinner," I say. $mom.callName looks relieved. $sister.callName raises her glass of juice in a mock toast.</p>
 	<<UpdateStat "+" "MomRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Blame the neighbors">><<replace "#dm-choice">>
 	<p>"Probably the neighbors stealing our wifi," I say gravely. Nobody believes me, but $sister.callName snorts into her cup.</p>
 	<<UpdateStat "+" "SisterRelation" 1>>
@@ -327,7 +324,7 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/groceries_fridge.jpg | Open fridge with almost nothing in it, Mom holding the door and peering in, Sister peeking from behind. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<if $player.money >= 40>>
 <<link "I'll go shopping">><<replace "#dm-choice">>
 	<p>"I'll go," I say. "Give me the list." $mom.callName hands me an envelope covered in her neat handwriting, with a smudged 'chips' at the bottom.</p>
@@ -335,7 +332,6 @@
 	<<UpdateStat "+" "MomRelation" 2>>
 	<<UpdateStat "+" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <</if>>
 <<link "Not today">><<replace "#dm-choice">>
 	<p>"I'm swamped today," I say. $mom.callName nods, a little tired, and says she'll do it on the way home.</p>
@@ -374,12 +370,11 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/borrowed_charger.jpg | Sister holding out an open hand for the charger, the player digging it out of his pocket with a guilty look. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Own up and apologize">><<replace "#dm-choice">>
 	<p>"Fine. It was me. Sorry." $sister.callName accepts it like a queen receiving tribute.</p>
 	<<UpdateStat "+" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Deny everything">><<replace "#dm-choice">>
 	<p>"I've never seen it in my life," I say with a straight face. $sister.callName narrows her eyes. $mom.callName sighs.</p>
 	<<if random(0, 1) == 1>>
@@ -456,13 +451,12 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/nag_water.jpg | Mom filling a water glass in front of each person at the table with determined efficiency. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Promise to do better">><<replace "#dm-choice">>
 	<p>"You're right, I'll try," I say. $mom.callName looks at me for a long moment, the way she does when she's deciding whether to believe me, and then squeezes my hand.</p>
 	<<UpdateStat "+" "MomRelation" 2>>
 	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 3, 0, 100)>>
 <</replace>><</link>>
-<br>
 <<link "Joke it off">><<replace "#dm-choice">>
 	<p>"I'm basically a houseplant," I say. "Give me a window and some coffee and I'm fine." $sister.callName barks a laugh. $mom.callName pinches the bridge of her nose, but the corner of her mouth twitches.</p>
 	<<UpdateStat "+" "SisterRelation" 1>>
@@ -491,7 +485,7 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/car_light.jpg | Close-up of an old dashboard with a glowing orange engine light; or Mom and Sister exchanging a deadpan look. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<if $player.money >= 80>>
 <<link "Take it to a mechanic ($80)">><<replace "#dm-choice">>
 	<p>"I'll take it in on Saturday," I say. $mom.callName visibly relaxes. "Thank you, sweetie. I'll sleep a lot better knowing that."</p>
@@ -499,7 +493,6 @@
 	<<UpdateStat "+" "MomRelation" 2>>
 	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 4, 0, 100)>>
 <</replace>><</link>>
-<br>
 <</if>>
 <<link "Deal with it later">><<replace "#dm-choice">>
 	<p>"It's fine. I'll deal with it later," I say. $mom.callName gives me the look she's been giving me since I was six, and I pretend not to see it.</p>
@@ -556,13 +549,12 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/bathroom_light.jpg | The bathroom door visible down the hallway with a bright strip of light under it, Sister pointing at it with a spoon. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Side with $mom.callName">><<replace "#dm-choice">>
 	<p>"Honestly, you do take long showers," I tell $sister.callName. She gasps theatrically and kicks me under the table.</p>
 	<<UpdateStat "+" "MomRelation" 1>>
 	<<UpdateStat "-" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Side with $sister.callName">><<replace "#dm-choice">>
 	<p>"I think the boiler is just old," I say. $sister.callName looks at me with the grateful eyes of someone saved from a firing squad.</p>
 	<<UpdateStat "+" "SisterRelation" 1>>
@@ -628,7 +620,7 @@
 <</if>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/company_talk.jpg | Mom leaning forward with genuine interest over her plate, Sister chin-in-hand next to her, the player half-turned to answer. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Brag a little">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: "Trust me, in a year you'll be telling people you knew me when." },
@@ -638,7 +630,6 @@
 	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 5, 0, 100)>>
 	<<UpdateStat "+" "MomRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Keep it humble">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: "It could all still fall apart. I don't really want to jinx it." },
@@ -659,7 +650,7 @@
 ]>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/compliment_meal.jpg | Close-up of the player lifting a forkful, impressed expression; Mom pleased in the background. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Compliment $mom.callName">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: either("This is incredible, $mom.callName. Honestly the best _food you've ever made.", "You've outdone yourself again, you know that?", "I don't think I've eaten this well in years.") },
@@ -668,7 +659,6 @@
 	<<Chat _msgs>>
 	<<UpdateStat "+" "MomRelation" 2>>
 <</replace>><</link>>
-<br>
 <<link "Compliment $sister.callName's side dish">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: "And the salad is actually good. Who made that?" },
@@ -860,12 +850,11 @@
 ]>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/pancakes.jpg | Mom at the stove flipping a pancake, flour on her cheek, a stack of pancakes on the table, Sister reaching for the syrup. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Help $mom.callName at the stove">><<replace "#dm-choice">>
 	<p>I take the spatula and flip the pancake before it burns. It lands golden-side up and $mom.callName ruffles my hair like I'm ten.</p>
 	<<UpdateStat "+" "MomRelation" 2>>
 <</replace>><</link>>
-<br>
 <<link "Stay seated">><<replace "#dm-choice">>
 	<p>I stay where I am and let the smell of pancakes do its work. $sister.callName throws a napkin at me for being useless.</p>
 	<<UpdateStat "+" "SisterRelation" 1>>
@@ -925,13 +914,12 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/sniffles_sister.jpg | Sister wrapped in a blanket at the table with a red nose and a cup of tea, Mom feeling her forehead. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Make tea">><<replace "#dm-choice">>
 	<p>I get up and put the kettle on, then dig out the honey from the back of the cupboard. Nobody says thank you, but the look I get is better.</p>
 	<<UpdateStat "+" "MomRelation" 1>>
 	<<UpdateStat "+" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Keep my distance">><<replace "#dm-choice">>
 	<p>I move my chair an inch away and pointedly open the window. "Sorry, I can't afford to get sick right now."</p>
 	<<UpdateStat "-" "SisterRelation" 1>>
@@ -947,7 +935,7 @@
 ]>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/choreslist.jpg | Mom holding up a handwritten list, Sister groaning with her head on the table, the player scanning the list. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Take the garage">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: "I'll take the garage." },
@@ -957,7 +945,6 @@
 	<<Chat _msgs>>
 	<<UpdateStat "+" "MomRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Take the windows">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: "I'll do the windows." },
@@ -981,7 +968,7 @@
 ]>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/recipe_new.jpg | Mom watching the others expectantly while they take their first bite, a somewhat unusual-looking dish in the middle of the table. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Honest review">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: either("It's good. A little too much salt, but good.", "Honestly? It's great, but the sauce needs more garlic.", "It's different. I like it, but I'd skip the olives.") },
@@ -990,7 +977,6 @@
 	<<Chat _msgs>>
 	<<UpdateStat "+" "MomRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Polite lie">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: "It's perfect. Seriously, don't change a thing." },
@@ -1011,19 +997,17 @@
 ]>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/dessert_last_slice.jpg | A single slice of cake on a plate in the middle of the table, three pairs of eyes fixed on it. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Give it to $mom.callName">><<replace "#dm-choice">>
 	<p>I push the plate across to $mom.callName. She tries to refuse twice, then takes it with an enormous smile.</p>
 	<<UpdateStat "+" "MomRelation" 2>>
 	<<UpdateStat "-" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Give it to $sister.callName">><<replace "#dm-choice">>
 	<p>I slide it over to $sister.callName. She stares at it, then at me. "Who are you and what have you done with my $sister.playerRelation?"</p>
 	<<UpdateStat "+" "SisterRelation" 2>>
 	<<UpdateStat "-" "MomRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Split it three ways">><<replace "#dm-choice">>
 	<p>I fetch a knife and cut the slice into three, which can't be done fairly, and we spend the next five minutes arguing about who got the biggest piece.</p>
 	<<UpdateStat "+" "MomRelation" 1>>
@@ -1052,7 +1036,7 @@
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/birthday_sister.jpg | Sister miming big over-ear headphones with her hands, Mom writing something on a notepad. */
 <</switch>>
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<link "Suggest an idea">><<replace "#dm-choice">>
 	<<set _msgs to [
 		{ who: $player, text: either("What about a spa day, or a nice dinner out? I'll chip in.", "I'll handle the cake. I can make it a surprise.", "We could do a day trip, just the three of us.") },
@@ -1062,7 +1046,6 @@
 	<<UpdateStat "+" "MomRelation" 1>>
 	<<UpdateStat "+" "SisterRelation" 1>>
 <</replace>><</link>>
-<br>
 <<link "Say nothing">><<replace "#dm-choice">>
 	<p>I pretend to be very interested in my food. Gift ideas are a minefield and I don't have a map.</p>
 <</replace>><</link>>
@@ -1106,7 +1089,7 @@
 <<run _msgs.push({ who: $sister, text: either("I can chip in a little. Not a lot, but a little.", "I'll go through my account later and see what I can spare.", "Whatever you need, $mom.callName. Just tell me.") })>>
 <<Chat _msgs>>
 /* IMAGE: images/meals/default/money_talk.jpg | Mom with a pile of bills and a pen next to her plate, tired but composed, Sister and the player exchanging a look. */
-<div id="dm-choice">
+<div id="dm-choice" class="choices">
 <<if $player.money >= 100>>
 <<link "Offer $100 toward it">><<replace "#dm-choice">>
 	<<set _msgs to [
@@ -1119,7 +1102,6 @@
 	<<UpdateStat "+" "MomRelation" 3>>
 	<<set $mom.stats.morale to Math.clamp($mom.stats.morale + 8, 0, 100)>>
 <</replace>><</link>>
-<br>
 <</if>>
 <<link "Stay out of it">><<replace "#dm-choice">>
 	<p>I keep my eyes on my plate. $mom.callName sighs, folds the bill in half, and the subject quietly sinks.</p>

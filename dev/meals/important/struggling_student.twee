@@ -45,7 +45,7 @@ $sister.callName looks up and finds me watching her. For a second her eyes go wi
 
 I could help her out of this right now, or I could let it get a little worse first.
 
-<div id="ss-choice">
+<div id="ss-choice" class="choices">
 <<link "Cover for her">><<replace "#ss-choice">>
 <<silently>>
 <<set _msgs = [

@@ -45,7 +45,7 @@ $sister.callName looks from her to me and back, eyebrows up, then shrugs and goe
 
 I eat my eggs. They're perfect, which they never are, and I can't remember the last time $mom.callName burned nothing at all.
 
-<div id="mtre-choice">
+<div id="mtre-choice" class="choices">
 <<link "Ask her if the relaxation helped">><<replace "#mtre-choice">>
 <<silently>>
 <<set _msgs = [

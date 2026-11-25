@@ -8,7 +8,7 @@
 <</silently>>
 <p>$sister.callName leans around my door frame without knocking.</p>
 <<Chat _msgs>>
-<div id="choice1">
+<div id="choice1" class="choices">
 	<div>
 		<<link "Lend it">>
 			<<replace "#choice1">>
@@ -26,7 +26,7 @@
 	</div>
 	<div>
 		<<if $sister.flags.favorsOwed>>
-			<span style="opacity: .5;">Lend it, and she owes you one (she already owes you a favor)</span>
+			<span class="choice-locked">Lend it, and she owes you one<small>she already owes you a favor</small></span>
 		<<else>>
 			<<link "Lend it, and she owes you one">>
 				<<replace "#choice1">>

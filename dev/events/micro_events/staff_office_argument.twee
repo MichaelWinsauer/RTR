@@ -17,7 +17,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="staff-argument-choice">
+<div id="staff-argument-choice" class="choices">
 	<div>
 		<<link "Settle it">>
 			<<replace "#staff-argument-choice">>

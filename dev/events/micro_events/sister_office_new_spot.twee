@@ -22,7 +22,7 @@
 	<p>Her new spot is also very nearly under the vent. I think about that for a moment and decide it's a fine place for a desk.</p>
 <</if>>
 <br>
-<div id="new-spot-choice">
+<div id="new-spot-choice" class="choices">
 	<div>
 		<<link "Leave it where it is">>
 			<<replace "#new-spot-choice">>

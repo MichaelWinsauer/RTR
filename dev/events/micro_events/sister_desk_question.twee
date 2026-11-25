@@ -19,7 +19,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="desk-question-choice">
+<div id="desk-question-choice" class="choices">
 	<div>
 		<<link "Walk her through it">>
 			<<replace "#desk-question-choice">>

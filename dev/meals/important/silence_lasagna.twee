@@ -38,7 +38,7 @@ $mom.callName has changed for dinner. Nothing special, just the blue cardigan an
 <</silently>>
 <<Chat _msgs>>
 
-<div id="silence-lasagna-choice">
+<div id="silence-lasagna-choice" class="choices">
 	<div>
 		<<link "Eat it without a word">>
 			<<replace "#silence-lasagna-choice">>

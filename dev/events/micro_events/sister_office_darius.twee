@@ -15,7 +15,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="sister-darius-choice">
+<div id="sister-darius-choice" class="choices">
 	<div>
 		<<link "Look back at your screen">>
 			<<replace "#sister-darius-choice">>

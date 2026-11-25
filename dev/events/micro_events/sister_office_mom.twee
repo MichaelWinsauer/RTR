@@ -17,7 +17,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="sister-mom-choice">
+<div id="sister-mom-choice" class="choices">
 	<div>
 		<<link "Back up $mom.callName">>
 			<<replace "#sister-mom-choice">>

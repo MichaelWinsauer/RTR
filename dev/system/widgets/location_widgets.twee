@@ -63,7 +63,7 @@
 */
 <<widget "CheckNPCLocation">>
 	<<if setup.sameLocation($player.location, $mom.location)>>
-        <div class="npc-here-wrapper npc-here-mom">
+        <div class="npc-here-wrapper npc-here-mom" @style="'background-color: ' + $mom.sysColor + '30; border-color:' + $mom.sysColor + ';'">
             <<if !$mom.flags.isFollowing>>
                 $mom.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> <<= setup.activityText("mom", $mom.activity)>>.
             <<else>>
@@ -71,13 +71,13 @@
             <</if>>
         </div>         
     <<elseif $mom.flags.isFollowing>>
-        <div class="npc-here-wrapper npc-here-mom">
+        <div class="npc-here-wrapper npc-here-mom" @style="'background-color: ' + $mom.sysColor + '30; border-color:' + $mom.sysColor + ';'">
     	    $mom.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "mom">><</link>> you.
         </div>
     <</if>>
     
     <<if setup.sameLocation($player.location, $sister.location)>>
-        <div class="npc-here-wrapper npc-here-sister">
+        <div class="npc-here-wrapper npc-here-sister" @style="'background-color: ' + $sister.sysColor + '30; border-color:' + $sister.sysColor + ';'">
             <<if !$sister.flags.isFollowing>>
                 $sister.callName is <<link "here" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> <<= setup.activityText("sister", $sister.activity)>>.
             <<else>>
@@ -86,7 +86,7 @@
         </div>
          
     <<elseif $sister.flags.isFollowing>>
-    	<div class="npc-here-wrapper npc-here-sister">
+    	<div class="npc-here-wrapper npc-here-sister" @style="'background-color: ' + $sister.sysColor + '30; border-color:' + $sister.sysColor + ';'">
             $sister.callName is <<link "following" "NPC Interaction">><<set $interactionCharacter to "sister">><</link>> you.
         </div>
     <</if>>

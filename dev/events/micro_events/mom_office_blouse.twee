@@ -16,7 +16,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="mom-blouse-choice">
+<div id="mom-blouse-choice" class="choices">
 	<div>
 		<<link "Tell her it suits her">>
 			<<replace "#mom-blouse-choice">>

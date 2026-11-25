@@ -41,7 +41,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="choice1">
+<div id="choice1" class="choices">
 	<<link "Stop and talk for a minute">>
 		<<replace "#choice1">>
 			<<silently>>

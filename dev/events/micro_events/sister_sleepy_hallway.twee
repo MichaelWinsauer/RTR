@@ -8,7 +8,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="choice1">
+<div id="choice1" class="choices">
 	<div>
 		<<link "Bring her a coffee">>
 			<<replace "#choice1">>

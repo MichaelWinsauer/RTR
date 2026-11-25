@@ -12,7 +12,7 @@
 ]>>
 <</silently>>
 <<Chat _msgs>>
-<div id="mom-blinds-choice">
+<div id="mom-blinds-choice" class="choices">
 	<div><<link "Follow her">><<replace "#mom-blinds-choice">>
 		<p>I give her a head start of a minute, for appearances. When I open the meeting room door, the blinds are down and she is already on her knees beside the table, with the folder on the chair next to her, open to a page of numbers in case anybody walks in.</p>
 		<p>Nobody walks in. Ten minutes later she walks out first, fixing her lipstick with one fingertip, and stops at $brian.name's desk to ask him if he's eaten. He says he has. She tells him he's a terrible liar.</p>
@@ -40,7 +40,7 @@
 <p>The note is in her handwriting, the neat, round letters she uses for birthday cards. It says:</p>
 <div class="silence-note"><p>Supply closet. 5 min. Whatever you need. xx</p></div>
 <p>Underneath, smaller, as if she thought about it afterwards: <i>(I brought wipes.)</i></p>
-<div id="mom-note-choice">
+<div id="mom-note-choice" class="choices">
 	<div><<link "Go to the supply closet">><<replace "#mom-note-choice">>
 		<p>The supply closet is the size of a phone booth, full of printer paper and the good pens $sister.callName keeps hiding. $mom.callName is already in there, in the dark, and she pulls me in by my tie and shuts the door with her foot.</p>
 		<p>It's quick and close and very quiet, with a shelf of toner cartridges digging into my back. Afterwards she does, in fact, have wipes. She also straightens my tie, and gives me a box of staples to carry out, so I'll have a reason for having been in there.</p>

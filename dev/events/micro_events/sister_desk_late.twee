@@ -21,7 +21,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="desk-late-choice">
+<div id="desk-late-choice" class="choices">
 	<div>
 		<<link "Let her stay">>
 			<<replace "#desk-late-choice">>
@@ -61,9 +61,9 @@
 	</div>
 	<div>
 		<<if _sdlVx.lastUsedAtDay == $date.dayCount>>
-			<span style="opacity: .5;">Use $company.prototype.name (already used today)</span>
+			<span class="choice-locked">Use $company.prototype.name<small>already used today</small></span>
 		<<elseif _sdlVx.charge < _sdlCost>>
-			<span style="opacity: .5;">Use $company.prototype.name (not enough charge)</span>
+			<span class="choice-locked">Use $company.prototype.name<small>not enough charge</small></span>
 		<<else>>
 			<<link "Use $company.prototype.name">>
 				<<replace "#desk-late-choice">>

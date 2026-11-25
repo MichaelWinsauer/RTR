@@ -28,7 +28,7 @@
 <<set _call to _calls.random()>>
 <</silently>>
 <p>$mom.callName is on the couch with her phone to her ear, speaking quietly. I can hear her voice from the hallway.</p>
-<div id="choice1">
+<div id="choice1" class="choices">
 	<div>
 		<<link "Listen in">>
 			<<replace "#choice1">>

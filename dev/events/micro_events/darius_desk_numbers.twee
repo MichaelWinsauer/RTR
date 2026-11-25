@@ -17,7 +17,7 @@
 <<Chat _msgs>>
 <p>Air quality. He puts it in the middle of the list with no particular weight on it, and I catch myself studying his face, trying to tell whether that was on purpose. I honestly can't.</p>
 <br>
-<div id="darius-numbers-choice">
+<div id="darius-numbers-choice" class="choices">
 	<div>
 		<<link "Credit the team">>
 			<<replace "#darius-numbers-choice">>

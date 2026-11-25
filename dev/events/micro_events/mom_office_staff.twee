@@ -40,7 +40,7 @@
 	<<Chat _msgs>>
 <</if>>
 <br>
-<div id="mom-staff-choice">
+<div id="mom-staff-choice" class="choices">
 	<div>
 		<<link "Let her">>
 			<<replace "#mom-staff-choice">>

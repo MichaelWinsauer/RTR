@@ -10,7 +10,7 @@
 ]>>
 <</silently>>
 <<Chat _msgs>>
-<div id="ethan-desk-choice">
+<div id="ethan-desk-choice" class="choices">
 	<div>
 		<<link "Let him show you">>
 			<<replace "#ethan-desk-choice">>

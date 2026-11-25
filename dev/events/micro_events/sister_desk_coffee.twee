@@ -17,7 +17,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="desk-coffee-choice">
+<div id="desk-coffee-choice" class="choices">
 	<div>
 		<<link "Let her sit in">>
 			<<replace "#desk-coffee-choice">>

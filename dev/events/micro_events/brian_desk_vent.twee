@@ -17,7 +17,7 @@
 <<Chat _msgs>>
 <p>And he wouldn't ask questions, either, which is almost worse. I can picture it: he climbs up, unscrews the grille, points his flashlight at a board that's very obviously mine, because I'm pretty sure nobody else alive routes a trace the way I do, and climbs back down without a word. Then he keeps not saying anything about it, every day, from the desk right underneath it.</p>
 <br>
-<div id="brian-vent-choice">
+<div id="brian-vent-choice" class="choices">
 	<div>
 		<<link "Blame the landlord">>
 			<<replace "#brian-vent-choice">>

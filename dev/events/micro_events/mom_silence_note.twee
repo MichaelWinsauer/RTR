@@ -13,7 +13,7 @@
 	<p class="silence-note-sign">$mom.callName</p>
 </div>
 <p>On the back, smaller, squeezed in after she must have folded it already: <i>Whenever you want.</i></p>
-<div id="silence-note-choice">
+<div id="silence-note-choice" class="choices">
 	<div>
 		<<link "Put it in the drawer">>
 			<<replace "#silence-note-choice">>

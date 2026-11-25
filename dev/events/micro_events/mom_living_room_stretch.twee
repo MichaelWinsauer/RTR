@@ -10,7 +10,7 @@
 ]>>
 <</silently>>
 <<Chat _msgs>>
-<div id="choice1">
+<div id="choice1" class="choices">
 	<div>
 		<<link "Ask about her back">>
 			<<replace "#choice1">>
@@ -46,9 +46,9 @@
 	<<if _vxLevel > 0>>
 		<div>
 			<<if _vx.lastUsedAtDay == $date.dayCount>>
-				<span style="opacity: .5;">Use the prototype (already used today)</span>
+				<span class="choice-locked">Use the prototype<small>already used today</small></span>
 			<<elseif _vx.charge < _vxCost>>
-				<span style="opacity: .5;">Use the prototype (not enough charge)</span>
+				<span class="choice-locked">Use the prototype<small>not enough charge</small></span>
 			<<else>>
 				<<link "Use the prototype while she stretches">>
 					<<replace "#choice1">>

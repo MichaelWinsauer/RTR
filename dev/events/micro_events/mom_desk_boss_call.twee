@@ -14,7 +14,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="mom-boss-call-choice">
+<div id="mom-boss-call-choice" class="choices">
 	<div>
 		<<link "Take the call">>
 			<<replace "#mom-boss-call-choice">>

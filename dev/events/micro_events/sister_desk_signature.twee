@@ -18,7 +18,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="desk-signature-choice">
+<div id="desk-signature-choice" class="choices">
 	<div>
 		<<link "Sign it">>
 			<<replace "#desk-signature-choice">>

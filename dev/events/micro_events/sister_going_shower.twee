@@ -14,7 +14,7 @@
 <</silently>>
 <p>$sister.callName comes out of her room with a towel over one shoulder and a bottle of shampoo in her hand, heading straight for the bathroom.</p>
 <<Chat _msgs>>
-<div id="choice1">
+<div id="choice1" class="choices">
 	<div>
 		<<link "Tease her back">>
 			<<replace "#choice1">>

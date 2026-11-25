@@ -18,7 +18,7 @@
 <</silently>>
 <<Chat _msgs>>
 <br>
-<div id="sister-flashcards-choice">
+<div id="sister-flashcards-choice" class="choices">
 	<div>
 		<<link "Quiz her properly">>
 			<<replace "#sister-flashcards-choice">>
