@@ -81,8 +81,8 @@ She leads me up the stairs with her fingers laced through mine, and on the landi
 <</silently>>
 <<Chat _msgs>>
 
-<<Media "images/characters/mom/events/catalyst_night/bed_0.mp4" 600>>
-/* Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
+<<linkreplace "Enter her room">>
+<<silent>><<SetBackground setup.getLocationBySysName("momroom").img>><</silent>>
 She closes her bedroom door so slowly that the latch doesn't click, and turns the lamp down to its lowest setting. She takes the reading glasses out of her hair, folds them and lines them up next to her alarm clock, very neatly, the way she does every night. Then she stands at the foot of the bed she shared with $dad.callName, unties the robe, which she's knotted twice, and lets it fall.
 
 She's never stood in front of me like this without being told to, and she doesn't cover anything. She does start talking, though.
@@ -182,6 +182,7 @@ In my jacket on her floor, the Catalyst has gone dark. If $brian.name's label is
 <<ProfileMemory $mom "Wanted" "She said nobody had told her that in years and years. Then she stood up from the kitchen table and held out her hand.">>
 <<NextQuest $player>>
 <<ReturnFromEvent "Continue" "Bedroom">>
+<</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
 <</linkreplace>>
