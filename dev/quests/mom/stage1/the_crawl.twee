@@ -10,12 +10,7 @@
    morning and does this with it, make her thank me for it, and send her back to the bathroom the way she came, on her knees.
    No device on her tonight; only the house-wide guilt nudge from Not Enough, all week.
    The quest's set unlocks the morning routine ($mom.flags.morningRoutine, passage Morning Routine). This scene switches on the meal
-   crawl_thank_you: the next morning she thanks me for letting her make it up, at breakfast, in front of $sister.callName.
-   EXPLICIT blocks: the act itself is left for the author, each block says what happens in it and what's around it.
-   Videos in images/characters/mom/events/the_crawl/, in order: undress, crawl, slap, suck_on_finger, slap_tits, start_bj,
-   bj_continue, fuck_face, deepthroat, spit_deepthroat, cum, after (shot elsewhere; the scene stays in the office). The
-   text follows the clips: I'm standing the whole time, she's naked under the dress, never uses her hands, and laughs at
-   the end. */
+   crawl_thank_you: the next morning she thanks me for letting her make it up, at breakfast, in front of $sister.callName.*/
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 By five on a Friday, the office is a ghost town. $ethan.name left at four with a wink and the words "long weekend, boss, I can feel it in my bones", though it isn't one. $brian.name left at four-fifteen because $ethan.name left. $darius.name left at four-thirty, exactly, with his notebook under his arm. $sister.callName left with him, because her seminar starts at six.
 
