@@ -7,7 +7,8 @@
 <<silent>><<SetBackground $locations[14].img>><</silent>>
 By ten there are two names in my inbox I've never seen before. Both of them say $marketingOwner.name gave them my address, and both of them, in slightly different words, would love to "grab a bite sometime and hear more about what you're doing over there."
 
-/* MEDIA: images/characters/mom/events/task_intro_client_lunch/inbox.jpg | His desk screen with two short emails from strangers, the office out of focus behind it */
+<<Media "images/characters/mom/events/task_intro_client_lunch/inbox.jpg" 600>>
+/* His desk screen with two short emails from strangers, the office out of focus behind it */
 
 I read the second one out loud without meaning to. $darius.name, who has the desk nearest mine and hears everything, answers without taking his eyes off his screen.
 

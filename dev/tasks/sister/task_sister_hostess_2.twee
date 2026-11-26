@@ -40,7 +40,8 @@ He doesn't say it like a question, and I don't answer it like one. I put my arms
 
 <<linkreplace "After midnight">>
 <<silently>><<SetBackground "images/locations/cluboutside.jpg">><</silently>>
-/* MEDIA: images/characters/sister/tasks/hostess2_0.mp4 | A black door with a brass number plate between dark shopfronts, a doorman in a long coat holding it open, she steps through on an older man's arm */
+<<Media "images/characters/sister/tasks/hostess2_0.mp4" 600>>
+/* A black door with a brass number plate between dark shopfronts, a doorman in a long coat holding it open, she steps through on an older man's arm */
 $club.name doesn't have a sign. It has a black door between a closed bank and a shoe repair shop, and a doorman in a long dark coat who opens it before $investor.callName's driver has even turned off the engine.
 
 <<if _sh2Been>>
@@ -66,7 +67,8 @@ The first hand is on my knee before the second glass. It's the silver-haired one
 
 Then the hands start to move.
 
-/* MEDIA: images/characters/sister/tasks/hostess2_1.mp4 | The red leather booth in low lamplight, her in the middle between two men in suits, their hands on her thighs, the investor watching from across the table with a brandy */
+<<Media "images/characters/sister/tasks/hostess2_1.mp4" 600>>
+/* The red leather booth in low lamplight, her in the middle between two men in suits, their hands on her thighs, the investor watching from across the table with a brandy */
 
 They go up slowly, under the hem of my dress, like they're taking turns. The silver-haired one strokes the inside of my thigh with the backs of his fingers, back and forth, a little higher every time. The other one is less patient. His hand slides all the way up to my hip, under the dress, and finds the thin strap of my underwear and hooks one finger under it and just holds it there, as if he's marking his place in a book.
 
@@ -87,7 +89,8 @@ I think about $player.name, because I always do now. I think about his face when
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/tasks/hostess2_2.mp4 | Close in the booth, her head back against the red leather, a man's hand under her dress, her own hand rising to her ear */
+<<Media "images/characters/sister/tasks/hostess2_2.mp4" 600>>
+/* Close in the booth, her head back against the red leather, a man's hand under her dress, her own hand rising to her ear */
 
 I let it go on for one whole song. It's a slow one. I can feel every eye in the booth on me, and I can feel every stroke of their fingers, and I keep my face perfectly calm and my breathing almost even. It turns out that's the hardest part, and the part I'm best at.
 

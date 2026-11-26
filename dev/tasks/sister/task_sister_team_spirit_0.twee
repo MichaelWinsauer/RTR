@@ -18,7 +18,8 @@
 <<if _tsWho == "ethan">>
 $player.name sends me a name at eleven, just the name and nothing else, like a hit list for kindness. Today it's $ethan.name.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit0_0.mp4 | Two takeout boxes of pad thai on a cluttered desk, her pulling a chair up next to his */
+<<Media "images/characters/sister/tasks/team_spirit0_0.mp4" 600>>
+/* Two takeout boxes of pad thai on a cluttered desk, her pulling a chair up next to his */
 
 I know how $ethan.name takes his lunch, because I've watched him take it every day for months: at his desk, over the keyboard, with his headphones still on, eating whatever's closest. So I get two boxes of pad thai from the place downstairs and put one on top of his keyboard, which is the only way to get his attention.
 
@@ -56,12 +57,14 @@ He laughs a lot, mostly at his own stories, which makes them funnier. And somewh
 
 I promise. He throws both boxes away for me, which I think is his way of saying thank you, and has his headphones back on before I'm out of his chair.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit0_1.mp4 | Her at his desk, chin in her hand, listening while he talks with his hands, a fork in one of them */
+<<Media "images/characters/sister/tasks/team_spirit0_1.mp4" 600>>
+/* Her at his desk, chin in her hand, listening while he talks with his hands, a fork in one of them */
 
 <<elseif _tsWho == "brian">>
 $player.name sends me a name at eleven. It's $brian.name, which I could have told him myself, because $brian.name has been eating crackers out of the sleeve at his bench for two days and calling it lunch.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit0_0.mp4 | The little bench outside the building, two sandwiches in paper, him at the very far end of it */
+<<Media "images/characters/sister/tasks/team_spirit0_0.mp4" 600>>
+/* The little bench outside the building, two sandwiches in paper, him at the very far end of it */
 
 I tell him I'm taking him outside, and he comes, which surprises us both. There's a bench by the parking lot that gets the sun around noon. He sits at the far end of it, as far from me as the bench allows, and holds his sandwich in both hands without opening it.
 
@@ -101,12 +104,14 @@ Then he notices his sandwich is still wrapped, and that he's been talking for ha
 
 He eats it in about four bites, looking at the parking lot, and I'm pretty sure he's smiling at a minivan.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit0_1.mp4 | Him on the bench talking, drawing the shape of a pinball table in the air with both hands, her laughing */
+<<Media "images/characters/sister/tasks/team_spirit0_1.mp4" 600>>
+/* Him on the bench talking, drawing the shape of a pinball table in the air with both hands, her laughing */
 
 <<elseif _tsWho == "darius">>
 $player.name sends me a name at eleven, and it's $darius.name, and I look at it for a while.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit0_0.mp4 | A small corner deli, a table for two by the window, him in a pressed shirt holding the door for her */
+<<Media "images/characters/sister/tasks/team_spirit0_0.mp4" 600>>
+/* A small corner deli, a table for two by the window, him in a pressed shirt holding the door for her */
 
 The last real conversation we had, he asked me out and I said no. I was nice about it, and so was he, and since then we've been very, very nice to each other in the kitchen. But my $sister.playerRelation says whoever's having the worst week, and apparently that's the guy I said no to.
 
@@ -152,7 +157,8 @@ He changes the subject so smoothly that I only notice afterwards that he did.
 
 He pays, and I let him, because I can tell it matters to him. On the walk back he says it was the best hour of his week, and he says it simply, like a fact he looked up, without any hope in it. I believe him, and I'm glad, and I feel a little bit guilty, and I can't decide which of those I'm supposed to feel most.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit0_1.mp4 | Him across the deli table mid-story, her laughing into her iced tea */
+<<Media "images/characters/sister/tasks/team_spirit0_1.mp4" 600>>
+/* Him across the deli table mid-story, her laughing into her iced tea */
 
 <<else>>
 $player.name doesn't send me a name today. When I ask, he says there's nobody who needs it, which I think is supposed to be good news.

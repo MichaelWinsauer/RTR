@@ -11,7 +11,8 @@
 <<PovHeader $sister>>
 The nameplate came. It's brass, not gold, because gold was forty dollars more and I have some self-respect, and it has my whole name on it in a font the website called Executive. Every time the elevator dings I sit up a little straighter behind it.
 
-/* MEDIA: images/characters/sister/tasks/front_desk0_0.mp4 | Her behind the small desk by the door, the brass nameplate in front of her, smiling as the elevator opens */
+<<Media "images/characters/sister/tasks/front_desk0_0.mp4" 600>>
+/* Her behind the small desk by the door, the brass nameplate in front of her, smiling as the elevator opens */
 
 The first ding of the day is a courier. He's around my age, with a scanner on a strap and a box of something heavy for $brian.name, and he leans on my desk while the scanner thinks about whether it wants to work.
 
@@ -42,7 +43,8 @@ He goes, very gracefully for a man carrying a scanner, and I sit there feeling s
 
 I look down the room at $player.name's desk. I don't know if he heard. Probably not. The elevator dings again before I can decide how I feel about that.
 
-/* MEDIA: images/characters/sister/tasks/front_desk0_1.mp4 | A man in his fifties in a golf vest, signing the clipboard on her desk and smiling down at her */
+<<Media "images/characters/sister/tasks/front_desk0_1.mp4" 600>>
+/* A man in his fifties in a golf vest, signing the clipboard on her desk and smiling down at her */
 
 The second one is a client, a man from $marketingFirm.name with a golf vest and a very firm handshake, here to look at the readout from their conference room with $darius.name. He's early. I sign him in, get him a coffee, point him to the couch, and he takes the coffee and doesn't take the couch. He stands at my desk instead and asks how I like working here, and what I'm studying, and whether I've ever thought about agency work, because a girl with my presence is wasted at a front desk.
 
@@ -71,7 +73,8 @@ He's still standing there, telling me about a girl he mentored who's now in Chic
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/tasks/front_desk0_2.mp4 | Her at the desk with a coffee cup in front of her, trying not to laugh, a courier and a man in a golf vest on either side of the desk eyeing each other */
+<<Media "images/characters/sister/tasks/front_desk0_2.mp4" 600>>
+/* Her at the desk with a coffee cup in front of her, trying not to laugh, a courier and a man in a golf vest on either side of the desk eyeing each other */
 
 I guessed right about the oat latte, which is the worst part, because now I have to say thank you and mean it. Nobody moves. The client sips our coffee, the courier sips his own from the corner place, and I sit between them with my hands folded on the desk and the brightest smile I own, until $darius.name finally comes out of the meeting room and says the client's name in his calmest voice, like a man calling his cat in from the rain.
 

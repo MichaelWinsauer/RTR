@@ -33,7 +33,8 @@ Yellow is for the days the office felt "warm", her word, written in the margin: 
 
 The pink is almost always on an orange day, or on the day after a yellow one. She has drawn neat little lines between them, and circled the clusters, the way she'd circle a scheduling conflict for a client.
 
-/* MEDIA: images/characters/mom/events/the_calendar/printout.jpg | A calendar printout on a desk, highlighted in yellow, orange and pink, neat circles and lines drawn between the days */
+<<Media "images/characters/mom/events/the_calendar/printout.jpg" 600>>
+/* A calendar printout on a desk, highlighted in yellow, orange and pink, neat circles and lines drawn between the days */
 
 <<silently>>
 <<set _msgs = [
@@ -219,7 +220,8 @@ She unties the robe and lets it drop on my floor, next to my shoes, and doesn't 
    after a while climbs onto him and has sex with him on his bed, her on top. He lets her set the pace; he barely
    moves at first. The open door: she glances at it a few times in the beginning, then stops. Her mood: no nerves, no
    apology, a kind of relief at not having to decide whether she's allowed. */
-/* MEDIA: images/characters/mom/events/the_calendar/night_0.mp4 | His room, the door open to the dark hallway, the night light by the stairs, Mom kneeling in front of him on the bed's edge */
+<<Media "images/characters/mom/events/the_calendar/night_0.mp4" 600>>
+/* His room, the door open to the dark hallway, the night light by the stairs, Mom kneeling in front of him on the bed's edge */
 
 <<linkreplace "Listen to the house">>
 Down the hall the laptop goes quiet. $sister.callName's bed creaks, and then her light goes out, and the strip under her door goes dark.
@@ -240,7 +242,8 @@ Not that long ago, in her own bed, $mom.callName froze at a creak in the floorbo
    herself anymore but about him: how good he's been, how hard he works, that he never has to ask. She asks him what he
    wants once, he tells her, she does it at once (one change of position, his choice). Neither of them is quiet about it
    the way they were in her bed. */
-/* MEDIA: images/characters/mom/events/the_calendar/night_1.mp4 | On his bed, her on top, the hallway dark behind the open door */
+<<Media "images/characters/mom/events/the_calendar/night_1.mp4" 600>>
+/* On his bed, her on top, the hallway dark behind the open door */
 
 <<linkreplace "Let her finish it">>
 /* EXPLICIT 3, the finish. Him first this time, and she makes sure of it, because that's what she decided he needs.

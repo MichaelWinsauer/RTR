@@ -25,7 +25,8 @@ $gymOwner.name's assistant has rebooked the steakhouse again. The new email is s
 $darius.name stopped by my desk this morning to let me know, very politely, that his friend has started talking about "flexibility on the price" again, and that he's fairly sure the man has a number in mind.
 <</if>>
 
-/* MEDIA: images/events/gym_dinner/email.jpg | A laptop screen with a restaurant reservation in an email, the office behind it */
+<<Media "images/events/gym_dinner/email.jpg" 600>>
+/* A laptop screen with a restaurant reservation in an email, the office behind it */
 
 I look across the office. $mom.callName is at her desk on the phone with a client, laughing at something, that low little laugh she's picked up here over the last few weeks. $gymOwner.name liked that laugh. He thanked her for the coffee on his way out and looked back at her desk twice before the elevator doors closed. He never asked a single thing about her, but I have a feeling he remembers her better than he remembers me.
 

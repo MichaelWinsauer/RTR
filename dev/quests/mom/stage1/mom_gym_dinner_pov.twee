@@ -18,7 +18,8 @@ The young man at the podium takes my coat, and for one awful second I can't reme
 
 $gymOwner.name is already at the table, which I didn't expect. Men like him are usually late on purpose, so you have time to look at the door and wonder. He stands up when he sees me, all the way up, and buttons his jacket, and his face does something that makes me want to check my teeth for lipstick. I don't need to. I checked in the car, more than once.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_pov/arrival.jpg | A dim steakhouse, white tablecloths, a broad tanned man in a suit standing up from a corner table as Mom comes toward him in the navy dress */
+<<Media "images/characters/mom/events/gym_dinner_pov/arrival.jpg" 600>>
+/* A dim steakhouse, white tablecloths, a broad tanned man in a suit standing up from a corner table as Mom comes toward him in the navy dress */
 
 <<silently>>
 <<set _msgs = [
@@ -50,7 +51,8 @@ His hand comes down on my knee in the middle of a sentence about retention rates
 
 I've known it was coming since this afternoon, when I asked $player.name what to do if he got friendly, and he said let him, within reason, and I said okay, and then I went back to my desk and called this restaurant to ask about a dress code that doesn't exist, just to hear somebody say something normal. So I'm ready. What I wasn't ready for is how warm a man's hand is through stockings, and how heavy, like being picked up and set down somewhere without anybody asking.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_pov/knee.jpg | Under the tablecloth's edge, a man's big hand on Mom's knee over dark stockings, the navy dress just above it, her own hand flat on the table beside her plate */
+<<Media "images/characters/mom/events/gym_dinner_pov/knee.jpg" 600>>
+/* Under the tablecloth's edge, a man's big hand on Mom's knee over dark stockings, the navy dress just above it, her own hand flat on the table beside her plate */
 
 I keep smiling. I ask him about the twelfth location, and he tells me, and while he does his thumb starts to move on the inside of my knee, back and forth, very slowly, as though he doesn't know he's doing it. He knows. They always know.
 
@@ -94,7 +96,8 @@ Keep it light, $player.name said. So I do what I've been doing since I was twent
 
 He laughs, a big honest laugh that turns heads two tables over, and orders the cheesecake, and tells me about the twelfth location. It's going to have a juice bar and a sauna you can book by the hour, and he's very proud of the sauna.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_pov/laugh.jpg | Mom laughing at the corner table with her hand over her mouth, the man across from her mid-story, cheesecake between them */
+<<Media "images/characters/mom/events/gym_dinner_pov/laugh.jpg" 600>>
+/* Mom laughing at the corner table with her hand over her mouth, the man across from her mid-story, cheesecake between them */
 
 And I have a lovely time. That's the funny part. I sit there across from a man who just had his hand on my leg, listening to him go on about saunas, and I laugh, really laugh, and for almost an hour I don't think about the office or the bills or anything at all. When the cheesecake comes, I wrap a slice in a napkin for $player.name, because he loves cheesecake and never orders it for himself.
 

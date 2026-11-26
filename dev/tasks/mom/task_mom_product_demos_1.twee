@@ -22,7 +22,8 @@ Today it's a man called Dale, who owns four car dealerships along the highway an
 
 $brian.name has built a dial for the demos as well, a little black remote that fits in your palm, with a knob on top that clicks when you turn it. It does what the one in the box does, only you can hold it in your hand. I explain that to Dale, and then I hand it to him, which is what $player.name told me to do: let them feel like they're the one doing it.
 
-/* MEDIA: images/characters/mom/tasks/product_demo1_0.mp4 | Mom at the meeting room table holding out a small black remote with a dial to a heavyset man in a sport coat, her wrist in the sensor band */
+<<Media "images/characters/mom/tasks/product_demo1_0.mp4" 600>>
+/* Mom at the meeting room table holding out a small black remote with a dial to a heavyset man in a sport coat, her wrist in the sensor band */
 
 <<silently>>
 <<set _msgs = [
@@ -43,7 +44,8 @@ That's how I see it.
 
 The glass wall works like a mirror when the meeting room is brighter than the office, and from where I'm sitting it shows me the whole table, and under the table, Dale's hand. He's holding the remote down by his knee, out of sight, and while I'm looking the other way, while he thinks I'm looking the other way, his thumb turns the knob. Click, and click, and click again, all the way to the stop.
 
-/* MEDIA: images/characters/mom/tasks/product_demo1_1.mp4 | The glass wall of the meeting room as a dark mirror: the table, Mom's face, and under the table a man's thumb turning the dial to the stop */
+<<Media "images/characters/mom/tasks/product_demo1_1.mp4" 600>>
+/* The glass wall of the meeting room as a dark mirror: the table, Mom's face, and under the table a man's thumb turning the dial to the stop */
 
 I could say something. I could turn around and wag my finger at him, the way I'd wag it at $ethan.name for taking the last cookie, and everybody would laugh and Dale would go red and hand me the remote, and that would be the end of it.
 

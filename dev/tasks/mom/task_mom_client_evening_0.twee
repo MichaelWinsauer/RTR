@@ -17,7 +17,8 @@ We shared a cab. We talked about the weather, and about Gerald's new leaf, and a
 
 $club.name doesn't even have a sign, just a black door and a very large man in a coat, and inside it's all low lights and velvet and music you feel in your stomach more than you hear it. Lyle is waiting in a booth at the back, and he stands up when he sees us, which I'll admit I didn't expect.
 
-/* MEDIA: images/characters/mom/tasks/client_evening0_0.mp4 | A velvet booth in a dim club, Mom in a red dress sliding in next to a heavyset man in an open-collared shirt, Sister on his other side */
+<<Media "images/characters/mom/tasks/client_evening0_0.mp4" 600>>
+/* A velvet booth in a dim club, Mom in a red dress sliding in next to a heavyset man in an open-collared shirt, Sister on his other side */
 
 <<silently>>
 <<set _msgs = [
@@ -46,7 +47,8 @@ I see it out of the corner of my eye, his big hand flat on the bare skin between
 
 He turns to me, and he takes his hand back to make his point about thread counts, and when he's done with the point, the hand lands on my knee instead.
 
-/* MEDIA: images/characters/mom/tasks/client_evening0_1.mp4 | Under the booth table, a man's hand on Mom's knee at the hem of the red dress, her fingers loose around a champagne glass above it */
+<<Media "images/characters/mom/tasks/client_evening0_1.mp4" 600>>
+/* Under the booth table, a man's hand on Mom's knee at the hem of the red dress, her fingers loose around a champagne glass above it */
 
 I let it stay. It's a warm hand, heavy, and after a while it starts to move a little, up and down, his thumb going back and forth under the hem of my dress while he talks. Better there than on her, I tell myself. That's what I'm here for. $player.name asked me to keep an eye on her, and that's what I'm doing, with my eyes and with my knee.
 
@@ -68,7 +70,8 @@ In the restroom we stand next to each other at the mirror, fixing our lipstick u
 
 She blots her lipstick on a tissue, and I blot mine, and we look at our own faces in the mirror and not at each other's, and then we go back out.
 
-/* MEDIA: images/characters/mom/tasks/client_evening0_2.jpg | Mom and Sister side by side at a dim restroom mirror, both fixing their lipstick, neither looking at the other */
+<<Media "images/characters/mom/tasks/client_evening0_2.jpg" 600>>
+/* Mom and Sister side by side at a dim restroom mirror, both fixing their lipstick, neither looking at the other */
 
 At a quarter to one Lyle walks us to the door with an arm around each of us and tells the large man in the coat that we are the two most delightful people in the entire hospitality industry, which we're not in. In the cab I text $player.name that I think he's going to sign, honey, and that we're on our way home.
 

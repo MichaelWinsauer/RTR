@@ -25,7 +25,8 @@ He's been circling the free weights for twenty minutes. On the third lap he stop
 
 He puts his hands on my hips, one on each side, his thumbs at the top of my leggings and his fingers spread wide over the front of the bones. When I go down, he goes down with me, a little behind and very close, and at the bottom he presses, gently, as if there were anything to fix.
 
-/* MEDIA: images/characters/sister/tasks/field_test2_0.mp4 | The squat rack from the camera dome, a trainer in a COACH shirt behind her, both hands on her hips as she sinks into the squat */
+<<Media "images/characters/sister/tasks/field_test2_0.mp4" 600>>
+/* The squat rack from the camera dome, a trainer in a COACH shirt behind her, both hands on her hips as she sinks into the squat */
 
 <<silently>>
 <<set _msgs = [
@@ -53,7 +54,8 @@ I wonder if $player.name has the window open. I wonder if he'd want me to step a
 
 The hip thrust bench is in the middle of the floor, under the lights, in view of absolutely everybody. I lie back with my shoulders on the bench and the padded bar across my hips, and he kneels at my feet. He says my knees are flaring out, which they aren't, and puts a hand on the inside of each one, and when that's fixed, he says my hips are tilting, and moves both hands up to them and holds them down while I push up into the bar.
 
-/* MEDIA: images/characters/sister/tasks/field_test2_1.mp4 | The hip thrust bench, her on her back driving the bar up, the trainer kneeling between her feet with both hands on her hips */
+<<Media "images/characters/sister/tasks/field_test2_1.mp4" 600>>
+/* The hip thrust bench, her on her back driving the bar up, the trainer kneeling between her feet with both hands on her hips */
 
 <<silently>>
 <<set _msgs = [

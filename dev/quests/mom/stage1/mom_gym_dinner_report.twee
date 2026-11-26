@@ -11,7 +11,8 @@ I hear her car at a quarter to eleven, and then nothing for a long time. When I 
 
 She comes in eventually. She doesn't go upstairs. She comes and stands in the doorway of the living room in the navy dress, holding her heels in one hand and her purse in the other, and her lipstick is gone, worn off by dinner and wine or by something else.
 
-/* MEDIA: images/characters/mom/events/gym_dinner_report/doorway.jpg | Mom in the living room doorway in the navy dress, barefoot, heels in one hand, the house dark behind her */
+<<Media "images/characters/mom/events/gym_dinner_report/doorway.jpg" 600>>
+/* Mom in the living room doorway in the navy dress, barefoot, heels in one hand, the house dark behind her */
 
 <<silently>>
 <<set _msgs = [

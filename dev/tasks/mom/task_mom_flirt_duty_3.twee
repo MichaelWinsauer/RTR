@@ -33,7 +33,8 @@ It starts at ten, the way it always starts now, with $ethan.name leaning back in
 
 There's nothing wrong with his chair. I know there isn't, because last Tuesday I had $brian.name look at it while $ethan.name was at lunch, and $brian.name sat in it for a whole minute and said "It's fine", and then, after a long pause, "He knows it's fine."
 
-/* MEDIA: images/characters/mom/tasks/flirt_duty3_0.mp4 | Mom sitting on the edge of a cluttered desk, legs crossed, bending to look at the lever of an office chair while the man in it grins up at her */
+<<Media "images/characters/mom/tasks/flirt_duty3_0.mp4" 600>>
+/* Mom sitting on the edge of a cluttered desk, legs crossed, bending to look at the lever of an office chair while the man in it grins up at her */
 
 So I go over. I sit on the edge of his desk, between his keyboard and a mug that says WORLD'S OKAYEST PROGRAMMER, and cross my legs, and lean down to look at the lever under his seat. It takes a while to look at a lever properly. He holds very still for it.
 
@@ -65,7 +66,8 @@ $darius.name is subtler about it, because $darius.name is subtler about everythi
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/mom/tasks/flirt_duty3_1.mp4 | Mom leaning on a desk in front of a monitor with a chart, the analyst sitting very straight behind her, not looking at the chart */
+<<Media "images/characters/mom/tasks/flirt_duty3_1.mp4" 600>>
+/* Mom leaning on a desk in front of a monitor with a chart, the analyst sitting very straight behind her, not looking at the chart */
 
 I take my time. I look at the axis labels, and the legend, and a little footnote at the bottom that I'm fairly sure is about me, though I'd never say so. He doesn't look at the chart once the whole while. I can see him in the dark edge of the screen, sitting very straight, with his hands folded in his lap like a man in church.
 
@@ -94,7 +96,8 @@ It started the week before last. At three o'clock exactly the printer by his des
 
 He doesn't get up. He never gets up. The tray is on the far side of his chair, against the wall, and the only way to reach it is to lean right across him, one hand on the back of his chair and the other down by his knee, and that's what I do, and he sits there with his hands in the air like somebody in a bank robbery.
 
-/* MEDIA: images/characters/mom/tasks/flirt_duty3_2.mp4 | Mom leaning across a heavyset man in a band shirt to reach a printer tray, her blouse at his eye level, his hands held up awkwardly at his sides */
+<<Media "images/characters/mom/tasks/flirt_duty3_2.mp4" 600>>
+/* Mom leaning across a heavyset man in a band shirt to reach a printer tray, her blouse at his eye level, his hands held up awkwardly at his sides */
 
 I take my time with the paper, too. I can feel his breath on my collarbone. He's holding it most of the time, and then he forgets and lets it out all at once, warm, and holds the next one.
 

@@ -22,7 +22,8 @@ So now I do something else. I take my laptop and my coffee, I pick a skirt that'
 It's how I sit on my $sister.playerRelation's desk, these days. Since that night in the empty office I've stopped pretending I sit there by accident, and somewhere between his desk and this one I worked out what he actually wants from me on these rounds: he wants them to work, and he wants me to be the reason. So I give them the corner of the desk, and I keep everything else for him.
 
 <<if _tsWho == "ethan">>
-/* MEDIA: images/characters/sister/tasks/team_spirit1_0.mp4 | Her sitting on the corner of his desk with her laptop on her knee, legs crossed, him leaning back in his chair with both hands behind his head */
+<<Media "images/characters/sister/tasks/team_spirit1_0.mp4" 600>>
+/* Her sitting on the corner of his desk with her laptop on her knee, legs crossed, him leaning back in his chair with both hands behind his head */
 
 <<silently>>
 <<set _msgs = [
@@ -50,10 +51,12 @@ At one point he's so deep in it that he reaches for his coffee and picks up mine
 
 He looks honestly puzzled about it, staring at his ticket list as if somebody else had done it while he wasn't looking. I uncross my legs and cross them the other way, and he goes back to the screen and closes a twelfth.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit1_1.mp4 | Close on his hands flying over the keyboard, her crossed legs at the edge of the frame */
+<<Media "images/characters/sister/tasks/team_spirit1_1.mp4" 600>>
+/* Close on his hands flying over the keyboard, her crossed legs at the edge of the frame */
 
 <<elseif _tsWho == "brian">>
-/* MEDIA: images/characters/sister/tasks/team_spirit1_0.mp4 | Her on the edge of his workbench between a box of parts and a magnifying lamp, legs crossed, laptop on her knee, him bent over a board */
+<<Media "images/characters/sister/tasks/team_spirit1_0.mp4" 600>>
+/* Her on the edge of his workbench between a box of parts and a magnifying lamp, legs crossed, laptop on her knee, him bent over a board */
 
 I clear a little space between his box of resistors and the magnifying lamp, and I sit. $brian.name stops with the soldering iron in midair, the way he does.
 
@@ -82,10 +85,12 @@ At the end of the hour he puts the iron down, unplugs it, and holds the board up
 
 He says it to the board, very quietly, like he's afraid it'll hear him and stop.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit1_1.mp4 | Him holding a finished board up to the lamp, her shoe dangling in the blurry foreground */
+<<Media "images/characters/sister/tasks/team_spirit1_1.mp4" 600>>
+/* Him holding a finished board up to the lamp, her shoe dangling in the blurry foreground */
 
 <<elseif _tsWho == "darius">>
-/* MEDIA: images/characters/sister/tasks/team_spirit1_0.mp4 | Her on the edge of his very tidy desk, legs crossed, him in a pressed shirt looking up at her over his monitor with a faint smile */
+<<Media "images/characters/sister/tasks/team_spirit1_0.mp4" 600>>
+/* Her on the edge of his very tidy desk, legs crossed, him in a pressed shirt looking up at her over his monitor with a faint smile */
 
 $darius.name's desk is the tidiest one in the office, so the corner I sit on is the only thing out of place on it, and he notices that before he notices anything else.
 
@@ -118,7 +123,8 @@ He doesn't say anything at first. He moves his pen two inches to the left to mak
 
 And then he goes back to work, and he works through the rest of the hour without stopping once, and I sit there feeling looked at even though he doesn't look up again. It's a strange feeling. With most guys it's my legs. With him I think it's me, the whole of me, as a puzzle he's agreed not to solve for now.
 
-/* MEDIA: images/characters/sister/tasks/team_spirit1_1.mp4 | Him back at his screen, typing calmly, her legs crossed on the corner of his desk */
+<<Media "images/characters/sister/tasks/team_spirit1_1.mp4" 600>>
+/* Him back at his screen, typing calmly, her legs crossed on the corner of his desk */
 
 <<else>>
 Today there's nobody on the list. I sit on the edge of my own desk instead, and swing my foot, and nobody's productivity goes up at all.

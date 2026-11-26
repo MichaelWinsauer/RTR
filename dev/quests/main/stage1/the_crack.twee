@@ -21,7 +21,8 @@ On the laptop screen, in a terminal window, there's a build name I haven't seen 
 
 It's the old code, from before I decided how high the dial is allowed to go. The version without a cap.
 
-/* MEDIA: images/events/the_crack/glass.jpg | Through half-closed blinds: Ethan in a chair facing a bare test rig, eyes closed, a faint smile, a phone timer on the table */
+<<Media "images/events/the_crack/glass.jpg" 600>>
+/* Through half-closed blinds: Ethan in a chair facing a bare test rig, eyes closed, a faint smile, a phone timer on the table */
 
 <<linkreplace "Wait">>
 I don't go in. I stand at the glass with two coffees getting cold in my hands and watch the timer on his phone count down. 6:12. 6:11.

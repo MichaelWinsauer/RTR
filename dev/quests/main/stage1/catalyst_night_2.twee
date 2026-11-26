@@ -81,7 +81,8 @@ She leads me up the stairs with her fingers laced through mine, and on the landi
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/mom/events/catalyst_night/bed_0.mp4 | Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
+<<Media "images/characters/mom/events/catalyst_night/bed_0.mp4" 600>>
+/* Her bedroom, the lamp low, Mom letting the robe fall, standing at the foot of her bed */
 She closes her bedroom door so slowly that the latch doesn't click, and turns the lamp down to its lowest setting. She takes the reading glasses out of her hair, folds them and lines them up next to her alarm clock, very neatly, the way she does every night. Then she stands at the foot of the bed she shared with $dad.callName, unties the robe, which she's knotted twice, and lets it fall.
 
 She's never stood in front of me like this without being told to, and she doesn't cover anything. She does start talking, though.
@@ -113,7 +114,8 @@ She lies back on her own bed and pulls me down with her, and for a moment she ju
    makes it about her body and her pleasure, and she has no idea what to do with being the one attended to: she's
    flustered, tries to give back, he stops her. Her reactions: surprise first, then she lets go a little at a time.
    Keep her quiet because of the room next door (her own hand, the pillow). The paragraph below follows on from it. */
-/* MEDIA: images/characters/mom/events/catalyst_night/bed_1.mp4 | In her bed, her arms around his neck, her face turned toward him */
+<<Media "images/characters/mom/events/catalyst_night/bed_1.mp4" 600>>
+/* In her bed, her arms around his neck, her face turned toward him */
 
 Every time she tries to turn it back toward me, to make sure I'm comfortable, to ask if I want something else, I don't let her. It takes her a while to understand that I mean it, and once she does, I see her not know what to do with her hands for the first time in my life.
 

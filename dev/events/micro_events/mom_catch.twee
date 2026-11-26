@@ -2,7 +2,8 @@
 /* Inline micro event in the living room (micro event 46, "Catching her" in Define Events). After The Booze Night: late, the
    TV on, she thinks the house is asleep. Watch quietly, let her see me (after Caught she knows I like to watch, and she
    doesn't stop), or walk away. */
-/* MEDIA: images/characters/mom/events/catch/couch.mp4 | The dark living room lit by the TV, Mom on the couch under a blanket, her head back, one hand moving under it */
+<<Media "images/characters/mom/events/catch/couch.mp4" 600>>
+/* The dark living room lit by the TV, Mom on the couch under a blanket, her head back, one hand moving under it */
 <p>The TV is on with the sound almost all the way down, some late-night show with a studio audience laughing at nothing. $mom.callName is on the couch under the throw blanket, alone, with her head tipped back against the cushions and her eyes closed. One of her hands is under the blanket. It isn't still.</p>
 <p>She hasn't heard me on the stairs. The wine glass on the coffee table is empty, and so is half the bottle.</p>
 <div id="catch-couch-choice" class="choices">
@@ -37,7 +38,8 @@
 :: Mom Catch Kitchen [micro_event event nobr] {"position":"2050,2900","size":"100,100"}
 /* Inline micro event in the kitchen (micro event 47, "Catching her" in Define Events). After The Booze Night: a glass of
    wine at the counter, her back to the door, a hand inside her robe. Watch, let her see me, or walk away. */
-/* MEDIA: images/characters/mom/events/catch/kitchen.mp4 | The kitchen at night, only the stove light on, Mom leaning on the counter with her back to the door, a wine glass, one hand inside her robe */
+<<Media "images/characters/mom/events/catch/kitchen.mp4" 600>>
+/* The kitchen at night, only the stove light on, Mom leaning on the counter with her back to the door, a wine glass, one hand inside her robe */
 <p>Only the light over the stove is on. $mom.callName is standing at the counter with her back to the door, in her robe, with a glass of white wine at her elbow that she hasn't touched in a while. She's leaning forward on one arm. The other hand has disappeared inside the front of her robe, and her hips are moving, very slightly, against the edge of the counter.</p>
 <p>She's breathing through her mouth. The dishwasher is running, which is probably why she didn't hear me.</p>
 <div id="catch-kitchen-choice" class="choices">
@@ -72,7 +74,8 @@
 :: Mom Catch Shower [micro_event event nobr] {"position":"2175,2900","size":"100,100"}
 /* Inline micro event in the hallway (micro event 48, "Catching her" in Define Events). After The Booze Night: she is in the
    shower, and the bathroom door hasn't latched. Watch through the gap, let her see me, or walk on. */
-/* MEDIA: images/characters/mom/events/catch/shower.mp4 | Through a gap in a bathroom door: steam, the shower glass, Mom with one hand on the tiles and the other between her legs */
+<<Media "images/characters/mom/events/catch/shower.mp4" 600>>
+/* Through a gap in a bathroom door: steam, the shower glass, Mom with one hand on the tiles and the other between her legs */
 <p>The bathroom door is open a hand's width. It never latches unless you push it, and she forgot. Steam is rolling out into the hallway, and through the gap I can see the shower glass, fogged up everywhere except where she's leaning on it.</p>
 <p>$mom.callName has one hand flat against the tiles and her forehead on her arm. The other hand is between her legs. The water is loud, but not loud enough.</p>
 <div id="catch-shower-choice" class="choices">

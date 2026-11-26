@@ -48,7 +48,8 @@ There's one thing left on the desk, lying face up in the middle where you'd have
 
 He said he'd frame the paperwork and hang it over his desk. I didn't know he'd actually done it.
 
-/* MEDIA: images/events/morning_after/desk.jpg | An office desk wiped clean, drawers open, a single empty picture frame lying in the middle */
+<<Media "images/events/morning_after/desk.jpg" 600>>
+/* An office desk wiped clean, drawers open, a single empty picture frame lying in the middle */
 
 <<linkreplace "Check the server corner">>
 The rack in the corner is open, and the door is leaning against the wall next to it. The slots are empty, every single one. He took the drives, the backup unit, even the little switch with the blinking lights that $brian.name calls the Christmas tree. The power cables are coiled up neatly on the floor, each one tied with its own twist tie.
@@ -62,7 +63,8 @@ The screen works. The server panel says <i>no connection</i>. The device page is
 
 He didn't just take the ones he could carry. He pushed one last update to every unit that ever talked to our server, and that update turned them into very expensive paperweights.
 
-/* MEDIA: images/events/morning_after/dashboard.jpg | A dashboard screen with a column of device entries, every status light red */
+<<Media "images/events/morning_after/dashboard.jpg" 600>>
+/* A dashboard screen with a column of device entries, every status light red */
 
 <<linkreplace "Look up">>
 I already know before I look, and I look anyway.
@@ -77,7 +79,8 @@ It's warm from my body. It's the one I built in my bedroom, on the nightstand, b
 
 So it's the only one left, and only because I'm a paranoid idiot, which is a very strange thing to be grateful for this early in the morning.
 
-/* MEDIA: images/events/morning_after/vent.jpg | Looking up at an open ceiling vent, the grille hanging by one screw, an empty space behind it */
+<<Media "images/events/morning_after/vent.jpg" 600>>
+/* Looking up at an open ceiling vent, the grille hanging by one screw, an empty space behind it */
 
 <div class="navigation-link">[[Wait for the others|Morning After 2]]</div>
 <</linkreplace>>
@@ -132,7 +135,8 @@ He stands in the doorway and looks back at the vent, the open grille, the dark r
 
 Then he picks up the boxes, and the door closes behind him, and the office is empty and green until the cleaners come in at five.
 
-/* MEDIA: images/events/morning_after/cctv.jpg | Grainy green security footage: a man in a doorway with two cardboard boxes at his feet, looking back up at the ceiling */
+<<Media "images/events/morning_after/cctv.jpg" 600>>
+/* Grainy green security footage: a man in a doorway with two cardboard boxes at his feet, looking back up at the ceiling */
 
 <<silently>>
 <<set _msgs = [
@@ -188,7 +192,8 @@ It's there, at the top of my inbox, sent at 3:31 a.m. from an address I haven't 
 }>>
 <<Mail _maMail "false">>
 
-/* MEDIA: images/events/morning_after/mail.jpg | A laptop screen with a short mail open, a cold cup of coffee next to it */
+<<Media "images/events/morning_after/mail.jpg" 600>>
+/* A laptop screen with a short mail open, a cold cup of coffee next to it */
 
 <<if $flags.trustedEthan === true>>
 I read it three times. Then I think about the sticky note in my handwriting, folded behind his pen, and the night I lay in bed with the camera app open and decided he was my friend. I gave him the keys to everything, and he waited until now to use them, which is either loyalty or patience, and I can't tell which.
@@ -290,7 +295,8 @@ It's on the $marketingFirm.name blog, and then, within the hour, on two of the b
 
 There's a photo. $ethan.name in a clean white room I don't recognize, in a shirt with a collar, which I didn't know he owned, holding a small white unit that looks a lot like ours. The article calls it licensed and transparent and strictly opt-in, with an independent ethics board, built by a founder who "saw what this technology can do in the wrong hands, and decided someone had to do it right". Whose hands those were is left to the reader, but there's a line about "an ongoing investigation into a competitor" in the last paragraph, sourced to someone familiar with the matter.
 
-/* MEDIA: images/events/morning_after/article.jpg | A phone screen showing a tech news article, a photo of a young man in a white room holding a small white device */
+<<Media "images/events/morning_after/article.jpg" 600>>
+/* A phone screen showing a tech news article, a photo of a young man in a white room holding a small white device */
 
 At the bottom it says: <i>Communications by $marketingFirm.name</i>.
 
@@ -390,7 +396,8 @@ Through the wall I can hear the house settling for the night, the pipes, the sta
 
 $ethan.name walked out with almost everything I built, and he was probably right about most of it. But he took the part I can build again. The device was only ever how I got them here, and they're still here, exactly where I put them, and tomorrow, when I ask, they'll tell me anything I want to know.
 
-/* MEDIA: images/events/morning_after/nightstand.jpg | A small device on a cluttered nightstand next to a blinking digital clock, in a dark bedroom */
+<<Media "images/events/morning_after/nightstand.jpg" 600>>
+/* A small device on a cluttered nightstand next to a blinking digital clock, in a dark bedroom */
 
 <<UpdateStat "-" "Morale" 10>>
 <<UpdateStat "-" "Reputation" 10>>

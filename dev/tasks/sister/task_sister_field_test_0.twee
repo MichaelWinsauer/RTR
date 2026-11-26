@@ -12,7 +12,8 @@ The girl at the front desk has a ponytail so tight it looks load-bearing. When I
 
 $darius.name's sensor is a black disc about the size of a bottle cap, and it came in an envelope with instructions in his handwriting. <i>Inside of the left wrist. Please don't adjust it during the session. Thank you.</i> He underlined the thank you. I tape it on in the locker room, which has lockers that actually lock and a shower with a rain head the size of a pizza, and I think seriously, for a moment, about moving in.
 
-/* MEDIA: images/characters/sister/tasks/field_test0_0.mp4 | Locker room, she presses a strip of white medical tape over a small black sensor on the inside of her wrist */
+<<Media "images/characters/sister/tasks/field_test0_0.mp4" 600>>
+/* Locker room, she presses a strip of white medical tape over a small black sensor on the inside of her wrist */
 
 Forty minutes on the bike, intervals. The bikes are in a long row facing a mirror wall, and above the mirror, up where the old warehouse beams cross, there's a camera dome with a tiny red light. I look at it once while I'm adjusting the seat. Then I make myself stop looking at it, because I am not going to be the girl who spends her workout checking whether her little $sister.callPlayerShort is watching.
 
@@ -34,7 +35,8 @@ The strange part is how good it feels. I usually spend the first ten minutes of 
 
 I'm stretching by the water fountain, with my face bright red and my hair stuck to my neck, when my phone buzzes in my bag.
 
-/* MEDIA: images/characters/sister/tasks/field_test0_1.mp4 | The row of bikes in front of a mirror wall, seen from the camera dome above it, her in the middle, riding hard */
+<<Media "images/characters/sister/tasks/field_test0_1.mp4" 600>>
+/* The row of bikes in front of a mirror wall, seen from the camera dome above it, her in the middle, riding hard */
 
 <<silently>>
 <<set _msgs = [

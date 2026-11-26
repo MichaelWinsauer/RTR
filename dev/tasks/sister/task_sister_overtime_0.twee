@@ -40,7 +40,8 @@ She's at the window when I look up, in her tights, with her forehead almost agai
 <</if>>
 
 <<linkreplace "Turn your chair toward her">>
-/* MEDIA: images/characters/sister/tasks/overtime0_0.mp4 | Office at night, only the desk lamp on, Sister on the corner of his desk, her feet on the armrests of his chair, pulling him in */
+<<Media "images/characters/sister/tasks/overtime0_0.mp4" 600>>
+/* Office at night, only the desk lamp on, Sister on the corner of his desk, her feet on the armrests of his chair, pulling him in */
 She crosses the room and sits on the corner of my desk, where my printouts used to live before they learned to stay out of her way. Then she hooks her bare feet over the armrests of my chair and pulls me in, slowly, wheels squeaking, until my knees are against the desk on either side of hers.
 
 <<if _ot0First>>
@@ -67,7 +68,8 @@ She crosses the room and sits on the corner of my desk, where my printouts used 
 <</if>>
 
 <<linkreplace "Let her">>
-/* MEDIA: images/characters/sister/tasks/overtime0_1.mp4 | Closer: her hand on him, leaning down, her forehead almost against his, the dark window behind them */
+<<Media "images/characters/sister/tasks/overtime0_1.mp4" 600>>
+/* Closer: her hand on him, leaning down, her forehead almost against his, the dark window behind them */
 In my room at home she always does this with her eyes on the door. Half her attention is on me, and the other half is out in the hallway, listening for the stairs. Here there's no door to watch, and I can see the difference in her face right away: all of her is here.
 
 She takes her time. She's learned exactly what I like since that first night with the photos, and she uses all of it, slow and then not slow, watching my face from a few inches away and adjusting every time my breathing changes, with the little frown of concentration she used to get over her calculus homework.

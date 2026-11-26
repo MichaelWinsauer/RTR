@@ -18,7 +18,8 @@ I'm good at parties. It's one of the few things in my life I never had to study 
 
 The dress is the hard part. It's black and it's gorgeous and it has no back at all, and $player.name picked it, which is a thought I'm saving for later, when there aren't forty people around. Every time the wind comes up off the street I can feel exactly where the dress stops. Before we left I spent an hour walking up and down the hallway at home in these heels, until $mom.callName asked through the bathroom door whether we'd bought a horse.
 
-/* MEDIA: images/characters/sister/events/the_rooftop_pov/names.jpg | Sister in the backless black dress shaking hands with an older woman in pearls under the string lights, smiling, a tray of glasses behind her */
+<<Media "images/characters/sister/events/the_rooftop_pov/names.jpg" 600>>
+/* Sister in the backless black dress shaking hands with an older woman in pearls under the string lights, smiling, a tray of glasses behind her */
 
 I do my name thing. You say the name back once, out loud, and you hang something on it. Lorraine, $investor.callName's wife: pearls, hates the cold, has a grandson at Dartmouth she wants somebody to ask her about. By ten I've got twenty-six of them filed away, and $investor.callName has started introducing me as "the charming young lady from that clever little company", which is very sweet of him, apart from the "little".
 
@@ -39,7 +40,8 @@ It's not exactly a shock. Guys have been putting a hand on my back at parties si
 
 I don't do it. I look across the terrace for $player.name instead.
 
-/* MEDIA: images/characters/sister/events/the_rooftop_pov/corner.jpg | Her point of view: over the shoulder of a big man in a gray suit, past a patio heater, across the terrace to a young man at the glass railing with a wine glass */
+<<Media "images/characters/sister/events/the_rooftop_pov/corner.jpg" 600>>
+/* Her point of view: over the shoulder of a big man in a gray suit, past a patio heater, across the terrace to a young man at the glass railing with a wine glass */
 
 I know exactly what that means, by the way. There's a part of me, the part that got an A in Logic, standing off to the side with a clipboard, pointing out that I'm asking permission for something I've handled on my own about a hundred times. I tell that part to go get a drink.
 
@@ -63,7 +65,8 @@ I look over at $player.name one more time, quickly. I'm not asking anymore, I've
 
 So I stay where I am. I stand in the warm air off the heater with a married man's hands on me and keep up my half of a conversation about walleye, and the thing I notice, the thing I'm going to lie awake noticing, is that none of it is for the man in the gray suit. He could be anybody. He could be a coat rack with a laugh. It's for the guy at the railing. I'm good at this, and I want him to see how good.
 
-/* MEDIA: images/characters/sister/events/the_rooftop_pov/hip.jpg | Close: a man's hand on her hip, the other spread on her bare back, her face turned toward the terrace, smiling, eyes somewhere far across the roof */
+<<Media "images/characters/sister/events/the_rooftop_pov/hip.jpg" 600>>
+/* Close: a man's hand on her hip, the other spread on her bare back, her face turned toward the terrace, smiling, eyes somewhere far across the roof */
 
 Eventually his wife calls. He answers it with "Hey, hon" and his hand still on my hip, and when he takes it away to cover his other ear, I touch his arm and tell him his glass is empty, and I'm gone. So the move still works. Good to know.
 
@@ -89,7 +92,8 @@ Then I look back across the terrace, and he's still watching me, and I decide he
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/events/the_rooftop_pov/bar.jpg | Sister at the rooftop bar with a fresh glass, laughing, looking back across the string lights toward the railing */
+<<Media "images/characters/sister/events/the_rooftop_pov/bar.jpg" 600>>
+/* Sister at the rooftop bar with a fresh glass, laughing, looking back across the string lights toward the railing */
 
 I'm going to thank $player.name in the car, I already know that. And I'll mean it, which is the part that worries me a little, because you only thank somebody for not asking when you'd have said yes.
 <</if>>

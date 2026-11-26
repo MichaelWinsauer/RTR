@@ -12,7 +12,8 @@ The two of them are from a law firm across the river, partners, both in the kind
 
 I give them coffee, and I put the cookies on the good plate, and then I sit down at the head of the table and hold out my wrist for the band like a woman at the doctor's office.
 
-/* MEDIA: images/characters/mom/tasks/product_demo0_0.mp4 | Close on Mom's wrist on the meeting room table as the sensor band is fastened, the blue light of the unit behind it */
+<<Media "images/characters/mom/tasks/product_demo0_0.mp4" 600>>
+/* Close on Mom's wrist on the meeting room table as the sensor band is fastened, the blue light of the unit behind it */
 
 <<silently>>
 <<set _msgs = [
@@ -45,7 +46,8 @@ I tell them about the waiting rooms and the call centers and the conference room
 
 $player.name told me this one only goes so high, the official one, the one we sell. It's the gentle kind. But I'm not sure it's only the box today, if I'm honest. I've been like this for days now, ever since that night. I sleep, I wake up before the alarm, I hum in the car. It could be the box, and it could be me, and it could be that I've finally stopped asking.
 
-/* MEDIA: images/characters/mom/tasks/product_demo0_1.mp4 | The big screen with a pulse line falling and flattening, Mom at the head of the table in the foreground, leaning back, the two men looking at her and not at the screen */
+<<Media "images/characters/mom/tasks/product_demo0_1.mp4" 600>>
+/* The big screen with a pulse line falling and flattening, Mom at the head of the table in the foreground, leaning back, the two men looking at her and not at the screen */
 
 At some point I notice that neither of them is watching the screen anymore. They're watching me. Harold has the good grace to look a little guilty about it. Brent doesn't.
 

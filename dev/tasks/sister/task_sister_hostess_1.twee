@@ -24,7 +24,8 @@ I don't know if they talked about it, or if it's just the kind of thing that spr
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/tasks/hostess1_0.mp4 | Close on her hand, a man's fingers pressing a folded bill into her palm and closing her hand around it, holding on */
+<<Media "images/characters/sister/tasks/hostess1_0.mp4" 600>>
+/* Close on her hand, a man's fingers pressing a folded bill into her palm and closing her hand around it, holding on */
 
 The clutch I brought is too small for this. By nine it doesn't close properly anymore.
 
@@ -45,7 +46,8 @@ From his lounge chair by the heaters, $investor.callName watches all of it with 
 
 It's the way he says it, so pleasantly, as if he were saying the wine was good. I tell him I hope he is, and I mean it more than I'd like, and $investor.callName smiles at me as if that were exactly the right answer, and sends me off to open another bottle.
 
-/* MEDIA: images/characters/sister/tasks/hostess1_1.mp4 | The investor in a lounge chair by a patio heater, her perched on the arm of it in a dark dress, the city lights behind them */
+<<Media "images/characters/sister/tasks/hostess1_1.mp4" 600>>
+/* The investor in a lounge chair by a patio heater, her perched on the arm of it in a dark dress, the city lights behind them */
 
 The man with the silver hair finds me again near midnight, when I'm bringing out the coats. He tips me a second time, which is not how tipping works, and this time he doesn't take my hand. He takes my wrist, the whole thing, his fingers all the way around it, and holds it there between us, not tight, just to see if I'll pull away.
 

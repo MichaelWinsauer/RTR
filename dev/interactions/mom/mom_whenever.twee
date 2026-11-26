@@ -50,19 +50,22 @@
 
 <<switch _wPlace>>
 <<case "momroom">>
-/* MEDIA: images/characters/mom/interactions/whenever/momroom_0.mp4 | Her bedroom, the lamp on, Mom on her back on her own bed, her nightgown pushed up */
+<<Media "images/characters/mom/interactions/whenever/momroom_0.mp4" 600>>
+/* Her bedroom, the lamp on, Mom on her back on her own bed, her nightgown pushed up */
 She closes her bedroom door behind us and turns the lamp down to its lowest setting, which is the only thing she still fusses over. Then she lies back on her own bed, the one she shared with $dad.callName for twenty years, and pulls her nightgown up to her waist without being told.
 
 I take her right there, on the side of the bed that used to be his. She holds on to my shoulders and keeps her eyes open the whole time, watching my face, and when she comes she says my name into the pillow so it won't carry down the hall.
 
 <<case "bedroom">>
-/* MEDIA: images/characters/mom/interactions/whenever/bedroom_0.mp4 | My room, Mom kneeling on my bed, her robe on the floor */
+<<Media "images/characters/mom/interactions/whenever/bedroom_0.mp4" 600>>
+/* My room, Mom kneeling on my bed, her robe on the floor */
 She comes into my room as if she has been called in to clean it, closes the door with her hip, and drops her robe over my desk chair. There's nothing underneath, and there usually isn't anymore when she comes up here.
 
 She climbs onto my bed on her hands and knees and looks back over her shoulder at me, a little shy about it even now, and waits. It doesn't take long. She's already wet, and she pushes back against me with a small, grateful sound, and afterwards she lies next to me for a minute with her hand on my chest before she gets up and picks up a sock from the floor, out of habit.
 
 <<case "livingroom">>
-/* MEDIA: images/characters/mom/interactions/whenever/livingroom_0.mp4 | The living room couch, the TV on, Mom on her knees on the rug between his feet */
+<<Media "images/characters/mom/interactions/whenever/livingroom_0.mp4" 600>>
+/* The living room couch, the TV on, Mom on her knees on the rug between his feet */
 The TV is still on, some home renovation show where a couple is arguing about tiles, and she doesn't turn it off. She glances once at the front door, and once at the stairs, and then she gets down on the rug between my knees and opens my jeans.
 
 She's good at this now, which is no surprise after every single morning since the night she crawled across the office. She takes her time, and she hums a little, the way she does in the kitchen, and halfway through the couple on the TV decide on the gray tiles and she laughs around me, softly, and keeps going.
@@ -70,7 +73,8 @@ She's good at this now, which is no surprise after every single morning since th
 When I'm done she wipes her mouth with the back of her hand, straightens the cushion beside me and asks if I want anything from the kitchen.
 
 <<case "kitchen">>
-/* MEDIA: images/characters/mom/interactions/whenever/kitchen_0.mp4 | The kitchen counter, Mom bent forward over it with her hands flat beside the cutting board */
+<<Media "images/characters/mom/interactions/whenever/kitchen_0.mp4" 600>>
+/* The kitchen counter, Mom bent forward over it with her hands flat beside the cutting board */
 She's in the middle of chopping onions. She puts the knife down, wipes her hands on the dish towel, turns off the burner under the pan, and leans forward over the counter with her hands flat on either side of the cutting board.
 
 I push her skirt up. She's careful not to knock the salt over. She keeps very quiet, biting her lip, because the window is open and the neighbors are in their yard, and once she reaches out and moves the cutting board an inch so it won't rattle. When it's over she smooths her skirt down, washes her hands, and turns the burner back on.
@@ -83,7 +87,8 @@ I push her skirt up. She's careful not to knock the salt over. She keeps very qu
 <<Chat _msgs>>
 
 <<case "meeting">>
-/* MEDIA: images/characters/mom/interactions/whenever/meeting_0.mp4 | The meeting room, blinds down, Mom kneeling under the table, a folder on the chair beside her */
+<<Media "images/characters/mom/interactions/whenever/meeting_0.mp4" 600>>
+/* The meeting room, blinds down, Mom kneeling under the table, a folder on the chair beside her */
 The blinds are already down, because she put them down when she saw me get up from my desk. On the other side of the glass the office carries on, keyboards and the coffee machine and $ethan.name laughing at something. She brought a folder in case anybody asks, and she sets it on a chair.
 
 Then she gets down under the table.
@@ -91,13 +96,15 @@ Then she gets down under the table.
 It's fast, because it has to be. She knows that and she's efficient about it, the way she is with everything at work. Once, somebody walks past the door and she goes completely still with me in her mouth, and waits, and starts again when the footsteps are gone. When it's over she fixes her lipstick in the dark screen of the conference phone, picks up her folder, and walks out ahead of me, smiling at $brian.name on the way.
 
 <<case "office">>
-/* MEDIA: images/characters/mom/interactions/whenever/office_0.mp4 | The empty office at night, Mom sitting on the edge of my desk, her blouse open */
+<<Media "images/characters/mom/interactions/whenever/office_0.mp4" 600>>
+/* The empty office at night, Mom sitting on the edge of my desk, her blouse open */
 The office is empty and dark except for my desk lamp. She sits on the edge of my desk and moves my keyboard out of the way first, carefully, as if it's the important part. Then she unbuttons her blouse, slowly, all the way, and opens her knees.
 
 I take her on the desk where I sign the contracts. She holds on to the edge with both hands and looks at the ceiling, at the vent, at nothing, and says yes, again and again, quietly, like she's agreeing to something on the phone.
 
 <<default>>
-/* MEDIA: images/characters/mom/interactions/whenever/other_0.mp4 | A quiet corner, Mom pressed close, her hand between them */
+<<Media "images/characters/mom/interactions/whenever/other_0.mp4" 600>>
+/* A quiet corner, Mom pressed close, her hand between them */
 There's nobody around, but she checks anyway, both ways, the way you check before crossing the street. Then she steps close, closer than a $mom.relation stands, and slips her hand down the front of my jeans.
 
 She does it right there, standing, with her forehead against my shoulder and her other hand flat on my chest, talking to me the whole time in the soft voice she used to use when I couldn't sleep. When I come, she holds me through it and kisses my cheek.

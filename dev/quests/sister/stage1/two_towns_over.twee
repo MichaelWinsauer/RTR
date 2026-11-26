@@ -23,7 +23,8 @@ When she comes down the last time, she's in a dark red dress I've never seen bef
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/events/two_towns_over/stairs.jpg | Sister at the bottom of the stairs in a dark red dress, hair pinned up on one side, hands behind her back */
+<<Media "images/characters/sister/events/two_towns_over/stairs.jpg" 600>>
+/* Sister at the bottom of the stairs in a dark red dress, hair pinned up on one side, hands behind her back */
 
 $mom.callName is at the office tonight, catching up on invoices. $sister.callName told her we're going to see a movie with some people from her seminar. She had the lie ready a day in advance, and she still said it too fast.
 
@@ -33,7 +34,8 @@ It's forty minutes on the highway. She spends the first ten with her hands in he
 
 The restaurant is exactly what she wanted: small, dim and a little shabby, with checkered tablecloths and candles stuck in old wine bottles crusted with wax from a thousand other dinners. The waiter is about sixty and has a mustache you could hang a coat on.
 
-/* MEDIA: images/characters/sister/events/two_towns_over/restaurant.jpg | A small dim Italian restaurant, checkered tablecloth, a candle in a wax-crusted wine bottle, Sister across the table smiling */
+<<Media "images/characters/sister/events/two_towns_over/restaurant.jpg" 600>>
+/* A small dim Italian restaurant, checkered tablecloth, a candle in a wax-crusted wine bottle, Sister across the table smiling */
 
 <<silently>>
 <<set _msgs = [

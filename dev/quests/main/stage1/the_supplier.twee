@@ -26,7 +26,8 @@ I call the number at two.
 I call $supplier.callName back. He picks up on the first ring this time, and he sounds amused.
 <</if>>
 
-/* MEDIA: images/events/the_supplier/phone.jpg | My desk in the afternoon light, the phone to my ear, an annotated chemistry textbook open beside the keyboard */
+<<Media "images/events/the_supplier/phone.jpg" 600>>
+/* My desk in the afternoon light, the phone to my ear, an annotated chemistry textbook open beside the keyboard */
 
 <<silently>>
 <<set _msgs = [

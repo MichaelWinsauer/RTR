@@ -66,7 +66,8 @@ She's sitting on the table already, in front of the blue wall, swinging her feet
 <</if>>
 
 <<linkreplace "Start filming">>
-/* MEDIA: images/characters/sister/tasks/photo_review1_0.mp4 | Ring light on, Sister by the blue wall unbuttoning her blouse, looking into the phone camera */
+<<Media "images/characters/sister/tasks/photo_review1_0.mp4" 600>>
+/* Ring light on, Sister by the blue wall unbuttoning her blouse, looking into the phone camera */
 She starts the way she starts every shoot for the company page. A hand on her hip, a turn of the shoulder, the chin down a little and the eyes up. She undoes the top button of her blouse with the smile that gets the comments, and then the second, and it's very good, and it's exactly what two thousand strangers see every morning.
 
 <<if _pr1First>>
@@ -91,7 +92,8 @@ She stops. For a second she doesn't know what to do with her hands, and she drop
 The blouse comes off. Then the skirt, which she steps out of and kicks under the table, and then the rest, slowly, while I walk closer, the way she told me, instead of zooming. When she's naked she stands there in the ring light with her arms at her sides and lets me film her. Her breathing has gone short, and every time somebody laughs outside the door her eyes flick toward it and come back to the phone.
 
 <<linkreplace "Tell her to get on the table">>
-/* MEDIA: images/characters/sister/tasks/photo_review1_1.mp4 | Sister naked on the long table under the ring light, leaning back on one hand, the other between her legs, biting her wrist */
+<<Media "images/characters/sister/tasks/photo_review1_1.mp4" 600>>
+/* Sister naked on the long table under the ring light, leaning back on one hand, the other between her legs, biting her wrist */
 She sits on the edge of the long table, where the clients put their coffee cups, and then lies back on one elbow. I don't have to tell her what comes next. Her hand slides down her stomach and between her legs, and she watches the phone with her lips parted.
 
 <<if _pr1First>>

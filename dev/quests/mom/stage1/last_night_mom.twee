@@ -89,7 +89,8 @@ She lifts the dish towel off the dress and starts ironing again, with her back t
 <<silently>><<SetBackground $locations[5].img>><</silently>>
 Her bedroom door is open. She's standing in front of the long mirror on the closet door in the dress I picked: black, simple, a hem that stops well above the knee and a neckline she adjusted twice before I came in and once while I watched. Her hair is up. She's wearing the earrings $dad.callName gave her for their tenth anniversary, and I don't think she knows she chose them. She's wearing the stockings with the seam.
 
-/* MEDIA: images/characters/mom/events/last_night/mirror.jpg | Mom in a short black dress in front of her closet mirror, hair up, earrings, looking at her own reflection */
+<<Media "images/characters/mom/events/last_night/mirror.jpg" 600>>
+/* Mom in a short black dress in front of her closet mirror, hair up, earrings, looking at her own reflection */
 
 She sees me in the mirror and doesn't turn around.
 

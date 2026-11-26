@@ -91,7 +91,8 @@ The amber light is the only light on this side of the room, and it lays a thin w
    She learns fast, the way she always does with things she cares about, and you can see her get a little proud of it.
    Her POV detail to use: she keeps glancing at the dark windows of the office once or twice, then stops caring.
    Already covered around it: the belt, her nerves, his hand on her head. Next block has the dialogue. */
-/* MEDIA: images/characters/sister/events/catalyst_night/bj_0.mp4 | The dark office, Sister on her knees in front of his chair, the amber light of the gray box on the desk */
+<<Media "images/characters/sister/events/catalyst_night/bj_0.mp4" 600>>
+/* The dark office, Sister on her knees in front of his chair, the amber light of the gray box on the desk */
 
 <<linkreplace "Make her say it">>
 <<silently>>
@@ -110,7 +111,8 @@ The amber light is the only light on this side of the room, and it lays a thin w
    him a little more eagerly, as if saying it and doing it are becoming one thing for her. More confident now, less
    checking. He lets his hand rest in her hair and doesn't push. Keep the "I love you" lines in the text you write
    (short, between breaths), so the Chat above is the start of it and not the only time she says it. */
-/* MEDIA: images/characters/sister/events/catalyst_night/bj_1.mp4 | Closer, his hand in her hair, her eyes up */
+<<Media "images/characters/sister/events/catalyst_night/bj_1.mp4" 600>>
+/* Closer, his hand in her hair, her eyes up */
 
 At some point I tell her she's doing well. It's the first warm thing I've said to her since she knelt down, and I watch what it does to her: her shoulders come down, her eyes close, and she makes a small happy sound like I just handed her something she'd been waiting all evening to be given.
 

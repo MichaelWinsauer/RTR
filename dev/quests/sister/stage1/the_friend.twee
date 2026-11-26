@@ -83,7 +83,8 @@ She looks back at me. Then she picks up her phone, opens a group chat with a lak
 
 Then she puts the phone face down on my desk, between my keyboard and my coffee, and pushes it a couple of inches toward me with two fingers.
 
-/* MEDIA: images/characters/sister/events/the_friend/phone.jpg | A phone lying face down on a desk between a keyboard and a coffee cup, her fingers just letting go of it */
+<<Media "images/characters/sister/events/the_friend/phone.jpg" 600>>
+/* A phone lying face down on a desk between a keyboard and a coffee cup, her fingers just letting go of it */
 
 <<silently>>
 <<set _msgs = [

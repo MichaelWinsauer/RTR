@@ -40,7 +40,8 @@ She's still at her desk when the last of them leave, pretending to work, and she
 <</if>>
 
 <<linkreplace "Go to her">>
-/* MEDIA: images/characters/sister/tasks/overtime2_0.mp4 | The dark office, Sister spreading an old plaid blanket over the couch in the corner, looking back over her shoulder */
+<<Media "images/characters/sister/tasks/overtime2_0.mp4" 600>>
+/* The dark office, Sister spreading an old plaid blanket over the couch in the corner, looking back over her shoulder */
 <<if _ot2First>>
 The first time, on this same couch, she was scared and holding on to me with both hands, and it hurt, and she told me not to stop. Tonight she undresses herself, in the light from the street, and she isn't scared of anything. She pushes me down onto the blanket and climbs on top of me.
 
@@ -64,7 +65,8 @@ She kneels on the couch with her hands on the back of it and looks at me over he
 <</if>>
 
 <<linkreplace "Let her">>
-/* MEDIA: images/characters/sister/tasks/overtime2_1.mp4 | On the couch, Sister on top of him under the blanket, her hands on his chest, the streetlight from the window across her back */
+<<Media "images/characters/sister/tasks/overtime2_1.mp4" 600>>
+/* On the couch, Sister on top of him under the blanket, her hands on his chest, the streetlight from the window across her back */
 <<if _ot2First>>
 She's slow about it at first, careful, finding the angle, with her hands braced flat on my chest and her lip between her teeth. Then she finds it, and her eyes go wide, and she lets out a sound she clearly didn't plan on, loud enough that it fills the whole empty office.
 

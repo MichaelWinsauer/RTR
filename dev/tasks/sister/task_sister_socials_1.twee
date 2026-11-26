@@ -16,7 +16,8 @@ $marketingOwner.name sent $player.name a one-line email about it, <i>There she i
 
 So my face is the brand now. That's a sentence I never expected to say about a company that sells boxes for ceilings.
 
-/* MEDIA: images/characters/sister/tasks/socials1_0.mp4 | The ring light on its stand, her leaning into a small mirror propped against it, doing her lashes */
+<<Media "images/characters/sister/tasks/socials1_0.mp4" 600>>
+/* The ring light on its stand, her leaning into a small mirror propped against it, doing her lashes */
 
 The ring light came, the real kind, and it makes everyone look like they slept nine hours and drink a lot of water. I spend twenty minutes on my makeup in front of it, which is fifteen more than I spend for class. I'm wearing the cream blouse, the fitted one. The unit sits in my palm just under my collarbone, where your eye goes to it, then to my face, then back to it. That's the theory, anyway.
 
@@ -37,7 +38,8 @@ I look at the one about the unit for a long time. I start typing a reply from th
 
 I don't delete the comment either, though. Forty-seven people have liked it. I'm choosing to take that as a compliment.
 
-/* MEDIA: images/characters/sister/tasks/socials1_1.mp4 | Her holding the unit at her collarbone, blouse with the top button undone, smiling straight into the lens */
+<<Media "images/characters/sister/tasks/socials1_1.mp4" 600>>
+/* Her holding the unit at her collarbone, blouse with the top button undone, smiling straight into the lens */
 
 There's a thing I keep catching myself doing, and I'm only going to think about it once. When I pick which pictures go up, I'm not really thinking about the guy with the fire emojis, or about whether anyone wants to buy a box. I'm thinking about $player.name, and which ones he'd keep.
 

@@ -15,7 +15,8 @@ The blinds are down on the glass wall. The door isn't locked, because the meetin
 
 She's in the chair at the far end of the table, the one facing away from the door, turned a little toward the window. The folder is open in front of her for decoration. Her head is tipped back against the headrest, her eyes are closed, and her right hand is under her skirt. Her left hand is pressed over her mouth.
 
-/* MEDIA: images/characters/mom/events/caught/chair.mp4 | Mom in the meeting room chair, head back, eyes closed, one hand under her pencil skirt, the other over her mouth, blinds down behind her */
+<<Media "images/characters/mom/events/caught/chair.mp4" 600>>
+/* Mom in the meeting room chair, head back, eyes closed, one hand under her pencil skirt, the other over her mouth, blinds down behind her */
 
 She doesn't hear the door. She hears it close.
 
@@ -70,7 +71,8 @@ It's slow at first. Small, careful circles, her knees pressed together, her whol
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/mom/events/caught/watched.mp4 | Mom in the chair with her knees apart, skirt pushed up, eyes squeezed shut, biting the side of her hand */
+<<Media "images/characters/mom/events/caught/watched.mp4" 600>>
+/* Mom in the chair with her knees apart, skirt pushed up, eyes squeezed shut, biting the side of her hand */
 
 <<linkreplace "Someone knocks">>
 Two knocks on the door. Then, without waiting, because nobody in this office has ever waited, the handle turns.

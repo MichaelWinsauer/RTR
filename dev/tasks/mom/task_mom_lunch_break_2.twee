@@ -50,7 +50,8 @@ I stand up and step in between her knees. She puts her hands on my chest and smo
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/mom/tasks/lunch_break2_0.mp4 | The meeting room table, blinds down, Mom on her back on the edge of the table with her skirt up, her heels off, the deli bag at the far end */
+<<Media "images/characters/mom/tasks/lunch_break2_0.mp4" 600>>
+/* The meeting room table, blinds down, Mom on her back on the edge of the table with her skirt up, her heels off, the deli bag at the far end */
 
 She pulls me in by my belt loops. She's wet already, and when I push into her she shuts her eyes and lets out a breath that's almost a word, and puts the back of her hand over her mouth to keep the rest of it in.
 
@@ -98,7 +99,8 @@ He wanders off whistling. $mom.callName takes her hand off her mouth. She's shak
 <</if>>
 
 <<linkreplace "Finish">>
-/* MEDIA: images/characters/mom/tasks/lunch_break2_1.mp4 | Closer: Mom holding on to the edge of the table, her free hand over her own mouth, eyes on mine */
+<<Media "images/characters/mom/tasks/lunch_break2_1.mp4" 600>>
+/* Closer: Mom holding on to the edge of the table, her free hand over her own mouth, eyes on mine */
 <<silently>>
 <<set _msgs = [
 { who: $mom, text: "Don't stop, honey. Please, I'm almost..." },

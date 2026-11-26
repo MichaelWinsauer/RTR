@@ -8,7 +8,8 @@ The living room is dark except for the lamp by the couch and the TV, which is on
 
 $mom.callName is in her corner of the couch with her feet tucked under her and a glass of red in her hand. The bottle is on the coffee table, a little less than half full. It's a Tuesday, or a Wednesday, one of the days that don't count, and she has a coaster under the bottle and another one under her glass, which is how I know she had a plan when she opened it.
 
-/* MEDIA: images/characters/mom/events/booze_night/couch.jpg | Mom curled up in the corner of the couch in leggings and an oversized cardigan, a glass of red wine, the TV light on her face */
+<<Media "images/characters/mom/events/booze_night/couch.jpg" 600>>
+/* Mom curled up in the corner of the couch in leggings and an oversized cardigan, a glass of red wine, the TV light on her face */
 
 <<silently>>
 <<set _msgs = [

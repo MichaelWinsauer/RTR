@@ -26,7 +26,8 @@ He walks over to the front door and turns the lock, and makes a little show of i
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/tasks/field_test3_0.mp4 | The glass front door at night, a man's hand turning the lock, her reflection behind him in the glass */
+<<Media "images/characters/sister/tasks/field_test3_0.mp4" 600>>
+/* The glass front door at night, a man's hand turning the lock, her reflection behind him in the glass */
 
 He turns the rest off at a panel by the desk, row by row, until the only light left is the strip over the stretching area at the back, and the little red one in the camera dome above it. I chose the mat that's right under it. He thinks I chose it for the foam roller.
 
@@ -45,7 +46,8 @@ We actually do the workout first, which surprises me. Squats, lunges, a set of d
 
 He puts my heel on his shoulder and leans in, slowly, until the back of my thigh is burning, and he's not lying about the thirty seconds. Then he switches legs, and then he stops pretending. His hands slide down from my knee along the inside of my thigh, slowly, kneading as they go, and when they get to the top neither of us says anything about hamstrings.
 
-/* MEDIA: images/characters/sister/tasks/field_test3_1.mp4 | The lit corner of a dark gym, her on her back on a mat, one leg on the trainer's shoulder, his hands high on the inside of her thighs */
+<<Media "images/characters/sister/tasks/field_test3_1.mp4" 600>>
+/* The lit corner of a dark gym, her on her back on a mat, one leg on the trainer's shoulder, his hands high on the inside of her thighs */
 
 <<silently>>
 <<set _msgs = [
@@ -64,7 +66,8 @@ He touches me slowly at first, as if he's still pretending it's part of the stre
 
 I keep my eyes on the red light the whole time. I picture the little square on his screen, the one I tapped with my fingernail, and him leaning back in his chair the way he does when he's reading something he likes. I don't know if he's there. I come with my back arched off the mat and my eyes wide open, looking straight up into the camera, in case he is.
 
-/* MEDIA: images/characters/sister/tasks/field_test3_2.mp4 | Close on her face from the dome above, flushed, eyes open and looking straight up into the camera, his arm moving at the edge of the frame */
+<<Media "images/characters/sister/tasks/field_test3_2.mp4" 600>>
+/* Close on her face from the dome above, flushed, eyes open and looking straight up into the camera, his arm moving at the edge of the frame */
 
 <<silently>>
 <<set _msgs = [

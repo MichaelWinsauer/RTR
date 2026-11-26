@@ -17,7 +17,8 @@ By half past six the office is down to the hum of the vent and $mom.callName. Ev
 
 She hasn't packed up. Her monitor has gone to sleep and her coat is still on the back of her chair. She's wearing the gray skirt, the one $boss.callName asked for on the phone that time, and she put it on this morning without anybody reminding her. Her phone is lying face down beside her keyboard. Every few minutes she turns it over, looks at it, and turns it back.
 
-/* MEDIA: images/characters/mom/events/after_hours/desk.jpg | Mom alone at her desk in the empty evening office, gray skirt, coat on her chair, looking down at the phone in her hand */
+<<Media "images/characters/mom/events/after_hours/desk.jpg" 600>>
+/* Mom alone at her desk in the empty evening office, gray skirt, coat on her chair, looking down at the phone in her hand */
 
 Eventually she gets up and brings it over to my desk.
 
@@ -125,7 +126,8 @@ Half the lights in the lobby are off. The night guard has a crossword folded on 
 <<silently>><<SetBackground "images/locations/elevator.jpg">><</silently>>
 In the elevator she presses six without looking. Her finger just goes there, the way it went there every morning for twelve years, and I don't think she notices she's done it until the doors close and the button is already lit.
 
-/* MEDIA: images/characters/mom/events/after_hours/elevator.jpg | Mom's hand on the elevator panel, the button for floor 6 lit, the doors closing */
+<<Media "images/characters/mom/events/after_hours/elevator.jpg" 600>>
+/* Mom's hand on the elevator panel, the button for floor 6 lit, the doors closing */
 
 <<linkreplace "Walk her to his door">>
 <<silently>><<SetBackground $locations[12].img>><</silently>>
@@ -144,7 +146,8 @@ There's light under one door at the end of the floor, the corner office. A few s
 
 She smooths the gray skirt over her hips with both hands and knocks. The door opens before her second knock.
 
-/* MEDIA: images/characters/mom/events/after_hours/door.jpg | The open door of a corner office at night, the boss in shirtsleeves with a drink in his hand, Mom in the gray skirt in the doorway */
+<<Media "images/characters/mom/events/after_hours/door.jpg" 600>>
+/* The open door of a corner office at night, the boss in shirtsleeves with a drink in his hand, Mom in the gray skirt in the doorway */
 
 $boss.callName has his jacket off and his tie pulled loose, and there's a glass in his hand with more ice than whiskey left in it. He looks at her first, all of her, the way he did at the handover, and takes his time about it.
 

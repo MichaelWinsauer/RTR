@@ -27,7 +27,8 @@ By six it's just us. $mom.callName left with a quick squeeze of my shoulder and 
 
 $sister.callName comes over in my hoodie, the gray one that disappeared from my closet a month ago and now lives on the back of her chair. The sleeves cover her hands. She sits down on the corner of my desk, on top of a contract I need, and pulls her knees up.
 
-/* MEDIA: images/characters/sister/events/the_ask/desk.jpg | Sister sitting on the corner of a desk in an oversized gray hoodie, sleeves over her hands, knees up, the dark office behind her */
+<<Media "images/characters/sister/events/the_ask/desk.jpg" 600>>
+/* Sister sitting on the corner of a desk in an oversized gray hoodie, sleeves over her hands, knees up, the dark office behind her */
 
 <<silently>>
 <<set _msgs = [

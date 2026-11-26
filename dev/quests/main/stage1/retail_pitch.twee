@@ -78,7 +78,8 @@ There's no reason to. He's setting up a demo, which he's done a hundred times, a
 
 My thumb is over the button anyway.
 
-/* MEDIA: images/events/retail_pitch/phone.jpg | His face in the dark, lit by a phone screen showing a grid of camera thumbnails */
+<<Media "images/events/retail_pitch/phone.jpg" 600>>
+/* His face in the dark, lit by a phone screen showing a grid of camera thumbnails */
 
 <div id="rp-choice" class="choices">
 <div>

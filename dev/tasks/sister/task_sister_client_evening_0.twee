@@ -19,7 +19,8 @@ It's red. It's the red one, the one from the Christmas party two years ago that 
 
 $club.name is the kind of place where the door doesn't have a handle on the outside. There's a man in a coat who decides whether it opens, and he decides yes, and then it's dark and warm and expensive in there, and the music is so low you mostly feel it in your ribs. Lyle's in a booth at the back, and he sits us one on each side of him, like bookends.
 
-/* MEDIA: images/characters/sister/tasks/client_evening0_0.mp4 | A velvet booth in a dim club, Sister in a green satin dress leaning in to laugh at something the man beside her said, Mom in red on his other side */
+<<Media "images/characters/sister/tasks/client_evening0_0.mp4" 600>>
+/* A velvet booth in a dim club, Sister in a green satin dress leaning in to laugh at something the man beside her said, Mom in red on his other side */
 
 He orders champagne, a bottle of something French that I'm told is very good, and that I'd describe, if anybody asked, as expensive-tasting. He's loud and pleased with himself and not actually unpleasant, which in my experience is about the best you can hope for from a man who owns fourteen swimming pools.
 
@@ -43,7 +44,8 @@ I look at my glass. I decide very firmly that it's the champagne. $mom.callName 
 
 So every time his hand goes quiet on her side and I can tell he's about to lean in, I lean in first. I ask him about the hotel in Miami. I put my hand on his arm and make him show me his watch. Twice I make him laugh so hard he needs both hands to hold his glass, and I'm a little proud of that.
 
-/* MEDIA: images/characters/sister/tasks/client_evening0_1.mp4 | Sister touching the client's arm, her head tipped toward his shoulder, a champagne bottle in an ice bucket in the foreground */
+<<Media "images/characters/sister/tasks/client_evening0_1.mp4" 600>>
+/* Sister touching the client's arm, her head tipped toward his shoulder, a champagne bottle in an ice bucket in the foreground */
 
 Weirdly, every time I do, she seems to do the same thing from her side about five minutes later. He keeps turning from one of us to the other like a man at a tennis match, and he looks about as happy as I've ever seen anyone look.
 
@@ -61,7 +63,8 @@ In the restroom we end up side by side at the mirror, under some very flattering
 
 I could say it right there. Something like hey, his hand, are you okay. I watch her put on her lipstick in the mirror with that tiny frown she makes, the same frown she's made since before I can remember, and I can't think of a single way to say it that doesn't also mean I watched. So I blot my own lipstick and follow her back out.
 
-/* MEDIA: images/characters/sister/tasks/client_evening0_2.jpg | Sister and Mom side by side at a dim restroom mirror, both fixing their lipstick, neither looking at the other */
+<<Media "images/characters/sister/tasks/client_evening0_2.jpg" 600>>
+/* Sister and Mom side by side at a dim restroom mirror, both fixing their lipstick, neither looking at the other */
 
 He's going to sign. He said so twice at the door, with an arm around each of us. In the cab I text $player.name: <i>he's signing. you owe me a croissant the size of my head.</i> Next to me, $mom.callName is texting someone too, probably one of her friends from the old job, holding the phone the way she does, way out in front of her face.
 

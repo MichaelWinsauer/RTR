@@ -63,7 +63,8 @@ There's nobody else around for a moment, and $sister.callName notices it at the 
 <<Chat _msgs>>
 
 <<linkreplace "Let her take care of you">>
-/* MEDIA: images/characters/sister/interactions/handjob/<place>_0.mp4 | her hand starting, per place */
+<<Video `"images/characters/sister/interactions/handjob/" + _shjPlace + "_0.mp4"` "" "" 500>>
+/* her hand starting, per place (sisterroom, livingroom, bedroom, office, other) */
 <<switch _shjPlace>>
 <<case "sisterroom">>
 She shuts the laptop, pushes it off the end of the bed onto the rug and rolls onto her side, then pulls me down next to her by the front of my shirt. Her pillow smells of the strawberry shampoo, and the fairy lights blink over both of us in their lazy pattern.
@@ -103,7 +104,8 @@ She steps in close, close enough that anybody coming around the corner would jus
 <<Chat _msgs>>
 
 <<linkreplace "Let go">>
-/* MEDIA: images/characters/sister/interactions/handjob/<place>_1.mp4 | the end of it, per place */
+<<Video `"images/characters/sister/interactions/handjob/" + _shjPlace + "_1.mp4"` "" "" 500>>
+/* the end of it, per place (sisterroom, livingroom, bedroom, office, other) */
 She doesn't let go until I'm completely done, and for a moment afterwards she just stays where she is, with her forehead against my shoulder, getting her own breath back.
 
 <<silently>>

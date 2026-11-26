@@ -15,7 +15,8 @@ Today it's a man called Walt, who manages a call center for an insurance company
 
 He asked Luis for the round booth in the back, the one where you end up sitting beside each other instead of across. I didn't think anything of it until I was already sliding in.
 
-/* MEDIA: images/characters/mom/tasks/client_lunch1_0.mp4 | The round leather booth in the back of the steakhouse, Mom and an older man in a gray suit side by side, her laughing at something on his phone */
+<<Media "images/characters/mom/tasks/client_lunch1_0.mp4" 600>>
+/* The round leather booth in the back of the steakhouse, Mom and an older man in a gray suit side by side, her laughing at something on his phone */
 
 <<silently>>
 <<set _msgs = [
@@ -65,7 +66,8 @@ When Luis brings the check, Walt takes his hand back to reach for his wallet, ou
 
 Outside, he holds the door for me, and he squeezes my elbow when we say goodbye, and that's all.
 
-/* MEDIA: images/characters/mom/tasks/client_lunch1_1.mp4 | Mom alone in her car in the parking lot afterwards, both hands on the wheel, looking down at her knee */
+<<Media "images/characters/mom/tasks/client_lunch1_1.mp4" 600>>
+/* Mom alone in her car in the parking lot afterwards, both hands on the wheel, looking down at her knee */
 
 In the car, I look at my knee. There's nothing to see, of course. My stockings aren't even creased.
 

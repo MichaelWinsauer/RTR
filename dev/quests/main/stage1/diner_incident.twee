@@ -14,7 +14,8 @@ That's what I notice first. Nobody in this family has ever seen her phone face d
 
 $mom.callName went up early. The house is quiet enough that I can hear the fridge.
 
-/* MEDIA: images/events/diner_incident/couch.jpg | Sister curled up on the living room couch in jeans and a diner polo, apron balled in her lap, phone face down beside her, a muted TV glowing on her face */
+<<Media "images/events/diner_incident/couch.jpg" 600>>
+/* Sister curled up on the living room couch in jeans and a diner polo, apron balled in her lap, phone face down beside her, a muted TV glowing on her face */
 
 <<linkreplace "Sit down next to her">>
 I drop onto the other end of the couch, and the springs bounce her a little. She doesn't complain about it, which is the second thing I notice.
@@ -68,7 +69,8 @@ It's one of those shifts where you can tell in the first hour that you're not go
 
 And it's nice. That's the weird part about $diner.name lately, it's nice. Ever since $player.name's people put that little box up in the ceiling over the pie case, nobody snaps their fingers at me anymore. The cook hums. Twice this week a customer has said "no rush" and actually meant it. I've been working here long enough to know that is not a normal thing for a human being to say in this building.
 
-/* MEDIA: images/characters/sister/events/diner_incident_pov/quiet.jpg | Her point of view down the length of the diner counter at night: a couple sharing a milkshake in a red booth, two old men over coffee, a small white box in the ceiling above the pie case */
+<<Media "images/characters/sister/events/diner_incident_pov/quiet.jpg" 600>>
+/* Her point of view down the length of the diner counter at night: a couple sharing a milkshake in a red booth, two old men over coffee, a small white box in the ceiling above the pie case */
 
 He comes in during the lull. He's big, the kind of big that takes work, in a sleeveless gym shirt with a duffel bag he drops on the stool next to him so nobody can sit there. He doesn't look at the menu. He orders the chicken fried steak without looking up from his phone.
 
@@ -88,7 +90,8 @@ Then his hand comes down on the counter, flat and hard, and every mug on it jump
 
 I turn around to grab a menu. I don't know why. I think part of me thought if I gave him a menu, the whole thing would turn back into a normal table. And he reaches over the counter and grabs my wrist.
 
-/* MEDIA: images/characters/sister/events/diner_incident_pov/wrist.jpg | Close on the counter: a big hand around her slim wrist, spilled coffee spreading over a waitress order pad */
+<<Media "images/characters/sister/events/diner_incident_pov/wrist.jpg" 600>>
+/* Close on the counter: a big hand around her slim wrist, spilled coffee spreading over a waitress order pad */
 
 What I keep coming back to is that nobody does anything.
 
@@ -116,7 +119,8 @@ Not slowly. One second he's a wall, and the next his shoulders come down and he 
 
 That's the part that actually scares me, if I'm honest. Not the yelling. The yelling made sense. It's how fast he went from that to this, like a dog that's growling at you one second and rolling over the next, and you can't decide which one of those was the real dog.
 
-/* MEDIA: images/characters/sister/events/diner_incident_pov/booth.jpg | Sister sitting across from a huge man in a gym shirt in a red vinyl booth, her hand resting near his on the table, his head bowed, the rest of the diner blurred and calm behind them */
+<<Media "images/characters/sister/events/diner_incident_pov/booth.jpg" 600>>
+/* Sister sitting across from a huge man in a gym shirt in a red vinyl booth, her hand resting near his on the table, his head bowed, the rest of the diner blurred and calm behind them */
 
 $manager.name comes out of the office about thirty seconds after it's over, with the phone still in his hand and a pencil behind his ear.
 
@@ -181,7 +185,8 @@ It looks like this: a chart of everybody in the room, one thin line per heartbea
 
 Then a new one comes in through the door, and it doesn't drift down with the others. It climbs, for nine straight minutes, until it goes off the top of the chart, and everybody else's stays exactly where it was, calm and flat and pleasant the whole time.
 
-/* MEDIA: images/events/diner_incident/log.jpg | His laptop screen in a dark bedroom: a chart of a dozen soft flat lines in a calm band and one red line spiking off the top */
+<<Media "images/events/diner_incident/log.jpg" 600>>
+/* His laptop screen in a dark bedroom: a chart of a dozen soft flat lines in a calm band and one red line spiking off the top */
 
 <<silently>>
 <<set _msgs = [

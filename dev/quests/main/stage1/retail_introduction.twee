@@ -23,7 +23,8 @@ I call it at ten. A woman answers, takes my name, puts me on hold with something
 I call $investor.callName back. The same woman, the same baroque hold music, a little shorter this time. He picks up on the second minute, and I can hear that he's smiling.
 <</if>>
 
-/* MEDIA: images/events/retail_introduction/phone.jpg | My desk, the phone to my ear, a sticky note with a phone number on the monitor */
+<<Media "images/events/retail_introduction/phone.jpg" 600>>
+/* My desk, the phone to my ear, a sticky note with a phone number on the monitor */
 
 <<silently>>
 <<set _msgs = [

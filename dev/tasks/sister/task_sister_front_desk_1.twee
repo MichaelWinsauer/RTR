@@ -14,7 +14,8 @@ I moved the sign-in sheet this morning. My desk is tiny and the clipboard kept s
 
 And I'm wearing the plaid skirt. It's short, shorter than anything I own that isn't for the beach, and I bought it in my first semester and then never wore it because I couldn't figure out where a person goes in a skirt like that. A few weeks ago $player.name saw it in my laundry pile and said, without even looking up from his phone, that it looked good. That was all he said, and it's been on the top of my pile ever since.
 
-/* MEDIA: images/characters/sister/tasks/front_desk1_0.mp4 | Her on the couch by the window in a short plaid skirt and a fitted top, leaning forward to tap the clipboard on the low glass table */
+<<Media "images/characters/sister/tasks/front_desk1_0.mp4" 600>>
+/* Her on the couch by the window in a short plaid skirt and a fitted top, leaning forward to tap the clipboard on the low glass table */
 
 So the routine goes like this now. The elevator dings, I get up and say good morning, and then I sit down on the couch, on the edge, and lean forward to show them where to sign. The table is low. They have to bend down to it. I point at the line with one finger, and they look at the line, and then they look at the rest of the view, and then they take a very long time to write their names.
 
@@ -34,7 +35,8 @@ The first one is from $retailChain.name, here for the eleven o'clock, in a navy 
 
 His name has four letters. It takes him about forty seconds. When he stands up he has to hold on to the back of the couch for a second, and I pretend not to see that, and I offer him a mint.
 
-/* MEDIA: images/characters/sister/tasks/front_desk1_1.mp4 | A man in a navy suit bent over the low table with a pen, eyes not on the clipboard, her legs crossed in the foreground */
+<<Media "images/characters/sister/tasks/front_desk1_1.mp4" 600>>
+/* A man in a navy suit bent over the low table with a pen, eyes not on the clipboard, her legs crossed in the foreground */
 
 I'd be lying if I said I don't notice what I'm doing. I notice all of it. I know that when I lean forward the skirt slides up at the back, and I know exactly how far, because I checked in the bathroom mirror before nine with my phone held low. I know there's a camera over the door, angled right at the couch, and that the feed goes to the screen on $player.name's desk. I chose the couch knowing that.
 
@@ -53,7 +55,8 @@ The delivery guy at ten past eleven signs on the wrong line. I tell him, and he 
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/sister/tasks/front_desk1_2.mp4 | A woman with reading glasses on a chain signing the clipboard standing up, looking at her over the top of her glasses */
+<<Media "images/characters/sister/tasks/front_desk1_2.mp4" 600>>
+/* A woman with reading glasses on a chain signing the clipboard standing up, looking at her over the top of her glasses */
 
 She puts it back on the table exactly where it was, which is somehow worse than if she'd said anything. I feel my face go hot all the way down my neck, and I sit there and let it, and I don't cross my legs.
 

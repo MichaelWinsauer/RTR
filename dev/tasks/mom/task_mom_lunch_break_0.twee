@@ -11,7 +11,8 @@
 	<<set _lb0First to (_lb0Task.count || 0) === (_lb0Task.stageStartCount || 0)>>
 	<<set _lb0 to random(0, 2)>>
 <</silent>>
-/* MEDIA: images/characters/mom/tasks/lunch_break0_0.mp4 | Mom unpacking a paper deli bag on the meeting room table, blinds down, me in the chair at the head of the table */
+<<Media "images/characters/mom/tasks/lunch_break0_0.mp4" 600>>
+/* Mom unpacking a paper deli bag on the meeting room table, blinds down, me in the chair at the head of the table */
 <<if _lb0First>>
 She sets the bag down on the table and stands there looking at it, both hands flat on either side of it, like she's waiting for the bag to tell her what happens next.
 
@@ -66,7 +67,8 @@ I finish the second half. She checks, actually checks, leaning over to look at t
 Then she gets up, and walks around behind my chair.
 
 <<linkreplace "Lean back">>
-/* MEDIA: images/characters/mom/tasks/lunch_break0_1.mp4 | From behind my chair, Mom leans down over my shoulder, her cheek near mine, one hand down in my lap, the deli wrappers still on the table */
+<<Media "images/characters/mom/tasks/lunch_break0_1.mp4" 600>>
+/* From behind my chair, Mom leans down over my shoulder, her cheek near mine, one hand down in my lap, the deli wrappers still on the table */
 For a moment it's the massage. Her hands come down on my shoulders where they always do, and her thumbs find the knot under my left shoulder blade, and I can feel her breathing against the back of my head. Then her right hand keeps going: down my chest, over my stomach, to my belt.
 
 She does the buckle without looking, leaning over my shoulder with her cheek next to mine. Her hair falls forward and hides most of what her hand is doing, even from me.

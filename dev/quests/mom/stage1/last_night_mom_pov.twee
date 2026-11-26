@@ -8,14 +8,15 @@
    $supplier.callName takes her daughter to the back, she gets up to follow, and this time
    a member stops her: they have their own room. She keeps the promise she made in the kitchen. Afterwards she waits in the
    hallway, on the floor, for forty minutes, until her daughter's door opens. That is the part she won't tell me.
-   Clips: none yet (MEDIA comments below). */
+   Clips: none yet (see the Media calls below). */
 <<silent>><<SetBackground setup.getLocationBySysName("club").img>><</silent>>
 <<PovHeader $mom>>
 Teo has my gin and tonic ready before we're even at the bar, the way he always does, and then he sees our faces, or maybe the dresses, and he puts it down on the counter and doesn't push it over to me. He just goes on drying a glass that's already dry. I suppose a bartender in a place like this knows what kind of evening it is from the shoes.
 
 $supplier.callName comes down to get us himself, from a staircase at the back that I'd honestly never noticed in all the evenings we've spent here. He's smaller than his voice. Gray at the temples, very clean little hands, and a cardigan, a soft camel cardigan with leather buttons, the kind I'd buy for somebody's grandfather at Christmas. For some reason that's the thing that frightens me most all night.
 
-/* MEDIA: images/characters/mom/events/last_night/staircase.jpg | A narrow staircase at the back of a dark club, a gray-haired man in a camel cardigan holding out his hand, two women in black dresses at the foot of the stairs */
+<<Media "images/characters/mom/events/last_night/staircase.jpg" 600>>
+/* A narrow staircase at the back of a dark club, a gray-haired man in a camel cardigan holding out his hand, two women in black dresses at the foot of the stairs */
 
 <<silently>>
 <<set _msgs = [
@@ -66,13 +67,15 @@ Gordon takes hold of my wrist without getting up. He doesn't squeeze, he just ho
 <</silently>>
 <<Chat _msgs>>
 
-/* MEDIA: images/characters/mom/events/last_night/hallway.jpg | A dim hallway with numbered padded doors, a man's hand around Mom's wrist, leading her along */
+<<Media "images/characters/mom/events/last_night/hallway.jpg" 600>>
+/* A dim hallway with numbered padded doors, a man's hand around Mom's wrist, leading her along */
 
 The hallway has four doors with little brass numbers on them. Ours is three. Hers, I find out later, is one, at the very end, and the whole time I'm in three I'm thinking about the two in between.
 
 I said yes in the kitchen. I said it to my own $mom.playerRelation, standing at my own ironing board, and he didn't make it any easier for me, and he was right not to. So when Gordon asks me to take my dress off, I say yes. I take the earrings off too, without being asked, and put them in my purse, and I don't let myself think about why.
 
-/* MEDIA: images/characters/mom/events/last_night/room_three.jpg | A small lamplit room, Mom standing beside a bed in her slip and seamed stockings, her earrings in her palm, her face turned toward the wall */
+<<Media "images/characters/mom/events/last_night/room_three.jpg" 600>>
+/* A small lamplit room, Mom standing beside a bed in her slip and seamed stockings, her earrings in her palm, her face turned toward the wall */
 
 He's heavy, and slow, and he isn't cruel, which I keep reminding myself of, like it's worth something. He likes the stockings. He wants me on my back with my knees up and the stockings on, and he wants me to look at him while he does it, and I do that too, because he asks, and I've said yes. My body does all the things a body does. I've stopped being surprised by that this year, and I've stopped being ashamed of it, mostly. It's just a body, and tonight it's a payment, and I'm making it on time.
 

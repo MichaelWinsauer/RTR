@@ -9,7 +9,7 @@
    she comes out, her mother is sitting on the hallway floor waiting for her, and buttons her coat up to the chin. She tells
    me all of it, because I wrote the script and I should have to hear how it went.
    Variant: the rooftop signal ($flags.retailIntro "sister").
-   Clips: none yet (MEDIA comments below). */
+   Clips: none yet (see the Media calls below). */
 <<silent>><<SetBackground setup.getLocationBySysName("club").img>><</silent>>
 <<PovHeader $sister>>
 It works. That's what I keep coming back to, all night long: every single thing we practiced in that dim meeting room actually works.
@@ -18,7 +18,8 @@ $supplier.callName is the man from the phone, the soft voice $player.name did fo
 
 I laugh a little before his punch lines. I touch his arm. I keep his glass full and he never once sees me do it. Every time I get it right he looks pleased, and some small, stupid part of me is pleased too, like I'm back in the meeting room getting a good grade.
 
-/* MEDIA: images/characters/sister/events/last_night/sofa.jpg | A small sofa by a dark window in a lamplit room, Sister in a black dress laughing with her hand on the arm of a gray-haired man in a camel cardigan */
+<<Media "images/characters/sister/events/last_night/sofa.jpg" 600>>
+/* A small sofa by a dark window in a lamplit room, Sister in a black dress laughing with her hand on the arm of a gray-haired man in a camel cardigan */
 
 $mom.callName is across the room on the arm of somebody's chair, being delightful about a boat. She doesn't look at me once in two hours. She also doesn't stop watching me for a second, which is a thing only she can do, and only with me. I've known she could do that since I was six.
 
@@ -52,7 +53,8 @@ I take his hand. Behind me I hear $mom.callName get up, and then I hear her not 
 <<linkreplace "The room at the back">>
 His room has a piano in it, a little black upright with the lid closed and a vase of white flowers on top, which I spend a lot of time looking at later. A couch, a lamp, a rug that probably costs more than my tuition. No window. I check.
 
-/* MEDIA: images/characters/sister/events/last_night/back_room.jpg | A small paneled room, a black upright piano with white flowers on it, a lamp, a leather couch, Sister standing with her back to the closed door */
+<<Media "images/characters/sister/events/last_night/back_room.jpg" 600>>
+/* A small paneled room, a black upright piano with white flowers on it, a lamp, a leather couch, Sister standing with her back to the closed door */
 
 <<if $flags.retailIntro === "sister">>On the rooftop there was always somebody across the terrace to look at, and a hand that could go up to an ear. In here there's the piano.<</if>>
 
@@ -64,7 +66,8 @@ I'm good at this, and that's still the worst thing I know about myself. I'm on t
 
 That, and outside. He's outside, in the car, the whole time, across the street. I hold on to that word the way you hold on to the side of a pool. Around one o'clock, with $supplier.callName's breath on my neck, it occurs to me that I have absolutely no way of knowing whether he's still there, and that I believed him anyway, and that I'd believe him again tomorrow. I'm not sure which part of that scares me most.
 
-/* MEDIA: images/characters/sister/events/last_night/couch.jpg | Lamplight on a leather couch, Sister astride a gray-haired man, her face turned away toward a black piano with white flowers on it */
+<<Media "images/characters/sister/events/last_night/couch.jpg" 600>>
+/* Lamplight on a leather couch, Sister astride a gray-haired man, her face turned away toward a black piano with white flowers on it */
 
 When it's over, he kisses the back of my hand like we've been dancing, and tells me I'm a credit to the company, and to take my time. I get dressed. My feet hurt so much that I don't even try the heels, I just carry them.
 

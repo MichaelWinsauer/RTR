@@ -47,7 +47,8 @@ I push my chair back from the table and swivel it toward her. She looks at the s
 
 She kneels down on the cushion. She tucks her skirt under her knees first, smooths it, and undoes the top two buttons of her blouse so nothing gets on it, all of it in the same brisk, sensible order she'd use to get the laundry started. Then she opens my belt.
 
-/* MEDIA: images/characters/mom/tasks/lunch_break1_0.mp4 | Mom kneeling on a seat cushion beside my swiveled chair in the meeting room, blouse open at the top, my sandwich in my hand in the corner of the frame */
+<<Media "images/characters/mom/tasks/lunch_break1_0.mp4" 600>>
+/* Mom kneeling on a seat cushion beside my swiveled chair in the meeting room, blouse open at the top, my sandwich in my hand in the corner of the frame */
 
 <<if _lb1First>>
 In the mornings she still keeps her eyes closed for it, as if it's happening in the dark. Here the fluorescent lights are on, and the blinds glow with the daylight behind them, and she keeps her eyes open. I think that's the difference she's noticed too, and she doesn't look away from it.
@@ -101,7 +102,8 @@ From where I'm sitting I can read it. In $brian.name's tiny square capitals it s
 <</if>>
 
 <<linkreplace "Let her finish">>
-/* MEDIA: images/characters/mom/tasks/lunch_break1_1.mp4 | Closer: Mom on the cushion, my hand in her hair, the blinds bright behind her */
+<<Media "images/characters/mom/tasks/lunch_break1_1.mp4" 600>>
+/* Closer: Mom on the cushion, my hand in her hair, the blinds bright behind her */
 I put my hand in her hair. She leans into it, and after that there's no more pretending that I'm eating lunch. She's quicker now than she was a minute ago, as if the knock is still in her somewhere and she's trying to outrun it, her breath fast and hot through her nose, her fingers digging into my legs.
 
 When I come she stays where she is and swallows, the way she did on the office floor that first night, and then she sits back on her heels and takes a napkin off the stack without looking for it. She knew exactly where it was.

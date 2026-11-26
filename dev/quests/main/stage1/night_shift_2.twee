@@ -52,7 +52,8 @@ My phone lights up on the seat beside me.
 
 <i>$ethan.name</i>
 
-/* MEDIA: images/events/night_shift/phone.jpg | A phone lighting up on a car seat in the dark, rain on the windshield behind it */
+<<Media "images/events/night_shift/phone.jpg" 600>>
+/* A phone lighting up on a car seat in the dark, rain on the windshield behind it */
 
 He never calls. He texts, he sends memes at two in the morning, he leaves voice notes about pizza, but in all the years I've known him I think he's called me maybe twice.
 

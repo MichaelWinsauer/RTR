@@ -11,7 +11,8 @@ The account crossed into the black on Wednesday at 2:14 in the afternoon, when t
 
 So on Friday at five the office closes early and turns into a party. $mom.callName ordered the pizza, which means there's a salad nobody asked for. $ethan.name brought the drinks, which means there's a bottle of something blue nobody can identify. $sister.callName made a banner out of printer paper and tape that says WE'RE NOT BROKE!!! and hung it over the coffee machine, slightly crooked, and nobody has the heart to straighten it.
 
-/* MEDIA: images/events/profit_party/office.jpg | The office after hours, pizza boxes on the desks, a crooked hand-made banner reading WE'RE NOT BROKE over the coffee machine, everyone holding cups */
+<<Media "images/events/profit_party/office.jpg" 600>>
+/* The office after hours, pizza boxes on the desks, a crooked hand-made banner reading WE'RE NOT BROKE over the coffee machine, everyone holding cups */
 
 <<linkreplace "Join the party">>
 <<silently>>

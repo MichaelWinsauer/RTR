@@ -28,7 +28,8 @@ She looks at the first photo for a long time without understanding it. It's her 
 
 Then she swipes, and the shape is her.
 
-/* MEDIA: images/characters/sister/events/souvenirs/phone.jpg | Sister on the end of the bed in the gray hoodie, staring at a phone screen held in both hands, face pale */
+<<Media "images/characters/sister/events/souvenirs/phone.jpg" 600>>
+/* Sister on the end of the bed in the gray hoodie, staring at a phone screen held in both hands, face pale */
 
 <<silently>>
 <<set _msgs = [
@@ -97,7 +98,8 @@ She's slow about it, and shaky, and completely serious. She pushes the sleeves o
 /* EXPLICIT 1, the start. Her hand only, sober, the first time she'll remember. Slow, shaky, very serious about it, the
    way she is about an exam. She looks down at what she's doing a lot, then up at his face to check. She kneels on the
    bed beside him in the hoodie and sleep shorts. He sits still and lets her find her way. The Chat below runs during. */
-/* MEDIA: images/characters/sister/events/souvenirs/hj_0.mp4 | Sister kneeling on the bed beside him in the hoodie, sleeves pushed up, looking down, her hand on him */
+<<Media "images/characters/sister/events/souvenirs/hj_0.mp4" 600>>
+/* Sister kneeling on the bed beside him in the hoodie, sleeves pushed up, looking down, her hand on him */
 
 <<silently>>
 <<set _msgs = [
@@ -137,7 +139,8 @@ After that she stops talking. Her breathing has changed. She's leaning against m
 /* EXPLICIT 2, the middle and the finish. More sure of herself now that she's laughed, faster, her forehead against his
    shoulder and her free hand holding a fistful of his shirt. She doesn't look down much anymore, she goes by his
    breathing. When he comes she gasps as if she's the one who did, and doesn't let go. The line below picks up after. */
-/* MEDIA: images/characters/sister/events/souvenirs/hj_1.mp4 | Close, faster, her forehead against his shoulder */
+<<Media "images/characters/sister/events/souvenirs/hj_1.mp4" 600>>
+/* Close, faster, her forehead against his shoulder */
 
 Afterwards she stares down at her hand with an expression I can't quite read. Wonder, maybe, like someone who has just watched something hatch.
 

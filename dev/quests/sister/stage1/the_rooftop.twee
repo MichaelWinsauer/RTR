@@ -41,7 +41,8 @@ She says it so fast she has to laugh at herself afterwards. Then she asks what t
 
 <<linkreplace "The rooftop">>
 <<silently>><<SetBackground "images/locations/rooftop.jpg">><</silently>>
-/* MEDIA: images/characters/sister/events/the_rooftop/terrace.jpg | A rooftop terrace at night, string lights, the city behind, well-dressed people with wine glasses, Sister in a dark dress near the bar */
+<<Media "images/characters/sister/events/the_rooftop/terrace.jpg" 600>>
+/* A rooftop terrace at night, string lights, the city behind, well-dressed people with wine glasses, Sister in a dark dress near the bar */
 $investor.callName's building is the kind with a doorman who knows your name before you give it. The rooftop is all glass railings and string lights and little heaters shaped like torches, and beyond it the whole city, lit up and silent, like a model of itself.
 
 $sister.callName is in the black dress I picked, the one with no back, and heels she practiced walking in for an hour in the hallway. She takes coats and brings drinks, she remembers everybody's name after hearing it once, which I didn't know she could do, and she laughs at the right moment at every bad joke on the terrace.
@@ -64,7 +65,8 @@ She's smiling at him, with her shoulders very straight.
 
 Then, over his shoulder, she looks across the terrace, straight at me, with the question we agreed on in the office five hours ago.
 
-/* MEDIA: images/characters/sister/events/the_rooftop/look.jpg | Sister in a corner by a patio heater, a man's hand on her bare back, her eyes looking past his shoulder toward the camera */
+<<Media "images/characters/sister/events/the_rooftop/look.jpg" 600>>
+/* Sister in a corner by a patio heater, a man's hand on her bare back, her eyes looking past his shoulder toward the camera */
 
 She's waiting. The whole terrace is laughing and talking, and she's waiting for me to move my hand.
 

@@ -10,7 +10,8 @@ The steakhouse is the kind of place where the waiter pulls your chair out for yo
 
 The company card is in my wallet, behind my library card. I've checked that it's still there four times since I parked.
 
-/* MEDIA: images/characters/mom/tasks/client_lunch0_0.mp4 | Mom in her good navy blazer at a white tablecloth, laughing, a man across from her drawing something on a napkin */
+<<Media "images/characters/mom/tasks/client_lunch0_0.mp4" 600>>
+/* Mom in her good navy blazer at a white tablecloth, laughing, a man across from her drawing something on a napkin */
 
 His name is Glenn, and he owns four dental practices on the east side and a mustache he is clearly very proud of. $marketingOwner.name told him we make waiting rooms bearable, which is a lovely thing to have somebody say about you, even if she said it about a box.
 
