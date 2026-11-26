@@ -91,7 +91,7 @@
             rows: [
                 /* Early Morning */
                 [ { location: "momroom", activity: [ "sleeping" ] } ],
-                [ { location: "momroom", activity: [ "sleeping" ] } ],
+                [ { location: "momroom", activity: [ "sleeping", "getting_dressed" ] } ],
                 [ { location: "kitchen", activity: [ "cooking" ] } ],
                 /* Morning */
                 [ { location: "kitchen", activity: [ "cooking" ] } ], /* Breakfast */
@@ -170,7 +170,7 @@
                 /* Early Morning */
                 [ { location: "momroom", activity: [ "sleeping" ] } ],
                 [ { location: "momroom", activity: [ "sleeping" ] } ],
-                [ { location: "momroom", activity: [ "sleeping" ] }, { location: "kitchen", activity: [ "cooking" ] } ],
+                [ { location: "momroom", activity: [ "sleeping", "getting_dressed" ] }, { location: "kitchen", activity: [ "cooking" ] } ],
                 /* Morning: breakfast */
                 [ { location: "kitchen", activity: [ "cooking" ] } ],
                 [ { location: "bathroom", activity: [ "showering" ] }, { location: "momroom", activity: [ "getting_dressed" ] }, { location: "livingroom", activity: [ "watching_tv" ] } ],
