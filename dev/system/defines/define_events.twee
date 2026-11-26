@@ -95,6 +95,15 @@
                 earliest). For everyday moments that would wear thin if they came back every day
    lastSeenDay / lastSeenAP   dayCount and action row (slot * 3 + action) it last happened
    visitor      optional: makes it a desk visitor instead of an inline event, see "Desk visitors" below
+   tier         optional [min, max]: only while the intimacy tier (setup.intimacy, Define NPCs) of its npc (conditions.npc
+                or visitor.who) lies in that range. Ends events whose text stops fitting, opens new ones. Either end
+                may be null (no limit)
+   tierChance   optional { tier: chance }: the chance from that tier on (the highest key not above her tier wins),
+                instead of chance. For events that come more often as she gets further
+   seen / seenTier   written when it plays (inline) or is taken (desk visitor): how often in all, and per tier
+                ({ 2: 3 }). <<MicroContext>> reads them for a first-time version of a tier. Left out of the
+                entries below, they are added when needed
+   See "Micro events that grow" below for the tiers, the widgets and the rules.
 
    Micro-event conditions:
    whenTime  slots 0 Early Morning, 1 Morning, 2 Noon, 3 Afternoon, 4 Evening, 5 Night, 6 Late Night (empty = any time)
@@ -179,7 +188,7 @@
         passage: "Sister Passing Hallway",
         where: [ "Hallway" ],
         conditions: {
-            npc: null,
+            npc: "sister",
             npcLocation: [],
             npcPreviousLocation: [],
             whenTime: [ 1, 2, 3, 4, 5 ],
@@ -435,7 +444,8 @@
             npcLocation: [],
             npcPreviousLocation: [],
             whenTime: [ 1, 2, 3, 4, 5 ],
-            eval: [ () => State.variables.mom.flags.isHome == true || State.variables.sister.flags.isHome == true ],
+            /* whoever is home answers, but not mom during The Silence (the passage picks the same way) */
+            eval: [ () => (State.variables.mom.flags.isHome == true && !setup.momSilent()) || State.variables.sister.flags.isHome == true ],
         },
         chance: 6,
         oncePerDay: true,
@@ -532,6 +542,7 @@
         id: 23,
         passage: "Sister Desk Signature",
         where: [ "My Desk" ],
+        tier: [ 0, 1 ],      /* her early crush: the text stops fitting once she has touched me (Souvenirs) */
         visitor: {
             who: "sister",
             teaser: "$sister.callName is standing next to my desk, holding one sheet of paper with both hands like a waiter with a very small tray.",
@@ -555,6 +566,7 @@
         id: 24,
         passage: "Sister Desk Question",
         where: [ "My Desk" ],
+        tier: [ 0, 1 ],      /* her early crush: the text stops fitting once she has touched me (Souvenirs) */
         visitor: {
             who: "sister",
             teaser: "$sister.callName is rolling her chair across the office toward my desk. One of the wheels squeaks the whole way, so the entire room gets to watch.",
@@ -578,6 +590,7 @@
         id: 25,
         passage: "Sister Desk Late",
         where: [ "My Desk" ],
+        tier: [ 0, 3 ],      /* tiers 2 and 3 have their own versions and scenes (Sister Desk Late Hands / Mouth) */
         visitor: {
             who: "sister",
             teaser: "Everyone else went home a while ago. $sister.callName didn't, and she's doing a very good job of not noticing.",
@@ -601,6 +614,7 @@
         id: 26,
         passage: "Sister Office New Spot",
         where: [ "companystage1" ],
+        tier: [ 0, 1 ],      /* her early crush: the text stops fitting once she has touched me (Souvenirs) */
         conditions: {
             npc: "sister",
             npcLocation: [],
@@ -619,6 +633,7 @@
         id: 27,
         passage: "Sister Office Coffee",
         where: [ "companystage1" ],
+        tier: [ 0, 1 ],      /* her early crush: the text stops fitting once she has touched me (Souvenirs) */
         conditions: {
             npc: "sister",
             npcLocation: [],
@@ -1110,6 +1125,70 @@
         lastSeenDay: -1,
         lastSeenAP: 0,
     },
+    /* Her videos at night (MICRO_EVENTS_PLAN.md, Night Clip): after Send Me Something she keeps sending them, from wherever
+       she is, as long as it is not my room. The repeatable version of that night */
+    {
+        id: 51,
+        passage: "Sister Night Clip",
+        where: [ "Bedroom" ],
+        tier: [ 2, 3 ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 5, 6 ],
+            eval: [ () => setup.questDone("sister_sendMeSomething"), () => !setup.npcIsAt("sister", "bedroom") ],
+        },
+        chance: 25,
+        oncePerDay: true,
+        dayCooldown: 2,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    /* Catching her (see "Catching her" below): the sister, after Send Me Something */
+    {
+        id: 52,
+        passage: "Sister Catch Bedroom",
+        where: [ "Bedroom" ],
+        tier: [ 2, 3 ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [],
+            npcPreviousLocation: [],
+            whenTime: [ 3, 4, 5 ],
+            /* she slipped over from her own room while I was out */
+            eval: [ () => setup.sisterCanBeCaught(), () => setup.npcIsAt("sister", "sisterroom"), () => random(1, 100) <= setup.sisterCatchChance() ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
+    {
+        id: 53,
+        passage: "Sister Catch Shower",
+        where: [ "Hallway" ],
+        tier: [ 2, 3 ],
+        conditions: {
+            npc: "sister",
+            npcLocation: [ "Bathroom" ],
+            npcPreviousLocation: [],
+            whenTime: [ 0, 1, 4, 5 ],
+            eval: [ () => setup.sisterCanBeCaught(), () => setup.activityIs("sister", State.variables.sister.activity, ["showering"]), () => random(1, 100) <= setup.sisterCatchChance() ],
+        },
+        chance: 100,
+        oncePerDay: true,
+        dayCooldown: 3,
+        apCooldown: 0,
+        active: true,
+        lastSeenDay: -1,
+        lastSeenAP: 0,
+    },
 ]>>
 
 /* Catching her (after The Booze Night) =========================================
@@ -1120,6 +1199,14 @@
 <<set setup.momCanBeCaught = () => setup.questDone("mom_boozeNight") && State.variables.mom.stats.lust >= 30>>
 
 <<set setup.momCatchChance = () => Math.clamp(Math.round((State.variables.mom.stats.lust - 20) * 0.9), 0, 70)>>
+
+/* The sister (micro events 52 and 53, MICRO_EVENTS_PLAN.md): after Send Me Something she touches herself in my bed, in my
+   hoodie, while I'm out, and in the shower; from her tier 3 on she leaves the bathroom door unlocked on purpose.
+   setup.sisterCanBeCaught()   after Send Me Something (sister_sendMeSomething), with her Lust at 30 or more
+   setup.sisterCatchChance()   the same curve as mom's */
+<<set setup.sisterCanBeCaught = () => setup.questDone("sister_sendMeSomething") && State.variables.sister.stats.lust >= 30>>
+
+<<set setup.sisterCatchChance = () => Math.clamp(Math.round((State.variables.sister.stats.lust - 20) * 0.9), 0, 70)>>
 
 /* A normal workday ===========================================================
    Stage 1: small moments at the office while the staff is in (micro events 32 to 44): desk visitors from $mom, the
@@ -1156,15 +1243,15 @@
 }>>
 
 /* Her excuses to be near me ===================================================
-   Stage 1, sister line: from sister_waitSupportiveSister until sister_itMakesADifference is done she keeps finding
-   reasons to be around me at the office (micro events 23 to 27: three desk visitors, two inline events in the main
-   room). Each one that plays out counts in $sister.flags.officeExcuses, and sister_waitSupportiveSister waits for
-   a few of them (its check in Define Quests), so the next scene never comes before the player has seen her doing it.
-   setup.sisterSeeksExcuses()      true while that stretch of her line runs
+   Stage 1, sister line: from sister_waitSupportiveSister on she keeps finding reasons to be around me at the office
+   (micro events 23 to 27: three desk visitors, two inline events in the main room). Each one that plays out counts in
+   $sister.flags.officeExcuses, and sister_waitSupportiveSister waits for a few of them (its check in Define Quests),
+   so the next scene never comes before the player has seen her doing it. They are written for her early crush, so
+   their tier (tier: [ 0, 1 ]) ends them at Souvenirs, until they get versions for the later tiers
+   (MICRO_EVENTS_PLAN.md, phase 2).
+   setup.sisterSeeksExcuses()      true from that point of her line on
    setup.sisterWorkedHereToday()   her plan had her at my office at the end of the afternoon (the late visit) */
-<<set setup.sisterSeeksExcuses = () => {
-    return setup.questReached("sister_waitSupportiveSister") && !setup.questDone("sister_itMakesADifference");
-}>>
+<<set setup.sisterSeeksExcuses = () => setup.questReached("sister_waitSupportiveSister")>>
 
 <<set setup.sisterWorkedHereToday = () => {
     const here = setup.npcAt("sister", 11);
@@ -1204,12 +1291,25 @@
                                   block (<<CheckMicroEvent>> in location passages), "visitor" only those with one
                                   (setup.updateDeskVisitor). Nothing happens before the intro is done.
                                   During The Silence (Define NPCs) events with mom (conditions.npc or visitor.who
-                                  "mom") are skipped, unless they have duringSilence: true.
+                                  "mom") are skipped, unless they have duringSilence: true. Events with a tier range
+                                  only play while her tier lies in it, and tierChance replaces chance.
+                                  The debug menu can force one ($debugMicroEvent, Dev Caption): it is taken without
+                                  any check, wherever I am.
    setup.isOfficeWorkTime()       a weekday and the current action lies in $company.workHours: the staff is in */
 <<set setup.pickMicroEvent = (kind) => {
     const v = State.variables;
-    if (!v.flags.introDone) { return null; }
     const wantVisitor = kind === "visitor";
+    if (typeof v.debugMicroEvent === "number") {
+        const forced = v.microEvents.find((ev) => ev.id === v.debugMicroEvent);
+        if (forced && !!forced.visitor === wantVisitor) {
+            v.debugMicroEvent = null;
+            forced.lastSeenDay = v.date.dayCount;
+            forced.lastSeenAP = setup.scheduleCurrentRow();
+            if (!wantVisitor) { setup.markMicroEventSeen(forced); }
+            return forced;
+        }
+    }
+    if (!v.flags.introDone) { return null; }
     const here = v.player.location || {};
     const slot = v.time.current.value;
     const day = v.date.dayCount;
@@ -1231,15 +1331,17 @@
             if (c.npcLocation && c.npcLocation.length > 0 && !c.npcLocation.includes((npc.location || {}).name)) { continue; }
             if (c.npcPreviousLocation && c.npcPreviousLocation.length > 0 && !c.npcPreviousLocation.includes((npc.previousLocation || {}).name)) { continue; }
         }
+        if (!setup.microEventTierOk(ev)) { continue; }
         if ((c.eval || []).some((fn) => !fn())) { continue; }
         candidates.push(ev);
     }
-    const sure = candidates.filter((ev) => ev.chance >= 100);
-    const rolled = candidates.filter((ev) => ev.chance < 100).shuffle();
+    const sure = candidates.filter((ev) => setup.microEventChance(ev) >= 100);
+    const rolled = candidates.filter((ev) => setup.microEventChance(ev) < 100).shuffle();
     for (const ev of sure.concat(rolled)) {
-        if (random(1, 100) > ev.chance) { continue; }
+        if (random(1, 100) > setup.microEventChance(ev)) { continue; }
         ev.lastSeenDay = day;
         ev.lastSeenAP = row;
+        if (!wantVisitor) { setup.markMicroEventSeen(ev); }
         return ev;
     }
     return null;
@@ -1281,7 +1383,7 @@
    setup.absoluteAction()           one number per action over the whole game (dayCount * 21 + row)
    setup.updateDeskVisitor()        the desk passage, on every render: drops an old card, rolls a new one
    setup.deskVisitor()              { event, npc, name } of the card that is up now, or null
-   setup.takeDeskVisitor()          "Talk": the same, and the card is used up
+   setup.takeDeskVisitor()          "Talk": the same, and the card is used up (and counts as seen, see seen/seenTier)
    setup.dismissDeskVisitor()       "Not now": removes the card and shows the decline notification */
 <<set $deskVisitor to null>>
 <<set $deskVisitorRolledAt to -1>>
@@ -1319,12 +1421,284 @@
 <<set setup.takeDeskVisitor = () => {
     const info = setup.deskVisitor();
     State.variables.deskVisitor = null;
+    if (info) { setup.markMicroEventSeen(info.event); }
     return info;
 }>>
 
 <<set setup.dismissDeskVisitor = () => {
-    const info = setup.takeDeskVisitor();
+    const info = setup.deskVisitor();
+    State.variables.deskVisitor = null;
     if (info && info.event.visitor.decline) {
         Notification.show(wikifyText(info.event.visitor.decline), { type: Notification.INFORMATION });
+    }
+}>>
+
+/* Micro events that grow ======================================================
+   MICRO_EVENTS_PLAN.md. A micro event is an everyday situation (her glass of wine, the walk to the shower), and it
+   stays one for the whole game. What she does in it follows her intimacy tier (setup.intimacy, Define NPCs), in three
+   layers:
+       color   the everyday version, with details that show her tier. Every time it plays
+       offer   one choice that goes further, locked with a reason (_mc.offerLock) while she is not ready or not alone
+       scene   a full scene passage (tag scene), opened by the offer with <<MicroScene>>, one or two actions
+   The widgets (Event Widgets):
+       <<MicroContext $mom>>                         sets _mc, what a passage needs to decide (fields below)
+       <<MicroDevice $mom "#choice-id" "Link text">>...<</MicroDevice>>   the device choice of a moment
+       <<MicroScene $mom "Passage" [actions]>>       leaves the moment for its scene (inside the click of the offer)
+       <<EndMicroScene ["Link text"]>>               ends that scene and goes back to where it started
+   Rules (the plan, sections 4 and 5): the device is the key at tiers 0 and 1, a dial at 2 and 3, and gone from 4 on
+   (deviceMaxTier). Near misses never give anything away before the Last Night: the other one comes close, never in.
+
+   _mc = setup.microContext(who [, eventId])
+       who, npc            her sysName, the live NPC object
+       tier, tierName      her intimacy tier
+       nearReady           her corruption bar is at nearReadyAt or more and she has a next stage: a line that leans
+                           toward the next tier
+       lust, lustBand      "low" (below lustLow), "mid", "high" (lustHigh and more: she starts it, not me)
+       exhibition, resistance
+       refuses             resistance above refuseAbove: an offer is turned down softly
+       other               sysName of the other one (mom and sister)
+       otherHome           the other one is at home too, and so am I
+       otherHere           the other one is in the same place as me
+       staff               at the office while the staff is in
+       alone               neither the other one nor the staff is here
+       nearMiss            chance in percent that a scene here gets interrupted (setup.nearMissChance)
+       sceneToday          she already had a micro event scene today (setup.microSceneToday)
+       offerLock           why an offer is locked right now, "" if it is open: the other one here, the staff,
+                           her resistance, the scene of the day. A passage may ignore parts of it on purpose (a scene
+                           built on the staff being around)
+       seen, firstAtTier   of the event that plays (eventId, default $currentMicroEvent): how often it played, and
+                           whether this is its first time at her tier
+       device              setup.microDeviceState(who)
+
+   setup.microTuning              the numbers above, the device sizes per tier and the near miss chances
+   setup.microEventNpc(ev)        sysName of the woman an event belongs to (conditions.npc or visitor.who), or null
+   setup.microEventTierOk(ev)     her tier lies in the event tier range (true without one)
+   setup.microEventChance(ev)     its chance now (tierChance or chance)
+   setup.markMicroEventSeen(ev)   counts it in seen and seenTier (pickMicroEvent, takeDeskVisitor)
+   setup.microOther(who)          "sister" for mom, "mom" for the sister, null for anyone else
+   setup.microPlace(who)          { other, otherHere, otherHome, staff } for where I am now
+   setup.nearMissChance(who)      nearMissStaff at the office with the staff in, nearMissHome when the other one is
+                                  at home in another room, else 0
+   setup.rollNearMiss(who)        rolls it
+   setup.microSceneToday(who)     she had a micro event scene today ($mom.flags.microSceneDay)
+   setup.startMicroScene(who, scene)   <<MicroScene>>: counts the scene of the day and the scene itself
+                                  ($mom.flags.microScenes) and keeps where to come back to ($microSceneReturn)
+   setup.microSceneCount(who, scene)   how often that scene passage has been played, this time included: 1 is
+                                  the first time (a scene reads it with passage() for a first-time version)
+   setup.microOfferLock(who)      the offerLock text
+   setup.microDeviceState(who)    { available, ok, reason, impact, cost, power } of the device choice: available once
+                                  the device exists (Stage 0 prototype at 40, then the valenx) and while her tier is
+                                  at most deviceMaxTier; impact and cost by her tier
+   setup.useMicroDevice(who)      switches it on (setup.useDevice: charge, lastUsed, her Resistance) and rolls the
+                                  backfire (backfireBase + resistance / 2, before the rise). Returns { backfire, power,
+                                  relation, resistance, corruption, lust }, the changes the widget prints
+   setup.microContext(who [, eventId])   the _mc object
+   setup.debugPlayMicroEvent(id)  Dev Caption: the next check plays that event (a desk visitor shows its card at once) */
+<<set $debugMicroEvent to null>>
+<<set $microSceneReturn to null>>
+
+<<set setup.microTuning to {
+    lustLow: 30,
+    lustHigh: 70,
+    nearReadyAt: 80,
+    refuseAbove: 50,
+    nearMissHome: 20,
+    nearMissStaff: 25,
+    sceneActions: 1,
+    deviceMaxTier: 3,
+    deviceImpact: [ 1, 2, 2, 3 ],
+    deviceCorruption: [ 2, 2, 1, 1 ],
+    deviceLust: [ 6, 8, 10, 10 ],
+    backfireBase: 10,
+    backfireRelation: -3,
+    backfireResistance: 2,
+    successRelation: -1,
+}>>
+
+<<set setup.microEventNpc = (ev) => {
+    if (!ev) { return null; }
+    return (ev.visitor && ev.visitor.who) || (ev.conditions && ev.conditions.npc) || null;
+}>>
+
+<<set setup.microEventTierOk = (ev) => {
+    if (!Array.isArray(ev.tier)) { return true; }
+    const key = setup.microEventNpc(ev);
+    if (!key) { return true; }
+    const tier = setup.intimacy(key);
+    const min = ev.tier[0];
+    const max = ev.tier[1];
+    if (typeof min === "number" && tier < min) { return false; }
+    if (typeof max === "number" && tier > max) { return false; }
+    return true;
+}>>
+
+<<set setup.microEventChance = (ev) => {
+    if (!ev.tierChance) { return ev.chance; }
+    const tier = setup.intimacy(setup.microEventNpc(ev));
+    let best = -1;
+    Object.keys(ev.tierChance).forEach((k) => {
+        const n = Number(k);
+        if (n <= tier && n > best) { best = n; }
+    });
+    return best >= 0 ? ev.tierChance[best] : ev.chance;
+}>>
+
+<<set setup.markMicroEventSeen = (ev) => {
+    if (!ev) { return; }
+    const tier = setup.intimacy(setup.microEventNpc(ev));
+    ev.seen = (Number(ev.seen) || 0) + 1;
+    if (!ev.seenTier || typeof ev.seenTier !== "object") { ev.seenTier = {}; }
+    ev.seenTier[tier] = (Number(ev.seenTier[tier]) || 0) + 1;
+}>>
+
+<<set setup.microOther = (who) => (who === "mom" ? "sister" : (who === "sister" ? "mom" : null))>>
+
+<<set setup.microPlace = (who) => {
+    const v = State.variables;
+    const here = v.player.location || {};
+    const atHome = typeof here.id === "number" && here.id <= 6;
+    const otherKey = setup.microOther(who);
+    const other = otherKey ? v[otherKey] : null;
+    const otherHere = !!other && !!other.location && setup.sameLocation(other.location, here);
+    const otherHome = !!other && atHome && other.flags.isHome === true;
+    const office = setup.getLocationBySysName("companystage1");
+    const staff = !!office && setup.sameLocation(here, office) && setup.officeWorkday();
+    return { other: otherKey, otherHere: otherHere, otherHome: otherHome, staff: staff };
+}>>
+
+<<set setup.nearMissChance = (who) => {
+    const place = setup.microPlace(who);
+    if (place.staff) { return setup.microTuning.nearMissStaff; }
+    if (place.otherHome && !place.otherHere) { return setup.microTuning.nearMissHome; }
+    return 0;
+}>>
+
+<<set setup.rollNearMiss = (who) => random(1, 100) <= setup.nearMissChance(who)>>
+
+<<set setup.microSceneToday = (who) => {
+    const npc = State.variables[who];
+    return !!npc && !!npc.flags && npc.flags.microSceneDay === State.variables.date.dayCount;
+}>>
+
+<<set setup.startMicroScene = (who, scene) => {
+    const v = State.variables;
+    const flags = v[who] && v[who].flags;
+    if (flags) {
+        flags.microSceneDay = v.date.dayCount;
+        if (scene) {
+            if (!flags.microScenes || typeof flags.microScenes !== "object") { flags.microScenes = {}; }
+            flags.microScenes[scene] = (Number(flags.microScenes[scene]) || 0) + 1;
+        }
+    }
+    v.microSceneReturn = passage();
+}>>
+
+<<set setup.microSceneCount = (who, scene) => {
+    const flags = State.variables[who] && State.variables[who].flags;
+    return (flags && flags.microScenes) ? (Number(flags.microScenes[scene]) || 0) : 0;
+}>>
+
+<<set setup.microOfferLock = (who) => {
+    const v = State.variables;
+    const npc = v[who];
+    if (!npc) { return ""; }
+    const place = setup.microPlace(who);
+    if (place.otherHere) { return v[place.other].callName + " is right here"; }
+    if (place.staff) { return "the staff is around"; }
+    if (npc.stats.resistance > setup.microTuning.refuseAbove) { return "she isn't in the mood"; }
+    if (setup.microSceneToday(who)) { return "later"; }
+    return "";
+}>>
+
+<<set setup.microDeviceState = (who) => {
+    const v = State.variables;
+    const tuning = setup.microTuning;
+    const tier = setup.intimacy(who);
+    const dev = setup.homeDevice();
+    const exists = !!dev && (v.company.stage > 0 || v.company.prototype.progress >= 40);
+    const available = exists && tier <= tuning.deviceMaxTier;
+    const impact = tuning.deviceImpact[Math.min(tier, tuning.deviceImpact.length - 1)];
+    const cost = v.company.impactCost[impact] || 0;
+    let reason = "";
+    if (available) {
+        if (dev.lastUsedAtDay === v.date.dayCount) { reason = "already used today"; }
+        else if (dev.charge < cost) { reason = "not enough charge"; }
+    }
+    return { available: available, ok: available && reason === "", reason: reason, impact: impact, cost: cost, power: impact + 1 };
+}>>
+
+<<set setup.useMicroDevice = (who) => {
+    const v = State.variables;
+    const tuning = setup.microTuning;
+    const state = setup.microDeviceState(who);
+    if (!state.ok) { return null; }
+    const tier = Math.min(setup.intimacy(who), tuning.deviceCorruption.length - 1);
+    const backfire = random(1, 100) <= tuning.backfireBase + Math.round(v[who].stats.resistance / 2);
+    setup.useDevice(v.company.stage === 0 ? null : "valenx", who, state.impact);
+    return {
+        backfire: backfire,
+        power: state.power,
+        relation: backfire ? tuning.backfireRelation : tuning.successRelation,
+        resistance: backfire ? tuning.backfireResistance : 0,
+        corruption: backfire ? 0 : tuning.deviceCorruption[tier],
+        lust: backfire ? 0 : tuning.deviceLust[tier],
+    };
+}>>
+
+<<set setup.microContext = (who, eventId) => {
+    const v = State.variables;
+    const key = (who && typeof who === "object") ? who.sysName : who;
+    const npc = v[key];
+    const tuning = setup.microTuning;
+    const tier = setup.intimacy(key);
+    const place = setup.microPlace(key);
+    const lust = npc ? npc.stats.lust : 0;
+    const bar = npc ? npc.stats.corruption : 0;
+    const hasNext = !!setup.corruptionStageInfo(key, setup.corruptionStage(key) + 1);
+    const evId = (eventId === undefined) ? v.currentMicroEvent : eventId;
+    const ev = (typeof evId === "number") ? v.microEvents.find((e) => e.id === evId) : null;
+    const seenAtTier = (ev && ev.seenTier) ? (Number(ev.seenTier[tier]) || 0) : 0;
+    return {
+        who: key,
+        npc: npc,
+        tier: tier,
+        tierName: setup.intimacyName(key, tier),
+        nearReady: hasNext && bar >= tuning.nearReadyAt,
+        lust: lust,
+        lustBand: lust >= tuning.lustHigh ? "high" : (lust < tuning.lustLow ? "low" : "mid"),
+        exhibition: npc ? npc.stats.exhibition : 0,
+        resistance: npc ? npc.stats.resistance : 0,
+        refuses: !!npc && npc.stats.resistance > tuning.refuseAbove,
+        other: place.other,
+        otherHome: place.otherHome,
+        otherHere: place.otherHere,
+        staff: place.staff,
+        alone: !place.otherHere && !place.staff,
+        nearMiss: setup.nearMissChance(key),
+        sceneToday: setup.microSceneToday(key),
+        offerLock: setup.microOfferLock(key),
+        seen: ev ? (Number(ev.seen) || 0) : 0,
+        firstAtTier: !!ev && seenAtTier <= 1,
+        device: setup.microDeviceState(key),
+    };
+}>>
+
+<<set setup.debugPlayMicroEvent = (id) => {
+    const v = State.variables;
+    const n = (id === undefined || id === null || String(id).trim() === "") ? NaN : Number(id);
+    const ev = Number.isNaN(n) ? null : v.microEvents.find((e) => e.id === n);
+    if (!ev) {
+        Notification.show("There is no micro event " + id + ".", { type: Notification.WARN });
+        return;
+    }
+    if (ev.visitor) {
+        const now = setup.absoluteAction();
+        v.deskVisitor = { id: ev.id, at: now };
+        v.deskVisitorRolledAt = now;
+        v.deskVisitorLastAt = now;
+        Notification.show(ev.passage + ": its card is up at My Desk for this action.", { type: Notification.INFORMATION });
+    } else {
+        v.debugMicroEvent = ev.id;
+        Notification.show(ev.passage + ": plays at the next place with micro events (" + ev.where.join(", ") + ").", { type: Notification.INFORMATION });
     }
 }>>

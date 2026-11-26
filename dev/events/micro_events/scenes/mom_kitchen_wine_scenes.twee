@@ -1,0 +1,219 @@
+:: Mom Kitchen Wine Hands [scene] {"position":"1800,3650","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Kitchen Wine, tier 2 "Hands": after A Knock at Night, before The Crawl).
+   Opened from Mom Kitchen Wine with <<MicroScene>>. Her rule from the night visit still holds: her hand, and only
+   "when it gets bad". She keeps talking about the office while she does it and loses the sentence halfway.
+   Variants: the first time (setup.microSceneCount), her lust high (she starts before I've sat down), and a near miss
+   (setup.rollNearMiss): $sister.callName comes down for water, and the table is all that hides her mother's hand.
+   Clips, images/characters/mom/events/kitchen_wine/ (check against the clips):
+     hands_0.mp4   kitchen table, side by side, her hand going under the table into my lap, the wine glass in her other hand
+     hands_1.mp4   her hand working under the table edge, faster, her eyes on me, then closing
+     hands_2.mp4   the finish in her hand under the table, a paper napkin */
+<<silent>>
+<<SetBackground $locations[3].img>>
+<<set _kwFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _kwEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _kwNear to setup.rollNearMiss("mom")>>
+<</silent>>
+<<if _kwEager>>
+I've barely sat down before her hand is on my knee. She doesn't look at it. She looks at her glass and tells me about the client who called three times today to ask the same question in three different moods, and her hand moves up my thigh a little further with every call.
+<<elseif _kwFirst>>
+I pick my chair up and carry it around to her side of the table, and set it down next to hers. She watches me do it with her glass halfway to her mouth, and then she puts the glass down again without drinking.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Long day for me too." },
+{ who: $mom, text: "I know, I could tell the minute you came in, you get that little line between your eyebrows, the same one your... the one you get when you've been staring at a screen for too long." },
+{ who: $mom, text: "Come here, then. Just for a minute, and then you're going to bed at a normal hour for once, do you hear me?" },
+{ text: "She says it the way she'd offer to warm up some soup. Her eyes go to the ceiling once, to $sister.callName's room, and then her hand goes under the table." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+I carry my chair around to her side of the table. She doesn't ask what it's for anymore. She moves her glass over to her left hand to make room, and keeps it there.
+<</if>>
+
+<<linkreplace "Let her">>
+She opens my jeans with one hand without looking down, the way she'd twist the lid off a jar she's opened a thousand times.
+
+<<Media "images/characters/mom/events/kitchen_wine/hands_0.mp4">>
+
+Her palm is still cool from the glass. She wraps her fingers around my cock under the edge of the table and strokes it slowly, from the base up to the head and back, as if she's got all night and isn't in any hurry to use it. Above the table nothing has changed. She's sitting up straight, she has her wine in her other hand, and she takes a sip, and her hand keeps moving.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Anyway, so $darius.name says the invoices are fine, and they are fine, honey, I checked them twice, but he has this way of saying fine that makes you want to go and check them a third time, and so I did, and of course..." },
+{ text: "She closes her hand a little tighter on the upstroke, and the sentence goes somewhere and doesn't come back." },
+{ who: $mom, text: "Of course they were fine. Where was I?" },
+{ who: $player, text: "The invoices." },
+{ who: $mom, text: "Yes. The invoices." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Don't help her find the sentence">>
+<<Media "images/characters/mom/events/kitchen_wine/hands_1.mp4">>
+
+She gives up on the invoices. She puts the glass down on the table and leans her shoulder against mine, and the hand under the table picks up speed, her thumb sliding over the head on every stroke, wet now and getting wetter. She keeps her eyes on my face for a long while, the way she watches a pot that's about to boil over, and then she shuts them and just listens to my breathing and goes by that.
+
+<<if _kwNear>>
+A floorboard creaks upstairs. Then the stairs.
+
+Her hand stops dead. It doesn't let go of me, it just stops, wrapped around me under the table, and she opens her eyes and picks her glass back up in one smooth motion and has it at her lips by the time $sister.callName shuffles into the kitchen in a sleep shirt and socks.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Wine night? Without me? That's so rude." },
+{ who: $mom, text: "It's one glass, sweetheart, and you have a test on Thursday, so don't even think about it." },
+{ who: $sister, text: "It's statistics. Wine would honestly help." },
+{ text: "She takes a glass from the cupboard and fills it at the tap and leans against the counter to drink it, facing us, three steps away. Under the table, $mom.callName's hand gives me one slow squeeze, so I know she hasn't forgotten what it's holding." },
+{ who: $sister, text: "What are you two even talking about down here this late?" },
+{ who: $mom, text: "Invoices." },
+{ who: $sister, text: "Wow. Okay. Never mind. Night, you two." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName waits until the bedroom door closes upstairs. Then she lets out a breath that she must have been holding since the stairs creaked, sets the glass down, and doesn't pick up where she left off. She goes faster.
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/kitchen_wine/hands_2.mp4">>
+
+At some point she pulled a paper napkin out of the holder on the table without my noticing, and when I come, she's ready for it. She keeps her hand moving through all of it, slower and slower, and catches it in the napkin and in her palm, and only lets go of me when I've stopped twitching in her fingers.
+
+Then she folds the napkin over twice, very neatly, and wipes her hand on it, and folds it once more.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "There. Now you'll sleep." },
+{ text: "She gets up, drops the napkin in the trash under the sink and washes her hands with dish soap, and when she sits back down she finishes her wine in one long swallow." },
+{ who: $mom, text: "Go on up to bed, honey. I'll lock up and turn the lights off." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<set $mom.flags.handjobs to ($mom.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 20>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _kwNear>><<UpdateStat "+" "MomExhibition" 1>><</if>>
+<<EndMicroScene "Leave her to the dishes">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Mom Kitchen Wine Mouth [scene] {"position":"1925,3650","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Kitchen Wine, tier 3 "Mouth": after The Crawl, before the Catalyst
+   Night). Opened from Mom Kitchen Wine with <<MicroScene>>. She kneels on the kitchen floor between my knees with her
+   glass on the table above her, and goes back to it between sips. She's glad to be useful, and she doesn't ask.
+   Variants: the first time, her lust high (she gets down before I've finished pushing the chair back), and a near
+   miss: $sister.callName calls down the stairs, and I answer her while her mother is under the table.
+   Clips, images/characters/mom/events/kitchen_wine/ (check against the clips):
+     mouth_0.mp4   she gets down on her knees on the kitchen floor in front of my chair, the robe, the table edge above her
+     mouth_1.mp4   the blowjob, slow; she reaches up for her glass, drinks, goes back down
+     mouth_2.mp4   my hand in her hair, deeper
+     mouth_3.mp4   the finish in her mouth, then she drinks the last of her wine */
+<<silent>>
+<<SetBackground $locations[3].img>>
+<<set _kmFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _kmEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _kmNear to setup.rollNearMiss("mom")>>
+<</silent>>
+<<if _kmEager>>
+I push my chair back to make room, and she's already moving. She slides off her own chair onto the tiles and comes around the table leg on her knees, with her glass held carefully up out of the way, the way you'd carry something full across a crowded room.
+<<elseif _kmFirst>>
+I don't touch my wine. I push my chair back from the table, a foot or so, and sit there with my hands on my knees, and look at her.
+
+It takes her a second. Then she puts her glass down on the table, carefully, right at the edge where she'll be able to reach it, and gets up, and comes around the table, and gets down on the kitchen floor between my knees.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Here? In the kitchen? Honey, I make your breakfast in here, I'm going to stand at that stove tomorrow and think about..." },
+{ text: "She's already undoing my belt while she says it." },
+{ who: $mom, text: "Well, I suppose that's my problem and not yours." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+I push my chair back from the table. That's all it takes now. She finishes the sip she was taking, sets the glass down where she can reach it, and gets down on the kitchen floor between my knees with a little sigh, as if she's sitting down in her favorite chair after a long day.
+<</if>>
+
+<<linkreplace "Let her settle in">>
+<<Media "images/characters/mom/events/kitchen_wine/mouth_0.mp4">>
+
+The kitchen tiles are cold, and she tucks the hem of her robe under her knees without thinking about it. She takes my cock out and holds it in her hand for a moment and looks at it, then up at me, and then she leans in and takes the head into her mouth, and I can taste the wine on her before I feel her tongue.
+
+<<linkreplace "Take your time">>
+<<Media "images/characters/mom/events/kitchen_wine/mouth_1.mp4">>
+
+She goes slowly. She takes me in a little deeper each time, her lips tight, her tongue flat underneath, and when she comes up she lets go with a soft wet sound and reaches up over the edge of the table without looking for her glass. She finds it first try. She takes a sip, holding it in her mouth a second, then swallows and puts the glass back exactly where it was and goes back down on me with her mouth still cold and sour-sweet from the wine.
+
+She does it again a few minutes later, and by the third time I understand what the glass is for: she's pacing herself, the way she paces herself on a long drive, so she can keep going for as long as I want her to.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "You've thought about this." },
+{ text: "She doesn't stop to answer. She nods with me in her mouth, and her eyes come up to mine, and there's a crease at the corners of them that's almost a smile." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _kmNear>>
+Somewhere upstairs a door opens.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "Hey, is anyone down there? Did somebody eat the rest of the lasagna or am I just not seeing it?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName's voice is coming from the top of the stairs. Under the table $mom.callName has gone completely still, with me still in her mouth, and I can feel her breath stop against my stomach.
+
+<<silently>>
+<<set _msgs to [
+{ who: $player, text: "I had it for lunch. Sorry." },
+{ who: $sister, text: "You're the worst. Is $mom.callName still up?" },
+{ text: "I look down at her. She looks up at me, with her lipstick smudged and her eyes very wide, and waits to hear what I'll say about her." },
+{ who: $player, text: "She went up an hour ago." },
+{ who: $sister, text: "Ugh, fine. Night." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The door closes upstairs. $mom.callName doesn't come up to breathe. She stays exactly where she is for a few more seconds, and then, slowly, she starts moving again, and she's breathing hard through her nose now in a way she wasn't before.
+<</if>>
+
+<<linkreplace "Take her hair">>
+I gather her hair up in one hand, all of it, and hold it at the back of her head.
+
+<<Media "images/characters/mom/events/kitchen_wine/mouth_2.mp4">>
+
+She lets me set the pace. I push her down further than she's been going on her own, and she takes it, and her hands come to rest on my knees and stay there, flat and calm, while her throat works around me. When I let her up she drags in a breath and wipes her chin with the back of her wrist and goes straight back down without being asked.
+
+<<linkreplace "Finish in her mouth">>
+<<Media "images/characters/mom/events/kitchen_wine/mouth_3.mp4">>
+
+I hold her head still and come in her mouth, and she keeps her lips sealed around me and swallows, once and then again, with her eyes closed. She stays there after I've finished, keeping me in her mouth, careful and gentle now, until I let go of her hair.
+
+Then she sits back on her heels and reaches up for her glass one last time and finishes the wine in it, all of it, the way you'd rinse your mouth out at the dentist, and sets the empty glass on the table.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Thank you, honey." },
+{ text: "She stays on the floor and does my jeans up for me, button and zipper and belt, and smooths the front of my shirt down over them." },
+{ who: $mom, text: "Do you want your wine now, honey, or should I put a lid on it and leave it in the fridge for tomorrow?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 25>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _kmNear>><<UpdateStat "+" "MomExhibition" 1>><</if>>
+<<EndMicroScene "Drink the wine">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

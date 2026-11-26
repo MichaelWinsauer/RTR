@@ -1,11 +1,86 @@
 :: Sister Desk Late [micro_event event nobr] {"position":"2175,2900","size":"100,100"}
 /* Desk visitor (micro event 25, "Her excuses to be near me" in Define Events): a weekday evening, the office is
    empty and she stayed late to "help". Shown in the CMD drawer, so no action is spent and there is no exit link.
-   The device choice works like the one in Sister Kitchen Snack: the handheld original, once a day, costs charge, and
-   her resistance can make it backfire. Counts toward $sister.flags.officeExcuses. */
+   The device choice is <<MicroDevice>> (Event Widgets), like in Sister Kitchen Snack: the handheld original, once a
+   day, sized by her tier, and her resistance can make it backfire. Counts toward $sister.flags.officeExcuses.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>; the event runs at tiers 0 to 3):
+     0, 1  the cables, her head against my knee
+     2     Yearning: she sits on the floor by my chair and doesn't read her notes. Offer: Sister Desk Late Hands
+     3     Devoted: she has turned the lights off. Offer: Sister Desk Late Mouth
+   With her lust high (tier 2 and up) she starts before I've said anything. */
 <<set $sister.flags.officeExcuses += 1>>
-<<set _sdlCost to $company.impactCost[2]>>
-<<set _sdlVx to setup.homeDevice()>>
+<<MicroContext $sister>>
+<<set _dlEager to _mc.lustBand == "high">>
+<<if _mc.tier >= 2>>
+<<if _mc.tier >= 3>>
+<p>Every light in the office is off except the strip over my desk. I didn't turn them off. When I look up from my screen, $sister.callName is standing next to my chair in her socks with her shoes in one hand, and the rest of the room is dark behind her.</p>
+<<silently>>
+<<if _dlEager>>
+<<set _msgs to [
+	{ who: $sister, text: "I told the cleaners they can skip us tonight. I said we're doing inventory." },
+	{ text: "She puts her shoes down very neatly under my desk, side by side, and stays down there with them, on her knees, looking up at me." },
+]>>
+<<else>>
+<<set _msgs to [
+	{ who: $sister, text: "I told the cleaners they can skip us tonight. I said we're doing inventory, which, if you think about it, isn't technically a lie." },
+	{ who: $player, text: "What are we taking inventory of?" },
+	{ who: $sister, text: "I'll think of something." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<p>The others went home a while ago. $sister.callName hasn't, and she's stopped pretending she has anything to sort. She's sitting on the carpet next to my chair with her back against the side of the desk and her lecture notes open in her lap, and she hasn't turned a page in twenty minutes.</p>
+<<silently>>
+<<if _dlEager>>
+<<set _msgs to [
+	{ who: $sister, text: "Are you going to be much longer?" },
+	{ who: $player, text: "An hour, maybe." },
+	{ text: "She closes her notes and puts them on the floor, and puts her hand on my knee instead, and leaves it there." },
+	{ who: $sister, text: "Good. Keep working. Don't mind me." },
+]>>
+<<else>>
+<<set _msgs to [
+	{ who: $sister, text: "Are you going to be much longer?" },
+	{ who: $player, text: "An hour, maybe." },
+	{ who: $sister, text: "Good. I'm not in a hurry." },
+	{ text: "She says it to her notes. Her cheek is resting against the side of my knee." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+<br>
+<div id="desk-late-choice" class="choices">
+	<div>
+		<<link "Send her home">>
+			<<replace "#desk-late-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Go home. I'll be another hour, and you've got a seminar in the morning." },
+					{ who: $sister, text: "You're very boring tonight, $player.name." },
+					{ text: "She gets up, collects her things, and stops at the door with her jacket on to look back at me across the dark office, as if I might change my mind. I don't. She goes." },
+				]>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "-" "SisterRelation" 1>>
+				<<UpdateStat "+" "SisterLust" 3>>
+			<</replace>>
+		<</link>>
+	</div>
+	<<set _dlScene to (_mc.tier >= 3 ? "Sister Desk Late Mouth" : "Sister Desk Late Hands")>>
+	<<set _dlLabel to (_mc.tier >= 3 ? "Push your chair back" : "Keep working, and let her")>>
+	<div>
+		<<if _mc.offerLock>>
+			<span class="choice-locked">_dlLabel<small>_mc.offerLock</small></span>
+		<<else>>
+			<<capture _dlScene>>
+			<<link _dlLabel>><<MicroScene $sister _dlScene>><</link>>
+			<</capture>>
+		<</if>>
+	</div>
+</div>
+<<else>>
 <p>The others went home a while ago. The cleaners haven't come yet, and the only lights still on are the strip above my desk and the glow of the hallway sign. From somewhere over by the supply cabinet comes the crinkle of plastic bags.</p>
 <p>$sister.callName is sitting cross-legged on the carpet in front of the open cabinet, sorting cables into zip bags. Every bag has a label in her handwriting, and some of the labels have little drawings on them: a plug with a face, a USB stick that looks like it's having a bad day.</p>
 <<silently>>
@@ -59,50 +134,33 @@
 			<</replace>>
 		<</link>>
 	</div>
-	<div>
-		<<if _sdlVx.lastUsedAtDay == $date.dayCount>>
-			<span class="choice-locked">Use $company.prototype.name<small>already used today</small></span>
-		<<elseif _sdlVx.charge < _sdlCost>>
-			<span class="choice-locked">Use $company.prototype.name<small>not enough charge</small></span>
+	<<MicroDevice $sister "#desk-late-choice" "Use $company.prototype.name">>
+		<<if _md.backfire>>
+			<p>I switch $company.prototype.name on in my jacket pocket. <<DevicePulse `_md.power`>> Something in the room shifts, and she feels it sooner than I expect her to. She presses the heel of her hand against her forehead.</p>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $sister, text: "Ugh. I think I stared at labels for too long, I've got this buzzy headache. I should probably go." },
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>Five minutes later she's gone, and the box of cables sits half-sorted in front of the cabinet.</p>
+			<<DevicePulse "off" "4s">>
 		<<else>>
-			<<link "Use $company.prototype.name">>
-				<<replace "#desk-late-choice">>
-					<<set _sdlVx.charge -= _sdlCost>>
-					<<set _sdlVx.lastUsedAtDay to $date.dayCount>>
-					<<set _sdlVx.lastUsedOnWho to "sister">>
-					<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
-						<p>I switch $company.prototype.name on in my jacket pocket. <<DevicePulse 2>> Something in the room shifts, and she feels it sooner than I expect her to. She presses the heel of her hand against her forehead.</p>
-						<<silently>>
-						<<set _msgs to [
-							{ who: $sister, text: "Ugh. I think I stared at labels for too long, I've got this buzzy headache. I should probably go." },
-						]>>
-						<</silently>>
-						<<Chat _msgs>>
-						<p>Five minutes later she's gone, and the box of cables sits half-sorted in front of the cabinet.</p>
-						<<DevicePulse "off" "4s">>
-						<<UpdateStat "-" "SisterRelation" 1>>
-						<<UpdateStat "+" "SisterResistance" 3>>
-					<<else>>
-						<p>I switch $company.prototype.name on in my jacket pocket, one notch and then a second. <<DevicePulse 2>> I leave everything else in her alone and try to warm up the one thing she just told me, the part about how quiet it gets in her head when she's near me.</p>
-						<<silently>>
-						<<set _msgs to [
-							{ text: "Her hands slow down. She ties off the bag she's holding, then just sits there with it in her lap." },
-							{ who: $sister, text: "Is it okay if I come sit over there for a bit? I'll be quiet, I promise." },
-							{ text: "She doesn't wait for an answer. She shuffles across the carpet on her knees and settles against my leg with her cheek on my knee, as if she's been doing it every night for years." },
-							{ who: $sister, text: "This is so stupid. When I'm next to you, everything goes kind of soft, like when you're little and you fall asleep in the car and somebody carries you inside." },
-							{ who: $player, text: "That's not stupid." },
-							{ who: $sister, text: "It's a little stupid. I'm the older one, I'm supposed to be the one who carries people inside." },
-							{ text: "She doesn't move, though. When I put my hand on her hair she lets out a long breath and goes very still." },
-						]>>
-						<</silently>>
-						<<Chat _msgs>>
-						<p>I give it ten minutes before I switch it off. She stays exactly where she is long after that, which is more than I'd dared to hope for.</p>
-						<<UpdateStat "+" "SisterCorruption" 2>>
-						<<UpdateStat "+" "SisterLust" 3>>
-						<<UpdateStat "+" "SisterResistance" 1>>
-					<</if>>
-				<</replace>>
-			<</link>>
+			<p>I switch $company.prototype.name on in my jacket pocket, one notch and then a second. <<DevicePulse `_md.power`>> I leave everything else in her alone and try to warm up the one thing she just told me, the part about how quiet it gets in her head when she's near me.</p>
+			<<silently>>
+			<<set _msgs to [
+				{ text: "Her hands slow down. She ties off the bag she's holding, then just sits there with it in her lap." },
+				{ who: $sister, text: "Is it okay if I come sit over there for a bit? I'll be quiet, I promise." },
+				{ text: "She doesn't wait for an answer. She shuffles across the carpet on her knees and settles against my leg with her cheek on my knee, as if she's been doing it every night for years." },
+				{ who: $sister, text: "This is so stupid. When I'm next to you, everything goes kind of soft, like when you're little and you fall asleep in the car and somebody carries you inside." },
+				{ who: $player, text: "That's not stupid." },
+				{ who: $sister, text: "It's a little stupid. I'm the older one, I'm supposed to be the one who carries people inside." },
+				{ text: "She doesn't move, though. When I put my hand on her hair she lets out a long breath and goes very still." },
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>I give it ten minutes before I switch it off. She stays exactly where she is long after that, which is more than I'd dared to hope for.</p>
 		<</if>>
-	</div>
+	<</MicroDevice>>
 </div>
+<</if>>

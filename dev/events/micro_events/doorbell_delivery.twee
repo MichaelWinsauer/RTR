@@ -2,9 +2,11 @@
 /* Mundane for now: the doorbell, a delivery, a short exchange at the door. Nothing is gained or spent.
    Whoever is home answers; the reason for the delivery is picked at random. */
 <<silently>>
-<<if $mom.flags.isHome && $sister.flags.isHome>>
+/* during The Silence mom keeps out of my way, so she never answers (the event data skips it if she is alone) */
+<<set _dbMom to $mom.flags.isHome && !setup.momSilent()>>
+<<if _dbMom && $sister.flags.isHome>>
 	<<set _npc to either($mom, $sister)>>
-<<elseif $mom.flags.isHome>>
+<<elseif _dbMom>>
 	<<set _npc to $mom>>
 <<else>>
 	<<set _npc to $sister>>

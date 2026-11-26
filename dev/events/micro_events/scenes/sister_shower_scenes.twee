@@ -1,0 +1,208 @@
+:: Sister Shower Hands [scene] {"position":"1050,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Going Shower, tier 2 "Yearning": after What Are We, before the Catalyst
+   Night). Opened from Sister Going Shower with <<MicroScene>>. She left the door unlocked and told me so. I go in, she
+   pulls me under the water with my clothes on, laughing, and does it with her hand while my jeans get soaked. Different
+   from mom's (I bring her a towel and stay dry on the mat).
+   Variants: the first time, her lust high (she left it open, not only unlocked), and a near miss: $mom.callName knocks
+   about the conditioner.
+   Clips, images/characters/sister/events/shower/ (check against the clips):
+     hands_0.mp4   she slides the shower door open and pulls me in by my shirt, clothes and all
+     hands_1.mp4   under the water, me in my soaked clothes, her naked, her hand in my open jeans
+     hands_2.mp4   the finish against her hip, the water running it down her leg */
+<<silent>>
+<<SetBackground $locations[4].img>>
+<<set _ssFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _ssEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _ssNear to setup.rollNearMiss("sister")>>
+<</silent>>
+<<if _ssEager>>
+The bathroom door is standing wide open, and steam is already rolling out of it into the hallway. I go in and shut it behind me, and turn the lock, and the shape behind the shower glass laughs.
+<<else>>
+I give her a minute, long enough to hear the water start. Then I try the handle. It isn't locked. I slip in and close the door and lock it behind me, and the shape behind the shower glass goes completely still.
+<</if>>
+
+<<if _ssFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You actually came in." },
+{ who: $player, text: "You told me the door was open." },
+{ who: $sister, text: "I know what I told you. I just spent the whole time I was undressing arguing with myself about whether that was a stupid thing to say, and I'd decided it was, and I was going to lock it, and then I didn't." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Go to the glass">>
+<<Media "images/characters/sister/events/shower/hands_0.mp4">>
+
+I don't get to decide anything. The shower door slides open, a wet hand comes out of the steam, grabs a fistful of my shirt and pulls, and I'm under the water before I've had time to take my shoes off.
+
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "My clothes..." },
+{ who: $sister, text: "Should have thought of that before you came in here with them on." },
+{ text: "She's laughing, with her wet hair stuck to her face and the water drumming on both of us, and then she stops laughing and looks down at my jeans, which are getting darker and heavier by the second, and gets the button open." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/sister/events/shower/hands_1.mp4">>
+
+My shirt is plastered to me and my jeans are halfway down my thighs and filling up with water, and she doesn't care at all. She has her hand around my cock and her other hand flat on my chest, holding me against the tiles, and she's stroking me with the water pouring between us, slow and sure, watching my face the way she watches a professor who's about to give something away about the exam. Her body is pressed against my wet clothes. She's naked and I'm not, and she clearly likes it that way around.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You look ridiculous, by the way. Like a cat somebody threw in a pool." },
+{ who: $player, text: "Whose fault is that?" },
+{ who: $sister, text: "Completely yours. You walked in here." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _ssNear>>
+Someone knocks on the bathroom door.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Sweetheart? Are you using my good conditioner again? Because the bottle was full on Monday." },
+{ text: "$sister.callName's hand stops. She looks at the door, then at me, with her eyes huge, and her hand stays wrapped around me under the water." },
+{ who: $sister, text: "Only a little bit! I'll buy you a new one." },
+{ who: $mom, text: "You always say that, honey." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName's slippers go back down the hallway. $sister.callName lets out her breath against my wet shoulder and starts to laugh without any sound at all, shaking with it, her forehead pressed to my collarbone. When she lifts her head she's grinning, and her hand starts moving again, faster.
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/shower/hands_2.mp4">>
+
+She feels me tense up and pulls me closer by the cock, and I come against her hip, and she keeps her hand moving until I'm done and watches the water wash it down her thigh and away. Then she leans her whole wet weight against me and lets me hold her up for a minute, under the spray, in my ruined clothes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You have to get out first. And take those off before you go in the hallway, you're going to drip all the way to your room and she'll see the trail and think there's a leak." },
+{ who: $player, text: "And what do I put on instead?" },
+{ who: $sister, text: "That's honestly not my problem, $player.name." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I make it to my room in a towel with my wet clothes in a ball under my arm. Behind me, the shower keeps running, and she's singing.
+
+<<set $sister.flags.handjobs to ($sister.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 20>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<if _ssNear>><<UpdateStat "+" "SisterExhibition" 1>><</if>>
+<<EndMicroScene "Find dry clothes">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Sister Shower Mouth [scene] {"position":"1175,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Going Shower, tier 3 "Devoted": after the Catalyst Night, before
+   Everything). Opened from Sister Going Shower with <<MicroScene>>. She asked me in. Both of us undressed this time; she
+   kneels on the shower floor and makes a joke about the water bill to cover her nerves, then stops joking.
+   Variants: the first time, her lust high (she asked straight out), and a near miss: $mom.callName needs the sink, and
+   $sister.callName answers her without stopping for longer than a breath.
+   Clips, images/characters/sister/events/shower/ (check against the clips):
+     mouth_0.mp4   both of us in the shower, she turns around and goes down onto her knees
+     mouth_1.mp4   the blowjob under the water, her eyes up at me
+     mouth_2.mp4   deeper, my hand in her wet hair
+     mouth_3.mp4   the finish in her mouth; she swallows and comes up laughing */
+<<silent>>
+<<SetBackground $locations[4].img>>
+<<set _smsFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _smsEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _smsNear to setup.rollNearMiss("sister")>>
+<</silent>>
+I lock the bathroom door behind us. She has the water running already and her towel on the hook, and she pulls her top off over her head while I'm still turning the lock.
+
+<<if _smsFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Clothes off this time. I'm not explaining another wet pair of jeans to anyone." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _smsEager>>
+She doesn't wait for me to finish undressing. She's under the water already, with the glass door open, watching me.
+<</if>>
+
+<<linkreplace "Get in">>
+<<Media "images/characters/sister/events/shower/mouth_0.mp4">>
+
+We stand under the water together for a bit, and she puts her arms around my neck and kisses me, slow, with the water running over both our faces. Then she lets go and steps back, and looks at me, and goes down onto her knees on the shower floor in front of me with one hand on my hip to steady herself.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You realize we're paying for every second of this hot water. I'm going to see this on the bill next month and know exactly which night it was." },
+{ who: $player, text: "You're the one who wanted a long shower." },
+{ who: $sister, text: "I did say long." },
+{ text: "That's the last joke. She looks up at me through the water running off her eyelashes, and her face changes, and she takes hold of me with both hands." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/sister/events/shower/mouth_1.mp4">>
+
+She takes me into her mouth and keeps her eyes open, on mine, blinking the water out of them. She's gotten good at this in a short time, the way she gets good at everything she decides to care about: her lips tight, her tongue moving on the underside, one hand wrapped around the base of me and moving with her mouth. The water runs down my stomach and over her lips, and she lets it, and keeps going.
+
+<<if _smsNear>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Sweetheart, are you going to be much longer? I just need the sink for two minutes." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName takes her mouth off me just long enough to answer, and her voice comes out perfectly normal, a little bored even, the voice she uses on the phone with the college.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Ten minutes! I just put the conditioner in." },
+{ who: $mom, text: "All right, honey. Don't use all of it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then she looks up at me, and she's flushed right down to her chest, and she goes back down on me harder than before.
+<</if>>
+
+<<linkreplace "Take her hair">>
+I gather her wet hair in my hand at the back of her head.
+
+<<Media "images/characters/sister/events/shower/mouth_2.mp4">>
+
+She makes a sound around me when I take her hair, and lets me push her further down than she's been going, until her nose is against my stomach and she's swallowing water and holding still for me. I let her up and she gasps and laughs and spits water and goes straight back. Her hands come up to grip the backs of my thighs. I fuck her mouth slowly under the spray and she takes it, every stroke, her eyes watering or maybe that's the shower, I can't tell, and I don't think she can either.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/shower/mouth_3.mp4">>
+
+I come in her mouth, and she holds still and swallows, her hand still wrapped around the base of me, her eyes closed. When I let go of her hair she stays on her knees a moment longer with her forehead against my hip and the water running over her back. Then she comes up, using my arm, and wipes her mouth with the back of her hand and starts laughing, quietly, like she can't quite believe herself.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I used to think shower sex was a myth that people made up to sound interesting. You can't hear anything, you can't see anything, someone always gets cold." },
+{ who: $player, text: "And?" },
+{ who: $sister, text: "And I was wrong, and I hate being wrong, so don't bring it up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She shoves me out from under the water so she can wash her hair, and I stand there in the steam and watch her do it.
+
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 25>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<if _smsNear>><<UpdateStat "+" "SisterExhibition" 2>><</if>>
+<<EndMicroScene "Get dressed">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

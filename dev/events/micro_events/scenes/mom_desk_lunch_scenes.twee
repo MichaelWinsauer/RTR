@@ -1,0 +1,114 @@
+:: Mom Desk Lunch Under [scene] {"position":"1050,3775","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Desk Lunch, tier 3 "Mouth": after The Crawl, before the Catalyst
+   Night). Opened from the desk visitor Mom Desk Lunch with <<MicroScene>>. Noon, the staff goes down to the food truck,
+   and she stays to make sure I eat; then she has her own lunch, under my desk. Ends with the second napkin she always
+   packs, because one has never been enough for me.
+   Variants: the first time, her lust high (she's under the desk before the elevator doors have closed), and a near
+   miss (setup.rollNearMiss, the staff is out but due back): $ethan.name comes back early for his wallet and talks to
+   me from across the room. Different from the planned "Under the Desk" visitor, where someone stands at my desk.
+   Clips, images/characters/mom/events/desk_lunch/ (check against the clips):
+     mouth_0.mp4   she pushes my chair back and slides under the desk on her knees, in her work skirt
+     mouth_1.mp4   the blowjob under the desk, me in my chair
+     mouth_2.mp4   my hand on her head under the desk, deeper
+     mouth_3.mp4   the finish in her mouth; she dabs her lips with a paper napkin */
+<<silent>>
+<<SetBackground $locations[14].img>>
+<<set _dlFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _dlEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _dlNear to setup.rollNearMiss("mom")>>
+<</silent>>
+I eat the lasagna. She sits across the desk and watches me do it, all of it, down to the crispy corner, and ticks off each bite with a little nod.
+
+At ten past twelve $ethan.name stands up and stretches and announces to the room that the taco truck is downstairs and he's buying. $brian.name gets his jacket. $darius.name says he brought a salad and then goes anyway, because nobody wants to be the one who stays behind with a salad.
+
+<<silently>>
+<<set _msgs to [
+{ who: $ethan, text: "You coming, boss? $mom.callName?" },
+{ who: $mom, text: "Oh, no, thank you, sweetie, I've got mine right here. You boys go." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The elevator doors close on the three of them.
+
+<<if _dlEager>>
+She doesn't wait for them to reach the ground floor. She puts the lid back on my empty container, and gets up, and comes around the desk, and pushes my chair back from it with both hands, and gets down on her knees and goes under.
+<<elseif _dlFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "So what are you having?" },
+{ who: $mom, text: "What do you mean, honey? I've got the little container, the one with the..." },
+{ text: "She looks at me, and I don't look at the little container. She stops talking." },
+{ who: $mom, text: "Here? They're only downstairs. They'll be back in fifteen minutes, twenty if the line's long." },
+{ who: $player, text: "Then you've got fifteen minutes to eat. That's plenty." },
+{ text: "She hears her own line from the morning come back to her, and her mouth twitches, and she gets up." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She comes around the desk and pushes my chair back with both hands, and gets down on her knees on the carpet, and goes under.
+<<else>>
+She puts the lid back on my container, comes around the desk, and pushes my chair back. Then she gets down on her knees and goes under, tucking her skirt in neatly behind her knees as she goes.
+<</if>>
+
+<<linkreplace "Pull your chair back in">>
+<<Media "images/characters/mom/events/desk_lunch/mouth_0.mp4">>
+
+I roll the chair back in until my knees are on either side of her and the edge of the desk is against my stomach. From up here, anyone walking past would see me at my computer and nothing else. Under the desk, in the dark between the drawers and the cable tray, she opens my belt and my pants and takes me out, and holds me for a second in her hand.
+
+<<linkreplace "Pick up a pen">>
+<<Media "images/characters/mom/events/desk_lunch/mouth_1.mp4">>
+
+I open an email and pretend to read it. Under the desk she takes me in her mouth, slowly, and I feel her settle in, her hands resting on my knees, her head moving in long, even strokes. She's quiet about it. Quieter than at home, as if the empty office is listening. The only sounds are the hum of the vent above us and, now and then, a small wet one from under the desk that I'd swear carries all the way to the elevator.
+
+<<if _dlNear>>
+The elevator dings.
+
+Under the desk she freezes, completely, with me in her mouth. The doors slide open and footsteps cross the office, fast, and it's $ethan.name, alone, patting his pockets.
+
+<<silently>>
+<<set _msgs = [
+{ who: $ethan, text: "Forgot my wallet, man. Who goes to a taco truck without a wallet? This guy." },
+{ text: "He's at his desk, ten feet away, rummaging through his drawer. He looks over at me." },
+{ who: $ethan, text: "Where's $mom.callName? I was going to ask if she wanted me to grab her something after all." },
+{ who: $player, text: "Bathroom, I think." },
+{ who: $ethan, text: "Cool. Tell her I've got the chicken ones on hold for her if she wants. Back in ten." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+He's gone again. Under the desk, she still hasn't moved. I put my hand on her head, and only then does she start again, and her breathing has changed, fast and shallow through her nose, and her hands on my knees are trembling.
+<</if>>
+
+<<linkreplace "Put your hand on her head">>
+<<Media "images/characters/mom/events/desk_lunch/mouth_2.mp4">>
+
+I hold the back of her head under the desk and push her down, slowly, until her nose is against me and she has to swallow around me to breathe. She holds it as long as I hold her. When I let up she comes off with a gasp that she turns into a cough out of habit, and goes straight back down without being told, faster now, because she can count, and the guys have been gone a while.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/desk_lunch/mouth_3.mp4">>
+
+I come in her mouth with my hand still on her head, and she takes all of it and swallows, and keeps me in her mouth until I've finished, gently, the way she does everything once the hard part is over. Then she does my pants up for me, by feel, in the dark under the desk, button and zipper and belt, and crawls back out on her knees, and gets up holding the edge of the desk.
+
+She reaches into the lunch bag and finds the second napkin, the one she always packs because in her opinion one has never been enough for me, and dabs the corners of her mouth with it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Thank you, honey. That was lovely." },
+{ text: "She folds the napkin and tucks it in the bag, zips it as far as the broken zipper goes, and smooths her skirt down over her knees. Two red patches on them from the carpet." },
+{ who: $mom, text: "Now finish your work, you've got that call. I'll be at my desk." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+When the elevator dings ten minutes later she's at her desk with her little container, eating the last of her own lasagna, and she thanks $ethan.name for thinking of her and says she's not hungry, but that's very sweet of him.
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 25>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _dlNear>><<UpdateStat "+" "MomExhibition" 2>><</if>>
+<<EndMicroScene "Back to work">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

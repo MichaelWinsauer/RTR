@@ -1,0 +1,203 @@
+:: Mom Sink Hands [scene] {"position":"1675,3775","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Brushing Teeth, tier 2 "Hands": after A Knock at Night, before The
+   Crawl). Opened from Mom Brushing Teeth with <<MicroScene>>. At the sink, me behind her, both of us in the mirror;
+   she reaches back for me, then turns around against the sink. In the morning she's in her work blouse and running
+   late, at night in her nightgown ($time.current.value).
+   Variants: the first time, her lust high (she reaches back without being asked).
+   Clips, images/characters/mom/events/sink/ (check against the clips):
+     hands_0.mp4   at the sink, me behind her, both in the mirror, her hand reaching back between us
+     hands_1.mp4   she turns around, leaning back against the sink, her hand on my cock, eyes on mine
+     hands_2.mp4   the finish into the sink; she runs the tap */
+<<silent>>
+<<SetBackground $locations[4].img>>
+<<set _skFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _skEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _skMorning to $time.current.value <= 1>>
+<</silent>>
+I reach behind me and push the bathroom door shut, and turn the lock. In the mirror, $mom.callName watches me do it with her toothbrush in her mouth.
+
+<<if _skEager>>
+She spits, rinses, and puts the toothbrush back in its cup without taking her eyes off mine in the mirror. Then she reaches back between us, without turning around, and finds the front of my pants by feel.
+<<elseif _skFirst>>
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "Honey, I'm..." },
+{ text: "She spits and rinses, quickly, and wipes her mouth on the back of her hand." },
+]>>
+<<if _skMorning>>
+<<run _msgs.push({ who: $mom, text: "I'm already late, I have to be at the office in forty minutes and I haven't even done my face yet, and you're standing there looking at me like..." })>>
+<<else>>
+<<run _msgs.push({ who: $mom, text: "It's late, sweetie. Your $sister.relation is right down the hall, and you're standing there looking at me like..." })>>
+<</if>>
+<<run _msgs.push({ text: "She doesn't say like what. She looks at me in the mirror a while longer, and then she reaches back between us without turning around." })>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+She spits, rinses, and reaches back for me without turning around, the way she'd reach back for the car keys on the hook by the door.
+<</if>>
+
+<<linkreplace "Watch her in the mirror">>
+<<Media "images/characters/mom/events/sink/hands_0.mp4">>
+
+She gets my pants open behind her back and takes me out and strokes me against the small of her back, slowly, her wrist bent at an angle that can't be comfortable. In the mirror her face is perfectly calm and a little pink, and her eyes are on mine the whole time, and she doesn't look down at what her hand is doing once. <<if _skMorning>>She still has her work blouse on, buttoned to the throat, and the towel wrapped around her hips where her skirt should be.<<else>>The straps of her nightgown are thin, and one of them has slipped off her shoulder, and she doesn't put it back.<</if>>
+
+<<linkreplace "Turn her around">>
+I take her by the hips and turn her around, and she leans back against the edge of the sink.
+
+<<Media "images/characters/mom/events/sink/hands_1.mp4">>
+
+Now that she's facing me she takes me properly, her whole hand wrapped around me, and works me fast and firm, the way she does everything when she's in a hurry. She keeps her eyes up on mine. She's breathing through her mouth and I can smell the toothpaste on her breath, cold and sharp, every time she breathes out.
+
+<<silently>>
+<<if _skMorning>>
+<<set _msgs to [
+{ who: $mom, text: "I'm going to be so late, honey. I'm going to walk in late and everyone's going to look at me." },
+{ text: "She doesn't slow down." },
+]>>
+<<else>>
+<<set _msgs to [
+{ who: $mom, text: "Shh. Quiet, sweetie, the walls in this house are like paper." },
+{ text: "I'm not the one making noise. She is, small sounds at the back of her throat, every time I twitch in her hand." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/sink/hands_2.mp4">>
+
+When I'm close she steps aside, quick as anything, and aims me at the sink, and I come into it with her hand still pumping me and her other hand on my back. She milks the last of it out of me and then turns the tap on and rinses the sink out, and rinses her hand, and rinses the sink again for good measure.
+
+<<silently>>
+<<if _skMorning>>
+<<set _msgs to [
+{ who: $mom, text: "Now get out of here, honey, I have to do my face, and I have exactly no minutes to do it in." },
+]>>
+<<else>>
+<<set _msgs to [
+{ who: $mom, text: "Now go to bed, honey. Go on. I'll be out in a minute, I just want to..." },
+{ text: "She gestures vaguely at the mirror and doesn't finish. She's looking at her own flushed face in it." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<set $mom.flags.handjobs to ($mom.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 20>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<EndMicroScene "Leave her the mirror">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Mom Sink Mouth [scene] {"position":"1800,3775","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Brushing Teeth, tier 3 "Mouth": after The Crawl, before the Catalyst
+   Night). Opened from Mom Brushing Teeth with <<MicroScene>>. She rinses and kneels on the bath mat; afterwards she
+   brushes her teeth again, the second time. Not on a morning she has already brought my coffee (the micro event
+   locks the offer). Morning: work clothes, against the clock. Night: her nightgown.
+   Variants: the first time, her lust high (she was already looking at the mat), and a near miss: $sister.callName's
+   alarm goes off through the wall and she gets up, so it has to be finished before she reaches the door.
+   Clips, images/characters/mom/events/sink/ (check against the clips):
+     mouth_0.mp4   she kneels down on the bath mat in front of me, the sink behind me
+     mouth_1.mp4   the blowjob, her hands on my hips
+     mouth_2.mp4   faster, my hand on the back of her head
+     mouth_3.mp4   the finish in her mouth, she swallows; then at the sink brushing again */
+<<silent>>
+<<SetBackground $locations[4].img>>
+<<set _skmFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _skmEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _skmMorning to $time.current.value <= 1>>
+<<set _skmNear to setup.rollNearMiss("mom")>>
+<</silent>>
+I lock the bathroom door behind me.
+
+<<if _skmEager>>
+She's already on her way down. She goes to her knees on the bath mat in one slow, careful movement with her hand on the edge of the sink, the way she gets down to look for something under the couch.
+<<elseif _skmFirst>>
+She finishes rinsing, sets her toothbrush in the cup, and dries her mouth on the hand towel. Then she looks at the bath mat, the fluffy blue one she bought on sale because it matched the tiles, and then at me.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "On the bath mat?" },
+{ text: "I don't say anything. She smooths the mat flat with her foot, so it's straight." },
+{ who: $mom, text: "Okay. Just let me..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She gets down on her knees on it, carefully, holding the edge of the sink.
+<<else>>
+She rinses, sets the toothbrush down, and gets down on her knees on the bath mat without a word.
+<</if>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/mom/events/sink/mouth_0.mp4">>
+
+<<if _skmMorning>>Her skirt rides up over her knees when she kneels, and she leaves it there.<<else>>Her nightgown pools around her knees on the mat.<</if>> She opens my pants and takes me out, and the first thing I feel when she takes me in her mouth is cold. Mint, from the toothpaste, cold and tingling all over the head of my cock, and then her tongue warm under it, and it's so strange that I catch my breath, and she hears it and does it again on purpose.
+
+<<linkreplace "Let her keep going">>
+<<Media "images/characters/mom/events/sink/mouth_1.mp4">>
+
+She holds onto my hips and moves her head slowly, all the way down and all the way back, and every time she comes off she breathes out and the cold comes back. Her eyes are closed. She looks completely calm, peaceful even, like she's doing something she's done every day of her life, and the only sign she isn't is her hands, which have closed in my belt loops and are holding on tight.
+
+<<if _skmNear>>
+On the other side of the wall, $sister.callName's alarm goes off.
+
+It's her phone, the same awful marimba tune every day, and it goes on and on. $mom.callName's eyes fly open. She doesn't let go of me, she just stops, with her lips around me, and we both listen. The alarm stops. Bedsprings creak. Then a groan through the wall, long and wretched, the groan of somebody who's going to need the bathroom in about a minute and a half.
+
+$mom.callName looks up at me. She doesn't ask what to do. She waits for me to tell her.
+
+<<silently>>
+<<set _msgs to [
+{ who: $player, text: "Faster." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Take her head">>
+I put my hand on the back of her head.
+
+<<Media "images/characters/mom/events/sink/mouth_2.mp4">>
+
+She goes faster for me, as fast as I push her, her lips tight and her cheeks hollow, her nose pressing into my stomach each time I take her all the way down. She chokes once and doesn't pull away, just breathes hard through her nose and keeps going. <<if _skmNear>>Down the hall a door opens, and slippers start dragging across the floorboards toward the bathroom.<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/sink/mouth_3.mp4">>
+
+I hold her there and come in her mouth, and she swallows it, all of it, with her eyes squeezed shut. When I let go she sits back on her heels and swallows once more, and opens her eyes, and gets up off the bath mat holding onto the sink.
+
+<<if _skmNear>>
+<<silently>>
+<<set _msgs to [
+{ text: "Somebody tries the bathroom door handle. It catches on the lock." },
+{ who: $sister, text: "Who's in there? Please tell me you're almost done." },
+{ who: $mom, text: "Just brushing my teeth, sweetheart, two minutes!" },
+{ text: "Her voice is completely normal. She's already squeezing toothpaste onto her toothbrush." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I do my pants up and stand in the corner behind the door while she brushes her teeth for the second time, briskly, with one eye on the mirror. When she opens the door to let $sister.callName in, she opens it wide, with her body in the gap, and kisses her on the forehead and says good morning, and $sister.callName shuffles past her to the sink with her eyes still shut. I'm out in the hallway before she opens them.
+<<else>>
+She picks up her toothbrush again and squeezes on a fresh line of toothpaste, and brushes her teeth for the second time, briskly, while I do my pants up behind her. She watches me in the mirror the whole time. When she's done she rinses, and dries her mouth, and turns around.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: (_skmMorning ? "Thank you, honey. Now I really am late." : "Thank you, honey. Now go to bed, it's late.") },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 25>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _skmNear>><<UpdateStat "+" "MomExhibition" 2>><</if>>
+<<EndMicroScene "Go">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,15 +1,67 @@
 :: Mom Kitchen Wine [micro_event event nobr] {"position":"1800,2900","size":"100,100"}
-/* Confiding: she winds down with a glass of wine. Pick what to ask her about (each topic only once per visit). */
-<<set _vx to setup.homeDevice()>>
-<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
-<<set _vxCost to 10 + 10 * _vxLevel>>
-<p>I step into the kitchen. $mom.callName is at the table with a glass of red wine, shoes off, looking tired but a little more relaxed than usual.</p>
-<<silently>>
-<<set _msgs to [
-	{ who: $mom, text: "Hi, sweetheart. It was one of those days, so this is my little treat, and don't look at me like that, it's one glass." }
-]>>
-<</silently>>
-<<Chat _msgs>>
+/* Confiding: she winds down with a glass of wine. Pick what to ask her about (each topic only once per visit).
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Aware: her robe, a second glass; the device gets her tipsy enough to let me rub her shoulders at the table
+     2  Hands: she wants me next to her, not across the table. Offer: Mom Kitchen Wine Hands
+     3  Mouth: a glass poured for me before I come down. Offer: Mom Kitchen Wine Mouth
+   With her lust high (tier 2 and up) she starts it herself. The topics stay at every tier; "how she's really doing"
+   gets an honest answer after The Crawl. */
+<<MicroContext $mom>>
+<<silent>>
+<<set _kwEager to _mc.lustBand == "high">>
+<</silent>>
+<<if _mc.tier >= 3 and _kwEager>>
+	<p>$mom.callName isn't sitting down tonight. She's leaning against the counter in her robe with her glass in her hand, and when I come in she sets it down on the very edge of the table and doesn't pick it up again.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "I was hoping you'd come down. I kept telling myself one more sip and then I'd go up and knock, and then I'd think, no, he's working, don't be a bother, and then I'd have another sip." },
+		{ text: "There's a second glass on the table, full, at my place." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier >= 3>>
+	<p>There are two glasses on the kitchen table tonight. One is hers, half gone. The other is full and sitting at my place, with a folded napkin next to it like I'm a guest, and she's watching the door as if she's been watching it for a while.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "I poured you one, honey, I hope that's all right. I just thought, if you came down, it would be nice for it to already be waiting for you." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 2 and _kwEager>>
+	<p>$mom.callName is at the table with a glass of red, and she doesn't wait for me to pick a chair. She hooks the leg of the one next to hers with her bare foot and drags it out, close enough that our knees are going to touch.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Sit here, sweetie, next to me. It's been one of those days." },
+		{ text: "She looks at me over the rim of her glass when she says it, to make sure I know which kind of day she means." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 2>>
+	<p>$mom.callName is at the table with a glass of red and her shoes kicked off under the chair. Her eyes go to the ceiling when I come in, to where $sister.callName's room is, and then back to me.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "There you are. Sit with me for a bit, honey? I always feel like one of those sad women in a movie when I drink on my own, and I've decided I'm not going to be one of those." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 1>>
+	<p>$mom.callName is at the table in her robe, her hair still damp from the shower and her glass already half empty. When I come in, her hand goes to the robe at her collar and holds it closed, and a second later she lets go of it again, as if she's decided that would be silly.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Hi, sweetheart. Don't tell your $sister.relation, but this is my second, and today was the kind of day where the second one is basically medicine." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>I step into the kitchen. $mom.callName is at the table with a glass of red wine, shoes off, looking tired but a little more relaxed than usual.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Hi, sweetheart. It was one of those days, so this is my little treat, and don't look at me like that, it's one glass." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<linkreplace "Ask about work">>
@@ -53,43 +105,56 @@
 	<div>
 		<<linkreplace "Ask how she's really doing">>
 			<<silently>>
-			<<set _msgs to [
-				{ who: $player, text: "But how are you actually doing?" },
-				{ who: $mom, text: "Tired, mostly. But I'm really glad you're home, you know that? Just don't tell your $sister.relation I said so, she'll think I have a favorite." }
-			]>>
+			<<if _mc.tier >= 3>>
+				<<set _msgs to [
+					{ who: $player, text: "But how are you actually doing?" },
+					{ who: $mom, text: "Honestly? Better than I have in years, honey, and I know how that sounds after the week you gave me. I sleep through the night now. I used to lie there and go over everything I said to everyone that day, and now I just... I know where I stand, and it turns out that's all I ever wanted from anybody." },
+					{ text: "She turns her glass by the stem, a quarter turn, then back." },
+					{ who: $mom, text: "Don't ever do that to me again, though. The week, I mean. I'll be good." },
+				]>>
+			<<else>>
+				<<set _msgs to [
+					{ who: $player, text: "But how are you actually doing?" },
+					{ who: $mom, text: "Tired, mostly. But I'm really glad you're home, you know that? Just don't tell your $sister.relation I said so, she'll think I have a favorite." }
+				]>>
+			<</if>>
 			<</silently>>
 			<<Chat _msgs>>
 			<<UpdateStat "+" "MomRelation" 2>>
 		<</linkreplace>>
 	</div>
-	<<if _vxLevel > 0>>
+	<<if _mc.tier >= 2>>
+		<<set _kwScene to (_mc.tier >= 3 ? "Mom Kitchen Wine Mouth" : "Mom Kitchen Wine Hands")>>
+		<<if _mc.tier >= 3>>
+			<<set _kwLabel to (_kwEager ? "Sit down and let her come to you" : "Push your chair back from the table")>>
+		<<else>>
+			<<set _kwLabel to (_kwEager ? "Take the chair next to her" : "Carry your chair around to her side")>>
+		<</if>>
 		<div>
-			<<if _vx.lastUsedAtDay == $date.dayCount>>
-				<span class="choice-locked">Use the prototype<small>already used today</small></span>
-			<<elseif _vx.charge < _vxCost>>
-				<span class="choice-locked">Use the prototype<small>not enough charge</small></span>
+			<<if _mc.offerLock>>
+				<span class="choice-locked">_kwLabel<small>_mc.offerLock</small></span>
 			<<else>>
-				<<link "Use the prototype while she talks">>
-					<<replace "#choice1">>
-						<<set _vx.charge -= _vxCost>>
-						<<set _vx.lastUsedAtDay to $date.dayCount>>
-						<<set _vx.lastUsedOnWho to "mom">>
-						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
-							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She puts her glass down and studies me. "You've been so quiet lately, honey, and you keep watching me like you're waiting for something," she says. "Is something going on?" I tell her I'm just tired, and she doesn't believe me, and she takes her glass upstairs.</p>
-							<<UpdateStat "-" "MomRelation" 3>>
-							<<UpdateStat "+" "MomResistance" 4>>
-						<<else>>
-							<<set _gain to 1 + _vxLevel>>
-							<<set _lustGain to 4 + 4 * _vxLevel>>
-							<p>I turn the prototype on in my pocket and listen to her talk. <<DevicePulse `_vxLevel + 1`>> Her shoulders drop and she starts laughing at things that aren't that funny. By the time the glass is empty she's leaning toward me across the table.</p>
-							<<UpdateStat "-" "MomRelation" 1>>
-							<<UpdateStat "+" "MomCorruption" _gain>>
-							<<UpdateStat "+" "MomLust" _lustGain>>
-						<</if>>
-					<</replace>>
-				<</link>>
+				<<capture _kwScene>>
+				<<link _kwLabel>><<MicroScene $mom _kwScene>><</link>>
+				<</capture>>
 			<</if>>
 		</div>
 	<</if>>
+	<<MicroDevice $mom "#choice1" "Use the prototype while she talks">>
+		<<if _md.backfire>>
+			<<DevicePulse `_md.power`>><<DevicePulse "off" "2s">>
+			<p>She puts her glass down and studies me. "You've been so quiet lately, honey, and you keep watching me like you're waiting for something," she says. "Is something going on?" I tell her I'm just tired, and she doesn't believe me, and she takes her glass upstairs.</p>
+		<<elseif _mc.tier >= 1>>
+			<p>I turn the prototype on in my pocket and get up to put my own glass in the sink. <<DevicePulse `_md.power`>> On the way back I stop behind her chair and put my hands on her shoulders, and she lets her head fall forward as if she's been waiting all day for somebody to do exactly that.</p>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $mom, text: "Oh, that's... honey, you don't have to. Okay, maybe a little to the left. There. Right there, oh my goodness." },
+				{ text: "I work my thumbs in along her neck and under the collar of the robe, where the knots are. The robe slides a few inches off one shoulder. She notices, and she leaves it there, and keeps telling me about the photocopier with her eyes closed until she forgets what the photocopier did." },
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+		<<else>>
+			<p>I turn the prototype on in my pocket and listen to her talk. <<DevicePulse `_md.power`>> Her shoulders drop and she starts laughing at things that aren't that funny. By the time the glass is empty she's leaning toward me across the table.</p>
+		<</if>>
+	<</MicroDevice>>
 </div>

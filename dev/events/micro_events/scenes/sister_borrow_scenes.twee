@@ -1,0 +1,185 @@
+:: Sister Borrow Hands [scene] {"position":"1050,4025","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Bedroom Borrow, tier 2 "Yearning": after What Are We, before the Catalyst
+   Night). Opened from Sister Bedroom Borrow with <<MicroScene>> when she owes me a favour ($sister.flags.favorsOwed); the
+   scene settles it. We lie on my bed, she's in my gray hoodie with her head on my chest, and her hand. Different from the
+   handjob card in my room (Sister Handjob, "bedroom": she reaches around me from behind).
+   Variants: the first time, her lust high (she starts haggling and gives up halfway), and a near miss: $mom.callName
+   knocks with my laundry.
+   Clips, images/characters/sister/events/borrow/ (check against the clips):
+     hands_0.mp4   she lies down on my bed next to me in my gray hoodie, head on my chest
+     hands_1.mp4   her hand in my sweatpants, slow, the hoodie sleeve pushed up
+     hands_2.mp4   the finish on my stomach; she wipes it off with tissues from my nightstand */
+<<silent>>
+<<SetBackground $locations[1].img>>
+<<set _sbhFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _sbhEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _sbhNear to setup.rollNearMiss("sister")>>
+<<set $sister.flags.favorsOwed to false>>
+<</silent>>
+<<silently>>
+<<if _sbhEager>>
+<<set _msgs = [
+{ who: $player, text: "You still owe me a favor." },
+{ who: $sister, text: "I know. I was going to negotiate. I had a whole position prepared, with an opening offer and a fallback, and I..." },
+{ text: "She looks at the bed, then at me." },
+{ who: $sister, text: "Never mind the position." },
+]>>
+<<elseif _sbhFirst>>
+<<set _msgs = [
+{ who: $player, text: "You still owe me a favor." },
+{ who: $sister, text: "I was hoping you'd forgotten. No, I wasn't. What is it?" },
+{ text: "I don't answer. I lie back on my bed with my hands behind my head and look at her, and she works it out on her own, the way she works out everything, and her face goes slowly pink." },
+{ who: $sister, text: "That's what you're spending it on? You could have had me do your laundry for a month." },
+{ who: $player, text: "$mom.callName does my laundry." },
+{ who: $sister, text: "Fair point." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $player, text: "Favor." },
+{ who: $sister, text: "I know, I know. I'm coming." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Make room for her">>
+<<Media "images/characters/sister/events/borrow/hands_0.mp4">>
+
+She climbs onto the bed and lies down next to me on her side, in my gray hoodie with the cuffs pulled down over her hands, and puts her head on my chest. For a minute she just lies there, listening to my heart, I think, with her knee over my leg. Then she pushes the sleeve of the hoodie up her arm, out of the way, like she's about to wash dishes.
+
+<<linkreplace "Wait for it">>
+<<Media "images/characters/sister/events/borrow/hands_1.mp4">>
+
+Her hand slides down my stomach and under the waistband of my sweatpants. She doesn't lift her head off my chest to look; she does it by feel, slow and unhurried, her fingers wrapped around me, her thumb finding the spot under the head and staying there. I can feel her breath change against my shirt. Every so often she tips her face up to watch mine, and then puts her cheek back down, satisfied with whatever she saw.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "This is a very generous repayment, I want you to know. I'm paying interest on this one." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _sbhNear>>
+Somebody knocks on my door.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "Honey? I've got your laundry, can I come in for a second?" },
+{ text: "$sister.callName's hand freezes. Her whole body freezes, pressed up against me, her face hidden against my chest. The door handle is right there, and the door isn't locked. It doesn't lock properly, it never has." },
+{ who: $player, text: "I'm on a call. Can you leave it outside?" },
+{ who: $mom, text: "Of course, sweetie. Don't work too hard, okay?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The basket touches the floor outside the door. Footsteps go back down the hall. $sister.callName stays exactly where she is, rigid, for a long ten seconds, and then she lets out her breath against my shirt in a hot little rush and starts to shake with silent laughter, and her hand starts moving again.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "I'm on a call. You're unbelievable." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/borrow/hands_2.mp4">>
+
+She pulls the waistband down when I'm close, and I come on my own stomach, and she watches it happen with her chin propped on my chest and her eyes very serious, as if she's going to be tested on it later. Then she reaches over to my nightstand without getting up, pulls three tissues out of the box, and cleans me off, thoroughly, and balls them up and drops them in my wastebasket from where she's lying. She makes the shot.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "We're even, then. Officially." },
+{ who: $player, text: "Officially." },
+{ who: $sister, text: "So I'll need to borrow something else soon, apparently." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<set $sister.flags.handjobs to ($sister.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 20>>
+<<UpdateStat "+" "SisterRelation" 2>>
+<<if _sbhNear>><<UpdateStat "+" "SisterExhibition" 1>><</if>>
+<<EndMicroScene "Let her keep the hoodie">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Sister Borrow Mouth [scene] {"position":"1175,4025","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Bedroom Borrow, tier 3 "Devoted": after the Catalyst Night, before
+   Everything). Opened from Sister Bedroom Borrow with <<MicroScene>>. She came in to "borrow" something and closed the
+   door. She lies across my bed on her stomach, in my hoodie, with her head at the edge, and I stand. After The Friend
+   ($sister.flags / quest sister_theFriend) her phone buzzes with her friend's name and she turns it face down.
+   Variants: the first time, her lust high (she locked the door herself).
+   Clips, images/characters/sister/events/borrow/ (check against the clips):
+     mouth_0.mp4   she lies across my bed on her stomach in my hoodie, head at the edge, I stand in front of her
+     mouth_1.mp4   the blowjob from there, her hands on my thighs
+     mouth_2.mp4   deeper, my hands on either side of her head
+     mouth_3.mp4   the finish in her mouth; she rolls onto her back and laughs */
+<<silent>>
+<<SetBackground $locations[1].img>>
+<<set _sbmFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _sbmEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _sbmFriend to setup.questDone("sister_theFriend")>>
+<</silent>>
+<<if _sbmEager>>
+She doesn't wait to hear what I'll say. She crosses the room, throws herself face down across my bed, sideways, so her head is hanging just over the edge nearest me, and props her chin on her hands, and looks up at me.
+<<elseif _sbmFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Stay." },
+{ who: $sister, text: "I was going to. I was always going to. I don't even remember what I said I came to borrow." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She comes over and lies down across my bed on her stomach, sideways, with her head right at the edge where I'm standing, and props her chin on her hands, and crosses her ankles in the air behind her, and looks up at me.
+<<else>>
+She lies down across my bed on her stomach with her head at the edge, the way she did last time, and looks up at me.
+<</if>>
+
+<<linkreplace "Step up to the bed">>
+<<Media "images/characters/sister/events/borrow/mouth_0.mp4">>
+
+From down there she unbuttons my jeans and pulls them down off my hips and takes me out, and looks at me for a moment in her hand, at eye level, with her hair falling over the hoodie's shoulders. Then she wets her lips and takes me into her mouth.
+
+<<linkreplace "Let her">>
+<<Media "images/characters/sister/events/borrow/mouth_1.mp4">>
+
+She goes slowly at first, with her hands on the fronts of my thighs, sliding her mouth down and back, down and back, and her eyes come up to mine every few strokes and stay a little longer each time. Her feet are still swaying in the air behind her, crossed at the ankles, slow and lazy, and she catches me looking at them and doesn't stop.
+
+<<if _sbmFriend>>
+Her phone buzzes on the bed beside her. The screen lights up with her best friend's name, $bestFriend.name, and a photo of the two of them at a lake somewhere, sunburned and laughing. $sister.callName doesn't stop. She reaches out without looking, turns the phone face down on my duvet, and puts her hand back on my thigh.
+<</if>>
+
+<<linkreplace "Hold her head">>
+I put my hands on either side of her head.
+
+<<Media "images/characters/sister/events/borrow/mouth_2.mp4">>
+
+She lets go of my thighs and lets me hold her there, and takes me deeper, all the way, until her lips are at the base and her eyes are watering and she has to breathe through her nose in short pulls. I move her head and she follows. When I let her come up she drags in a breath and coughs once and says my name, just that, hoarse, and goes back down without being asked.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/borrow/mouth_3.mp4">>
+
+I come in her mouth and she keeps her lips closed around me and swallows, with her eyes shut, until I've finished. Then she lets me go and rolls over onto her back on my bed, upside down, with her head hanging off the edge and her hair all over the carpet, and laughs up at me, flushed and breathless and very pleased with herself.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "I forgot to take whatever it was I came to borrow. I'll have to come back for it later." },
+{ who: $player, text: "It's right there on the desk." },
+{ who: $sister, text: "I know where it is, $player.name. That's not the point." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 25>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<EndMicroScene "Let her go">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

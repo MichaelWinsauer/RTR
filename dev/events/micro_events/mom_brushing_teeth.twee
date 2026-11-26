@@ -1,19 +1,64 @@
 :: Mom Brushing Teeth [micro_event event nobr] {"position":"1675,3025","size":"100,100"}
-/* Shared bathroom, short and light: she is in a hurry and the sink is the only one. */
+/* Shared bathroom, short and light: she is in a hurry and the sink is the only one.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Aware: she makes room at the sink and watches me in the mirror
+     2  Hands: she leans back against me at the sink and stays there. Offer: Mom Sink Hands
+     3  Mouth: she rinses and looks down at the bath mat. Offer: Mom Sink Mouth, not on a morning when she has
+        already brought my coffee (Morning Routine sets $mom.flags.morningRoutineDay)
+   Morning (Early Morning, Morning) and night (Night, Late Night) change what she's wearing and why she's in a hurry. */
+<<MicroContext $mom>>
 <<silent>>
 <<set _rnd to either(0, 1, 2, 3, 4)>>
 <<set _vid1 to _rnd + "_1">>
+<<set _btMorning to $time.current.value <= 1>>
+<<set _btEager to _mc.lustBand == "high">>
 <</silent>>
 <<Video "images/characters/mom/events/brushing teeth/" _vid1 ".webm">>
-<p>I push the bathroom door open. $mom.callName is at the sink with a toothbrush in her mouth and one eye on the clock.</p>
-<<silently>>
-<<set _msgs to [
-	{ who: $mom, text: "Mmf. Hey, sweethar. Mm-mm mm mmnute, I'm running late." },
-	{ who: $player, text: "Sorry?" },
-	{ who: $mom, text: "(spits) I said give me one minute. I'm running late." }
-]>>
-<</silently>>
-<<Chat _msgs>>
+<<if _mc.tier >= 2>>
+	<<if _btMorning>>
+		<p>$mom.callName is at the sink in her work blouse and a towel wrapped around her waist instead of a skirt, brushing her teeth with one eye on her watch. When she sees me in the mirror she slows down.</p>
+	<<else>>
+		<p>$mom.callName is at the sink in her nightgown, brushing her teeth, with her hair down for the night. When she sees me in the mirror she slows down.</p>
+	<</if>>
+	<<silently>>
+	<<if _mc.tier >= 3 and _btEager>>
+		<<set _msgs to [
+			{ text: "She spits, rinses, and puts her toothbrush back in the cup. Then she turns around and leans back against the sink with both hands on the edge of it, and looks at me, and then down at the bath mat between us." },
+		]>>
+	<<elseif _mc.tier >= 3>>
+		<<set _msgs to [
+			{ who: $mom, text: "Hi, honey. Two minutes, the dentist says. Do you need the sink?" },
+			{ text: "She steps aside to make room for me, and when I step in, she doesn't step back. She stays right behind me, her chin almost on my shoulder, and watches me in the mirror." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $mom, text: "Mm, hi sweetie. Come on in, there's room." },
+			{ text: "There isn't, really. When I come up beside her she shifts over, then leans back, until she's resting against my chest with her toothbrush still going, and stays there." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 1>>
+	<p>I push the bathroom door open. $mom.callName is at the sink with a toothbrush in her mouth, and her eyes find me in the mirror before she turns around.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Mm. Hi, sweetheart. Come in, come in, I'll scoot over." },
+		{ text: "She scoots over about two inches, which leaves us hip to hip at the sink, and goes on brushing and watching me in the mirror as if it's the most normal thing in the world." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>I push the bathroom door open. $mom.callName is at the sink with a toothbrush in her mouth and one eye on the clock.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Mmf. Hey, sweethar. Mm-mm mm mmnute, I'm running late." },
+		{ who: $player, text: "Sorry?" },
+		{ who: $mom, text: "(spits) I said give me one minute. I'm running late." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<link "Squeeze in next to her and brush too">>
@@ -62,4 +107,21 @@
 			<</replace>>
 		<</link>>
 	</div>
+	<<if _mc.tier >= 2>>
+		<<set _btScene to (_mc.tier >= 3 ? "Mom Sink Mouth" : "Mom Sink Hands")>>
+		<<set _btLabel to (_mc.tier >= 3 ? "Look at the bath mat" : "Stay behind her")>>
+		<<set _btLock to _mc.offerLock>>
+		<<if !_btLock and _mc.tier >= 3 and _btMorning and $mom.flags.morningRoutineDay === $date.dayCount>>
+			<<set _btLock to "she already brought your coffee">>
+		<</if>>
+		<div>
+			<<if _btLock>>
+				<span class="choice-locked">_btLabel<small>_btLock</small></span>
+			<<else>>
+				<<capture _btScene>>
+				<<link _btLabel>><<MicroScene $mom _btScene>><</link>>
+				<</capture>>
+			<</if>>
+		</div>
+	<</if>>
 </div>

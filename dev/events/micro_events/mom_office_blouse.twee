@@ -1,7 +1,10 @@
 :: Mom Office Blouse [micro_event event nobr] {"position":"1425,3400","size":"100,100"}
 /* Inline micro event in the Stage 1 main room (micro event 41, "A normal workday" in Define Events): after The
    Briefing she has started dressing differently for work, and the staff notices. I can tell her it suits her, or
-   tell her to button up, which she does without a question. A line changes after A Knock at Night. */
+   tell her to button up, which she does without a question. A line changes after A Knock at Night.
+   After The Crawl (intimacy tier 3, MICRO_EVENTS_PLAN.md) I can tell her to undo one more instead, for the rest of
+   the day; it needs some Exhibition, and $brian.name walks into a door. */
+<<MicroContext $mom>>
 <div class="activity-image-wrapper" style="max-height: 400px">
 	<<DisplayActivity $mom>>
 </div>
@@ -63,4 +66,40 @@
 			<</replace>>
 		<</link>>
 	</div>
+	<<if _mc.tier >= 3>>
+		<div>
+			<<if _mc.exhibition < 10>>
+				<span class="choice-locked">Tell her to undo one more<small>she isn't that bold yet</small></span>
+			<<else>>
+				<<link "Tell her to undo one more">>
+					<<replace "#mom-blouse-choice">>
+						<<silently>>
+						<<set _msgs to [
+							{ text: "I wait until she passes my desk on her way to the printer, and say it without looking up from my screen." },
+							{ who: $player, text: "One more button. For the rest of the day." },
+							{ text: "She stops beside my chair. For a moment she just stands there with the papers held against her chest. Then she moves them to one arm, and undoes the next button with the other hand, right there, and the next one too, for good measure, and smooths the silk flat again." },
+							{ who: $mom, text: "Like this, honey?" },
+							{ text: "The lace edge of her bra shows now when she breathes. I nod, and she goes on to the printer, and doesn't hurry." },
+						]>>
+						<</silently>>
+						<<Chat _msgs>>
+						<p>On her way back she has to pass $brian.name's desk. He's on his feet, carrying a box of parts toward the meeting room, and he looks up at the wrong moment and walks straight into the door frame with his shoulder, hard enough that something rattles in the box.</p>
+						<<silently>>
+						<<set _msgs to [
+							{ who: $brian, text: "Sorry. Um. Door." },
+							{ who: $mom, text: "Oh, sweetie, are you all right? Let me see." },
+							{ text: "She puts her hand on his arm and bends a little to look at his shoulder, which brings the open blouse about a foot from his face. $brian.name stares at the ceiling tiles with tremendous concentration and says he's fine, he's fine, really, and goes into the meeting room and shuts the door." },
+						]>>
+						<</silently>>
+						<<Chat _msgs>>
+						<p>She comes back past my desk with a small, pleased look on her face that she smooths away before she sits down. She doesn't do the buttons up for the rest of the afternoon. $ethan.name gets very little done.</p>
+						<<UpdateStat "+" "MomExhibition" 2>>
+						<<UpdateStat "+" "MomCorruption" 1>>
+						<<UpdateStat "+" "Morale" 1>>
+						<<Feel $mom "brian" 1>>
+					<</replace>>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
 </div>

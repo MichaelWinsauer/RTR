@@ -39,6 +39,90 @@
 <</widget>>
 
 /* Usage: =====================================================================
+	<<MicroContext $mom>>
+	Sets _mc for a micro event passage: her intimacy tier, lust band, whether she is alone with me, the offer lock,
+	the near miss chance, the device state and whether this is the first time the event plays at her tier. Field
+	list and rules: "Micro events that grow" in Define Events (setup.microContext).
+*/
+<<widget "MicroContext">>
+	<<set _mc to setup.microContext(_args[0], $currentMicroEvent)>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<MicroDevice $mom "#choice-id" "Use the prototype while she talks">>
+		<<if _md.backfire>>
+			<<DevicePulse `_md.power`>><<DevicePulse "off" "2s">>She notices, and leaves.
+		<<else>>
+			I switch it on. <<DevicePulse `_md.power`>> What it does to her.
+		<</if>>
+	<</MicroDevice>>
+	The device choice of a micro event, as one option (a div) inside its choices block. Hidden while there is no
+	device yet or her tier is past setup.microTuning.deviceMaxTier, locked with the reason while it was used today or
+	is short of charge. A click replaces the choices block (the id) with the contents and the stat lines: _md holds
+	{ backfire, power, relation, resistance, corruption, lust } (setup.useMicroDevice). The contents start and stop
+	the pulse themselves (_md.power), so it can switch on in the middle of a sentence.
+*/
+<<widget "MicroDevice" container>>
+	<<set _mdWho to (typeof _args[0] === "string" ? _args[0] : _args[0].sysName)>>
+	<<set _mdTarget to _args[1]>>
+	<<set _mdLabel to _args[2]>>
+	<<set _mdBody to _contents>>
+	<<set _mdState to setup.microDeviceState(_mdWho)>>
+	<<if _mdState.available>>
+		<div>
+		<<if !_mdState.ok>>
+			<span class="choice-locked">_mdLabel<small>_mdState.reason</small></span>
+		<<else>>
+			<<capture _mdWho _mdTarget _mdBody>>
+			<<link _mdLabel>>
+				<<replace _mdTarget>>
+					<<set _md to setup.useMicroDevice(_mdWho)>>
+					<<set _mdKey to _mdWho.charAt(0).toUpperCase() + _mdWho.slice(1)>>
+					_mdBody
+					<<if _md.relation != 0>><<UpdateStat `_md.relation > 0 ? "+" : "-"` `_mdKey + "Relation"` `Math.abs(_md.relation)`>><</if>>
+					<<if _md.resistance > 0>><<UpdateStat "+" `_mdKey + "Resistance"` `_md.resistance`>><</if>>
+					<<if _md.corruption > 0>><<UpdateStat "+" `_mdKey + "Corruption"` `_md.corruption`>><</if>>
+					<<if _md.lust > 0>><<UpdateStat "+" `_mdKey + "Lust"` `_md.lust`>><</if>>
+				<</replace>>
+			<</link>>
+			<</capture>>
+		<</if>>
+		</div>
+	<</if>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<MicroScene $mom "Mom Kitchen Wine Hands" [actions]>>
+	Inside the click of a micro event offer: leaves the moment for its full scene. Counts her scene of the day
+	(setup.microSceneToday), keeps this passage to come back to, spends the actions (default
+	setup.microTuning.sceneActions) and goes to the scene. Works from a desk visitor drawer too. The scene is tagged
+	[scene], keeps its effects in itself and ends with <<EndMicroScene>>. It can read
+	setup.microSceneCount("mom", passage()) (1 = the first time) and roll setup.rollNearMiss("mom").
+*/
+<<widget "MicroScene">>
+	<<set _msWho to (typeof _args[0] === "string" ? _args[0] : _args[0].sysName)>>
+	<<set _msPassage to _args[1]>>
+	<<set _msActions to (_args[2] !== undefined ? Number(_args[2]) : setup.microTuning.sceneActions)>>
+	<<run setup.startMicroScene(_msWho, _msPassage)>>
+	<<if _msActions > 0>><<UseAction _msActions>><</if>>
+	<<goto _msPassage>>
+<</widget>>
+
+/* Usage: =====================================================================
+	<<EndMicroScene ["Link text"]>>
+	Ends a micro event scene (<<MicroScene>>) and goes back to where it started ($microSceneReturn), or to my
+	location if that is not known.
+*/
+<<widget "EndMicroScene">>
+	<<set _emsText to (_args[0] !== undefined ? _args[0] : "Continue")>>
+	<div class="navigation-link"><<link _emsText>>
+		<<set _emsGo to ($microSceneReturn || $locations[$player.location.id].passage)>>
+		<<set $microSceneReturn to null>>
+		<<goto _emsGo>>
+	<</link>></div>
+<</widget>>
+
+/* Usage: =====================================================================
 	<<ReturnFromEvent [TEXT] [PASSAGE TO RETURN]>>
 */
 <<widget "ReturnFromEvent">>

@@ -41,6 +41,8 @@ window.cmdVisitorOpen = function () {
 	var $foot = $('<footer class="cmd-visitor-drawer-foot"><button type="button" class="cmd-visitor-done">Back to work</button></footer>');
 
 	$drawer.append($head, $body, $foot).appendTo($dash);
+	/* like <<CheckMicroEvent>>: the passage may read which event plays (<<MicroContext>>) */
+	State.variables.currentMicroEvent = info.event.id;
 	$body.wiki('<<include "' + info.event.passage + '">>');
 	requestAnimationFrame(function () { $drawer.addClass('open'); });
 };

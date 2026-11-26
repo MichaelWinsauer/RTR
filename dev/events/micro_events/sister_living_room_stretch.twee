@@ -1,20 +1,67 @@
 :: Sister Living Room Stretch [micro_event event nobr] {"position":"1425,3025","size":"100,100"}
-/* Never forced: you can simply watch, challenge her to a rep contest, use the prototype, or walk away. */
-<<set _vx to setup.homeDevice()>>
-<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
-<<set _vxCost to 10 + 10 * _vxLevel>>
-<p>$sister.callName is on the living room floor in workout clothes with a fitness video playing on the TV, in the middle of a set.</p>
-<<silently>>
-<<set _msgs to [
-	{ who: $sister, text: "Two more sets and I'm done. Either join in or stop hovering, little $sister.callPlayerShort." }
-]>>
-<</silently>>
-<<Chat _msgs>>
+/* Never forced: you can simply watch, challenge her to a rep contest, use the prototype, or walk away.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Conflicted: the rep contest has a bet now (loser does what the winner says); she lets me watch; the device makes her
+        ask me to spot her
+     2  Yearning: after What Are We she loses on purpose. Offer: Sister Stretch Hands. Before What Are We, no offer
+     3  Devoted: the bet is her mouth. Offer: Sister Stretch Mouth */
+<<MicroContext $sister>>
+<<silent>>
+<<set _lsEager to _mc.lustBand == "high">>
+<<set _lsOpen to _mc.tier >= 3 or (_mc.tier == 2 and setup.questDone("sister_whatAreWe"))>>
+<</silent>>
+<<if _lsOpen>>
+	<p>$sister.callName is on the living room floor in leggings and a sports bra, with her ponytail stuck to the back of her neck and a fitness video paused on the TV. She sees me in the doorway and sits back on her heels.</p>
+	<<silently>>
+	<<if _lsEager>>
+		<<set _msgs to [
+			{ who: $sister, text: "Perfect timing. I need somebody to lose to me. Sit down." },
+		]>>
+	<<elseif _mc.tier >= 3>>
+		<<set _msgs to [
+			{ who: $sister, text: "Rematch? Same rules as always. Loser does what the winner says." },
+			{ text: "She says it very evenly, and keeps her eyes on mine while she does, so I know exactly how she means it." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $sister, text: "Hey. I'm on my last set. You can stay, if you want, I don't mind you watching. I mean, I'd rather you watched than hovered." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier >= 1>>
+	<p>$sister.callName is on the living room floor in workout clothes with a fitness video playing on the TV, in the middle of a set.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $sister, text: "Two more sets and I'm done. You can sit, little $sister.callPlayerShort, as long as you don't comment on my form." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>$sister.callName is on the living room floor in workout clothes with a fitness video playing on the TV, in the middle of a set.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $sister, text: "Two more sets and I'm done. Either join in or stop hovering, little $sister.callPlayerShort." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<link "Sit and watch quietly">>
 			<<replace "#choice1">>
-				<<if random(1, 100) <= 30 + Math.round($sister.stats.resistance / 2)>>
+				<<if _mc.tier >= 1>>
+					<<silently>>
+					<<set _msgs to [
+						{ text: "I sit on the arm of the couch and watch her go through the routine. A few reps later her eyes find me in the dark edge of the TV screen, where the reflection is, and stay there." },
+						{ who: $sister, text: "You know I can see you in the TV." },
+						{ text: "She doesn't tell me to go. She does the rest of the set looking at me in the reflection instead of at the video, and when she gets up she's flushed, and it isn't only the squats." },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+					<<UpdateStat "+" "SisterLust" 2>>
+				<<elseif random(1, 100) <= 30 + Math.round($sister.stats.resistance / 2)>>
 					<<silently>>
 					<<set _msgs to [
 						{ text: "I sit on the arm of the couch and watch her go through the routine. A few reps later she looks over her shoulder." },
@@ -30,61 +77,87 @@
 			<</replace>>
 		<</link>>
 	</div>
+	<<if !_lsOpen>>
 	<div>
 		<<link "Challenge her to a rep contest">>
 			<<replace "#choice1">>
-				<<if random(1, 100) <= 45>>
+				<<if _mc.tier >= 1>>
+					<<set _lsWin to random(1, 100) <= 45>>
 					<<silently>>
 					<<set _msgs to [
 						{ who: $player, text: "Bet I can do more than you." },
-						{ who: $sister, text: "You're on. Loser makes dinner." },
-						{ text: "We go at it until my arms shake. I somehow come out ahead by two." },
-						{ who: $sister, text: "You cheated. I don't know how yet, but you did, and I want a rematch tomorrow." }
+						{ who: $sister, text: "Fine. But we're doing it properly this time. Loser does whatever the winner says." },
+						{ who: $player, text: "Whatever?" },
+						{ who: $sister, text: "Within reason. I decide what's reasonable." },
 					]>>
+					<<if _lsWin>>
+						<<run _msgs.push({ text: "We go at it until my arms shake, and somehow I come out ahead by two." })>>
+						<<run _msgs.push({ who: $player, text: "One more set. On your own. I'll watch." })>>
+						<<run _msgs.push({ text: "She glares at me. Then she does it, every rep, slowly, and the whole time she does she doesn't take her eyes off me once, and by the end neither of us is pretending it was about the reps." })>>
+					<<else>>
+						<<run _msgs.push({ text: "We go at it until my arms shake. She beats me by a mile." })>>
+						<<run _msgs.push({ who: $sister, text: "Foot rub. Now. And you're not allowed to complain about my feet." })>>
+						<<run _msgs.push({ text: "She lies on the couch with her feet in my lap and her arm over her eyes, and makes small, embarrassing noises she would deny under oath, and when I stop she pushes her heel into my stomach until I start again." })>>
+					<</if>>
 					<</silently>>
+					<<Chat _msgs>>
+					<<UpdateStat "+" "SisterRelation" 2>>
+					<<UpdateStat "+" "SisterLust" 2>>
 				<<else>>
-					<<silently>>
-					<<set _msgs to [
-						{ who: $player, text: "Bet I can do more than you." },
-						{ who: $sister, text: "You're on. Loser makes dinner." },
-						{ text: "We go at it until my arms shake. She beats me by a mile." },
-						{ who: $sister, text: "Dinner's at seven, little $sister.callPlayerShort. Something with vegetables, please." }
-					]>>
-					<</silently>>
+					<<if random(1, 100) <= 45>>
+						<<silently>>
+						<<set _msgs to [
+							{ who: $player, text: "Bet I can do more than you." },
+							{ who: $sister, text: "You're on. Loser makes dinner." },
+							{ text: "We go at it until my arms shake. I somehow come out ahead by two." },
+							{ who: $sister, text: "You cheated. I don't know how yet, but you did, and I want a rematch tomorrow." }
+						]>>
+						<</silently>>
+					<<else>>
+						<<silently>>
+						<<set _msgs to [
+							{ who: $player, text: "Bet I can do more than you." },
+							{ who: $sister, text: "You're on. Loser makes dinner." },
+							{ text: "We go at it until my arms shake. She beats me by a mile." },
+							{ who: $sister, text: "Dinner's at seven, little $sister.callPlayerShort. Something with vegetables, please." }
+						]>>
+						<</silently>>
+					<</if>>
+					<<Chat _msgs>>
+					<<UpdateStat "+" "SisterRelation" 2>>
 				<</if>>
-				<<Chat _msgs>>
-				<<UpdateStat "+" "SisterRelation" 2>>
 			<</replace>>
 		<</link>>
 	</div>
-	<<if _vxLevel > 0>>
+	<</if>>
+	<<if _lsOpen>>
+		<<set _lsScene to (_mc.tier >= 3 ? "Sister Stretch Mouth" : "Sister Stretch Hands")>>
+		<<set _lsLabel to (_mc.tier >= 3 ? "Take the rematch" : "Challenge her, loser does what the winner says")>>
 		<div>
-			<<if _vx.lastUsedAtDay == $date.dayCount>>
-				<span class="choice-locked">Use the prototype<small>already used today</small></span>
-			<<elseif _vx.charge < _vxCost>>
-				<span class="choice-locked">Use the prototype<small>not enough charge</small></span>
+			<<if _mc.offerLock>>
+				<span class="choice-locked">_lsLabel<small>_mc.offerLock</small></span>
 			<<else>>
-				<<link "Use the prototype while she works out">>
-					<<replace "#choice1">>
-						<<set _vx.charge -= _vxCost>>
-						<<set _vx.lastUsedAtDay to $date.dayCount>>
-						<<set _vx.lastUsedOnWho to "sister">>
-						<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
-							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She stops mid-rep and frowns at me. "Okay, I suddenly feel really weird." She switches off the video and heads upstairs.</p>
-							<<UpdateStat "-" "SisterRelation" 3>>
-							<<UpdateStat "+" "SisterResistance" 4>>
-						<<else>>
-							<<set _gain to 1 + _vxLevel>>
-							<<set _lustGain to 4 + 4 * _vxLevel>>
-							<p>I turn the prototype on low and sit down. <<DevicePulse _vxLevel>> She slows her pace, a little flushed, and glances at me between sets without saying why.</p>
-							<<UpdateStat "-" "SisterRelation" 1>>
-							<<UpdateStat "+" "SisterCorruption" _gain>>
-							<<UpdateStat "+" "SisterLust" _lustGain>>
-						<</if>>
-					<</replace>>
-				<</link>>
+				<<capture _lsScene>>
+				<<link _lsLabel>><<MicroScene $sister _lsScene>><</link>>
+				<</capture>>
 			<</if>>
 		</div>
 	<</if>>
+	<<MicroDevice $sister "#choice1" "Use the prototype while she works out">>
+		<<if _md.backfire>>
+			<<DevicePulse `_md.power`>><<DevicePulse "off" "2s">>
+			<p>She stops mid-rep and frowns at me. "Okay, I suddenly feel really weird." She switches off the video and heads upstairs.</p>
+		<<elseif _mc.tier >= 1>>
+			<p>I turn the prototype on and sit down. <<DevicePulse `_md.power`>> Two sets later she gets up off the mat and holds out her hand to me.</p>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $sister, text: "Spot me on the next one? The video lady says you need someone to hold your waist so you don't twist. I don't know if that's true. Just do it." },
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>I kneel behind her and put my hands on her waist, on bare skin between the leggings and the sports bra, and she does the whole set like that, slowly, leaning back into my hands at the bottom of every rep. She doesn't say anything when the set's over. She doesn't move my hands either, and for a while we just stay there on the mat, her breathing hard, my thumbs on her hip bones.</p>
+		<<else>>
+			<p>I turn the prototype on low and sit down. <<DevicePulse `_md.power - 1`>> She slows her pace, a little flushed, and glances at me between sets without saying why.</p>
+		<</if>>
+	<</MicroDevice>>
 </div>

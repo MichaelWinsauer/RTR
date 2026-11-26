@@ -1,0 +1,125 @@
+:: Sister Catch Bedroom [micro_event event nobr] {"position":"1050,3275","size":"100,100"}
+/* Inline micro event in my room (micro event 52, "Catching her" in Define Events, MICRO_EVENTS_PLAN.md "Sister Catch").
+   After Send Me Something: I come back to my room and she's on my bed in my gray hoodie, with her hand in her shorts and
+   my pillow against her face, and she says my name. She thought I was out. Watch, let her see me, or close the door.
+   At tier 3 she doesn't stop when she sees me; she wants me close enough to kiss. Not the same as her own bed
+   (Sister Bed Masturbation): this is mine.
+   Clip: images/characters/sister/events/catch/bedroom.mp4, my bed, Sister in my gray hoodie and shorts, my pillow pulled
+   against her face, one hand inside her shorts, knees up (check against the clip) */
+<<MicroContext $sister>>
+<<Media "images/characters/sister/events/catch/bedroom.mp4" 600>>
+<p>My door is half open, and I didn't leave it like that. $sister.callName is on my bed. She's lying on her back in my gray hoodie and a pair of sleep shorts, with her knees up and my pillow pulled against her face, breathing into it, and one of her hands is inside her shorts, moving.</p>
+<p>She hasn't heard me. Into the pillow, muffled, she says my name.</p>
+<div id="catch-sister-room-choice" class="choices">
+	<div><<link "Watch from the doorway">><<replace "#catch-sister-room-choice">>
+		<p>I stay in the doorway. She goes on for a while, slow and then not slow, with the pillow pressed over her mouth and her heels digging into my mattress, and when she comes she arches up off the bed and says my name again, into the pillow, not quite as muffled.</p>
+		<p>I step back into the hallway and go downstairs and make a lot of noise with the kettle. When I come back up ten minutes later, my door is closed, my bed is made, very neatly, better than I've ever made it, and my pillow is in the exact middle of it.</p>
+		<<UpdateStat "+" "Corruption" 1>>
+		<<UpdateStat "-" "SisterLust" 20>>
+	<</replace>><</link>></div>
+	<div><<link "Let her see you">><<replace "#catch-sister-room-choice">>
+		<<if _mc.tier >= 3>>
+		<p>I push the door shut behind me. She takes the pillow off her face and sees me, and for a second her hand stops, and then it doesn't. She just looks at me, flushed, her hair all over my sheets.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "You're supposed to be at the office until six. I checked your calendar." },
+			{ who: $player, text: "I came home early." },
+			{ who: $sister, text: "Well, then come here. Closer than that. Here." },
+			{ text: "She pulls me down by the front of my shirt until I'm sitting on the edge of the bed, bent over her, and kisses me, and keeps her hand moving between her legs while she does it." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>She doesn't let me stop kissing her. Every time I lift my head she pulls me back down by the collar. She comes like that, with her mouth on mine and her free hand fisted in my shirt, and moans into my mouth, and then she lies back on my pillow, breathing hard, and grins up at me like she's just gotten away with something enormous.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "Your bed is much better than mine. I've decided I'm going to be in it a lot." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<<UpdateStat "+" "SisterExhibition" 2>>
+		<<UpdateStat "+" "SisterCorruption" 1>>
+		<<UpdateStat "-" "SisterLust" 25>>
+		<<else>>
+		<p>I push the door shut behind me, and it clicks. She takes the pillow off her face and sees me, and yanks her hand out of her shorts and sits up so fast she nearly falls off the bed.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "You're... you said you'd be at the office until six. I was just lying down for a minute. My bed is lumpy, and yours isn't, and I didn't think you'd mind if I... I'm going to go. I'm going right now." },
+			{ text: "She doesn't move. I sit down in my desk chair across from the bed and lean back in it." },
+			{ who: $player, text: "Don't go. Don't stop either." },
+			{ who: $sister, text: "You want me to... with you just sitting there?" },
+			{ text: "I don't answer. She looks at me for a long time with her face bright red. Then she lies back down on my pillow, and her hand goes back inside her shorts, slowly, and she keeps her eyes on me." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>It takes her a long time, because she keeps stopping to cover her face with the hoodie sleeve and laugh at herself. Then she stops laughing. At the end she isn't looking at the ceiling or at the pillow. She's looking straight at me, the way she looked into the camera, and she doesn't look away even when she comes.</p>
+		<<UpdateStat "+" "SisterExhibition" 2>>
+		<<UpdateStat "+" "SisterCorruption" 1>>
+		<<UpdateStat "-" "SisterLust" 25>>
+		<</if>>
+	<</replace>><</link>></div>
+	<div><<link "Close the door">><<replace "#catch-sister-room-choice">>
+		<p>I pull the door closed, quietly, and go back downstairs. At dinner she's wearing my hoodie, and she asks me twice how my day was, and doesn't listen to the answer either time.</p>
+	<</replace>><</link>></div>
+</div>
+
+
+:: Sister Catch Shower [micro_event event nobr] {"position":"1175,3275","size":"100,100"}
+/* Inline micro event in the hallway (micro event 53, "Catching her" in Define Events, MICRO_EVENTS_PLAN.md "Sister Catch").
+   After Send Me Something: she's in the shower with the door open a crack, and the hand-held shower head isn't on its
+   hook. At tier 2 it's an accident; at tier 3 the door is open on purpose and she was waiting to see how long I'd take.
+   Watch through the gap, push the door open, or walk on. Different from mom's (her hand, the tiles).
+   Clip: images/characters/sister/events/catch/shower.mp4, through a gap in the bathroom door: steam, Sister sitting on
+   the edge of the tub, the hand-held shower head between her legs, her head back (check against the clip) */
+<<MicroContext $sister>>
+<<Media "images/characters/sister/events/catch/shower.mp4" 600>>
+<<if _mc.tier >= 3>>
+<p>The bathroom door is open a hand's width, and the light inside is on, and the water is running. There's steam coming out into the hallway. Through the gap I can see her sitting on the edge of the tub with one foot up on the rim, the shower head off its hook and in her hand, aimed low, and her head tipped back against the tiles.</p>
+<p>She opens her eyes and looks straight at the gap in the door, straight at me, as if she'd been listening for my steps on the stairs.</p>
+<<else>>
+<p>The bathroom door is open a hand's width. It never latches unless you push it, and she forgot. Steam is rolling out into the hallway, and through the gap I can see her sitting on the edge of the tub with one foot up on the rim and the hand-held shower head off its hook, aimed between her legs, her eyes closed and her mouth open.</p>
+<</if>>
+<div id="catch-sister-shower-choice" class="choices">
+	<div><<link "Watch through the gap">><<replace "#catch-sister-shower-choice">>
+		<<if _mc.tier >= 3>>
+		<p>I stay where I am, and so does she. She keeps her eyes on the gap in the door the whole time, and moves the shower head slowly up and down, and lets me watch her through it. When she comes, she bites her lip and doesn't close her eyes. Afterwards she turns the water off, and stands up, and pushes the door shut with her foot. Through it, I hear her laugh.</p>
+		<<else>>
+		<p>I watch her through the steam. She moves the shower head in small circles, then holds it still and presses her other hand flat against the tiles. Her mouth opens on something that might be my name, and the water drowns it out. I step away from the door before she turns it off.</p>
+		<</if>>
+		<<UpdateStat "+" "Corruption" 1>>
+		<<UpdateStat "-" "SisterLust" 20>>
+	<</replace>><</link>></div>
+	<div><<link "Push the door open">><<replace "#catch-sister-shower-choice">>
+		<<if _mc.tier >= 3>>
+		<p>I push the door open and step in and close it behind me. She doesn't cover herself or turn off the water. She holds the shower head out to me, handle first.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "You took your time. Here. You do it." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>I kneel on the bath mat and take it, and she leans back against the tiles with both hands gripping the edge of the tub and her knees wide, and tells me where. Higher. There. Not so hard. There. She's very specific, and then she stops being able to be specific, and then she just holds onto my shoulder and comes with the water running down her thighs and onto my sleeves, and says my name loud enough that she has to clap her hand over her mouth.</p>
+		<<UpdateStat "+" "SisterExhibition" 3>>
+		<<UpdateStat "+" "SisterCorruption" 1>>
+		<<UpdateStat "-" "SisterLust" 25>>
+		<<else>>
+		<p>I push the door all the way open. The cold air from the hallway rolls in, and she opens her eyes and sees me, and shrieks, and the shower head jerks and sprays the mirror.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "Do you not knock? Is knocking just not something you do?" },
+			{ who: $player, text: "The door was open." },
+			{ who: $sister, text: "It's never really closed, everybody knows it's never really closed, that is not an invitation, $player.name, that's a broken door." },
+			{ text: "She has her arm across her breasts and the shower head pointed at the floor. I don't leave. I lean against the door frame. She looks at me for a long time with the water running over her foot." },
+			{ who: $sister, text: "You're not going to leave, are you." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>I close the door, from the inside. She turns her face away, toward the tiles, and after a while her arm comes down off her chest, and the shower head goes back between her legs. She finishes with her shoulder against the wall, glancing back at me over it, again and again, as if she's checking I'm still there and can't decide whether she wants me to be.</p>
+		<<UpdateStat "+" "SisterExhibition" 2>>
+		<<UpdateStat "+" "SisterCorruption" 1>>
+		<<UpdateStat "-" "SisterLust" 25>>
+		<</if>>
+	<</replace>><</link>></div>
+	<div><<link "Walk on">><<replace "#catch-sister-shower-choice">>
+		<p>I walk on to my room. A minute later the water shuts off, and her door closes, and she doesn't come out again until dinner.</p>
+	<</replace>><</link>></div>
+</div>

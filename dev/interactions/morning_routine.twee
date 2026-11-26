@@ -45,6 +45,7 @@
 /* The end of every morning routine variant, included inside its last reveal step (reads the temporary variables of
    Morning Routine). The first time counts a bit more. A near miss is a little Exhibition for her. */
 <<set $mom.flags.morningRoutines to _mrCount + 1>>
+<<set $mom.flags.morningRoutineDay to $date.dayCount>>
 <<if _mrCount == 0>>
 <<UpdateStat "+" "MomCorruption" 2>>
 <<UpdateStat "-" "MomLust" 15>>

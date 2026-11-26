@@ -1,15 +1,60 @@
 :: Mom Living Room Stretch [micro_event event nobr] {"position":"1300,3025","size":"100,100"}
-/* Shared activity: she stretches her back after a day at the desk. Ask, help, or just leave her to it. */
-<<set _vx to setup.homeDevice()>>
-<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
-<<set _vxCost to 10 + 10 * _vxLevel>>
-<p>$mom.callName is on a yoga mat in the middle of the living room, twisting her back with a grimace.</p>
-<<silently>>
-<<set _msgs to [
-	{ who: $mom, text: "Hi, sweetheart. Just trying to loosen up after a long day at the desk. My back is killing me." }
-]>>
-<</silently>>
-<<Chat _msgs>>
+/* Shared activity: she stretches her back after a day at the desk. Ask, help, or just leave her to it.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Aware: helping her stretch gets warmer; the device lets my hands go where a stretch doesn't need them
+     2  Hands: the yoga pants, and she stretches facing the couch. Offer: Mom Stretch Hands
+     3  Mouth: she does it for me to watch. Offer: Mom Stretch Mouth (she kneels on the mat)
+   With her lust high (tier 2 and up) she asks me to stay. */
+<<MicroContext $mom>>
+<<silent>>
+<<set _lsEager to _mc.lustBand == "high">>
+<</silent>>
+<<if _mc.tier >= 3>>
+	<p>$mom.callName has her yoga mat out in the middle of the living room, and she's turned it around since last time, so that it faces the couch instead of the TV. She's in a sports bra and the black leggings, and when I come in she doesn't stop what she's doing. She folds forward over her legs, slowly, all the way down, and stays there.</p>
+	<<silently>>
+	<<if _lsEager>>
+		<<set _msgs to [
+			{ who: $mom, text: "Sit down, honey. Please? I'm almost done, and I'd like you to watch the last part." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $mom, text: "Hi, sweetie. Don't mind me, I'm only stretching. You can sit, if you want. The couch is free." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 2>>
+	<p>$mom.callName is on her yoga mat in the middle of the living room in a pair of black leggings I've never seen her wear outside the house, and she's put the mat between the coffee table and the couch, where there isn't really room for it. Her eyes go to the stairs when I come in.</p>
+	<<silently>>
+	<<if _lsEager>>
+		<<set _msgs to [
+			{ who: $mom, text: "Oh good, it's you. Sit with me for a bit? I hate counting the seconds by myself, I always cheat and then my back punishes me for it." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $mom, text: "Hi, sweetheart. My back again. Nine hours in that chair, and I swear the chair's winning." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 1>>
+	<p>$mom.callName is on a yoga mat in the middle of the living room in leggings and an old tank top, twisting her back with a grimace. She smiles when she sees me, and tugs the hem of the top down where it has ridden up her stomach.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Hi, sweetheart. Just trying to loosen up after a long day at the desk. You don't happen to have a spare pair of hands, do you?" }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>$mom.callName is on a yoga mat in the middle of the living room, twisting her back with a grimace.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Hi, sweetheart. Just trying to loosen up after a long day at the desk. My back is killing me." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<link "Ask about her back">>
@@ -32,45 +77,60 @@
 		<<link "Help her stretch">>
 			<<replace "#choice1">>
 				<<silently>>
-				<<set _msgs to [
-					{ who: $player, text: "Here, give me your hands." },
-					{ text: "I pull her up gently into a long standing stretch. Something in her back pops loud enough that we both wince, and then she sags against my hands and laughs." },
-					{ who: $mom, text: "Oh, that was either very good or very bad. No, it's good, it's so much better. Thank you, honey." }
-				]>>
+				<<if _mc.tier >= 1>>
+					<<set _msgs to [
+						{ who: $player, text: "Lie down on your back. I'll do your legs." },
+						{ text: "She lies back on the mat and lets me take her ankle and lift her leg up straight, then further, pressing it back toward her shoulder while I hold the other one down flat with my palm on her thigh. She breathes out through her mouth the way her video tells her to." },
+						{ who: $mom, text: "Oh, that's good. That's so much better than when I do it. You have to tell me if I'm too heavy, honey." },
+						{ who: $player, text: "It's your leg. It weighs about as much as a leg." },
+						{ text: "She laughs, and the laugh turns into a long sigh when I lean in further. My hand is still on her inner thigh when I let the leg down. She looks at it there, and doesn't say anything about it, and then we do the other side." },
+					]>>
+				<<else>>
+					<<set _msgs to [
+						{ who: $player, text: "Here, give me your hands." },
+						{ text: "I pull her up gently into a long standing stretch. Something in her back pops loud enough that we both wince, and then she sags against my hands and laughs." },
+						{ who: $mom, text: "Oh, that was either very good or very bad. No, it's good, it's so much better. Thank you, honey." }
+					]>>
+				<</if>>
 				<</silently>>
 				<<Chat _msgs>>
 				<<UpdateStat "+" "MomRelation" 2>>
 			<</replace>>
 		<</link>>
 	</div>
-	<<if _vxLevel > 0>>
+	<<if _mc.tier >= 2>>
+		<<set _lsScene to (_mc.tier >= 3 ? "Mom Stretch Mouth" : "Mom Stretch Hands")>>
+		<<if _mc.tier >= 3>>
+			<<set _lsLabel to (_lsEager ? "Sit down and watch the last part" : "Sit down and point at the mat")>>
+		<<else>>
+			<<set _lsLabel to (_lsEager ? "Sit with her" : "Sit on the couch and watch her")>>
+		<</if>>
 		<div>
-			<<if _vx.lastUsedAtDay == $date.dayCount>>
-				<span class="choice-locked">Use the prototype<small>already used today</small></span>
-			<<elseif _vx.charge < _vxCost>>
-				<span class="choice-locked">Use the prototype<small>not enough charge</small></span>
+			<<if _mc.offerLock>>
+				<span class="choice-locked">_lsLabel<small>_mc.offerLock</small></span>
 			<<else>>
-				<<link "Use the prototype while she stretches">>
-					<<replace "#choice1">>
-						<<set _vx.charge -= _vxCost>>
-						<<set _vx.lastUsedAtDay to $date.dayCount>>
-						<<set _vx.lastUsedOnWho to "mom">>
-						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
-							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She stops and looks at me. "Why do I feel so strange all of a sudden?" she says, rolling up the mat. "I think I'll lie down for a bit."</p>
-							<<UpdateStat "-" "MomRelation" 3>>
-							<<UpdateStat "+" "MomResistance" 4>>
-						<<else>>
-							<<set _gain to 1 + _vxLevel>>
-							<<set _lustGain to 4 + 4 * _vxLevel>>
-							<p>I turn the prototype on low and sit on the couch. <<DevicePulse _vxLevel>> She holds the stretch long after the timer on her phone has beeped, her cheeks a little flushed, and smiles at me without quite knowing why.</p>
-							<<UpdateStat "-" "MomRelation" 1>>
-							<<UpdateStat "+" "MomCorruption" _gain>>
-							<<UpdateStat "+" "MomLust" _lustGain>>
-						<</if>>
-					<</replace>>
-				<</link>>
+				<<capture _lsScene>>
+				<<link _lsLabel>><<MicroScene $mom _lsScene>><</link>>
+				<</capture>>
 			<</if>>
 		</div>
 	<</if>>
+	<<MicroDevice $mom "#choice1" "Use the prototype while she stretches">>
+		<<if _md.backfire>>
+			<<DevicePulse `_md.power`>><<DevicePulse "off" "2s">>
+			<p>She stops and looks at me. "Why do I feel so strange all of a sudden?" she says, rolling up the mat. "I think I'll lie down for a bit."</p>
+		<<elseif _mc.tier >= 1>>
+			<p>I turn the prototype on in my pocket and kneel down behind her on the mat. <<DevicePulse `_md.power`>> I start with her shoulders, where she says it hurts, and work my way down her back to where it doesn't, and then lower, my thumbs pressing into the tops of her hips through the leggings, and then around to the front of them.</p>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $mom, text: "That's... honey, my back's up a bit higher, I think." },
+				{ text: "I don't move my hands, and she doesn't move them for me. After a while she stops correcting me and leans back against my chest with her eyes closed, and only says my name once, very quietly, when my hand slides down between her legs and stays there, pressing, through the leggings, until she's breathing like she's run up the stairs." },
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>When I let go she stays sitting on the mat with her knees pulled up and her arms around them, and doesn't look at me, and doesn't get up for a long time either.</p>
+		<<else>>
+			<p>I turn the prototype on low and sit on the couch. <<DevicePulse `_md.power - 1`>> She holds the stretch long after the timer on her phone has beeped, her cheeks a little flushed, and smiles at me without quite knowing why.</p>
+		<</if>>
+	<</MicroDevice>>
 </div>

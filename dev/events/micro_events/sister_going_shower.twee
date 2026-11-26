@@ -1,28 +1,92 @@
 :: Sister Going Shower [micro_event event nobr] {"position":"1050,3025","size":"100,100"}
-/* Insult teasing: she complains about the player hanging around the hallway. A pool of remarks, a few replies. */
-<<silently>>
+/* Insult teasing: she complains about the player hanging around the hallway. A pool of remarks, a few replies.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Conflicted: the same remarks, but one lands wrong and she blushes
+     2  Yearning: after What Are We she tells me she isn't locking the door. Offer: Sister Shower Hands. Before What Are We
+        she's shy at home, and there is no offer
+     3  Devoted: she asks me in. Offer: Sister Shower Mouth
+   With her lust high (tier 2 and up) she leaves the door wide open. In private she uses my name, not the sibling word. */
+<<MicroContext $sister>>
+<<silent>>
+<<set _sgEager to _mc.lustBand == "high">>
+<<set _sgOpen to _mc.tier >= 3 or (_mc.tier == 2 and setup.questDone("sister_whatAreWe"))>>
 <<set _remark to either(
 	"Why are you always hovering out here? It's a little creepy, you know.",
 	"If you're just going to stand there, you could at least make yourself useful and start the coffee.",
 	"And stop looking at me like you're plotting something. You've had that face since you were ten and it didn't work back then either.",
 	"You know the hallway isn't a place where people hang out, right? Normal people have rooms for that."
 )>>
-<<set _msgs to [
-	{ who: $sister, text: "Out of the way, little $sister.callPlayerShort, I need the bathroom before I head out." },
-	{ who: $sister, text: _remark }
-]>>
-<</silently>>
-<p>$sister.callName comes out of her room with a towel over one shoulder and a bottle of shampoo in her hand, heading straight for the bathroom.</p>
-<<Chat _msgs>>
+<</silent>>
+<<if _mc.tier >= 3>>
+	<p>$sister.callName comes out of her room with a towel over one shoulder and stops in front of me instead of going around, close enough that I have to look down at her.</p>
+	<<silently>>
+	<<if _sgEager>>
+		<<set _msgs to [
+			{ who: $sister, text: "Good, you're here. Come shower with me." },
+			{ text: "She says it in the same voice she'd use to ask me to pass the salt, and then she ruins it by going red to the roots of her hair." },
+			{ who: $sister, text: "I mean, if you want to. You don't have to. You obviously want to, I can see your face." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $sister, text: "I'm going to take a shower, $player.name. A long one." },
+			{ text: "She waits, and when I don't say anything, she tips her head toward the bathroom door." },
+			{ who: $sister, text: "That was an invitation, in case it went over your head." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 2 and _sgOpen>>
+	<p>$sister.callName comes out of her room with a towel over one shoulder and a bottle of shampoo in her hand. She glances down the stairs before she says anything, and lowers her voice.</p>
+	<<silently>>
+	<<if _sgEager>>
+		<<set _msgs to [
+			{ who: $sister, text: "I'm leaving the door open. Not unlocked, open. I'm just telling you so you don't think it's an accident." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $sister, text: "I'm not locking it, by the way. The bathroom door. In case you were wondering, which you probably weren't, but now you know." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier >= 1>>
+	<p>$sister.callName comes out of her room with a towel over one shoulder and a bottle of shampoo in her hand, heading straight for the bathroom.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $sister, text: "Out of the way, little $sister.callPlayerShort, I need the bathroom before I head out." },
+		{ who: $sister, text: _remark },
+		{ text: "It should be one of her usual shots. She hears it come out wrong, a little too warm in the middle, and her face goes pink, and she hugs the shampoo bottle to her chest." },
+		{ who: $sister, text: "Whatever. Just move." },
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $sister, text: "Out of the way, little $sister.callPlayerShort, I need the bathroom before I head out." },
+		{ who: $sister, text: _remark }
+	]>>
+	<</silently>>
+	<p>$sister.callName comes out of her room with a towel over one shoulder and a bottle of shampoo in her hand, heading straight for the bathroom.</p>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<link "Tease her back">>
 			<<replace "#choice1">>
 				<<silently>>
-				<<set _msgs to [
-					{ who: $player, text: "Relax, you're really not that interesting." },
-					{ who: $sister, text: "Oh, that's adorable. Now move." }
-				]>>
+				<<if _sgOpen>>
+					<<set _msgs to [
+						{ who: $player, text: "You know you're allowed to just say it." },
+						{ who: $sister, text: "I did just say it. You're the one standing there like a coat rack." },
+					]>>
+				<<else>>
+					<<set _msgs to [
+						{ who: $player, text: "Relax, you're really not that interesting." },
+						{ who: $sister, text: "Oh, that's adorable. Now move." }
+					]>>
+				<</if>>
 				<</silently>>
 				<<Chat _msgs>>
 				<br>
@@ -38,10 +102,18 @@
 		<<link "Brush it off">>
 			<<replace "#choice1">>
 				<<silently>>
-				<<set _msgs to [
-					{ who: $player, text: "I'm just passing through." },
-					{ who: $sister, text: "Mm-hm. Sure you are." }
-				]>>
+				<<if _sgOpen>>
+					<<set _msgs to [
+						{ who: $player, text: "I've got a call in ten minutes." },
+						{ who: $sister, text: "Your loss." },
+						{ text: "She says it lightly. She also closes the bathroom door behind her a little harder than she needs to." },
+					]>>
+				<<else>>
+					<<set _msgs to [
+						{ who: $player, text: "I'm just passing through." },
+						{ who: $sister, text: "Mm-hm. Sure you are." }
+					]>>
+				<</if>>
 				<</silently>>
 				<<Chat _msgs>>
 			<</replace>>
@@ -61,4 +133,17 @@
 			<</replace>>
 		<</link>>
 	</div>
+	<<if _sgOpen>>
+		<<set _sgScene to (_mc.tier >= 3 ? "Sister Shower Mouth" : "Sister Shower Hands")>>
+		<<set _sgLabel to (_mc.tier >= 3 ? "Go in with her" : "Give her a minute, then go in")>>
+		<div>
+			<<if _mc.offerLock>>
+				<span class="choice-locked">_sgLabel<small>_mc.offerLock</small></span>
+			<<else>>
+				<<capture _sgScene>>
+				<<link _sgLabel>><<MicroScene $sister _sgScene>><</link>>
+				<</capture>>
+			<</if>>
+		</div>
+	<</if>>
 </div>

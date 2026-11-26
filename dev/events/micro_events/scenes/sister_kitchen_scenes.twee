@@ -1,0 +1,216 @@
+:: Sister Kitchen Hands [scene] {"position":"1675,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Kitchen Snack, tier 2 "Yearning": after What Are We, before the Catalyst
+   Night). Opened from Sister Kitchen Snack with <<MicroScene>>. She sits on the counter, I stand between her knees, and
+   she does it with one hand while she keeps eating dry cereal out of the other.
+   Variants: the first time, her lust high (she pulled me in), and a near miss: $mom.callName calls from the living room
+   if she's home, or her car turns into the driveway if she isn't (then the near miss is a plain roll).
+   Clips, images/characters/sister/events/kitchen/ (check against the clips):
+     hands_0.mp4   she sits on the counter in shorts and my hoodie, pulls me in between her knees by the belt loops
+     hands_1.mp4   her hand in my open jeans, the cereal box next to her on the counter
+     hands_2.mp4   the finish on her bare thigh; she wipes it off with a paper towel */
+<<silent>>
+<<SetBackground $locations[3].img>>
+<<set _skhFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _skhEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _skhMomHome to $mom.flags.isHome === true>>
+<<set _skhNear to (_skhMomHome ? setup.rollNearMiss("sister") : random(1, 100) <= 20)>>
+<</silent>>
+<<if _skhEager>>
+She's already got me by the belt loops. She pulls until my hips bump the cabinet between her knees, and then she locks her ankles behind my legs so I can't go anywhere, and smiles at me like she's just won something.
+<<else>>
+I step in between her knees. She stops chewing. Up on the counter she's taller than me for once, and she looks down at me from up there with her hair falling forward, and puts her cereal hand on my shoulder.
+<</if>>
+
+<<if _skhFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "In the kitchen. This is where we have breakfast, $player.name. This is where $mom.callName does the crossword." },
+{ who: $player, text: "You're the one sitting on the counter." },
+{ who: $sister, text: "That's different. Sitting on the counter is a minor offense. This is..." },
+{ text: "She doesn't finish. Her hand has already found my belt, and she watches it work the buckle open as if it belongs to someone else." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/sister/events/kitchen/hands_0.mp4">>
+
+She gets my jeans open and pushes them down an inch, just enough, and takes me out. Her fingers are cold from the cereal box and she laughs when I flinch, and does it again on purpose, and then wraps her whole hand around me and holds it there until it's warm.
+
+<<linkreplace "Lean on the counter">>
+I put my hands on the counter on either side of her hips.
+
+<<Media "images/characters/sister/events/kitchen/hands_1.mp4">>
+
+She strokes me slowly, with her eyes on mine and her forehead almost touching my forehead. With her other hand she reaches into the cereal box beside her, takes a few pieces, and eats them, one at a time, without looking, as if this is a perfectly ordinary snack break and she's just doing two things at once. Her thumb slides over the head of my cock every time she comes up. Every time it does, she watches my face to see what it does to me, and she gets a little more pleased with herself.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You're making that face again. The one where you're trying to look like you're thinking about something else." },
+{ who: $player, text: "I am thinking about something else." },
+{ who: $sister, text: "Liar." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _skhNear and _skhMomHome>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is somebody in the kitchen? Sweetheart, is that you? Can you bring me a glass of water when you come back through?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$mom.callName's voice comes from the living room, through the open doorway, ten steps away. $sister.callName's hand stops dead. She doesn't let go. She looks at the doorway, then at me, and then she puts on the voice she uses on the phone with the college.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "In a minute, $mom.callName! I'm making a snack!" },
+{ who: $mom, text: "Thank you, honey!" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She waits. The TV in the living room goes on murmuring. Then her hand starts again, faster now, because she's promised a minute and she's going to keep to it.
+<<elseif _skhNear>>
+Headlights sweep across the kitchen window, the ceiling, the fridge. Out front a car is turning into our driveway, and there's only one car that turns into our driveway.
+
+$sister.callName's head snaps round to the window. Then back to me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "That's her. She's early. She's never early, she's always ten minutes late to everything." },
+{ text: "The engine cuts out. A car door. And her hand speeds up, hard and fast, as if she's decided that if she has to do this in a minute, then it'll take a minute." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/kitchen/hands_2.mp4">>
+
+I come on her bare thigh, just below the hem of her shorts. She keeps stroking until I'm done and then looks down at the mess on her leg, and back up at me, and bites her lip like she's trying not to laugh. She tears a paper towel off the roll by the sink and cleans herself up, and stuffs it deep in the trash under the coffee grounds.
+
+<<if _skhNear and !_skhMomHome>>
+By the time the key turns in the front door, she's at the sink rinsing her bowl, and I'm at the fridge, looking into it with great interest, and when $mom.callName comes in with the groceries she says how nice it is to see the two of us in the kitchen together for once.
+<<elseif _skhNear>>
+She hops down off the counter, fills a glass of water at the tap, and goes to bring it to $mom.callName with her cheeks still pink. I hear her say "Here you go" in the living room, in a perfectly normal voice.
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "That one's going in the minor offense column too, by the way. Don't argue with me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<set $sister.flags.handjobs to ($sister.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 20>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<if _skhNear>><<UpdateStat "+" "SisterExhibition" 1>><</if>>
+<<EndMicroScene "Back to the kitchen">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Sister Kitchen Mouth [scene] {"position":"1800,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Kitchen Snack, tier 3 "Devoted": after the Catalyst Night, before
+   Everything). Opened from Sister Kitchen Snack with <<MicroScene>>. Dessert: she kneels in front of the open fridge with
+   the can of whipped cream, laughing at herself, until she stops laughing.
+   Variants: the first time, her lust high (she had the can ready), and a near miss: $mom.callName comes downstairs and
+   stops in the hallway on the phone, and she doesn't stop.
+   Clips, images/characters/sister/events/kitchen/ (check against the clips):
+     mouth_0.mp4   she kneels on the kitchen floor in front of the open fridge with the whipped cream can, the fridge light
+     mouth_1.mp4   she sprays the cream on my cock and licks it off, laughing
+     mouth_2.mp4   the blowjob, serious now, her hands on my thighs
+     mouth_3.mp4   the finish in her mouth, cream at the corner of her lip */
+<<silent>>
+<<SetBackground $locations[3].img>>
+<<set _skmFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _skmEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _skmNear to setup.rollNearMiss("sister")>>
+<</silent>>
+I take the can out of her hand. She lets me.
+
+<<if _skmEager>>
+She doesn't wait to see what I'll do with it. She drops down onto her knees on the kitchen tiles right there, in the light from the open fridge, and holds her hand out for the can again.
+<<elseif _skmFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I want to say, in my defense, that this was a joke when I thought of it. It was a joke for about four seconds, and then I kept thinking about it all through my lecture, and now I've said it out loud in the kitchen, so." },
+{ who: $player, text: "So?" },
+{ who: $sister, text: "So give me that back and stand there." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She takes the can back. Then she gets down on her knees on the kitchen floor in front of me, with the fridge door still open behind me and the cold air coming out around my legs.
+<<else>>
+She takes the can back, and kneels down on the tiles in the light from the open fridge, and shakes it.
+<</if>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/sister/events/kitchen/mouth_0.mp4">>
+
+She opens my jeans and pulls them down, and takes me out, and then she sits there on her heels holding my cock in one hand and the whipped cream in the other and starts to giggle and can't stop. She has to put her forehead against my hip until it passes.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I'm sorry. I'm sorry, it's the noise the can makes. I'm fine. I'm a grown woman, I'm fine." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Wait for her">>
+<<Media "images/characters/sister/events/kitchen/mouth_1.mp4">>
+
+She sprays a line of it along my cock, from the base to the tip, very carefully, like she's decorating a cake for somebody important. It's cold enough that I hiss. Then she licks it off, slowly, all the way up, with her tongue flat, and looks up at me while she does it with cream on her nose and her eyes laughing, and takes the head in her mouth to get the last of it.
+
+She does it twice more. The third time she doesn't bother with the can. She just keeps going.
+
+<<linkreplace "Let her keep going">>
+<<Media "images/characters/sister/events/kitchen/mouth_2.mp4">>
+
+She stops laughing somewhere in there. I don't notice exactly when. She has both hands on my thighs now and her eyes closed, and she's taking me deep, slow and steady, the fridge light on her face and her hair, the motor humming behind me. Every so often she pulls back and breathes and goes back down a little further than before, as if she's set herself a goal and doesn't intend to tell me what it is.
+
+<<if _skmNear>>
+Footsteps on the stairs. $mom.callName's voice, on the phone, coming down.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "No, I told her the fifteenth, Linda, I wrote it down, I have it right here somewhere..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She stops at the bottom of the stairs, in the hallway, six steps from the kitchen door, looking for something in the drawer of the hall table. $sister.callName's eyes open and look up at me. She doesn't stop. She slows down until she's barely moving, and keeps her lips tight around me, and listens, and I watch her listen, and her hands dig into my thighs.
+
+$mom.callName finds the note she was looking for and goes back upstairs, still talking. $sister.callName lets out a long breath through her nose and picks up exactly where she left off.
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/kitchen/mouth_3.mp4">>
+
+I put my hand on her head and come in her mouth, and she swallows and keeps me there until I'm done, her eyes closed, her hands not moving from my thighs. When she sits back on her heels she's breathing hard and there's still a little cream at the corner of her mouth. She finds it with her tongue.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "I'm never going to be able to look at that can again. We have to buy a different brand." },
+{ text: "She gets up, puts the can back in the fridge door, exactly where it was, and closes the fridge." },
+{ who: $sister, text: "Same time next week?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 25>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<if _skmNear>><<UpdateStat "+" "SisterExhibition" 2>><</if>>
+<<EndMicroScene "Close the fridge">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

@@ -1,7 +1,11 @@
 :: Mom Desk Lunch [micro_event event nobr] {"position":"1050,3275","size":"100,100"}
 /* Desk visitor (micro event 32, "A normal workday" in Define Events): she brings me lunch from home, because she
    knows I skipped breakfast. Shown in the CMD drawer, so no action is spent and there is no exit link.
-   The third choice waits for A Knock at Night: she feeds me at my desk, with the staff a few feet away. */
+   The third choice waits for A Knock at Night: she feeds me at my desk, with the staff a few feet away.
+   After The Crawl (intimacy tier 3, MICRO_EVENTS_PLAN.md) the staff goes out to the food truck at noon and she stays
+   behind: offer Mom Desk Lunch Under. The staff being around is the point of it, so only her resistance, her scene of
+   the day and $sister.callName at the office lock it. */
+<<MicroContext $mom>>
 <p>$mom.callName sets the lunch bag down next to my keyboard and unzips it as far as the broken zipper will go, which is about halfway. The blue container comes out first. Then a fork wrapped in a paper napkin, then a second napkin, because in her opinion one has never been enough for me.</p>
 <<silently>>
 <<set _msgs to [
@@ -71,6 +75,16 @@
 					<<UpdateStat "+" "MomLust" 1>>
 				<</replace>>
 			<</link>>
+		</div>
+	<</if>>
+	<<if _mc.tier >= 3>>
+		<<set _mdlLock to (_mc.otherHere ? $sister.callName + " is right here" : (_mc.refuses ? "she isn't in the mood" : (_mc.sceneToday ? "later" : "")))>>
+		<div>
+			<<if _mdlLock>>
+				<span class="choice-locked">Ask what she's having for lunch<small>_mdlLock</small></span>
+			<<else>>
+				<<link "Ask what she's having for lunch">><<MicroScene $mom "Mom Desk Lunch Under">><</link>>
+			<</if>>
 		</div>
 	<</if>>
 </div>

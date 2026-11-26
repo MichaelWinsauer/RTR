@@ -1,29 +1,88 @@
 :: Mom Bedroom Clothes [micro_event event nobr] {"position":"1800,2775","size":"100,100"}
-/* Privacy: she brings your laundry. Let her in, talk through the door, or pretend to be asleep. */
-<p>There's a soft knock on my door.</p>
-<<silently>>
-<<set _msgs to [
-	{ who: $mom, text: "Sweetheart? I did your laundry. Can I come in for a second?" }
-]>>
-<</silently>>
-<<Chat _msgs>>
+/* Privacy: she brings your laundry. Let her in, talk through the door, or pretend to be asleep.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Aware: she sits on my bed to fold instead of leaving the basket
+     2  Hands: the shirt with her lipstick on the collar (color only: a handjob in my room is the interaction card)
+     3  Mouth: she kneels by the bed with the basket next to her. Offer: Mom Laundry Mouth */
+<<MicroContext $mom>>
+<<silent>>
+<<set _bcEager to _mc.lustBand == "high">>
+<</silent>>
+<<if _mc.tier >= 3>>
+	<p>There's a soft knock on my door, and it opens while she's still knocking.</p>
+	<<silently>>
+	<<if _bcEager>>
+		<<set _msgs to [
+			{ who: $mom, text: "Laundry, honey. Don't get up." },
+			{ text: "She's put on fresh lipstick to bring me a basket of socks. She closes the door behind her with her hip." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $mom, text: "Laundry, sweetheart. Am I interrupting anything?" },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 2>>
+	<p>There's a soft knock on my door.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Sweetheart? I did your laundry. There's one thing in here I need to ask you about." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>There's a soft knock on my door.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Sweetheart? I did your laundry. Can I come in for a second?" }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<link "Let her in">>
 			<<replace "#choice1">>
 				<<Video "images/characters/mom/events/bedroom/mom_enter.webm" "" "" 500>>
-				<<silently>>
-				<<set _msgs to [
-					{ who: $player, text: "Sure, come in." },
-					{ text: "She sets the basket of folded clothes on the end of the bed." },
-					{ who: $mom, text: "Here you go, all folded, and I got that stain out of your gray shirt, which took two tries and half a bottle of dish soap, so now you have to wear it." },
-					{ who: $player, text: "Thanks, $mom.callName. Honestly, I would have just worn it with the stain." },
-					{ who: $mom, text: "Oh, I know you would have, honey. That's exactly why I did it." }
-				]>>
-				<</silently>>
-				<<Chat _msgs>>
+				<<if _mc.tier >= 2>>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "Sure, come in." },
+						{ text: "She sets the basket on the end of the bed and takes one thing off the top: my gray shirt, folded around something. She unfolds it and holds the collar up between two fingers so I can see it. There's a smear of lipstick on the inside of it, a dark rose color. Hers." },
+						{ who: $mom, text: "I tried everything on this, honey, dish soap, the stain stick, the vinegar trick from your grandmother. It won't come out." },
+						{ who: $player, text: "Then I'll wear it like that." },
+						{ who: $mom, text: "You will not. People will think..." },
+						{ text: "She hears what people would think, a second after she says it, and folds the shirt up again very quickly and puts it at the bottom of the pile instead of the top." },
+						{ who: $mom, text: "I'll try once more with the vinegar." },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<<elseif _mc.tier == 1>>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "Sure, come in." },
+						{ text: "Instead of leaving the basket she sits down on the end of my bed with it and starts folding there, the way she does on the couch in front of the TV." },
+						{ who: $mom, text: "You don't mind, do you? It's so much nicer folding with somebody to talk to, and you never come down anymore, you're always up here or at that office." },
+						{ text: "She talks about the neighbors' new dog while she folds, and about the dog's name, which she thinks is unkind to the dog. At one point she shakes out a pair of my boxers and folds them very fast without looking at them, and goes a little pink, and keeps talking about the dog." },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<<else>>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $player, text: "Sure, come in." },
+						{ text: "She sets the basket of folded clothes on the end of the bed." },
+						{ who: $mom, text: "Here you go, all folded, and I got that stain out of your gray shirt, which took two tries and half a bottle of dish soap, so now you have to wear it." },
+						{ who: $player, text: "Thanks, $mom.callName. Honestly, I would have just worn it with the stain." },
+						{ who: $mom, text: "Oh, I know you would have, honey. That's exactly why I did it." }
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<</if>>
 				<br>
-				<<if $company.prototype.progress >= 40>>
+				<<if _mc.tier == 0 and $company.prototype.progress >= 40>>
 					<p>Her eyes drift to my desk, where the prototype is sitting between the cables and half-empty coffee cups.</p>
 					<<silently>>
 					<<set _msgs to [
@@ -67,4 +126,14 @@
 			<</replace>>
 		<</link>>
 	</div>
+	<<if _mc.tier >= 3>>
+		<<set _bcLabel to (_bcEager ? "Stay where you are" : "Sit on the edge of the bed")>>
+		<div>
+			<<if _mc.offerLock>>
+				<span class="choice-locked">_bcLabel<small>_mc.offerLock</small></span>
+			<<else>>
+				<<link _bcLabel>><<MicroScene $mom "Mom Laundry Mouth">><</link>>
+			<</if>>
+		</div>
+	<</if>>
 </div>

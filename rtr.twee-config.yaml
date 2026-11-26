@@ -43,6 +43,11 @@ sugarcube-2:
     RandomImage: {}
     RandomVideo: {}
     ReturnFromEvent: {}
+    MicroContext: {}
+    MicroDevice:
+      container: true
+    MicroScene: {}
+    EndMicroScene: {}
     StageTitle:
       container: true
     Offer:

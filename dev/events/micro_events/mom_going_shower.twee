@@ -1,16 +1,64 @@
 :: Mom Going Shower [micro_event event nobr] {"position":"1175,3025","size":"100,100"}
-/* Care and small talk: she is heading to the shower and asks about your day. */
-<<set _vx to setup.homeDevice()>>
-<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
-<<set _vxCost to 10 + 10 * _vxLevel>>
+/* Care and small talk: she is heading to the shower and asks about your day.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Aware: she is already in her robe, not tied very tight; the device gets the bathroom door left open "for the steam"
+     2  Hands: she lingers, and checks $sister.callName's door. Offer: Mom Shower Hands (I bring her a towel)
+     3  Mouth: she asks me to wash her hair. Offer: Mom Shower Mouth
+   With her lust high (tier 2 and up) she asks first. */
+<<MicroContext $mom>>
+<<silent>>
+<<set _gsEager to _mc.lustBand == "high">>
+<</silent>>
 <<Video "images/characters/mom/events/hallway/mom_going_shower.mp4" "" "" 500>>
-<p>$mom.callName is in the hallway with a towel over her arm and her hair tied up in a knot.</p>
-<<silently>>
-<<set _msgs to [
-	{ who: $mom, text: "Oh, hi sweetheart. I'm just going to take a quick shower before dinner." }
-]>>
-<</silently>>
-<<Chat _msgs>>
+<<if _mc.tier >= 3>>
+	<p>$mom.callName comes out of her room in her robe with her hair piled up on her head, and stops in front of me in the hallway instead of going around me. She's close enough that I can smell what's left of this morning's perfume on her.</p>
+	<<silently>>
+	<<if _gsEager>>
+		<<set _msgs to [
+			{ who: $mom, text: "Would you wash my hair for me, honey? I can never get the back properly, and it's been ages since anybody..." },
+			{ text: "She doesn't finish. She just holds the towel out to me, folded." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $mom, text: "Hi, sweetheart. I'm going to take a shower before dinner. Unless you need me for something first?" },
+			{ text: "She waits a moment after she's said it, in case I do." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 2>>
+	<p>$mom.callName is in the hallway in her robe with a towel over her arm. She slows down when she sees me, and her eyes go past me to $sister.callName's door and back.</p>
+	<<silently>>
+	<<if _gsEager>>
+		<<set _msgs to [
+			{ who: $mom, text: "I'm jumping in the shower, honey. I always forget to put a fresh towel out, don't I? I'll probably need one in about five minutes." },
+			{ text: "There's a fresh towel over her arm. She doesn't seem to notice it." },
+		]>>
+	<<else>>
+		<<set _msgs to [
+			{ who: $mom, text: "Oh, hi sweetheart. I'm just going to take a quick shower before dinner, so if you need anything in there, you'd better tell me now." },
+		]>>
+	<</if>>
+	<</silently>>
+	<<Chat _msgs>>
+<<elseif _mc.tier == 1>>
+	<p>$mom.callName is in the hallway already in her robe, belted loosely enough that she has to hold it together at the front when she sees me. Her hair is tied up in a knot that's coming undone.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Oh, hi sweetheart. Shower before dinner, and then I'm all yours. Well, the lasagna's all yours, I'm just the one who carries it to the table." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<<else>>
+	<p>$mom.callName is in the hallway with a towel over her arm and her hair tied up in a knot.</p>
+	<<silently>>
+	<<set _msgs to [
+		{ who: $mom, text: "Oh, hi sweetheart. I'm just going to take a quick shower before dinner." }
+	]>>
+	<</silently>>
+	<<Chat _msgs>>
+<</if>>
 <div id="choice1" class="choices">
 	<div>
 		<<link "Ask about her day">>
@@ -45,34 +93,39 @@
 			<</replace>>
 		<</link>>
 	</div>
-	<<if _vxLevel > 0>>
+	<<if _mc.tier >= 2>>
+		<<set _gsScene to (_mc.tier >= 3 ? "Mom Shower Mouth" : "Mom Shower Hands")>>
+		<<if _mc.tier >= 3>>
+			<<set _gsLabel to (_gsEager ? "Take the towel" : "Offer to wash her hair")>>
+		<<else>>
+			<<set _gsLabel to (_gsEager ? "Bring her that towel in five minutes" : "Tell her you'll bring her a towel")>>
+		<</if>>
 		<div>
-			<<if _vx.lastUsedAtDay == $date.dayCount>>
-				<span class="choice-locked">Use the prototype<small>already used today</small></span>
-			<<elseif _vx.charge < _vxCost>>
-				<span class="choice-locked">Use the prototype<small>not enough charge</small></span>
+			<<if _mc.offerLock>>
+				<span class="choice-locked">_gsLabel<small>_mc.offerLock</small></span>
 			<<else>>
-				<<link "Use the prototype while she talks">>
-					<<replace "#choice1">>
-						<<set _vx.charge -= _vxCost>>
-						<<set _vx.lastUsedAtDay to $date.dayCount>>
-						<<set _vx.lastUsedOnWho to "mom">>
-						<<if random(1, 100) <= 10 + Math.round($mom.stats.resistance / 2)>>
-							<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-							<p>She stops mid-sentence and looks at my pocket, then at me. "Honey, are you okay? You're acting a little strange," she says, and goes to the bathroom a little faster than before.</p>
-							<<UpdateStat "-" "MomRelation" 3>>
-							<<UpdateStat "+" "MomResistance" 4>>
-						<<else>>
-							<<set _gain to 1 + _vxLevel>>
-							<<set _lustGain to 4 + 4 * _vxLevel>>
-							<p>I ask about her day and keep her talking. <<DevicePulse `_vxLevel + 1`>> She forgets about the shower for a while, leaning against the wall with her towel over her arm, laughing more easily than she has all week.</p>
-							<<UpdateStat "-" "MomRelation" 1>>
-							<<UpdateStat "+" "MomCorruption" _gain>>
-							<<UpdateStat "+" "MomLust" _lustGain>>
-						<</if>>
-					<</replace>>
-				<</link>>
+				<<capture _gsScene>>
+				<<link _gsLabel>><<MicroScene $mom _gsScene>><</link>>
+				<</capture>>
 			<</if>>
 		</div>
 	<</if>>
+	<<MicroDevice $mom "#choice1" "Use the prototype while she talks">>
+		<<if _md.backfire>>
+			<<DevicePulse `_md.power`>><<DevicePulse "off" "2s">>
+			<p>She stops mid-sentence and looks at my pocket, then at me. "Honey, are you okay? You're acting a little strange," she says, and goes to the bathroom a little faster than before.</p>
+		<<elseif _mc.tier >= 1>>
+			<p>I ask about her day and keep her talking. <<DevicePulse `_md.power`>> She answers with one hand on the bathroom door, and somewhere in the middle of a story about the dry cleaner her other hand stops holding her robe together.</p>
+			<<silently>>
+			<<set _msgs to [
+				{ who: $mom, text: "I'll leave this open a little, I think. The fan's been making that awful noise again, and the mirror fogs up so badly that I can't see a thing." },
+			]>>
+			<</silently>>
+			<<Chat _msgs>>
+			<p>She leaves it open about a hand's width. A minute later the water starts, and the steam starts drifting out into the hallway, and through the gap I can see the shape of her through the shower glass, turning slowly under the water with her arms up in her hair. She doesn't look toward the door once, and she doesn't close it either.</p>
+			<<UpdateStat "+" "MomExhibition" 1>>
+		<<else>>
+			<p>I ask about her day and keep her talking. <<DevicePulse `_md.power`>> She forgets about the shower for a while, leaning against the wall with her towel over her arm, laughing more easily than she has all week.</p>
+		<</if>>
+	<</MicroDevice>>
 </div>

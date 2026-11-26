@@ -98,6 +98,8 @@
     handjobs: 0,            /* times the Handjob interaction was played (Sister Handjob), after What Are We */
     teamSpirit: null,       /* Team Spirit task: { day, who } of the staff member she picked today (setup.teamSpiritTarget) */
     teamSpiritName: "",     /* his name, for her report line */
+    microSceneDay: -1,      /* dayCount of the last micro event scene with her (<<MicroScene>>, one a day) */
+    microScenes: {},        /* { passage: times played } of her micro event scenes (setup.microSceneCount) */
 }>>
 
 /*Mom*/
@@ -201,6 +203,9 @@
     freeUse: false,         /* The Calendar: the Whenever interaction is unlocked (Mom Whenever) */
     whenever: 0,            /* times the Whenever interaction was played */
     morningRoutines: 0,     /* times the morning routine played (Morning Routine, after The Crawl) */
+    morningRoutineDay: -1,  /* dayCount of the last morning routine (Morning Routine End) */
+    microSceneDay: -1,      /* dayCount of the last micro event scene with her (<<MicroScene>>, one a day) */
+    microScenes: {},        /* { passage: times played } of her micro event scenes (setup.microSceneCount) */
 }>>
 
 /*Dad*/
@@ -639,6 +644,59 @@
     npc.corruptionStage = next;
     npc.stats.corruption = npc.stats.min.corruption;
     return true;
+}>>
+
+/* Intimacy tiers ==============================================================
+   MICRO_EVENTS_PLAN.md section 3. What she has actually done with me so far, set by the story. Her corruption stage
+   alone does not say that: mom is in stage 1 from The Briefing (one handjob, in the meeting room) to The Crawl (her
+   first blowjob). Micro events read the tier to decide what she does in an everyday moment and what I can offer
+   (<<MicroContext>>, "Micro events that grow" in Define Events). Constants only, nothing is stored: skipping to a
+   quest sets the tier by itself.
+
+   setup.intimacyTiers.<sysName> = [ { name, quest, corruption }, ... ]   index = tier, tier 0 is the start
+       name         label for the debug menu and the comments, never shown in the game text
+       quest        optional: this quest is done
+       corruption   optional: her corruption total (setup.corruptionTotal) is at least this
+       An entry counts as reached when all of its conditions hold.
+
+   setup.intimacy(who)              her tier: the highest entry that is reached (0 for anyone without tiers)
+   setup.intimacyName(who [, tier]) the name of that tier ("" if there is none)
+   who is "mom" / "sister" or the NPC object. */
+<<set setup.intimacyTiers to {
+    mom: [
+        { name: "Family" },
+        { name: "Aware", corruption: 40 },
+        { name: "Hands", quest: "mom_nightVisit" },
+        { name: "Mouth", quest: "mom_crawl" },
+        { name: "Willing", quest: "main_catalystNight" },
+        { name: "Whenever", quest: "mom_calendar" },
+    ],
+    sister: [
+        { name: "Sibling" },
+        { name: "Conflicted", quest: "sister_conflictingFeelings" },
+        { name: "Yearning", quest: "sister_souvenirs" },
+        { name: "Devoted", quest: "main_catalystNight" },
+        { name: "Mine", quest: "sister_everything" },
+    ],
+}>>
+
+<<set setup.intimacy = (who) => {
+    const key = (who && typeof who === "object") ? who.sysName : who;
+    const tiers = setup.intimacyTiers[key];
+    if (!tiers) { return 0; }
+    for (let i = tiers.length - 1; i > 0; i--) {
+        const entry = tiers[i];
+        if (entry.quest && !setup.questDone(entry.quest)) { continue; }
+        if (entry.corruption && setup.corruptionTotal(key) < entry.corruption) { continue; }
+        return i;
+    }
+    return 0;
+}>>
+
+<<set setup.intimacyName = (who, tier) => {
+    const key = (who && typeof who === "object") ? who.sysName : who;
+    const entry = (setup.intimacyTiers[key] || [])[tier === undefined ? setup.intimacy(key) : tier];
+    return entry ? entry.name : "";
 }>>
 
 

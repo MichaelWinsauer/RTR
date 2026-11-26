@@ -1,9 +1,19 @@
 :: Sister Kitchen Snack [micro_event event nobr] {"position":"1675,2900","size":"100,100"}
 /* Sharing food, with a running prank: steal her snack and she gets her revenge the next time this event shows up
-   ($sister.flags.snackRevenge). */
-<<set _vx to setup.homeDevice()>>
-<<set _vxLevel to ($company.prototype.progress >= 100 ? 3 : ($company.prototype.progress >= 70 ? 2 : ($company.prototype.progress >= 40 ? 1 : 0)))>>
-<<set _vxCost to 10 + 10 * _vxLevel>>
+   ($sister.flags.snackRevenge). The prank stays at every tier.
+   Grows with her intimacy tier (MICRO_EVENTS_PLAN.md, <<MicroContext>>):
+     0  the everyday version
+     1  Conflicted: she feeds me a spoonful off her own spoon; the device puts her up on the counter with her knees
+        against my hips
+     2  Yearning: after What Are We she's sitting on the counter waiting. Offer: Sister Kitchen Hands. Before What Are We
+        she hops down when I come in, and there is no offer
+     3  Devoted: dessert. Offer: Sister Kitchen Mouth
+   With her lust high (tier 2 and up) she pulls me over herself. */
+<<MicroContext $sister>>
+<<silent>>
+<<set _ksEager to _mc.lustBand == "high">>
+<<set _ksOpen to _mc.tier >= 3 or (_mc.tier == 2 and setup.questDone("sister_whatAreWe"))>>
+<</silent>>
 <<Video "images/characters/sister/events/kitchen/snack.mp4" "" "" 500>>
 <<if $sister.flags.snackRevenge>>
 	<<set $sister.flags.snackRevenge to false>>
@@ -21,13 +31,62 @@
 	<br>
 	<<UpdateStat "+" "SisterRelation" 1>>
 <<else>>
-	<p>I walk into the kitchen. $sister.callName is pouring cereal at the counter, humming, with a few strands of hair falling across her face.</p>
-	<<silently>>
-	<<set _msgs to [
-		{ who: $sister, text: "Somebody finally bought the good cereal. Want some, little $sister.callPlayerShort?" }
-	]>>
-	<</silently>>
-	<<Chat _msgs>>
+	<<if _mc.tier >= 3>>
+		<p>$sister.callName is standing in front of the open fridge in a big t-shirt and socks, with the door light on her legs, reading the back of a can of whipped cream as if it's a contract.</p>
+		<<silently>>
+		<<if _ksEager>>
+			<<set _msgs to [
+				{ who: $sister, text: "There you are. I was about to come and get you. We have whipped cream and absolutely nothing to put it on, which seems like a waste, doesn't it?" },
+				{ text: "She shakes the can, slowly, looking at me, not at the can." },
+			]>>
+		<<else>>
+			<<set _msgs to [
+				{ who: $sister, text: "Do you want dessert? I want dessert. We don't have any, technically, unless you count this." },
+				{ text: "She holds up the can. Then she looks at me over the top of the fridge door and doesn't say anything else, and lets me work out what she means." },
+			]>>
+		<</if>>
+		<</silently>>
+		<<Chat _msgs>>
+	<<elseif _mc.tier == 2 and _ksOpen>>
+		<p>$sister.callName is sitting on the kitchen counter next to the cereal box in shorts and my hoodie, swinging her heels against the cabinet door, eating dry cereal out of her hand. She stops swinging when I come in.</p>
+		<<silently>>
+		<<if _ksEager>>
+			<<set _msgs to [
+				{ who: $sister, text: "Come here. No, closer. Here." },
+				{ text: "She hooks a finger in my belt loop and reels me in until I'm standing between her knees." },
+			]>>
+		<<else>>
+			<<set _msgs to [
+				{ who: $sister, text: "Hi. I'm not supposed to sit up here, $mom.callName says it's bad for the cabinet doors. Don't tell on me." },
+			]>>
+		<</if>>
+		<</silently>>
+		<<Chat _msgs>>
+	<<elseif _mc.tier == 2>>
+		<p>$sister.callName is sitting on the kitchen counter next to the cereal box. When I come in she hops down, fast, and goes very busy pouring milk, and doesn't look at me for a while.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "Want some? There's enough." }
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+	<<elseif _mc.tier == 1>>
+		<p>I walk into the kitchen. $sister.callName is pouring cereal at the counter, humming. Before I can say anything she holds out her spoon to me, full, and waits until I've taken the bite off it, and then she gets very busy with the cereal box.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "Good, right? Somebody finally bought the good kind. Get your own spoon, though, that was a one-time offer." }
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+	<<else>>
+		<p>I walk into the kitchen. $sister.callName is pouring cereal at the counter, humming, with a few strands of hair falling across her face.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $sister, text: "Somebody finally bought the good cereal. Want some, little $sister.callPlayerShort?" }
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+	<</if>>
 	<div id="choice1" class="choices">
 		<div>
 			<<link "Make toast for both of you">>
@@ -52,7 +111,7 @@
 						{ text: "I reach over and grab a handful straight from the box." },
 						{ who: $sister, text: "Oh, you did not just do that." },
 						{ who: $player, text: "Already did. It really is the good stuff." },
-						{ who: $sister, text: "Enjoy it while you can, little $sister.callPlayerShort, because you're going to regret that." }
+						{ who: $sister, text: "Enjoy it while you can, because you're going to regret that." }
 					]>>
 					<</silently>>
 					<<Chat _msgs>>
@@ -60,35 +119,28 @@
 				<</replace>>
 			<</link>>
 		</div>
-		<<if _vxLevel > 0>>
+		<<if _ksOpen>>
+			<<set _ksScene to (_mc.tier >= 3 ? "Sister Kitchen Mouth" : "Sister Kitchen Hands")>>
+			<<set _ksLabel to (_mc.tier >= 3 ? "Take the can from her" : "Stand between her knees")>>
 			<div>
-				<<if _vx.lastUsedAtDay == $date.dayCount>>
-					<span class="choice-locked">Use the prototype<small>already used today</small></span>
-				<<elseif _vx.charge < _vxCost>>
-					<span class="choice-locked">Use the prototype<small>not enough charge</small></span>
+				<<if _mc.offerLock>>
+					<span class="choice-locked">_ksLabel<small>_mc.offerLock</small></span>
 				<<else>>
-					<<link "Use the prototype while she eats">>
-						<<replace "#choice1">>
-							<<set _vx.charge -= _vxCost>>
-							<<set _vx.lastUsedAtDay to $date.dayCount>>
-							<<set _vx.lastUsedOnWho to "sister">>
-							<<if random(1, 100) <= 10 + Math.round($sister.stats.resistance / 2)>>
-								<<DevicePulse `_vxLevel + 1`>><<DevicePulse "off" "2s">>
-								<p>She squints at me. "Why are you being so weird today?" she says, and takes her bowl to her room.</p>
-								<<UpdateStat "-" "SisterRelation" 3>>
-								<<UpdateStat "+" "SisterResistance" 4>>
-							<<else>>
-								<<set _gain to 1 + _vxLevel>>
-								<<set _lustGain to 4 + 4 * _vxLevel>>
-								<p>I turn the prototype on in my pocket. <<DevicePulse `_vxLevel + 1`>> She stays at the counter after her bowl is empty, laughing at my jokes, even the bad ones, and she doesn't seem to notice how close she's standing to me.</p>
-								<<UpdateStat "-" "SisterRelation" 1>>
-								<<UpdateStat "+" "SisterCorruption" _gain>>
-								<<UpdateStat "+" "SisterLust" _lustGain>>
-							<</if>>
-						<</replace>>
-					<</link>>
+					<<capture _ksScene>>
+					<<link _ksLabel>><<MicroScene $sister _ksScene>><</link>>
+					<</capture>>
 				<</if>>
 			</div>
 		<</if>>
+		<<MicroDevice $sister "#choice1" "Use the prototype while she eats">>
+			<<if _md.backfire>>
+				<<DevicePulse `_md.power`>><<DevicePulse "off" "2s">>
+				<p>She squints at me. "Why are you being so weird today?" she says, and takes her bowl to her room.</p>
+			<<elseif _mc.tier >= 1>>
+				<p>I turn the prototype on in my pocket. <<DevicePulse `_md.power`>> She hops up onto the counter with her bowl in her lap and tells me about a girl in her seminar who brings a different emotional support water bottle every day, and somewhere in the middle of it her knees end up on either side of my hips and her ankles hooked behind my legs, holding me there. She doesn't seem to notice she's done it. When she runs out of story she just stays like that, eating, looking at me over the spoon.</p>
+			<<else>>
+				<p>I turn the prototype on in my pocket. <<DevicePulse `_md.power`>> She stays at the counter after her bowl is empty, laughing at my jokes, even the bad ones, and she doesn't seem to notice how close she's standing to me.</p>
+			<</if>>
+		<</MicroDevice>>
 	</div>
 <</if>>

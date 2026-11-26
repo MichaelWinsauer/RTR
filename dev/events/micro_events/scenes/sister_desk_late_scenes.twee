@@ -1,0 +1,201 @@
+:: Sister Desk Late Hands [scene] {"position":"2175,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Desk Late, tier 2 "Yearning": after Souvenirs, before the Catalyst Night;
+   the office, so no What Are We needed). Opened from the desk visitor Sister Desk Late with <<MicroScene>>. The empty
+   office after hours. She kneels on the carpet between my chair and the desk and makes it a game: I have to finish the
+   email I'm writing while she does it, and she reads my typos out loud. Different from the handjob card at the office
+   (Sister Handjob, "office": she sits on the corner of my desk).
+   Variants: the first time, her lust high (her hand was already on my knee), and a near miss (a plain 1 in 4, nobody from
+   the family is around): the cleaning crew comes in for the bins.
+   Clips, images/characters/sister/events/desk_late/ (check against the clips):
+     hands_0.mp4   she kneels on the carpet between my chair and the desk, her hand going into my lap
+     hands_1.mp4   the handjob while I type, her eyes on the screen
+     hands_2.mp4   the finish in her hand; a wet wipe from her bag */
+<<silent>>
+<<SetBackground $locations[14].img>>
+<<set _sdhFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _sdhEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _sdhNear to random(1, 100) <= 25>>
+<</silent>>
+<<if _sdhEager>>
+Her hand doesn't stay on my knee. It moves up my thigh while I'm in the middle of a sentence, slowly, and she gets up onto her knees on the carpet beside my chair to reach better, and keeps her eyes on my screen as if she's interested in what I'm writing.
+<<else>>
+I go back to the email I was writing. She watches me type for a minute. Then she puts her notes aside and gets up onto her knees on the carpet, in the narrow space between my chair and the desk, and puts her hand flat on my thigh.
+<</if>>
+
+<<if _sdhFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Here's the deal. You finish that email, properly, no typos, and send it. And I'll do this. If you stop typing, I stop." },
+{ who: $player, text: "That's not a deal. That's sabotage." },
+{ who: $sister, text: "It's character building. You're always telling everybody how good you are under pressure." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Same rules. Finish the email." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Keep typing">>
+<<Media "images/characters/sister/events/desk_late/hands_0.mp4">>
+
+She opens my jeans without looking down, by feel, with her eyes on the screen, and takes me out and wraps her hand around me. Her hand is warm from being tucked inside her sleeve. She starts slow, deliberately slow, and every time my fingers stop on the keyboard her hand stops too, and waits, until I start typing again.
+
+<<linkreplace "Keep typing anyway">>
+<<Media "images/characters/sister/events/desk_late/hands_1.mp4">>
+
+I get through the greeting. I get through most of the first paragraph. She's stroking me faster now, steady and tight, with her chin on the arm of my chair, reading every word as it appears, and the screen fills up with a mess I'll have to fix.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Delivery dates for teh second batch. T-E-H. That's going to impress them." },
+{ who: $player, text: "I'll fix it." },
+{ who: $sister, text: "You stopped typing." },
+{ text: "Her hand stops. I start typing again. Her hand starts again. She's grinning at the screen with her cheek against my arm." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _sdhNear>>
+Out in the hallway, the elevator dings, and a cart with a squeaky wheel comes rattling toward the office door.
+
+$sister.callName's hand freezes around me. She drops lower, down out of sight below the edge of the desk, and I pull my chair in until my stomach is against it.
+
+<<silently>>
+<<set _msgs = [
+{ text: "The door opens. It's one of the cleaners, a heavy woman with headphones around her neck and a trash bag in each hand." },
+{ text: "Just the bins tonight, hon? she asks, looking at the rest of the dark office." },
+{ who: $player, text: "Just the bins. Thanks." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She works her way around the room, emptying bins, humming to herself, and takes the one from under the coffee machine, and the one from beside $darius.name's desk, and then she's at mine, six feet away, bending down for the wastebasket on the other side of the desk. Under the desk, $sister.callName doesn't breathe. Neither do I.
+
+Then the cart squeaks away and the door closes and the elevator dings again. $sister.callName comes up from under the edge of the desk, red to the ears, and looks at the screen, and at me.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You stopped typing." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Send the email">>
+I hit send on the email, typos and all. She sees it go.
+
+<<Media "images/characters/sister/events/desk_late/hands_2.mp4">>
+
+As if that was a starting pistol, she stops being slow. She takes me fast and hard, her whole fist, her eyes on my face now instead of the screen, and when I come she catches it in her hand and keeps going until I've finished and I'm leaning back in the chair breathing like I've run up the stairs. Then she lets go and digs in her bag with her clean hand for the little packet of wet wipes she keeps in there for everything, and cleans her hand, and cleans me, and tucks me back in.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "You sent it with the typos." },
+{ who: $player, text: "You said finish it and send it. You didn't say fix it." },
+{ who: $sister, text: "I said no typos. I distinctly said no typos. I'm going to be thinking about teh second batch all night." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<set $sister.flags.handjobs to ($sister.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 20>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<if _sdhNear>><<UpdateStat "+" "SisterExhibition" 2>><</if>>
+<<EndMicroScene "Write the correction">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Sister Desk Late Mouth [scene] {"position":"2300,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Desk Late, tier 3 "Devoted": after the Catalyst Night, before Everything).
+   Opened from the desk visitor Sister Desk Late with <<MicroScene>>. She turned off every light but mine and sent the
+   cleaners away. Under my desk, and "I love you" from under it: the Catalyst Night made that hers to say, and here she
+   says it without being asked, once, which is the difference.
+   Variants: the first time, her lust high (she's already on her knees by her shoes).
+   Clips, images/characters/sister/events/desk_late/ (check against the clips):
+     mouth_0.mp4   she crawls under my desk in the dark office, the desk lamp on
+     mouth_1.mp4   the blowjob under the desk, me in my chair
+     mouth_2.mp4   slower, she stops to look up and say it
+     mouth_3.mp4   the finish in her mouth; she comes out from under the desk and climbs into my lap */
+<<silent>>
+<<SetBackground $locations[14].img>>
+<<set _sdmFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _sdmEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<</silent>>
+I push my chair back from the desk.
+
+<<if _sdmEager>>
+She's already down there by her shoes. She ducks her head and crawls the rest of the way under the desk, into the dark between the drawers, and turns around on her knees to face me, and waits.
+<<elseif _sdmFirst>>
+She looks at the gap I've made between the chair and the desk, and at me, and then she gets down on her hands and knees on the carpet and crawls into it, under the desk, where it's dark and smells of dust and warm electronics, and turns around to face me.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "There's a granola bar down here. I think it's been here since we moved in." },
+{ who: $player, text: "Leave it." },
+{ who: $sister, text: "I wasn't going to eat it, $player.name, I'm not an animal." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+She crawls under the desk without a word and turns around to face me, and puts her hands on my knees.
+<</if>>
+
+<<linkreplace "Roll the chair back in">>
+I roll the chair back in, until my knees are on either side of her and the edge of the desk is against my stomach.
+
+<<Media "images/characters/sister/events/desk_late/mouth_0.mp4">>
+
+In the dark under there all I can see of her is her hands on my thighs and, when she tips her face up into the light that leaks down past the edge of the desk, her eyes. She undoes my belt and my jeans and takes me out, and holds me for a second, and then I feel her mouth.
+
+<<linkreplace "Lean back">>
+<<Media "images/characters/sister/events/desk_late/mouth_1.mp4">>
+
+She takes her time. Nobody's coming tonight and she knows it, and she's in no hurry at all. She takes me all the way in and holds me there, then comes off slowly with her tongue dragging along the underside, then does it again. Every so often she uses her hand while she catches her breath. The only sounds in the whole office are the hum of my computer and her, small wet sounds and her breathing, and once a car horn far down in the street.
+
+<<linkreplace "Put your hand on her head">>
+I reach down under the desk and put my hand on her head.
+
+<<Media "images/characters/sister/events/desk_late/mouth_2.mp4">>
+
+She stops. She takes her mouth off me and looks up into the light, with her lips wet and her hair falling around her face, and holds my eyes.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "I love you." },
+{ text: "Nobody asked her to say it. She just says it, quietly, in the dark under my desk, in her normal voice, calm and sure, as if she's telling me the time, and then she goes back down on me before I can say anything back." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She goes faster after that, and deeper, her hand tight around the base of me, as if saying it out loud wound something up in her that has to go somewhere.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/desk_late/mouth_3.mp4">>
+
+I come in her mouth and she stays there and swallows, all of it, her fingers digging into my thighs, until I'm finished and she's let me go. Then she crawls back out from under the desk, and gets up, and without asking climbs into my lap in the chair, which creaks about it, and puts her head on my shoulder with her knees pulled up.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "Five minutes. Then you can go back to your spreadsheets and I'll go home like a normal person." },
+{ text: "It's closer to twenty. She falls half asleep against my neck, and I finish my spreadsheet one-handed around her." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 25>>
+<<UpdateStat "+" "SisterRelation" 2>>
+<<Feel $sister "player" 1>>
+<<EndMicroScene "Drive her home">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

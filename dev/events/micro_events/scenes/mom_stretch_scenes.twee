@@ -1,0 +1,162 @@
+:: Mom Stretch Hands [scene] {"position":"1300,3775","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Living Room Stretch, tier 2 "Hands": after A Knock at Night, before
+   The Crawl). Opened from Mom Living Room Stretch with <<MicroScene>>. I sit on the couch, she stretches in front of me
+   on purpose, then comes up off the mat, flushed, and sits next to me. Her hand, and she keeps her other hand on the
+   TV remote in case anyone comes down the stairs.
+   Variants: the first time, her lust high (she asked me to stay).
+   Clips, images/characters/mom/events/stretch/ (check against the clips):
+     hands_0.mp4   she stretches on the mat in front of the couch, facing me, in the black leggings and sports bra
+     hands_1.mp4   she sits next to me on the couch, her leg over mine, her hand in my shorts
+     hands_2.mp4   the handjob, faster, her head on my shoulder
+     hands_3.mp4   the finish on her bare stomach, she wipes it off with her mat towel */
+<<silent>>
+<<SetBackground $locations[2].img>>
+<<set _stFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _stEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<</silent>>
+I sit down on the couch with my feet on either side of the end of her mat.
+
+<<if _stEager>>
+She doesn't ask me to count. She goes into her next stretch on her hands and knees, facing me, with her head down and her back arched, and holds it, and lets me look down the front of her sports bra for as long as the stretch takes. When she comes up out of it, her face is pink, and it isn't from the stretch.
+<<elseif _stFirst>>
+She starts her next stretch facing the TV, the way she always does. Halfway into it she stops, and gets up off the mat, and turns it around, and starts again facing me. She doesn't say anything about it, and neither do I.
+<<else>>
+She turns the mat around to face me without being asked, the way she'd straighten a picture frame.
+<</if>>
+
+<<linkreplace "Watch her">>
+<<Media "images/characters/mom/events/stretch/hands_0.mp4">>
+
+She goes through the rest of her routine like that. She bends forward over her legs with her forehead almost on her knees, then rolls onto her back and pulls her knees to her chest, then lies flat and lifts her hips off the mat and holds them there, trembling a little, and the whole time I'm the only thing in the room she looks at. Her stomach is bare between the leggings and the sports bra, and it's moving up and down with her breathing, faster than any stretch needs.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "That's the last one. That's what the video says, anyway. I never do the cool-down, I always skip it, and the lady on the video always looks so disappointed in me." },
+{ text: "She sits up and looks at me, and at the stairs behind me, and back at me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _stFirst>>
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "You're looking at me like you've had one of those days, sweetie." },
+{ who: $player, text: "Maybe I have." },
+{ who: $mom, text: "Well. Then come here, and turn the TV on first, something with the volume up. If anyone comes down, we're watching the news." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Let her come up">>
+<<Media "images/characters/mom/events/stretch/hands_1.mp4">>
+
+She gets up off the mat and sits down next to me on the couch, close, with her leg over mine and her shoulder under my arm. She's warm all over from the stretching, and a little damp at the back of her neck. She picks up the remote in her left hand and points it at the TV, and finds the news, and turns it up. Her right hand slides down my stomach and under the waistband of my shorts.
+
+She wraps her fingers around me and starts slowly, with her eyes on the TV, as if she's actually interested in the weather for the next three days.
+
+<<linkreplace "Let her get on with it">>
+<<Media "images/characters/mom/events/stretch/hands_2.mp4">>
+
+The weather ends and something about a bridge closure starts. She has stopped pretending to watch it. She's put her head down on my shoulder and her hand is moving faster now, tight and steady, twisting a little at the top the way she figured out I like, and she's breathing against my neck in short little puffs. The remote is still in her other hand, held up a little off the couch, ready, and her thumb is resting on the button.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "Tell me when, honey. I've only got this one little towel." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Tell her when">>
+<<Media "images/characters/mom/events/stretch/hands_3.mp4">>
+
+I tell her, and she pulls me out of my shorts and points me down at herself, and I come across her bare stomach, between the waistband of her leggings and the bottom of her sports bra. She watches it land. She keeps her hand moving until I'm done, and then lets go of me and looks down at her stomach for a moment as if she's deciding what to do about a spill on the counter.
+
+She reaches down for the little towel at the end of her mat and wipes herself clean with it, carefully, and folds it so the wet part is on the inside.
+
+Then she gives me back my half of the couch, turns the news down to a murmur, and starts rolling up her mat, tight and even, the way she rolls everything.
+
+<<set $mom.flags.handjobs to ($mom.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 20>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<EndMicroScene "Turn off the news">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Mom Stretch Mouth [scene] {"position":"1425,3775","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Living Room Stretch, tier 3 "Mouth": after The Crawl, before the
+   Catalyst Night). Opened from Mom Living Room Stretch with <<MicroScene>>. I sit on the couch and point at the
+   mat in front of my feet; she kneels on it. Her ponytail.
+   Variants: the first time, her lust high (she asked me to watch the last part, and the last part is this).
+   Clips, images/characters/mom/events/stretch/ (check against the clips):
+     mouth_0.mp4   she kneels on the mat between my feet in front of the couch and pulls my shorts down
+     mouth_1.mp4   the blowjob, my hand in her ponytail
+     mouth_2.mp4   faster, deeper, her hands on my knees
+     mouth_3.mp4   the finish in her mouth; she sits back on her heels and swallows */
+<<silent>>
+<<SetBackground $locations[2].img>>
+<<set _smtFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _smtEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _smtSisWhere to ($sister.flags.isHome ? "Upstairs, with her headphones on." : "Out until late.")>>
+<</silent>>
+<<if _smtEager>>
+I sit down on the couch, and she comes up off the mat onto her knees, and walks on them the two steps to the end of the mat where my feet are, and stops there. That's the last part. She'd planned it.
+<<elseif _smtFirst>>
+I sit down on the couch and watch her finish the stretch she's in. When she comes out of it and looks at me, I point at the end of the mat, the bit right in front of my feet.
+
+She looks at the spot I'm pointing at, and then at me. Then she gets onto her knees and moves down the mat to it, and sits back on her heels with her hands on her thighs, the way she sat on the carpet at the office.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "Is your $sister.relation...?" },
+{ who: $player, text: _smtSisWhere },
+{ who: $mom, text: "Okay. Okay, then." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+I sit down on the couch and point at the mat. She finishes the breath she's taking, the way the lady on the video tells her to, all the way out, and then she comes.
+<</if>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/mom/events/stretch/mouth_0.mp4">>
+
+She kneels on the mat between my feet and hooks her fingers in the waistband of my shorts, and I lift my hips so she can pull them down. She takes me in her hand and looks up at me once, quickly, as if she's checking that this is still what I want. Then she bends her head and takes me into her mouth.
+
+<<linkreplace "Take her ponytail">>
+I take hold of her ponytail, close to her head, and wrap it once around my hand.
+
+<<Media "images/characters/mom/events/stretch/mouth_1.mp4">>
+
+She goes still when I take it, and then she relaxes, all at once, the way she does at the end of a stretch when she finally lets go of it. She lets me move her. I bring her down slowly, and back up, and down again, and she follows the hand in her hair with her lips tight around me and her tongue moving underneath, and makes small sounds in her throat each time I take her a little deeper than the time before.
+
+<<linkreplace "Faster">>
+<<Media "images/characters/mom/events/stretch/mouth_2.mp4">>
+
+Her hands are flat on my knees. I go faster and she keeps up with it, her ponytail tight in my fist, her eyes watering, her breath coming hard through her nose. Spit runs down my cock and onto her chin and drips onto the mat, onto the purple foam where she does her breathing exercises, and she doesn't care at all. She's always said anything can be learned if you're willing to put the work in, and she's putting the work in.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/stretch/mouth_3.mp4">>
+
+I hold her down at the end and come in her mouth, and she takes it with her eyes closed and her lips sealed tight, and swallows while I'm still finishing. When I let go of her ponytail she comes up slowly and sits back on her heels on the mat, and swallows again, and runs her tongue over her lips.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "Thank you for staying, honey." },
+{ text: "She pulls my shorts back up for me and rolls the mat up tight and tucks it under her arm. On her way past the couch she bends down and kisses the top of my head, quickly, and goes upstairs to shower." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 25>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<EndMicroScene "Let her roll up the mat">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

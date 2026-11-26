@@ -1,0 +1,178 @@
+:: Sister Stretch Hands [scene] {"position":"1425,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Living Room Stretch, tier 2 "Yearning": after What Are We, before the
+   Catalyst Night). Opened from Sister Living Room Stretch with <<MicroScene>>. The rep contest, loser does what the
+   winner says, and she stops one rep short on purpose. On the mat, sweaty, her hand; she wipes it off on my shirt.
+   Variants: the first time, her lust high (she wanted someone to lose to her, and then loses), and a near miss: the
+   vacuum cleaner upstairs goes quiet, which means $mom.callName is about to come down.
+   Clips, images/characters/sister/events/stretch/ (check against the clips):
+     hands_0.mp4   the rep contest on the mat, she stops one rep short and looks at me
+     hands_1.mp4   we sit on the mat against the couch, her hand in my shorts, sweaty, her ponytail
+     hands_2.mp4   the finish in her hand; she wipes it on my shirt */
+<<silent>>
+<<SetBackground $locations[2].img>>
+<<set _sthFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _sthEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<<set _sthNear to setup.rollNearMiss("sister")>>
+<</silent>>
+We do push-ups, side by side on the mat, counting out loud. She's faster than me, she's always been faster than me, and by fifteen I'm shaking and she's breathing easy and talking trash between reps.
+
+<<linkreplace "Keep going">>
+<<Media "images/characters/sister/events/stretch/hands_0.mp4">>
+
+At nineteen she stops. She's at the top of the push-up with her arms straight, not shaking at all, and she looks over at me with her ponytail hanging down and lets herself down onto the mat, slowly, on purpose, and lies there.
+
+<<silently>>
+<<if _sthFirst>>
+<<set _msgs = [
+{ who: $sister, text: "Oh no. I'm exhausted. I couldn't possibly do one more." },
+{ who: $player, text: "You weren't even breathing hard." },
+{ who: $sister, text: "I'm a very private breather. You won, $player.name. Go on, then. Loser does what the winner says." },
+{ text: "She rolls onto her back on the mat and looks up at me, and the joke goes out of her face, and she waits." },
+]>>
+<<else>>
+<<set _msgs = [
+{ who: $sister, text: "You won. Again. What a shock." },
+{ text: "She rolls onto her back and waits to be told." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Tell her what the winner wants">>
+I sit back against the front of the couch with my legs out on the mat, and tell her. Quietly, so it doesn't carry up the stairs.
+
+<<Media "images/characters/sister/events/stretch/hands_1.mp4">>
+
+She sits up and shuffles over next to me on the mat, her shoulder against mine, still warm and damp from the set, and slides her hand down the front of my shorts without any fuss. She takes hold of me and strokes me slowly, watching her own hand move under the fabric as if it's an exercise she's learning from the video. Her ponytail swings against my arm. She smells like her deodorant and clean sweat.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "For the record, I could have done forty." },
+{ who: $player, text: "I know." },
+{ who: $sister, text: "I just want that on the record." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _sthNear>>
+Upstairs, the vacuum cleaner has been droning along the hallway the whole time, back and forth, bumping into the skirting boards. Now it stops.
+
+$sister.callName's hand stops with it. We both look at the ceiling. Somebody upstairs is winding up the cord, slowly, the way $mom.callName always does, loop by loop, so it doesn't tangle.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "She always does the stairs last. She's going to come down the stairs." },
+{ text: "She whispers it like a weather report. Then her hand starts again, tight and fast, and she presses her forehead against my shoulder so she can't see my face, and I can feel her grinning." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/stretch/hands_2.mp4">>
+
+I come in her hand, inside my shorts, and she holds on through it and keeps stroking, slower, until I'm done. Then she draws her hand out and looks at it, and looks at me, and wipes it, very deliberately, down the front of my t-shirt.
+
+<<silently>>
+<<set _msgs to [
+{ who: $player, text: "Seriously?" },
+{ who: $sister, text: "Winner's prize. You can wash it yourself." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<if _sthNear>>
+The vacuum starts up again at the top of the stairs. $sister.callName is already back on the mat, in plank position, pretending to be halfway through a set, and I'm in the kitchen with my back to the door, rinsing my shirt under the tap, when $mom.callName bumps the vacuum down the last step and asks if anybody's seen the attachment for the corners.
+<<else>>
+She unpauses the video and gets back on her mat for her cool-down, and I go and change my shirt.
+<</if>>
+
+<<set $sister.flags.handjobs to ($sister.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 20>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<if _sthNear>><<UpdateStat "+" "SisterExhibition" 1>><</if>>
+<<EndMicroScene "Change your shirt">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Sister Stretch Mouth [scene] {"position":"1550,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Sister Living Room Stretch, tier 3 "Devoted": after the Catalyst Night, before
+   Everything). Opened from Sister Living Room Stretch with <<MicroScene>>. The rematch, and the bet is her mouth. I lie on
+   her mat; she kneels beside me and counts out loud like the lady on her video, and loses count.
+   Variants: the first time, her lust high (she lost the rematch in the first ten seconds).
+   Clips, images/characters/sister/events/stretch/ (check against the clips):
+     mouth_0.mp4   I lie on my back on her yoga mat, she kneels beside me and pulls my shorts down
+     mouth_1.mp4   the blowjob from the side, her ponytail swinging, she's counting
+     mouth_2.mp4   faster, my hand on her ponytail
+     mouth_3.mp4   the finish on her face; she wipes it off with her workout towel */
+<<silent>>
+<<SetBackground $locations[2].img>>
+<<set _stmFirst to setup.microSceneCount("sister", passage()) <= 1>>
+<<set _stmEager to $sister.stats.lust >= setup.microTuning.lustHigh>>
+<</silent>>
+<<if _stmEager>>
+We get as far as five sit-ups. Then she stops, and lies back on the mat, and announces that she forfeits, and pulls me down by the shirt.
+<<else>>
+We do sit-ups this time, side by side, with our feet hooked under the couch. Neither of us is really counting. At twelve she lies back on the mat and doesn't come up again.
+<</if>>
+
+<<silently>>
+<<if _stmFirst>>
+<<set _msgs to [
+{ who: $sister, text: "I lose. Tragic. I suppose I'll have to do whatever you want now." },
+{ who: $player, text: "Lie down?" },
+{ who: $sister, text: "Not me. You." },
+{ text: "She gets up onto her knees and pats the mat where she's just been lying, still warm." },
+]>>
+<<else>>
+<<set _msgs to [
+{ who: $sister, text: "I lose. Lie down." },
+]>>
+<</if>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Lie down on her mat">>
+<<Media "images/characters/sister/events/stretch/mouth_0.mp4">>
+
+I lie down on my back on her mat. It smells of her. She kneels next to me, by my hip, and pulls my shorts down to my thighs with both hands, and takes me in her hand, and then she leans over me with her ponytail falling over one shoulder and takes me in her mouth.
+
+<<linkreplace "Let her">>
+<<Media "images/characters/sister/events/stretch/mouth_1.mp4">>
+
+She starts counting. Out loud, in between, the way the lady on her video does: "one," and down, slowly, all the way, and up, "two," and down. Her voice has the same bright, encouraging tone. "Three. Keep that core tight." She's laughing at herself, and doing it anyway, and every number she says gets a little breathier than the one before.
+
+Somewhere after eleven she forgets the numbers. She stops lifting her head to say them. She just keeps going down on me, deeper each time, her ponytail swinging against my stomach, her hand braced flat on my chest.
+
+<<linkreplace "Take her ponytail">>
+I take her ponytail in my fist.
+
+<<Media "images/characters/sister/events/stretch/mouth_2.mp4">>
+
+She makes a small sound and lets me take over. I hold her ponytail and move her head, faster than she'd been going, and she lets me, her lips tight, her breath hissing through her nose, her eyes on my face sideways from where she's kneeling. Spit runs down onto the mat. She'll have to clean it with the spray she keeps by the TV. She doesn't seem worried about that right now.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/sister/events/stretch/mouth_3.mp4">>
+
+At the end I pull her off by the ponytail and come on her face, and she holds still for it with her eyes squeezed shut and her mouth open, and it lands across her cheek and her lips and in her hair. Then she opens one eye and reaches blindly for the workout towel she keeps over the arm of the couch.
+
+<<silently>>
+<<set _msgs to [
+{ who: $sister, text: "That's what this towel is for now, apparently." },
+{ text: "She wipes her face, carefully, around the eyes first, and then looks at me with her cheeks pink and her ponytail half undone." },
+{ who: $sister, text: "I still could have done forty." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<UpdateStat "+" "SisterCorruption" 1>>
+<<UpdateStat "-" "SisterLust" 25>>
+<<UpdateStat "+" "SisterRelation" 1>>
+<<EndMicroScene "Leave her to her cool-down">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

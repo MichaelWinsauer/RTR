@@ -1,0 +1,222 @@
+:: Mom Shower Hands [scene] {"position":"1175,3650","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Going Shower, tier 2 "Hands": after A Knock at Night, before The Crawl).
+   Opened from Mom Going Shower with <<MicroScene>>. I bring her the towel, and stay. She opens the shower door and
+   reaches out through the steam; I stay dressed on the bath mat, she stays under the water.
+   Variants: the first time, her lust high (she "forgot" the towel on purpose and says so), and a near miss:
+   $sister.callName knocks on the bathroom door because she wants her hairdryer.
+   Clips, images/characters/mom/events/shower/ (check against the clips):
+     hands_0.mp4   she slides the shower door open, wet, I'm standing outside on the bath mat with the towel
+     hands_1.mp4   her wet, soapy hand on my cock through the open shower door, the water running behind her
+     hands_2.mp4   the finish, onto her stomach and the shower floor, the water washing it away */
+<<silent>>
+<<SetBackground $locations[4].img>>
+<<set _shFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _shEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _shNear to setup.rollNearMiss("mom")>>
+<</silent>>
+I give her five minutes. Then I take a towel from the hallway closet and knock once on the bathroom door, and push it open without waiting for an answer.
+
+The room is thick with steam. The mirror is gone, the light over the sink is a smudge, and behind the shower glass she's a pale shape with her face turned up into the water.
+
+<<if _shEager>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Is that you, honey? I forgot my towel. I always forget my towel." },
+{ text: "The towel she brought in with her is hanging on the hook next to the shower, dry and folded. She sees me look at it through the glass, and turns her face back into the water instead of explaining." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<elseif _shFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Sweetie? I'm in the shower, I'll be out in a..." },
+{ who: $player, text: "I brought you a towel." },
+{ text: "The water keeps running. For a long moment the shape behind the glass doesn't move at all." },
+{ who: $mom, text: "That's very thoughtful of you. You can just... you can hang it on the hook, honey." },
+{ text: "I don't hang it on the hook. I stand on the bath mat holding it, and she knows I'm still standing there, and the water runs and runs." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<<else>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Right on time." },
+{ text: "She says it to the tiles, not to me." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Wait on the bath mat">>
+<<Media "images/characters/mom/events/shower/hands_0.mp4">>
+
+The glass door slides open a foot. She doesn't come out and she doesn't hide either. She stands in the opening with the water drumming on her back and running down her front in sheets, her hair dark and heavy over one shoulder, and looks at the towel in my hands and then at me.
+
+<<if _shFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "You've had a long day too, haven't you? I can tell. Come here, then, and stay right there on the mat, don't you dare get your socks wet." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+She pumps some of her body wash into her palm and rubs her hands together until they're slick, and reaches out through the gap.
+
+<<linkreplace "Let her reach">>
+<<Media "images/characters/mom/events/shower/hands_1.mp4">>
+
+Her hand is wet and hot from the water and slippery with soap, and when she closes it around my cock it slides all the way down in one stroke. She works me like that, leaning out through the open door, her other hand braced flat against the glass, water dripping from her elbow onto the bath mat she told me not to step off. Every stroke makes a small, wet sound under the hiss of the shower. Her breasts sway with the movement and the water runs off her nipples, and she doesn't make any effort to cover them, though she glances down at herself once, as if she's only just remembered they're there.
+
+<<if _shNear>>
+Someone knocks on the bathroom door. Two quick raps, and then the handle moves and stops against the lock I turned without thinking about it.
+
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Is my hairdryer in there? I've looked literally everywhere." },
+{ text: "$mom.callName's hand goes still around me. The water keeps running between us. Her eyes go to the door, then to me, very wide." },
+{ who: $mom, text: "It's in the cabinet under the sink, sweetheart, I'll bring it to you when I'm done!" },
+{ who: $sister, text: "How long are you going to be?" },
+{ who: $mom, text: "Not long, honey. Five minutes." },
+{ text: "She's looking right at me when she says it." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Footsteps go back down the hall. A door closes. $mom.callName lets out her breath in a shaky little laugh that has no humor in it at all, and her hand starts moving again, faster than before, as if five minutes was a promise and she means to keep it.
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/shower/hands_2.mp4">>
+
+She feels it coming before I say anything, and she pulls me toward her by the cock, gently, so I have to lean in over the threshold, and I come across her stomach and her soapy hand. She keeps stroking until I'm done and watches the water carry it down her thighs and into the drain.
+
+Then she rinses her hand under the spray, front and back, and holds it out to me, palm up and dripping.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Towel, please." },
+{ text: "I give it to her. She dries her hand on one corner of it and gives it back." },
+{ who: $mom, text: "Now go, sweetie, before your socks are soaked, and close the door behind you, the steam gets into everything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+The glass door slides shut. By the time I'm in the hallway she's humming something under the water.
+
+<<set $mom.flags.handjobs to ($mom.flags.handjobs || 0) + 1>>
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 20>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<if _shNear>><<UpdateStat "+" "MomExhibition" 1>><</if>>
+<<EndMicroScene "Close the door behind you">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+
+
+:: Mom Shower Mouth [scene] {"position":"1300,3650","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Going Shower, tier 3 "Mouth": after The Crawl, before the Catalyst
+   Night). Opened from Mom Going Shower with <<MicroScene>>. I wash her hair; she turns around and kneels on the
+   shower floor, and afterwards she wants her hair finished properly. Both of us in the shower.
+   Variants: the first time, her lust high (she asked me in), and a near miss: $sister.callName calls through the
+   door about the hot water.
+   Clips, images/characters/mom/events/shower/ (check against the clips):
+     mouth_0.mp4   in the shower behind her, my hands in her hair, shampoo, her head tipped back
+     mouth_1.mp4   she turns around and sinks down onto her knees on the shower floor
+     mouth_2.mp4   the blowjob under the spray, her hands on my thighs
+     mouth_3.mp4   the finish on her face and chest, she tips her face up into the water */
+<<silent>>
+<<SetBackground $locations[4].img>>
+<<set _smFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _smEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<<set _smNear to setup.rollNearMiss("mom")>>
+<</silent>>
+<<if _smEager>>
+She's already under the water when I come in, and she's left the glass door open for me. She hears me lock the bathroom door and holds the shampoo bottle out over her shoulder without turning around.
+<<elseif _smFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $player, text: "Your hair. I'll do it." },
+{ who: $mom, text: "Oh, honey, you don't have to, I can..." },
+{ text: "She stops, and looks at me properly, and works out what I'm actually offering." },
+{ who: $mom, text: "Well, then you'd better come in, hadn't you. Let me get the water warm first, you always say it's too hot." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+She gets the water right before she lets me in. She tests it on the inside of her wrist, the way she tests everything she's about to hand to somebody, and I don't think she even notices she's doing it.
+<<else>>
+She sets the water the way I like it before I'm undressed, and steps back to make room for me.
+<</if>>
+
+<<linkreplace "Wash her hair">>
+<<Media "images/characters/mom/events/shower/mouth_0.mp4">>
+
+Her hair is long enough that it takes two handfuls of shampoo. I work it in from her temples back, slowly, digging my fingers in against her scalp, and she tips her head back into my hands and closes her eyes and lets out a sound I've never heard her make, low and helpless. It's been a long time since somebody washed her hair for her who wasn't being paid to. Probably since before $dad.callName left. Probably before that, too.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Oh, that's... don't stop, sweetie. Just a minute more." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I give her the minute. Then I rinse the soap out of her hair, and put one hand on her shoulder, and press down.
+
+<<linkreplace "Press down">>
+<<Media "images/characters/mom/events/shower/mouth_1.mp4">>
+
+She turns around under my hand and sinks down onto her knees on the shower floor, slowly, with the water still pouring over both of us. Her wet hair is plastered down her back and over her breasts, and she has to blink the water out of her eyes to look up at me.
+
+<<if _smFirst>>
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "I've never done this in the shower. I didn't know people actually... in the movies it always looks so..." },
+{ text: "She doesn't tell me what it looks like in the movies. She takes hold of me with both hands instead." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+<</if>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/mom/events/shower/mouth_2.mp4">>
+
+The water runs down my stomach and straight into her mouth, and she doesn't seem to mind. She sucks me slowly at first, then deeper, with her hands on the backs of my thighs to keep herself steady on the wet tiles, and every time she pulls back the spray hits her face and she shakes her head a little and goes back down. There's water and spit running off her chin in a steady stream. She keeps her eyes open and on mine even when it gets in them.
+
+<<if _smNear>>
+<<silently>>
+<<set _msgs = [
+{ who: $sister, text: "Whoever's in there, I swear to god, if there's no hot water left when you're done..." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+$sister.callName's voice is right on the other side of the bathroom door. $mom.callName goes completely still with me in her mouth, her fingers digging into the backs of my thighs, and stays like that until the footsteps have gone on past the door and down the stairs. Then she starts again, and I feel her moan more than I hear it, and when she opens her eyes she's working harder than before.
+<</if>>
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/shower/mouth_3.mp4">>
+
+I pull out and finish on her face, and she holds still for it with her eyes squeezed shut and her mouth open, and it lands across her cheek and her lips and runs down onto her chest. Then she tips her face up into the spray and lets the water take it off her, turning her cheek this way and that, like she's done it a hundred times.
+
+She stays on her knees a moment longer, getting her breath. Then she gets up, using my arm, and turns her back to me again.
+
+<<silently>>
+<<set _msgs = [
+{ who: $mom, text: "Would you do the conditioner too, honey? It's the blue bottle. You have to leave it in for two minutes, or it doesn't do anything." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I do the conditioner. She counts the two minutes out loud, under her breath, with her eyes closed and her back against my chest.
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 25>>
+<<UpdateStat "+" "MomRelation" 2>>
+<<if _smNear>><<UpdateStat "+" "MomExhibition" 1>><</if>>
+<<EndMicroScene "Get dressed">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

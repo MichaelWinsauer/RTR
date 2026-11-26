@@ -1,0 +1,84 @@
+:: Mom Laundry Mouth [scene] {"position":"1800,3900","size":"100,100"}
+/* Micro event scene (MICRO_EVENTS_PLAN.md, Mom Bedroom Clothes, tier 3 "Mouth": after The Crawl, before the Catalyst
+   Night). Opened from Mom Bedroom Clothes with <<MicroScene>>. Daytime, my room, her laundry basket. She kneels by
+   the bed on a towel from the basket; I finish on her blouse, and she takes the blouse off and puts it in the basket
+   with the rest. Different from the morning routine (my bed, the coffee, she wakes me) and from the handjob card in
+   my room (Mom Handjob, "bedroom").
+   Variants: the first time, her lust high (she came up with fresh lipstick and doesn't ask).
+   Clips, images/characters/mom/events/laundry/ (check against the clips):
+     mouth_0.mp4   she folds a towel from the basket, drops it by the bed and kneels on it in front of me
+     mouth_1.mp4   the blowjob, slow, her hands on my thighs, her lipstick
+     mouth_2.mp4   my hand in her hair, faster
+     mouth_3.mp4   the finish on her blouse; she looks down at it, then unbuttons it */
+<<silent>>
+<<SetBackground $locations[1].img>>
+<<set _lmFirst to setup.microSceneCount("mom", passage()) <= 1>>
+<<set _lmEager to $mom.stats.lust >= setup.microTuning.lustHigh>>
+<</silent>>
+<<if _lmEager>>
+She sets the basket down on the floor next to the bed, and takes the top towel off the pile and folds it in half, and in half again, and drops it on the carpet in front of my knees. Then she kneels on it. She doesn't ask whether I want her to. She has her hands on my belt before I've decided whether to say anything at all.
+<<elseif _lmFirst>>
+I sit down on the edge of the bed and look at her, and she stops with the basket on her hip.
+
+<<silently>>
+<<set _msgs to [
+{ who: $mom, text: "Oh. Now? Your door doesn't even lock properly, sweetie, I keep meaning to have someone look at it." },
+{ who: $player, text: "Then you'll have to be quick." },
+{ text: "She sets the basket down. She takes a towel off the top of the pile, a clean one that smells of the fabric softener she buys in the giant jugs, and folds it twice and puts it down on the carpet in front of me, because she knows what that carpet does to her knees." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+Then she kneels on it.
+<<else>>
+I sit on the edge of the bed. She sets the basket down, folds a towel from the top of it into a square, drops it on the carpet and kneels on it, all in one long practiced movement, like setting a table.
+<</if>>
+
+<<linkreplace "Let her">>
+<<Media "images/characters/mom/events/laundry/mouth_0.mp4">>
+
+She opens my jeans and takes me out, and holds me in her hand for a second while she pushes her hair back over her shoulder, out of the way. Then she leans in. Her lipstick is the same dark rose that wouldn't come out of my collar, and the first thing she does is leave a ring of it around the base of the head of my cock, and look at it, and then take me deeper and leave another one further down.
+
+<<linkreplace "Lean back on your hands">>
+<<Media "images/characters/mom/events/laundry/mouth_1.mp4">>
+
+She goes slowly. Her hands rest on my thighs and she moves her head in long strokes, all the way down and all the way up, her lips dragging, her eyes on me. On the floor next to her the laundry basket is still full: my t-shirts, my socks balled in pairs, my boxers folded into neat little squares. I've never once thought about who folds them that way.
+
+<<silently>>
+<<set _msgs to [
+{ who: $player, text: "You fold my clothes better than I do." },
+{ text: "She hums something with me in her mouth that I take as a yes. It vibrates all the way down." },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+<<linkreplace "Take her hair">>
+I take a fistful of her hair at the back of her head and pull her down onto me.
+
+<<Media "images/characters/mom/events/laundry/mouth_2.mp4">>
+
+She lets out a small surprised sound and then goes with it. I fuck her mouth properly now, faster, holding her head where I want it, and she keeps her hands flat on my thighs and lets me, her eyes watering, a thin line of spit running from the corner of her mouth down her chin and dripping off it onto the front of her blouse. She doesn't notice, or she does and doesn't care.
+
+<<linkreplace "Finish">>
+<<Media "images/characters/mom/events/laundry/mouth_3.mp4">>
+
+I pull her off me at the last second and come on her, and most of it lands on the front of her blouse, across the buttons and the cream silk, the good one from work. She kneels there with her mouth still open and her chest heaving and looks down at herself.
+
+<<silently>>
+<<set _msgs to [
+{ text: "She doesn't wipe it off. She unbuttons it right there on her knees, from the top down, slowly, and takes it off and folds it once, mess on the inside, and lays it in the laundry basket on top of my clean socks. Then she picks the basket up and kneels there in her bra, holding it." },
+{ who: $mom, text: "Thank you, honey. Do you want these in the drawers, or should I leave them on the chair for you?" },
+]>>
+<</silently>>
+<<Chat _msgs>>
+
+I tell her the drawers. She puts everything away exactly where it goes, in her bra, humming, and takes the basket and her blouse back downstairs.
+
+<<UpdateStat "+" "MomCorruption" 1>>
+<<UpdateStat "-" "MomLust" 25>>
+<<UpdateStat "+" "MomRelation" 1>>
+<<EndMicroScene "Let her take it downstairs">>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>
+<</linkreplace>>

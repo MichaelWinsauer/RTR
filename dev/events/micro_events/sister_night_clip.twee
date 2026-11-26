@@ -1,0 +1,115 @@
+:: Sister Night Clip [micro_event event nobr] {"position":"1050,3150","size":"100,100"}
+/* Inline micro event in my room at night (micro event 51, MICRO_EVENTS_PLAN.md "Night Clip"): after Send Me Something she
+   keeps sending them. My phone lights up, a few messages, a video. The repeatable version of that night, so her messages
+   keep its style (lowercase, apologies) at tier 2 and lose the apologies at tier 3, where she says it to the camera.
+   Only while she isn't in my room (Define Events). Replies: ask for more (a second, bolder video), say goodnight, or
+   leave her on read and let her lie there with it.
+   Clips, images/characters/sister/events/night_clip/ (check against the clips):
+     s2_0.mp4   tier 2: her room, fairy lights, in my gray hoodie on her bed, she pulls it up over her breasts and holds it there
+     s2_1.mp4   tier 2, after "More": the hoodie off, in her panties, her hand inside them, eyes on the camera
+     s3_0.mp4   tier 3: naked on her bed, phone close, touching herself, at the end she says something to the camera
+     s3_1.mp4   tier 3, after "More": she props the phone between her knees and finishes, saying my name */
+<<MicroContext $sister>>
+<<silent>>
+<<set _ncTier to Math.min(_mc.tier, 3)>>
+<<set _ncTime to either("11:48", "12:06", "12:31", "1:14", "11:57")>>
+<<if _ncTier >= 3>>
+	<<set _ncMsgs to [
+		[ { who: $sister, text: "are you awake" }, { who: $sister, text: "doesn't matter. watch it in the morning if you're not" }, { who: $sister, text: "sound on" } ],
+		[ { who: $sister, text: "i can't sleep" }, { who: $sister, text: "this is your fault, for the record" } ],
+		[ { who: $sister, text: "made you something" }, { who: $sister, text: "don't watch it at work" } ]
+	].random()>>
+<<else>>
+	<<set _ncMsgs to [
+		[ { who: $sister, text: "you awake?" }, { who: $sister, text: "don't answer that" }, { who: $sister, text: "i made another one. sorry. not sorry. a little sorry" } ],
+		[ { who: $sister, text: "ok this is the last one this week, i promise" }, { who: $sister, text: "i say that every time, i know" } ],
+		[ { who: $sister, text: "i was going to go to sleep" }, { who: $sister, text: "and then i didn't" }, { who: $sister, text: "you can delete it" } ]
+	].random()>>
+<</if>>
+<</silent>>
+<p>_ncTime. My phone lights up the ceiling.</p>
+<<Chat _ncMsgs>>
+<<if _ncTier >= 3>>
+	<<Media "images/characters/sister/events/night_clip/s3_0.mp4" 600>>
+	<p>She's on her bed with nothing on, under the fairy lights, holding the phone herself this time, close, so her face fills half the frame and the rest of her is a long slope down to where her hand is moving between her legs. She doesn't look away from the camera once. She isn't nervous anymore, or if she is, she's decided it doesn't count. Near the end her breathing catches, and she brings the phone up close to her face, and says it, quietly, right into the lens: "I love you." Then her thumb finds the button and the video ends.</p>
+<<else>>
+	<<Media "images/characters/sister/events/night_clip/s2_0.mp4" 600>>
+	<p>Her room, lit only by the fairy lights. She's sitting on the end of her bed in my gray hoodie with the phone propped up on her desk again. She takes the hem in both hands and pulls it up, slowly, over her stomach and over her breasts, and holds it there bunched under her chin, and looks into the camera with her face pink and her jaw set. She doesn't lunge for the phone this time. She holds it for a full ten seconds, as if she's counting, and then lets the hoodie fall and reaches out and stops the video.</p>
+<</if>>
+<<UpdateStat "+" "SisterExhibition" 1>>
+<div id="night-clip-choice" class="choices">
+	<div>
+		<<link "More.">>
+			<<replace "#night-clip-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "More." },
+				]>>
+				<<if _ncTier >= 3>>
+					<<run _msgs.push({ text: "The dots appear right away. They don't stop and start again this time." })>>
+					<<run _msgs.push({ who: $sister, text: "ok. give me a minute" })>>
+				<<else>>
+					<<run _msgs.push({ text: "The dots appear, vanish, appear again. Through the wall I hear her floor creak." })>>
+					<<run _msgs.push({ who: $sister, text: "ok" })>>
+					<<run _msgs.push({ who: $sister, text: "ok ok ok" })>>
+				<</if>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<if _ncTier >= 3>>
+					<<Media "images/characters/sister/events/night_clip/s3_1.mp4" 600>>
+					<p>Four minutes later. She's propped the phone up between her knees, so I'm looking up the length of her at her face, and she's using both hands now. She takes her time about it, and talks to the camera while she does, too low for the phone to pick up most of it, until she comes with her head pressed back into the pillow and says my name, twice, loud enough that she claps her hand over her own mouth afterwards and laughs into it.</p>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $sister, text: "i hope the walls in this house are thicker than they look" },
+						{ who: $sister, text: "goodnight. love you" },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<<else>>
+					<<Media "images/characters/sister/events/night_clip/s2_1.mp4" 600>>
+					<p>Seven minutes later. The hoodie's on the floor at the edge of the frame. She's lying back against her pillows in only her panties, with her knees up, and her hand is already inside them when the video starts. She keeps her eyes on the camera, and her mouth open, and when it gets too much she turns her face into her own shoulder and the video shakes, and she doesn't stop it until she's done, breathing hard, staring at the lens with an expression I've never seen on her.</p>
+					<<silently>>
+					<<set _msgs to [
+						{ who: $sister, text: "sorry" },
+						{ who: $sister, text: "no actually i'm not" },
+						{ who: $sister, text: "goodnight" },
+					]>>
+					<</silently>>
+					<<Chat _msgs>>
+				<</if>>
+				<<UpdateStat "+" "SisterCorruption" 1>>
+				<<UpdateStat "+" "SisterExhibition" 1>>
+				<<UpdateStat "-" "SisterLust" 15>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Tell her goodnight">>
+			<<replace "#night-clip-choice">>
+				<<silently>>
+				<<set _msgs to [
+					{ who: $player, text: "Go to sleep. Goodnight." },
+				]>>
+				<<if _ncTier >= 3>>
+					<<run _msgs.push({ who: $sister, text: "goodnight. i love you. ok going to sleep now. actually going" })>>
+				<<else>>
+					<<run _msgs.push({ who: $sister, text: "goodnight" })>>
+					<<run _msgs.push({ who: $sister, text: "thank you for watching it. that's a weird thing to say. goodnight" })>>
+				<</if>>
+				<</silently>>
+				<<Chat _msgs>>
+				<<UpdateStat "+" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+	<div>
+		<<link "Leave her on read">>
+			<<replace "#night-clip-choice">>
+				<p>I put the phone face down on the nightstand without typing anything. It buzzes once, a few minutes later. Then again. I let it.</p>
+				<p>In the morning there are two more messages under the video, sent eleven minutes apart. The first one says <i>did you see it</i>. The second one just says <i>ok</i>. At breakfast she doesn't look at me until I say good morning to her, and then she looks at me the whole time.</p>
+				<<UpdateStat "+" "SisterLust" 4>>
+				<<UpdateStat "-" "SisterRelation" 1>>
+			<</replace>>
+		<</link>>
+	</div>
+</div>

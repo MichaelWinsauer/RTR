@@ -1,7 +1,9 @@
 :: Mom Catch Couch [micro_event event nobr] {"position":"1925,2900","size":"100,100"}
 /* Inline micro event in the living room (micro event 46, "Catching her" in Define Events). After The Booze Night: late, the
    TV on, she thinks the house is asleep. Watch quietly, let her see me (after Caught she knows I like to watch, and she
-   doesn't stop), or walk away. */
+   doesn't stop), or walk away. After The Crawl (intimacy tier 3, MICRO_EVENTS_PLAN.md) she doesn't startle anymore: she
+   asks me to sit next to her and watch properly, and waits for my yes before she lets herself finish. */
+<<MicroContext $mom>>
 <<Media "images/characters/mom/events/catch/couch.mp4" 600>>
 /* The dark living room lit by the TV, Mom on the couch under a blanket, her head back, one hand moving under it */
 <p>The TV is on with the sound almost all the way down, some late-night show with a studio audience laughing at nothing. $mom.callName is on the couch under the throw blanket, alone, with her head tipped back against the cushions and her eyes closed. One of her hands is under the blanket. It isn't still.</p>
@@ -14,11 +16,40 @@
 		<<UpdateStat "-" "MomLust" 20>>
 	<</replace>><</link>></div>
 	<div><<link "Let her see you">><<replace "#catch-couch-choice">>
-		<p>I come down the last step on purpose, so the stair creaks. Her eyes fly open. For a second she just stares at me over the back of the couch, with her hand frozen under the blanket.</p>
+		<<if _mc.tier >= 3>>
+		<p>I come down the last step on purpose, so the stair creaks. She opens her eyes and finds me over the back of the couch, and her hand under the blanket slows down, but it doesn't stop.</p>
 		<<silently>>
 		<<set _msgs to [
+			{ who: $mom, text: "Hi, honey. Come and sit with me? Not in the armchair. Here." },
+			{ text: "She moves her feet to make room on the couch and pats the cushion beside her. When I sit down she pushes the blanket off onto the floor, all of it, so there's nothing in the way anymore, and lets her knees fall open toward me." },
+			{ who: $mom, text: "I want you to see properly. You always watch from so far away." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>She does it slowly for me, two fingers, the way she must have done it alone on this couch a hundred times, with her head turned on the cushion so she can watch my face instead of the TV. She's wet enough that I can hear it under the studio laughter. When she gets close her breathing goes ragged and her hips come up off the couch, and she stops, right on the edge, and holds herself there.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "Can I, honey? Please?" },
+			{ text: "I make her wait for it. Her thighs are shaking. I let her hold it until she's whimpering, and then I nod, and she comes with her eyes on mine and her free hand clutching my sleeve." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>Afterwards she lies there with her knees still apart, getting her breath back, and doesn't reach for the blanket at all.</p>
+		<<UpdateStat "+" "MomExhibition" 3>>
+		<<UpdateStat "+" "MomCorruption" 1>>
+		<<UpdateStat "-" "MomLust" 25>>
+		<<else>>
+		<p>I come down the last step on purpose, so the stair creaks. Her eyes fly open. For a second she just stares at me over the back of the couch, with her hand frozen under the blanket.</p>
+		<<silently>>
+		/* before Caught she has never done it in front of me, so the armchair can't mean anything to her yet */
+		<<if setup.questDone("mom_caught")>>
+			<<set _mccWait to "I sit down in the armchair across from her and wait. She knows what that means by now; she learned it in the meeting room.">>
+		<<else>>
+			<<set _mccWait to "I sit down in the armchair across from her. I don't say anything, and I don't look at the TV either. I look at the blanket.">>
+		<</if>>
+		<<set _msgs to [
 			{ who: $mom, text: "Honey, I didn't hear you come down. I couldn't sleep, and the TV was..." },
-			{ text: "I sit down in the armchair across from her and wait. She knows what that means by now; she learned it in the meeting room." },
+			{ text: _mccWait },
 			{ who: $mom, text: "You want me to keep going." },
 			{ text: "She doesn't say it like a question. She looks at me for a long moment, and then the hand under the blanket starts moving again, slowly, while she keeps her eyes on my face." },
 		]>>
@@ -28,6 +59,7 @@
 		<<UpdateStat "+" "MomExhibition" 2>>
 		<<UpdateStat "+" "MomCorruption" 1>>
 		<<UpdateStat "-" "MomLust" 25>>
+		<</if>>
 	<</replace>><</link>></div>
 	<div><<link "Go back upstairs">><<replace "#catch-couch-choice">>
 		<p>I turn around and go back up the stairs as quietly as I came down, and leave her to it.</p>
@@ -37,7 +69,9 @@
 
 :: Mom Catch Kitchen [micro_event event nobr] {"position":"2050,2900","size":"100,100"}
 /* Inline micro event in the kitchen (micro event 47, "Catching her" in Define Events). After The Booze Night: a glass of
-   wine at the counter, her back to the door, a hand inside her robe. Watch, let her see me, or walk away. */
+   wine at the counter, her back to the door, a hand inside her robe. Watch, let her see me, or walk away. After The
+   Crawl (intimacy tier 3) she turns around and asks me to bring the chair closer. */
+<<MicroContext $mom>>
 <<Media "images/characters/mom/events/catch/kitchen.mp4" 600>>
 /* The kitchen at night, only the stove light on, Mom leaning on the counter with her back to the door, a wine glass, one hand inside her robe */
 <p>Only the light over the stove is on. $mom.callName is standing at the counter with her back to the door, in her robe, with a glass of white wine at her elbow that she hasn't touched in a while. She's leaning forward on one arm. The other hand has disappeared inside the front of her robe, and her hips are moving, very slightly, against the edge of the counter.</p>
@@ -50,6 +84,27 @@
 		<<UpdateStat "-" "MomLust" 20>>
 	<</replace>><</link>></div>
 	<div><<link "Let her see you">><<replace "#catch-kitchen-choice">>
+		<<if _mc.tier >= 3>>
+		<p>I pull out a chair at the kitchen table. The legs scrape on the tiles. She looks back over her shoulder, and her hand stays where it is inside her robe, and she doesn't spin around or grab at anything.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "Bring it closer, honey. Over here, by the counter. You won't see anything from all the way over there." },
+			{ text: "I bring the chair over and sit down an arm's length from her. She turns around to face me, leans back against the counter and lets the robe fall open, and puts one bare foot up on the edge of my chair, between my knees." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>She goes back to it like that, open in front of me under the stove light, one hand between her legs and the other gripping the counter behind her. She keeps looking from my face to my lap and back to my face, and every time she looks at my lap she goes a little faster. Her foot presses down on the chair. She's close and trying not to be, biting her lip, waiting.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "Tell me when, sweetie. I'll wait. I'll wait as long as you want." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>I tell her when, eventually. She comes with her head thrown back against the cabinet, and her foot slides off the chair, and the wine glass at her elbow tips over and rolls along the counter, and neither of us does anything about it.</p>
+		<<UpdateStat "+" "MomExhibition" 3>>
+		<<UpdateStat "+" "MomCorruption" 1>>
+		<<UpdateStat "-" "MomLust" 25>>
+		<<else>>
 		<p>I pull out a chair at the kitchen table. The legs scrape on the tiles. She spins around with both hands clutching the front of her robe shut, and her face goes from white to red in about a second.</p>
 		<<silently>>
 		<<set _msgs to [
@@ -64,6 +119,7 @@
 		<<UpdateStat "+" "MomExhibition" 2>>
 		<<UpdateStat "+" "MomCorruption" 1>>
 		<<UpdateStat "-" "MomLust" 25>>
+		<</if>>
 	<</replace>><</link>></div>
 	<div><<link "Leave her to it">><<replace "#catch-kitchen-choice">>
 		<p>I step back into the hallway before she turns around. Tomorrow at breakfast she'll pour my coffee, and I'll know, and she won't know that I know.</p>
@@ -73,7 +129,9 @@
 
 :: Mom Catch Shower [micro_event event nobr] {"position":"2175,2900","size":"100,100"}
 /* Inline micro event in the hallway (micro event 48, "Catching her" in Define Events). After The Booze Night: she is in the
-   shower, and the bathroom door hasn't latched. Watch through the gap, let her see me, or walk on. */
+   shower, and the bathroom door hasn't latched. Watch through the gap, let her see me, or walk on. After The Crawl
+   (intimacy tier 3) she slides the glass door open so there's no fog between us. */
+<<MicroContext $mom>>
 <<Media "images/characters/mom/events/catch/shower.mp4" 600>>
 /* Through a gap in a bathroom door: steam, the shower glass, Mom with one hand on the tiles and the other between her legs */
 <p>The bathroom door is open a hand's width. It never latches unless you push it, and she forgot. Steam is rolling out into the hallway, and through the gap I can see the shower glass, fogged up everywhere except where she's leaning on it.</p>
@@ -85,6 +143,20 @@
 		<<UpdateStat "-" "MomLust" 20>>
 	<</replace>><</link>></div>
 	<div><<link "Push the door open">><<replace "#catch-shower-choice">>
+		<<if _mc.tier >= 3>>
+		<p>I push the door all the way open. The cold air clears a stripe across the fogged glass, and she sees me through it, and instead of covering herself she reaches over and slides the shower door open, so there isn't any glass between us at all.</p>
+		<<silently>>
+		<<set _msgs to [
+			{ who: $mom, text: "Close the door behind you, honey, and sit down. There, on the lid. I'd like you to watch." },
+		]>>
+		<</silently>>
+		<<Chat _msgs>>
+		<p>I sit on the closed toilet lid with the water spattering on the floor between us, and she turns around under the spray to face me and puts one foot up on the edge of the tub. She takes her time. She runs her hand down her stomach and between her legs, and opens herself with two fingers so I can see, and only then starts, slowly, rocking against her own hand with the water running down her front.</p>
+		<p>When she's close, she stops and looks at me, flushed and dripping, and doesn't say anything. She doesn't have to anymore. She waits until I nod, and then she lets herself go, and has to grab the shower rail to stay standing.</p>
+		<<UpdateStat "+" "MomExhibition" 3>>
+		<<UpdateStat "+" "MomCorruption" 1>>
+		<<UpdateStat "-" "MomLust" 25>>
+		<<else>>
 		<p>I push the door all the way open and lean on the frame. The cold air hits the glass and clears a stripe across the fog, and she sees me through it.</p>
 		<<silently>>
 		<<set _msgs to [
@@ -99,6 +171,7 @@
 		<<UpdateStat "+" "MomExhibition" 3>>
 		<<UpdateStat "+" "MomCorruption" 1>>
 		<<UpdateStat "-" "MomLust" 25>>
+		<</if>>
 	<</replace>><</link>></div>
 	<div><<link "Walk on">><<replace "#catch-shower-choice">>
 		<p>I pull the door shut, softly, until it clicks. Behind it the water keeps running for a long time.</p>

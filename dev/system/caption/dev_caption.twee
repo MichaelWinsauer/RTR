@@ -139,6 +139,17 @@
 <</link>>
 </div>
 
+/* micro events (MICRO_EVENTS_PLAN.md): the intimacy tiers, and one event by id with the current state. An inline
+   event plays at the next place that has micro events, a desk visitor shows its card at My Desk right away */
+<div class="sb-dev-group"><span class="sb-dev-h">Micro events</span>
+<span>Tier $mom.callName <<= setup.intimacy("mom")>> <<= setup.intimacyName("mom")>>, $sister.callName <<= setup.intimacy("sister")>> <<= setup.intimacyName("sister")>></span>
+<<textbox "$devMicroId" "">>
+<<link "Play micro event">>
+	<<run setup.debugPlayMicroEvent($devMicroId)>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+</div>
+
 <div class="sb-dev-group"><span class="sb-dev-h">Locations</span>
 <<textbox "$debugLocation" "">>
 <<link "go to Location">><<script>>if (State.variables.debugLocation != "") { Engine.play(State.variables.debugLocation, null, "back")}<</script>><</link>>
