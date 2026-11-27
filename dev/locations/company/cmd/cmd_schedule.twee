@@ -376,8 +376,9 @@ window.canPlaceTask = function (task, startRow, character) {
 };
 
 /* The picker fills most of the screen with one column per person the task is for (task.npc: me, the landlord,
-   the manager, ...). I come first, the others follow in the order their tasks are defined. A column only
-   exists if she has at least one unlocked task with that person. In each column the tasks that fit come
+   the manager, ... or the company, npcLabel). The order of the columns is setup.taskColumnOrder (Define Tasks), the
+   unlisted ones follow in the order their tasks are defined. A column only exists if she has at least one
+   unlocked task for it. In each column the tasks that fit come
    first, sorted by place, then the ones that don't, dimmed, below "Not possible here". */
 window.displayTaskSelectionDialog = function (character, selectedStart) {
     const v = State.variables;
@@ -387,11 +388,11 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
         .map(task => ({ task: task, issue: window.getTaskPlacementIssue(task, selectedStart, character) }));
     const placeOf = t => wikifyText(v.locations[t.task.location.id].name);
 
-    /* one group per task.npc.sysName (or npcLabel, for people without a story variable: clients, visitors), in the
-       order of $tasks, me first (Array.sort is stable) */
+    /* one group per column key (setup.taskColumnKey: task.npc.sysName, "company", or the npcLabel for people without a
+       story variable), ordered by setup.taskColumnOrder; unlisted ones keep the order of $tasks (Array.sort is stable) */
     const groups = [];
     tasks.forEach(t => {
-        const key = (t.task.npc && t.task.npc.sysName) || (t.task.npcLabel ? "label:" + t.task.npcLabel : "none");
+        const key = setup.taskColumnKey(t.task);
         let group = groups.find(g => g.key === key);
         if (!group) {
             group = { key: key, label: t.task.npcLabel, fits: [], blocked: [] };
@@ -399,7 +400,7 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
         }
         (t.issue ? group.blocked : group.fits).push(t);
     });
-    groups.sort((a, b) => (a.key === "player" ? 0 : 1) - (b.key === "player" ? 0 : 1));
+    groups.sort((a, b) => setup.taskColumnRank(a.key) - setup.taskColumnRank(b.key));
     groups.forEach(g => g.fits.sort((a, b) => placeOf(a).localeCompare(placeOf(b))));
 
     Dialog.setup("Plan a task for " + npc.callName, "task-picker");
@@ -425,8 +426,8 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
     board.style.setProperty("--tp-cols", Math.max(groups.length, 1));
 
     groups.forEach(group => {
-        const person = (group.key !== "none" && !group.key.startsWith("label:")) ? v[group.key] : null;
-        const name = person ? (person.callName || person.name) : (group.label ? wikifyText(group.label) : "Alone");
+        const person = (group.key !== "none" && group.key !== "company" && !group.key.startsWith("label:")) ? v[group.key] : null;
+        const name = person ? (person.callName || person.name) : (group.key === "company" ? v.company.name : (group.label ? wikifyText(group.label) : "Alone"));
         const count = group.fits.length;
 
         const col = document.createElement("section");
@@ -459,6 +460,18 @@ window.displayTaskSelectionDialog = function (character, selectedStart) {
         empty.textContent = npc.callName + " has no tasks unlocked yet.";
         board.appendChild(empty);
     }
+    /* The mouse wheel scrolls the column under the pointer when that column overflows (.tp-list, up and down), also
+       once it has reached its end. Everywhere else it scrolls the board sideways, as long as the board is wider
+       than the dialog. */
+    board.addEventListener("wheel", ev => {
+        if (ev.ctrlKey || ev.shiftKey || board.scrollWidth <= board.clientWidth + 1) return;
+        const lines = ev.deltaMode === 1 ? 16 : (ev.deltaMode === 2 ? board.clientHeight : 1);
+        const delta = (ev.deltaY || ev.deltaX) * lines;
+        const list = ev.target.closest ? ev.target.closest(".tp-list") : null;
+        if (list && list.scrollHeight > list.clientHeight + 1) return;   /* the column scrolls itself */
+        ev.preventDefault();
+        board.scrollLeft += delta;
+    }, { passive: false });
     wrap.appendChild(board);
 
     Dialog.append(wrap);
@@ -720,7 +733,7 @@ window.updateCurrentTimeLine = function () {
    scrolls sideways instead of squeezing the rows */
 .tp-board {
   display: grid;
-  grid-template-columns: repeat(var(--tp-cols, 1), minmax(19rem, 1fr));
+  grid-template-columns: repeat(var(--tp-cols, 1), minmax(35rem, 1fr));
   gap: .8rem;
   flex: 1;
   min-height: 0;

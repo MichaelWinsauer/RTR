@@ -121,8 +121,13 @@
 </div>
 
 <div class="sb-dev-group"><span class="sb-dev-h">Company</span>
-/* fills every requirement of the active projects and lets setup.checkProjects finish them the normal way (reward,
+/* Unlock All Tasks: every locked task is active, its intro event counts as played (setup.unlockAllTasks, Define Tasks).
+   Complete Projects: fills every requirement of the active projects and lets setup.checkProjects finish them the normal way (reward,
    onComplete, notifications) */
+<<link "Unlock All Tasks">>
+	<<run Notification.show("Unlocked " + setup.unlockAllTasks() + " tasks.", { type: Notification.INFORMATION })>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
 <<link "Complete Projects">>
 	<<run $company.projects.forEach((p) => {
 		if (!p || p.active !== true) { return; }

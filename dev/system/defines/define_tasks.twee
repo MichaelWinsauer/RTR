@@ -12,7 +12,7 @@
                "afterHours"   that, and only outside the work hours, when the staff has gone home ("Private tasks")
      pair:     "task_..."     a task for two: placing it puts the partner task into the other column at the same time,
                               and it only starts when both can ("Tasks for two")
-     npcLabel: "Clients"      the column of the task picker when there is no story NPC to name (npc left out)
+     npcLabel: $company.name,     the column of the task picker when there is no story NPC to name (npc left out)
      intro:    { passage, where, whenTime [, whenDay] , requirements }
                               the task starts locked (active: false) and a short scene unlocks it: an event that is
                               generated from this field ("Task introductions"). The scene ends with <<EndTaskIntro>>
@@ -31,7 +31,7 @@
         apCost: 2,
         active: true,
         startTime: [ 1, 2, 3, 4 ],
-        npc: $player,
+        npcLabel: $company.name,
         activity: "working",
         /* her end-of-day report (Define NPCs): the small stuff, no passage to hear in full */
         report: {
@@ -282,7 +282,7 @@
         apCost: 2,
         active: true,
         startTime: [ 1, 2, 3, 4 ],
-        npc: $player,
+        npcLabel: $company.name,
         activity: "working",
         onComplete: [
         	() => {
@@ -311,7 +311,7 @@
         apCost: 2,
         active: true,
         startTime: [ 1, 2, 3, 4 ],
-        npc: $player,
+        npcLabel: $company.name,
         activity: "bring_coffee",
         /* her end-of-day report (Define NPCs): office gossip, no passage to hear in full */
         report: {
@@ -460,7 +460,7 @@
         apCost: 2,
         active: false, /* activated by the quest Flirt Duty (mom_flirtDuty). Not Enough (mom_notEnough) waits for 3 of them */
         startTime: [ 1, 2, 3 ],
-        npc: $player,
+        npcLabel: $company.name,
         activity: "flirt_duty0",
         /* terrible at first, then good, then a little scary. staffMorale: each employee, companyMorale: the company
            stat, exhibition and corruption: hers, proud: she likes being good at it (a warmer mood toward me) */
@@ -547,7 +547,7 @@
         apCost: 2,
         active: false, /* activated by the quest Be Nice to Brian (sister_beNiceToBrian), switched off by The Anchor (main_anchor), which waits for 3 */
         startTime: [ 1, 2, 3, 4 ],
-        npc: $brian,
+        npcLabel: $company.name,
         activity: "extra_friendly0",
         /* brianMorale: his, exhibition: hers */
         stage: 0,
@@ -612,7 +612,7 @@
         apCost: 3,
         active: false,
         startTime: [ 2 ],
-        npcLabel: "Clients",
+        npcLabel: $company.name,
         activity: "client_lunch0",
         intro: {
             passage: "Task Intro Client Lunch",
@@ -660,7 +660,7 @@
         apCost: 2,
         active: false,
         startTime: [ 1, 2, 3 ],
-        npcLabel: "Clients",
+        npcLabel: $company.name,
         activity: "product_demo0",
         intro: {
             passage: "Task Intro Product Demos",
@@ -788,7 +788,7 @@
         apCost: 3,
         active: false,
         startTime: [ 5 ],
-        npcLabel: "Clients",
+        npcLabel: $company.name,
         activity: "client_evening0",
         pair: "task_sister_client_evening",
         /* the intro sits on this task and unlocks both (setup.unlockTask follows pair) */
@@ -827,6 +827,7 @@
         title: "Socials",
         description: "She runs the company accounts and is the face in the pictures. Pushes the <b class='accent'>sales</b> and <b class='accent'>marketing</b> progress of active projects, raises <b class='accent'>Reputation</b> and her <b class='accent'>Exhibition</b>.",
         location: $locations[15], /* the meeting room doubles as her photo studio */
+        npcLabel: $company.name,
         apCost: 2,
         active: false,
         startTime: [ 1, 2, 3 ],
@@ -878,7 +879,7 @@
         apCost: 3,
         active: false,
         startTime: [ 1, 2, 3 ],
-        npcLabel: "The gym",
+        npcLabel: $company.name,
         activity: "field_test0",
         intro: {
             passage: "Task Intro Field Test",
@@ -1011,7 +1012,7 @@
         apCost: 2,
         active: false,
         startTime: [ 1, 2, 3, 4 ],
-        npcLabel: "The staff",
+        npcLabel: $company.name,
         activity: "team_spirit0",
         intro: {
             passage: "Task Intro Team Spirit",
@@ -1068,7 +1069,7 @@
         apCost: 2,
         active: false,
         startTime: [ 1, 2, 3 ],
-        npcLabel: "Visitors",
+        npcLabel: $company.name,
         activity: "front_desk0",
         intro: {
             passage: "Task Intro Front Desk",
@@ -1110,7 +1111,7 @@
         apCost: 3,
         active: false,
         startTime: [ 4 ],
-        npc: $investor,
+        npcLabel: $company.name,
         activity: "hostess0",
         intro: {
             passage: "Task Intro Hostess",
@@ -1152,7 +1153,7 @@
         apCost: 3,
         active: false, /* unlocked together with the task of mom (pair, intro on that task) */
         startTime: [ 5 ],
-        npcLabel: "Clients",
+        npcLabel: $company.name,
         activity: "client_evening0",
         pair: "task_mom_client_evening",
         stage: 0,
@@ -1191,6 +1192,30 @@
     sister: []
 }>>
 
+/* Columns of the task picker ==================================================
+   The picker (window.displayTaskSelectionDialog, CMD Schedule) has one column per person or group a task is for. Their
+   ORDER is this list, left to right, so it is the one place to edit. Entries:
+     "company"    the tasks with npcLabel: $company.name (the work for the company itself)
+     "player"     tasks with npc: $player
+     "landlord", "boss", "manager", "prof", ...   any story variable key (the task's npc.sysName)
+     "label:Text" a task whose npcLabel is some other plain text (visitors, clients: "label:Clients")
+   Columns that aren't listed come after the listed ones, in the order their tasks appear in $tasks. A column only
+   shows up when she has an unlocked task for it, so listing one early costs nothing.
+   setup.taskColumnKey(task)    the key of the column a task belongs to ("company", "player", "landlord", "label:...", "none")
+   setup.taskColumnRank(key)    its position in the list (unlisted: after all of them) */
+<<set setup.taskColumnOrder to ["company", "player", "landlord", "boss", "manager", "prof"]>>
+
+<<set setup.taskColumnKey = (task) => {
+    if (task.npc && task.npc.sysName) { return task.npc.sysName; }
+    if (!task.npcLabel) { return "none"; }
+    return String(task.npcLabel) === String(State.variables.company.name) ? "company" : "label:" + task.npcLabel;
+}>>
+
+<<set setup.taskColumnRank = (key) => {
+    const i = setup.taskColumnOrder.indexOf(key);
+    return i < 0 ? setup.taskColumnOrder.length : i;
+}>>
+
 /* Unlocking tasks =============================================================
    setup.taskUnlocked(id)            the task is active (in the picker)
    setup.unlockTask(id [, quiet])    makes it active, runs its onUnlock, unlocks its pair partner too, and shows
@@ -1215,6 +1240,22 @@
     if (quiet) { return; }
     const names = [ live ].concat(partner ? [ partner ] : []).map((task) => v[task.who.sysName].callName).join(" and ");
     Notification.show("New task for " + names + ": " + wikifyText(live.title), { type: Notification.QUEST });
+}>>
+
+/* setup.unlockAllTasks()   debug (Dev Caption): unlocks every task that is still locked, quietly, and marks the intro
+   events that would have unlocked them as done, so they don't play afterwards. Returns how many it unlocked. Tasks
+   the story switched off on purpose (Be Nice to Brian after The Anchor) come back as well */
+<<set setup.unlockAllTasks = () => {
+    const v = State.variables;
+    let count = 0;
+    v.tasks.forEach((task) => {
+        if (!task.active) { setup.unlockTask(task.id, true); count++; }
+        if (task.intro) {
+            const ev = v.events.find((e) => e.taskIntro === task.id);
+            if (ev) { ev.active = false; ev.finished = true; ev.completedAtDay = v.date.dayCount; }
+        }
+    });
+    return count;
 }>>
 
 /* setup.lockTask(id)   the opposite, when the story ends a task: inactive again (and its partner), off both schedules */
