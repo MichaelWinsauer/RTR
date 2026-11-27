@@ -14,7 +14,7 @@
 <<silently>>
 	<<SetBackground $player.location.img>>
 
-	<<set _rent  to $company.finances.expenses.rent>>
+	<<set _rent  to $rent>>
 	<<set _late  to $player.debt>>
 	<<set _due   to setup.rentOwed()>>
 	<<set _funds to setup.rentFunds()>>

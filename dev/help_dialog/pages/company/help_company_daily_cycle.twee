@@ -4,7 +4,7 @@
 <h3>Every night</h3>
 <ul>
 	<li>Every <b>active project pays its daily revenue</b> into the company account, weekends too.</li>
-	<li>The <a href="#" data-help="Help Company Finances">finance chart</a> gets a new entry, and the income and expense totals are recalculated for the new day.</li>
+	<li>The <a href="#" data-help="Help Company Finances">finance chart</a> gets a new entry.</li>
 	<li>Every <a href="#" data-help="Help Company Devices">device</a> you own recharges by <b>15%</b>, and the early prototype by <<= $company.prototype.rechargePerDay || 10>>%.</li>
 	<li>Every employee recovers morale: <b><<= setup.moraleRecovery()>></b> right now, from 4 to 12 depending on the company's Morale (see <a href="#" data-help="Help Company Stats">Company stats</a>).</li>
 	<li>The company's <b>Efficiency</b> moves toward its target: up to <<= setup.companyStatTuning.efficiencyRise>> points up, or <<= setup.companyStatTuning.efficiencyFall>> down.</li>
@@ -16,7 +16,7 @@
 <h3>On Monday</h3>
 <ul>
 	<li>The <b>rent</b> is due. Bring it to the landlord before the evening, or he comes for it, see <a href="#" data-help="Help Company Finances">Finances</a>.</li>
-	<li>The whole week of <a href="#" data-help="Help Company Employees">wages</a> is paid out of the company account.</li>
+	<li>The books of the old week are closed and a new one starts. The whole week of <a href="#" data-help="Help Company Employees">wages</a>, the utilities and your budget are paid out of the company account, and then the tax on the week that just ended (<a href="#" data-help="Help Company Finances">Finances</a>).</li>
 	<li>In Stage 0, while $mom.callName still helps with the rent, her <b>$500</b> for the week arrives.</li>
 	<li>The company's <b>Morale</b> settles <<= setup.companyStatTuning.moraleWeeklyDrift>> points back toward 50.</li>
 </ul>

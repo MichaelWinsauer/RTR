@@ -236,29 +236,13 @@
 <</widget>>
 
 /* Usage: =====================================================================
-	<<CalculateFinances RESET?>>
-	Recounts the running project revenue, the rent and the weekly wages, and sweeps $player.money into the company
-	account from Stage 1 on. RESET (the Daily Update) also clears the other income and expense lines first.
-	One <<run>>: the CMD draws it several times on every click, and as a <<for>> over every project it was slow.
+	<<CalculateFinances>>
+	From Stage 1 on: moves what is in my wallet into the company account (setup.sweepPlayerMoney, Define Company), so
+	there is only one pile of money. The dashboard panels call it whenever they are drawn. The books themselves
+	(income, bills, tax) are kept by setup.bookIncome / bookExpense and the Monday settlement.
 */
 <<widget "CalculateFinances">>
-	<<run (function (reset) {
-		const v = State.variables;
-		const fin = v.company.finances;
-		if (reset) {
-			["projects", "revenue", "tasks", "subscriptions", "sales", "services", "investments", "rent", "extra"].forEach((k) => { fin.income[k] = 0; });
-			["wages", "utensils", "tax", "equipment", "utilities", "extra"].forEach((k) => { fin.expenses[k] = 0; });
-		}
-		fin.income.revenue = v.company.projects.reduce((sum, project) => project.active ? sum + project.revenue : sum, 0);
-		if (v.company.stage > 0) {
-			fin.money += v.player.money;
-			fin.income.extra += v.player.money;
-			v.player.money = 0;
-		}
-		/* always the current rent (Define Misc), not only after a reset: it changes with the landlord deal */
-		fin.expenses.rent = v.rent;
-		fin.expenses.wages = v.company.employees.reduce((sum, emp) => sum + v[emp.sysName].wage * 7, 0);
-	})(_args[0])>>
+	<<run setup.sweepPlayerMoney()>>
 <</widget>>
 
 
@@ -275,11 +259,10 @@
 	<<if $company.stage == 0>>
 		<<UpdateStat "-" "Money" _prOwed>>
 	<<else>>
-		<<set $company.finances.money -= _prOwed>>
+		<<run setup.bookExpense("rent", _prOwed)>>
 		<<run Notification.show("Company funds have decreased by $" + _prOwed + ".", { type: Notification.NEGATIVE })>>
 		<span class="red statupdate">Company funds have decreased by $<<= _prOwed>>.</span>
 	<</if>>
-	<<set $company.finances.spentToday += _prOwed>>
 	<<set $player.debt to 0>>
 	<<set $debtMissed to false>>
 	<<run setup.settleRent()>>

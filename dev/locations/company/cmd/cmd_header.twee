@@ -87,6 +87,11 @@ if (fresh.length === 1) {
 	items.push({ prio: 1.8, tone: "good", target: "#cmd-projects", text: fresh.length + " new projects are ready to start" });
 }
 
+/* a negative balance only locks deals, but the player should know (the books, Define Company) */
+if (sv.company.finances.money < 0) {
+	items.push({ prio: 2, tone: "warn", target: ".cmd-finances", text: "The account is overdrawn (-$" + Math.abs(Math.round(sv.company.finances.money)).toLocaleString("en-US") + ")" });
+}
+
 /* Suspicion only exists from Stage 2 on (Define Company) */
 var suspicion = setup.suspicionActive() ? Math.round(sv.company.stats.suspicion / sv.company.stats.max.suspicion * 100) : 0;
 if (suspicion >= 75) items.push({ prio: 2, tone: "bad", target: ".cmd-stats", text: "Suspicion is dangerously high (" + suspicion + "%)" });

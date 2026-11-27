@@ -1,27 +1,18 @@
 :: CMD Finances [nobr] {"position":"2225,3025","size":"100,100"}
+/* The finance card: the balance, and this week's income and expenses so far (the books, "The books" in Define Company).
+   A click on the + and - opens the Finance dialog (window.openFinanceDialog, below): the week by category against last
+   week, what the next Monday will cost, the budget levers and the equipment. The chart is the last seven days. */
+<<set _fcIn to setup.ledgerTotal($company.finances.week.income)>>
+<<set _fcOut to setup.ledgerTotal($company.finances.week.expenses)>>
+<<set _fcFmt to ((n) => "$" + Math.abs(Math.round(n)).toLocaleString("en-US"))>>
 <span style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #EBDDC530; margin: .5rem;">
-    <span style="color: #EBDDC5; font-weight: bold; font-size: 1.5rem;">
-    <<= new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", trailingZeroDisplay: "stripIfInteger" }).format(State.variables.company.finances.money)>>
+    <span @class="'finances-balance' + ($company.finances.money < 0 ? ' red' : '')" style="color: #EBDDC5; font-weight: bold; font-size: 1.5rem;">
+    <<= ($company.finances.money < 0 ? "-" : "") + _fcFmt($company.finances.money)>>
     </span>
-    <div style="display: flex; justify-content: spcae-around; align-items: center; gap: 2rem;">
-    	<div class="finances-details">
-        	<<set _incomeKeys to Object.keys(State.variables.company.finances.income)>>
-            <<set _incomeComulative to 0>>
-            <<for _i, _key range _incomeKeys>>
-            	<<set _incomeComulative += $company.finances.income[_key]>>
-            <</for>>
-            <span class="green">
-           	+ <<= new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", trailingZeroDisplay: "stripIfInteger" }).format(_incomeComulative)>>
-            </span>
-            
-            <<set _expenseKeys to Object.keys(State.variables.company.finances.expenses)>>
-            <<set _expenseComulative to 0>>
-            <<for _i, _key range _expenseKeys>>
-            	<<set _expenseComulative += $company.finances.expenses[_key]>>
-            <</for>>
-            <span class="red">
-            - <<= new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", trailingZeroDisplay: "stripIfInteger" }).format(_expenseComulative)>>
-            </span>
+    <div style="display: flex; justify-content: space-around; align-items: center; gap: 2rem;">
+    	<div class="finances-details" role="button" tabindex="0" title="This week so far. Click for the full breakdown." onclick="window.openFinanceDialog()">
+            <span class="green">+ <<= _fcFmt(_fcIn)>></span>
+            <span class="red">- <<= _fcFmt(_fcOut)>></span>
         </div>
     </div>
 </span>
@@ -157,6 +148,167 @@
 })();
 <</script>>
 
+<<script>>
+/* The Finance dialog ==============================================================================
+   window.openFinanceDialog()   opens it (the + and - of the card). Everything in it is built from the books in
+   Define Company: the week and last week by category, what the next Monday will charge, the three budget levers
+   (setup.budgetLevers) and the equipment (setup.equipmentCatalog). A click on a level or on Buy changes the state and
+   draws the dialog again; the card, the header and the stats panel behind it are refreshed too. */
+(function () {
+    const money = (n) => (n < 0 ? "-" : "") + "$" + Math.abs(Math.round(Number(n) || 0)).toLocaleString("en-US");
+    const esc = (t) => String(t == null ? "" : t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+    function ledgerCard(title, categories, week, last, tone) {
+        const rows = categories.map((c) => {
+            const a = Number(week[c.key]) || 0;
+            const b = Number(last[c.key]) || 0;
+            return `<div class="fd-row${a || b ? "" : " fd-zero"}"><span>${esc(c.label)}</span><b>${a ? money(a) : "&ndash;"}</b><i>${b ? money(b) : "&ndash;"}</i></div>`;
+        }).join("");
+        const totalWeek = setup.ledgerTotal(week);
+        const totalLast = setup.ledgerTotal(last);
+        return `<section class="fd-card">
+            <div class="fd-card-head"><span class="fd-label">${title}</span><span class="fd-cols"><span>This week</span><span>Last week</span></span></div>
+            ${rows}
+            <div class="fd-row fd-total ${tone}"><span>Total</span><b>${money(totalWeek)}</b><i>${money(totalLast)}</i></div>
+        </section>`;
+    }
+
+    function dueCard() {
+        const v = State.variables;
+        const f = v.company.finances;
+        const bills = setup.weeklyBills();
+        const rows = bills.map((b) => ({ label: b.label, amount: b.amount }));
+        const rentDays = setup.rentDaysLeft();
+        const rentOwed = setup.rentOwed();
+        if (rentOwed > 0) {
+            rows.push({ label: rentDays < 0 ? "Rent (overdue)" : (rentDays === 0 ? "Rent (due today)" : "Rent (due in " + rentDays + (rentDays === 1 ? " day)" : " days)")), amount: rentOwed });
+        }
+        const tax = setup.taxOn(f.week);
+        if (tax > 0) { rows.push({ label: "Tax on this week so far", amount: tax }); }
+        const total = rows.reduce((sum, r) => sum + r.amount, 0);
+        const daysToMonday = 7 - v.date.today.value;
+        const body = rows.length
+            ? rows.map((r) => `<div class="fd-row"><span>${esc(r.label)}</span><b>${money(r.amount)}</b></div>`).join("")
+            : `<div class="fd-empty">Nothing is due.</div>`;
+        const after = f.money - total;
+        return `<section class="fd-card">
+            <div class="fd-card-head"><span class="fd-label">Coming up</span><span class="fd-cols"><span>Monday in ${daysToMonday} ${daysToMonday === 1 ? "day" : "days"}</span></span></div>
+            ${body}
+            <div class="fd-row fd-total"><span>Balance after paying it all</span><b class="${after < 0 ? "red" : ""}">${money(after)}</b></div>
+            <div class="fd-note">Rent is paid to the landlord, the rest leaves the account on Monday morning. Tax is ${Math.round(setup.financeTuning.taxRate * 100)}% of last week's profit from tasks and projects, after everything I spend on the company. A week with a loss pays none.</div>
+        </section>`;
+    }
+
+    function leverBlock(key) {
+        const v = State.variables;
+        const lever = setup.budgetLevers[key];
+        const chosen = setup.budgetLevel(key);
+        const paid = Math.clamp(Number(v.company.budget.paid[key]) || 0, 0, lever.levels.length - 1);
+        const buttons = lever.levels.map((lvl, i) => `<button type="button" class="fd-lvl${i === chosen ? " on" : ""}" data-fd-lever="${key}" data-level="${i}">
+                <span>${esc(lvl.name)}</span><small>${lvl.cost ? money(lvl.cost) + " / week" : "free"}</small></button>`).join("");
+        const now = lever.levels[paid];
+        const next = lever.levels[chosen];
+        const status = chosen === paid
+            ? `<span>${esc(now.name)}: ${esc(lever.effectText(now))}</span>`
+            : `<span>This week: ${esc(now.name)} (${esc(lever.effectText(now))})</span><span>From Monday: <b>${esc(next.name)}</b> (${esc(lever.effectText(next))})</span>`;
+        return `<div class="fd-lever">
+            <div class="fd-lever-head"><span class="fd-lever-name">${esc(lever.label)}</span></div>
+            <div class="fd-lever-text">${esc(lever.text)}</div>
+            <div class="fd-lvls">${buttons}</div>
+            <div class="fd-lever-status">${status}</div>
+        </div>`;
+    }
+
+    function equipmentCard(item) {
+        const owned = !!State.variables.company.equipment[item.id];
+        const chips = [];
+        if (item.efficiency) chips.push("Efficiency +" + item.efficiency);
+        if (item.moraleRecovery) chips.push("Morale back overnight +" + item.moraleRecovery);
+        const affordable = setup.canAfford(item.price);
+        const action = owned
+            ? `<span class="fd-owned">Owned</span>`
+            : `<button type="button" class="fd-buy" data-fd-buy="${item.id}" ${affordable ? "" : "disabled"}>${money(item.price)}${affordable ? "" : "<small>can't afford</small>"}</button>`;
+        return `<div class="fd-item${owned ? " fd-item-owned" : ""}">
+            <div class="fd-item-body"><div class="fd-item-name">${esc(item.name)}</div><div class="fd-item-text">${esc(item.text)}</div>
+            <div class="fd-chips">${chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div></div>
+            ${action}
+        </div>`;
+    }
+
+    function build() {
+        const v = State.variables;
+        const f = v.company.finances;
+        const weekIn = setup.ledgerTotal(f.week.income);
+        const weekOut = setup.ledgerTotal(f.week.expenses);
+        const net = weekIn - weekOut;
+        const efficiency = setup.efficiencyTarget();
+        return `<div class="fd">
+            <div class="fd-head">
+                <div>
+                    <div class="fd-kicker">Finances</div>
+                    <div class="fd-balance${f.money < 0 ? " red" : ""}">${money(f.money)}</div>
+                </div>
+                <div class="fd-net">
+                    <span>This week so far</span>
+                    <b class="${net < 0 ? "red" : "green"}">${net < 0 ? "-" : "+"}${money(Math.abs(net))}</b>
+                    <small>${money(weekIn)} in, ${money(weekOut)} out</small>
+                </div>
+            </div>
+            <div class="fd-scroll">
+                <div class="fd-grid">
+                    ${ledgerCard("Income", setup.incomeCategories, f.week.income, f.last.income, "green")}
+                    ${ledgerCard("Expenses", setup.expenseCategories, f.week.expenses, f.last.expenses, "red")}
+                    ${dueCard()}
+                </div>
+                <div class="fd-section">
+                    <div class="fd-section-head"><span class="fd-label">Budget</span><small>Charged every Monday. A new level counts from the next Monday on.</small></div>
+                    <div class="fd-levers">${["supplies", "perks", "marketing"].map(leverBlock).join("")}</div>
+                </div>
+                <div class="fd-section">
+                    <div class="fd-section-head"><span class="fd-label">Equipment</span><small>Bought once, kept for good. Efficiency target right now: ${efficiency}.</small></div>
+                    <div class="fd-items">${setup.equipmentCatalog.map(equipmentCard).join("")}</div>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    function render() {
+        const $fd = $("#ui-dialog-body .fd");
+        if (!$fd.length) return;
+        const top = $fd.find(".fd-scroll").scrollTop();
+        $fd.replaceWith(build());
+        $("#ui-dialog-body .fd-scroll").scrollTop(top);
+    }
+
+    /* what sits behind the dialog */
+    function refreshBehind() {
+        $(".cmd-finances").empty().wiki('<<include "CMD Finances">>');
+        if (window.cmdRefreshHeader) window.cmdRefreshHeader();
+        if ($("#cmd-stats").length) $("#cmd-stats").empty().wiki('<<include "CMD Stats">>');
+    }
+
+    window.openFinanceDialog = function () {
+        Dialog.setup("Finances", "finance-dialog");
+        const holder = document.createElement("div");
+        holder.innerHTML = build();
+        Dialog.append(holder.firstElementChild);
+        Dialog.open();
+    };
+
+    $(document).off("click.fd")
+        .on("click.fd", "[data-fd-lever]", function () {
+            State.variables.company.budget.level[this.dataset.fdLever] = Number(this.dataset.level);
+            render();
+        })
+        .on("click.fd", "[data-fd-buy]", function () {
+            if (setup.buyEquipment(this.dataset.fdBuy)) {
+                render();
+                refreshBehind();
+            }
+        });
+})();
+<</script>>
+
 <style>
 
 .finances-details {
@@ -175,6 +327,60 @@
   background-color: #EBDDC525;
 }
 
+
+/* The Finance dialog (window.openFinanceDialog) */
+#ui-dialog:has(#ui-dialog-body.finance-dialog) { width: min(78rem, 94vw); max-width: none; max-height: none; top: 4vh; }
+#ui-dialog:has(#ui-dialog-body.finance-dialog) #ui-dialog-titlebar { position: absolute; top: 1rem; right: 1rem; z-index: 3; width: 1.9rem; height: 1.9rem; min-height: 0; padding: 0; background: transparent; }
+#ui-dialog:has(#ui-dialog-body.finance-dialog) #ui-dialog-title { display: none; }
+#ui-dialog:has(#ui-dialog-body.finance-dialog) #ui-dialog-close { inset: 0; width: 100%; height: 100%; font-size: .75rem; color: #EBDDC5; border: 1px solid #EBDDC535; border-radius: 50%; background-color: #EBDDC510; transition: background-color .15s ease, border-color .15s ease; }
+#ui-dialog:has(#ui-dialog-body.finance-dialog) #ui-dialog-close:hover { background-color: #EBDDC530; border-color: #EBDDC5; }
+#ui-dialog-body.finance-dialog { box-sizing: border-box; height: 90vh !important; max-height: 90vh; overflow: hidden; padding: 1.3rem 1.4rem 1.2rem; display: flex; flex-direction: column; font-family: "Manrope", sans-serif; color: #EBDDC5; background-color: rgba(34, 34, 46, .82); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
+.fd { display: flex; flex-direction: column; gap: 1rem; flex: 1; min-height: 0; text-align: left; }
+.fd-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; padding-right: 2.5rem; }
+.fd-kicker, .fd-label { font-size: .66rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: #EAAF4C; }
+.fd-balance { font-size: 2.2rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.fd-net { display: flex; flex-direction: column; align-items: flex-end; font-size: .7rem; }
+.fd-net b { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.fd-net small { opacity: .6; }
+.fd-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 1.1rem; padding-right: .4rem; scrollbar-width: thin; scrollbar-color: rgba(235, 221, 197, .3) transparent; }
+.fd-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.fd-card { display: flex; flex-direction: column; gap: .15rem; padding: .7rem .85rem .8rem; background: #EBDDC506; border: 1px solid #EBDDC51a; border-radius: .9rem; }
+.fd-card-head, .fd-section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-bottom: .4rem; margin-bottom: .2rem; border-bottom: 1px solid #EBDDC51a; }
+.fd-cols { display: grid; grid-auto-flow: column; grid-auto-columns: 5.2rem; text-align: right; font-size: .62rem; opacity: .55; text-transform: uppercase; letter-spacing: .1em; }
+.fd-row { display: grid; grid-template-columns: 1fr 5.2rem 5.2rem; align-items: baseline; font-size: .78rem; padding: .18rem 0; font-variant-numeric: tabular-nums; }
+.fd-row b, .fd-row i { text-align: right; font-style: normal; }
+.fd-row i { opacity: .55; }
+.fd-zero { opacity: .35; }
+.fd-total { margin-top: .25rem; padding-top: .4rem; border-top: 1px solid #EBDDC51a; font-weight: 700; }
+.fd-card:last-child .fd-row { grid-template-columns: 1fr auto; }
+.fd-card:last-child .fd-cols { grid-auto-columns: auto; white-space: nowrap; }
+.fd-empty { font-size: .75rem; opacity: .5; padding: .3rem 0; }
+.fd-note { margin-top: .5rem; font-size: .66rem; line-height: 1.4; opacity: .55; }
+.fd-section { display: flex; flex-direction: column; gap: .6rem; padding: .8rem .85rem; background: #EBDDC506; border: 1px solid #EBDDC51a; border-radius: .9rem; }
+.fd-section-head small { font-size: .68rem; opacity: .55; }
+.fd-levers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.fd-lever { display: flex; flex-direction: column; gap: .5rem; padding: .7rem .8rem; border: 1px solid #EBDDC51a; border-radius: .7rem; background: #EBDDC504; }
+.fd-lever-name { font-weight: 800; font-size: .92rem; }
+.fd-lever-text { font-size: .72rem; line-height: 1.4; opacity: .7; }
+.fd-lvls { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+.fd-lvl { display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .4rem .2rem; font: inherit; font-size: .74rem; font-weight: 700; color: #EBDDC5; background: transparent; border: 1px solid #EBDDC535; border-radius: .55rem; cursor: pointer; transition: background-color .15s, border-color .15s; }
+.fd-lvl small { font-size: .58rem; font-weight: 500; opacity: .65; white-space: nowrap; }
+.fd-lvl:hover { border-color: #EBDDC5; background: #EBDDC510; }
+.fd-lvl.on { border-color: #EAAF4C; background: #EAAF4C22; color: #fff; }
+.fd-lever-status { display: flex; flex-direction: column; gap: .1rem; font-size: .68rem; opacity: .8; }
+.fd-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+.fd-item { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .65rem .8rem; border: 1px solid #EBDDC51a; border-radius: .7rem; background: #EBDDC504; }
+.fd-item-owned { opacity: .6; }
+.fd-item-name { font-weight: 800; font-size: .86rem; }
+.fd-item-text { margin-top: .15rem; font-size: .7rem; line-height: 1.4; opacity: .7; }
+.fd-chips { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
+.fd-chips span { padding: .1rem .5rem; font-size: .62rem; font-weight: 700; border: 1px solid #EBDDC535; border-radius: 999px; }
+.fd-buy { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; min-width: 5.5rem; padding: .5rem .8rem; font: inherit; font-size: .82rem; font-weight: 800; color: #EBDDC5; background: #EBDDC510; border: 1px solid #EBDDC5; border-radius: .6rem; cursor: pointer; }
+.fd-buy small { font-size: .56rem; font-weight: 500; opacity: .7; }
+.fd-buy:hover:not([disabled]) { background: #EAAF4C33; border-color: #EAAF4C; }
+.fd-buy[disabled] { opacity: .4; cursor: default; border-color: #EBDDC535; }
+.fd-owned { flex-shrink: 0; font-size: .66rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #1cd88d; }
+@media (max-width: 1100px) { .fd-grid, .fd-levers { grid-template-columns: 1fr; } .fd-items { grid-template-columns: 1fr; } }
 </style>
 
 

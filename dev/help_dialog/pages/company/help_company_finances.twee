@@ -4,7 +4,7 @@
 <h3>What you see</h3>
 <ul>
 	<li><b>Company money</b>, top left: the balance of the company account. Your own cash joins it whenever the dashboard refreshes, so you only ever have one pile of money from Stage 1 on.</li>
-	<li><b>+ and −</b>, top right: a green total of what is coming in (the daily revenue of your active projects and any task pay earned since midnight) and a red total of what goes out (the weekly rent plus the weekly wages of all employees).</li>
+	<li><b>+ and −</b>, top right: a green total of what has come in this week so far and a red total of what has gone out. The week runs Monday to Sunday. Click them to open the finance breakdown (below).</li>
 	<li><b>The chart</b>: a small line chart of the last seven days. The beige line is your balance at the start of each day, the red one what actually left the account that day (rent and wages). It starts to fill in as the days pass.</li>
 </ul>
 
@@ -14,10 +14,28 @@
 	<dt>Tasks</dt><dd>Each finished <a href="#" data-help="Help Company Tasks">task</a> pays its amount straight away.</dd>
 	<dt>$mom.callName's help</dt><dd>In Stage 0, while she still has her old job and helps with the rent, $500 comes in once a week.</dd>
 	<dt>Wages</dt><dd>Every Monday morning the whole week of wages is paid out of the account at once.</dd>
+	<dt>Utilities</dt><dd>A flat bill every Monday morning, right now $<<= setup.utilitiesPerWeek()>> a week.</dd>
+	<dt>Budget</dt><dd>Office supplies, staff perks and marketing are weekly spending you choose yourself (below). They are charged on Monday morning too.</dd>
+	<dt>Tax</dt><dd>On Monday morning, too: <<= Math.round(setup.financeTuning.taxRate * 100)>>% of the profit of the week that just ended. Only income from tasks and projects counts, and everything you spend on the company is deducted first, including the budget and equipment. A week with a loss pays nothing.</dd>
 	<<if $company.debts.length>><dt>Debts</dt><dd>Money you borrowed is paid back in weekly installments, every Monday morning together with the wages: $<<= setup.debtsPerWeek()>> a week right now.</dd><</if>>
 	<dt>Rent</dt><dd>Taken when the landlord visits (below).</dd>
 </dl>
-<p>Rent and wages are the bills that are paid out of the account, and some deals cost money too, which leaves the account the moment you agree to them. The account can go below zero, but a deal you can't afford stays locked.</p>
+<p>Some deals cost money too, which leaves the account the moment you agree to them. The account can go below zero, and a warning shows up at the top of the dashboard, but a deal you can't afford stays locked.</p>
+
+<h3>The finance breakdown</h3>
+<p>Click the + and − of the finances panel. The window shows:</p>
+<ul>
+	<li><b>Income and expenses</b> by category, this week against last week.</li>
+	<li><b>Coming up</b>: everything the next Monday and the landlord will take, and what is left in the account afterwards.</li>
+	<li><b>Budget</b>: three things you can spend on each week. Pick a level for each one. Whatever you pick is charged on the next Monday, and only from then on does it count, so changing it at the last minute does nothing.
+		<dl class="help-stats">
+			<dt>Office supplies</dt><dd>Raises the efficiency the staff work at (<a href="#" data-help="Help Company Stats">company stats</a>).</dd>
+			<dt>Staff perks</dt><dd>The staff win back more morale overnight.</dd>
+			<dt>Marketing</dt><dd>Clients pay more when a project is finished. The level that counts on the day it finishes sets the bonus.</dd>
+		</dl>
+	</li>
+	<li><b>Equipment</b>: bought once and kept for good, with a lasting effect on efficiency or morale.</li>
+</ul>
 
 <h3>The rent</h3>
 <p>Rent is due every <b>Monday</b>, and right now it is <b>$<<= $rent>></b> a week. You have two ways to pay it:</p>

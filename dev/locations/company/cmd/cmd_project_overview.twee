@@ -106,7 +106,7 @@
         </div>
         <div class="pov-side">
           ${project.reward
-            ? `<div class="pov-money">${money(setup.getProjectBaseReward(project))}</div><div class="pov-sub">on completion${setup.reputationRewardFactor(project) !== 1 ? ", with your Reputation" : ""}</div>`
+            ? `<div class="pov-money">${money(setup.getProjectBaseReward(project))}</div><div class="pov-sub">on completion${setup.reputationRewardFactor(project) !== 1 || setup.marketingRewardFactor() !== 1 ? ", with your reputation and marketing" : ""}</div>`
             : `<div class="pov-money">${project.outcome || 'In-house'}</div><div class="pov-sub">on completion</div>`}
           ${project.revenue ? `<div class="pov-sub">${money(project.revenue)} per day</div>` : ''}
           <div class="pov-sub">${plural(project.duration, 'day')}</div>

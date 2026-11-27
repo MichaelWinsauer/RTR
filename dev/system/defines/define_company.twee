@@ -51,31 +51,25 @@
     morale: 0,
 }>>
 
-/* expenses and income are the current weekly/daily figures for the CMD Finances header (CalculateFinances).
-   spentToday adds up what actually left the account today (rent, wages); the Daily Update pushes it into
-   history.expenses for the chart and starts again at 0. */
+/* The company account and its books. How it all works: "The books" below (setup.bookIncome / bookExpense, the
+   Monday settlement, the budget levers, equipment).
+   money        the balance (Stage 1 on; in Stage 0 the player's wallet is $player.money)
+   spentToday   what actually left the account today, for the chart (CMD Finances); the Daily Update starts it again at 0
+   week         the books of this week so far, Monday to Sunday: income and expenses by category
+   last         the same for the week before (what the Finance dialog compares with)
+   weekStartDay the dayCount of the Monday this week began on
+   history      the chart: the balance and the money spent, one entry per day */
 <<set $company.finances to {
 	money: 0,
     spentToday: 0,
-    expenses: {
-    	rent: $rent,
-        wages: 0,
-        utensils: 0,
-        tax: 0,
-        equipment: 0,
-        utilities: 0,
-        extra: 0,
+    weekStartDay: 0,
+    week: {
+        income: { tasks: 0, projects: 0, revenue: 0, other: 0 },
+        expenses: { rent: 0, wages: 0, utilities: 0, supplies: 0, perks: 0, marketing: 0, debts: 0, tax: 0, equipment: 0, deals: 0 },
     },
-    income: {
-    	projects: 0,
-        revenue: 0,
-        tasks: 0,
-        subscriptions: 0,
-        sales: 0,
-        services: 0,
-        investments: 0,
-        rent: 0,
-        extra: 0,
+    last: {
+        income: { tasks: 0, projects: 0, revenue: 0, other: 0 },
+        expenses: { rent: 0, wages: 0, utilities: 0, supplies: 0, perks: 0, marketing: 0, debts: 0, tax: 0, equipment: 0, deals: 0 },
     },
     history: {
     	expenses: [
@@ -176,37 +170,35 @@
    What a deal costs actually leaves the company account (the broker fee, the price of the supplier, ...).
    setup.canAfford(amount)            the company account can pay it (in Stage 0: the wallet, see setup.funds in
                                       Define Items)
-   setup.spend(amount [, label] [, quiet])
-                                      takes it out of the account, counts it for today's finance chart
-                                      (finances.spentToday) and shows a notification "label: -$amount" (not with
-                                      quiet: the Shop shows its own)
+   setup.spend(amount [, label] [, quiet [, category]])
+                                      takes it out of the account, books it (category "deals" unless another one of
+                                      setup.expenseCategories is given) and shows a notification "label: -$amount"
+                                      (not with quiet: the Shop shows its own)
 
    Debts: the advance from the boss (the pay branch of The Supplier, STAGE1_PROPOSAL.md 4.12). No loan system,
-   just a list of weekly installments that the Monday morning pays together with the wages.
+   just a list of weekly installments that the Monday settlement pays together with the wages (setup.settleWeek).
    $company.debts = [ { id, label, perWeek, weeksLeft } ]
    setup.addDebt(id, label, amount, perWeek, weeks)
                                       puts amount into the account now and adds the installments. Returns the debt
-   setup.payDebts()                   Daily Update, Monday: one installment of every debt, finished ones are removed
+   setup.payDebts([quiet])            the Monday settlement: one installment of every debt, finished ones are removed
    setup.debtsPerWeek()               what all debts cost per week right now (for the CMD and the help page) */
 <<set $company.debts to []>>
 
 <<set setup.canAfford = (amount) => setup.funds() >= (Number(amount) || 0)>>
 
-<<set setup.spend = (amount, label, quiet) => {
+<<set setup.spend = (amount, label, quiet, category) => {
     const v = State.variables;
     const n = Math.max(0, Number(amount) || 0);
     if (n === 0) { return 0; }
     if (v.company.stage === 0) { v.player.money -= n; }
-    else {
-        v.company.finances.money -= n;
-        v.company.finances.spentToday = (v.company.finances.spentToday || 0) + n;
-    }
+    else { setup.bookExpense(category || "deals", n); }
     if (!quiet) { Notification.show((label ? label + ": " : "") + "-$" + n.toLocaleString("en-US"), { type: Notification.NEGATIVE }); }
     return n;
 }>>
 
 <<set setup.addDebt = (id, label, amount, perWeek, weeks) => {
     const v = State.variables;
+    /* borrowed money is no income: it goes into the account without the books (and so without tax) */
     v.company.finances.money += Number(amount) || 0;
     const debt = { id: id, label: label, perWeek: Number(perWeek) || 0, weeksLeft: Number(weeks) || 0 };
     v.company.debts.push(debt);
@@ -214,7 +206,7 @@
     return debt;
 }>>
 
-<<set setup.payDebts = () => {
+<<set setup.payDebts = (quiet) => {
     const v = State.variables;
     let total = 0;
     v.company.debts.forEach((d) => {
@@ -224,9 +216,8 @@
     });
     v.company.debts = v.company.debts.filter((d) => d.weeksLeft > 0);
     if (total > 0) {
-        v.company.finances.money -= total;
-        v.company.finances.spentToday = (v.company.finances.spentToday || 0) + total;
-        Notification.show("Debts paid: $" + total.toLocaleString("en-US") + " this week.", { type: Notification.NEGATIVE });
+        setup.bookExpense("debts", total);
+        if (!quiet) { Notification.show("Debts paid: $" + total.toLocaleString("en-US") + " this week.", { type: Notification.NEGATIVE }); }
     }
     return total;
 }>>
@@ -235,21 +226,262 @@
 
 /* Wages =========================================================================
    Every employee (staff and family, $company.employees) earns wage per day and is paid for the whole week on
-   Monday morning, from the company account (the Daily Update of a Monday calls it). The account may go below 0.
-   setup.weeklyWages()   what this week costs: the sum of wage * 7 (the live NPCs, the list holds copies)
-   setup.payWages()      pays it, counts it in spentToday (the finance chart) and shows a notification */
+   Monday morning, from the company account (the Monday settlement, setup.settleWeek). The account may go below 0.
+   setup.weeklyWages()      what this week costs: the sum of wage * 7 (the live NPCs, the list holds copies)
+   setup.payWages([quiet])  pays it, books it and shows a notification (not with quiet) */
 <<set setup.weeklyWages = () => {
     const v = State.variables;
     return v.company.employees.reduce((sum, e) => sum + (Number((v[e.sysName] || e).wage) || 0) * 7, 0);
 }>>
-<<set setup.payWages = () => {
-    const v = State.variables;
+<<set setup.payWages = (quiet) => {
     const total = setup.weeklyWages();
     if (total <= 0) { return 0; }
-    v.company.finances.money -= total;
-    v.company.finances.spentToday = (v.company.finances.spentToday || 0) + total;
-    Notification.show("Wages paid: $" + total + " for this week.", { type: Notification.NEGATIVE });
+    setup.bookExpense("wages", total);
+    if (!quiet) { Notification.show("Wages paid: $" + total + " for this week.", { type: Notification.NEGATIVE }); }
     return total;
+}>>
+
+/* The books ======================================================================
+   Stage 1 on, all money of the company goes through two functions, so the Finance dialog (CMD Finances) can show where it
+   came from and went to. Income comes in whenever it is earned, the bills are settled once a week.
+
+   Income (setup.incomeCategories)    tasks      a finished task pays at once
+                                      projects   the reward of a finished project
+                                      revenue    what every active project pays each night
+                                      other      anything else (rewards in my wallet that the dashboard moves over)
+                                      Only tasks, projects and revenue are taxed.
+   Expenses (setup.expenseCategories) rent       when I pay the landlord (any time from Monday evening on)
+                                      wages, utilities, supplies, perks, marketing, debts
+                                                 the Monday settlement
+                                      tax        the Monday settlement, on the week before
+                                      equipment  bought in the Finance dialog
+                                      deals      everything else that costs money (the broker fee, the Shop)
+
+   Weekly rhythm: the week runs Monday to Sunday. On Monday morning (Daily Update) setup.settleWeek closes the books of
+   the week that ended (finances.last), starts a fresh week (finances.week), charges the bills of the new one (what is
+   in setup.weeklyBills) and then the tax on the week before. The account may go below 0: it only locks deals
+   (setup.canAfford) and shows a warning in the CMD header.
+   Tax is financeTuning.taxRate of the profit of the week that ended: the taxable income minus every expense except tax and
+   the debt installments (so what I invest is deductible). A week with a loss pays nothing.
+
+   The budget: three things the player may spend on every week (setup.budgetLevers), each with levels. The level picked
+   in the dialog (company.budget.level) is charged on the next Monday and only from then on counts (company.budget.paid),
+   so switching it off right before the settlement gains nothing.
+       supplies   a bonus on the efficiency target
+       perks      employee morale won back overnight
+       marketing  a bonus on what finished projects pay (setup.marketingRewardFactor, used by setup.getProjectReward)
+   Equipment (setup.equipmentCatalog) is bought once, in the dialog, and lasts.
+
+   setup.bookIncome(category, amount)      money in, counted in this week's books. Returns the amount
+   setup.bookExpense(category, amount)     money out, counted in this week's books and in spentToday
+   setup.ledgerTotal(part)                 the sum of finances.week.income / .expenses (or the same of finances.last)
+   setup.projectRevenue()                  what the active projects pay tonight
+   setup.sweepPlayerMoney()                Stage 1 on: moves what is in my wallet into the account (CalculateFinances)
+   setup.marketingRewardFactor()           1 + the payout bonus of the marketing level that counts now (Stage 1 on)
+   setup.utilitiesPerWeek()                the flat utilities bill of this stage
+   setup.budgetLevel(key), budgetCost(key), budgetEffect(key)
+                                           the level chosen for next Monday, its cost, the entry of the level that counts now
+   setup.weeklyBills()                     [{ key, label, amount }] what the next Monday charges (not the rent, not the tax)
+   setup.taxableProfit(ledger), setup.taxOn(ledger)
+                                           the base and the tax of a week (finances.week or finances.last)
+   setup.equipmentEffect(field)            the sum of that field over the equipment bought so far
+   setup.buyEquipment(id)                  pays and owns it; returns false when it can not be bought
+   setup.settleWeek()                      the Monday settlement */
+<<set setup.financeTuning to {
+    taxRate: 0.10,
+    /* the flat utilities bill by $company.stage (0: none) */
+    utilities: [0, 250, 400, 600],
+}>>
+
+<<set setup.incomeCategories to [
+    { key: "tasks", label: "Tasks", taxable: true },
+    { key: "projects", label: "Project payouts", taxable: true },
+    { key: "revenue", label: "Project revenue", taxable: true },
+    { key: "other", label: "Other", taxable: false },
+]>>
+
+<<set setup.expenseCategories to [
+    { key: "rent", label: "Rent" },
+    { key: "wages", label: "Wages" },
+    { key: "utilities", label: "Utilities" },
+    { key: "supplies", label: "Office supplies" },
+    { key: "perks", label: "Staff perks" },
+    { key: "marketing", label: "Marketing" },
+    { key: "debts", label: "Debt installments", deductible: false },
+    { key: "tax", label: "Tax", deductible: false },
+    { key: "equipment", label: "Equipment" },
+    { key: "deals", label: "Deals and purchases" },
+]>>
+
+<<set setup.bookIncome = (category, amount) => {
+    const f = State.variables.company.finances;
+    const n = Number(amount) || 0;
+    if (n === 0) { return 0; }
+    f.money += n;
+    f.week.income[category] = (Number(f.week.income[category]) || 0) + n;
+    return n;
+}>>
+
+<<set setup.bookExpense = (category, amount) => {
+    const f = State.variables.company.finances;
+    const n = Number(amount) || 0;
+    if (n === 0) { return 0; }
+    f.money -= n;
+    f.spentToday = (Number(f.spentToday) || 0) + n;
+    f.week.expenses[category] = (Number(f.week.expenses[category]) || 0) + n;
+    return n;
+}>>
+
+<<set setup.ledgerTotal = (part) => Object.values(part || {}).reduce((sum, n) => sum + (Number(n) || 0), 0)>>
+
+<<set setup.projectRevenue = () => State.variables.company.projects.reduce((sum, p) => (p && p.active) ? sum + (Number(p.revenue) || 0) : sum, 0)>>
+
+<<set setup.sweepPlayerMoney = () => {
+    const v = State.variables;
+    if (v.company.stage <= 0 || !v.player.money) { return; }
+    setup.bookIncome("other", v.player.money);
+    v.player.money = 0;
+}>>
+
+<<set setup.marketingRewardFactor = () => {
+    if (State.variables.company.stage < 1) { return 1; }
+    return 1 + (Number(setup.budgetEffect("marketing").payout) || 0);
+}>>
+
+<<set setup.utilitiesPerWeek = () => {
+    const list = setup.financeTuning.utilities;
+    return list[Math.min(State.variables.company.stage, list.length - 1)] || 0;
+}>>
+
+/* The budget levers. Each level has cost (a week) and its effect: efficiency (points on the efficiency target),
+   moraleRecovery (extra morale every employee wins back overnight), payout (share on top of every project reward). */
+<<set $company.budget to {
+    level: { supplies: 1, perks: 0, marketing: 0 },
+    paid: { supplies: 1, perks: 0, marketing: 0 },
+}>>
+
+<<set setup.budgetLevers to {
+    supplies: {
+        label: "Office supplies",
+        text: "Paper, toner, coffee, working pens. The boring things that keep a desk from turning into a scavenger hunt.",
+        effectText: (e) => e.efficiency > 0 ? "Efficiency target +" + e.efficiency : "No bonus",
+        levels: [
+            { name: "Off", cost: 0, efficiency: 0 },
+            { name: "Low", cost: 150, efficiency: 3 },
+            { name: "Standard", cost: 300, efficiency: 6 },
+            { name: "High", cost: 600, efficiency: 10 },
+        ],
+    },
+    perks: {
+        label: "Staff perks",
+        text: "Lunch on Fridays, a fridge that is actually full, the occasional afternoon off. They notice, and they come back more rested.",
+        effectText: (e) => e.moraleRecovery > 0 ? "Morale back overnight +" + e.moraleRecovery : "No bonus",
+        levels: [
+            { name: "Off", cost: 0, moraleRecovery: 0 },
+            { name: "Low", cost: 100, moraleRecovery: 1 },
+            { name: "Standard", cost: 250, moraleRecovery: 2 },
+            { name: "High", cost: 500, moraleRecovery: 3 },
+        ],
+    },
+    marketing: {
+        label: "Marketing",
+        text: "Ads, a few events, a name people recognize. Clients who have heard of us pay more when a project is done. The level that counts on the day it finishes sets the bonus, so turn it up before a big one lands.",
+        effectText: (e) => e.payout > 0 ? "Project payouts +" + Math.round(e.payout * 100) + "%" : "No bonus",
+        levels: [
+            { name: "Off", cost: 0, payout: 0 },
+            { name: "Low", cost: 200, payout: 0.05 },
+            { name: "Standard", cost: 500, payout: 0.10 },
+            { name: "High", cost: 1000, payout: 0.20 },
+        ],
+    },
+}>>
+
+<<set setup.budgetLevel = (key) => {
+    const list = setup.budgetLevers[key].levels;
+    return Math.clamp(Number(State.variables.company.budget.level[key]) || 0, 0, list.length - 1);
+}>>
+
+<<set setup.budgetCost = (key) => setup.budgetLevers[key].levels[setup.budgetLevel(key)].cost>>
+
+<<set setup.budgetEffect = (key) => {
+    const list = setup.budgetLevers[key].levels;
+    return list[Math.clamp(Number(State.variables.company.budget.paid[key]) || 0, 0, list.length - 1)];
+}>>
+
+/* Equipment: bought once, kept. efficiency and moraleRecovery work like the budget effects above */
+<<set $company.equipment to {}>>
+
+<<set setup.equipmentCatalog to [
+    { id: "chairs", name: "Proper office chairs", price: 2500, efficiency: 3,
+      text: "Nobody here has had a chair that was not held together by duct tape and hope. Backs hurt less, and people stay at their desks." },
+    { id: "coffee", name: "Espresso machine", price: 1500, moraleRecovery: 1,
+      text: "A real one, with a milk frother nobody will admit to using. It takes the edge off the mornings." },
+    { id: "workstations", name: "Workstation upgrade", price: 5000, efficiency: 5,
+      text: "Faster machines and second monitors. Builds that took a coffee break now finish before the coffee is cold." },
+    { id: "lounge", name: "Break room lounge", price: 4000, moraleRecovery: 1, efficiency: 1,
+      text: "A couch, a table that does not wobble, a door that closes. Lunch stops happening at the desks." },
+]>>
+
+<<set setup.equipmentEffect = (field) => setup.equipmentCatalog
+    .filter((item) => State.variables.company.equipment[item.id])
+    .reduce((sum, item) => sum + (Number(item[field]) || 0), 0)>>
+
+<<set setup.buyEquipment = (id) => {
+    const v = State.variables;
+    const item = setup.equipmentCatalog.find((entry) => entry.id === id);
+    if (!item || v.company.equipment[id] || v.company.stage < 1 || !setup.canAfford(item.price)) { return false; }
+    setup.bookExpense("equipment", item.price);
+    v.company.equipment[id] = true;
+    Notification.show(item.name + ": -$" + item.price.toLocaleString("en-US"), { type: Notification.NEGATIVE });
+    return true;
+}>>
+
+<<set setup.weeklyBills = () => {
+    const bills = [
+        { key: "wages", label: "Wages", amount: setup.weeklyWages() },
+        { key: "debts", label: "Debt installments", amount: setup.debtsPerWeek() },
+        { key: "utilities", label: "Utilities", amount: setup.utilitiesPerWeek() },
+    ];
+    ["supplies", "perks", "marketing"].forEach((key) => bills.push({ key: key, label: setup.budgetLevers[key].label, amount: setup.budgetCost(key) }));
+    return bills.filter((bill) => bill.amount > 0);
+}>>
+
+<<set setup.taxableProfit = (ledger) => {
+    const income = setup.incomeCategories.reduce((sum, c) => c.taxable ? sum + (Number(ledger.income[c.key]) || 0) : sum, 0);
+    const costs = setup.expenseCategories.reduce((sum, c) => c.deductible === false ? sum : sum + (Number(ledger.expenses[c.key]) || 0), 0);
+    return income - costs;
+}>>
+
+<<set setup.taxOn = (ledger) => Math.round(Math.max(0, setup.taxableProfit(ledger)) * setup.financeTuning.taxRate)>>
+
+<<set setup.settleWeek = () => {
+    const v = State.variables;
+    const f = v.company.finances;
+    const emptyPart = (categories) => Object.fromEntries(categories.map((c) => [c.key, 0]));
+    /* close the week that ended and open the new one */
+    f.last = f.week;
+    f.week = { income: emptyPart(setup.incomeCategories), expenses: emptyPart(setup.expenseCategories) };
+    f.weekStartDay = v.date.dayCount;
+
+    /* the bills of the new week, at the levels picked last week; from now on these levels count */
+    const bills = setup.weeklyBills();
+    v.company.budget.paid = Object.assign({}, v.company.budget.level);
+    setup.payWages(true);
+    setup.payDebts(true);
+    ["utilities", "supplies", "perks", "marketing"].forEach((key) => {
+        const bill = bills.find((b) => b.key === key);
+        if (bill) { setup.bookExpense(key, bill.amount); }
+    });
+    /* then the tax on the week before */
+    const tax = setup.taxOn(f.last);
+    if (tax > 0) { setup.bookExpense("tax", tax); }
+
+    const billsTotal = bills.reduce((sum, b) => sum + b.amount, 0);
+    const parts = [];
+    if (billsTotal > 0) { parts.push("bills -$" + billsTotal.toLocaleString("en-US")); }
+    if (tax > 0) { parts.push("tax -$" + tax.toLocaleString("en-US")); }
+    if (parts.length) { Notification.show("Monday: " + parts.join(", "), { type: Notification.NEGATIVE }); }
+    return { bills: billsTotal, tax: tax };
 }>>
 
 /* Charging the Stage 1 devices =====================================================
@@ -483,9 +715,10 @@
                 Every night it moves toward setup.efficiencyTarget(), up by tuning.efficiencyRise and down by
                 tuning.efficiencyFall points. The target is the sum of setup.efficiencySources, so a one-off
                 boost fades again while the things in that list last.
-                Now:   the vent unit level (35 / 50 / 65 / 80), low company Morale (below 40 it pulls the
-                       target down), Secretary Work (+2 each time, a boost that fades).
-                Later: office upgrades, the Veil in the office, quest bonuses: add them to efficiencySources
+                Now:   the vent unit level (35 / 50 / 65 / 80), the office supplies and the equipment (The books, above),
+                       low company Morale (below 40 it pulls the target down), Secretary Work (+2 each time, a
+                       boost that fades).
+                Later: the Veil in the office, quest bonuses: add them to efficiencySources
                        (lasting) or call setup.changeCompanyStat("efficiency", n) (one-off).
    reputation   Pay and unlocks. Repeatable client projects pay reward x setup.reputationRewardFactor(p)
                 = 0.8 + reputation / 250 (x0.8 at 0, x1.2 at 100); story projects keep their reward. New projects
@@ -494,7 +727,7 @@
                 plus story beats (the official product meeting). It never drifts.
    morale       The climate in the office. Every employee keeps an own morale for their own exhaustion;
                 this one decides how fast they get it back and how fast work eats it:
-                overnight recovery setup.moraleRecovery() = 4 + morale / 12.5 (+4 to +12, +8 at 50),
+                overnight recovery setup.moraleRecovery() = 4 + morale / 12.5 (+4 to +12, +8 at 50), plus staff perks and equipment,
                 work drain tuning.moraleDrainPerAction per action of project work x setup.moraleDrainFactor()
                 = (1.2 - morale / 250) x the drain of the vent level (x1.2 at 0, x1 at 50, x0.8 at 100). Their
                 work is scaled by their own morale (50% at 0, 100% at full, nothing at all at 0).
@@ -577,6 +810,8 @@
 
 <<set setup.efficiencySources to [
     { label: "Vent unit", value: () => setup.ventLevel().efficiency },
+    { label: "Office supplies", value: () => setup.budgetEffect("supplies").efficiency },
+    { label: "Equipment", value: () => setup.equipmentEffect("efficiency") },
     { label: "Low morale", value: () => {
         const morale = State.variables.company.stats.morale;
         const from = setup.companyStatTuning.lowMoraleFrom;
@@ -627,7 +862,9 @@
 <<set setup.moraleRecovery = () => {
     const tuning = setup.companyStatTuning;
     if (!setup.companyStatsActive()) { return Math.round(tuning.moraleRecoveryBase + 50 / tuning.moraleRecoveryDiv); }
-    return Math.round(tuning.moraleRecoveryBase + State.variables.company.stats.morale / tuning.moraleRecoveryDiv);
+    /* the staff perks and the equipment add to what they win back (setup.budgetLevers, setup.equipmentCatalog) */
+    const extra = setup.budgetEffect("perks").moraleRecovery + setup.equipmentEffect("moraleRecovery");
+    return Math.round(tuning.moraleRecoveryBase + State.variables.company.stats.morale / tuning.moraleRecoveryDiv + extra);
 }>>
 
 <<set setup.moraleDrainFactor = () => {

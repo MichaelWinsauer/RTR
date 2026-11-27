@@ -991,8 +991,8 @@
 		return v.company.stage === 0 ? v.player.money : v.company.finances.money;
 	}
 	function pay(amount) {
-		var v = State.variables;
-		if (v.company.stage === 0) { v.player.money -= amount; } else { v.company.finances.money -= amount; }
+		/* from Stage 1 on it is booked as a deal (setup.spend, Define Company) */
+		setup.spend(amount, "", true);
 	}
 
 	/* true when every flag of the object has the given value */

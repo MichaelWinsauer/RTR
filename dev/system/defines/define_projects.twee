@@ -304,7 +304,8 @@
    setup.getProjectDaysLeft(p)      > 0 days until the deadline, 0 due today, < 0 overdue
    setup.getProjectDeadlineText(p)  "3 days left" / "Due today" / "2 days overdue"
    setup.getProjectReward(p)        what the client would pay if it were finished right now (running projects)
-   setup.getProjectBaseReward(p)    what it pays when finished on time, with the reputation factor (overview)
+   setup.getProjectBaseReward(p)    what it pays when finished on time, with the reputation factor and the marketing
+                                    budget (overview)
    setup.checkProjects()            completes every finished project (Action Update)
    setup.checkProjectDeadlines()    the day-before and first-overdue-day warnings, Reputation for every
                                     overdue day (Daily Update)
@@ -457,11 +458,11 @@
 <<set setup.getProjectRewardFactor = (project) => {
     const penalty = setup.getProjectSetting(project, "latePenalty");
     const floor = setup.getProjectSetting(project, "minRewardFactor");
-    return Math.max(floor, 1 - penalty * setup.getProjectDaysOverdue(project)) * setup.reputationRewardFactor(project);
+    return Math.max(floor, 1 - penalty * setup.getProjectDaysOverdue(project)) * setup.reputationRewardFactor(project) * setup.marketingRewardFactor();
 }>>
 
 <<set setup.getProjectBaseReward = (project) => {
-    return Math.round((Number(project.reward) || 0) * setup.reputationRewardFactor(project));
+    return Math.round((Number(project.reward) || 0) * setup.reputationRewardFactor(project) * setup.marketingRewardFactor());
 }>>
 
 <<set setup.getProjectReward = (project) => {
@@ -488,8 +489,7 @@
     project.daysOverdue = overdue;
     project.paidReward = payout;
 
-    v.company.finances.money += payout;
-    v.company.finances.income.projects = (Number(v.company.finances.income.projects) || 0) + payout;
+    setup.bookIncome("projects", payout);
 
     /* free the team, their work is no longer split with this project */
     (project.assigned || []).forEach((emp) => {

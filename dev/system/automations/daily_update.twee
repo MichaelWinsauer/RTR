@@ -17,17 +17,18 @@
     <<UpdateStat "+" "MomRelation" 1>>
 <</if>>
 
-<<set $company.finances.money += $company.finances.income.revenue>>
+/* what the active projects pay tonight (the books, Define Company) */
+<<run setup.bookIncome("revenue", setup.projectRevenue())>>
 
-/* Monday morning: the staff gets paid for the week (setup.payWages, Define Company) */
-<<if $date.today.value == 0 && $company.stage >= 1>><<run setup.payWages()>><<run setup.payDebts()>><</if>>
+/* Monday morning: the week is closed, the new week's bills and the tax on the old one are paid (setup.settleWeek, Define Company) */
+<<if $date.today.value == 0 && $company.stage >= 1>><<run setup.settleWeek()>><</if>>
 
 /* the finance chart (CMD Finances): the account balance, and what actually left the account that day
-   (rent and wages, counted in spentToday); then the day starts again at 0 */
+   (rent, bills and everything else, counted in spentToday); then the day starts again at 0 */
 <<run $company.finances.history.income.push($company.finances.money)>>
 <<run $company.finances.history.expenses.push($company.finances.spentToday || 0)>>
 <<set $company.finances.spentToday to 0>>
-<<CalculateFinances true>>
+<<CalculateFinances>>
 
 <<run 
 	/* a flat amount each night, so a packed week adds up (setup.taskEnergyTuning, Define Tasks) */

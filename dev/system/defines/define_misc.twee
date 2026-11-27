@@ -70,7 +70,7 @@
 
 <<set setup.rentOwed = () => {
     const v = State.variables;
-    return (Number(v.company.finances.expenses.rent) || 0) + (Number(v.player.debt) || 0);
+    return (Number(v.rent) || 0) + (Number(v.player.debt) || 0);
 }>>
 
 <<set setup.rentFunds = () => {

@@ -1159,11 +1159,11 @@
         passage: "Control Session",
         returnPassage: "Bedroom",
         requirements: [
-            "setup.getTaskById('task_mom_test_session').count >= 10",
+            "setup.getTaskById('task_mom_test_session').count >= 5",
             "setup.corruptionTotal('mom') >= 40",
         ],
         requirementsText: [
-            "Hold 10 test sessions with $mom.callName ({{Math.min(10, setup.getTaskById('task_mom_test_session').count)}}/10)",
+            "Hold 5 test sessions with $mom.callName ({{Math.min(10, setup.getTaskById('task_mom_test_session').count)}}/10)",
             "$mom.callName needs 40 corruption ({{Math.min(40, setup.corruptionTotal('mom'))}}/40)",
         ],
     },

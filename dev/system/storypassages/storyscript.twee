@@ -1167,8 +1167,7 @@ window.completeTaskEntry = function (sysName, taskEntry) {
     const task = taskEntry.task;
     const npc = State.variables[sysName];
 
-    State.variables.company.finances.money += (task.revenue || 0);
-    State.variables.company.finances.income.tasks += (task.revenue || 0);
+    setup.bookIncome("tasks", task.revenue || 0);
 
     /* base cost plus the surcharge for missing morale (setup.taskEnergyCost, Define Tasks) */
     let energy = npc.stats.energy - setup.taskEnergyCost(task, npc);
