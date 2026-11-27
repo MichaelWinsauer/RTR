@@ -207,6 +207,28 @@ setup.questLines.forEach(function (key) {
 items.sort(function (a, b) { return a.prio - b.prio; });
 items.push({ prio: 99, tone: "idle", text: workLabel });
 State.temporary.hdrNext = items;
+
+/* The markup of the quest chips and the "Next up" items is built here, in JS: the header is drawn on every click at
+   the desk, and the same as <<for>> loops with a <<= >> per field cost more than the rest of the header together.
+   window.wikifyMaybe (StoryScript) only runs the wikifier on texts that contain markup */
+var attr = function (text) { return String(text == null ? "" : text).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); };
+var flag = '<svg class="cmd-quest-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 4h10l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+State.temporary.hdrQuestsHtml = State.temporary.hdrQuests.map(function (q) {
+	return '<button type="button" class="cmd-quest ' + q.tone + '" data-line="' + attr(q.line) + '" aria-label="' + attr(q.owner + ": " + q.title) + '">'
+		+ flag
+		+ '<span class="cmd-quest-dot"></span>'
+		+ '<span class="cmd-quest-tip">'
+		+ '<span class="cmd-quest-owner">' + wikifyMaybe(q.owner) + '</span>'
+		+ '<span class="cmd-quest-title">' + wikifyMaybe(q.title) + '</span>'
+		+ '<span class="cmd-quest-state">' + wikifyMaybe(q.state) + '</span>'
+		+ (q.note ? '<span class="cmd-quest-note">' + wikifyMaybe(q.note) + '</span>' : '')
+		+ '</span></button>';
+}).join("");
+State.temporary.hdrNextHtml = items.map(function (n, i) {
+	return '<button type="button" class="cmd-next-item ' + n.tone + (i === 0 ? ' active' : '') + (n.target || n.device || n.quest ? ' clickable' : '') + '"'
+		+ ' data-target="' + attr(n.target || '') + '" data-device="' + attr(n.device || '') + '" data-quest="' + attr(n.quest || '') + '">'
+		+ '<span class="cmd-next-dot"></span><span class="cmd-next-text">' + wikifyMaybe(n.text) + '</span></button>';
+}).join("");
 <</script>>
 <</silent>>
 <div class="cmd-header-row">
@@ -219,9 +241,7 @@ State.temporary.hdrNext = items;
 			<<else>>
 				<span class="cmd-next-label">Next up</span>
 			<</if>>
-			<<for _n = 0; _n < _hdrNext.length; _n++>>
-				<button type="button" @class="'cmd-next-item ' + _hdrNext[_n].tone + (_n == 0 ? ' active' : '') + (_hdrNext[_n].target || _hdrNext[_n].device || _hdrNext[_n].quest ? ' clickable' : '')" @data-target="_hdrNext[_n].target || ''" @data-device="_hdrNext[_n].device || ''" @data-quest="_hdrNext[_n].quest || ''"><span class="cmd-next-dot"></span><span class="cmd-next-text"><<= _hdrNext[_n].text>></span></button>
-			<</for>>
+			<<script>>$(output).append(State.temporary.hdrNextHtml);<</script>>
 		</div>
 	</div>
 
@@ -230,18 +250,7 @@ State.temporary.hdrNext = items;
 	<div class="cmd-header-side">
 		<<if _hdrQuests.length > 0>>
 			<div class="cmd-quests">
-				<<for _q range _hdrQuests>>
-					<button type="button" @class="'cmd-quest ' + _q.tone" @data-line="_q.line" @aria-label="_q.owner + ': ' + _q.title">
-						<svg class="cmd-quest-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4M6 4h10l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-						<span class="cmd-quest-dot"></span>
-						<span class="cmd-quest-tip">
-							<span class="cmd-quest-owner"><<= _q.owner>></span>
-							<span class="cmd-quest-title"><<= _q.title>></span>
-							<span class="cmd-quest-state"><<= _q.state>></span>
-							<<if _q.note>><span class="cmd-quest-note"><<= _q.note>></span><</if>>
-						</span>
-					</button>
-				<</for>>
+				<<script>>$(output).append(State.temporary.hdrQuestsHtml);<</script>>
 				<div class="cmd-quest-pop" hidden></div>
 			</div>
 		<</if>>

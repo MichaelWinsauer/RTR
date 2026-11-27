@@ -5,7 +5,7 @@
    $interactions.actions: every entry is one card on that screen
      id        unique key (also used for the once-per-day log)
      group     id of one of $interactions.groups
-     text      button text
+     text      button text, or a function (npc) => text for a card whose wording depends on the moment
      hidden    true = never shown (not implemented yet)
      highlight true = the card stands out on the screen while it can be used (the end-of-day report)
      hideWhen  hides the card while her flags match, e.g. { isFollowing: true }
@@ -86,9 +86,10 @@
 		},
 		{
 			/* her end-of-day report (End-of-day report in Define NPCs): its own group at the top, at any time of day,
-			   only while today has something she did not tell me yet. Not once a day:
-			   whatever comes in later the same day brings it back. The passage applies the Relation (once a day) */
-			id: "dayReport", group: "report", text: "How was your day?", cost: 1, highlight: true,
+			   only while her log has something she did not tell me yet. Not once a day:
+			   whatever comes in later the same day brings it back. The passage applies the Relation (once a day).
+			   Before her workday the morning after, when all she has left is from yesterday, I ask about that */
+			id: "dayReport", group: "report", text: (npc) => setup.dayReportLater(npc) ? "How did yesterday go?" : "How was your day?", cost: 1, highlight: true,
 			requires: "setup.hasDayReport('{sysName}')",
 			blocked: _busy,
 			effect: { relation: 1 },
@@ -1142,7 +1143,7 @@
 			.map(function (action) {
 				return {
 					action: action,
-					text: action.text,
+					text: typeof action.text === "function" ? action.text(npc) : action.text,
 					reason: setup.interactionLockReason(npc, action)
 				};
 			});

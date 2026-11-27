@@ -155,7 +155,10 @@
     where: ["sidebar", "desk"],
     priority: 50,
     when: () => setup.dayReportReachable(sysName) !== null,
-    label: () => "Hear about " + State.variables[sysName].callName + "'s day",
+    /* the morning after, before her workday, when all that is left is from yesterday (End-of-day report, Define NPCs) */
+    label: () => setup.dayReportLater(sysName)
+        ? "Ask " + State.variables[sysName].callName + " about yesterday"
+        : "Hear about " + State.variables[sysName].callName + "'s day",
     hint: (ctx) => {
         const found = setup.dayReportReachable(sysName);
         const news = setup.dayReportNews(sysName);

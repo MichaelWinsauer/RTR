@@ -17,40 +17,91 @@ if (!document.getElementById("font-manrope")) {
 }
 
 //Settings ============================================================
-Config.history.maxStates = 5;
+/* Every passage change diffs each pair of neighbouring history states against each other (for the session copy),
+   synchronously, before the passage is drawn: with five states that is four diffs of the whole state, around
+   100 ms on a fast machine. Two keeps one step of Back and needs a single diff. */
+Config.history.maxStates = 2;
 Config.saves.maxAutoSaves = 1;
-Config.saves.autosave = function () {
-    return State.turns > 0 && (State.turns % 10 === 0);
-};
+
+/* Deferred autosave =====================================================
+   The autosave comes every 10 turns. SugarCube writes it synchronously at the end of the passage, which made every
+   10th click a quarter of a second slower on a fast machine. Here the 10th turn only marks it as due, and it is
+   written once the player has paused for QUIET_MS and the browser is idle (Save.browser.auto.save() saves the state
+   of that moment), or at once when the page is left or hidden. SugarCube still asks on every passage, so
+   Config.saves.isAllowed says no to autosaves except while this code writes one; slot saves are always allowed. */
+(function () {
+	var QUIET_MS = 4000;
+	var due = false;
+	var writing = false;
+	var timer = null;
+	var write = function () {
+		if (timer !== null) { clearTimeout(timer); timer = null; }
+		if (!due) { return; }
+		/* never over the last game with the main menu or the intro (it stays due for later) */
+		var flags = State.variables.flags;
+		if (State.passage === "Main Menu" || !flags || !flags.introDone) { return; }
+		due = false;
+		writing = true;
+		try { Save.browser.auto.save(); }
+		catch (ex) { console.error("Autosave failed:", ex); }
+		finally { writing = false; }
+	};
+	Config.saves.isAllowed = function (saveType) {
+		return saveType !== Save.Type.Auto || writing;
+	};
+	$(document).on(":passageend", function () {
+		if (State.turns > 0 && State.turns % 10 === 0) { due = true; }
+		if (!due) { return; }
+		if (timer !== null) { clearTimeout(timer); }
+		timer = setTimeout(function () {
+			timer = null;
+			if (typeof window.requestIdleCallback === "function") {
+				window.requestIdleCallback(write, { timeout: 2000 });
+			} else {
+				write();
+			}
+		}, QUIET_MS);
+	});
+	window.addEventListener("pagehide", write);
+	document.addEventListener("visibilitychange", function () {
+		if (document.visibilityState === "hidden") { write(); }
+	});
+})();
 
 /* Deferred session write ================================================
    On every passage change SugarCube writes the whole history into sessionStorage (so that reloading the tab
    brings the game back): stringified and LZ-compressed, synchronously, before the new passage is drawn.
    That took most of the time of every click. The copy is only read again after a reload, so here the newest
-   one waits until the browser is idle after drawing (only the last of several quick clicks is written at
-   all). Leaving or reloading the page (pagehide), hiding the tab, and anything that reads the stored state
-   write it at once; deleting it (restart) drops the waiting copy. Other keys are written as before. */
+   one waits until the player has paused for QUIET_MS and the browser is idle (only the last of several clicks
+   is written at all). The write itself still takes a moment (on a slow machine a few hundred ms), so it must not
+   come right between two clicks, e.g. while working through actions at the desk. Leaving or reloading the page
+   (pagehide), hiding the tab, and anything that reads the stored state write it at once; deleting it (restart)
+   drops the waiting copy. Other keys are written as before. */
 (function () {
 	var store = SugarCube.session;
 	var origSet = store.set, origGet = store.get, origHas = store.has, origDelete = store.delete;
+	var QUIET_MS = 4000;
 	var pending = null;
-	var scheduled = false;
+	var timer = null;
 	var flush = function () {
-		scheduled = false;
+		if (timer !== null) { clearTimeout(timer); timer = null; }
 		if (pending === null) { return; }
 		var value = pending;
 		pending = null;
 		try { origSet.call(store, "state", value); }
 		catch (ex) { console.error("Session write failed:", ex); }
 	};
+	/* every new state restarts the wait */
 	var schedule = function () {
-		if (scheduled) { return; }
-		scheduled = true;
-		if (typeof window.requestIdleCallback === "function") {
-			window.requestIdleCallback(flush, { timeout: 1000 });
-		} else {
-			requestAnimationFrame(function () { setTimeout(flush, 0); });
-		}
+		if (timer !== null) { clearTimeout(timer); }
+		timer = setTimeout(function () {
+			timer = null;
+			if (typeof window.requestIdleCallback === "function") {
+				window.requestIdleCallback(flush, { timeout: 2000 });
+			} else {
+				flush();
+			}
+		}, QUIET_MS);
 	};
 	store.set = function (key, value) {
 		if (key !== "state") { return origSet.call(store, key, value); }
@@ -75,6 +126,19 @@ Config.saves.autosave = function () {
 		if (document.visibilityState === "hidden") { flush(); }
 	});
 })();
+
+/* Charts left behind =====================================================
+   Chart.js keeps every chart in Chart.instances (with its resize listeners) until destroy() is called. The CMD draws
+   new canvases on every click (the project gauges, the finance chart), so the charts of the passage before are
+   destroyed here once their canvas is no longer on the page; otherwise they pile up for the whole session. */
+$(document).on(":passageend", function () {
+	if (!window.Chart || !Chart.instances) { return; }
+	Object.values(Chart.instances).forEach(function (chart) {
+		if (!chart.canvas || !document.body.contains(chart.canvas)) {
+			try { chart.destroy(); } catch (ex) { console.warn("Chart cleanup failed:", ex); }
+		}
+	});
+});
 
 /* Playtime ==============================================================
    $playtime (Define Misc) is the time played in milliseconds.
@@ -592,6 +656,17 @@ window.wikifyText = function(text, keepHTML = false) {
 
 window.wikifyHTML = function(text) {
     return window.wikifyText(text, true);
+};
+
+/* wikifyHTML only for text that can contain markup (a naked variable, a macro, a link, a temporary, bold, italics,
+   an HTML tag or entity); plain text is only escaped. For panels that build their markup in JS on every passage
+   (CMD Header, CMD Mails), where most texts are plain and the wikifier is the slow part. */
+var WIKI_MARKUP = /[$<\[&@{]|''|\/\/|__|_[A-Za-z]|\^\^|~~|==/;
+window.wikifyMaybe = function(text) {
+    if (text == null) return "";
+    text = String(text);
+    if (WIKI_MARKUP.test(text)) return window.wikifyHTML(text);
+    return text.trim().replace(/>/g, "&gt;");
 };
 
 /* ==== Stat definitions ===================================================

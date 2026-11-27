@@ -16,66 +16,50 @@ window.callFamilyToDesk = function(sysName) {
   };
   Engine.play("NPC Interaction");
 };
+
+/* One card per employee: portrait, name, title, energy (mom and the sister only) and morale, the two best skills, and
+   the call button for mom and the sister while she is in the office. Stats come from the live character
+   (State.variables[sysName]); $company.employees only holds copies */
+window.cmdEmployeeCards = function () {
+  const v = State.variables;
+  const esc = (text) => String(text == null ? "" : text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+  const color = (value) => value < 66 ? (value < 34 ? "red" : "yellow") : "green";
+  const phone = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+  return v.company.employees.map((employee) => {
+    const live = v[employee.sysName] || employee;
+    const stats = live.stats || {};
+    const family = employee.id == 0 || employee.id == 1;
+    const portrait = setup.mediaInline("image", ["images/characters/portraits/" + employee.sysName + ".jpg", "", "", "", "", "false"]);
+    const energy = family
+      ? '<div class="cmd-management-employee-content-energy ' + color(stats.energy) + '"><div class="energy-icon">&#xf0e7;</div><span style="font-weight: bold">' + stats.energy + '</span></div>'
+      : "";
+    const morale = '<div class="cmd-management-employee-content-morale ' + color(stats.morale) + '"><div class="morale-icon">&#xf240;</div><span style="font-weight: bold">' + stats.morale + '</span></div>';
+    const skills = Object.entries(live.skills || employee.skills || {})
+      .filter((entry) => entry[1] > 0)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .map((entry) => '<div class="cmd-management-employee-content-skills-skill">' + esc(window.capitalize(entry[0])) + '</div>')
+      .join("");
+    const call = ["mom", "sister"].includes(employee.sysName) && window.canCallToDesk(employee.sysName)
+      ? '<button class="cmd-call-btn" data-call="' + employee.sysName + '" title="Call ' + esc(live.callName) + ' to my desk" aria-label="Call ' + esc(live.callName) + ' to my desk">' + phone + '</button>'
+      : "";
+    return '<div class="cmd-management-employee-card" id="' + employee.sysName + '">'
+      + '<div class="cmd-management-employee-image">' + portrait + '</div>'
+      + '<div class="cmd-management-employee-content">'
+      + '<div class="cmd-management-employee-content-name">' + esc(live.name) + ' ' + esc(live.surname) + '</div>'
+      + '<div class="cmd-management-employee-content-title">' + esc(live.relation) + '</div>'
+      + '<div class="cmd-management-employee-content-info">'
+      + '<div class="cmd-management-employee-content-energy-morale">' + energy + morale + '</div>'
+      + '<div class="cmd-management-employee-content-skills">' + skills + '</div>'
+      + '</div></div>'
+      + call
+      + '</div>';
+  }).join("");
+};
 <</script>>
-<div class="cmd-management-wrapper">
-    <<for _i = 0; _i < $company.employees.length; _i++>>
-    	<<set _employee to $company.employees[_i]>>
-		<div class="cmd-management-employee-card" @id="_employee.sysName">
-        	<div class="cmd-management-employee-image">
-            	<<set _path to "images/characters/portraits/" + _employee.sysName + ".jpg">>
-            	<<Media _path "" "" "false">> 
-            </div>
-            <div class="cmd-management-employee-content">
-            	<div class="cmd-management-employee-content-name">
-            		_employee.name _employee.surname
-            	</div>
-                <div class="cmd-management-employee-content-title">
-            		_employee.relation
-            	</div>
-                <div class="cmd-management-employee-content-info">
-                	<div class="cmd-management-employee-content-energy-morale">
-                    	<<if _employee.id == 0 || _employee.id == 1>>
-                        	<<set _energyColor to (State.variables[_employee.sysName].stats.energy < 66 ? (State.variables[_employee.sysName].stats.energy < 34 ? "red" : "yellow" ) : "green")>>
-                        	<div @class="'cmd-management-employee-content-energy ' + _energyColor">
-								<div class="energy-icon">&#xf0e7;</div>
-                                <span style="font-weight: bold"><<= State.variables[_employee.sysName].stats.energy>></span>
-                            </div>
-                        <</if>>
-                        <<set _moraleColor to (State.variables[_employee.sysName].stats.morale < 66 ? (State.variables[_employee.sysName].stats.morale < 34 ? "red" : "yellow" ) : "green")>>
-                        <div @class="'cmd-management-employee-content-morale ' + _moraleColor">
-							<div class="morale-icon">&#xf240;</div>
-                            <span style="font-weight: bold"><<= State.variables[_employee.sysName].stats.morale>></span>
-                        </div>
-                    </div>
-                    <div class="cmd-management-employee-content-skills">
-                        <<set _skillList to []>>
-                        <<if _employee.skills>>
-                            <<for _skillName, _value range _employee.skills>>
-                                <<if _value gt 0>>
-                                    <<set _skillList.push({name: _skillName, value: _value})>>
-                                <</if>>
-                            <</for>>
-
-                            <<if _skillList.length gt 0>>
-                                <<set _topTwoSkills to _skillList.sort((a, b) => b.value - a.value).slice(0, 2)>>
-
-                                <<for _skill range _topTwoSkills>>
-                                    <div class="cmd-management-employee-content-skills-skill">
-                                        <<= _skill.name.charAt(0).toUpperCase() + _skill.name.slice(1) >>
-                                    </div>
-                                <</for>>
-                            <</if>>
-                        <</if>>
-                    </div>
-                </div>
-            </div>
-            /* mom and the sister: call her to my desk while she is somewhere in the office (callFamilyToDesk, at the top) */
-            <<if ["mom", "sister"].includes(_employee.sysName) && canCallToDesk(_employee.sysName)>>
-                <button class="cmd-call-btn" @data-call="_employee.sysName" @title="'Call ' + State.variables[_employee.sysName].callName + ' to my desk'" @aria-label="'Call ' + State.variables[_employee.sysName].callName + ' to my desk'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></button>
-            <</if>>
-        </div>
-    <</for>>
-</div>
+/* the cards are built in JS (window.cmdEmployeeCards, above): this panel is drawn on every click at the desk, and
+   the same markup as a <<for>> with a dozen macros per card was one of the slowest parts of it */
+<<script>>$(output).append('<div class="cmd-management-wrapper">' + window.cmdEmployeeCards() + '</div>');<</script>>
 
 <style>
 .cmd-management-wrapper {

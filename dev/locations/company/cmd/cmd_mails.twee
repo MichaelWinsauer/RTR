@@ -1,31 +1,29 @@
 :: CMD Mails [nobr] {"position":"2225,3375","size":"200,100"}
-<div class="cmd-inbox">
-<<set _mails to $company.mails.slice().reverse().filter((mail) => { return mail.active == true })>>
-<<for _i = 0; _i < _mails.length; _i++>>
-    <<set _mail to _mails[_i]>>
-    <div class="cmd-inbox-mail" @data-id="_mail.id">
-        <div class="cmd-inbox-mail-read-icon-wrapper">
-        	<div class="cmd-inbox-mail-read">
-                <<if !_mail.read>>⬤<</if>>
-            </div>
-            <div class="cmd-inbox-mail-icon">
-                <<Image "images/characters/portraits/" _mail.who.sysName ".jpg" "" "" "false">>
-            </div>
-        </div>
-        <div class="cmd-inbox-mail-title-body-wrapper">
-            <div class="cmd-inbox-mail-title">
-                <<=_mail.title>>
-            </div>
-            <div class="cmd-inbox-mail-body">
-                <<=_mail.body[0].text.replace(/[\n\r]+/g, " ").trim()>>
-            </div>
-        </div>
-        <div class="cmd-inbox-mail-flag">
-            <<if _mail.flagged>>✦<<else>>✧<</if>>
-        </div>
-    </div>
-<</for>>
-</div>
+/* The rows are built in JS (window.cmdInboxRows, in the script below): this panel is drawn on every click at the desk,
+   and a <<for>> with an <<Image>> per mail was slow. Title and preview may contain variables, so they go through window.wikifyMaybe */
+<<script>>
+window.cmdInboxRows = function () {
+    const mails = State.variables.company.mails.slice().reverse().filter((mail) => mail.active == true);
+    return mails.map((mail) => {
+        const preview = mail.body && mail.body[0] ? String(mail.body[0].text).replace(/[\n\r]+/g, " ").trim() : "";
+        /* the row shows one line of it: cut at a space after 160 characters (that never splits a naked variable) */
+        const cut = preview.length > 160 ? preview.indexOf(" ", 160) : -1;
+        const short = cut > 0 ? preview.slice(0, cut) + "..." : preview;
+        return '<div class="cmd-inbox-mail" data-id="' + mail.id + '">'
+            + '<div class="cmd-inbox-mail-read-icon-wrapper">'
+            + '<div class="cmd-inbox-mail-read">' + (mail.read ? "" : "&#11044;") + '</div>'
+            + '<div class="cmd-inbox-mail-icon">' + setup.mediaInline("image", ["images/characters/portraits/", mail.who.sysName, ".jpg", "", "", "false"]) + '</div>'
+            + '</div>'
+            + '<div class="cmd-inbox-mail-title-body-wrapper">'
+            + '<div class="cmd-inbox-mail-title">' + window.wikifyMaybe(mail.title) + '</div>'
+            + '<div class="cmd-inbox-mail-body">' + window.wikifyMaybe(short) + '</div>'
+            + '</div>'
+            + '<div class="cmd-inbox-mail-flag">' + (mail.flagged ? "&#10022;" : "&#10023;") + '</div>'
+            + '</div>';
+    }).join("");
+};
+$(output).append('<div class="cmd-inbox">' + window.cmdInboxRows() + '</div>');
+<</script>>
 
 <<script>>
 /* === OPEN MAIL + INSTANT READ UPDATE ===

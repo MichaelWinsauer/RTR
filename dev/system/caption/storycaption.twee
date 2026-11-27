@@ -1,5 +1,8 @@
 :: StoryCaption [system nobr] {"position":"1675,25","size":"100,200"}
-<<if passage() != "Profile">>
+/* Not drawn where PassageReady hides the sidebar anyway (tag hide_sidebar: the desk dashboard, the minigames, the
+   intro): SugarCube redraws StoryCaption after every passage, and on the desk that was a large part of every click.
+   The next passage that shows the sidebar draws it again in full. */
+<<if passage() != "Profile" && !tags().includes("hide_sidebar")>>
 <div class="sb">
   <div class="sb-top">
     <section class="sb-card sb-time">

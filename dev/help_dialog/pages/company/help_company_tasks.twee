@@ -65,7 +65,7 @@
 
 <h3>The marks in the task picker</h3>
 <ul>
-	<li><b>Report</b>: she tells you about it when you ask how her day was. Tasks without it leave nothing to tell. In the schedule these tasks carry a small green speech bubble next to their name.</li>
+	<li><b>Report</b>: she tells you about it when you ask how her day was. You can still ask the next morning, until her workday starts, so a task that runs late in the evening isn't lost. Tasks without it leave nothing to tell. In the schedule these tasks carry a small green speech bubble next to their name.</li>
 	<li><b>New</b>: a task you have unlocked but never planned yet. The mark goes away once you put it into the schedule.</li>
 	<li><b>Private</b>: it only happens while nobody else is around. Some need the room to themselves (the other one of the two can't have a task in the same place at the same time), some also have to lie after work hours, when the staff has gone home. The picker tells you if a slot doesn't work, and a private task that suddenly has company that day simply doesn't start.</li>
 	<li><b>Off-site</b>: it takes her somewhere you never go yourself. There is no camera there, so the only way to find out what happened is to ask her that evening.</li>

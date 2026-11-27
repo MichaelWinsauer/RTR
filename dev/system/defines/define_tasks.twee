@@ -40,6 +40,12 @@
                 "The printer jammed three times and I fixed it three times. Put that on my headstone, sweetie.",
                 "$ethan.name asked me where we keep the stapler. It's on his desk. It's been on his desk since Tuesday.",
             ],
+            /* asked the next morning (End-of-day report, Define NPCs): the same lines, in the same order */
+            lineLater: [
+                "I color-coded the client folders yesterday. Nobody noticed. I'm choosing to believe that means it works.",
+                "The printer jammed three times and I fixed it three times. Put that on my headstone, sweetie.",
+                "$ethan.name asked me where we keep the stapler. It's on his desk. It's been on his desk since Tuesday.",
+            ],
         },
         onComplete: [
         	() => {
@@ -674,7 +680,7 @@
                 /* a client gets the dial */
                 activity: "product_demo1", passage: "Task Mom Product Demos 1", minCount: 3, corruptionStage: 2,
                 effects: { progress: { categories: [ "sales", "consulting" ], amount: 5 }, reputation: 3, exhibition: 3, corruption: 1, lust: 4 },
-                report: { line: "I let the client hold the dial today. He turned it up when he thought I wasn't looking. I was looking, honey.", ask: "Ask about the dial" },
+                report: { line: "I let the client hold the dial today. He turned it up when he thought I wasn't looking. I was looking, honey.", lineLater: "I let the client hold the dial yesterday. He turned it up when he thought I wasn't looking. I was looking, honey.", ask: "Ask about the dial" },
             },
             {
                 /* her corruption stage 3: a live demonstration, on the meeting room table */
@@ -799,7 +805,7 @@
             {
                 activity: "client_evening0", passage: "Task Mom Client Evening 0",
                 effects: { reputation: 3, exhibition: 3, corruption: 1 },
-                report: { line: "$sister.callName and I took a client out tonight, honey. We were very professional. We both very professionally didn't watch what the other one was doing.", ask: "Ask about the evening" },
+                report: { line: "$sister.callName and I took a client out tonight, honey. We were very professional. We both very professionally didn't watch what the other one was doing.", lineLater: "$sister.callName and I took a client out last night, honey. We were very professional. We both very professionally didn't watch what the other one was doing.", ask: "Ask about the evening" },
             },
             {
                 /* the private room at the back of the club */
@@ -837,7 +843,7 @@
                 /* product shots, only her hands */
                 activity: "socials0", passage: "Task Sister Socials 0",
                 effects: { progress: { categories: [ "sales", "marketing" ], amount: 2 }, reputation: 1, exhibition: 1 },
-                report: { line: "I took forty pictures of the unit on a desk today. The desk looks amazing. The unit looks like a smoke detector.", ask: "Ask about the photos" },
+                report: { line: "I took forty pictures of the unit on a desk today. The desk looks amazing. The unit looks like a smoke detector.", lineLater: "I took forty pictures of the unit on a desk yesterday. The desk looks amazing. The unit looks like a smoke detector.", ask: "Ask about the photos" },
             },
             {
                 /* her face becomes the brand, and the comments start */
@@ -855,7 +861,7 @@
                 /* her corruption stage 3: the outtakes she sends me first */
                 activity: "socials3", passage: "Task Sister Socials 3", minCount: 3, corruptionStage: 3,
                 effects: { progress: { categories: [ "sales", "marketing" ], amount: 4 }, reputation: 3, exhibition: 3, corruption: 2, lust: 3 },
-                report: { line: "There are outtakes from today. You get them first, and they're not going on the company page.", ask: "Ask about the outtakes" },
+                report: { line: "There are outtakes from today. You get them first, and they're not going on the company page.", lineLater: "There are outtakes from yesterday. You get them first, and they're not going on the company page.", ask: "Ask about the outtakes" },
             },
         ],
         revenue: 0,
@@ -1020,7 +1026,7 @@
                 /* lunch with him */
                 activity: "team_spirit0", passage: "Task Sister Team Spirit 0", staffMorale: 8,
                 effects: { efficiency: 1, exhibition: 1 },
-                report: { line: "I had lunch with $sister.flags.teamSpiritName today. He talked the whole time. I think he needed that more than the lunch.", ask: "Ask about $sister.flags.teamSpiritName" },
+                report: { line: "I had lunch with $sister.flags.teamSpiritName today. He talked the whole time. I think he needed that more than the lunch.", lineLater: "I had lunch with $sister.flags.teamSpiritName yesterday. He talked the whole time. I think he needed that more than the lunch.", ask: "Ask about $sister.flags.teamSpiritName" },
             },
             {
                 /* her corruption stage 2: she sits on his desk */

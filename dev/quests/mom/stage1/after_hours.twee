@@ -5,7 +5,7 @@
    I drive her over and walk her up to the sixth floor. It ends at the door of his office: "Next time, upstairs", the
    Stage 2 doorway of the boss line (7.2). What happens inside belongs to Stage 2, so there is no POV passage of it: she
    only tells me as much as she can say out loud, the next day, in her end-of-day report (setup.dayReports.mom.after_hours
-   in Define NPCs, a line without a passage, logged for tomorrow because tonight's log is cleared overnight).
+   in Define NPCs, a line without a passage, logged for tomorrow so she tells it the next day, not tonight).
    Variants: what she knows since The Calendar ($mom.flags.calendarChoice), and whether she has come to really hate him
    (setup.feels, Feelings in Define NPCs). */
 <<silent>>

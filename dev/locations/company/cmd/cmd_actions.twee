@@ -5,97 +5,76 @@
             until her running task is done, until the end of the work day, until work starts)
      right  everything else that applies right now (join her in the meeting room, her report, home, bed),
             the highlighted ones first
-   A click works like the sidebar: setup.prepareQuickLink checks the link again, the actions are spent one at a
-   time with <<UseAction>> (working while they are, if the link says so) and then it goes to the target, which
-   is this desk again for most of them. Calling mom or the sister to the desk is on their cards in CMD Management.
+   A click works like the sidebar (window.cmdRunQuickLink, below): setup.prepareQuickLink checks the link again, the
+   actions are spent one at a time with <<UseAction>> (working while they are, if the link says so) and then it goes
+   to the target, which is this desk again for most of them. Calling mom or the sister to the desk is on their cards in CMD Management.
    window.cmdRefreshActions() redraws the panel, e.g. after a task was put into or taken out of the schedule. */
-<<set _caLinks to setup.getQuickLinks("desk")>>
-<<set _caWork to _caLinks.filter((l) => l.card === "work")>>
-<<set _caList to _caLinks.filter((l) => !l.card).sort((a, b) => (b.important ? 1 : 0) - (a.important ? 1 : 0))>>
-<div class="ca">
-    <div class="ca-col">
-        <div class="ca-head">
-            <span class="ca-title">Work</span>
-            <span class="ca-now"><<= $time.current.text>> · <<= $time.actions.left>> left</span>
-        </div>
-        <div class="ca-work">
-            <<for _caSlot = 0; _caSlot < setup.deskWorkSlots.length; _caSlot++>>
-                <<set _caItem to _caWork.find((l) => l.slot === _caSlot)>>
-                <<if !_caItem>>
-                    /* nothing fills this tile right now: it stays, greyed out, and says why */
-                    <div class="ca-btn idle">
-                        <span class="ca-label"><<= setup.deskWorkSlots[_caSlot].label>></span>
-                        <span class="ca-meta"><span class="ca-hint"><<= setup.deskWorkSlots[_caSlot].idle(setup.quickLinkContext())>></span></span>
-                    </div>
-                    <<continue>>
-                <</if>>
-                <<capture _caItem>>
-                <div @class="'ca-btn' + (_caItem.slot === 0 ? ' primary' : '')">
-                    <span class="ca-label">
-                        <<link _caItem.label>>
-                            <<set _caRun to setup.prepareQuickLink(_caItem.id)>>
-                            <<if _caRun>>
-                                <<set $playerWorking to _caRun.working>>
-                                <<UseAction `_caRun.cost`>>
-                                <<set $playerWorking to false>>
-                                <<goto `_caRun.target`>>
-                            <</if>>
-                        <</link>>
-                    </span>
-                    <span class="ca-meta">
-                        <<if _caItem.hint>><span class="ca-hint"><<= _caItem.hint>></span><</if>>
-                        <span class="ca-cost"><<= _caItem.costText>></span>
-                    </span>
-                </div>
-                <</capture>>
-            <</for>>
-        </div>
-    </div>
-    <div class="ca-col">
-        <div class="ca-head">
-            <span class="ca-title">Right now</span>
-        </div>
-        <div class="ca-list">
-            <<if _caList.length === 0>>
-                <div class="ca-empty">Nothing else needs me.</div>
-            <</if>>
-            <<for _caItem range _caList>>
-                <<capture _caItem>>
-                <div @class="'ca-row' + (_caItem.important ? ' important' : '')">
-                    <span class="ca-label">
-                        <<link _caItem.label>>
-                            <<set _caRun to setup.prepareQuickLink(_caItem.id)>>
-                            <<if _caRun>>
-                                <<set $playerWorking to _caRun.working>>
-                                <<UseAction `_caRun.cost`>>
-                                <<set $playerWorking to false>>
-                                <<goto `_caRun.target`>>
-                            <</if>>
-                        <</link>>
-                    </span>
-                    <span class="ca-cost"><<= _caItem.costText || "free">></span>
-                    <<if _caItem.hint>><span class="ca-hint"><<= _caItem.hint>></span><</if>>
-                </div>
-                <</capture>>
-            <</for>>
-        </div>
-    </div>
-</div>
+<<script>>
+/* The markup is built here in JS (the panel is drawn on every click at the desk, and as <<for>>/<<link>> loops it
+   was the slowest panel). A click on a tile or row runs window.cmdRunQuickLink with its link id (bound below). */
+const links = setup.getQuickLinks("desk");
+const work = links.filter((l) => l.card === "work");
+const list = links.filter((l) => !l.card).sort((a, b) => (b.important ? 1 : 0) - (a.important ? 1 : 0));
+const ctx = setup.quickLinkContext();
+const esc = (text) => String(text == null ? "" : text).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+const v = State.variables;
+
+const tiles = setup.deskWorkSlots.map((slot, i) => {
+    const item = work.find((l) => l.slot === i);
+    if (!item) {
+        /* nothing fills this tile right now: it stays, greyed out, and says why */
+        return '<div class="ca-btn idle"><span class="ca-label">' + wikifyMaybe(slot.label) + '</span>'
+            + '<span class="ca-meta"><span class="ca-hint">' + wikifyMaybe(slot.idle(ctx)) + '</span></span></div>';
+    }
+    return '<div class="ca-btn' + (item.slot === 0 ? ' primary' : '') + '" data-ql="' + esc(item.id) + '" role="button" tabindex="0">'
+        + '<span class="ca-label"><a>' + wikifyMaybe(item.label) + '</a></span>'
+        + '<span class="ca-meta">' + (item.hint ? '<span class="ca-hint">' + wikifyMaybe(item.hint) + '</span>' : '')
+        + '<span class="ca-cost">' + esc(item.costText) + '</span></span></div>';
+}).join("");
+
+const rows = list.length === 0
+    ? '<div class="ca-empty">Nothing else needs me.</div>'
+    : list.map((item) => '<div class="ca-row' + (item.important ? ' important' : '') + '" data-ql="' + esc(item.id) + '" role="button" tabindex="0">'
+        + '<span class="ca-label"><a>' + wikifyMaybe(item.label) + '</a></span>'
+        + '<span class="ca-cost">' + esc(item.costText || "free") + '</span>'
+        + (item.hint ? '<span class="ca-hint">' + wikifyMaybe(item.hint) + '</span>' : '')
+        + '</div>').join("");
+
+$(output).append('<div class="ca">'
+    + '<div class="ca-col"><div class="ca-head"><span class="ca-title">Work</span>'
+    + '<span class="ca-now">' + esc(v.time.current.text) + ' &middot; ' + v.time.actions.left + ' left</span></div>'
+    + '<div class="ca-work">' + tiles + '</div></div>'
+    + '<div class="ca-col"><div class="ca-head"><span class="ca-title">Right now</span></div>'
+    + '<div class="ca-list">' + rows + '</div></div>'
+    + '</div>');
+<</script>>
 
 <<script>>
 window.cmdRefreshActions = function () {
     $('.cmd-actions').empty().wiki('<<include "CMD Actions">>');
 };
-/* a click anywhere on a button or row clicks its link. Delegated and replaced on every render, so it is bound once */
+/* Works like the sidebar: setup.prepareQuickLink checks the link again (and runs its "before"), the actions are spent
+   one at a time with <<UseAction>> (working while they are, if the link says so), then it goes to the target. The
+   passage is played straight away instead of through <<goto>>, which waits 40 ms first */
+window.cmdRunQuickLink = function (id) {
+    const run = setup.prepareQuickLink(id);
+    if (!run) { return; }
+    State.variables.playerWorking = run.working;
+    $.wiki('<<UseAction ' + run.cost + '>>');
+    State.variables.playerWorking = false;
+    Engine.play(run.target);
+};
+/* a click anywhere on a tile or row. Delegated and replaced on every render, so it is bound once */
 $(document)
-    .off('click.cmd-action')
-    .on('click.cmd-action', '.ca-btn, .ca-row', function (e) {
-        if (!$(e.target).closest('a').length) {
-            const $link = $(this).find('a').first();
-            if ($link.length) {
-                e.preventDefault();
-                $link[0].click();
-            }
+    .off('click.cmd-action keydown.cmd-action')
+    .on('click.cmd-action', '.ca-btn[data-ql], .ca-row[data-ql]', function (e) {
+        e.preventDefault();
+        window.cmdRunQuickLink(this.dataset.ql);
+    })
+    .on('keydown.cmd-action', '.ca-btn[data-ql], .ca-row[data-ql]', function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            window.cmdRunQuickLink(this.dataset.ql);
         }
     });
 <</script>>

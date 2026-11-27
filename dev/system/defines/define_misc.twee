@@ -219,3 +219,16 @@
     html += "</div></div>";
     return { tag: tag, html: html };
 }>>
+
+/* setup.mediaInline(kind, args)   what <<Image>> / <<Video>> print for these widget arguments, as an HTML string for
+                                   panels that build their markup in JS (the CMD employee cards and inbox): the media
+                                   while images are on, else in debug mode an image shows the first letter of its
+                                   file name (like <<Image>>), else nothing */
+<<set setup.mediaInline = (kind, args) => {
+    const v = State.variables;
+    if (v.settings.showImages == true) { return setup.mediaHtml(kind, args).html; }
+    if (kind !== "image" || !v.debug) { return ""; }
+    const file = String(args[0]) + (args[1] || "") + (args[2] || "");
+    const letter = window.capitalize(file.split("/").pop().charAt(0));
+    return '<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">' + letter + "</div>";
+}>>

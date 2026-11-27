@@ -801,43 +801,55 @@
    in full. That plays its POV passage, her side of it (<<PovHeader>> in Event Widgets), the same one the CCTV
    arrow opens for things on camera. Places without cameras only have this door.
 
+   How long an entry can be asked about: all of its day, and the next morning until her workday starts
+   (setup.dayReportWorkStart: the office hours or her first scheduled task, whichever comes first; on a weekend
+   the whole next day). A client evening that ends right before she goes to bed can still be heard over coffee.
+   Entries from the day before are "later" ones: she tells them with lineLater where the line says "today" or
+   "tonight", the card asks about yesterday, and Day Report opens differently.
+
    $mom.dayLog / $sister.dayLog = [ { kind, id, day [, stage] [, line] [, told] [, heard] } ]
        kind    "task" (a finished task, added by completeTaskEntry), "event" or "deal" (<<LogDay>>)
        id      the task id, or the key of its entry in setup.dayReports
-       day     the $date.dayCount it happened on. The Daily Update drops older entries
+       day     the $date.dayCount it happened on. The Daily Update drops entries from before yesterday
        stage   tasks: the index of the stage that was played (its report and passage are used)
        line    the index of the line that was picked, when the source has a list of lines
-       told    true once she mentioned it in a summary (Day Report). Entries that come in later the same day are new
-               again, and the card and the quick link come back for them
+       told    true once she mentioned it in a summary (Day Report). Entries that come in later are new again,
+               and the card and the quick link come back for them
        heard   true once I listened to it in full
 
    Where the line and the passage come from:
-       tasks    report: { line [, ask] [, passage] [, requires] } on the task, or on one of its stages (that one
-                wins). The passage defaults to the passage of the stage that was played
-       others   setup.dayReports.<sysName>.<id> = { line [, ask] [, passage] }, constants below
+       tasks    report: { line [, lineLater] [, ask] [, passage] [, requires] } on the task, or on one of its stages
+                (that one wins). The passage defaults to the passage of the stage that was played
+       others   setup.dayReports.<sysName>.<id> = { line [, lineLater] [, ask] [, passage] }, constants below
        line     what she says about it in the summary: a string that may contain variables, or a list of strings
-                (one is picked when the entry is made and kept for the day)
+                (one is picked when the entry is made and kept)
+       lineLater optional: what she says instead when I only ask the next morning. Needed where the line says
+                "today" or "tonight". A list goes with a list of the same length (the same index is used)
        ask      the link text that plays the passage ("Ask about $brian.name"). Not needed without a passage
        requires optional TwineScript condition, checked when the entry is made: while false there is no entry
 
    The card shows once the report exists in the story (setup.dayReportsUnlocked: after Office Gossip,
-   sister_officeGossip), at any time of day, but only while today's log has something she hasn't told me yet. A story
+   sister_officeGossip), at any time of day, but only while her log has something she hasn't told me yet. A story
    I didn't hear in full doesn't keep the card up on its own: it stays in the list of the Day Report, which comes back
-   with her next new entry that day (and things on camera stay behind the CCTV arrow). Listening is worth a little
-   Relation once a day (Day Report). If I never ask, nothing breaks: the log is cleared overnight.
+   with her next new entry (and things on camera stay behind the CCTV arrow). Listening is worth a little
+   Relation once a day (Day Report). If I never ask, nothing breaks: the entries just run out.
 
    <<LogDay $sister "diner_incident" ["deal"]>>   an entry for an event or a deal (Profile Widgets)
    setup.logDay(who, kind, id [, extra])          the same from code; extra is merged into the entry
    setup.logTaskReport(sysName, task)             completeTaskEntry: the entry for a finished task with a report
    setup.dayReportSource(who, entry)              { line, ask, passage } of an entry, or null
-   setup.dayReportEntries(who)                    today's entries with a source:
-                                                  [{ entry, index, line, ask, passage, told, heard }] (index into dayLog)
+   setup.dayReportWorkStart(who)                  the row her workday starts at today, or null (weekend: no work)
+   setup.dayReportCurrent(who, entry)             the entry can still be asked about right now
+   setup.dayReportEntries(who)                    the entries that can be asked about, with a source:
+                                                  [{ entry, index, line, ask, passage, told, heard, later }]
+                                                  (index into dayLog, later: from the day before)
    setup.dayReportsUnlocked()                     the report exists in the story
    setup.hasDayReport(who)                        the card is offered right now: something untold (= dayReportNews)
    setup.dayReportNews(who)                       she has something new to tell (an entry that isn't told yet)
+   setup.dayReportLater(who)                      everything new she has is from the day before (card and link text)
    setup.dayReportReachable(who)                  for the quick link: where she is, if I can walk up to her right
                                                   now and the card would be usable there ({ location }), else null
-   setup.clearDayLogs()                           Daily Update: drops everything from before today */
+   setup.clearDayLogs()                           Daily Update: drops everything from before yesterday */
 <<set $mom.dayLog to []>>
 <<set $sister.dayLog to []>>
 <<set $povReturn to null>>  /* where <<EndPov>> goes back to (the desk for the CCTV, Day Report for the report) */
@@ -848,6 +860,7 @@
         /* the club, the day after the Night Shift (logged by Night Shift 3 for the next day) */
         last_night: {
             line: "About last night, honey. If you want to hear it, I'll tell you all of it, every bit, and if you'd rather not, that's all right too, I only... I'd rather you heard it from me, that's all.",
+            lineLater: "About the club, honey. If you want to hear it, I'll tell you all of it, every bit, and if you'd rather not, that's all right too, I only... I'd rather you heard it from me, that's all.",
             ask: "Let her tell you about the club",
             passage: "Last Night Mom POV",
         },
@@ -868,6 +881,7 @@
         /* the club, the day after the Night Shift (logged by Night Shift 3 for the next day) */
         last_night: {
             line: "You can ask about last night, you know. I'm not going to fall apart on you. I just think you should have to hear it.",
+            lineLater: "You can still ask about the club, you know. I'm not going to fall apart on you. I just think you should have to hear it.",
             ask: "Ask her about the club",
             passage: "Last Night Sister POV",
         },
@@ -914,12 +928,36 @@
     }
     if (!report) { return null; }
     const lines = Array.isArray(report.line) ? report.line : null;
+    /* asked the next morning: the lineLater variant, where there is one */
+    const later = entry.day < State.variables.date.dayCount && report.lineLater ? report.lineLater : null;
+    const pick = (list) => Array.isArray(list) ? list[Math.clamp(entry.line || 0, 0, list.length - 1)] : list;
     return {
-        line: lines ? lines[Math.clamp(entry.line || 0, 0, lines.length - 1)] : report.line,
+        line: pick(later || report.line),
         lines: lines,
         ask: report.ask || "Ask about it",
         passage: report.passage || passage || null,
     };
+}>>
+
+/* Her workday starts with the office hours, or earlier with her first task of the day (a product demo first
+   thing in the morning). Weekends have no workday: yesterday stays open all day */
+<<set setup.dayReportWorkStart = (who) => {
+    const v = State.variables;
+    const npc = setup.corruptionNpc(who);
+    if (!npc || v.date.today.value >= 5) { return null; }
+    let start = v.company.workHours.indexOf(true);
+    (v.activeTasks[npc.sysName] || []).forEach((e) => {
+        if (start < 0 || e.startRow < start) { start = e.startRow; }
+    });
+    return start < 0 ? null : start;
+}>>
+
+<<set setup.dayReportCurrent = (who, entry) => {
+    const today = State.variables.date.dayCount;
+    if (entry.day === today) { return true; }
+    if (entry.day !== today - 1) { return false; }
+    const start = setup.dayReportWorkStart(who);
+    return start === null || setup.scheduleCurrentRow() < start;
 }>>
 
 <<set setup.dayReportEntries = (who) => {
@@ -928,11 +966,11 @@
     const today = State.variables.date.dayCount;
     const rows = [];
     npc.dayLog.forEach((entry, index) => {
-        if (entry.day !== today) { return; }
+        if (!setup.dayReportCurrent(npc, entry)) { return; }
         const source = setup.dayReportSource(npc, entry);
         if (!source || !source.line) { return; }
         const passage = source.passage && Story.has(source.passage) ? source.passage : null;
-        rows.push({ entry: entry, index: index, line: source.line, ask: source.ask, passage: passage, told: !!entry.told, heard: !!entry.heard });
+        rows.push({ entry: entry, index: index, line: source.line, ask: source.ask, passage: passage, told: !!entry.told, heard: !!entry.heard, later: entry.day < today });
     });
     return rows;
 }>>
@@ -944,6 +982,11 @@
 <<set setup.dayReportNews = (who) => {
     if (!setup.dayReportsUnlocked()) { return false; }
     return setup.dayReportEntries(who).some((r) => !r.told);
+}>>
+
+<<set setup.dayReportLater = (who) => {
+    const fresh = setup.dayReportEntries(who).filter((r) => !r.told);
+    return fresh.length > 0 && fresh.every((r) => r.later);
 }>>
 
 /* The quick link only offers what the card would allow: not during The Silence, not while she is busy (the
@@ -963,10 +1006,10 @@
 }>>
 
 <<set setup.clearDayLogs = () => {
-    const today = State.variables.date.dayCount;
+    const yesterday = State.variables.date.dayCount - 1;
     ["mom", "sister"].forEach((sysName) => {
         const npc = State.variables[sysName];
-        npc.dayLog = (npc.dayLog || []).filter((entry) => entry.day >= today);
+        npc.dayLog = (npc.dayLog || []).filter((entry) => entry.day >= yesterday);
     });
 }>>
 

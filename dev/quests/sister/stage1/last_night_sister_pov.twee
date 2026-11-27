@@ -1,7 +1,7 @@
 :: Last Night Sister POV [scene pov] {"position":"5275,1900","size":"100,100"}
 /* POV passage, her side of the Night Shift (main_nightShift) inside $club.name, if I offered them to $supplier.callName
    ($flags.supplierOffered). Opened from her end-of-day report on the day after: Night Shift 3 logs it with
-   setup.logDay(..., { day: tomorrow }), because tonight's log is cleared before she wakes up. Its line and link are in
+   setup.logDay(..., { day: tomorrow }), so it can be asked about all of that day, not only until work. Its line and link are in
    setup.dayReports.sister.last_night (Define NPCs). No effects here: they are in Night Shift 3.
    The same night as Last Night Mom POV, from her side. She does the evening exactly the way we rehearsed it, and it works,
    until "not yet" runs out and $supplier.callName says it's later now. His room at the back, the piano nobody plays. She gets

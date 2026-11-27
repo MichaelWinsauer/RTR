@@ -4,12 +4,16 @@
    Define NPCs. She sums up whatever she hasn't told me yet today, one line per entry, in her own words (those entries are
    marked told), and below that the stories with a POV passage are listed as cards: one click plays it, and <<EndPov>>
    brings me back here ($povReturn). Stories I already heard stay in the list, quieter, and can be heard again.
-   The Relation comes once a day (_npc.reportDay). Coming back from a POV passage only shows the list again. */
+   The Relation comes once a day (_npc.reportDay). Coming back from a POV passage only shows the list again.
+   Entries from yesterday can still be asked about the next morning, until her workday starts (setup.dayReportCurrent,
+   Define NPCs). When everything new is from yesterday (_drLater), I ask about yesterday instead, and when both are
+   new, she tells yesterday first and then gets to today. */
 <<silent>>
 <<set _npc to ($interactionCharacter == "mom" ? $mom : $sister)>>
 <<set _drEntries to setup.dayReportEntries(_npc)>>
-<<set _drNew to _drEntries.filter((r) => !r.told)>>
+<<set _drNew to _drEntries.filter((r) => !r.told).sort((a, b) => (b.later ? 1 : 0) - (a.later ? 1 : 0))>>
 <<set _drFirstToday to (_npc.reportDay !== $date.dayCount)>>
+<<set _drLater to _drNew.length > 0 && _drNew.every((r) => r.later)>>
 <<run State.variables[_npc.sysName].reportDay = State.variables.date.dayCount>>
 <<run _drNew.forEach((r) => { State.variables[_npc.sysName].dayLog[r.index].told = true; })>>
 <<set _drStories to _drEntries.filter((r) => r.passage)>>
@@ -25,6 +29,18 @@
 		<<else>>
 		$sister.callName waves me over before I've even sat down properly. Apparently the day wasn't done with her yet, and she sounds pleased about it.
 		<</if>>
+	<<elseif _drLater && _npc.sysName == "mom">>
+		<<if random(0, 1) == 0>>
+		I ask about yesterday before the day gets going. $mom.callName puts down whatever she's holding and turns all the way around to face me, the way she does when she wants me to know I have her full attention.
+		<<else>>
+		When I ask how yesterday went, $mom.callName laughs at herself a little. She was still going over it in her head last night, she admits, in case I knocked.
+		<</if>>
+	<<elseif _drLater>>
+		<<if random(0, 1) == 0>>
+		I ask about yesterday. $sister.callName gives me the look she used to give me when I handed in homework a day late, and then tells me anyway.
+		<<else>>
+		$sister.callName is barely awake when I ask about yesterday, but it doesn't take her long to get going. It's clearly been sitting in her head all night, and she's glad to put it somewhere.
+		<</if>>
 	<<elseif _npc.sysName == "mom">>
 		<<if random(0, 1) == 0>>
 		When I ask about her day, $mom.callName looks up like I've handed her a present. She smooths her skirt over her knees and starts at the beginning, the way she used to tell $dad.callName about hers over dinner, back when he still asked.
@@ -39,7 +55,12 @@
 		<</if>>
 	<</if>>
 
-	<<set _msgs to _drNew.map((r) => ({ who: _npc, text: r.line }))>>
+	/* yesterday first, then a narration line before whatever she has from today */
+	<<set _msgs to []>>
+	<<run _drNew.forEach((r, i) => {
+		if (i > 0 && r.later !== _drNew[i - 1].later) { _msgs.push({ text: "That's yesterday. Then she gets to this morning." }); }
+		_msgs.push({ who: _npc, text: r.line });
+	})>>
 	<<Chat _msgs>>
 
 	<<if _drFirstToday>><<UpdateStat "+" _drStat 1>><</if>>

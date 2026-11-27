@@ -1,10 +1,8 @@
 :: Check Event Requirements [system] {"position":"1575,400","size":"100,100"}
-<<for _i = 0; _i < $events.length; _i++>>
-	<<if $events[_i].cooldown > 0 && $events[_i].once == false>>
-    	<<if $events[_i].completedAtDay + $events[_i].cooldown <= $date.dayCount>>
-        	<<set $events[_i].active to true>>
-        <</if>>
-    <</if>>
-<</for>>
-
-
+/* Switches repeatable events back on once their cooldown is over. In JS: a <<for>> over every event ran on every
+   passage and cost more than the check itself */
+<<run State.variables.events.forEach((ev) => {
+	if (ev.cooldown > 0 && ev.once == false && ev.completedAtDay + ev.cooldown <= State.variables.date.dayCount) {
+		ev.active = true;
+	}
+})>>

@@ -22,14 +22,18 @@
 	<<set _target = $args[0]>>
 	<<if $displayInformation != _target>>
 		<<set $displayInformation = _target>>
-		<<replace "#ui-left-panel">>
-			<<switch _target>>
-				<<case 0>><<include "Quests Caption">>
-				<<case 1>><<include "Activities Caption">>
-                <<case 3>><<include "Following Caption">>
-			<</switch>>
-		<</replace>>
-		<<run $('.sb-tabs').attr('data-active', _target)>>
+		/* no panel on passages without a sidebar (StoryCaption skips hide_sidebar): Information Caption reads
+		   $displayInformation when the sidebar is drawn again */
+		<<if $("#ui-left-panel").length > 0>>
+			<<replace "#ui-left-panel">>
+				<<switch _target>>
+					<<case 0>><<include "Quests Caption">>
+					<<case 1>><<include "Activities Caption">>
+					<<case 3>><<include "Following Caption">>
+				<</switch>>
+			<</replace>>
+			<<run $('.sb-tabs').attr('data-active', _target)>>
+		<</if>>
 	<</if>>
 <</widget>>
 
@@ -209,77 +213,52 @@
 	<<DisplayStatHorizontal TEXT VALUE MAX [ICON]>>
 */
 <<widget "DisplayStatHorizontal">>
-	<<set _text  = $args[0]>>
-	<<set _value = Number($args[1])>>
-	<<set _max   = Number($args[2])>>
-	<<set _icon  = ($args[3] || "")>>
-
-	<<set _percent = (_max > 0) ? Math.clamp((_value / _max) * 100, 0, 100) : 0 >>
-
-	<<set _filledBarStyle = "<div style='height: 100%; width: " + _percent + "%; background: #EBDDC5; transition: width .4s ease;border-radius: .5rem;box-shadow: 0 10px 30px rgba(0,0,0,.1) inset;'></div>">>
-	<div style="position: relative; width: 100%; display: flex; justify-content: start; flex-direction: column; margin-bottom: .5rem;">
-		<div style="display: flex; align-items: center; ">
-			<<if _icon != "">>
-				<span style="font-size: 1.25rem; line-height: 1;"><<=_icon>></span>
-			<</if>>
-			<span style="flex: 1; text-align: left;"><<=_text>></span>
-			<span style="font-size: .75rem; opacity: .75; white-space: nowrap;"><<=_value>>/<<=_max>></span>
-		</div>
-		<div style=" height: .5rem; overflow: hidden; display: flex;position: relative;gap: .15rem;">
-
-            <<=_filledBarStyle>>
-            <div style="flex: 1; height: 100%; background: #EBDDC550;border-radius: .5rem;box-shadow: 0 10px 30px rgba(0,0,0,.1) inset;"></div>
-		</div>
-	</div>
+	/* built in one <<script>> (it is drawn several times on every click at the desk); the text may contain markup */
+	<<script>>
+	const args = State.temporary.args;
+	const value = Number(args[1]);
+	const max = Number(args[2]);
+	const icon = args[3] || "";
+	const percent = max > 0 ? Math.clamp((value / max) * 100, 0, 100) : 0;
+	$(output).append(
+		'<div style="position: relative; width: 100%; display: flex; justify-content: start; flex-direction: column; margin-bottom: .5rem;">'
+		+ '<div style="display: flex; align-items: center; ">'
+		+ (icon !== "" ? '<span style="font-size: 1.25rem; line-height: 1;">' + window.wikifyMaybe(icon) + '</span>' : '')
+		+ '<span style="flex: 1; text-align: left;">' + window.wikifyMaybe(args[0]) + '</span>'
+		+ '<span style="font-size: .75rem; opacity: .75; white-space: nowrap;">' + value + '/' + max + '</span>'
+		+ '</div>'
+		+ '<div style=" height: .5rem; overflow: hidden; display: flex;position: relative;gap: .15rem;">'
+		+ '<div style="height: 100%; width: ' + percent + '%; background: #EBDDC5; transition: width .4s ease;border-radius: .5rem;box-shadow: 0 10px 30px rgba(0,0,0,.1) inset;"></div>'
+		+ '<div style="flex: 1; height: 100%; background: #EBDDC550;border-radius: .5rem;box-shadow: 0 10px 30px rgba(0,0,0,.1) inset;"></div>'
+		+ '</div>'
+		+ '</div>');
+	<</script>>
 <</widget>>
 
 /* Usage: =====================================================================
 	<<CalculateFinances RESET?>>
+	Recounts the running project revenue, the rent and the weekly wages, and sweeps $player.money into the company
+	account from Stage 1 on. RESET (the Daily Update) also clears the other income and expense lines first.
+	One <<run>>: the CMD draws it several times on every click, and as a <<for>> over every project it was slow.
 */
 <<widget "CalculateFinances">>
-    <<if $args[0]>>
-        <<set $company.finances.income.projects = 0>>
-        <<set $company.finances.income.revenue = 0>>
-        <<set $company.finances.income.tasks = 0>>
-        <<set $company.finances.income.subscriptions = 0>>
-        <<set $company.finances.income.sales = 0>>
-        <<set $company.finances.income.services = 0>>
-        <<set $company.finances.income.investments = 0>>
-        <<set $company.finances.income.rent = 0>>
-        <<set $company.finances.income.extra = 0>>
-
-        <<set $company.finances.expenses.rent = $rent>>
-        <<set $company.finances.expenses.wages = 0>>
-        <<set $company.finances.expenses.utensils = 0>>
-        <<set $company.finances.expenses.tax = 0>>
-        <<set $company.finances.expenses.equipment = 0>>
-        <<set $company.finances.expenses.utilities = 0>>
-        <<set $company.finances.expenses.extra = 0>>
-    <</if>>
-
-
-    <<set $company.finances.income.revenue = 0>>
-    <<for _i = 0; _i < $company.projects.length; _i++>>
-        <<set _project to $company.projects[_i]>>
-        <<if _project.active>>
-            <<set $company.finances.income.revenue += _project.revenue>>
-        <</if>>
-    <</for>>
-
-    <<if $company.stage > 0>>
-        <<set $company.finances.money += $player.money>>
-        <<set $company.finances.income.extra += $player.money>>
-        <<set $player.money = 0>>
-    <</if>>
-
-    /* always the current rent (Define Misc), not only after a reset: it changes with the landlord deal */
-    <<set $company.finances.expenses.rent = $rent>>
-
-    <<set $company.finances.expenses.wages = 0>>
-    <<for _i = 0; _i < $company.employees.length; _i++>>
-        <<set _employee to State.variables[$company.employees[_i].sysName]>>
-        <<set $company.finances.expenses.wages += _employee.wage * 7>>
-    <</for>>
+	<<run (function (reset) {
+		const v = State.variables;
+		const fin = v.company.finances;
+		if (reset) {
+			["projects", "revenue", "tasks", "subscriptions", "sales", "services", "investments", "rent", "extra"].forEach((k) => { fin.income[k] = 0; });
+			["wages", "utensils", "tax", "equipment", "utilities", "extra"].forEach((k) => { fin.expenses[k] = 0; });
+		}
+		fin.income.revenue = v.company.projects.reduce((sum, project) => project.active ? sum + project.revenue : sum, 0);
+		if (v.company.stage > 0) {
+			fin.money += v.player.money;
+			fin.income.extra += v.player.money;
+			v.player.money = 0;
+		}
+		/* always the current rent (Define Misc), not only after a reset: it changes with the landlord deal */
+		fin.expenses.rent = v.rent;
+		fin.expenses.wages = v.company.employees.reduce((sum, emp) => sum + v[emp.sysName].wage * 7, 0);
+	})(_args[0])>>
 <</widget>>
 
 

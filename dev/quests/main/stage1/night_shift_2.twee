@@ -100,7 +100,7 @@ I don't listen to it. Whatever it is, it's $ethan.name, and $ethan.name can wait
    back seat, in silence, and $sister.callName sleeps in $mom.callName's room. If I paid, home alone with the case. Ends the
    quest; The Morning After is next.
    If they went, both of them offer to tell me about the club the next day: an entry for tomorrow in their end-of-day
-   reports (setup.dayReports.<sysName>.last_night, Define NPCs; tonight's log is cleared overnight), which opens their POV
+   reports (setup.dayReports.<sysName>.last_night, Define NPCs; dated tomorrow, so it lasts the whole day), which opens their POV
    passages Last Night Mom POV and Last Night Sister POV. */
 <<silent>><<SetBackground "images/locations/car.jpg">><</silent>>
 <<if $flags.supplierOffered === true>>
