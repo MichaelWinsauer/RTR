@@ -52,6 +52,16 @@
 	<<NextQuest $landlord>>
 	<<script>>Engine.play(State.active.title, null, "back")<</script>>
 <</link>>
+<<link "Complete All Quests">>
+	<<SkipToQuest $player "main_end" "false">>
+	<<SkipToQuest $mom "mom_end" "false">>
+	<<SkipToQuest $sister "sister_end" "false">>
+	<<SkipToQuest $landlord "landlord_end" "false">>
+	<<SkipToQuest $manager "manager_end" "false">>
+	<<SkipToQuest $boss "boss_end" "false">>
+	<<SkipToQuest $prof "prof_end" "false">>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
 </div>
 
 <div class="sb-dev-group"><span class="sb-dev-h">Player</span>
