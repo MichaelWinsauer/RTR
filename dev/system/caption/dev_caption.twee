@@ -36,6 +36,22 @@
 	<<NextQuest $sister>>
 	<<script>>Engine.play(State.active.title, null, "back")<</script>>
 <</link>>
+<<link "Next $prof.callName Quest">>
+	<<NextQuest $prof>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Next $manager.callName Quest">>
+	<<NextQuest $manager>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Next $boss.callName Quest">>
+	<<NextQuest $boss>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
+<<link "Next $landlord.callName Quest">>
+	<<NextQuest $landlord>>
+	<<script>>Engine.play(State.active.title, null, "back")<</script>>
+<</link>>
 </div>
 
 <div class="sb-dev-group"><span class="sb-dev-h">Player</span>
