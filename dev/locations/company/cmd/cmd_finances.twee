@@ -152,7 +152,8 @@
 /* The Finance dialog ==============================================================================
    window.openFinanceDialog()   opens it (the + and - of the card). Everything in it is built from the books in
    Define Company: the week and last week by category, what the next Monday will charge, the three budget levers
-   (setup.budgetLevers) and the equipment (setup.equipmentCatalog). A click on a level or on Buy changes the state and
+   (setup.budgetLevers) and the equipment (setup.equipmentCatalog). Their texts go through window.wikifyMaybe,
+   so they may use story variables. A click on a level or on Buy changes the state and
    draws the dialog again; the card, the header and the stats panel behind it are refreshed too. */
 (function () {
     const money = (n) => (n < 0 ? "-" : "") + "$" + Math.abs(Math.round(Number(n) || 0)).toLocaleString("en-US");
@@ -181,21 +182,22 @@
         const rentDays = setup.rentDaysLeft();
         const rentOwed = setup.rentOwed();
         if (rentOwed > 0) {
-            rows.push({ label: rentDays < 0 ? "Rent (overdue)" : (rentDays === 0 ? "Rent (due today)" : "Rent (due in " + rentDays + (rentDays === 1 ? " day)" : " days)")), amount: rentOwed });
+            const rentFor = "Rent for " + v.landlord.callName + ", ";
+            rows.push({ label: rentFor + (rentDays < 0 ? "overdue" : rentDays === 0 ? "due today" : rentDays === 1 ? "due tomorrow" : "due in " + rentDays + " days"), amount: rentOwed });
         }
         const tax = setup.taxOn(f.week);
-        if (tax > 0) { rows.push({ label: "Tax on this week so far", amount: tax }); }
+        if (tax > 0) { rows.push({ label: "Tax on this week", amount: tax }); }
         const total = rows.reduce((sum, r) => sum + r.amount, 0);
         const daysToMonday = 7 - v.date.today.value;
         const body = rows.length
             ? rows.map((r) => `<div class="fd-row"><span>${esc(r.label)}</span><b>${money(r.amount)}</b></div>`).join("")
-            : `<div class="fd-empty">Nothing is due.</div>`;
+            : `<div class="fd-empty">Nothing to pay right now.</div>`;
         const after = f.money - total;
         return `<section class="fd-card">
-            <div class="fd-card-head"><span class="fd-label">Coming up</span><span class="fd-cols"><span>Monday in ${daysToMonday} ${daysToMonday === 1 ? "day" : "days"}</span></span></div>
+            <div class="fd-card-head"><span class="fd-label">Still to pay</span><span class="fd-cols"><span>${daysToMonday === 1 ? "Monday is tomorrow" : "Monday in " + daysToMonday + " days"}</span></span></div>
             ${body}
-            <div class="fd-row fd-total"><span>Balance after paying it all</span><b class="${after < 0 ? "red" : ""}">${money(after)}</b></div>
-            <div class="fd-note">Rent is paid to the landlord, the rest leaves the account on Monday morning. Tax is ${Math.round(setup.financeTuning.taxRate * 100)}% of last week's profit from tasks and projects, after everything I spend on the company. A week with a loss pays none.</div>
+            <div class="fd-row fd-total"><span>Left after that</span><b class="${after < 0 ? "red" : ""}">${money(after)}</b></div>
+            <div class="fd-note">The rent goes to ${esc(v.landlord.callName)} whenever I bring it over, everything else comes out of the account on Monday morning. The tax is ${Math.round(setup.financeTuning.taxRate * 100)}% of what tasks and projects earn this week, minus what the company spends. If the week ends in the red, there's no tax at all.</div>
         </section>`;
     }
 
@@ -208,12 +210,14 @@
                 <span>${esc(lvl.name)}</span><small>${lvl.cost ? money(lvl.cost) + " / week" : "free"}</small></button>`).join("");
         const now = lever.levels[paid];
         const next = lever.levels[chosen];
+        const effect = (lvl) => lever.effectText(lvl) || "no effect";
         const status = chosen === paid
-            ? `<span>${esc(now.name)}: ${esc(lever.effectText(now))}</span>`
-            : `<span>This week: ${esc(now.name)} (${esc(lever.effectText(now))})</span><span>From Monday: <b>${esc(next.name)}</b> (${esc(lever.effectText(next))})</span>`;
+            ? `<span>${esc(now.name)}: ${esc(effect(now))}</span>`
+            : `<span>This week: ${esc(now.name)} (${esc(effect(now))})</span><span>From Monday: <b>${esc(next.name)}</b> (${esc(effect(next))})</span>`;
         return `<div class="fd-lever">
             <div class="fd-lever-head"><span class="fd-lever-name">${esc(lever.label)}</span></div>
-            <div class="fd-lever-text">${esc(lever.text)}</div>
+            <div class="fd-lever-text">${window.wikifyMaybe(lever.text)}</div>
+            <div class="fd-spacer"></div>
             <div class="fd-lvls">${buttons}</div>
             <div class="fd-lever-status">${status}</div>
         </div>`;
@@ -222,14 +226,14 @@
     function equipmentCard(item) {
         const owned = !!State.variables.company.equipment[item.id];
         const chips = [];
-        if (item.efficiency) chips.push("Efficiency +" + item.efficiency);
-        if (item.moraleRecovery) chips.push("Morale back overnight +" + item.moraleRecovery);
+        if (item.efficiency) chips.push("+" + item.efficiency + " efficiency");
+        if (item.moraleRecovery) chips.push("+" + item.moraleRecovery + " morale overnight");
         const affordable = setup.canAfford(item.price);
         const action = owned
             ? `<span class="fd-owned">Owned</span>`
-            : `<button type="button" class="fd-buy" data-fd-buy="${item.id}" ${affordable ? "" : "disabled"}>${money(item.price)}${affordable ? "" : "<small>can't afford</small>"}</button>`;
+            : `<button type="button" class="fd-buy" data-fd-buy="${item.id}" ${affordable ? "" : "disabled"}>${money(item.price)}${affordable ? "" : "<small>not enough money</small>"}</button>`;
         return `<div class="fd-item${owned ? " fd-item-owned" : ""}">
-            <div class="fd-item-body"><div class="fd-item-name">${esc(item.name)}</div><div class="fd-item-text">${esc(item.text)}</div>
+            <div class="fd-item-body"><div class="fd-item-name">${esc(item.name)}</div><div class="fd-item-text">${window.wikifyMaybe(item.text)}</div>
             <div class="fd-chips">${chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div></div>
             ${action}
         </div>`;
@@ -261,11 +265,11 @@
                     ${dueCard()}
                 </div>
                 <div class="fd-section">
-                    <div class="fd-section-head"><span class="fd-label">Budget</span><small>Charged every Monday. A new level counts from the next Monday on.</small></div>
+                    <div class="fd-section-head"><span class="fd-label">Budget</span><small>Paid every Monday. If I switch a level, the new one starts the Monday after.</small></div>
                     <div class="fd-levers">${["supplies", "perks", "marketing"].map(leverBlock).join("")}</div>
                 </div>
                 <div class="fd-section">
-                    <div class="fd-section-head"><span class="fd-label">Equipment</span><small>Bought once, kept for good. Efficiency target right now: ${efficiency}.</small></div>
+                    <div class="fd-section-head"><span class="fd-label">Equipment</span><small>Paid once, then it's ours. The efficiency target is at ${efficiency} right now.</small></div>
                     <div class="fd-items">${setup.equipmentCatalog.map(equipmentCard).join("")}</div>
                 </div>
             </div>
@@ -337,7 +341,7 @@
 #ui-dialog-body.finance-dialog { box-sizing: border-box; height: 90vh !important; max-height: 90vh; overflow: hidden; padding: 1.3rem 1.4rem 1.2rem; display: flex; flex-direction: column; font-family: "Manrope", sans-serif; color: #EBDDC5; background-color: rgba(34, 34, 46, .82); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
 .fd { display: flex; flex-direction: column; gap: 1rem; flex: 1; min-height: 0; text-align: left; }
 .fd-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; padding-right: 2.5rem; }
-.fd-kicker, .fd-label { font-size: .66rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: #EAAF4C; }
+.fd-kicker, .fd-label { font-size: .66rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
 .fd-balance { font-size: 2.2rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .fd-net { display: flex; flex-direction: column; align-items: flex-end; font-size: .7rem; }
 .fd-net b { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
@@ -362,6 +366,7 @@
 .fd-lever { display: flex; flex-direction: column; gap: .5rem; padding: .7rem .8rem; border: 1px solid #EBDDC51a; border-radius: .7rem; background: #EBDDC504; }
 .fd-lever-name { font-weight: 800; font-size: .92rem; }
 .fd-lever-text { font-size: .72rem; line-height: 1.4; opacity: .7; }
+.fd-spacer {flex: auto;}
 .fd-lvls { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
 .fd-lvl { display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .4rem .2rem; font: inherit; font-size: .74rem; font-weight: 700; color: #EBDDC5; background: transparent; border: 1px solid #EBDDC535; border-radius: .55rem; cursor: pointer; transition: background-color .15s, border-color .15s; }
 .fd-lvl small { font-size: .58rem; font-weight: 500; opacity: .65; white-space: nowrap; }

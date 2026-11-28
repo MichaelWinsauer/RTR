@@ -354,7 +354,9 @@
 }>>
 
 /* The budget levers. Each level has cost (a week) and its effect: efficiency (points on the efficiency target),
-   moraleRecovery (extra morale every employee wins back overnight), payout (share on top of every project reward). */
+   moraleRecovery (extra morale every employee wins back overnight), payout (share on top of every project reward).
+   effectText(level) is what the Finance dialog shows for a level, an empty string for none. The text fields here and in
+   the equipment list are wikified there, so they may use story variables ($company.name). */
 <<set $company.budget to {
     level: { supplies: 1, perks: 0, marketing: 0 },
     paid: { supplies: 1, perks: 0, marketing: 0 },
@@ -363,8 +365,8 @@
 <<set setup.budgetLevers to {
     supplies: {
         label: "Office supplies",
-        text: "Paper, toner, coffee, working pens. The boring things that keep a desk from turning into a scavenger hunt.",
-        effectText: (e) => e.efficiency > 0 ? "Efficiency target +" + e.efficiency : "No bonus",
+        text: "Toner, printer paper and coffee that isn't instant. Whenever it runs out, half the office spends the morning hunting for a pen that works.",
+        effectText: (e) => e.efficiency > 0 ? "+" + e.efficiency + " efficiency" : "",
         levels: [
             { name: "Off", cost: 0, efficiency: 0 },
             { name: "Low", cost: 150, efficiency: 3 },
@@ -374,8 +376,8 @@
     },
     perks: {
         label: "Staff perks",
-        text: "Lunch on Fridays, a fridge that is actually full, the occasional afternoon off. They notice, and they come back more rested.",
-        effectText: (e) => e.moraleRecovery > 0 ? "Morale back overnight +" + e.moraleRecovery : "No bonus",
+        text: "Pizza on Fridays and a fridge that somebody actually keeps stocked. Still cheaper than finding someone new when one of them burns out.",
+        effectText: (e) => e.moraleRecovery > 0 ? "+" + e.moraleRecovery + " morale overnight" : "",
         levels: [
             { name: "Off", cost: 0, moraleRecovery: 0 },
             { name: "Low", cost: 100, moraleRecovery: 1 },
@@ -385,8 +387,8 @@
     },
     marketing: {
         label: "Marketing",
-        text: "Ads, a few events, a name people recognize. Clients who have heard of us pay more when a project is done. The level that counts on the day it finishes sets the bonus, so turn it up before a big one lands.",
-        effectText: (e) => e.payout > 0 ? "Project payouts +" + Math.round(e.payout * 100) + "%" : "No bonus",
+        text: "Ads, and a booth at a trade fair now and then. Clients who've already heard of $company.name pay more when a project is done. It's the level on the day it finishes that counts, so turn it up before a big one lands.",
+        effectText: (e) => e.payout > 0 ? "+" + Math.round(e.payout * 100) + "% on project payouts" : "",
         levels: [
             { name: "Off", cost: 0, payout: 0 },
             { name: "Low", cost: 200, payout: 0.05 },
@@ -413,13 +415,13 @@
 
 <<set setup.equipmentCatalog to [
     { id: "chairs", name: "Proper office chairs", price: 2500, efficiency: 3,
-      text: "Nobody here has had a chair that was not held together by duct tape and hope. Backs hurt less, and people stay at their desks." },
+      text: "The ones we have are held together by duct tape and hope, and by three in the afternoon everybody is standing at their desk rubbing their lower back." },
     { id: "coffee", name: "Espresso machine", price: 1500, moraleRecovery: 1,
-      text: "A real one, with a milk frother nobody will admit to using. It takes the edge off the mornings." },
+      text: "A real one, with a milk frother nobody will admit to using. The mornings get noticeably less grumpy." },
     { id: "workstations", name: "Workstation upgrade", price: 5000, efficiency: 5,
-      text: "Faster machines and second monitors. Builds that took a coffee break now finish before the coffee is cold." },
-    { id: "lounge", name: "Break room lounge", price: 4000, moraleRecovery: 1, efficiency: 1,
-      text: "A couch, a table that does not wobble, a door that closes. Lunch stops happening at the desks." },
+      text: "Faster machines and a second monitor on every desk, so a build stops being an excuse to stand around the kitchen." },
+    { id: "lounge", name: "A proper break room", price: 4000, moraleRecovery: 1, efficiency: 1,
+      text: "The storage room gets a couch and a table that doesn't wobble, and people finally stop eating lunch over their keyboards." },
 ]>>
 
 <<set setup.equipmentEffect = (field) => setup.equipmentCatalog
